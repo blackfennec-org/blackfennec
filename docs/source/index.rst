@@ -8,8 +8,10 @@ Welcome to Black Fennec's documentation!
 
 .. toctree::
    :maxdepth: 2
-   :caption: Contents:
+   :caption: Project Management
+   :numbered:
 
+   project_management/project_proposal.rst
    project_management/project_plan.rst
 
 
