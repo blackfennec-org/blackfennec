@@ -70,14 +70,14 @@ build_latest_epub:
 run tests:
   stage: test
   before_script:
-      - make init
-    script:
-      - pytest --cov-config=.coveragerc --cov=. tests/
-      - coverage xml
-    artifacts:
-        reports:
-            cobertura: coverage.xml
-    coverage: /^TOTAL.+?(\d+\%)$/
+    - make init
+  script:
+    - pytest --cov-config=.coveragerc --cov=. tests/
+    - coverage xml
+  artifacts:
+    reports:
+      cobertura: coverage.xml
+  coverage: /^TOTAL.+?(\d+\%)$/
 
 ###############################################################################
 # Build Documentation for All Tags
@@ -124,14 +124,14 @@ pages:
     - mv _build/epub/*.epub public/_static/
     - mv _build/latex/*.pdf public/_static/
     - |
-    shopt -s dotglob
-    for tag in $(git tag); do
-    mkdir -p _versions/$tag/html/_static/
-    mv _versions/$tag/epub/*.epub _versions/$tag/html/_static/
-    mv _versions/$tag/latex/*.pdf _versions/$tag/html/_static/
-    mv _versions/$tag/html/* _versions/$tag/
-    rmdir _versions/$tag/html
-    done
+      shopt -s dotglob
+      for tag in $(git tag); do
+      mkdir -p _versions/$tag/html/_static/
+      mv _versions/$tag/epub/*.epub _versions/$tag/html/_static/
+      mv _versions/$tag/latex/*.pdf _versions/$tag/html/_static/
+      mv _versions/$tag/html/* _versions/$tag/
+      rmdir _versions/$tag/html
+      done
     - mv _versions public/
   artifacts:
     paths:
