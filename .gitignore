@@ -1,6 +1,5 @@
 docs/build/
 docs/source/_build/
-
-
-
 .vscode
+.idea/
+.coverage
