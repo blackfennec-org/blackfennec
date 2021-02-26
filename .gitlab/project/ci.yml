@@ -5,7 +5,7 @@ variables:
 ###############################################################################
 # Build Project Building Docker Image
 ###############################################################################
-build_image:
+build project image:
   stage: prebuild
   image: docker:latest
   script:
@@ -19,7 +19,7 @@ build_image:
       - .gitlab/project/ci.yml
 
 ###############################################################################
-# Test Black-Fennec 
+# Test Black-Fennec
 ###############################################################################
 
 run tests:
@@ -27,7 +27,6 @@ run tests:
   stage: test
   before_script:
     - pip install -r requirements.txt
-    - make init
   script:
     - pytest --cov-config=.coveragerc --cov=. tests/
     - coverage xml
@@ -40,7 +39,7 @@ run tests:
 # Publish Python Package
 ###############################################################################
 
-run publish-package:
+publish package:
   image: $PROJECT_BUILD_IMAGE
   stage: deploy
   only:

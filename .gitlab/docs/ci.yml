@@ -5,7 +5,7 @@ variables:
 ###############################################################################
 # Build Docs Building Docker Image
 ###############################################################################
-build_image:
+build docs image:
   stage: prebuild
   image: docker:latest
   script:
@@ -30,7 +30,7 @@ build_image:
 # Build Latest Documentation
 ###############################################################################
 
-build_latest_html:
+build latest html:
   image: $DOCS_BUILD_IMAGE
   stage: build
   script:
@@ -42,7 +42,7 @@ build_latest_html:
   only:
     - tags
 
-build_latest_pdf:
+build latest pdf:
   image: $DOCS_BUILD_IMAGE
   stage: build
   script:
@@ -54,7 +54,7 @@ build_latest_pdf:
   only:
     - tags
 
-build_latest_epub:
+build latest epub:
   image: $DOCS_BUILD_IMAGE
   stage: build
   script:
@@ -70,7 +70,7 @@ build_latest_epub:
 # Build Documentation for All Tags
 ###############################################################################
 
-build_tags_html:
+build tags html:
   image: $DOCS_BUILD_IMAGE
   stage: build_tags
   script:
@@ -82,7 +82,7 @@ build_tags_html:
   only:
     - tags
 
-build_tags_pdf:
+build tags pdf:
   image: $DOCS_BUILD_IMAGE
   stage: build_tags
   script:
@@ -94,7 +94,7 @@ build_tags_pdf:
   only:
     - tags
 
-build_tags_epub:
+build tags epub:
   image: $DOCS_BUILD_IMAGE
   stage: build_tags
   script:
