@@ -10,6 +10,8 @@ Welcome to Black Fennec's documentation!
    :maxdepth: 2
    :caption: Contents:
 
+   project_management/project_plan.rst
+
 
 
 Indices and tables
