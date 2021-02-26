@@ -1,3 +1,4 @@
 Sphinx
 pytest
 pytest-cov
+PyGObject
