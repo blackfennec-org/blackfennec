@@ -115,9 +115,9 @@ pages:
   stage: deploy
   script:
     - cd docs
-    - mv _build/html/ public
-    - mv _build/epub/*.epub public/_static/
-    - mv _build/latex/*.pdf public/_static/
+    - mv _build/html/ ../public
+    - mv _build/epub/*.epub ../public/_static/
+    - mv _build/latex/*.pdf ../public/_static/
     - |
       shopt -s dotglob
       for tag in $(git tag); do
@@ -127,9 +127,9 @@ pages:
       mv _versions/$tag/html/* _versions/$tag/
       rmdir _versions/$tag/html
       done
-    - mv _versions public/
+    - mv _versions ../public/
   artifacts:
     paths:
-      - docs/public
+      - public
   only:
     - tags
