@@ -1,0 +1,135 @@
+variables:
+  DOCS_BUILD_IMAGE: $CI_REGISTRY_IMAGE/sphinx-build:$CI_COMMIT_REF_SLUG
+  GIT_DEPTH: 0
+
+###############################################################################
+# Build Docs Building Docker Image
+###############################################################################
+build_image:
+  stage: prebuild
+  image: docker:latest
+  script:
+    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
+    - docker build --tag $DOCS_BUILD_IMAGE -f  .gitlab/docs/Dockerfile.build .
+    - docker push $DOCS_BUILD_IMAGE
+  only:
+    changes:
+      - .gitlab/docs/Dockerfile.build
+      - .gitlab/docs/.dockerignore
+      - .gitlab/docs/ci.yml
+      - docs/requirements.txt
+      - docs/source/conf.py
+  except:
+    refs:
+      - /^(?!feature).+$/
+      - /^(?!hotfix).+$/
+      - /^(?!issue).+$/
+
+
+###############################################################################
+# Build Latest Documentation
+###############################################################################
+
+build_latest_html:
+  image: $DOCS_BUILD_IMAGE
+  stage: build
+  script:
+    - cd docs
+    - make html
+  artifacts:
+    paths:
+      - docs/_build/html
+  only:
+    - tags
+
+build_latest_pdf:
+  image: $DOCS_BUILD_IMAGE
+  stage: build
+  script:
+    - cd docs
+    - make latexpdf
+  artifacts:
+    paths:
+      - docs/_build/latex/*.pdf
+  only:
+    - tags
+
+build_latest_epub:
+  image: $DOCS_BUILD_IMAGE
+  stage: build
+  script:
+    - cd docs
+    - make epub
+  artifacts:
+    paths:
+      - docs/_build/epub/*.epub
+  only:
+    - tags
+
+###############################################################################
+# Build Documentation for All Tags
+###############################################################################
+
+build_tags_html:
+  image: $DOCS_BUILD_IMAGE
+  stage: build_tags
+  script:
+    - cd docs
+    - make MODE=html versions
+  artifacts:
+    paths:
+      - docs/_versions/*/html
+  only:
+    - tags
+
+build_tags_pdf:
+  image: $DOCS_BUILD_IMAGE
+  stage: build_tags
+  script:
+    - cd docs
+    - make MODE=latexpdf versions
+  artifacts:
+    paths:
+      - docs/_versions/*/latex/*.pdf
+  only:
+    - tags
+
+build_tags_epub:
+  image: $DOCS_BUILD_IMAGE
+  stage: build_tags
+  script:
+    - cd docs
+    - make MODE=epub versions
+  artifacts:
+    paths:
+      - docs/_versions/*/epub/*.epub
+  only:
+    - tags
+
+###############################################################################
+# Publish Gitlab Pages
+###############################################################################
+
+pages:
+  image: $DOCS_BUILD_IMAGE
+  stage: deploy
+  script:
+    - cd docs
+    - mv _build/html/ public
+    - mv _build/epub/*.epub public/_static/
+    - mv _build/latex/*.pdf public/_static/
+    - |
+      shopt -s dotglob
+      for tag in $(git tag); do
+      mkdir -p _versions/$tag/html/_static/
+      mv _versions/$tag/epub/*.epub _versions/$tag/html/_static/
+      mv _versions/$tag/latex/*.pdf _versions/$tag/html/_static/
+      mv _versions/$tag/html/* _versions/$tag/
+      rmdir _versions/$tag/html
+      done
+    - mv _versions public/
+  artifacts:
+    paths:
+      - docs/public
+  only:
+    - tags
