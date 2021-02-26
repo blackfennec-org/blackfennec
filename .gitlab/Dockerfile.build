@@ -3,16 +3,9 @@ FROM python:3.8-alpine
 RUN apk --update --no-cache add \
   make \
   git \
-  texlive-full \
-  librsvg \
-  terminus-font font-bitstream-speedo font-bitstream-type1 font-bitstream-100dpi font-bitstream-75dpi \
-  font-noto font-noto-extra font-arabic-misc \
-  font-misc-cyrillic font-mutt-misc font-screen-cyrillic font-winitzki-cyrillic font-cronyx-cyrillic \
-  font-noto-arabic font-noto-armenian font-noto-cherokee font-noto-devanagari font-noto-ethiopic font-noto-georgian \
-  font-noto-hebrew font-noto-lao font-noto-malayalam font-noto-tamil font-noto-thaana font-noto-thai \
-  enchant2 enchant2-dev \
-  aspell-de \
-  aspell-en
+  python3-gi \
+  python3-gi-cairo \
+  gir1.2-gtk-3.0
 
 ADD requirements.txt ./
 
