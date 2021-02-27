@@ -14,6 +14,6 @@ RUN apk --update --no-cache add \
   aspell-de \
   aspell-en
 
-ADD requirements.txt ./
+ADD docs/requirements.txt ./
 
 RUN pip install -r requirements.txt && rm requirements.txt

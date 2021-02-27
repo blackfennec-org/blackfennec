@@ -1,6 +1,6 @@
-docs/_build
+docs/_build/
 docs/source/_build/
-.vscode
+.vscode/
 .idea/
 .coverage
 *.glade~
