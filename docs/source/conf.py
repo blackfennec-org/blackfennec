@@ -18,8 +18,8 @@
 # -- Project information -----------------------------------------------------
 
 project = 'Black Fennec'
-copyright = '2021, Simon Kindhauser, Caspar Martens, Lara Gubler, Lenoie Däullary'
-author = 'Simon Kindhauser, Caspar Martens, Lara Gubler, Lenoie Däullary'
+copyright = '2021, Simon Kindhauser, Caspar Martens, Lara Gubler, Leonie Däullary'
+author = 'Simon Kindhauser, Caspar Martens, Lara Gubler, Leonie Däullary'
 
 # The full version, including alpha/beta/rc tags
 release = '0.0.0'
