@@ -1,0 +1,17 @@
+services:
+  - docker:stable-dind
+
+stages:
+  - prebuild
+  - build
+  - test
+  - build_tags
+  - deploy
+
+###############################################################################
+# Documentation & Project include
+###############################################################################
+
+include:
+  - local: '/.gitlab/docs/ci.yml'
+  - local: '/.gitlab/project/ci.yml'
