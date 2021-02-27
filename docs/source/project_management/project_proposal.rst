@@ -15,89 +15,76 @@ Team
 - Simon Kindhauser <simon.kindhauser@ost.ch>
 - Caspar Martens <caspar.martens@ost.ch> 
 
-Beratungs- und Review-Zeitslots
-******************************* 
-
-| X   = Slot ist dem Team möglich  
-| (X) = Slot ist für das Team nicht optimal, wäre aber möglich  
-| O   = Treffen online möglich  
-| P   = Treffen physisch (Campus OST-RJ) möglich  
-| OP  = Treffen online sowie physisch (Campus OST-RJ) möglich  
-|     = Slot ist nicht möglich
-
- 
-===============  ======  ========  ========  ==========  =======
-*Zeitslot*       Montag  Dienstag  Mittwoch  Donnerstag  Freitag 
-===============  ======  ========  ========  ==========  =======
-**08:00-09:00**                                          XO      
-**09:00-10:00**                                          XO      
-**10:00-11:00**                                          (XO)    
-**11:00-12:00**                                          (XO)    
-**12:00-13:00**                                          (XO)    
-**13:00-14:00**                                          XO      
-**14:00-15:00**                                          XO      
-**15:00-16:00**                                          XO      
-**16:00-17:00**                                          XO      
-**17:00-18:00**                                          (XO)    
+Consulting and Review Times
+*************************** 
+===============  ======  =======  =========  =========  ======
+*Time Slots*     Monday  Tuesday  Wednesday  Thursday   Friday 
+===============  ======  =======  =========  =========  ======
+**08:00-09:00**                                         XO      
+**09:00-10:00**                                         XO      
+**10:00-11:00**                                         (XO)    
+**11:00-12:00**                                         (XO)    
+**12:00-13:00**                                         (XO)    
+**13:00-14:00**                                         XO      
+**14:00-15:00**                                         XO      
+**15:00-16:00**                                         XO      
+**16:00-17:00**                                         XO      
+**17:00-18:00**                                         (XO)    
 **18:00-19:00**                                                 
-===============  ======  ========  ========  ==========  ======= 
+===============  ======  =======  =========  =========  ======
+
+| X   = Team is available
+| (X) = Team is available if need be  
+| O   = Meeting online is possible
+| P   = Meeting physically at Campus OST-RJ is possible
+|     = Team is unavailable
 
 Motivation
 **********
 
-Es gibt bis dato keine Applikation, zur strukturierten verwaltung von Daten, die aus unstrukturierten Quellen gewonnen wurden (zum Beispiel dem Internet), welches zusätzlich auch die Funktionalität der Versionskontrolle, zu unserer Zufriedenheit unterstützt. Deshalb wollen wir im Rahmen des Engineering Projekts solch eine Applikation entwickeln. Das Tool soll uns in Zukunft als teilbares Informations-strukturierungs Hilfe dienen. Ein Hauptanwendungszweck sehen wir im OSINT Gathering und dem Speichern der entdeckten Daten und mit gewissen Plugins auch zur automatisierten Suche von Daten. 
+We personally require an application that is able to manage unstructured data in a dynamically structured way. Additionally it ought to be possible to use versioning and collaborative tools such as git. This is why we want to develop such an application as our Engineering Project. We will use Black Fennec to help us organize and share unstructured data.
 
-Typischer Workflow
-^^^^^^^^^^^^^^^^^^
-Ein Headhunter hat auf GitHub eine Person mit vielversprechenden Repositories gefunden und würde mit dieser gerne in Kontakt treten. Um diese Kontaktaufnahme jedoch möglichst erfolgsversprechend zu gestalten benötigt er gewisse Informationen angefangen mit der Email-Adresse.
+Typical Use Case
+^^^^^^^^^^^^^^^^
+A headhunter tasked with employing a software engineer for a company found a Github repository of a promising candidate. He will contact the candidate but first wants to know more about her in order to better influence her into taking the job.
 
-Marco, der Headhunter erstellt für diesen Zweck nun ein Projekt in Black Fennec, angefangen mit einem Template für die Daten einer Person. Dort füllt er anfangs einfach die GitHub profil URI hinein. Mit einem Plugin, welche das Herunterladen der wichtigsten Informationen eines GitHub Profils erlaubt, stellt im nun alle relevanten Daten direkt in Black Fennec integriert zu Verfügung, inklusive Daten, die man nicht auf den ersten Blick findet. Ganz alles kann ihm Black Fennec jedoch nicht abnehmen, deshalb geht nun die Suche weiter über Google, indem er das GitHub handle über Google sucht, und ein Steam-Account entdeckt. Wie vorhin will er nun die gefundenen Daten ablegen, jedoch dieses mal ohne Plugin-Unterstützung. Leider findet Marco keine weiteren Informationen über seine Zielperson, und deshalb speichert er sein Projekt und Pusht es in sein Firmen-internes GitHub Repository. Am nächsten Tag kommt er immernoch nicht vorwärts, und deshalb fragt er einen Kollegen um Hilfe, welcher ihm verspricht, auch einmal sein Glück zu versuchen. Dieser kann das Repository wie gewohnt klonen, und sogar für seine gesammelten Erkenntnisse einen eigenen Branch erstellen, welcher Marco dann später anschauen und gegebenenfalls mergen kann.
+For this Marco, the headhunter, creates a new Black Fennec Project. There he can add information already gathered from the Github profile into a pre-existing template. A extension might allow automatic crawling of additional information based on what was previously entered, automating a repetitive task. Some of the new information can now be used to further research the target. All additional data can be added to the project, even if no specific template exists. Once he is done the project can be pushed to a remote server where others can continue working.
 
-Projektidee
-***********
-Black Fennec ist ein versionisierbar, pluggable, dynamisch strukturiertes Informations-verwaltungs Tool,welches visuell ansprechend und angenehm zur Bedienung ist. 
-
-Das Stichwort pluggable ist allgemein sehr wichtig im Projekt, da diese Module einen wichtigen Teil der Arbeit ausmachen. Die Basis des Projekts bietet nur nur sehr Grundlegende funktionalitäten die wir im Rahmen dieser Arbeit auch noch erweitern wollen. Dadurch kann sehr unabhängig gearbeitet, und der Aufwand sehr dynamisch skaliert werden.
-
-Projektidee besprochen mit: Thomas Kälin
-
-Realisierung
+Project Idea
 ************
-Die Applikation basiert auf YAML/JSON Dateien (evtl. zusätzlich XML) welche in einem mit Python Client interpretiert und visualisiert werden. Die GUI-Technologie ist noch nicht entschieden, der Plan ist jedoch in die richtung von Deklarativen Frameworks zu gehen (XAML/HTML). Die Plugins welche die Applikation unabhängig beinhalten wird, können beliebige Libraries (Python) verwenden. Der Client ist für Desktop-systeme optimiert.
+Black Fennec is a versionable, extendable, dynamically structured information management tool that is visually appealing and pleasant to use. 
 
-Technologie
-^^^^^^^^^^^
 
-Wie erwähnt werden wir unser Projekt mit Python entwickeln. Wir streben Test Driven Development and was mit Hilfe vom PyTest Modul realisiert werden soll. Unser GUI wird mit dem Modul Kivy implementiert, welches Cross-Plattform unterstützt. Das GUI soll mit einer MVVM Architektur implementiert werden.
+Extensibility is generally very important to the project, because these modules are an important part of the work. The base of the project offers only very basic functionalities which we want to extend in the context of this work. This allows us to work independently and scale the effort dynamically.
+
+Project idea discussed with: Thomas Kälin
+
+Implementation
+**************
+The application is based on YAML/JSON files which are interpreted and visualized in a Python client. The GUI technology is not decided yet, but the plan is to go in the direction of declarative frameworks (XAML/HTML). The extensions will have their own dependencies which need to be installed automatically. The client is optimized for desktop systems.
+
+Technology
+^^^^^^^^^^
+As mentioned, we will develop our project using Python. We strive for Test Driven Development and this will be realized with the help of the PyTest module. Our GUI will be implemented using GTK3, which supports Linux, MacOS and Windows. We will use MVVM to separate UI from logic.
 
 Core
 ^^^^
-Der Core ist die Grundlage unseres Projekts und soll ein Framework anbieten, welches den verschiedenen Plugins eine integration ins System ermöglicht. Zusätzlich bietet er bestimmte Core-Features an, die immer benötigt werden. Dies sind insbesondere die Typen String, Number, Referenzen, List und Dictionary. Diese Typen bilden die Basis des dynamischen Objektmodells, welches sich für unser Produkt sehr gut eignet. Das Core-GUI, welches auch die Visualisierung der aufgelisteten Typen enthält ist ebenfalls hier implementiert. Eine Unterstützung für eine Suche auf Basis von einem beliebigen Typen soll ebenfalls implementiert werden im Core.
+The core is the basis of our project and should provide a framework that allows the various extensions to integrate into the system. In addition, it offers certain core features that are generally required. These are in particular the types String, Number, References, List and Dictionary. These types form the basis of the dynamic object model, which is very well suited for our product. The core GUI, which also contains the visualization of the listed types, is also implemented here. Support for the search feature must also be implemented in the core.
 
 Base
 ^^^^
-Base ist das einzige direkt eingebaute Plugin. Es bietet Funktionalität, welche von unseren Benutzern erwartet werden, dass sie immer zu verfügung stehen. Zum Beispiel die Typen: Datei, Bild, Datum, Ort. Man kann die Base auch als Minimal Viable Product anschauen. Das Ziel ist es, dieses möglichst schlank zu halten und jegliche zusätzliche Funktionalität in weitere Plugin auszulagern, damit unsere Applikation so Flexibel wie möglich bleibt.
+Base is the only directly built-in extension. It provides functionality that our users are frequently relaying on. For example the types: File, Image, Date, Location. You can also think of Base as a Minimal Viable Product. The goal is to keep it as lean as possible and to outsource any additional functionality to other extensions, so that our application remains as flexible as possible.
 
-Zusätzliche Plugins
-^^^^^^^^^^^^^^^^^^^
-Bei diesen Plugins handelt es sich um Beispiel Ideen, damit sich der Betreuer etwas unter den möglichkeiten unserer angestrebten Plugins vorstellen kann, und je nach unseren Zeitmöglichkeiten werden mehr oder weniger dieser Ideen schlussendlich umgesetzt.
+Additional Extensions
+^^^^^^^^^^^^^^^^^^^^^
+This list is a incomplete collection of extensions that could be implemented in the future. They are mainly listed here for you to get a feel what might be coming, if we find the time to implement more then just of Black Fennec.
 
-GitHub Crawler
-""""""""""""""
-Automatisiertes Crawling von Benutzerdaten eines GitHub-Account durch die angabe der Profil-URI.
-
-Facebook Crawler
-""""""""""""""""
-Automatisiertes Crawling von Benutzerdaten eines Facebook-Account durch die angabe der Profil-URI. Hinterlegung von Facebook account?
-
-LinkedIn Crawler
-""""""""""""""""
-Automatisiertes Crawling von Benutzerdaten eines LinkedIn-Account durch die angabe der Profil-URI. Hinterlegung von LinkedIn account?
-
-Facial Recognition
-""""""""""""""""""
-Extraktion von Gesichter aus Bildern. Evt. eine Verweisung auf ähnliche Gesichter innerhalb des Projekts.
-
-Google Dorker
-"""""""""""""
-Generate Google Dorks from selected Types.
+==================      ======================================================
+Extension Name          Description
+==================      ======================================================
+GitHub Crawler          Automated crawling of user data of a GitHub account by specifying the profile URI.
+Facebook Crawler        Automated crawling of user data of a Facebook account by specifying the profile URI.
+LinkedIn Crawler        Automated crawling of user data of a LinkedIn account by specifying the profile URI.
+Facial Recognition      Extraction of faces from images. Possibly referencing to similar faces within the project.
+Google Dorks            Generate Google Dorks from selected Types.
+==================      ======================================================
