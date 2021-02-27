@@ -1,5 +1,7 @@
-docs/build
+docs/_build
 docs/source/_build/
 .vscode
 .idea/
 .coverage
+*.glade~
+__pycache__/
