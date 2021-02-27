@@ -32,24 +32,64 @@ Our hopes are that the project will inspire a community to develop extensions an
 To address our personal goals, we intend to utilise and reinforce the knowledge gained during our studies. Simultaneously we hope to learn many new principles and patterns.
 
 Assumptions & Limitations
---------------------------
+-------------------------
 We expect to accomplish our core objectives before the delivery date. If time permits we will implement further extensions which add additional use cases. These extensions are not part of the engineering project but could be featured in the presentation to show the extensibility and usability of the project.
 
 Project Organisation
 ********************
 
-Management Processes
-********************
+Organisational Structure
+------------------------
+To manage our project we use scrum roles and additionally assigned competences to each member.
 
-Risc Management
-***************
+================  ===================================
+Team Members            Competences
+================  ===================================
+Lara Gubler       Scrum Master, Documentation
+Simon Kindhauser  Product Owner, Architecture
+Leonie Däullary   Development Team, User Experience
+Caspar Martens    Development Team, Quality Assurance
+================  ===================================
+
+Project Management
+******************
+
+Time Budget
+-----------
++------------------------------+---------------------+
+| **Project duration**         | 14 Weeks #TODO check|
++------------------------------+---------------------+
+| **Team members**             | 4 Persons           |
++------------------------------+---------------------+
+| **Working hours per person** | 120h                |
++------------------------------+---------------------+
+| **Total hours of work**      | 480h                |
++------------------------------+---------------------+
+| **Project start**            | 22. February 2021   |
++------------------------------+---------------------+
+| **Project end**              | #TODO fill this out |
++------------------------------+---------------------+
+
+Time Management
+---------------
+We use Gitlab to track the time estimated and spent time of our work items represented as issues. For fine grained time management will be conducted before each sprint (lasting two weeks).
+
+Phases & Iterations
+^^^^^^^^^^^^^^^^^^^
+
+Milestones
+^^^^^^^^^^
+
+Risk Management
+---------------
+
+
+Quality Management
+------------------
+
 
 Requirements Engineering
 ************************
 
 Infrastructure
 **************
-
-Quality Management
-******************
-
