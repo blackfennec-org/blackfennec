@@ -55,6 +55,9 @@ envision. For this we intend to release our sourcecode into the public domain.
 To address our personal goals, we intend to utilise and reinforce the knowledge gained during our studies.
 Simultaneously we hope to learn many new principles and patterns.
 
+Scope of Delivery
+-----------------
+
 Assumptions & Limitations
 -------------------------
 We expect to accomplish our core objectives before the delivery date. If time permits we will implement further
@@ -107,6 +110,12 @@ Phases & Iterations
 Milestones
 ^^^^^^^^^^
 
+Iteration Planning
+^^^^^^^^^^^^^^^^^^
+
+Releases
+^^^^^^^^
+
 Risk Management
 ---------------
 
@@ -114,6 +123,11 @@ Risk Management
 Quality Management
 ------------------
 
+Meetings
+********
+
+Protocolling
+------------
 
 Requirements Engineering
 ************************
