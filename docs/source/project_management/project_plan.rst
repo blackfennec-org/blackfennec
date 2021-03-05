@@ -115,22 +115,24 @@ These Phases do not have a fix duration in our Setup and are evaluated during th
 
 Iterations
 ^^^^^^^^^^
-The iterations during this project are represented by Scrum Sprints. They endure 2 Weeks and are lead by our Product Owner (Simon Kindhauser) and the Scrum Master (Lara Gubler). A more detailed elaboration of our Scrum processes can be found in the chapter Meetings.
+The iterations during this project are represented by Scrum Sprints. They endure 2 Weeks and are lead by our Product Owner (Simon Kindhauser) and the Scrum Master (Lara Gubler). A more detailed elaboration of our Scrum processes can be found in the chapter :ref:`Meetings`.
 
 Milestones
 ^^^^^^^^^^
+
 Here in this Document we provide only an overview of the Milestones that exist in our Project in a chronological ordering. At the time this Document is created not all Milestones are already planned to the end. Therefore a link is provided that allows to look at the Milestone in Gitlab which always contains the most timely information. Definite dates and additional deliverables will be defined when appropriate.
+
 ===============================================================  ==============================================================
  Milestone                                                       Link
 ===============================================================  ==============================================================
-R0: Project Proposal (Inception)                                 [Milestone: Project Proposal](https://gitlab.ost.ch/epj/2021-FS/g01_blackfennec/black-fennec/-/milestones/8)
-R1: Project Plan (Inception)                                     [Milestone: Project Plan](https://gitlab.ost.ch/epj/2021-FS/g01_blackfennec/black-fennec/-/milestones/1)
-R2: Requirements Engineering (Elaboration)                       [Milestone: Requirements](https://gitlab.ost.ch/epj/2021-FS/g01_blackfennec/black-fennec/-/milestones/2)
-R3: End of Elaboration & Architecture Prototype (Elaboration)    [Milestone: End of Elaboration](https://gitlab.ost.ch/epj/2021-FS/g01_blackfennec/black-fennec/-/milestones/3)
-R4: Architecture (Construction)                                  [Milestone: Architecture](https://gitlab.ost.ch/epj/2021-FS/g01_blackfennec/black-fennec/-/milestones/4)
-R5: Q-Review (Transition)                                        [Milestone: Q-Review](https://gitlab.ost.ch/epj/2021-FS/g01_blackfennec/black-fennec/-/milestones/5)
-Final Submission                                                 [Milestone: Final Submission](https://gitlab.ost.ch/epj/2021-FS/g01_blackfennec/black-fennec/-/milestones/6)
-Project Presentation                                             [Milestone: Final Submission](https://gitlab.ost.ch/epj/2021-FS/g01_blackfennec/black-fennec/-/milestones/7)
+R0: Project Proposal (Inception)                                 `Milestone: Project Proposal <https://gitlab.ost.ch/epj/2021-FS/g01_blackfennec/black-fennec/-/milestones/8>`
+R1: Project Plan (Inception)                                     `Milestone: Project Plan <https://gitlab.ost.ch/epj/2021-FS/g01_blackfennec/black-fennec/-/milestones/1>`
+R2: Requirements Engineering (Elaboration)                       `Milestone: Requirements <https://gitlab.ost.ch/epj/2021-FS/g01_blackfennec/black-fennec/-/milestones/2>`
+R3: End of Elaboration & Architecture Prototype (Elaboration)    `Milestone: End of Elaboration <https://gitlab.ost.ch/epj/2021-FS/g01_blackfennec/black-fennec/-/milestones/3>`
+R4: Architecture (Construction)                                  `Milestone: Architecture <https://gitlab.ost.ch/epj/2021-FS/g01_blackfennec/black-fennec/-/milestones/4>`
+R5: Q-Review (Transition)                                        `Milestone: Q-Review <https://gitlab.ost.ch/epj/2021-FS/g01_blackfennec/black-fennec/-/milestones/5>`
+Final Submission                                                 `Milestone: Final Submission <https://gitlab.ost.ch/epj/2021-FS/g01_blackfennec/black-fennec/-/milestones/6>`
+Project Presentation                                             `Milestone: Final Submission <https://gitlab.ost.ch/epj/2021-FS/g01_blackfennec/black-fennec/-/milestones/7>`
 ===============================================================  ==============================================================
 
 Meetings
