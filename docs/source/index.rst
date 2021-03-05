@@ -11,6 +11,7 @@ Welcome to Black Fennec's documentation!
    :caption: Project Management
    :numbered:
 
+   project_management/definition_of_done.rst
    project_management/project_proposal.rst
    project_management/project_plan.rst
 
