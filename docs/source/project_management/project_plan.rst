@@ -210,8 +210,52 @@ Risk Management
 ---------------
 
 
-Quality Management
+Quality Assurance
 ------------------
+To assure the required quality in this project many different strategies are followed which are elaborated in this chapter.
+
+The basis of our quality assurance is the use of frequently built in meetings in our daily workflow. How these are scheduled is contained in a table in the chapter :ref:`Meetings`. These meetings according to Scrum Principles help ensuring quality and efficiency.
+
+Produced Artifacts
+^^^^^^^^^^^^^^^^^^
+All created artifacts of this project are contained within the project Gitlab repository to which any associated persons have access. This ensures that of every file a detailed change history is available. For a detailed elaboration on our Version Control Strategy a dedicated file :doc:`version_control_strategy` exists.
+
+Documentation
+^^^^^^^^^^^^^
+Our documentation is written in the Markdown-flavour RestructuredText and is version controlled in Gitlab. The generation and provision of the Documentation is automated through a CI-Pipeline task and is automatically built when attaching a tag to a commit. The documentation also is a project artifact and therefore also falls under the :doc:`version_control_strategy`.
+
+Project Management
+^^^^^^^^^^^^^^^^^^
+Project Management is done with Gitlab as well. The Issue-Boards are used in this project to represent our different Steps an issue can undergo. The ordering in the lists show the importance of each issue. The higher up an issue is, the higher is its importance. The issues created can be assigned to members of the team and to the milestone that they belong to. To know which to which Sprint an issue is associated with, dedicated Sprint labels are created at the start of a Sprint.
+
+The different steps an issue can undergo are described in the following table.
+
+================  ====================
+Column (Label)    Description
+================  ====================
+Roles             These issues represent different roles in which administrative effort can be captured.
+Draft             The drafted issues are in a pre-stage before making it into the backlog. Here any member can enter ideas that come up during sprints and are then evaluated by the Product Owner
+Backlog           Only the Product Owner is allowed to define the Backlog. Here Definite Tasks that are going to be implemented are listed.
+Sprint Backlog    This Column is the Backlog for the Sprint and requires the items to be actual user-stories and on a Work-item level so that one person can be assigned to this task.
+In Progress       In this list are issues that are in progress in the momentaneous sprint.
+Resolved          When an issue is resolved, this means that it adheres to the :doc:`definition_of_done` but was not merged yet.
+Open              The Open Issue list is not used in our project as open issues tend to reside in dedicated lists.
+Closed            When an feature was successfully merged its issues move to the list closed where all past issues reside.
+================  ====================
+Development
+^^^^^^^^^^^
+
+Procedure
+~~~~~~~~~
+
+Unit Testing
+~~~~~~~~~~~~
+
+Code Reviews
+~~~~~~~~~~~~
+
+Code Style Guidelines
+~~~~~~~~~~~~~~~~~~~~~
 
 Requirements Engineering
 ************************
