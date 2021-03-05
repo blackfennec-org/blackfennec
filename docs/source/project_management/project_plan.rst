@@ -18,20 +18,15 @@ The scope of this project is limited to the duration of the module Engineering P
 
 References
 ----------
-In the table below you can find the links to the important documents and the repository.
+In the table below you can find the links to the important documents in the repository.
 
-+------------------------------+---------------------+
-| **Document**                 | **Reference**       |
-+------------------------------+---------------------+
-| Project Proposal             | #TODO               |
-+------------------------------+---------------------+
-| Risk Analysis                | #TODO               |
-+------------------------------+---------------------+
-| Glossary                     | #TODO               |
-+------------------------------+---------------------+
-| Protocols                    | #TODO               |
-+------------------------------+---------------------+
-
++--------------------------+---------------------------+
+| **Document**             | **Reference**             |
++--------------------------+---------------------------+
+| Project Proposal         | :doc:`project_proposal`   |
++--------------------------+---------------------------+
+| Risk Analysis            | :doc:`risk_analysis`      |
++--------------------------+---------------------------+
 
 Project Overview
 ****************
@@ -57,6 +52,21 @@ Simultaneously we hope to learn many new principles and patterns.
 
 Scope of Delivery
 -----------------
+The following table defines the scope of delivery of the black fennec project.
+
++--------------------------------------+--------------------------+
+| Documentation                        | Product                  |
++--------------------------------------+--------------------------+
+| - Project Proposal                   | - Core Product           |
+| - Project Plan                       | - Core Features          |
+| - Risk Analysis                      | - Core GUI               |
+| - Domain Analysis                    | - Base Extension         |
+| - Architecture Diagram               | - Additional Extensions  |
+| - Package-/Classdesign               | - Source Code            |
+| - Code Guidelines                    |                          |
+| - Testspecification/Testprotocol     |                          |
+| - Protocol notes                     |                          |
++--------------------+-----------------+--------------------------+
 
 Assumptions & Limitations
 -------------------------
@@ -166,3 +176,27 @@ Requirements Engineering
 
 Infrastructure
 **************
+
+GitLab
+------
+GitLab is a tool which we use for multiple aspects in our project. For example for the management of our source code
+and documents. We also use it for our version controlling and to plan our project. Our work items are stored in the
+GitLab repository in the form of issues.
+
+PyCharm
+-------
+For the integrated development environment (IDE) we use PyCharm from JetBrains.
+This is a very useful tool for Python programming and includes some useful git functionalities such as commit,
+push and merge.
+
+Glade
+-----
+For our graphical user interface (GUI) we use Glade. Glade is a rapid application development tool (RAD) and allows us
+to quickly and easily develop user interfaces for the GTK toolkit
+
+GTK
+---
+GTK is a free and open-source cross-platform widget toolkit. We use it to develop our Black Fennec app.
+
+
+
