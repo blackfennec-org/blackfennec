@@ -178,6 +178,29 @@ reviews how the last sprint went in terms of individual team members, interactio
 Definition of Done. We discuss, what went well during the Sprint and what didn't, what problems were encountered and how
 they were solved or can be solved.
 
+Milestone Meeting
+^^^^^^^^^^^^^^^^^
+After each milestone there is a meeting with the Advisor. We present a small demo of our project and show
+the status of the product.
+
+Meeting Timetable
+^^^^^^^^^^^^^^^^^
+In the following table one can see how we have scheduled the meetings.
+
+=====================  =================================  =======================  ========================
+ Meeting Timetable     | Friday 1                         | Friday 2               | Friday 3
+=====================  =================================  =======================  ========================
+ 08:00 - 09:00          Daily Scrum                        Daily Scrum              Daily Scrum
+ 09:00 - 10:00
+ 10:00 - 11:00          Sprint Review (previous sprint)                             Sprint Review
+ 11:00 - 12:00          Milestone Meeting (previous)                                Milestone Meeting
+ 12:00 - 13:00
+ 13:00 - 14:00          Sprint Planning                    Daily Scrum
+ 15:00 - 15:00
+ 15:00 - 16:00
+ 16:00 - 17:00                                             Sprint Retrospective
+=====================  =================================  =======================  ========================
+
 Protocolling
 ^^^^^^^^^^^^
 For each meeting a protocol is created. These record what we discussed in the meeting, what decisions were made and any
