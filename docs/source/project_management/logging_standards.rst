@@ -4,5 +4,5 @@ This document describes the logging practices currently active in this project. 
 
 Logging Practice
 ****************
-* Exceptions, bot handled or re-thrown, MUST be logged.
+* Exceptions, both handled and re-thrown, MUST be logged.
 
