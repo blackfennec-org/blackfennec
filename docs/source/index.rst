@@ -12,8 +12,10 @@ Welcome to Black Fennec's documentation!
    :numbered:
 
    project_management/definition_of_done.rst
+   project_management/risk_analysis.rst
    project_management/project_proposal.rst
    project_management/project_plan.rst
+   project_management/version_control_strategy.rst
 
 
 

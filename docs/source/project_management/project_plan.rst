@@ -125,7 +125,7 @@ These Phases do not have a fix duration in our Setup and are evaluated during th
 
 Iterations
 ^^^^^^^^^^
-The iterations during this project are represented by Scrum Sprints. They endure 2 Weeks and are lead by our Product Owner (Simon Kindhauser) and the Scrum Master (Lara Gubler). A more detailed elaboration of our Scrum processes can be found in the chapter :ref:`Meetings`.
+The iterations during this project are represented by Scrum Sprints. They endure 2 Weeks and are lead by our Product Owner (Simon Kindhauser) and the Scrum Master (Lara Gubler). A more detailed elaboration of our Scrum processes can be found in the chapter Meetings_.
 
 Milestones
 ^^^^^^^^^^
@@ -208,7 +208,22 @@ open issues.
 
 Risk Management
 ---------------
+We continuously assess risks and deduce mitigation strategies based on processes described in ISO 27005, specifically assigning the risk one of the following categories:
 
+* reduce
+* retain
+* avoid
+* transfer 
+
+Risk Analysis
+^^^^^^^^^^^^^
+A list of all identified risks can be found in the document :doc:`risk_analysis`. The most important findings as of the writing of this document are listed below.
+
+Complexity
+  The mitigation strategy is effective but the issue must be reevaluated regularly to intervene in time if it could get out of hand.
+
+User Experience
+  We dedicate a member of the team to the issue. However, the remaining risk is still significant and we will collectively keep an eye on it.
 
 Quality Assurance
 ------------------
