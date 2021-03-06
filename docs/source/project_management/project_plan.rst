@@ -118,7 +118,22 @@ Releases
 
 Risk Management
 ---------------
+We continuously assess risks and deduce mitigation strategies based on processes described in ISO 27005, specifically assigning the risk one of the following categories:
 
+* reduce
+* retain
+* avoid
+* transfer 
+
+Risk Analysis
+^^^^^^^^^^^^^
+A list of all identified risks can be found in the document :doc:`risk_analysis`. The most important findings as of the writing of this document are listed below.
+
+Complexity
+  The mitigation strategy is effective but the issue must be reevaluated regularly to intervene in time if it could get out of hand.
+
+User Experience
+  We dedicate a member of the team to the issue. However, the remaining risk is still significant and we will collectively keep an eye on it.
 
 Quality Management
 ------------------
@@ -160,9 +175,6 @@ Protocolling
 ------------
 For each meeting a protocol is created. These record what we discussed in the meeting, what decisions were made and any
 open issues.
-
-Requirements Engineering
-************************
 
 Infrastructure
 **************
