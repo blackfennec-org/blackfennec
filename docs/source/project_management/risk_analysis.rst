@@ -5,14 +5,15 @@ This document contains a list of all identified technical risks to the Black Fen
 Complexity
 """"""""""
 .. table::
+    :widths: auto
     :align: left
     :class: borderless
 
-    ==================  ===========
-    **Damage**          Very High  
-    **Probability**     1.0           
-    **Danger**          Very High
-    ==================  ===========
+    ================  ==========
+    **Damage**        Very High
+    **Probability**   1.0
+    **Danger**        Very High
+    ================  ==========
 
 
 The project is to complicated or complex for developers to effectively make changes or add features.
@@ -20,6 +21,7 @@ The project is to complicated or complex for developers to effectively make chan
 Mitigation
 ^^^^^^^^^^
 .. table::
+    :widths: auto
     :align: left
     :class: borderless
 
@@ -36,6 +38,7 @@ The remaining risk must be watched carefully and further analysis will take plac
 Requirements
 """"""""""""
 .. table::
+    :widths: auto
     :align: left
     :class: borderless
 
@@ -51,6 +54,7 @@ Mitigation
 ^^^^^^^^^^
 
 .. table::
+    :widths: auto
     :align: left
     :class: borderless
 
@@ -65,26 +69,28 @@ Since we are in control of the requirements for our product we will try not to c
 Documentation Tools
 """""""""""""""""""
 .. table::
+    :widths: auto
     :align: left
     :class: borderless
 
-    ==================  ===========
-    **Damage**          Medium  
-    **Probability**     0.2           
-    **Danger**          Very Low
-    ==================  ===========
+    ================ =========
+    **Damage**       Medium
+    **Probability**  0.2     
+    **Danger**       Very Low
+    ================ =========
 
 The tools used to document the project are inadequate for the documentation of this project.
 
 Mitigation
 ^^^^^^^^^^
 .. table::
+    :widths: auto
     :align: left
     :class: borderless
 
     ==================  ===========
     **Strategy**        Retain  
-    **Effectiveness**   0           
+    **Effectiveness**   0.0
     **Remaining Risk**  Very Low
     ==================  ===========
 
@@ -93,6 +99,7 @@ We have decided to use the recommended documentation tool. We believe it to be a
 Development Tools
 """""""""""""""""
 .. table::
+    :widths: auto
     :align: left
     :class: borderless
 
@@ -107,6 +114,7 @@ The chosen IDE, VCS etc does not support the development process
 Mitigation
 ^^^^^^^^^^
 .. table::
+    :widths: auto
     :align: left
     :class: borderless
 
@@ -121,13 +129,14 @@ We will set the project up in a way that these factors cannot effect us in any s
 Third Party Component
 """""""""""""""""""""
 .. table::
+    :widths: auto
     :align: left
     :class: borderless
 
     ==================  ===========
     **Damage**          High  
     **Probability**     0.8           
-    **Danger**          Heigh
+    **Danger**          High
     ==================  ===========
 
 A third party component is limited, damaged or otherwise unsuited for our purposes. This includes bugs as well as security vulnerabilities.
@@ -135,6 +144,7 @@ A third party component is limited, damaged or otherwise unsuited for our purpos
 Mitigation
 ^^^^^^^^^^
 .. table::
+    :widths: auto
     :align: left
     :class: borderless
 
@@ -151,6 +161,7 @@ The remaining risk is retained.
 Software Quality
 """"""""""""""""
 .. table::
+    :widths: auto
     :align: left
     :class: borderless
 
@@ -168,6 +179,7 @@ The reason why we categorise the damage as "medium" stems from the assumption th
 Mitigation
 ^^^^^^^^^^
 .. table::
+    :widths: auto
     :align: left
     :class: borderless
 
@@ -182,13 +194,14 @@ Regular refactoring and a strict and rigorous quality control process is hoped t
 User Experience
 """""""""""""""
 .. table::
+    :widths: auto
     :align: left
     :class: borderless
 
     ===============  ===============
-    **Damage**       Heigh  
+    **Damage**       High  
     **Probability**  0.8           
-    **Danger**       Heigh
+    **Danger**       High
     ===============  ===============
 
 The product does not satisfy the users or customers, resulting in low adoption and - if not mitigated - ends in the death of the project.
@@ -199,6 +212,7 @@ This is a rather long term threat to the project but still one that we take very
 Mitigation
 ^^^^^^^^^^
 .. table::
+    :widths: auto
     :align: left
     :class: borderless
 
@@ -213,4 +227,4 @@ We have created the role "user experience" and dedicated a member of our team to
 Footnotes
 """""""""
 
-.. [#] A experimental number signifying significant chance
+.. [#] An experience value denoting significant chance
