@@ -15,6 +15,12 @@ Welcome to Black Fennec's documentation!
    project_management/project_proposal.rst
    project_management/project_plan.rst
 
+.. toctree::
+   :maxdepth: 2
+   :caption: Extensions
+   :numbered:
+
+   extensions/index.rst
 
 
 Indices and tables
