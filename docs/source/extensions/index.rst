@@ -11,6 +11,8 @@ Three conceptual types of extensions are currently planned. Any given extension 
     hide members
     hide methods
 
+    title Conceptual Extension Landscape
+
     skinparam class {
         BackgroundColor #EEE
         ArrowColor Black
@@ -46,8 +48,42 @@ Three conceptual types of extensions are currently planned. Any given extension 
     Extension "1" o-- "0..*" PresenterExtension
     @enduml
 
+
+
+.. uml::
+
+    @startsalt
+    title Wireframe of Extension Types Working Together
+
+    {+
+        {* Open | Save | Extensions | About }
+        {
+            <color:Red>presenter extension E
+            {S
+                {+<color:Red>type extension A
+                    {+
+                        key1    | value1
+                        key2    | value2
+                        <b>key3 | <selected>
+                    }
+                } | {+<color:Red>type extension B
+                    {+
+                        key1    | value1
+                        key2    | value2
+                    }
+                    {* <&bolt> Actions
+                        <&bolt> Actions | <color:Red>action extension C | <color:Red>action extension D
+                    }
+                }
+            }
+        }
+    }
+    @endsalt
+
 Type Extension
 """"""""""""""
+More can be read in the document :doc:`type_extension`
+
 Type extensions are expected to be the most common type of extension. They enrich the object model with an additional type and its visualisation.
 
 

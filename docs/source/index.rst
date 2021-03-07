@@ -17,10 +17,18 @@ Welcome to Black Fennec's documentation!
 
 .. toctree::
    :maxdepth: 2
+   :caption: Type System
+   :numbered:
+
+   type_system/selection_process.rst
+
+.. toctree::
+   :maxdepth: 2
    :caption: Extensions
    :numbered:
 
    extensions/index.rst
+   extensions/type_extension.rst
 
 
 Indices and tables
