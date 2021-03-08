@@ -267,11 +267,6 @@ As previously mentioned all our artifacts including our code is contained in Git
 
 Additionally to the dual control principle our Gitlab pipelines have built in execution for testing and linting.
 
-Unit Testing
-~~~~~~~~~~~~
-
-Unit tests are done with the pytest framework in our project. We value test-driven-development and strive for at least 90% of testing coverage. Every developer is ought to have pytest installed in his development environment and additionally a pipeline ensures that all tests are always passing. A merge request without passing pipelines is prohibited.
-
 Code Style Guidelines
 ~~~~~~~~~~~~~~~~~~~~~
 
@@ -285,8 +280,29 @@ Code Reviews happen on the basis of merge requests. There the assignee and revie
 Pair Programming
 ~~~~~~~~~~~~~~~~
 
+An important tool in our project will be the use of pair programming. It will not be done for every function that is written but if anyone is stuck and is only progressing slowly this shall be recognized during our daily Scrum meetings and another member of the team will try to help resolve the problem with a fresh mind.
+
 Testing
 ^^^^^^^
+
+The tests are stored in a separate location in the tests folder. There each python file of our application that is tested has a corresponding testing file that preferably has the same name if no ambiguities are present.
+
+A doubles folder exists where commonly used doubles a saved in specific files separated by component they belong to.
+
+Unit Testing
+~~~~~~~~~~~~
+
+Unit tests are done with the pytest framework in our project. We value test-driven-development and strive for 90% of testing coverage. Every developer is ought to have pytest installed in his development environment and additionally a pipeline ensures that all tests are always passing. A merge request without passing pipelines is prohibited from being merged.
+
+Integration Testing
+~~~~~~~~~~~~~~~~~~~
+
+Integration Tests are done in the PyTest framework aswell. They reside in separate files with an \"_integration\" addition to their filename.
+
+System Tests
+~~~~~~~~~~~~
+
+System Tests are not automated and will be written down in a specific test protocol that is created using an issue template. This way the tests can be done multiple times using the same template. As with the documentation of the project it is expected to append the test protocol when adding new functionality.
 
 Infrastructure
 **************
@@ -302,6 +318,14 @@ PyCharm
 For the integrated development environment (IDE) we use PyCharm from JetBrains.
 This is a very useful tool for Python programming and includes some useful git functionalities such as commit,
 push and merge.
+
+PyTest
+------
+As our testing framework we use pytest that allows easy to write unit tests but meanwhile also support more complex tests if required. Additionally to test running it is also able to generate a coverage analysis that can be integrated with Gitlab.
+
+PyLint
+------
+Pylint is the linter used for our project. It can check for logical errors and formatting. The formatting guidelines used are close to the PEP 8 but differ in minor aspects. A plugin for an easy integration with the IDE PyCharm exists and is used.
 
 Glade
 -----
