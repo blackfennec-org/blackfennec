@@ -229,7 +229,7 @@ Quality Assurance
 ------------------
 To assure the required quality in this project many different strategies are followed which are elaborated in this chapter.
 
-The basis of our quality assurance is the use of frequently built in meetings in our daily workflow. How these are scheduled is contained in a table in the chapter :ref:`Meetings`. These meetings according to Scrum Principles help ensuring quality and efficiency.
+The basis of our quality assurance is the use of frequently built in meetings in our daily workflow. How these are scheduled is contained in a table in the chapter :ref:`Meetings`. These meetings according to Scrum principles help ensuring quality and efficiency.
 
 Produced Artifacts
 ^^^^^^^^^^^^^^^^^^
@@ -241,7 +241,7 @@ Our documentation is written in the Markdown-flavour RestructuredText and is ver
 
 Project Management
 ^^^^^^^^^^^^^^^^^^
-Project Management is done with Gitlab as well. The Issue-Boards are used in this project to represent our different Steps an issue can undergo. The ordering in the lists show the importance of each issue. The higher up an issue is, the higher is its importance. The issues created can be assigned to members of the team and to the milestone that they belong to. To know which to which Sprint an issue is associated with, dedicated Sprint labels are created at the start of a Sprint.
+Project Management is done with Gitlab as well. The Issue-Boards are used in this project to represent our different steps an issue can undergo. The ordering in the lists show the importance of each issue. The higher up an issue is, the higher is its importance. The issues created can be assigned to members of the team and to the milestone that they belong to. To know which to which sprint an issue is associated with, dedicated Sprint labels are created at the start of a sprint.
 
 The different steps an issue can undergo are described in the following table.
 
@@ -263,17 +263,30 @@ Development
 Procedure
 ~~~~~~~~~
 
+As previously mentioned all our artifacts including our code is contained in Gitlab. For any versioning specific practices one can look into the file :doc:`version_control_strategy`. In there the handling of merge requests is explained. This ensures a dual control principle regarding not only logic errors but also formatting and code style.
+
+Additionally to the dual control principle our Gitlab pipelines have built in execution for testing and linting.
+
 Unit Testing
 ~~~~~~~~~~~~
 
-Code Reviews
-~~~~~~~~~~~~
+Unit tests are done with the pytest framework in our project. We value test-driven-development and strive for at least 90% of testing coverage. Every developer is ought to have pytest installed in his development environment and additionally a pipeline ensures that all tests are always passing. A merge request without passing pipelines is prohibited.
 
 Code Style Guidelines
 ~~~~~~~~~~~~~~~~~~~~~
 
-Requirements Engineering
-************************
+To support well-formatted coding, every team member is required to install pylint, a linting tool that not only can  enforce Coding Standards according to Pythons PEP8 style guide but also features an error detection and refactoring help. Additionally a pipeline task that includes pylint checking is included in the ci on Gitlab. This task is allowed to fail, since pylint will will fail with an error code even when only having recognized a warning. But it is intended to update the pylintrc configuration file to exclude warning generating rules, if the whole team approves.
+
+Code Reviews
+~~~~~~~~~~~~
+
+Code Reviews happen on the basis of merge requests. There the assignee and reviewer are provided with an overview whether all unit tests are passing and coding style guidelines are abided. The assignee and reviewer additionally should read the code and try to understand it, and if unclear ask the creator.
+
+Pair Programming
+~~~~~~~~~~~~~~~~
+
+Testing
+^^^^^^^
 
 Infrastructure
 **************
