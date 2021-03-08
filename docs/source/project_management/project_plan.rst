@@ -20,13 +20,19 @@ References
 ----------
 In the table below you can find the links to the important documents in the repository.
 
-+--------------------------+---------------------------+
-| **Document**             | **Reference**             |
-+--------------------------+---------------------------+
-| Project Proposal         | :doc:`project_proposal`   |
-+--------------------------+---------------------------+
-| Risk Analysis            | :doc:`risk_analysis`      |
-+--------------------------+---------------------------+
++--------------------------+---------------------------------+
+| **Document**             | **Reference**                   |
++--------------------------+---------------------------------+
+| Project Proposal         | :doc:`project_proposal`         |
++--------------------------+---------------------------------+
+| Risk Analysis            | :doc:`risk_analysis`            |
++--------------------------+---------------------------------+
+| Definition of Done       | :doc:`definition_of_done`       |
++--------------------------+---------------------------------+
+| Logging Standards        | :doc:`logging_standards`        |
++--------------------------+---------------------------------+
+| Version Control Strategy | :doc:`version_control_strategy` |
++--------------------------+---------------------------------+
 
 Project Overview
 ****************
@@ -44,7 +50,7 @@ extended period of time. Therefore the quality of our architecture is of utmost 
 
 We will use Black Fennec mainly as a data editing and visualisation tool that allows us to collaborate.
 
-Our hopes are that the project will inspire a community to develop extensions and find use cases that we currently cant
+Our hopes are that the project will inspire a community to develop extensions and find use cases that we currently cant even
 envision. For this we intend to release our sourcecode into the public domain.
 
 To address our personal goals, we intend to utilise and reinforce the knowledge gained during our studies.
@@ -62,9 +68,9 @@ The following table defines the scope of delivery of the black fennec project.
 | - Risk Analysis                      | - Core GUI               |
 | - Domain Analysis                    | - Base Extension         |
 | - Architecture Diagram               | - Additional Extensions  |
-| - Package-/Classdesign               | - Source Code            |
+| - Package/Class Design               | - Source Code            |
 | - Code Guidelines                    |                          |
-| - Testspecification/Testprotocol     |                          |
+| - Test Specification/Test Protocol   |                          |
 | - Protocol notes                     |                          |
 +--------------------+-----------------+--------------------------+
 
@@ -96,7 +102,7 @@ Project Management
 Time Budget
 -----------
 +------------------------------+---------------------+
-| **Project duration**         | 14 Weeks #TODO check|
+| **Project duration**         | 14 Weeks            |
 +------------------------------+---------------------+
 | **Team members**             | 4 Persons           |
 +------------------------------+---------------------+
@@ -106,7 +112,7 @@ Time Budget
 +------------------------------+---------------------+
 | **Project start**            | 22. February 2021   |
 +------------------------------+---------------------+
-| **Project end**              | #TODO fill this out |
+| **Project end**              | 28. May 2021        |
 +------------------------------+---------------------+
 
 Time Management
@@ -160,28 +166,23 @@ planned work can be adjusted.
 Sprint Planning
 ^^^^^^^^^^^^^^^
 This meeting is used to plan a new sprint and takes place as soon as a Sprint has been completed.
+
 Three main Questions are discussed in this meeting. These include defining a new Sprint Goal, which items from the
-Product Backlog should be included in the upcoming Sprint and how an increment that meets the Definition of Done can be
-created.
+Product Backlog should be included in the upcoming Sprint and how an increment that meets the Definition of Done can be created.
 
 Sprint Review
 ^^^^^^^^^^^^^
 During this meeting, the result of the Sprint is reviewed and adjustments are made.
 
-Our team presents their work and progress towards the Product Goal. Based on the information, the next steps can be
-planned.
+Our team presents their work and progress towards the Product Goal. Based on the information, the next steps can be planned.
 
 Sprint Retrospective
 ^^^^^^^^^^^^^^^^^^^^
-This meeting is very important. It is used to plan how to improve the quality and effectiveness of our work. The team
-reviews how the last sprint went in terms of individual team members, interactions, processes, tools and their
-Definition of Done. We discuss, what went well during the Sprint and what didn't, what problems were encountered and how
-they were solved or can be solved.
+This meeting is very important. It is used to plan how to improve the quality and effectiveness of our work. The team reviews how the last sprint went in terms of individual team members, interactions, processes, tools and their Definition of Done. We discuss, what went well during the Sprint and what didn't, what problems were encountered and how they were solved or can be solved.
 
 Milestone Meeting
 ^^^^^^^^^^^^^^^^^
-After each milestone there is a meeting with the Advisor. We present a small demo of our project and show
-the status of the product.
+After each milestone there is a meeting with the Advisor. We present a small demo of our project and show the status of the product.
 
 Meeting Timetable
 ^^^^^^^^^^^^^^^^^
@@ -203,8 +204,7 @@ In the following table one can see how we have scheduled the meetings.
 
 Protocolling
 ^^^^^^^^^^^^
-For each meeting a protocol is created. These record what we discussed in the meeting, what decisions were made and any
-open issues.
+For each meeting a protocol is created. These record what we discussed in the meeting, what decisions were made and any open issues.
 
 Risk Management
 ---------------
@@ -329,8 +329,7 @@ Pylint is the linter used for our project. It can check for logical errors and f
 
 Glade
 -----
-For our graphical user interface (GUI) we use Glade. Glade is a rapid application development tool (RAD) and allows us
-to quickly and easily develop user interfaces for the GTK toolkit
+For our graphical user interface (GUI) we use Glade. Glade is a rapid application development tool (RAD) and allows us to quickly and easily develop user interfaces for the GTK toolkit
 
 GTK
 ---
