@@ -189,7 +189,7 @@ Mitigation
     **Remaining Risk**  Low
     ==================  ===========
 
-Regular refactoring and a strict and rigorous quality control process is hoped to ensure the quality of the software. Besides policies and processes, effective testing should allow us to refactor with more confidence and therefore more often. Furthermore, as mentioned in Complexity_, we will invest into the architecture as we believe that good design and the reduction in complexity will be reflected in the overall quality.
+Regular refactoring and a strict and rigorous quality control process is hoped to ensure the quality of the software. Besides policies and processes, effective testing should allow us to refactor with more confidence and therefore more often. Furthermore, as mentioned in `Reaching the Complexity Ceiling`_, we will invest into the architecture as we believe that good design and the reduction in complexity will be reflected in the overall quality.
 
 Bad User Experience
 """""""""""""""""""

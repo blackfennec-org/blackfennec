@@ -6,7 +6,7 @@ This project does version control using Gitlab according to the git Workflow. Be
 Merge Requests
 **************
 
-There MUST always be two members of the project assigned to a merge request. An assignee who has the competence to merge and a reviewer who both are obligated to check whether the code and its testing coverage lives up to the standards. The Assignee is assigned to the "quality assurance" role, and the reviewer depends on the topic the merge request is about. In this project code mainly regarding UI is assigned to the "user experience" role, any other code to the "architecture" role. Changes solely regarding the documentation are assigned to the "documentation" role.
+There MUST always be two members of the project assigned to a merge request. An assignee who has the competence to merge and a reviewer who both are obligated to check whether the commits fulfill the :doc:`definition_of_done`. The Assignee is assigned to the "quality assurance" role, and the reviewer depends on the topic the merge request is about. In this project code mainly regarding UI is assigned to the "user experience" role, any other code to the "architecture" role. Changes solely regarding the documentation are assigned to the "documentation" role.
 
 Approval
 --------

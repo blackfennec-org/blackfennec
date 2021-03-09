@@ -67,8 +67,8 @@ The following table defines the scope of delivery of the black fennec project.
 | - Project Plan                       | - Core Features          |
 | - Risk Analysis                      | - Core GUI               |
 | - Domain Analysis                    | - Base Extension         |
-| - Architecture Diagram               | - Additional Extensions  |
-| - Package/Class Design               | - Source Code            |
+| - Architecture Diagram               | - Source Code            |
+| - Package/Class Design               |                          |
 | - Code Guidelines                    |                          |
 | - Test Specification/Test Protocol   |                          |
 | - Protocol notes                     |                          |
@@ -85,7 +85,7 @@ Project Organisation
 
 Organisational Structure
 ------------------------
-To manage our project we use scrum roles and additionally assigned competences to each member.
+To manage our project we use Scrum roles and additionally assigned competences to each member. Additionally every member of the team acts as a developer and will contribute code to the project.
 
 ================  ===================================
 Team Members            Competences
@@ -123,10 +123,12 @@ time management will be conducted before each sprint (lasting two weeks).
 Phases
 ^^^^^^
 The phases that exist in our Project are taken from the Rational Unified Process Framework and consist of the Phases:
+
 - Inception
 - Elaboration
 - Construction
 - Transition
+
 These Phases do not have a fix duration in our Setup and are evaluated during the planning of the Scrum Sprints. This means no definite duration will be provided here.
 
 Iterations
@@ -153,10 +155,10 @@ Project Presentation                                             `Milestone: Pro
 
 Meetings
 --------
-During our project, various SCRUM meetings are held. These always take place on the same day, at the same time, so that
+During our project, various Scrum meetings are held. These always take place on the same day, at the same time, so that
 all members can plan and prepare for them in advance.
 
-Daily SCRUM
+Daily Scrum
 ^^^^^^^^^^^
 This meeting will take place on each day that we will work together as a team on the project and will last about 15
 minutes. It is mainly intended for the developers of our team.
@@ -202,9 +204,13 @@ In the following table one can see how we have scheduled the meetings.
  16:00 - 17:00                                             Sprint Retrospective
 =====================  =================================  =======================  ========================
 
+Each Sprint consists of two weeks of time but is spread over 3 weeks. A new iteration starts at midday and ends two weeks later before a potential milestone meeting. This accommodates working on weekdays before friday.
+
+The Daily Scrum meetings are held twice a day in the middle week to ensure productivity and resolve potential issues faster.
+
 Protocolling
 ^^^^^^^^^^^^
-For each meeting a protocol is created. These record what we discussed in the meeting, what decisions were made and any open issues.
+For each meeting a protocol is created. These record what we discussed in the meeting, what decisions were made and any open issues. They are represented by Gitlab issues which also allow time tracking.
 
 Risk Management
 ---------------
@@ -220,7 +226,7 @@ Risk Analysis
 A list of all identified risks can be found in the document :doc:`risk_analysis`. The most important findings as of the writing of this document are listed below.
 
 Complexity
-  The mitigation strategy is effective but the issue must be reevaluated regularly to intervene in time if it could get out of hand.
+  The mitigation strategy is effective but the issue must be reevaluated regularly to proactively intervene in a timely manner.
 
 User Experience
   We dedicate a member of the team to the issue. However, the remaining risk is still significant and we will collectively keep an eye on it.
@@ -229,11 +235,11 @@ Quality Assurance
 ------------------
 To assure the required quality in this project many different strategies are followed which are elaborated in this chapter.
 
-The basis of our quality assurance is the use of frequently built in meetings in our daily workflow. How these are scheduled is contained in a table in the chapter :ref:`Meetings`. These meetings according to Scrum principles help ensuring quality and efficiency.
+The basis of our quality assurance is the use of frequently built in meetings in our daily workflow. How these are scheduled is contained in the `Meetings Timetable`_. These meetings according to the Scrum principles help to ensure quality and efficiency.
 
 Produced Artifacts
 ^^^^^^^^^^^^^^^^^^
-All created artifacts of this project are contained within the project Gitlab repository to which any associated persons have access. This ensures that of every file a detailed change history is available. For a detailed elaboration on our Version Control Strategy a dedicated file :doc:`version_control_strategy` exists.
+All created artifacts of this project are contained within the project Gitlab repository to which any associated person has access. This ensures that of every file a detailed change history is available. For a detailed elaboration on our Version Control Strategy a dedicated document :doc:`version_control_strategy` exists.
 
 Documentation
 ^^^^^^^^^^^^^
@@ -241,7 +247,7 @@ Our documentation is written in the Markdown-flavour RestructuredText and is ver
 
 Project Management
 ^^^^^^^^^^^^^^^^^^
-Project Management is done with Gitlab as well. The Issue-Boards are used in this project to represent our different steps an issue can undergo. The ordering in the lists show the importance of each issue. The higher up an issue is, the higher is its importance. The issues created can be assigned to members of the team and to the milestone that they belong to. To know which to which sprint an issue is associated with, dedicated Sprint labels are created at the start of a sprint.
+Project Management is done with Gitlab as well. The Issue-Boards are used in this project to represent our different steps an issue can undergo. The ordering in the lists show the importance of each issue. The higher up an issue is, the higher is its importance. The issues created can be assigned to members of the team and to the milestone that they belong to. To know to which sprint an issue is associated with, dedicated Sprint labels are created at the start of a sprint.
 
 The different steps an issue can undergo are described in the following table.
 
@@ -257,6 +263,7 @@ Resolved          When an issue is resolved, this means that it adheres to the :
 Open              The Open Issue list is not used in our project as open issues tend to reside in dedicated lists.
 Closed            When an feature was successfully merged its issues move to the list closed where all past issues reside.
 ================  ====================
+
 Development
 ^^^^^^^^^^^
 
@@ -325,7 +332,7 @@ As our testing framework we use pytest that allows easy to write unit tests but 
 
 PyLint
 ------
-Pylint is the linter used for our project. It can check for logical errors and formatting. The formatting guidelines used are close to the PEP 8 but differ in minor aspects. A plugin for an easy integration with the IDE PyCharm exists and is used.
+Pylint is the linter used for our project. It can check for logical errors and formatting. The formatting guidelines used are close to the PEP 8 but differs in minor aspects. A plugin for an easy integration with the IDE PyCharm exists and is used.
 
 Glade
 -----
