@@ -11,10 +11,20 @@ Welcome to Black Fennec's documentation!
    :caption: Project Management
    :numbered:
 
-   project_management/definition_of_done.rst
    project_management/project_proposal.rst
    project_management/project_plan.rst
+   project_management/risk_analysis.rst
 
+.. toctree::
+   :maxdepth: 2
+   :caption: Project Standards
+   :numbered:
+
+   project_standards/quality_assurance.rst
+   project_standards/definition_of_done.rst
+   project_standards/logging_standards.rst
+   project_standards/version_control_strategy.rst
+   project_standards/definition_of_scrum.rst
 
 
 Indices and tables
