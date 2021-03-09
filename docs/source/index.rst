@@ -20,6 +20,7 @@ Welcome to Black Fennec's documentation!
    :caption: Project Standards
    :numbered:
 
+   project_standards/quality_assurance.rst
    project_standards/definition_of_done.rst
    project_standards/logging_standards.rst
    project_standards/version_control_strategy.rst
