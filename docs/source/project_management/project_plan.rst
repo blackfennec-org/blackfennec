@@ -52,7 +52,7 @@ extended period of time. Therefore the quality of our architecture is of utmost 
 We will use Black Fennec mainly as a data editing and visualisation tool that allows us to collaborate.
 
 Our hopes are that the project will inspire a community to develop extensions and find use cases that we currently cant even
-envision. For this we intend to release our sourcecode into the public domain.
+envision. For this we intend to release our source code into the public domain.
 
 To address our personal goals, we intend to utilise and reinforce the knowledge gained during our studies.
 Simultaneously we hope to learn many new principles and patterns.
@@ -151,7 +151,7 @@ R3: End of Elaboration & Architecture Prototype (Elaboration)    `Milestone: End
 R4: Architecture (Construction)                                  `Milestone: Architecture <https://gitlab.ost.ch/epj/2021-FS/g01_blackfennec/black-fennec/-/milestones/4>`_
 R5: Q-Review (Transition)                                        `Milestone: Q-Review <https://gitlab.ost.ch/epj/2021-FS/g01_blackfennec/black-fennec/-/milestones/5>`_
 Final Submission                                                 `Milestone: Final Submission <https://gitlab.ost.ch/epj/2021-FS/g01_blackfennec/black-fennec/-/milestones/6>`_
-Project Presentation                                             `Milestone: Proect Presentation <https://gitlab.ost.ch/epj/2021-FS/g01_blackfennec/black-fennec/-/milestones/7>`_
+Project Presentation                                             `Milestone: Project Presentation <https://gitlab.ost.ch/epj/2021-FS/g01_blackfennec/black-fennec/-/milestones/7>`_
 ===============================================================  ==============================================================
 
 Meetings
@@ -240,7 +240,7 @@ Roles             These issues represent different roles in which administrative
 Draft             The drafted issues are in a pre-stage before making it into the backlog. Here any member can enter ideas that come up during sprints and are then evaluated by the Product Owner
 Backlog           Only the Product Owner is allowed to define the Backlog. Here Definite Tasks that are going to be implemented are listed.
 Sprint Backlog    This Column is the Backlog for the Sprint and requires the items to be actual user-stories and on a Work-item level so that one person can be assigned to this task.
-In Progress       In this list are issues that are in progress in the momentaneous sprint.
+In Progress       In this list are issues that are in progress in the current sprint.
 Resolved          When an issue is resolved, this means that it adheres to the :doc:`/project_standards/definition_of_done` but was not merged yet.
 Open              The Open Issue list is not used in our project as open issues tend to reside in dedicated lists.
 Closed            When an feature was successfully merged its issues move to the list closed where all past issues reside.
@@ -286,7 +286,7 @@ Unit tests are done with the pytest framework in our project. We value test-driv
 Integration Testing
 ~~~~~~~~~~~~~~~~~~~
 
-Integration Tests are done in the PyTest framework aswell. They reside in separate files with an \"_integration\" addition to their filename.
+Integration Tests are done in the PyTest framework as well. They reside in separate files with an \"_integration\" addition to their filename.
 
 System Tests
 ~~~~~~~~~~~~
