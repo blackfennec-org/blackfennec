@@ -23,6 +23,7 @@ Welcome to Black Fennec's documentation!
    project_standards/definition_of_done.rst
    project_standards/logging_standards.rst
    project_standards/version_control_strategy.rst
+   project_standards/definition_of_scrum.rst
 
 
 Indices and tables

@@ -20,19 +20,20 @@ References
 ----------
 In the table below you can find the links to the important documents in the repository.
 
-+--------------------------+---------------------------------+
-| **Document**             | **Reference**                   |
-+--------------------------+---------------------------------+
-| Project Proposal         | :doc:`project_proposal`         |
-+--------------------------+---------------------------------+
-| Risk Analysis            | :doc:`risk_analysis`            |
-+--------------------------+---------------------------------+
-| Definition of Done       | :doc:`definition_of_done`       |
-+--------------------------+---------------------------------+
-| Logging Standards        | :doc:`logging_standards`        |
-+--------------------------+---------------------------------+
-| Version Control Strategy | :doc:`version_control_strategy` |
-+--------------------------+---------------------------------+
+.. table::
+  :align: left
+  :widths: auto
+
+  =========================  =============
+  **Document**               **Reference**
+  =========================  =============                   
+  Project Proposal           :doc:`project_proposal`
+  Risk Analysis              :doc:`risk_analysis`
+  Definition of done         :doc:`/project_standards/definition_of_done`
+  Logging Standards          :doc:`/project_standards//logging_standards`
+  Version Control Strategy   :doc:`/project_standards//version_control_strategy`
+  Version Control Strategy   :doc:`/project_standards//definition_of_scrum`
+  =========================  =============
 
 Project Overview
 ****************
@@ -155,43 +156,15 @@ Project Presentation                                             `Milestone: Pro
 
 Meetings
 --------
-During our project, various Scrum meetings are held. These always take place on the same day, at the same time, so that
-all members can plan and prepare for them in advance.
+During our project, various Scrum meetings are held. These always take place on the same day, at the same time, so that all members can plan and prepare for them in advance. The definition and scope of the meetings is documented in our :doc:`/project_standards/definition_of_scrum`.
 
-Daily Scrum
-^^^^^^^^^^^
-This meeting will take place on each day that we will work together as a team on the project and will last about 15
-minutes. It is mainly intended for the developers of our team.
-During the meeting the progress towards the Sprint Goal will be reviewed. If necessary, the Sprint Backlog and the
-planned work can be adjusted.
 
-Sprint Planning
-^^^^^^^^^^^^^^^
-This meeting is used to plan a new sprint and takes place as soon as a Sprint has been completed.
-
-Three main Questions are discussed in this meeting. These include defining a new Sprint Goal, which items from the
-Product Backlog should be included in the upcoming Sprint and how an increment that meets the Definition of Done can be created.
-
-Sprint Review
-^^^^^^^^^^^^^
-During this meeting, the result of the Sprint is reviewed and adjustments are made.
-
-Our team presents their work and progress towards the Product Goal. Based on the information, the next steps can be planned.
-
-Sprint Retrospective
-^^^^^^^^^^^^^^^^^^^^
-This meeting is very important. It is used to plan how to improve the quality and effectiveness of our work. The team reviews how the last sprint went in terms of individual team members, interactions, processes, tools and their Definition of Done. We discuss, what went well during the Sprint and what didn't, what problems were encountered and how they were solved or can be solved.
-
-Milestone Meeting
-^^^^^^^^^^^^^^^^^
-After each milestone there is a meeting with the Advisor. We present a small demo of our project and show the status of the product.
-
-Meeting Timetable
-^^^^^^^^^^^^^^^^^
+Meetings Timetable
+^^^^^^^^^^^^^^^^^^
 In the following table one can see how we have scheduled the meetings.
 
 =====================  =================================  =======================  ========================
- Meeting Timetable     | Friday 1                         | Friday 2               | Friday 3
+ Meetings Timetable     | Friday 1                         | Friday 2               | Friday 3
 =====================  =================================  =======================  ========================
  08:00 - 09:00          Daily Scrum                        Daily Scrum              Daily Scrum
  09:00 - 10:00
@@ -239,11 +212,11 @@ The basis of our quality assurance is the use of frequently built in meetings in
 
 Produced Artifacts
 ^^^^^^^^^^^^^^^^^^
-All created artifacts of this project are contained within the project Gitlab repository to which any associated person has access. This ensures that of every file a detailed change history is available. For a detailed elaboration on our Version Control Strategy a dedicated document :doc:`version_control_strategy` exists.
+All created artifacts of this project are contained within the project Gitlab repository to which any associated person has access. This ensures that of every file a detailed change history is available. For a detailed elaboration on our Version Control Strategy a dedicated document :doc:`/project_standards/version_control_strategy` exists.
 
 Documentation
 ^^^^^^^^^^^^^
-Our documentation is written in the Markdown-flavour RestructuredText and is version controlled in Gitlab. The generation and provision of the Documentation is automated through a CI-Pipeline task and is automatically built when attaching a tag to a commit. The documentation also is a project artifact and therefore also falls under the :doc:`version_control_strategy`.
+Our documentation is written in the Markdown-flavour RestructuredText and is version controlled in Gitlab. The generation and provision of the Documentation is automated through a CI-Pipeline task and is automatically built when attaching a tag to a commit. The documentation also is a project artifact and therefore also falls under the :doc:`/project_standards/version_control_strategy`.
 
 Project Management
 ^^^^^^^^^^^^^^^^^^
@@ -259,7 +232,7 @@ Draft             The drafted issues are in a pre-stage before making it into th
 Backlog           Only the Product Owner is allowed to define the Backlog. Here Definite Tasks that are going to be implemented are listed.
 Sprint Backlog    This Column is the Backlog for the Sprint and requires the items to be actual user-stories and on a Work-item level so that one person can be assigned to this task.
 In Progress       In this list are issues that are in progress in the momentaneous sprint.
-Resolved          When an issue is resolved, this means that it adheres to the :doc:`definition_of_done` but was not merged yet.
+Resolved          When an issue is resolved, this means that it adheres to the :doc:`/project_standards/definition_of_done` but was not merged yet.
 Open              The Open Issue list is not used in our project as open issues tend to reside in dedicated lists.
 Closed            When an feature was successfully merged its issues move to the list closed where all past issues reside.
 ================  ====================
@@ -270,7 +243,7 @@ Development
 Procedure
 ~~~~~~~~~
 
-As previously mentioned all our artifacts including our code is contained in Gitlab. For any versioning specific practices one can look into the file :doc:`version_control_strategy`. In there the handling of merge requests is explained. This ensures a dual control principle regarding not only logic errors but also formatting and code style.
+As previously mentioned all our artifacts including our code is contained in Gitlab. For any versioning specific practices one can look into the file :doc:`/project_standards/version_control_strategy`. In there the handling of merge requests is explained. This ensures a dual control principle regarding not only logic errors but also formatting and code style.
 
 Additionally to the dual control principle our Gitlab pipelines have built in execution for testing and linting.
 
