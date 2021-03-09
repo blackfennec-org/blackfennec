@@ -63,11 +63,11 @@ The following table defines the scope of delivery of the black fennec project.
 +--------------------------------------+--------------------------+
 | Documentation                        | Product                  |
 +--------------------------------------+--------------------------+
-| - Project Proposal                   | - Core Product           |
-| - Project Plan                       | - Core Features          |
-| - Risk Analysis                      | - Core GUI               |
-| - Domain Analysis                    | - Base Extension         |
-| - Architecture Diagram               | - Source Code            |
+| - Project Proposal                   | - Software build         |
+| - Project Plan                       | - Source Code            |
+| - Risk Analysis                      | - Product Demonstration  |
+| - Domain Analysis                    |                          |
+| - Architecture Diagram               |                          |
 | - Package/Class Design               |                          |
 | - Code Guidelines                    |                          |
 | - Test Specification/Test Protocol   |                          |
@@ -244,6 +244,15 @@ All created artifacts of this project are contained within the project Gitlab re
 Documentation
 ^^^^^^^^^^^^^
 Our documentation is written in the Markdown-flavour RestructuredText and is version controlled in Gitlab. The generation and provision of the Documentation is automated through a CI-Pipeline task and is automatically built when attaching a tag to a commit. The documentation also is a project artifact and therefore also falls under the :doc:`version_control_strategy`.
+
+Documentation Guidelines
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+The documentation has to be kept up to date at all times. This means that with ever merge request the developer has to check whether the components he changed or added are accordingly featured in the documentation.
+
+The Language used in the documentation of this project is english. Created it is with the Sphinx framework and RestructuredText. Before a commit the developer has to build the document on his local system to ensure the build passes successfully. For this a makefile is provided which can be executed with make docs.
+
+The documentation is written with the form follows function principle in mind. The software as a product is the main goal of this project and a functional documentation can be written more efficiently.
 
 Project Management
 ^^^^^^^^^^^^^^^^^^
