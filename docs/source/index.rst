@@ -26,6 +26,13 @@ Welcome to Black Fennec's documentation!
    project_standards/version_control_strategy.rst
    project_standards/definition_of_scrum.rst
 
+.. toctree::
+   :maxdepth: 2
+   :caption: Time Management
+   :numbered:
+
+   time_management/time_tracking.rst
+
 
 Indices and tables
 ==================
