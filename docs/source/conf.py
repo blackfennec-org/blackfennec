@@ -17,14 +17,12 @@
 
 # -- Project information -----------------------------------------------------
 
-PROJECT = 'Black Fennec'
-COPYRIGHT = '2021, Simon Kindhauser, Caspar Martens,' \
-            'Lara Gubler, Leonie Däullary'
-AUTHOR = 'Simon Kindhauser, Caspar Martens, ' \
-         'Lara Gubler, Leonie Däullary'
+project = 'Black Fennec'
+copyright = '2021, Simon Kindhauser, Caspar Martens, Lara Gubler, Leonie Däullary'
+author = 'Simon Kindhauser, Caspar Martens, Lara Gubler, Leonie Däullary'
 
 # The full version, including alpha/beta/rc tags
-RELEASE = '0.1.1'
+release = '0.0.0'
 
 
 # -- General configuration ---------------------------------------------------
@@ -49,7 +47,7 @@ exclude_patterns = []
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-HTML_THEME = 'alabaster'
+html_theme = 'alabaster'
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
@@ -59,5 +57,5 @@ html_static_path = ['_static']
 # These paths are either relative to html_static_path
 # or fully qualified paths (eg. https://...)
 html_css_files = [
-    'css/black-fennec.css',
+    'css/black_fennec.css',
 ]
