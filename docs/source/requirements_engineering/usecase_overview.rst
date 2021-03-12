@@ -7,27 +7,51 @@ UseCase Overview
     @startuml
     left to right direction
 
-    actor User as u
-    actor Developer as d
-    package "Black Fennec" {
-      usecase "Load File" as LoadFile
-      usecase "Edit File" as EditFile
-      usecase "Save File" as SaveFile
-      usecase "Import File" as ImportFile
-      package "git" {
-        usecase "Select File" as SelectFile
-        usecase "Pull File" as PullFile
-        usecase "Commit File" as CommitFile
-        usecase "Push File" as PushFile
-      }
-
+    skinparam usecase {
+      BackgroundColor White
+      BorderColor Black
+      ArrowColor Black
+      ActorBackgroundColor Blue
+      ActorBorderColor Pink
     }
-    u --> LoadFile
-    u --> EditFile
-    u --> SaveFile
-    u --> ImportFile
-    u --> SelectFile
-    u --> CommitFile
-    u --> PullFile
-    u --> PushFile
+
+    actor Matthew as m
+    note left of m : Web Dev, Easy of Use
+
+    actor Katja as k
+    note left of k : Prof. Data Analytics, Visualisation
+
+    actor Sun as s
+    note left of s : Secruty Specialist, OSINT
+
+    actor Alan as a
+    note left of a : Extension Dev., Flexibility
+
+    package "Black Fennec" {
+      usecase "Open Project" as open
+      usecase "See interpreted Data" as InterpretedData
+      usecase "Best available Representation" as bestfit
+      usecase "Save Changes" as save
+      usecase "Collaborate with Others" as collab
+      usecase "Import Data into Project" as import
+      usecase "Edit Data" as edit
+      usecase "Manage Extensions" as ManExt
+      usecase "Find Structure" as search
+      usecase "Automate Task" as actions
+    }
+    package "Extension" {
+      usecase "Develop Extension" as DevelopExtension
+      usecase "Publish Extension" as PublishExtension
+      usecase "Interact with Black Fennec" as InteractWBF
+    }
+
+    k --> collab
+    s --> actions
+    a --> ManExt
+    k --> search
+
+
+    a --> DevelopExtension
+    a --> PublishExtension
+    a --> InteractWBF
     @enduml
