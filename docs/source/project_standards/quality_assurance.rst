@@ -48,7 +48,7 @@ Additionally to the dual control principle our Gitlab pipelines have built in ex
 
 Code Style Guidelines
 ^^^^^^^^^^^^^^^^^^^^^
-To support well-formatted coding, every team member is required to install pylint, a linting tool that not only can  enforce Coding Standards according to Pythons PEP8 style guide but also features an error detection and refactoring help. Additionally a pipeline task that includes pylint checking is included in the ci on Gitlab. This task is allowed to fail, since pylint will will fail with an error code even when only having recognized a warning. But it is intended to update the pylintrc configuration file to exclude warning generating rules, if the whole team approves.
+To support well-formatted coding, every team member is required to install pylint, a linting tool that not only can  enforce Coding Standards according to Pythons PEP8 style guide but also features an error detection and refactoring help. Additionally a pipeline task that includes pylint checking is included in the ci on Gitlab. A Script is used to convert the pylint error codes into a rating, preventing the task to fail from notices other than errors. The .pylintrc file is copied from the `Google Styleguide <https://github.com/google/styleguide/blob/gh-pages/pyguide.md>`_. But it is intended to update the pylintrc configuration file to exclude warning generating rules, if the whole team approves.
 
 Code Reviews
 ^^^^^^^^^^^^
