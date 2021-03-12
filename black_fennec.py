@@ -1,18 +1,20 @@
-import gi
-gi.require_version('Gtk', '3.0')
-from gi.repository import Gtk
-
 import logging
+import gi
+from gi.repository import Gtk
+from src.black_fennec_view import BlackFennecView
+
+gi.require_version("Gtk", "3.0")
+
 logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
 
-from src.black_fennec_view import BlackFennecView
 
 class BlackFennec(Gtk.Application):
     def __init__(self):
         super().__init__(
             application_id="org.darwin.blackfennec")
         logger.info("BlackFennec __init__")
+        self._window = None
 
     def do_startup(self):
         logger.info("BlackFennec do_startup")
@@ -24,6 +26,6 @@ class BlackFennec(Gtk.Application):
         self._window.present()
 
 
-if __name__ == '__main__':
-    black_fennec = BlackFennec()    
+if __name__ == "__main__":
+    black_fennec = BlackFennec()
     black_fennec.run()
