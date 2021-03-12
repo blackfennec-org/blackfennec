@@ -28,6 +28,13 @@ Welcome to Black Fennec's documentation!
 
 .. toctree::
    :maxdepth: 2
+   :caption: Requirements Engineering
+   :numbered:
+
+   requirements_engineering/usecase_overview.rst
+
+.. toctree::
+   :maxdepth: 2
    :caption: Time Management
    :numbered:
 
