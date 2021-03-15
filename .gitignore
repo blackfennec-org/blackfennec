@@ -6,3 +6,4 @@ docs/source/_build/
 .coverage
 *.glade~
 __pycache__/
+pylint/
