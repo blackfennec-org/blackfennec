@@ -32,6 +32,7 @@ Welcome to Black Fennec's documentation!
    :numbered:
 
    requirements_engineering/usecase_overview.rst
+   requirements_engineering/non_functional.rst
 
 .. toctree::
    :maxdepth: 2
