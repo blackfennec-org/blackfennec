@@ -134,22 +134,44 @@ Fast Starter
 **Title (ID)**   Application-Start
 **Scenario**     A user wants to work with the application
 **Stimulus**     A user opens the application
-**Expectation**  The application starts within 500ms of clicking the icon on a consumer laptop (intel i5 8th gen + 8gb ram) IF no additional extensions are installed. A loading screen shows the status of the application to the user.
-**Measure**      Operations that take a long time are done after the start of the application.
+**Expectation**  A loading screen shows the status of the application to the user. As soon as the preparatory tasks are done, the main window opens. Operations that take a long time are done after the start of the application.
+**Measure**      The application starts within 500ms of clicking the icon on a consumer laptop (intel i5 8th gen + 8gb ram) IF no additional extensions are installed.
 ===============  ==================
 
 The application starts within 500ms of clicking the icon on a consumer laptop (intel i5 8th gen + 8gb ram). The display of a loading screen suffices to satisfy this requirement IFF updated status information is provided to the user. 
 
 Loading Projects
 ~~~~~~~~~~~~~~~~
+===============  ==================
+**Title (ID)**   Project-Loading
+**Scenario**     A user wants to enter data or visualise a file
+**Stimulus**     A file is loaded by the user
+**Expectation**  The file opens and the data is displayed in the first meaningful view.
+**Measure**      With a medium sized file (500 MB) it should take no more than 800ms if the reference implementation of the presenter is used.
+===============  ==================
 Loading a medium sized project (TBA) takes no more the 800ms before the reference implementation of the presenter can display the first meaningful view.
 
 Quick Save
 ~~~~~~~~~~
+===============  ==================
+**Title (ID)**   Project-Saving
+**Scenario**     A user wants to save the changes made to a file locally
+**Stimulus**     The user triggers the save option
+**Expectation**  The changed data is saved into the currently open file.
+**Measure**      Saving a medium sized project with X (TBA) changes takes no longer than 1000ms.
+===============  ==================
 Saving a medium sized project with X (TBA) changes takes no longer than 1000ms.
 
 Flash Decision
 ~~~~~~~~~~~~~~
+===============  ==================
+**Title (ID)**   Type-Selection
+**Scenario**     A user has data that can be interpreted in multiple ways
+**Stimulus**     The user selects a type for the visualised data
+**Expectation**  The visualisation changes to show the selected type
+**Measure**      With a core data-type it should take no more than 150ms. More advanced types such as lists take no more than 300ms
+===============  ==================
+
 Selecting the type for a structure takes no more then 200ms.
 
 Resource Utilisation
@@ -158,6 +180,13 @@ Capacity
 ^^^^^^^^
 Heavy Lifter
 ~~~~~~~~~~~~
+===============  ==================
+**Title (ID)**   Project-Loading-Limits
+**Scenario**     A user wants to enter data or visualise a file of large extent
+**Stimulus**     A large file is loaded by the user
+**Expectation**  The file opens and the data is displayed in the first meaningful view.
+**Measure**      With a large sized file (1 GB) it should be possible to open it in TBA if the reference implementation of the presenter is used.
+===============  ==================
 The application can open projects of at least 1GB of raw data (excluding binary data like images and videos).
 
 Compatibility
