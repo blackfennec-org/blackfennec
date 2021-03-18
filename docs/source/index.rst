@@ -21,6 +21,7 @@ Welcome to Black Fennec's documentation!
    :numbered:
 
    type_system/selection_process.rst
+   type_system/interpretation_abstraction.rst
 
 .. toctree::
    :maxdepth: 2
@@ -29,6 +30,9 @@ Welcome to Black Fennec's documentation!
 
    extensions/index.rst
    extensions/type_extension.rst
+   extensions/action_extension.rst
+   extensions/presenter_extension.rst
+   extensions/extension_api.rst
 
 
 Indices and tables

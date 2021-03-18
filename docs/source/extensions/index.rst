@@ -82,21 +82,27 @@ Three conceptual types of extensions are currently planned. Any given extension 
 
 Type Extension
 """"""""""""""
-More can be read in the document :doc:`type_extension`
+Main document: :doc:`type_extension`
 
 Type extensions are expected to be the most common type of extension. They enrich the object model with an additional type and its visualisation.
 
 
 Action Extension
 """"""""""""""""
-An action extensions is capable of adding actions to the system. An action is performed in the context of an object (instance of a type) and can - and usually does - effect the structure data. Actions therefore depend on types.
+Main document: :doc:`action_extension`
+
+An action extensions is capable of adding actions to the system. An action is performed in the context of an object (instance of a type) and can - and usually does - effect the data structure. Actions therefore depend on types.
 
 Presenter Extension
 """""""""""""""""""
+Main document: :doc:`presenter_extension`
+
 Presenter extensions have some control over the visualisation of the data. They are however confined to a window [#]_ and have very limited control (size and position) over the visualisation of types as this is provided by the types themselves.
 
 Extension Api
 """""""""""""
+Main document: :doc:`extension_api`
+
 To integrate extensions into the flow of Black Fennec, the extension api is injected at load time. This interface allows extensions to register themselves to hooks and into registries. Extensions are not treated differently, regardless of their conceptual type.
 
 

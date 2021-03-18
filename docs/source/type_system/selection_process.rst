@@ -1,6 +1,6 @@
 Selection Process
 =================
-The selection process solves the problem of composing what is considered the best interpretation_ of the underlying data. We sometimes refer to this process as an auction_. The exact implementation is subject to change and this document will cover the subject in general terms.
+The selection process solves the problem of composing what is considered the best interpretation_ of the underlying data. We sometimes refer to this process as an auction_. The exact implementation is subject to change and this document will cover the topic in general terms.
 
 Problem Statement
 """""""""""""""""
@@ -8,7 +8,7 @@ For reasons that don't concern, we want to find the best interpretation_ of the 
 
 Conceptual Solution
 """""""""""""""""""
-Conceptually speaking - meaning that this does not necessarily reflect the implementation to closely - all registered types are asked to produce a score or a bidding_ on how good they can represent the data structure. From the result of this process we decide which type will be the officially best interpretation of the data structure.
+Conceptually speaking - meaning that this does not necessarily reflect the implementation - all registered types are asked to produce a score or a bidding_ on how good they can represent the data structure. From the result of this process we decide which type will officially be the best interpretation of the data structure. The simplest possible implementation of this process would implement the score as a boolean and select the only type that scores `true`.
 
 
 Glossary
@@ -16,7 +16,7 @@ Glossary
 .. _interpretation:
 
 interpretation
-  In the context of this document an interpretation is understood to be the visual representation of the data structure.
+  In the context of this document an interpretation is understood to be the visual representation of the data structure. The document :doc:`interpretation_abstraction` covers this concept.
 
 .. _type registry:
 
