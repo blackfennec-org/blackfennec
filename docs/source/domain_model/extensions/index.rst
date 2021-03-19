@@ -1,5 +1,8 @@
+.. _definition_extension:
+
 Extensions
 ==========
+
 The capability and usability of Black Fennec is largely dependent on the available extensions. We take the division of responsibilities and the design of the interfaces serious and strive for stability and compatibility. That being said, this document and the definitions it contains are at this stage very much a work in progress and subject to change.
 
 Three conceptual types of extensions are currently planned. Any given extension however, can include multiple of these conceptual types as well as multiple conceptual extensions of the same type.
@@ -81,29 +84,28 @@ Three conceptual types of extensions are currently planned. Any given extension 
     @endsalt
 
 Type Extension
-""""""""""""""
-Main document: :doc:`type_extension`
-
-Type extensions are expected to be the most common type of extension. They enrich the object model with an additional type and its visualisation.
+    :doc:`Type extensions <type_extension>` are expected to be the most common type of extension. They enrich the object model with an additional type and its visualisation.
 
 
 Action Extension
-""""""""""""""""
-Main document: :doc:`action_extension`
-
-An action extensions is capable of adding actions to the system. An action is performed in the context of an object (instance of a type) and can - and usually does - effect the data structure. Actions therefore depend on types.
+    :doc:`Action extensions <action_extension>` are capable of adding actions to the system. An action is performed in the context of an object (instance of a type) and can - and usually does - effect the data structure. Actions therefore depend on types.
 
 Presenter Extension
-"""""""""""""""""""
-Main document: :doc:`presenter_extension`
+    Main document: :doc:`Presenter extensions <presenter_extension>`
 
-Presenter extensions have some control over the visualisation of the data. They are however confined to a window [#]_ and have very limited control (size and position) over the visualisation of types as this is provided by the types themselves.
+    :doc:`Presenter extensions <presenter_extension>` have some control over the visualisation of the data. They are however confined to a window [#]_ and have very limited control (size and position) over the visualisation of types as this is provided by the types themselves.
 
 Extension Api
-"""""""""""""
-Main document: :doc:`extension_api`
+    To integrate extensions into the flow of Black Fennec, the :doc:`extension api <extension_api>` is injected at load time. This interface allows extensions to register themselves to hooks and into registries. Extensions are not treated differently, regardless of their conceptual type.
 
-To integrate extensions into the flow of Black Fennec, the extension api is injected at load time. This interface allows extensions to register themselves to hooks and into registries. Extensions are not treated differently, regardless of their conceptual type.
 
+.. toctree::
+    :caption: Subpages
+    :maxdepth: 2
+
+    extension_api
+    type_extension
+    action_extension
+    presenter_extension
 
 .. [#] Window: A rectangular are of the screen.

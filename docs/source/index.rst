@@ -7,7 +7,7 @@ Welcome to Black Fennec's documentation!
 ========================================
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
    :caption: Project Management
    :numbered:
 
@@ -16,23 +16,11 @@ Welcome to Black Fennec's documentation!
    project_management/project_plan.rst
 
 .. toctree::
-   :maxdepth: 2
-   :caption: Type System
+   :maxdepth: 3
+   :caption: The Domain
    :numbered:
 
-   type_system/selection_process.rst
-   type_system/interpretation_abstraction.rst
-
-.. toctree::
-   :maxdepth: 2
-   :caption: Extensions
-   :numbered:
-
-   extensions/index.rst
-   extensions/type_extension.rst
-   extensions/action_extension.rst
-   extensions/presenter_extension.rst
-   extensions/extension_api.rst
+   domain_model/index
 
 
 Indices and tables

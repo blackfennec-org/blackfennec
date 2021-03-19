@@ -1,3 +1,6 @@
+.. _presenter:
+.. _definition_presenter:
+
 Presenter Extension
 ===================
 The presenter extension (a.k.a Info Presenter Extension) is responsible for displaying and positioning all Info Views as described in :doc:`type_extension` as well as making Actions as described in :doc:`action_extension` available to the user. Presenters have few restrictions and will be given a rectangular area for rendering.

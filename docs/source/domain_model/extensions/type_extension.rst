@@ -39,6 +39,7 @@ A type extension defines and adds a new type to the object model. For this new t
     @enduml
 
 .. _info_view:
+.. _definition_info_view:
 
 Info View
 """""""""
@@ -48,11 +49,11 @@ This component is responsible for displaying the defined type adequately. For ex
 
 Info View Factory
 """""""""""""""""
-The construction of an InfoView might be complicated. The information is expected to be encapsulated in a Creator [#]_. The creator must be registered via the extension api and is used by Black Fennec to instantiate Info Views when needed. The :doc:`/type_system/interpretation_abstraction` provides more details on this process.
+The construction of an InfoView might be complicated. The information is expected to be encapsulated in a Creator [#]_. The creator must be registered via the extension api and is used by Black Fennec to instantiate Info Views when needed. The document on :ref:`interpretation <definition_interpretation>` provides more details on this process.
 
 Bidder
 """"""
-For an overview of the selection process see :doc:`/type_system/selection_process`
+For an overview of the selection process click :ref:`here <definition_selection_process>`
 
 The bidders job is to evaluate how good - if at all - the associated type is able to represent a given data structure. The result is forwarded to the auctioneer as the bid of this type. If the bid wins the auction it is to be expected that the InfoView will be visualised in due time.
 
