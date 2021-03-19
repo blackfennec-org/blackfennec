@@ -71,7 +71,6 @@ The application is well tested. This includes unit tests, integration test, syst
 
 Completeness
 ~~~~~~~~~~~~
-
 ===============  ==================
 **Title (ID)**   Requirements-Fulfillment
 **Scenario**     The Application is used by the client (Team/PO)
@@ -89,7 +88,6 @@ Availability
 
 Internet Dependence
 ~~~~~~~~~~~~~~~~~~~
-
 ===============  ==================
 **Title (ID)**   Internet-Dependence
 **Scenario**     A user is using the application
@@ -159,6 +157,7 @@ Loading Projects
 **Measure**      Only first meaningful view displayed, succeeding operations done afterwards.
 **Criteria**     With a medium sized file (500 MB) it should take no more than 800ms if the reference implementation of the presenter is used.
 ===============  ==================
+
 Loading a medium sized project (TBA) takes no more the 800ms before the reference implementation of the presenter can display the first meaningful view.
 
 Quick Save
@@ -171,6 +170,7 @@ Quick Save
 **Measure**      Efficient JSON serialisation with dedicated library.
 **Criteria**     Saving a medium sized project with X (TBA) changes takes no longer than 3000ms.
 ===============  ==================
+
 Saving a medium sized project with X (TBA) changes takes no longer than 3000ms.
 
 Flash Decision
@@ -200,6 +200,7 @@ Heavy Lifter
 **Measure**      Large operations done after showing the first meaningful view. A loading screen also counts as meaningful view.
 **Criteria**     With a large sized file (1 GB) it should be possible to open it in 5000ms if the reference implementation of the presenter is used.
 ===============  ==================
+
 The application can open projects of at least 1GB of raw data (excluding binary data like images and videos).
 
 Compatibility
@@ -238,6 +239,7 @@ Json as a Service
 **Measure**      Mechanism to interpret imported project data
 **Criteria**     Setting of exported project compatible with version of importing application are respected.
 ===============  ==================
+
 Projects can be exported and imported to and from JSON files.
 
 Interoperability
@@ -245,7 +247,6 @@ Interoperability
 
 Work in External Structure
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
-
 ===============  ==================
 **Title (ID)**   No-Project-Context
 **Scenario**     A user wants view/edit file in external directory
@@ -257,7 +258,6 @@ Work in External Structure
 
 Work with files of External Structure
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
 ===============  ==================
 **Title (ID)**   Json-Import
 **Scenario**     A user wants share files with other users that are encapsulated in directory used by others
@@ -296,7 +296,6 @@ The application is appropriate when collecting data from various sources.
 
 Data Visualisation
 ~~~~~~~~~~~~~~~~~~
-
 ===============  ==================
 **Title (ID)**   Data-Visualisation
 **Scenario**     A user wants to look at interconnected data
@@ -312,7 +311,6 @@ Learnability
 ^^^^^^^^^^^^
 Just Like an Apple
 ~~~~~~~~~~~~~~~~~~
-
 ===============  ==================
 **Title (ID)**   Intuitive-Application
 **Scenario**     A user wants to work with black-fennec
@@ -330,7 +328,6 @@ User Error Protection
 ^^^^^^^^^^^^^^^^^^^^^
 Better than Hawaii
 ~~~~~~~~~~~~~~~~~~
-
 ===============  ==================
 **Title (ID)**   Confirmation
 **Scenario**     A user wants to perform a critical operation
