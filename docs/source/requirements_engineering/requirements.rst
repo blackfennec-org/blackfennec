@@ -14,4 +14,4 @@ The user epics described in this document can be found in the github repository 
 
 Non-Functional Requirements
 ***************************
-
+The non-functional requirements can be found in the :doc:`non_functional` document. There an overview in the form of a diagram is provided and succeeding a more detailed description of the respective NFR.

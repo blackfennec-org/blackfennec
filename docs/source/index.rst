@@ -33,6 +33,7 @@ Welcome to Black Fennec's documentation!
    :numbered:
 
    requirements_engineering/requirements.rst
+   requirements_engineering/non_functional.rst
    requirements_engineering/personas.rst
 
 .. toctree::
