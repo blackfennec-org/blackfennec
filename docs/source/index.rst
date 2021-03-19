@@ -35,6 +35,7 @@ Welcome to Black Fennec's documentation!
    requirements_engineering/requirements.rst
    requirements_engineering/non_functional.rst
    requirements_engineering/personas.rst
+   requirements_engineering/ui_sketches.rst
 
 .. toctree::
    :maxdepth: 2
