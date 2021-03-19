@@ -33,6 +33,7 @@ Welcome to Black Fennec's documentation!
    :numbered:
 
    requirements_engineering/requirements.rst
+   requirements_engineering/personas.rst
 
 .. toctree::
    :maxdepth: 2
