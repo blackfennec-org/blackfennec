@@ -1,6 +1,20 @@
 UI Sketches
 ===========
 
+Black Fennec GUI
+****************
+The Graphical User Interface (GUI) of Black Fennec is very simple and user-friendly.
+There is a menu in the upper area. There the user can open, create or implement projects.
+The user can save projects. The extension marketplace can be opened via the "go to store" button.
+Opened projects can be searched by using the search engine. As a small feature, we are implementing a selection
+between default and dark mode.
+
+Under the menu bar the user can see an overview of the imported data.
+
+.. image:: ../images/ui_sketches/blackfennec_gui3.png
+
+*Black Fennec Main UI and info presenter:Object detail view containing sample key-value pairs*
+
 Extension Marketplace
 *********************
 In our first version of the UI sketches we thought that we could create an external website for the extension
@@ -36,19 +50,3 @@ This will therefore not be implemented in the final product.
 .. image:: ../images/ui_sketches/extension_ratings.png
 
 *Black Fennec Extension Store: Sample plugin ratings and reviews*
-
-Black Fennec GUI
-****************
-The Graphical User Interface (GUI) of Black Fennec is very simple and user-friendly.
-There is a menu in the upper area. There the user can open, create or implement projects.
-The user can save projects. The extension marketplace can be opened via the "go to store" button.
-Opened projects can be searched by using the search engine. As a small feature, we are implementing a selection
-between default and dark mode.
-
-Under the menu bar the user can see an overview of the imported data.
-
-.. image:: ../images/ui_sketches/blackfennec_gui3.png
-
-*Black Fennec Main UI and info presenter:Object detail view containing sample key-value pairs*
-
-
