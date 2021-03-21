@@ -1,6 +1,6 @@
 Interpretation
 ==============
-To allow implementation flexibility in the :ref:`selection process <definition_selection_process>` and to provide a layer of abstraction for the :ref:`Presenter <definition_presenter>` towards the :ref:`info view <definition_info_view>` Info View the domain concept of interpretations has been created.
+The domain concepts of interpreter and interpretation have been created to allow flexibility in the implementation of the :ref:`selection process <definition_selection_process>` and to provide a layer of abstraction for the :ref:`presenter <definition_presenter>` towards the :ref:`info view <definition_info_view>`.
 
 .. uml::
     
@@ -26,22 +26,26 @@ To allow implementation flexibility in the :ref:`selection process <definition_s
     class InfoView {}
     
     Interpreter     -left-> Presenter       : is passed to
-    Interpreter     -down-> Interpretation  : creates
-    Interpreter     -up->   InfoViewFactory : references
-    Interpretation  -down-> InfoView        : based on
+    Interpreter     -->     Interpretation  : creates
+    Interpreter     -->     InfoViewFactory : references
+    Interpretation  -->     InfoView        : based on
     tsp             -left-> Interpreter     : constructs an
     tsp             -->     InfoViewFactory : selects
     InfoViewFactory -->     InfoView        : creates
+
+    Presenter       .down.> Interpretation  : has access to {}\nvia interpreter
     
 
     @enduml
+
+Interpreter
+'''''''''''
+The :ref:`selection process <definition_selection_process>` produces an interpreter which in turn creates interpretations. To create an interpretation the interpreter must create info views from info view factories. The resulting info views are included in the interpretation and are later displayed.
+
+Interpreters hold references to :ref:`info view factories <info_view_factory>` and know how to produce :ref:`info views <info_view>` from them. In GRASP terminology the interpreter is the Creator for interpretations.
 
 .. _definition_interpretation:
 
 Interpretation
 ''''''''''''''
-An interpretation is what Black Fennec believes to be the best available representation of a :ref:`structure <definition_structure>` given the available :ref:`types <definition_type>`. It is what is presented to the user by the :ref:`Presenter <definition_presenter>`. It consists of at least one Info View but can potentially be constructed from an arbitrary number of them. However this implementation detail is abstracted and not of any concern to the Presenter.
-
-Interpreter
-'''''''''''
-The :ref:`selection process <definition_selection_process>` produces an interpreter which in turn creates interpretations. Interpreters hold references to :ref:`info view factories <info_view_factory>` and know how to produce :ref:`info views <info_view>` from them. In GRASP terminology the interpreter is a Creator.
+The interpretation contains the visualisation of a given structure which is largely based on InfoViews. An interpretation is what Black Fennec believes to be the best available representation of a given :ref:`structure <definition_overlay>`.

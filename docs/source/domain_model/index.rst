@@ -52,16 +52,16 @@ The Selection Process
     The :ref:`selection process <definition_selection_process>` is responsible for creating interpretations based on a structure and the available types.
 
 Structure
-    :ref:`Structure <definition_overlay>` is the generic term for data represented in our object model.
+    :ref:`Structure <definition_overlay>` is the generic term for the data in our object model, since structure is the only universally available property of all data and is as such the only common denominator.
 
 Types
-    A :ref:`type <definition_type>` describes a class of objects and commonly includes attributers. They also provide specialised user interfaces to display structures of their type.
+    A :ref:`type <definition_type>` is a description of a structure. A type is always associated with exactly one specialised user interface called an info view.
 
 Interpretation
-    The :ref:`interpretation <interpretation>` is the result of the selection process and represents a given structure with available types.
+    The :ref:`interpretation <definition_interpretation>` is the visualisation of a given structure. It is the result of the selection process and limited by the available types.
 
 Presenter
     The :ref:`presenter <presenter>` positions interpretations on the screen and thus presents the interpreted structure to the user.
 
-Extensions
-    :ref:`Extensions <definition_extension>` allow the addition of new functionality in the form of types and presenters to the application.
+Extension
+    :ref:`Extensions <definition_extension>` are installable additions and provide new functionality in the form of types and presenters.

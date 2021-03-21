@@ -2,20 +2,18 @@
 
 Selection Process
 =================
-The selection process solves the problem of composing what is considered the best interpretation_ of the underlying data. We sometimes refer to this process as an auction_. The exact implementation is subject to change and this document will cover the topic in general terms.
+The selection process solves the problem of composing what is considered the best interpretation of the underlying data. We sometimes refer to this process as an auction_. Its exact implementation is subject to change and this document will cover the topic in general terms.
 
 Problem Statement
 """""""""""""""""
-For reasons that don't concern, we want to find the best interpretation_ of the underlying data structure given all the known types. Types are considered known if they have been previously registered with the `type registry`_.
+For reasons that don't concern, we want to find the best interpretation of a given structure using known types. Types are considered known if they have been previously registered with the `type registry`_.
 
 Conceptual Solution
 """""""""""""""""""
-Conceptually speaking - meaning that this does not necessarily reflect the implementation - all registered types are asked to produce a score or a bidding_ on how good they can represent the data structure. From the result of this process we decide which type will officially be the best interpretation of the data structure. The simplest possible implementation of this process would implement the score as a boolean and select the only type that scores `true`.
+Conceptually speaking - meaning that the following is not how we actually do it but how you can imagine it works - all registered types could be asked to produce a score (sometimes referred to as a bidding_) on how good they can represent the data structure. From the result of this process we decide which type will officially be the best interpretation of the data structure. The simplest possible implementation of this process would use a boolean as the score and select the first type that scores ``true``.
 
 Glossary
 """"""""
-.. _interpretation:
-
 interpretation
   In the context of this document an interpretation is understood to be the visual representation of the data structure. The document :ref:`definition_interpretation` covers this concept.
 
