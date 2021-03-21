@@ -1,5 +1,9 @@
 docs/_build/
+docs/_versions
 docs/source/_build/
 .vscode/
 .idea/
 .coverage
+*.glade~
+__pycache__/
+pylint/

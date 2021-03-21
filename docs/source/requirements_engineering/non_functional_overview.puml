@@ -1,0 +1,108 @@
+
+@startuml
+left to right direction
+skinparam monochrome true
+skinparam defaultTextAlignment center
+skinparam linetype polyline
+
+' Root node
+agent "ISO / IEC 25010" as root
+
+' Sub goals
+agent "Functional Suitability" as funcSuit
+agent "Reliability" as reli
+agent "Performance Efficiency" as perfEff
+agent "Compatibility" as compat
+agent "Usability" as usa
+agent "Security" as sec
+agent "Maintainability" as maintain
+agent "Portability" as port
+
+root --> funcSuit
+root --> reli
+root --> perfEff
+root --> compat
+root --> usa
+root --> sec
+root --> maintain
+root --> port
+
+agent "Completeness" as complet
+agent "Correctness" as corr
+agent "Appropriateness" as approp
+
+funcSuit --> complet
+funcSuit --> corr
+funcSuit --> approp
+
+agent "Maturity" as maturity
+agent "Availability" as avail
+agent "Fault Tolerance" as faultTol
+agent "Recoverability" as recover
+
+reli --> maturity
+reli --> avail
+reli --> faultTol
+reli --> recover
+
+agent "Time Behaviour" as timeBehave
+agent "Resource Utilisation" as resUtil
+agent "Capacity" as capacity
+
+perfEff --> timeBehave
+perfEff --> resUtil
+perfEff --> capacity
+
+agent "Co-existence" as coexist
+agent "Interoperability" as interoper
+
+compat --> coexist
+compat --> interoper
+
+agent "Appropriateness" as usaApprop
+agent "Learnability" as learn
+agent "Operability" as oper
+agent "User Error Protection" as userErr
+agent "User Interface Aesthetics" as userInt
+agent "Accessibility" as access
+
+usa --> usaApprop
+usa --> learn
+usa --> oper
+usa --> userErr
+usa --> userInt
+usa --> access
+
+agent "Confidentiality" as conf
+agent "Integrity" as integ
+agent "Non-repudiation" as nonRep
+agent "Authenticity" as authentic
+agent "Accountability" as accountab
+
+sec --> conf
+sec --> integ
+sec --> nonRep
+sec --> authentic
+sec --> accountab
+
+agent "Modularity" as modul
+agent "Reusability" as reuse
+agent "Analyzability" as analyze
+agent "Modifiability" as modify
+agent "Testability" as test
+
+maintain --> modul
+maintain --> reuse
+maintain --> analyze
+maintain --> modify
+maintain --> test
+
+agent "Adaptability" as adapt
+agent "Installability" as install
+agent "Replaceability" as replace
+
+port --> adapt
+port --> install
+port --> replace
+
+@enduml

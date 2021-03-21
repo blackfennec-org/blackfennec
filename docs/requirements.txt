@@ -1,2 +1,3 @@
 Sphinx
 plantweb
+sphinxcontrib-svg2pdfconverter
