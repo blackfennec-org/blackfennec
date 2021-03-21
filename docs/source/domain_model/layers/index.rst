@@ -33,12 +33,12 @@ Overview
     class Interpretation {}
     class Overlay {}
     class Underlay {}
-    class "Source Layer" as sl
+    class SourceLayer
     
     Presenter       .down>     Interpretation  : shows
     Interpretation  -down>     Overlay         : of
     Overlay         -down>     Underlay        : is based on
-    Underlay        -down>     sl              : is deserialized from
+    Underlay        -down>     SourceLayer     : is deserialized from
 
     @enduml
 

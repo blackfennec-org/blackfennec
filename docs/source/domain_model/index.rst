@@ -1,15 +1,5 @@
 Domain Model
 ============
-.. toctree::
-    :maxdepth: 2
-    :caption: References
-
-    type_system/index
-    layers/index
-    interaction/index
-    extensions/index
-    
-
 
 Simplified Domain Model
 """""""""""""""""""""""
@@ -66,3 +56,95 @@ Presenter
 
 Extension
     :ref:`Extensions <definition_extension>` are installable additions and provide new functionality in the form of types and presenters.
+
+The Domain Model
+""""""""""""""""
+
+.. uml::
+
+    @startuml
+
+    hide circle
+    hide members
+    hide methods
+
+    skinparam class {
+        BackgroundColor #EEE
+        ArrowColor Black
+        BorderColor Black
+    }
+
+    title The Domain Model
+
+    class "The Selection Process" as tsp 
+
+    package Structure <<Frame>> {
+        class Overlay
+        class Underlay
+        class SourceLayer
+
+        Overlay         -down->     Underlay        : based on
+        Underlay        -down->     SourceLayer     : deserialized from
+    }
+    
+    package Type <<Frame>> {
+        class InfoBidder
+        class InfoView
+        class InfoViewFactory
+        
+        InfoViewFactory -> InfoView : creates
+        'InfoBidder .[hidden]down.> InfoViewFactory
+    }
+
+    Class TypeRegistry
+    <>    register_type
+
+    InfoBidder          --> register_type
+    InfoViewFactory     --> register_type
+    register_type       --> TypeRegistry            : registration
+
+    class Interpretation
+    class Interpreter
+    class Presenter
+
+    Interpreter         o-->    "1..*"  InfoViewFactory
+    Interpreter         -->             Interpretation      : creates
+    'Interpreter         -->            Presenter
+    Interpretation      o-->    "1..*"  InfoView
+    Interpretation      -->             Overlay             : of
+    'Presenter           o..>    "0..*"  Interpreter
+    
+    package Extensions <<Frame>> {
+        abstract Extension
+        class TypeExtension
+        class ActionExtension
+        class PresenterExtension
+
+        Extension "1" o-- "0..*" TypeExtension
+        Extension "1" o-- "0..*" ActionExtension
+        Extension "1" o-- "0..*" PresenterExtension
+
+        TypeExtension       -->     Type            : provides
+        PresenterExtension  -->     Presenter       : provides
+    }
+
+    class NavigationService
+    Interpretation      -->     NavigationService   : navigation request
+    NavigationService   -->     tsp                 : requests interpreter
+    NavigationService   -->     Presenter           : forwards navigation request \nwith interpreter
+
+    tsp                 o-->    TypeRegistry        
+    tsp                 ..>     Overlay             
+    tsp                 ..>     InfoBidder
+    tsp                 -->     Interpreter         : creates
+
+    @enduml
+
+
+.. toctree::
+    :maxdepth: 2
+
+    type_system/index
+    layers/index
+    interaction/index
+    extensions/index
