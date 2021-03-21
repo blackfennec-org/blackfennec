@@ -63,6 +63,8 @@ String
 """"""
 This core type represents strings (e.g. "hello world"). It is also used for longer texts.
 
+.. _definition_type_list:
+
 List
 """"
 A list is a collection of information.

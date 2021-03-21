@@ -6,6 +6,7 @@ Domain Model
 
     type_system/index
     layers/index
+    interaction/index
     extensions/index
     
 
