@@ -9,3 +9,4 @@ The Type System
     types
     core_types
     base_types
+    type_registry

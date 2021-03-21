@@ -20,7 +20,7 @@ interpretation
 .. _type registry:
 
 type registry
-  In the context of this document the type registry is a centralised and authoritative database of all known types. In practice some of these types may have been registered by extensions.
+  In the context of this document the type registry is a centralised and authoritative database of all known types. In practice some of these types may have been registered by extensions. The section :ref:`type registry <definition_type_registry>` covers this concept.
 
 .. _auction:
 

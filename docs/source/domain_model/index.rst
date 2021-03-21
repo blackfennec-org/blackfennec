@@ -1,6 +1,15 @@
 Domain Model
 ============
 
+.. toctree::
+    :maxdepth: 2
+
+    type_system/index
+    layers/index
+    interaction/index
+    extensions/index
+
+
 Simplified Domain Model
 """""""""""""""""""""""
 
@@ -59,6 +68,8 @@ Extension
 
 The Domain Model
 """"""""""""""""
+
+The currently documented domain model is depicted below. To read more about the components I will have to refer you to the table of contents at the top of the page.
 
 .. uml::
 
@@ -134,17 +145,8 @@ The Domain Model
     NavigationService   -->     Presenter           : forwards navigation request \nwith interpreter
 
     tsp                 o-->    TypeRegistry        
-    tsp                 ..>     Overlay             
-    tsp                 ..>     InfoBidder
+    tsp                 ..>     Overlay             : has indirect access to  
+    tsp                 ..>     InfoBidder          : has indirect access to
     tsp                 -->     Interpreter         : creates
 
     @enduml
-
-
-.. toctree::
-    :maxdepth: 2
-
-    type_system/index
-    layers/index
-    interaction/index
-    extensions/index
