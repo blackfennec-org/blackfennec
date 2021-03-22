@@ -24,6 +24,14 @@ Completeness
 ^^^^^^^^^^^^
 Correctness
 ^^^^^^^^^^^
+===============  ==================
+**Title (ID)**   Interface Documentation
+**Scenario**     A user wants to perform a certain action.
+**Stimulus**     Black Fennec handles the action as expected.
+**Expectation**  Black Fennec provides the correct results with the needed degree of precision.
+**Measure**      At least 85% of the code has to be covered by Unit Tests which are successful.
+===============  ==================
+The degree to which a product or system provides the correct results with the needed degree of precision
 Appropriateness
 ^^^^^^^^^^^^^^^
 
@@ -182,8 +190,8 @@ Heavy Lifter
 ~~~~~~~~~~~~
 ===============  ==================
 **Title (ID)**   Project-Loading-Limits
-**Scenario**     A user wants to enter data or visualise a file of large extent
-**Stimulus**     A large file is loaded by the user
+**Scenario**     A user wants to enter data or visualise a file of large extent.
+**Stimulus**     A large file is loaded by the user.
 **Expectation**  The file opens and the data is displayed in the first meaningful view.
 **Measure**      With a large sized file (1 GB) it should be possible to open it in TBA if the reference implementation of the presenter is used.
 ===============  ==================
@@ -195,14 +203,29 @@ Co-existence
 ^^^^^^^^^^^^
 Git Integration
 ~~~~~~~~~~~~~~~
+===============  ==================
+**Title (ID)**   Git Integration
+**Scenario**     A user wants to install a different version of Black Fennec.
+**Stimulus**     Version control takes place.
+**Expectation**  A user can choose different versions of Black Fennec.
+**Measure**      Older versions of Black Fennec can be downloaded and installed.
+===============  ==================
 Projects can be version controlled using git.
 
 Json as a Service
 ~~~~~~~~~~~~~~~~~
+===============  ==================
+**Title (ID)**   Import files
+**Scenario**     A user wants to import or export a JSON file.
+**Stimulus**     Black Fennec imports and exports JSON files.
+**Expectation**  Successful visualization of the data after import or export.
+**Measure**      No Errors occur. File can be opened after export.
+===============  ==================
 Projects can be exported and imported to and from JSON files.
 
 Interoperability
 ^^^^^^^^^^^^^^^^
+
 
 Usability
 ---------
@@ -242,6 +265,13 @@ Accessibility
 ^^^^^^^^^^^^^
 Stolze Spezial
 ~~~~~~~~~~~~~~
+===============  ==================
+**Title (ID)**   Accessibility via screen reader
+**Scenario**     A user wants to understand the interface without seeing it.
+**Stimulus**     A user triggers the screen reading function.
+**Expectation**  The screen reader understands the software interface and can translate text into speech.
+**Measure**      All main functionalities are equipped with the text to speech "tag".
+===============  ==================
 Text and Labels are readable even for people with difficulties seeing colours or contrast. And the two senses principal is adhered.
 
 Security
@@ -251,6 +281,13 @@ Confidentiality
 
 Sand Box
 ~~~~~~~~
+===============  ==================
+**Title (ID)**   Application Isolation
+**Scenario**     A user imports malicious data into Black Fennec.
+**Stimulus**     The Malicious code is executed inside the Black Fennec tool.
+**Expectation**  The malicious data doesn't affect the OS.
+**Measure**      Application can be executed in isolated environment.
+===============  ==================
 The application is sandboxed for the operating system... This is optional but desirable.
 
 Integrity
@@ -278,7 +315,14 @@ Modifiability
 ^^^^^^^^^^^^^
 Windows is Broken. Long live Windows
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Clean Code and Broken Window Theory i guess.
+===============  ==================
+**Title (ID)**   Clean Code
+**Scenario**     A Developer develops low quality code for the sake of time.
+**Stimulus**     The general code quality decreases.
+**Expectation**  Developers pay attention to clean code and broken widows in development
+**Measure**      Can be measured using pylint. Code will be reviewed before every merge.
+===============  ==================
+Clean Code and Broken Window Theory.
 
 Testability
 ^^^^^^^^^^^
@@ -289,13 +333,19 @@ Adaptability
 ^^^^^^^^^^^^
 Installability
 ^^^^^^^^^^^^^^
-
+===============  ==================
+**Title (ID)**   Black Fennec Installation
+**Scenario**     A user wants to install Black Fennec via the command line.
+**Stimulus**     The user executes the pip install... command.
+**Expectation**  The user can install the tool using the pip install command.
+**Measure**      The user can start the Black Fennec Tool via the desktop icon.
+===============  ==================
 Pip Install via setup.py (for devs) and gitlab PyPI
 
 
 Replaceability
 ^^^^^^^^^^^^^^
-
 Hail JSON
 ~~~~~~~~~
-Its replaceable because JSON. The application does not hide any state or information from its users. It is a pure convenience tool and must not be a necessity to access or modify data. Good night.
+Its replaceable because JSON. The application does not hide any state or information from its users. It is a pure
+convenience tool and must not be a necessity to access or modify data.
