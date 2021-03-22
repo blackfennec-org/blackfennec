@@ -31,6 +31,7 @@ Correctness
 **Expectation**  Black Fennec provides the correct results with the needed degree of precision.
 **Measure**      At least 85% of the code has to be covered by Unit Tests which are successful.
 ===============  ==================
+
 The degree to which a product or system provides the correct results with the needed degree of precision
 Appropriateness
 ^^^^^^^^^^^^^^^
@@ -157,6 +158,7 @@ Loading Projects
 **Expectation**  The file opens and the data is displayed in the first meaningful view.
 **Measure**      With a medium sized file (500 MB) it should take no more than 800ms if the reference implementation of the presenter is used.
 ===============  ==================
+
 Loading a medium sized project (TBA) takes no more the 800ms before the reference implementation of the presenter can display the first meaningful view.
 
 Quick Save
@@ -168,6 +170,7 @@ Quick Save
 **Expectation**  The changed data is saved into the currently open file.
 **Measure**      Saving a medium sized project with X (TBA) changes takes no longer than 1000ms.
 ===============  ==================
+
 Saving a medium sized project with X (TBA) changes takes no longer than 1000ms.
 
 Flash Decision
@@ -195,6 +198,7 @@ Heavy Lifter
 **Expectation**  The file opens and the data is displayed in the first meaningful view.
 **Measure**      With a large sized file (1 GB) it should be possible to open it in TBA if the reference implementation of the presenter is used.
 ===============  ==================
+
 The application can open projects of at least 1GB of raw data (excluding binary data like images and videos).
 
 Compatibility
@@ -210,6 +214,7 @@ Git Integration
 **Expectation**  A user can choose different versions of Black Fennec.
 **Measure**      Older versions of Black Fennec can be downloaded and installed.
 ===============  ==================
+
 Projects can be version controlled using git.
 
 Json as a Service
@@ -221,6 +226,7 @@ Json as a Service
 **Expectation**  Successful visualization of the data after import or export.
 **Measure**      No Errors occur. File can be opened after export.
 ===============  ==================
+
 Projects can be exported and imported to and from JSON files.
 
 Interoperability
@@ -272,6 +278,7 @@ Stolze Spezial
 **Expectation**  The screen reader understands the software interface and can translate text into speech.
 **Measure**      All main functionalities are equipped with the text to speech "tag".
 ===============  ==================
+
 Text and Labels are readable even for people with difficulties seeing colours or contrast. And the two senses principal is adhered.
 
 Security
@@ -288,6 +295,7 @@ Sand Box
 **Expectation**  The malicious data doesn't affect the OS.
 **Measure**      Application can be executed in isolated environment.
 ===============  ==================
+
 The application is sandboxed for the operating system... This is optional but desirable.
 
 Integrity
@@ -322,6 +330,7 @@ Windows is Broken. Long live Windows
 **Expectation**  Developers pay attention to clean code and broken widows in development
 **Measure**      Can be measured using pylint. Code will be reviewed before every merge.
 ===============  ==================
+
 Clean Code and Broken Window Theory.
 
 Testability
@@ -340,6 +349,7 @@ Installability
 **Expectation**  The user can install the tool using the pip install command.
 **Measure**      The user can start the Black Fennec Tool via the desktop icon.
 ===============  ==================
+
 Pip Install via setup.py (for devs) and gitlab PyPI
 
 
