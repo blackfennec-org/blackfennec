@@ -1,0 +1,73 @@
+@startuml
+scale 1 as 50 pixels
+
+concise "Iterations" as it
+concise "Milestones" as ms
+
+legend
+Project Weeks
+end legend
+
+it is SCRUM #gray
+
+@0 as :Start
+@2 as :Iteration0
+@4 as :Iteration1
+@6 as :Iteration2
+@8 as :Iteration3
+@10 as :Iteration4
+@12 as :Iteration5
+@14 as :End
+
+
+@it
+
+@:Start
+it is Start
+
+@:Iteration0
+it is Iteration0
+
+@:Iteration1
+it is Iteration1
+
+@:Iteration2
+it is Iteration2
+
+@:Iteration3
+it is Iteration3
+
+@:Iteration4
+it is Iteration4
+
+@:Iteration5
+it is Iteration5
+
+@:End
+it is End
+
+highlight :Start to :Iteration0+1#palegreen:Inception
+highlight :Iteration0+1 to :Iteration2+1#pink: Elaboration
+highlight :Iteration2 to :Iteration5+1#lightblue: Construction
+highlight :Iteration5 to :End#yellow: Transition
+
+it@:Start <-> @:Iteration0 : setup time
+it@:Iteration2-1 <-> @:Iteration2+1 : phase buffer
+it@:Iteration5 <-> @:Iteration5+1 : phase buffer
+
+ms@:Iteration0+1 -> it@:Iteration0+1 : R1
+ms@:Iteration0 <-> @:Iteration0+1 : R1
+
+ms@:Iteration1+1 -> it@:Iteration1+1 : R2
+ms@:Iteration1 <-> @:Iteration1+1 : R2
+
+ms@:Iteration2+1 -> it@:Iteration2+1 : R3
+ms@:Iteration2-1 <-> @:Iteration2+1 : R3
+
+ms@:Iteration5 -> it@:Iteration5 : R4
+ms@:Iteration4+1 <-> @:Iteration5+1 : R4
+
+ms@:End-1 -> it@:End-1 : R5
+ms@:End-1 <-> @:End : R5
+
+@enduml
