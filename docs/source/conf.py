@@ -24,7 +24,7 @@ AUTHOR = 'Simon Kindhauser, Caspar Martens, ' \
          'Lara Gubler, Leonie Däullary'
 
 # The full version, including alpha/beta/rc tags
-RELEASE = '0.1.2'
+RELEASE = '0.2.0'
 
 
 # -- General configuration ---------------------------------------------------
