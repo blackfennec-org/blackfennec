@@ -27,82 +27,172 @@ root --> sec
 root --> maintain
 root --> port
 
-agent "Completeness" as complet
-agent "Correctness" as corr
-agent "Appropriateness" as approp
 
+agent "Completeness" as complet
 funcSuit --> complet
+    agent "Requirements-Fulfillment" as reqFul
+    complet --> reqFul
+
+agent "Correctness" as corr
 funcSuit --> corr
+    agent "Functional-Correctness" as funcCorr
+    corr --> funcCorr
+
+agent "Appropriateness" as approp
 funcSuit --> approp
 
-agent "Maturity" as maturity
-agent "Availability" as avail
-agent "Fault Tolerance" as faultTol
-agent "Recoverability" as recover
 
+agent "Maturity" as maturity
 reli --> maturity
+    agent "Interface-Documentation" as intDoc
+    maturity --> intDoc
+    agent "Unit-Testing" as unitTest
+    maturity --> unitTest
+    agent "Regression-Testing" as regTest
+    maturity --> regTest
+
+agent "Availability" as avail
 reli --> avail
+    agent "Internet-Dependence" as intDep
+    avail --> intDep
+
+agent "Fault Tolerance" as faultTol
 reli --> faultTol
+    agent "Exception-Handling" as excHand
+    faultTol --> excHand
+
+agent "Recoverability" as recover
 reli --> recover
+    agent "Malformed-Configuration" as malConf
+    recover --> malConf
+
 
 agent "Time Behaviour" as timeBehave
-agent "Resource Utilisation" as resUtil
-agent "Capacity" as capacity
-
 perfEff --> timeBehave
+    agent "Application-Start" as appStart
+    timeBehave --> appStart
+    agent "Project-Loading" as projLoad
+    timeBehave --> projLoad
+    agent "Project-Saving" as projSave
+    timeBehave --> projSave
+    agent "Type-Selection" as typeSel
+    timeBehave --> typeSel
+
+agent "Resource Utilisation" as resUtil
 perfEff --> resUtil
+
+agent "Capacity" as capacity
 perfEff --> capacity
+    agent "Project-Loading-Limits" as projLoadLimit
+    capacity --> projLoadLimit
+
 
 agent "Co-existence" as coexist
-agent "Interoperability" as interoper
-
 compat --> coexist
+    agent "Git Integration" as gitInt
+    coexist --> gitInt
+    agent "Project-Import" as projImport
+    coexist --> projImport
+    agent "Project-Export" as projExport
+    coexist --> projExport
+
+agent "Interoperability" as interoper
 compat --> interoper
+    agent "No-Project-Context" as projContext
+    interoper -->projContext
+    agent "Json-Import" as jsonImport
+    agent "Json-Export" as jsonExport
+    interoper --> jsonImport
+    interoper --> jsonExport
+
 
 agent "Appropriateness" as usaApprop
-agent "Learnability" as learn
-agent "Operability" as oper
-agent "User Error Protection" as userErr
-agent "User Interface Aesthetics" as userInt
-agent "Accessibility" as access
-
 usa --> usaApprop
+    agent "Data-Aggregation" as dataAgg
+    usaApprop --> dataAgg
+    agent "Data-Visualisation" as dataVis
+    usaApprop --> dataVis
+
+agent "Learnability" as learn
 usa --> learn
+    agent "Intuitive-Applicaion" as intApp
+    learn --> intApp
+
+agent "Operability" as oper
 usa --> oper
+
+agent "User Error Protection" as userErr
 usa --> userErr
+    agent "Confirmation" as confirm
+    userErr --> confirm
+    agent "Reversion" as reverse
+    userErr --> reverse
+
+agent "User Interface Aesthetics" as userInt
 usa --> userInt
+
+agent "Accessibility" as access
 usa --> access
+    agent "Screen-Reader-Support" as scrnReadr
+    access --> scrnReadr
+    agent "Color-Blind-Support" as clrBlnd
+    access --> clrBlnd
+    agent "Easy-to-Read" as readable
+    access --> readable
+
 
 agent "Confidentiality" as conf
-agent "Integrity" as integ
-agent "Non-repudiation" as nonRep
-agent "Authenticity" as authentic
-agent "Accountability" as accountab
-
 sec --> conf
+    agent "Application-Isolation" as sandbox
+    conf --> sandbox
+
+agent "Integrity" as integ
 sec --> integ
+
+agent "Non-repudiation" as nonRep
 sec --> nonRep
+
+agent "Authenticity" as authentic
 sec --> authentic
+
+agent "Accountability" as accountab
 sec --> accountab
 
-agent "Modularity" as modul
-agent "Reusability" as reuse
-agent "Analyzability" as analyze
-agent "Modifiability" as modify
-agent "Testability" as test
 
+agent "Modularity" as modul
 maintain --> modul
+    agent "Extension-System" as extSys
+    modul --> extSys
+
+agent "Reusability" as reuse
 maintain --> reuse
+
+agent "Analyzability" as analyze
 maintain --> analyze
+
+agent "Modifiability" as modify
 maintain --> modify
+    agent "Clean-Code" as clean
+    modify --> clean
+
+agent "Testability" as test
 maintain --> test
+    agent "Dependency-Injection" as depInj
+    test --> depInj
 
 agent "Adaptability" as adapt
-agent "Installability" as install
-agent "Replaceability" as replace
-
 port --> adapt
+    agent "Python-Compatibility" as pyComp
+    adapt --> pyComp
+
+agent "Installability" as install
 port --> install
+    agent "Black-Fennec-Installation" as blkFncInst
+    install --> blkFncInst
+
+agent "Replaceability" as replace
 port --> replace
+    agent "No-Black-Fennec" as noBlkFnc
+    replace --> noBlkFnc
 
 @enduml
