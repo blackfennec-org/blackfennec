@@ -8,7 +8,7 @@ Welcome to Black Fennec's documentation!
 ========================================
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
    :caption: Project Management
    :numbered:
 
@@ -43,6 +43,13 @@ Welcome to Black Fennec's documentation!
    :numbered:
 
    time_management/time_tracking.rst
+
+.. toctree::
+   :maxdepth: 3
+   :caption: The Domain
+   :numbered:
+
+   domain_model/index
 
 
 Indices and tables
