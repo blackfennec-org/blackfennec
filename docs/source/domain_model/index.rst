@@ -69,7 +69,7 @@ Extension
 The Domain Model
 """"""""""""""""
 
-The currently documented domain model is depicted below. To read more about the components I will have to refer you to the table of contents at the top of the page.
+The currently documented domain model is depicted below. To read more about the components take a look at the table of contents at the top of the page.
 
 .. uml::
 

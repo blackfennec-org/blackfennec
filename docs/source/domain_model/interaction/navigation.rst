@@ -1,6 +1,6 @@
 Navigation
 ==========
-An :ref:`InfoView <definition_info_view>` might not want display the entire substructure it represents by itself. For example the :ref:`List <definition_type_list>` does not render its content in full. Instead the InfoView provides a clickable are (e.g a button) which when pressed should take the user to the sub-substructure. This process is called navigation.
+An :ref:`InfoView <definition_info_view>` might not want to display the entire substructure it represents by itself. For example the :ref:`List <definition_type_list>` does not render its content in full. Instead the InfoView provides a clickable area (e.g a button) which when pressed should take the user to the sub-substructure. This process is called navigation.
 
 .. uml::
     

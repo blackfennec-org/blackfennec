@@ -31,7 +31,7 @@ Three conceptual types of extensions are currently planned. Any given extension 
         unload()
     }
 
-    note top of Extension: An extension consists of at least one of \nType, Action or Presenter Extension
+    note top of Extension: An extension consists of at least one \nType, Action or Presenter Extension
 
     Extension -> "1" ExtensionApi
 
@@ -108,4 +108,4 @@ Extension Api
     action_extension
     presenter_extension
 
-.. [#] Window: A rectangular are of the screen.
+.. [#] Window: A rectangular area of the screen.

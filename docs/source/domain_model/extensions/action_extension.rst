@@ -24,4 +24,4 @@ A action extension adds actions to existing types. It is common for type extensi
 
     @enduml
 
-Actions must be registered for their target types so that the active :doc:`presenter_extension` can display them. Iff the user clicks on the associated UI element the action is called with the context of its sender. The context includes a reference to the object on which the action has been called on. This allows the action to manipulate data or depend its control flow based on the context. 
+Actions must be registered for their target types so that the active :doc:`presenter_extension` can display them. If the user clicks on the associated UI element the action is called with the context of its sender. The context includes a reference to the object on which the action has been called on. This allows the action to manipulate data or depend its control flow based on the context. 
