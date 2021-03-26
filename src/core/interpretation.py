@@ -9,21 +9,21 @@ class Interpretation:
     Attributes:
         _navigation_service (NavigationService): stores injected navigation service
         _info (Info): stores injected info
-        _info_view (InfoView): stores injected info
+        _info_views (InfoView): stores injected info
 
     Todo:
         * Add types to function parameters
     """
-    def __init__(self, navigation_service, info, info_view):
+    def __init__(self, navigation_service, info, info_views):
         """Interpretation constructor.
 
         Args:
             navigation_service (NavigationService): service to navigate
             info (Info): info lying behind interpretation
-            info_view (InfoView): Created view of info
+            info_views (InfoView): Created view of info
         """
         self._navigation_service = navigation_service
-        self._info_view = info_view
+        self._info_views = info_views
         self._info = info
 
     @property
@@ -36,13 +36,13 @@ class Interpretation:
         return self._info
 
     @property
-    def info_view(self):
-        """info_view getter
+    def info_views(self):
+        """info_views getter
 
         Returns:
-            InfoView: info_view property set by constructor
+            [InfoView]: info_views property set by constructor
         """
-        return self._info_view
+        return self._info_views
 
     def navigate(self, destination):
         """Navigation dispatch.

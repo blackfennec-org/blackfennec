@@ -22,8 +22,8 @@ class InterpretationTestSuite(unittest.TestCase):
         """
         navigation_service = Dummy("nav")
         info = Dummy("info")
-        info_view = Dummy("info_view")
-        interpretation = Interpretation(navigation_service, info, info_view)
+        info_views = Dummy("info_view")
+        interpretation = Interpretation(navigation_service, info, info_views)
         self.assertEqual(
             interpretation._navigation_service,
             navigation_service,
@@ -37,8 +37,8 @@ class InterpretationTestSuite(unittest.TestCase):
                 "_info correctly"
         )
         self.assertEqual(
-            interpretation._info_view,
-            info_view,
+            interpretation._info_views,
+            info_views,
             msg="Interpretation has not initialized " +
                 "_info_view correctly"
         )
@@ -50,8 +50,8 @@ class InterpretationTestSuite(unittest.TestCase):
         returns the expected value."""
         navigation_service = Dummy("nav")
         info = Dummy("info")
-        info_view = Dummy("info_view")
-        interpretation = Interpretation(navigation_service, info, info_view)
+        info_views = [Dummy("info_view")]
+        interpretation = Interpretation(navigation_service, info, info_views)
         self.assertEqual(
             interpretation.info,
             info,
@@ -66,11 +66,11 @@ class InterpretationTestSuite(unittest.TestCase):
         returns the expected value."""
         navigation_service = Dummy("nav")
         info = Dummy("info")
-        info_view = Dummy("info_view")
-        interpretation = Interpretation(navigation_service, info, info_view)
+        info_views = Dummy("info_view")
+        interpretation = Interpretation(navigation_service, info, info_views)
         self.assertEqual(
-            interpretation.info_view,
-            info_view,
+            interpretation.info_views,
+            info_views,
             msg="Interpretation info_view getter has not" +
                 " returned passed info_view correctly"
         )

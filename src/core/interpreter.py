@@ -29,16 +29,22 @@ class Interpreter:
         self._navigation_service = navigation_service
         self._factories = factories
 
-    def _create_info_view(self):
-        """Internal function to create info_view.
+    def _create_info_views(self):
+        """Internal function to create info_views.
 
-        Contains logic to decide which factory is used
-        to create info_view.
+        Creates info_views.
 
         Returns:
-            InfoView: created with factory passed to interpreter
+            [InfoView]: created with factories passed to interpreter
         """
-        return self._factories[0].create()
+        info_views = []
+        for factory in self._factories:
+            info_views.append(factory.create())
+            logger.debug(
+                "creating info_view with factory %s",
+                factory
+            )
+        return info_views
 
     def interpret(self, info):
         """interpretation creation function.
@@ -49,12 +55,12 @@ class Interpreter:
             info (Info): info to create interpretation from
 
         Returns:
-            Interpretation: including created info_view
+            Interpretation: including created info_views
         """
-        info_view = self._create_info_view()
+        info_views = self._create_info_views()
         logger.debug(
-            "creating interpretation of info %s with view %s",
+            "creating interpretation of info %s with views %s",
             info,
-            info_view
+            info_views
         )
-        return Interpretation(self._navigation_service, info, info_view)
+        return Interpretation(self._navigation_service, info, info_views)
