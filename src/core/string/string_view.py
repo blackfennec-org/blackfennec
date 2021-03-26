@@ -10,15 +10,15 @@ class StringView(Gtk.Bin):
     __gtype_name__ = 'StringView'
     _value = Gtk.Template.Child()
 
-    def __init__(self, viewmodel):
-        """Construct with viewmodel.
+    def __init__(self, view_model):
+        """Construct with view_model.
 
         Args:
-            viewmodel (:obj:`StringViewmodel`): The viewmodel.
+            view_model (:obj:`StringViewmodel`): The view_model.
         """
         super().__init__()
-        self._viewmodel = viewmodel
+        self._view_model = view_model
         buffer = self._value.get_buffer()
-        buffer.set_text(self._viewmodel.value)
+        buffer.set_text(self._view_model.value)
         logger.info(
-            'StringView with text: "%s" created', viewmodel.value)
+            'StringView with text: "%s" created', _view_model.value)

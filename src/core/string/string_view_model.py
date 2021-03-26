@@ -3,8 +3,13 @@ from src.core.string import String
 class StringViewModel:
     """View model for core type String."""
 
-    def __init__(self):
-        """Create with value empty string"""
+    def __init__(self, interpretation):
+        """Create with value empty string
+        
+        Args:
+            interpretation (:obj:`Interpretation`): The overarching
+                interpretation
+        """
         self._string = String()
 
     @property
