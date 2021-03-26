@@ -1,9 +1,8 @@
 import logging
 import gi
+gi.require_version("Gtk", "3.0")
 from gi.repository import Gtk
 from src.black_fennec_view import BlackFennecView
-
-gi.require_version("Gtk", "3.0")
 
 logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)

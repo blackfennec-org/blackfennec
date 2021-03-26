@@ -1,20 +1,21 @@
 import logging
-import gi
 from gi.repository import Gtk
-
-gi.require_version("Gtk", "3.0")
+from src.core.string import StringView, StringViewModel
 
 logger = logging.getLogger(__name__)
-
 
 @Gtk.Template(filename="src/black_fennec.glade")
 class BlackFennecView(Gtk.ApplicationWindow):
     __gtype_name__ = "BlackFennecView"
+    _box = Gtk.Template.Child()
 
     def __init__(self, app):
         super().__init__(application=app)
         logger.info("BlackFennecView __init__")
         self._wave_button_pressed_count = 0
+
+        self._box.add(StringView(StringViewModel()))
+        self._box.show_all()
 
     @Gtk.Template.Callback()
     def on_button_clicked(self, info_presenter_view):
