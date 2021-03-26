@@ -1,17 +1,17 @@
 import unittest
 
-from src.core.string import String, StringTypeBidder
+from src.core.string import String, StringBidder
 
-class StringTypeBidderTestSuite(unittest.TestCase):
+class StringBidderTestSuite(unittest.TestCase):
     def test_can_construct(self):
-        StringTypeBidder()
+        StringBidder()
 
     def test_returns_true_on_bid_for_string(self):
-        bidder = StringTypeBidder()
+        bidder = StringBidder()
         self.assertTrue(bidder.bid(String()))
 
     def test_returns_false_on_bid_for_not_string(self):
-        bidder = StringTypeBidder()
+        bidder = StringBidder()
         not_string = {}
         self.assertFalse(bidder.bid(not_string))
     
