@@ -1,5 +1,5 @@
 class Info():
-    def __init__(self, parent):
+    def __init__(self, parent=None):
         self._parent = parent
 
     @property
