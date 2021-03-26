@@ -8,11 +8,11 @@
 [MASTER]
 
 # Files or directories to be skipped. They should be base names, not paths.
-ignore=third_party
+ignore=third_party,.gitlab
 
 # Files or directories matching the regex patterns are skipped. The regex
 # matches against base names, not paths.
-ignore-patterns=
+ignore-patterns=^\..*$
 
 # Pickle collected data for later comparisons.
 persistent=no
@@ -148,7 +148,8 @@ disable=abstract-method,
         zip-builtin-not-iterating,
         missing-module-docstring,
         missing-class-docstring,
-        missing-function-docstring
+        missing-function-docstring,
+        protected-access
 
 
 [REPORTS]
