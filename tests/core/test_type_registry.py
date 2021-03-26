@@ -13,6 +13,7 @@ class ExtensionApiTestSuite(unittest.TestCase):
         type_registry = TypeRegistry()
         self.assertIsInstance(type_registry.types, dict)
 
+
     def test_register_view(self):
         type_registry = TypeRegistry()
         type_bidder = Dummy()
