@@ -2,8 +2,8 @@ from collections import  UserString
 from src.core.info import Info
 
 class String(Info, UserString):
-    def __init__(self, *args):
-        super(Info, self).__init__(*args)
+    def __init__(self, value=""):
+        super(Info, self).__init__(value)
 
     @property
     def value(self):
