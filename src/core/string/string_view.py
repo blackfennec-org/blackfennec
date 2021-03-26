@@ -21,4 +21,4 @@ class StringView(Gtk.Bin):
         buffer = self._value.get_buffer()
         buffer.set_text(self._view_model.value)
         logger.info(
-            'StringView with text: "%s" created', _view_model.value)
+            'StringView with text: "%s" created', self._view_model.value)
