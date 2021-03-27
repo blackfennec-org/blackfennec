@@ -11,6 +11,7 @@ class MapViewModel:
             interpretation (:obj:`Interpretation`): The overarching
                 interpretation
         """
+        self._interpretation = interpretation
         self._map = Map()
 
     @property
@@ -34,3 +35,6 @@ class MapViewModel:
             key: The key of the key value pair which should be deleted
         """
         self._map.pop(key)
+
+    def navigate_to(self, info: Info):
+        self._interpretation.navigate_to(info)

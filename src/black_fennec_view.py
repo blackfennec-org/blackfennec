@@ -1,6 +1,7 @@
 import logging
 from gi.repository import Gtk
-from src.core.string import StringView, StringViewModel
+from src.core.string import StringViewFactory
+from src.core.map import MapViewFactory
 
 logger = logging.getLogger(__name__)
 
@@ -14,7 +15,8 @@ class BlackFennecView(Gtk.ApplicationWindow):
         logger.info("BlackFennecView __init__")
         self._wave_button_pressed_count = 0
 
-        self._box.add(StringView(StringViewModel()))
+        self._box.add(StringViewFactory().create({}))
+        self._box.add(MapViewFactory().create({}))
         self._box.show_all()
 
     @Gtk.Template.Callback()
