@@ -12,9 +12,13 @@ class Map(Info, UserDict):
         UserDict.__init__(self)
 
     def __delitem__(self, key):
-        """Custom delete hook, resets parent for remove info."""
-        value = self.data.pop(key)
-        value.parent = None
+        """Custom delete hook, resets parent for removed info."""
+        try:
+            value = self.data.pop(key)
+            value.parent = None
+        except KeyError as key_error:
+            logger.error(key_error)
+            raise key_error
 
     def __setitem__(self, key, value: Info):
         """Custom set item hook, adds self as parent or raises error.

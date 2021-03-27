@@ -2,7 +2,7 @@ import unittest
 
 from src.core.map import Map, MapBidder
 
-class StringBidderTestSuite(unittest.TestCase):
+class MapBidderTestSuite(unittest.TestCase):
     def test_can_construct(self):
         MapBidder()
 
