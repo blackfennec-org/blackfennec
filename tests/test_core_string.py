@@ -1,5 +1,5 @@
 import unittest
-from tests.doubles.doubles import InfoMock
+from tests.doubles.doubles import RootMock
 
 from src.core.string import String
 
@@ -18,13 +18,13 @@ class StringTestSuite(unittest.TestCase):
         self.assertEqual(string, "Black Fennec")
 
     def test_can_change_parent(self):
-        new_parent = InfoMock()
+        new_parent = RootMock()
         string = String("Black Fennec")
         string.parent = new_parent
         self.assertEqual(string.parent, new_parent)
 
     def test_can_get_root(self):
-        root = InfoMock()
+        root = RootMock()
         string = String("Black Fennec")
         string.parent = root
         self.assertEqual(string.root, root)

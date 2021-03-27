@@ -1,5 +1,5 @@
 import unittest
-from tests.doubles.doubles import InfoMock
+from tests.doubles.doubles import RootMock
 
 from src.core.root import Root
 
@@ -9,7 +9,7 @@ class InfoTestSuite(unittest.TestCase):
         self.assertEqual(root.parent, root)
 
     def test_can_not_change_parent(self):
-        new_parent = InfoMock()
+        new_parent = RootMock()
         root = Root()
 
         def set_parent(info, new_parent):

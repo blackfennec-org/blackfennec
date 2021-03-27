@@ -1,7 +1,7 @@
 class Info():
     """Abstract base class for all types (Infos)."""
 
-    def __init__(self, parent: Info = None):
+    def __init__(self, parent:'Info'=None):
         """Create Info with parent.
 
         Args:
