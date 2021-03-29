@@ -43,7 +43,7 @@ run tests:
   before_script:
     - pip install -r requirements.txt
   script:
-    - pytest --cov-config=.coveragerc --cov=. tests/
+    - xvfb-run -a pytest --cov-config=.coveragerc --cov=. tests/
     - coverage xml
   artifacts:
     reports:
