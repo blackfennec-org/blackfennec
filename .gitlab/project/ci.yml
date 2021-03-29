@@ -42,6 +42,7 @@ run tests:
   stage: test
   before_script:
     - pip install -r requirements.txt
+    - alias pytest="xvfb-run -a pytest"
   script:
     - pytest --cov-config=.coveragerc --cov=. tests/
     - coverage xml

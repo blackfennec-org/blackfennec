@@ -6,7 +6,7 @@ class MapViewFactoryTestSuite(unittest.TestCase):
     def test_can_construct(self):
         MapViewFactory()
 
-    def test_can_create_string_view(self):
+    def test_can_create_map_view(self):
         factory = MapViewFactory()
         view = factory.create({})
         self.assertIsInstance(view, MapView)
