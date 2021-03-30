@@ -1,36 +1,51 @@
 # -*- coding: utf-8 -*-
 import logging
+
+from src.core.info import Info
 from src.util.comparable import Comparable
 
 logger = logging.getLogger(__name__)
 
 
 class Offer(Comparable):
-    """Offer that is sent to Bidder by InfoViewBidder.
+    """Offer that is sent to Auctioneer by InfoViewBidder.
 
     Only two comparison operators are implemented(eq,lt)
     the rest is included via inheritance/mixin.
 
     Attributes:
-        _info (Info): Info that is auctioned
-        _covered ([Info]): Describes covered nodes of Info that is auctioned
+        _subject (Info): Info that is auctioned
         _specificity (Int): Describes inheritance hierarchy level
+        _coverage (float): Describes coverage of nodes of subject
     """
 
-    def __init__(self, info, specificity: int, covered):
+    def __init__(self, subject: Info, specificity: int, coverage: float):
         """Offer constructor.
 
         Args:
-            info (Info):
-            covered ([Info]):
+            subject (Info):
             specificity (int):
+            coverage (float):
         """
-        self._info = info
-        self._covered = covered
+        self._subject = subject
         self._specificity = specificity
+        if coverage < 0 or coverage > 1:
+            message = 'Coverage can only be in between 0 and 1'
+            logger.error(message)
+            raise ValueError(message)
+        self._coverage = coverage
 
     @property
-    def specificity(self):
+    def subject(self) -> Info:
+        """subject getter
+
+        Returns:
+            Info: subject property set by constructor
+        """
+        return self._subject
+
+    @property
+    def specificity(self) -> int:
         """specificity getter
 
         Returns:
@@ -39,29 +54,15 @@ class Offer(Comparable):
         return self._specificity
 
     @property
-    def covered(self):
-        """covered getter
-
-        List all nodes covered by offer
-
-        Returns:
-            [Info]: covered nodes of info
-        """
-        return self._coverage
-
-    @property
-    def coverage(self):
+    def coverage(self) -> float:
         """coverage getter
-
-        Calculation of coverage
 
         Returns:
             float: coverage property set by constructor
         """
-        if self._info == self._covered:
-            return 1.0
+        return self.coverage
 
-    def __eq__(self, other: 'Offer'):
+    def __eq__(self, other: 'Offer') -> bool:
         """Equality operator
 
         Arguments:
@@ -69,12 +70,13 @@ class Offer(Comparable):
                 does not exist while creating operator
 
         Returns:
-            bool: comparison of specificity and coverage with other
+            bool: comparison of subject, specificity and coverage with other
         """
-        return (self.specificity == other.specificity) and \
-               (self.coverage == other.coverage)
+        return (self.subject == other.subject) and \
+               (self.coverage == other.coverage) and \
+               (self.specificity == other.specificity)
 
-    def __lt__(self, other: 'Offer'):
+    def __lt__(self, other: 'Offer') -> bool:
         """Lower-than operator
 
         Arguments:
@@ -85,7 +87,8 @@ class Offer(Comparable):
             bool: comparison of specificity and coverage with other.
                 specificity is more important than coverage
         """
-        if self.specificity == other.specificity:
-            return self.coverage < other.coverage
-        else:
-            return self.specificity < other.specificity
+        if self.subject != other.subject:
+            message = 'Subject of compared offers are not equal'
+            logger.error(message)
+            raise ValueError(message)
+        return self.coverage < other.coverage
