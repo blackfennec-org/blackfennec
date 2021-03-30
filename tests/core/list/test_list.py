@@ -1,6 +1,6 @@
 import unittest
 import logging
-from tests.doubles.doubles import InfoMock, RootMock
+from doubles.core import InfoMock, RootMock
 from src.core.list import List
 
 class ListTestSuite(unittest.TestCase):
