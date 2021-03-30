@@ -2,10 +2,10 @@ from src.core.info import Info
 from src.core.map import Map
 
 class MapViewModel:
-    """View model for core type String."""
+    """View model for core type Map."""
 
     def __init__(self, interpretation):
-        """Create with value empty string.
+        """Create with value empty map.
 
         Args:
             interpretation (:obj:`Interpretation`): The overarching
