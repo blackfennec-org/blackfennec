@@ -19,7 +19,7 @@ class Info():
         self._parent = parent
 
     @property
-    def children(self) -> list['Info']:
+    def children(self):
         """Readonly property for children of this Info, by default empty"""
         return list()
 

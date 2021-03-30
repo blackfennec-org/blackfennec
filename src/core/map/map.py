@@ -7,7 +7,7 @@ logger = logging.getLogger(__name__)
 class Map(Info, UserDict):
     """Core type Map, a set of keys with values"""
 
-    def __init__(self, data: dict[any,Info]= None):
+    def __init__(self, data: dict= None):
         Info.__init__(self)
         UserDict.__init__(self, data)
 

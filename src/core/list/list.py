@@ -7,7 +7,7 @@ logger = logging.getLogger(__name__)
 class List(Info, UserList):
     """Core type List, a list of :obj:`Info`s"""
 
-    def __init__(self, data: list[Info]= None):
+    def __init__(self, data: list= None):
         Info.__init__(self)
         UserList.__init__(self)
         if data:
