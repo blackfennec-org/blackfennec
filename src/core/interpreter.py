@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 import logging
+
+from src.core.info import Info
 from src.core.interpretation import Interpretation
 
 logger = logging.getLogger(__name__)
@@ -12,7 +14,8 @@ class Interpreter:
     Creator of Interpretations
 
     Attributes:
-        _navigation_service (NavigationService): stores injected navigation service
+        _navigation_service (NavigationService): stores injected
+            navigation service
         _factories ([InfoViewFactory]): stores injected factory list
 
     Todo:
@@ -23,9 +26,10 @@ class Interpreter:
 
         Args:
             navigation_service (NavigationService): service to navigate
-            factories ([InfoViewFactory]): list of factories, used to create info_view
+            factories ([InfoViewFactory]): list of factories, used to
+                create info_view
         """
-        assert factories, "No factories provided to interpreter"
+        assert factories, 'No factories provided to interpreter'
         self._navigation_service = navigation_service
         self._factories = factories
 
@@ -41,12 +45,12 @@ class Interpreter:
         for factory in self._factories:
             info_views.append(factory.create())
             logger.debug(
-                "creating info_view with factory %s",
+                'creating info_view with factory %s',
                 factory
             )
         return info_views
 
-    def interpret(self, info):
+    def interpret(self, info: Info) -> Interpretation:
         """interpretation creation function.
 
         Creates Interpretation with created info_view
@@ -59,7 +63,7 @@ class Interpreter:
         """
         info_views = self._create_info_views()
         logger.debug(
-            "creating interpretation of info %s with views %s",
+            'creating interpretation of info %s with views %s',
             info,
             info_views
         )

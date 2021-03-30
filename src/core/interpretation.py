@@ -1,4 +1,7 @@
 # -*- coding: utf-8 -*-
+from src.core.info import Info
+
+
 class Interpretation:
     """Interpretation Class.
 
@@ -7,14 +10,15 @@ class Interpretation:
     requests to navigation_service
 
     Attributes:
-        _navigation_service (NavigationService): stores injected navigation service
+        _navigation_service (NavigationService): stores injected
+            navigation service
         _info (Info): stores injected info
         _info_views (InfoView): stores injected info
 
     Todo:
         * Add types to function parameters
     """
-    def __init__(self, navigation_service, info, info_views):
+    def __init__(self, navigation_service, info: Info, info_views):
         """Interpretation constructor.
 
         Args:
@@ -27,7 +31,7 @@ class Interpretation:
         self._info = info
 
     @property
-    def info(self):
+    def info(self) -> Info:
         """info getter
 
         Returns:
@@ -44,7 +48,7 @@ class Interpretation:
         """
         return self._info_views
 
-    def navigate(self, destination):
+    def navigate(self, destination: Info):
         """Navigation dispatch.
 
         Args:
