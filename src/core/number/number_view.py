@@ -18,7 +18,6 @@ class NumberView(Gtk.Bin):
         """
         super().__init__()
         self._view_model = view_model
-        buffer = self._value.get_buffer()
-        buffer.set_text(str(self._view_model.value))
+        self._value.set_text(str(self._view_model.value))
         logger.info(
             'NumberView with text: "%s" created', self._view_model.value)

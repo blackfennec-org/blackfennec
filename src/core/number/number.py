@@ -29,7 +29,7 @@ class Number(Info):
             value = value.value
         return Number(self._value + value)
 
-    def __iadd__(self, value) -> Number:
+    def __iadd__(self, value) -> 'Number':
         """Add a number to this number"""
         if isinstance(value, Number):
             value = value.value
