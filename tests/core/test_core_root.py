@@ -1,6 +1,5 @@
 import unittest
-from tests.doubles.doubles import RootMock
-
+from doubles.core import RootMock
 from src.core.root import Root
 
 class InfoTestSuite(unittest.TestCase):

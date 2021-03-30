@@ -1,6 +1,5 @@
 import unittest
-from tests.doubles.doubles import RootMock
-
+from doubles.core import RootMock
 from src.core.string import String
 
 class StringTestSuite(unittest.TestCase):

@@ -1,6 +1,6 @@
 import unittest
 
-from tests.doubles.doubles import InfoMock, InterprationMock
+from doubles.core import InfoMock, InterprationMock
 from src.core.map import MapViewModel
 
 class MapViewModelTestSuite(unittest.TestCase):
