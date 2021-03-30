@@ -7,9 +7,13 @@ logger = logging.getLogger(__name__)
 class Map(Info, UserDict):
     """Core type Map, a set of keys with values"""
 
-    def __init__(self):
+    def __init__(self, data: dict[any,Info]= None):
         Info.__init__(self)
-        UserDict.__init__(self)
+        UserDict.__init__(self, data)
+
+    @property
+    def children(self):
+        return list(self.data.values())
 
     def __delitem__(self, key):
         """Custom delete hook, resets parent for removed info."""

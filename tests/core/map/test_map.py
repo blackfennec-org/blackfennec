@@ -8,7 +8,17 @@ class MapTestSuite(unittest.TestCase):
         m = Map()
         self.assertEqual(m, {})
 
-    #def test_can_construct_from_dict?
+    def test_can_construct_from_dict(self):
+        data = {'a': InfoMock(), 'b': InfoMock()}
+        info = Map(data)
+        self.assertEqual(info, data)
+        self.assertEqual(data['a'].parent, info)
+
+    def test_can_get_children(self):
+        data = {'a': InfoMock(), 'b': InfoMock()}
+        info = Map(data)
+        children = info.children
+        self.assertListEqual(children, list(data.values()))
 
     def test_can_add_item(self):
         m = Map()
@@ -42,7 +52,6 @@ class MapTestSuite(unittest.TestCase):
                 m[key] = value
             except ValueError:
                 pass
-
 
     def test_can_delete_item(self):
         m = Map()
