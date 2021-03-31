@@ -7,7 +7,7 @@ class Auctioneer:
     """Auctioneer Class.
 
     Decides how Info is interpreted and creates
-    and Interpreter with the most suitable type
+    an Interpreter with the most suitable type
 
     Attributes:
         _type_registry (TypeRegistry): stores injected
@@ -25,7 +25,7 @@ class Auctioneer:
     def _select_offers(self, offers: [Offer]) -> [Offer]:
         """Offer selection.
 
-        Gets a list of Offers and selects the most suitable
+        Gets a list of Offers and selects the most suitable.
         Can be multiple.
 
         Args:
