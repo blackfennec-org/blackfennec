@@ -104,4 +104,17 @@ class InterpreterTestSuite(unittest.TestCase):
                 msg='Comparison of offers with different subject does ' +
                     'not throw ValueError'
         ):
-            offer < other_offer
+            offer < other_offer # pylint: disable=pointless-statement
+
+    def test_hash_unequal_values(self):
+        subject = Dummy('Info')
+        other_subject = Dummy('Info2')
+        offer = Offer(subject, specificity=1, coverage=1)
+        other_offer = Offer(other_subject, specificity=2, coverage=0.5)
+        self.assertNotEqual(hash(offer), hash(other_offer))
+
+    def test_hash_equal_values(self):
+        subject = Dummy('Info')
+        offer = Offer(subject, specificity=1, coverage=1)
+        other_offer = Offer(subject, specificity=1, coverage=1)
+        self.assertEqual(hash(offer), hash(other_offer))
