@@ -20,3 +20,8 @@ class InfoTestSuite(unittest.TestCase):
         root = RootMock()
         info = Info(root)
         self.assertEqual(info.root, root)
+
+    def test_can_get_children(self):
+        info = Info()
+        children = info.children
+        self.assertEqual(children, [])

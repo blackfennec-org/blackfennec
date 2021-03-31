@@ -7,12 +7,16 @@ logger = logging.getLogger(__name__)
 class List(Info, UserList):
     """Core type List, a list of :obj:`Info`s"""
 
-    def __init__(self, l: [Info]= None):
+    def __init__(self, data: list= None):
         Info.__init__(self)
         UserList.__init__(self)
-        if l:
-            for item in l:
+        if data:
+            for item in data:
                 self.append(item)
+
+    @property
+    def children(self):
+        return list(self.data)
 
     def _set_parent(self, item):
         if item.parent is not None:

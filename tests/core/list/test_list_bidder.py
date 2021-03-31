@@ -14,4 +14,3 @@ class ListBidderTestSuite(unittest.TestCase):
         bidder = ListBidder()
         not_list = {}
         self.assertFalse(bidder.bid(not_list))
-    

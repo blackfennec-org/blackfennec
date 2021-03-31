@@ -5,13 +5,19 @@ from src.core.list import List
 
 class ListTestSuite(unittest.TestCase):
     def test_can_construct(self):
-        m = List()
-        self.assertEqual(m, [])
+        l = List()
+        self.assertEqual(l, [])
 
     def test_can_construct_from_list(self):
         l = List([InfoMock()])
         self.assertEqual(len(l), 1)
         self.assertEqual(l[0].parent, l)
+
+    def test_can_get_children(self):
+        data = [InfoMock(), InfoMock()]
+        info = List(data)
+        children = info.children
+        self.assertListEqual(children, data)
 
     def test_can_append_item(self):
         l = List()

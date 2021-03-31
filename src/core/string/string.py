@@ -1,4 +1,4 @@
-from collections import  UserString
+from collections import UserString
 from src.core.info import Info
 
 class String(Info, UserString):
@@ -11,7 +11,8 @@ class String(Info, UserString):
             value (:obj:`str`, optional): The value of the `String`.
                 By default "" (empty string)
         """
-        super(Info, self).__init__(value)
+        Info.__init__(self)
+        UserString.__init__(self, value)
 
     @property
     def value(self):
