@@ -2,7 +2,7 @@
 import unittest
 
 from doubles.dummy import Dummy
-from src.core.offer import Offer
+from src.core.auction.offer import Offer
 
 
 class InterpreterTestSuite(unittest.TestCase):

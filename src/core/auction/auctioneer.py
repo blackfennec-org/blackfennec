@@ -1,7 +1,7 @@
 from doubles.dummy import Dummy
 from src.core.info import Info
 from src.core.interpreter import Interpreter
-from src.core.offer import Offer
+from src.core.auction.offer import Offer
 
 
 class Auctioneer:
