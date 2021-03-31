@@ -6,7 +6,7 @@ This module contains the unit-tests of the Interpretation class."""
 import unittest
 
 from doubles.dummy import Dummy
-from doubles.navigation.navigation_service import NavigationServiceMock
+from doubles.core.navigation.navigation_service import NavigationServiceMock
 from src.core.interpretation import Interpretation
 
 
