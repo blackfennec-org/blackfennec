@@ -1,6 +1,5 @@
 import os
 import csv
-import sqlite3
 import argparse
 
 
@@ -22,7 +21,7 @@ def convert_to_hours(time):
 def convert_to_date(date):
     date = date.split()
     date, time = date[0], date[1]
-    date = date.split(".")
+    date = date.split('.')
     date = date[2] + '-' + date[1] + '-' + date[0] + ' ' + time
     return date
 
@@ -31,19 +30,19 @@ def read_issues(issues_file):
     with open(issues_file, 'r') as file:
         dict_reader = csv.DictReader(file)
         issues = [{
-            "iid": entry['iid'],
-            "title": entry['title'],
-            "spent": convert_to_hours(entry['spent']),
-            "total_estimate": convert_to_hours(entry['total_estimate'])
+            'iid': entry['iid'],
+            'title': entry['title'],
+            'spent': convert_to_hours(entry['spent']),
+            'total_estimate': convert_to_hours(entry['total_estimate'])
         } for entry in
             dict_reader]
     return issues
 
 
 def write_issues(issues, issues_file):
-    with open(issues_file, "w") as file:
+    with open(issues_file, 'w') as file:
         writer = csv.DictWriter(
-            file, ["iid", "title", "spent", "total_estimate"])
+            file, ['iid', 'title', 'spent', 'total_estimate'])
         writer.writeheader()
         writer.writerows(issues)
 
@@ -52,19 +51,19 @@ def read_records(records_file):
     with open(records_file, 'r') as file:
         dict_reader = csv.DictReader(file)
         records = [{
-            "user": entry['user'],
-            "date": convert_to_date(entry['date']),
-            "type": entry['type'],
-            "iid": entry['iid'],
-            "time": convert_to_hours(entry['time'])
+            'user': entry['user'],
+            'date': convert_to_date(entry['date']),
+            'type': entry['type'],
+            'iid': entry['iid'],
+            'time': convert_to_hours(entry['time'])
         } for entry in dict_reader]
     return records
 
 
 def write_records(records, records_file):
-    with open(records_file, "w") as file:
+    with open(records_file, 'w') as file:
         writer = csv.DictWriter(
-            file, ["user", "date", "type", "iid", "time"])
+            file, ['user', 'date', 'type', 'iid', 'time'])
         writer.writeheader()
         writer.writerows(records)
 
@@ -84,15 +83,15 @@ def main_function():
     parser.add_argument('-p', '--print', dest='output',
                         help='Print', action='store_true')
     args = parser.parse_args()
-    
+
     check_file(args.issues)
     issues = read_issues(args.issues)
     write_issues(issues, args.issues)
-    
+
     check_file(args.records)
     records = read_records(args.records)
     write_records(records, args.records)
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     main_function()

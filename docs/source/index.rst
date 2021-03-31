@@ -26,6 +26,7 @@ Welcome to Black Fennec's documentation!
    project_standards/logging_standards.rst
    project_standards/version_control_strategy.rst
    project_standards/definition_of_scrum.rst
+   project_standards/ci_cd.rst
 
 .. toctree::
    :maxdepth: 2
