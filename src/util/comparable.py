@@ -8,7 +8,7 @@ class Comparable:
         return not self == other
 
     def __le__(self, other: 'Comparable') -> bool:
-        return self == other and self < other
+        return self == other or self < other
 
     def __gt__(self, other: 'Comparable') -> bool:
         return not self <= other
