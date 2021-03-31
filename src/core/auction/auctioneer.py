@@ -7,7 +7,7 @@ class Auctioneer:
     """Auctioneer Class.
 
     Decides how Info is interpreted and creates
-    an Interpreter with the most suitable type
+    an list of factories of the most suitable type
 
     Attributes:
         _type_registry (TypeRegistry): stores injected
@@ -38,7 +38,7 @@ class Auctioneer:
         assert offers, 'No type was found to handle info'
         return offers
 
-    def auction(self, subject: Info, navigation_service):
+    def auction(self, subject: Info):
         """Auction of Info.
 
         Auctions subject to all know types and each
@@ -47,16 +47,14 @@ class Auctioneer:
 
         Args:
             subject(Info): Info to auction
-            navigation_service(NavigationService): Navigation service
-                required for passing to interpretation
 
         Returns:
-            Interpreter: Interpreter capable of creating
-                an interpretation of the type
+            [InfoFactory]: Factories selected according to
+                selected offers
         """
         types = dict()
         for bidder, factory in self._type_registry.types.items():
             types[bidder.bid(subject)] = factory
         offers: [Offer] = self._select_offers(types.keys())
         factories = [types[key] for key in offers]
-        return Interpreter(navigation_service, factories)
+        return factories

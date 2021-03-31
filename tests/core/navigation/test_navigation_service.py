@@ -30,10 +30,6 @@ class InterpretationTestSuite(unittest.TestCase):
             destination
         )
         self.assertEqual(
-            auctioneer.auction_last_navigation_service,
-            navigation_service
-        )
-        self.assertEqual(
             info_presenter.show_count,
             1
         )

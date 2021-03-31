@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+from doubles.dummy import Dummy
+
 
 class AuctioneerMock:
     def __init__(self, type_registry):
@@ -6,7 +8,7 @@ class AuctioneerMock:
         self.auction_count = 0
         self.auction_last_subject = None
 
-    def auction(self, subject, navigation_service):
+    def auction(self, subject):
         self.auction_last_subject = subject
-        self.auction_last_navigation_service = navigation_service
         self.auction_count += 1
+        return [Dummy('InfoFactory')]

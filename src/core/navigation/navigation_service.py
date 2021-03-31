@@ -30,12 +30,14 @@ class NavigationService:
     def _resolve_route(self, route_target: Info) -> Interpreter:
         """Resolve of route
 
-        Start auction on auctioneer to receive interpreter
+        Start auction on auctioneer to receive list of factories
+        and return Interpreter
 
         Args:
             route_target (Info): Target to which shall be navigated
         """
-        return self._auctioneer.auction(route_target, self)
+        factories = self._auctioneer.auction(route_target)
+        return Interpreter(self, factories)
 
     def navigate(self, sender: Interpretation, destination: Info):
         """Navigation request dispatch
