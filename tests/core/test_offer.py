@@ -101,6 +101,7 @@ class InterpreterTestSuite(unittest.TestCase):
         other_offer = Offer(other_subject, specificity=1, coverage=1)
         with self.assertRaises(
                 ValueError,
-                msg='Comparison of offers with different subject does not throw ValueError'
+                msg='Comparison of offers with different subject does ' +
+                    'not throw ValueError'
         ):
             offer < other_offer
