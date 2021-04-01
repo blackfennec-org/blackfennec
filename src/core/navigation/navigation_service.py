@@ -43,7 +43,7 @@ class NavigationService:
         """Navigation request dispatch
 
         Dispatches navigation request received by Interpretation
-        to info_presenter to show navigation with the help
+        to column_based_presenter to show navigation with the help
         of the received interpreter
 
         Args:
