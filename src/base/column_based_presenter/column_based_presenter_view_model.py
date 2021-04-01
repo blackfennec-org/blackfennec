@@ -48,6 +48,7 @@ class ColumnBasedPresenterViewModel(Observable):
             interpreter (Interpreter): Producer of interpretation for
                 info passed.
         """
+        logger.debug("show info (%s) for sender (%s)", info, sender)
         self._try_cut_interpretations_at(sender)
         interpretation = interpreter.interpret(info)
         self._add_interpretation(interpretation)

@@ -12,8 +12,7 @@ class MapViewModel:
                 interpretation
         """
         self._interpretation = interpretation
-        self._map = Map()
-
+        self._map = self._interpretation.info
     @property
     def value(self):
         """Readonly property for value."""
@@ -36,5 +35,5 @@ class MapViewModel:
         """
         self._map.pop(key)
 
-    def navigate_to(self, info: Info):
-        self._interpretation.navigate_to(info)
+    def navigate_to(self, key: str):
+        self._interpretation.navigate(self._map[key])

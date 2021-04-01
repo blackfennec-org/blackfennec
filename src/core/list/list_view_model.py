@@ -12,7 +12,7 @@ class ListViewModel:
                 interpretation
         """
         self._interpretation = interpretation
-        self._list = List()
+        self._list = self._interpretation.info
 
     @property
     def value(self):
@@ -36,4 +36,4 @@ class ListViewModel:
         self._list.remove(item)
 
     def navigate_to(self, info: Info):
-        self._interpretation.navigate_to(info)
+        self._interpretation.navigate(info)

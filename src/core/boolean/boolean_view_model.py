@@ -10,7 +10,7 @@ class BooleanViewModel:
             interpretation (:obj:`Interpretation`): The overarching
                 interpretation
         """
-        self._model = Boolean()
+        self._model = interpretation.info
 
     @property
     def value(self):

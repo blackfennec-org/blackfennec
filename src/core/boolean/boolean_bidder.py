@@ -1,5 +1,6 @@
 from src.core.info import Info
 from src.core.boolean import Boolean
+from src.core.auction import Offer
 
 import logging
 
@@ -9,7 +10,7 @@ logger = logging.getLogger(__name__)
 class BooleanBidder:
     """The bidding service for the core type `Boolean`."""
 
-    def bid(self, obj: Info):
+    def bid(self, subject: Info):
         """"Produces an offer for a given object.
 
         Args:
@@ -17,4 +18,6 @@ class BooleanBidder:
         """
         logger.info('bidding on object')
 
-        return isinstance(obj, Boolean)
+        if isinstance(subject, Boolean):
+            return Offer(subject, 0, 1.0)
+        return Offer(subject, 0, 0)

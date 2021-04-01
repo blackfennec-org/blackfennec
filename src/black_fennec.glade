@@ -17,11 +17,7 @@
       <placeholder/>
     </child>
     <child>
-<<<<<<< HEAD
-      <object class="GtkBox" id="_box">
-=======
       <object class="GtkGrid" id="main-grid">
->>>>>>> origin/feature/main-ui
         <property name="visible">True</property>
         <property name="can_focus">False</property>
         <child>
@@ -324,15 +320,9 @@
             <property name="top_attach">2</property>
           </packing>
         </child>
-<<<<<<< HEAD
-        <child>
-          <placeholder/>
-        </child>
-=======
         <style>
           <class name="main-grid"/>
         </style>
->>>>>>> origin/feature/main-ui
       </object>
     </child>
   </template>

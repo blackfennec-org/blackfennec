@@ -12,7 +12,7 @@ class TypeRegistry:
 
         Initializes the _types attribute with empty dictionary
         """
-        self._types = dict()
+        self._types = list()
 
 
 
@@ -31,9 +31,10 @@ class TypeRegistry:
 
             Args:
                 type_bidder (InfoBidder): key of the type dictionary
-                type_view_factory (InfoViewFactory): value of the type dictionary
+                type_view_factory (InfoViewFactory): value of the type
+                    dictionary
         """
-        self._types[type_bidder] = type_view_factory
+        self._types.append((type_bidder, type_view_factory))
 
 
     def deregister_type(self, type_bidder):

@@ -1,0 +1,1 @@
+from .offer import Offer

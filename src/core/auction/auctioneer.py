@@ -1,8 +1,9 @@
+import logging
 from src.core.info import Info
 from src.core.interpreter import Interpreter
 from src.core.auction.offer import Offer
 
-
+logger = logging.getLogger(__name__)
 class Auctioneer:
     """Auctioneer Class.
 
@@ -22,7 +23,7 @@ class Auctioneer:
         """
         self._type_registry = type_registry
 
-    def _select_offers(self, offers: [Offer]) -> [Offer]:
+    def _select_offers(self, subject, offers: [Offer]) -> [Offer]:
         """Offer selection.
 
         Gets a list of Offers and selects the most suitable.
@@ -34,9 +35,17 @@ class Auctioneer:
         Returns:
             [Offer]: most suitable offers
         """
-        offers: [Offer] = [max(offers)]
-        assert offers, 'No type was found to handle info'
-        return offers
+        best_offer = Offer(subject, 0, 0)
+        selection = None
+        for offer, factory in offers:
+            if offer > best_offer:
+                best_offer = offer
+                selection = factory
+        if not selection:
+            message = "No offer is the best offer"
+            logger.error(message)
+            raise KeyError(message)
+        return [selection]
 
     def auction(self, subject: Info):
         """Auction of Info.
@@ -52,9 +61,9 @@ class Auctioneer:
             [InfoFactory]: Factories selected according to
                 selected offers
         """
-        types = dict()
-        for bidder, factory in self._type_registry.types.items():
-            types[bidder.bid(subject)] = factory
-        offers: [Offer] = self._select_offers(types.keys())
-        factories = [types[key] for key in offers]
+        logger.debug("starting bidding on {}".format(subject))
+        types = list()
+        for bidder, factory in self._type_registry.types:
+            types.append((bidder.bid(subject), factory))
+        factories = self._select_offers(subject, types)
         return factories

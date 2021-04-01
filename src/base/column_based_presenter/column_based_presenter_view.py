@@ -69,6 +69,7 @@ class ColumnBasedPresenterView(Gtk.Box):
         Args:
             interpretation (Interpretation): interpretation to remove
         """
+        logger.debug("remove interpretation %s", interpretation)
         info_view = interpretation.view
         self.interpretations.remove(interpretation)
         self.remove(info_view)
@@ -83,6 +84,7 @@ class ColumnBasedPresenterView(Gtk.Box):
         Args:
             interpretation (Interpretation): interpretation to add
         """
+        logger.debug("add interpretation %s", interpretation)
         info_view = interpretation.view
         info_view.show_all()
         self.interpretations.append(interpretation)
