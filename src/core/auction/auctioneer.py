@@ -1,4 +1,3 @@
-from doubles.dummy import Dummy
 from src.core.info import Info
 from src.core.interpreter import Interpreter
 from src.core.auction.offer import Offer
@@ -8,7 +7,7 @@ class Auctioneer:
     """Auctioneer Class.
 
     Decides how Info is interpreted and creates
-    and Interpreter with the most suitable type
+    an list of factories of the most suitable type
 
     Attributes:
         _type_registry (TypeRegistry): stores injected
@@ -26,7 +25,7 @@ class Auctioneer:
     def _select_offers(self, offers: [Offer]) -> [Offer]:
         """Offer selection.
 
-        Gets a list of Offers and selects the most suitable
+        Gets a list of Offers and selects the most suitable.
         Can be multiple.
 
         Args:
@@ -35,9 +34,11 @@ class Auctioneer:
         Returns:
             [Offer]: most suitable offers
         """
-        return [max(offers)]
+        offers: [Offer] = [max(offers)]
+        assert offers, 'No type was found to handle info'
+        return offers
 
-    def auction(self, subject: Info) -> Interpreter:
+    def auction(self, subject: Info):
         """Auction of Info.
 
         Auctions subject to all know types and each
@@ -48,12 +49,12 @@ class Auctioneer:
             subject(Info): Info to auction
 
         Returns:
-            Interpreter: Interpreter capable of creating
-                an interpretation of the type
+            [InfoFactory]: Factories selected according to
+                selected offers
         """
         types = dict()
         for bidder, factory in self._type_registry.types.items():
             types[bidder.bid(subject)] = factory
         offers: [Offer] = self._select_offers(types.keys())
         factories = [types[key] for key in offers]
-        return Interpreter(Dummy("nav"), factories)
+        return factories
