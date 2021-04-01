@@ -5,7 +5,7 @@ This module contains the unit-tests of the Interpreter class."""
 
 import unittest
 
-from doubles.base.info_view_factory import InfoViewFactoryMock
+from doubles.core.info_view_factory import InfoViewFactoryMock
 from doubles.dummy import Dummy
 from src.core.interpretation import Interpretation
 from src.core.interpreter import Interpreter
