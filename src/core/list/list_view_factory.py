@@ -1,7 +1,7 @@
 from src.core.list import ListViewModel, ListView
 
 class ListViewFactory:
-    """Creator or the ListView"""
+    """Creator of the ListView"""
 
     def create(self, interpretation) -> ListView:
         """creates a ListView

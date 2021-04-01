@@ -1,3 +1,4 @@
+import numbers
 from src.core.number import Number
 
 class NumberViewModel:
@@ -5,7 +6,7 @@ class NumberViewModel:
 
     def __init__(self, interpretation):
         """Create with value empty number
-        
+
         Args:
             interpretation (:obj:`Interpretation`): The overarching
                 interpretation
@@ -13,10 +14,10 @@ class NumberViewModel:
         self._model = Number()
 
     @property
-    def value(self):
-        """Property for value"""
+    def value(self) -> numbers.Number:
+        """Property for value of type number.Number"""
         return self._model.value
 
     @value.setter
-    def value(self, value):
+    def value(self, value: numbers.Number):
         self._model.value = value

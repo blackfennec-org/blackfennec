@@ -8,6 +8,12 @@ class List(Info, UserList):
     """Core type List, a list of :obj:`Info`s"""
 
     def __init__(self, data: list= None):
+        """Constructor for List.
+
+        Args:
+            data (list[Info], optional): Infos with which to initialise
+                the List.
+        """
         Info.__init__(self)
         UserList.__init__(self)
         if data:
@@ -16,9 +22,15 @@ class List(Info, UserList):
 
     @property
     def children(self):
+        """Readonly property for child infos"""
         return list(self.data)
 
     def _set_parent(self, item):
+        """Helper method to set parent of item
+
+        Args
+            item (Info): Item on which to set parent to `self`.
+        """
         if item.parent is not None:
             message = "value already has a parent {}; {}".format(
                 item.parent, self)
@@ -30,11 +42,21 @@ class List(Info, UserList):
         assert item.parent is self
         item.parent = None
 
-    def append(self, item):
+    def append(self, item: Info):
+        """Append item to list.
+
+        Args:
+            item (Info): Item to append.
+        """
         super().append(item)
         self._set_parent(item)
 
-    def remove(self, item):
+    def remove(self, item: Info):
+        """Remove item form List.
+        
+        Args:
+            item (Info): Item to remove.
+        """
         if item not in self:
             message = "item not in list"
             logger.error(message)
