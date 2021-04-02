@@ -1,0 +1,19 @@
+{
+    "Project Name": "Back Fennec",
+    "Is Active": "True",
+    "Team": [
+        {
+            "First Name": "Lara"
+        },
+        {
+            "First Name": "Leonie"
+        },
+        {
+            "First Name": "Caspar"
+        },
+        {
+            "First Name": "Simon"
+        }
+    ],
+    "Repository": "https://gitlab.ost.ch/epj/2021-FS/g01_blackfennec/black-fennec"
+}

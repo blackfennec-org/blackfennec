@@ -1,6 +1,7 @@
-import logging
 import gi
 gi.require_version("Gtk", "3.0")
+import logging
+import json
 from gi.repository import Gtk
 from src.black_fennec_view_model import BlackFennecViewModel
 from src.black_fennec_view import BlackFennecView
@@ -12,6 +13,7 @@ from src.core import BooleanBidder, BooleanViewFactory, \
         Map, MapBidder, MapViewFactory, \
         Info, Auctioneer, NavigationService
 from src.base.column_based_presenter import ColumnBasedPresenterViewFactory
+from src.core.json_parser import JsonParser
 
 logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
@@ -26,26 +28,10 @@ def create_type_registry() -> TypeRegistry:
     return registry
 
 def create_structure() -> Info:
-    structure = Map({
-        "Team": List([
-            Map({
-                "name": String("Leonie")
-            }),
-            Map({
-                "name": String("Lara")
-            }),
-            Map({
-                "name": String("Caspar")
-            }),
-            Map({
-                "name": String("Simon")
-            })
-        ]),
-        "Repository": String(
-            "https://gitlab.ost.ch/epj/2021-FS/g01_blackfennec/black-fennec")
-    })
-    return structure
-
+    with open('examples/black_fennec.json', 'r') as file:
+        raw = json.load(file)
+    return JsonParser.from_json(raw)
+    
 class BlackFennec(Gtk.Application):
     def __init__(self, presenter_view):
         super().__init__(
@@ -55,17 +41,17 @@ class BlackFennec(Gtk.Application):
         self._window = None
 
     def do_startup(self):
-        logger.info("BlackFennec do_startup")
+        logger.info('BlackFennec do_startup')
         Gtk.Application.do_startup(self)
 
     def do_activate(self):
-        logger.info("BlackFennec do_activate")
+        logger.info('BlackFennec do_activate')
         view_model = BlackFennecViewModel(self._presenter_view)
         self._window = BlackFennecView(self, view_model)
         self._window.present()
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     presenter_view = ColumnBasedPresenterViewFactory().create()
     presenter = presenter_view._view_model
     type_registry = create_type_registry()

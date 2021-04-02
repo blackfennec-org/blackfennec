@@ -21,7 +21,9 @@ class BlackFennecView(Gtk.ApplicationWindow):
         screen = Gdk.Screen.get_default()
         provider = Gtk.CssProvider()
         provider.load_from_path('src/style.css')
-        Gtk.StyleContext.add_provider_for_screen(screen, provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
+        Gtk.StyleContext.add_provider_for_screen(
+            screen, provider, 
+            Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
 
         self._click_handler = click_handler
 
