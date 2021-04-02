@@ -1,7 +1,7 @@
 from src.core.string import StringViewModel, StringView
 
 class StringViewFactory:
-    """Creator or the StringView"""
+    """Creator of the StringView"""
 
     def create(self, interpretation) -> StringView:
         """creates a StringView

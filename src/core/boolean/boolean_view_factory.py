@@ -1,7 +1,7 @@
 from src.core.boolean import BooleanViewModel, BooleanView
 
 class BooleanViewFactory:
-    """Creator or the BooleanView"""
+    """Creator of the BooleanView"""
 
     def create(self, interpretation) -> BooleanView:
         """creates a BooleanView

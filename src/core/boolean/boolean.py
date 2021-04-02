@@ -8,7 +8,7 @@ class Boolean(Info):
 
         Args:
             value (:obj:`bool`, optional): The value of the `Boolean`.
-                By default "" (empty boolean)
+                Default value is `False`
         """
         Info.__init__(self)
         self._value = value
@@ -29,7 +29,7 @@ class Boolean(Info):
         return not self == other
 
     def __bool__(self) -> bool:
-        """Add two booleans together"""
+        """Truth value of Boolean"""
         return self._value
 
     def __str__(self) -> str:

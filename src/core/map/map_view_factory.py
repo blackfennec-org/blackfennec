@@ -1,7 +1,7 @@
 from src.core.map import MapViewModel, MapView
 
 class MapViewFactory:
-    """Creator or the MapView"""
+    """Creator of the MapView"""
 
     def create(self, interpretation) -> MapView:
         """creates a MapView

@@ -1,7 +1,7 @@
 from src.core.number import NumberViewModel, NumberView
 
 class NumberViewFactory:
-    """Creator or the NumberView"""
+    """Creator of the NumberView"""
 
     def create(self, interpretation) -> NumberView:
         """creates a NumberView
