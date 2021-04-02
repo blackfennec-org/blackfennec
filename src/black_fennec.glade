@@ -251,6 +251,9 @@
             <property name="top_attach">2</property>
           </packing>
         </child>
+        <child>
+          <placeholder/>
+        </child>
       </object>
     </child>
   </template>

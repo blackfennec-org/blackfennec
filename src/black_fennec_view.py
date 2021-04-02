@@ -1,13 +1,7 @@
 import logging
-import gi
-from gi.repository import Gtk
-from gi.repository import Gdk
-
-
-gi.require_version("Gtk", "3.0")
+from gi.repository import Gtk, Gdk
 
 logger = logging.getLogger(__name__)
-
 
 @Gtk.Template(filename="src/black_fennec.glade")
 class BlackFennecView(Gtk.ApplicationWindow):
@@ -15,7 +9,7 @@ class BlackFennecView(Gtk.ApplicationWindow):
     __gtype_name__ = "BlackFennecView"
     _presenter_container = Gtk.Template.Child()
 
-    def __init__(self, app, view_model, click_handler=None):
+    def __init__(self, app, view_model):
 
         super().__init__(application=app)
         logger.info("BlackFennecView __init__")
@@ -27,11 +21,6 @@ class BlackFennecView(Gtk.ApplicationWindow):
         provider = Gtk.CssProvider()
         provider.load_from_path("src/style.css")
         Gtk.StyleContext.add_provider_for_screen(screen, provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
-
-        self._click_handler = click_handler
-
-    def _click_handler(self) -> None:
-        """Handles clicks on items"""
 
     @Gtk.Template.Callback()
     def on_new_clicked(self, _) -> None:
