@@ -1,26 +1,12 @@
-.background {
+grid {
  font-family: Ubuntu;
- color: #4d77fd;
-}
-.ponter {
-cursor: pointer;
-}
-
-.main-grid{
-background-color: #515151;
-}
-
-.header-bar {
-background-color: #2b2b2b;
-
+ color: #4d77fd;;
+ background-color: #515151;
 }
 
 .menu-bar {
-background-color: #2b2b2b;
-}
-.search-bar{
-background-color: #2b2b2b;
-border: none;
+background-color: #ff0000;
+/* class does not work */
 }
 
 .search-entry{
@@ -30,55 +16,17 @@ border-color: #4d77fd;
 border-radius: 25px;
 }
 
-.status-bar {
+statusbar {
 background-color: #464545;
 }
 
 .file-tree{
 background-color: #515151;
-border-style: solid;
-border-color: #464545; 
+border: 1px solid #2b2b2b; /* property does not work */
 }
 
-#info-presenter{
+box{
 background-color: #464545;
-border-style: solid;
-border-color: #464545; 
-}
-
-.dark-mode-button{
-border: none;
-background-color: #2b2b2b;
-
-}
-
-notebook > header {
-   
-}
-
-notebook > header.top > tabs > tab {
-
-    color: #e4e4e4;
-    border: 1px solid #464545;
-    margin-top: 3px;
-
-}
-
-notebook > header > tabs > tab:hover {
-    color: #4d77fd;
-}
-
-notebook > header > tabs > tab:checked {
-    color: #4d77fd;
-    background: #464545;
-    border: none;
-}
-notebook > header > tabs > tab:checked::after {
-    background: #4d77fd;
-}
-
-.dnd {
-color: #e4e4e4;
 border: 1px solid #464545;
 }
 
@@ -88,5 +36,15 @@ progressbar > trough > progress {
 
 progressbar > trough  {
 background-color: #fff;
+}
+
+headerbar > label {
+color: #e4e4e4;
+font-weight:700;
+}
+
+headerbar > box {
+background-color: #2b2b2b;
+border: none;
 }
 
