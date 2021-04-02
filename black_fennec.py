@@ -1,7 +1,8 @@
-import logging
 import gi
 gi.require_version("Gtk", "3.0")
 from gi.repository import Gtk
+import logging
+import threading
 from src.black_fennec_view import BlackFennecView
 from src.splash_screen.splash_screen_view import SplashScreenView
 
@@ -15,7 +16,7 @@ class BlackFennec(Gtk.Application):
         super().__init__(
             application_id="org.darwin.blackfennec")
         logger.info("BlackFennec __init__")
-        self._window = None
+        self._window: Gtk.Window = None
 
 
     def do_startup(self):
@@ -25,11 +26,13 @@ class BlackFennec(Gtk.Application):
     def do_activate(self):
         logger.info("BlackFennec do_activate")
         self.set_window(SplashScreenView(self, {}))
-        self.set_window(BlackFennecView(self))
-        #timer = threading.Timer(1.0, self.set_window, args=BlackFennecView(self))
-        #timer.start()
+        threading.Timer(
+            1.0, self.set_window,
+            args=[BlackFennecView(self)]).start()
 
     def set_window(self, view):
+        if self._window:
+            self._window.destroy()
         self._window = view
         self._window.present()
 
