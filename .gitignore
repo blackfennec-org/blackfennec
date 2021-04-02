@@ -7,3 +7,4 @@ docs/source/_build/
 *.glade~
 __pycache__/
 pylint/
+venv
