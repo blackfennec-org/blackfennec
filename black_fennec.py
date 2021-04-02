@@ -35,8 +35,8 @@ def create_structure() -> Info:
 class BlackFennec(Gtk.Application):
     def __init__(self, presenter_view):
         super().__init__(
-            application_id="org.darwin.blackfennec")
-        logger.info("BlackFennec __init__")
+            application_id='org.darwin.blackfennec')
+        logger.info('BlackFennec __init__')
         self._presenter_view = presenter_view
         self._window = None
 
