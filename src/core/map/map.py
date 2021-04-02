@@ -8,15 +8,26 @@ class Map(Info, UserDict):
     """Core type Map, a set of keys with values"""
 
     def __init__(self, data: dict= None):
+        """Constructor for List.
+
+        Args:
+            data (dict[any, Info], optional): Infos with which to initialise
+                the Map.
+        """
         Info.__init__(self)
         UserDict.__init__(self, data)
 
     @property
     def children(self):
+        """Readonly property for child infos"""
         return list(self.data.values())
 
     def __delitem__(self, key):
-        """Custom delete hook, resets parent for removed info."""
+        """Custom delete hook, resets parent for removed info.
+        
+        Args:
+            key (any): The key of the item to delete.
+        """
         try:
             value = self.data.pop(key)
             value.parent = None
