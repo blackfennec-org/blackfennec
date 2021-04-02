@@ -25,8 +25,6 @@ class BlackFennec(Gtk.Application):
             screen, provider,
             Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
 
-
-
     def do_startup(self):
         logger.info("BlackFennec do_startup")
         Gtk.Application.do_startup(self)
@@ -39,8 +37,9 @@ class BlackFennec(Gtk.Application):
             view_model = BlackFennecViewModel(Gtk.Button())
             black_fennec_view = BlackFennecView(self, view_model)
             self.set_window(black_fennec_view)
-        threading.Timer(
-            0.25, show_main_ui).start()
+        #threading.Timer(
+            #0.25, show_main_ui).start()
+        show_main_ui()
 
     def set_window(self, view):
         if self._window:

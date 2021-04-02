@@ -25,8 +25,26 @@ class BlackFennecView(Gtk.ApplicationWindow):
     @Gtk.Template.Callback()
     def on_open_clicked(self, _) -> None:
         """Callback for the button click event"""
-        self._view_model.open()
         logger.debug('open clicked')
+        dialog = Gtk.FileChooserDialog(
+            title="Please choose a file", parent=self, action=Gtk.FileChooserAction.OPEN
+        )
+        dialog.add_buttons(
+            Gtk.STOCK_CANCEL,
+            Gtk.ResponseType.CANCEL,
+            Gtk.STOCK_OPEN,
+            Gtk.ResponseType.OK,
+        )
+
+        response = dialog.run()
+        if response == Gtk.ResponseType.OK:
+            filename = dialog.get_filename()
+            self._view_model.open(filename)
+        elif response == Gtk.ResponseType.CANCEL:
+            logger.debug('file selection canceled')
+
+        dialog.destroy()
+
 
     @Gtk.Template.Callback()
     def on_quit_clicked(self, _) -> None:

@@ -16,9 +16,11 @@ class BlackFennecViewModel:
         """Future implementation of new()"""
         logger.warning('new() not yet implemented')
 
-    def open(self):
+    def open(self, filename):
         """Future implementation of open()"""
-        logger.warning('open() not yet implemented')
+
+
+        logger.warning('open(%s) not yet implemented', filename)
 
     def quit(self):
         """Future implementation of quit()"""
