@@ -2,6 +2,7 @@ import logging
 import gi
 gi.require_version("Gtk", "3.0")
 from gi.repository import Gtk
+from src.black_fennec_view_model import BlackFennecViewModel
 from src.black_fennec_view import BlackFennecView
 
 logging.basicConfig(level=logging.DEBUG)
@@ -21,7 +22,8 @@ class BlackFennec(Gtk.Application):
 
     def do_activate(self):
         logger.info("BlackFennec do_activate")
-        self._window = BlackFennecView(self)
+        view_model = BlackFennecViewModel(Gtk.Button())
+        self._window = BlackFennecView(self, view_model)
         self._window.present()
 
 

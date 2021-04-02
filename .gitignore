@@ -8,3 +8,4 @@ cov.xml
 *.glade~
 __pycache__/
 pylint/
+venv/
