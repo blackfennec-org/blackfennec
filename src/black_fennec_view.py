@@ -1,26 +1,20 @@
 import logging
-from gi.repository import Gtk, Gdk
+from gi.repository import Gtk
 
 logger = logging.getLogger(__name__)
 
 @Gtk.Template(filename="src/black_fennec.glade")
 class BlackFennecView(Gtk.ApplicationWindow):
     """Black Fennec Main UI view"""
-    __gtype_name__ = "BlackFennecView"
+    __gtype_name__ = 'BlackFennecView'
     _presenter_container = Gtk.Template.Child()
 
     def __init__(self, app, view_model):
-
         super().__init__(application=app)
-        logger.info("BlackFennecView __init__")
+        logger.info('BlackFennecView __init__')
         self._view_model = view_model
         self._presenter_container.add(self._view_model.presenter)
         self._presenter_container.show_all()
-
-        screen = Gdk.Screen.get_default()
-        provider = Gtk.CssProvider()
-        provider.load_from_path("src/style.css")
-        Gtk.StyleContext.add_provider_for_screen(screen, provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
 
     @Gtk.Template.Callback()
     def on_new_clicked(self, _) -> None:
