@@ -1,5 +1,5 @@
 import unittest
-
+import logging
 from src.core.boolean import Boolean
 from src.core.json_parser import JsonParser
 from src.core.list import List
@@ -72,3 +72,22 @@ class JsonParserTestSuit(unittest.TestCase):
         self.assertIsInstance(result['continents'][0]['countries'], List)
         self.assertIsInstance(result['continents'][2]['name'], String)
         self.assertIsInstance(result['continents'][2]['countries'], List)
+
+    def test_throws_error_on_unknown_type(self):
+        o = object()
+
+        with self.assertRaises(TypeError):
+            JsonParser.from_json(o)
+
+    def test_logs_error_on_unknown_type(self):
+        o = object()
+
+        with self.assertLogs(None, logging.ERROR):
+            try:
+                JsonParser.from_json(o)
+            except TypeError:
+                pass
+
+
+
+

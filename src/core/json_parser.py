@@ -1,17 +1,12 @@
-import json
 import numbers
+import logging
 from src.core.map import Map
 from src.core.list import List
 from src.core.string import String
 from src.core.number import Number
 from src.core.boolean import Boolean
 
-
-class JsonEncoder(json.JSONEncoder):
-    """Json Encoder"""
-
-    def default(self, obj):
-        return obj.value
+logger = logging.getLogger(__name__)
 
 
 class JsonParser:
@@ -36,7 +31,9 @@ class JsonParser:
         if isinstance(raw, numbers.Number):
             return JsonParser._parse_number(raw)
 
-        raise Exception("Type '{}' not known".format(type(raw)))
+        message = "Type '{}' not known".format(type(raw))
+        logger.error(message)
+        raise TypeError(message)
 
     @staticmethod
     def _parse_map(raw):
