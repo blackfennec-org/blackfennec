@@ -101,9 +101,6 @@
                         </child>
                       </object>
                     </child>
-                    <style>
-                      <class name="pointer"/>
-                    </style>
                   </object>
                 </child>
                 <child>
@@ -154,9 +151,6 @@
                         </child>
                       </object>
                     </child>
-                    <style>
-                      <class name="pointer"/>
-                    </style>
                   </object>
                 </child>
                 <child>
@@ -165,9 +159,6 @@
                     <property name="can_focus">False</property>
                     <property name="label" translatable="yes">_Go to Store</property>
                     <property name="use_underline">True</property>
-                    <style>
-                      <class name="pointer"/>
-                    </style>
                   </object>
                 </child>
                 <child>
@@ -191,9 +182,7 @@
                         </child>
                       </object>
                     </child>
-                    <style>
-                      <class name="pointer"/>
-                    </style>
+
                   </object>
                 </child>
               </object>
