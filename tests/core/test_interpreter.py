@@ -37,7 +37,7 @@ class InterpreterTestSuite(unittest.TestCase):
                 "_factories correctly"
         )
 
-    def test_interpretation(self):
+    def test_can_create_interpretation(self):
         """Interpreter.interpret function test.
 
         This unit-test tests whether the member function
