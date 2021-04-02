@@ -12,6 +12,7 @@
     <property name="window_position">center</property>
     <property name="default_width">1600</property>
     <property name="default_height">900</property>
+    <property name="decorated">False</property>
     <property name="has_resize_grip">True</property>
     <child type="titlebar">
       <placeholder/>
@@ -25,6 +26,7 @@
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="hexpand">True</property>
+            <property name="show_close_button">True</property>
             <child>
               <object class="GtkImage">
                 <property name="visible">True</property>
@@ -37,7 +39,7 @@
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <child>
-                  <object class="GtkMenuItem">
+                  <object class="GtkMenuItem" id="_open">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <property name="label" translatable="yes">_Open</property>
@@ -53,6 +55,7 @@
                             <property name="can_focus">False</property>
                             <property name="use_underline">True</property>
                             <property name="use_stock">True</property>
+                            <signal name="activate" handler="on_new_clicked" swapped="no"/>
                           </object>
                         </child>
                         <child>
@@ -62,24 +65,7 @@
                             <property name="can_focus">False</property>
                             <property name="use_underline">True</property>
                             <property name="use_stock">True</property>
-                          </object>
-                        </child>
-                        <child>
-                          <object class="GtkImageMenuItem">
-                            <property name="label">gtk-save</property>
-                            <property name="visible">True</property>
-                            <property name="can_focus">False</property>
-                            <property name="use_underline">True</property>
-                            <property name="use_stock">True</property>
-                          </object>
-                        </child>
-                        <child>
-                          <object class="GtkImageMenuItem">
-                            <property name="label">gtk-save-as</property>
-                            <property name="visible">True</property>
-                            <property name="can_focus">False</property>
-                            <property name="use_underline">True</property>
-                            <property name="use_stock">True</property>
+                            <signal name="activate" handler="on_open_clicked" swapped="no"/>
                           </object>
                         </child>
                         <child>
@@ -95,17 +81,15 @@
                             <property name="can_focus">False</property>
                             <property name="use_underline">True</property>
                             <property name="use_stock">True</property>
+                            <signal name="activate" handler="on_quit_clicked" swapped="no"/>
                           </object>
                         </child>
                       </object>
                     </child>
-                    <style>
-                      <class name="pointer"/>
-                    </style>
                   </object>
                 </child>
                 <child>
-                  <object class="GtkMenuItem">
+                  <object class="GtkMenuItem" id="_safe">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <property name="label" translatable="yes">_Safe</property>
@@ -116,82 +100,44 @@
                         <property name="can_focus">False</property>
                         <child>
                           <object class="GtkImageMenuItem">
-                            <property name="label">gtk-cut</property>
+                            <property name="label">gtk-save</property>
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
                             <property name="use_underline">True</property>
                             <property name="use_stock">True</property>
+                            <signal name="activate" handler="on_save_clicked" swapped="no"/>
                           </object>
                         </child>
                         <child>
                           <object class="GtkImageMenuItem">
-                            <property name="label">gtk-copy</property>
+                            <property name="label">gtk-save-as</property>
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
                             <property name="use_underline">True</property>
                             <property name="use_stock">True</property>
-                          </object>
-                        </child>
-                        <child>
-                          <object class="GtkImageMenuItem">
-                            <property name="label">gtk-paste</property>
-                            <property name="visible">True</property>
-                            <property name="can_focus">False</property>
-                            <property name="use_underline">True</property>
-                            <property name="use_stock">True</property>
-                          </object>
-                        </child>
-                        <child>
-                          <object class="GtkImageMenuItem">
-                            <property name="label">gtk-delete</property>
-                            <property name="visible">True</property>
-                            <property name="can_focus">False</property>
-                            <property name="use_underline">True</property>
-                            <property name="use_stock">True</property>
+                            <signal name="activate" handler="on_save_as_clicked" swapped="no"/>
                           </object>
                         </child>
                       </object>
                     </child>
-                    <style>
-                      <class name="pointer"/>
-                    </style>
                   </object>
                 </child>
                 <child>
-                  <object class="GtkMenuItem">
+                  <object class="GtkMenuItem" id="_go_to_store">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <property name="label" translatable="yes">_Go to Store</property>
                     <property name="use_underline">True</property>
-                    <style>
-                      <class name="pointer"/>
-                    </style>
+                    <signal name="activate" handler="on_go_to_store_clicked" swapped="no"/>
                   </object>
                 </child>
                 <child>
-                  <object class="GtkMenuItem">
+                  <object class="GtkMenuItem" id="_about_and_help">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <property name="label" translatable="yes">_About &amp; Help</property>
                     <property name="use_underline">True</property>
-                    <child type="submenu">
-                      <object class="GtkMenu">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <child>
-                          <object class="GtkImageMenuItem">
-                            <property name="label">gtk-about</property>
-                            <property name="visible">True</property>
-                            <property name="can_focus">False</property>
-                            <property name="use_underline">True</property>
-                            <property name="use_stock">True</property>
-                          </object>
-                        </child>
-                      </object>
-                    </child>
-                    <style>
-                      <class name="pointer"/>
-                    </style>
+                    <signal name="activate" handler="on_about_and_help_clicked" swapped="no"/>
                   </object>
                 </child>
               </object>
@@ -200,53 +146,30 @@
               </packing>
             </child>
             <child>
-              <object class="GtkSearchBar" id="search">
-                <property name="name">search_bar</property>
+              <object class="GtkSearchEntry">
                 <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="search_mode_enabled">True</property>
-                <child>
-                  <object class="GtkSearchEntry">
-                    <property name="visible">True</property>
-                    <property name="can_focus">True</property>
-                    <property name="max_length">10</property>
-                    <property name="shadow_type">none</property>
-                    <property name="primary_icon_name">edit-find-symbolic</property>
-                    <property name="primary_icon_activatable">False</property>
-                    <property name="primary_icon_sensitive">False</property>
-                    <property name="placeholder_text" translatable="yes">Search</property>
-                    <style>
-                      <class name="search-entry"/>
-                    </style>
-                  </object>
-                </child>
+                <property name="can_focus">True</property>
+                <property name="max_length">10</property>
+                <property name="shadow_type">none</property>
+                <property name="primary_icon_name">edit-find-symbolic</property>
+                <property name="primary_icon_activatable">False</property>
+                <property name="primary_icon_sensitive">False</property>
+                <property name="placeholder_text" translatable="yes">Search</property>
                 <style>
-                  <class name="search-bar"/>
+                  <class name="search-entry"/>
                 </style>
               </object>
               <packing>
                 <property name="position">2</property>
               </packing>
             </child>
-            <child>
-              <object class="GtkButton">
-                <property name="label" translatable="yes">darkmode</property>
+            <child type="title">
+              <object class="GtkLabel">
                 <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-                <property name="relief">none</property>
-                <style>
-                  <class name="dark-mode-button"/>
-                  <class name="pointer"/>
-                </style>
+                <property name="can_focus">False</property>
+                <property name="label" translatable="yes">Black Fennec</property>
               </object>
-              <packing>
-                <property name="position">3</property>
-              </packing>
             </child>
-            <style>
-              <class name="header-bar"/>
-            </style>
           </object>
           <packing>
             <property name="left_attach">0</property>
@@ -259,7 +182,7 @@
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <child>
-              <object class="GtkTreeView" id="file_explorer">
+              <object class="GtkTreeView" id="file_tree">
                 <property name="width_request">287</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
@@ -281,9 +204,20 @@
               <object class="GtkBox" id="_presenter_container">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
+                <property name="hexpand">True</property>
                 <property name="orientation">vertical</property>
                 <child>
-                  <placeholder/>
+                  <object class="GtkImage">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="icon_name">document-open</property>
+                  </object>
+                  <packing>
+                    <property name="expand">True</property>
+                    <property name="fill">True</property>
+                    <property name="pack_type">end</property>
+                    <property name="position">0</property>
+                  </packing>
                 </child>
               </object>
               <packing>
@@ -311,18 +245,12 @@
             <property name="vexpand">True</property>
             <property name="orientation">vertical</property>
             <property name="spacing">2</property>
-            <style>
-              <class name="status-bar"/>
-            </style>
           </object>
           <packing>
             <property name="left_attach">0</property>
             <property name="top_attach">2</property>
           </packing>
         </child>
-        <style>
-          <class name="main-grid"/>
-        </style>
       </object>
     </child>
   </template>
