@@ -12,9 +12,11 @@ class InfoViewFactoryMock:
     was created."""
     def __init__(self):
         self.creation_count = 0
+        self.interpretation = None
 
-    def create(self):
+    def create(self, interpretation):
         """InfoViewFactory.create method mock.
 
         Counts amount of times create has been called"""
         self.creation_count += 1
+        self.interpretation = interpretation

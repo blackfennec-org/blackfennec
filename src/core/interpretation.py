@@ -1,4 +1,9 @@
 # -*- coding: utf-8 -*-
+import logging
+from src.core.info import Info
+
+logger = logging.getLogger(__name__)
+
 class Interpretation:
     """Interpretation Class.
 
@@ -7,14 +12,15 @@ class Interpretation:
     requests to navigation_service
 
     Attributes:
-        _navigation_service (NavigationService): stores injected navigation service
+        _navigation_service (NavigationService): stores injected
+            navigation service
         _info (Info): stores injected info
         _info_views (InfoView): stores injected info
 
     Todo:
         * Add types to function parameters
     """
-    def __init__(self, navigation_service, info, info_views):
+    def __init__(self, navigation_service, info: Info):
         """Interpretation constructor.
 
         Args:
@@ -23,11 +29,13 @@ class Interpretation:
             info_views (InfoView): Created view of info
         """
         self._navigation_service = navigation_service
-        self._info_views = info_views
+        self._info_views = list()
         self._info = info
+        self._view = None
+
 
     @property
-    def info(self):
+    def info(self) -> Info:
         """info getter
 
         Returns:
@@ -44,7 +52,18 @@ class Interpretation:
         """
         return self._info_views
 
-    def navigate(self, destination):
+    @info_views.setter
+    def info_views(self, info_views):
+        self._info_views = info_views
+
+    @property
+    def view(self):
+        if not self._view:
+            self._view = self._info_views[0]
+            logger.debug("creating view from %s", self._view)
+        return self._view
+
+    def navigate(self, destination: Info):
         """Navigation dispatch.
 
         Args:

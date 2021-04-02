@@ -5,7 +5,7 @@ This module contains the unit-tests of the Interpreter class."""
 
 import unittest
 
-from doubles.base.info_view_factory import InfoViewFactoryMock
+from doubles.core.info_view_factory import InfoViewFactoryMock
 from doubles.dummy import Dummy
 from src.core.interpretation import Interpretation
 from src.core.interpreter import Interpreter
@@ -37,7 +37,7 @@ class InterpreterTestSuite(unittest.TestCase):
                 "_factories correctly"
         )
 
-    def test_interpretation(self):
+    def test_can_create_interpretation(self):
         """Interpreter.interpret function test.
 
         This unit-test tests whether the member function

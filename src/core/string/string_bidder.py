@@ -1,6 +1,6 @@
 from src.core.info import Info
 from src.core.string import String
-
+from src.core.auction import Offer
 import logging
 
 logger = logging.getLogger(__name__)
@@ -9,7 +9,7 @@ logger = logging.getLogger(__name__)
 class StringBidder:
     """The bidding service for the core type `String`."""
 
-    def bid(self, obj: Info):
+    def bid(self, subject: Info):
         """"Produces an offer for a given object.
 
         Args:
@@ -17,4 +17,6 @@ class StringBidder:
         """
         logger.info('bidding on object')
 
-        return isinstance(obj, String)
+        if isinstance(subject, String):
+            return Offer(subject, 0, 1.0)
+        return Offer(subject, 0, 0)

@@ -7,7 +7,7 @@ class MapItemView(Gtk.Bin):
     __gtype_name__ = 'MapItemView'
     _key_label: Gtk.Label = Gtk.Template.Child()
 
-    def __init__(self, key, value: Info, click_handler):
+    def __init__(self, key, value: Info, preview_click_handler):
         """Create map item view
 
         Args:
@@ -19,7 +19,7 @@ class MapItemView(Gtk.Bin):
 
         self._key = key
         self._value = value
-        self._click_handler = click_handler
+        self._preview_click_handler = preview_click_handler
 
         self._key_label.set_text(self._key)
 
@@ -31,4 +31,4 @@ class MapItemView(Gtk.Bin):
     @Gtk.Template.Callback()
     def on_preview_clicked(self, _) -> None:
         """Callback for the button click event"""
-        self._click_handler(self)
+        self._preview_click_handler(self, self._value)

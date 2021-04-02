@@ -6,7 +6,7 @@ This module contains the unit-tests of the Interpretation class."""
 import unittest
 
 from doubles.dummy import Dummy
-from doubles.navigation.navigation_service import NavigationServiceMock
+from doubles.core.navigation.navigation_service import NavigationServiceMock
 from src.core.interpretation import Interpretation
 
 
@@ -22,8 +22,7 @@ class InterpretationTestSuite(unittest.TestCase):
         """
         navigation_service = Dummy("nav")
         info = Dummy("info")
-        info_views = Dummy("info_view")
-        interpretation = Interpretation(navigation_service, info, info_views)
+        interpretation = Interpretation(navigation_service, info)
         self.assertEqual(
             interpretation._navigation_service,
             navigation_service,
@@ -38,7 +37,7 @@ class InterpretationTestSuite(unittest.TestCase):
         )
         self.assertEqual(
             interpretation._info_views,
-            info_views,
+            [],
             msg="Interpretation has not initialized " +
                 "_info_view correctly"
         )
@@ -50,13 +49,29 @@ class InterpretationTestSuite(unittest.TestCase):
         returns the expected value."""
         navigation_service = Dummy("nav")
         info = Dummy("info")
-        info_views = [Dummy("info_view")]
-        interpretation = Interpretation(navigation_service, info, info_views)
+        interpretation = Interpretation(navigation_service, info)
         self.assertEqual(
             interpretation.info,
             info,
             msg="Interpretation info getter has not " +
                 "returned passed info correctly"
+        )
+
+    def test_info_view_setter(self):
+        """Interpreter.info_view getter test.
+
+        This unit-test tests whether the info_view getter
+        returns the expected value."""
+        navigation_service = Dummy("nav")
+        info = Dummy("info")
+        info_views = Dummy("info_view")
+        interpretation = Interpretation(navigation_service, info)
+        interpretation.info_views = info_views
+        self.assertEqual(
+            interpretation.info_views,
+            info_views,
+            msg="Interpretation info_view getter has not" +
+                " returned passed info_view correctly"
         )
 
     def test_info_view_getter(self):
@@ -67,7 +82,8 @@ class InterpretationTestSuite(unittest.TestCase):
         navigation_service = Dummy("nav")
         info = Dummy("info")
         info_views = Dummy("info_view")
-        interpretation = Interpretation(navigation_service, info, info_views)
+        interpretation = Interpretation(navigation_service, info)
+        interpretation.info_views = info_views
         self.assertEqual(
             interpretation.info_views,
             info_views,
@@ -84,9 +100,8 @@ class InterpretationTestSuite(unittest.TestCase):
         """
         navigation_service = NavigationServiceMock()
         info = Dummy("info")
-        info_view = Dummy("info_view")
         destination = Dummy("destination")
-        interpretation = Interpretation(navigation_service, info, info_view)
+        interpretation = Interpretation(navigation_service, info)
         interpretation.navigate(destination)
         self.assertEqual(
             navigation_service.sender,

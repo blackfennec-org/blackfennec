@@ -10,13 +10,13 @@ class StringViewModel:
             interpretation (:obj:`Interpretation`): The overarching
                 interpretation
         """
-        self._string = String()
+        self._model = interpretation.info
 
     @property
     def value(self):
         """Property for value"""
-        return self._string.value
+        return self._model.value
 
     @value.setter
     def value(self, value):
-        self._string.value = value
+        self._model.value = value

@@ -1,12 +1,14 @@
 import logging
-
+import json
+from src.core.json_parser import JsonParser
 
 logger = logging.getLogger(__name__)
 
 class BlackFennecViewModel:
-    def __init__(self, presenter):
+    def __init__(self, presenter, navigation_service):
         logger.info("BlackFennecViewModel __init__")
         self._presenter = presenter
+        self._navigation_service = navigation_service
 
     @property
     def presenter(self):
@@ -16,9 +18,13 @@ class BlackFennecViewModel:
         """Future implementation of new()"""
         logger.warning('new() not yet implemented')
 
-    def open(self):
+    def open(self, filename):
         """Future implementation of open()"""
-        logger.warning('open() not yet implemented')
+
+        with open(filename, 'r') as file:
+            raw = json.load(file)
+        structure = JsonParser.from_json(raw)
+        self._navigation_service.navigate(None, structure)
 
     def quit(self):
         """Future implementation of quit()"""
