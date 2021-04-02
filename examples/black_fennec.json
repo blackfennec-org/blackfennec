@@ -1,6 +1,6 @@
 {
     "Project Name": "Back Fennec",
-    "Is Active": "True",
+    "Is Active": true,
     "Team": [
         {
             "First Name": "Lara"
