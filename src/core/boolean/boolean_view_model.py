@@ -5,7 +5,7 @@ class BooleanViewModel:
 
     def __init__(self, interpretation):
         """Create with value empty boolean
-        
+
         Args:
             interpretation (:obj:`Interpretation`): The overarching
                 interpretation

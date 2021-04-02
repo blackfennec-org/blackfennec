@@ -35,5 +35,5 @@ class MapViewModel:
         """
         self._map.pop(key)
 
-    def navigate_to(self, key: str):
-        self._interpretation.navigate(self._map[key])
+    def navigate_to(self, route_target: Info):
+        self._interpretation.navigate(route_target)
