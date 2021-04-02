@@ -11,6 +11,7 @@ logger = logging.getLogger(__name__)
 
 @Gtk.Template(filename="src/black_fennec.glade")
 class BlackFennecView(Gtk.ApplicationWindow):
+    """Black Fennec Main UI view"""
     __gtype_name__ = "BlackFennecView"
     _presenter_container = Gtk.Template.Child()
 
