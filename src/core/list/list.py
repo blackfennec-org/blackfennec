@@ -4,6 +4,7 @@ from src.core.info import Info
 
 logger = logging.getLogger(__name__)
 
+
 class List(Info, UserList):
     """Core type List, a list of :obj:`Info`s"""
 
