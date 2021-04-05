@@ -5,7 +5,6 @@ from doubles.core.info_bidder import InfoBidderMock
 from doubles.dummy import Dummy
 from doubles.extension.type_registry import TypeRegistryMock
 from src.core.auction.auctioneer import Auctioneer
-from src.core.interpreter import Interpreter
 
 
 class InterpretationTestSuite(unittest.TestCase):

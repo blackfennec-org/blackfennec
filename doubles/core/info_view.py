@@ -5,5 +5,4 @@ from gi.repository import Gtk
 
 
 class InfoViewDummy(Gtk.Widget):
-    def __init__(self):
-        super().__init__()
+    pass

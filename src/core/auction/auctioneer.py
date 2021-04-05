@@ -1,6 +1,5 @@
 import logging
 from src.core.info import Info
-from src.core.interpreter import Interpreter
 from src.core.auction.offer import Offer
 
 logger = logging.getLogger(__name__)
