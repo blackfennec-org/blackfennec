@@ -1,6 +1,6 @@
 from doubles.core.info import InfoMock
 
-class InterprationMock:
+class InterpretationMock:
     def __init__(self, info = None):
         self.navigation_requests = list()
         self._view_property_access_count = 0
