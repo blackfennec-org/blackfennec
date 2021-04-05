@@ -35,7 +35,8 @@ class Auctioneer:
         Returns:
             [Offer]: most suitable offers
         """
-        best_offer = offers[0][0]
+        if offers:
+            best_offer = offers[0][0]
         selection = None
         for offer, factory in offers:
             if offer > best_offer:
