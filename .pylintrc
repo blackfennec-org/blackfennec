@@ -150,7 +150,6 @@ disable=abstract-method,
         missing-class-docstring,
         missing-function-docstring,
         protected-access,
-        wrong-import-position,
 
 
 [REPORTS]

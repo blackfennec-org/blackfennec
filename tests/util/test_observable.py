@@ -1,20 +1,7 @@
 # -*- coding: utf-8 -*-
 import unittest
 
-from src.util.observable import Observable
-
-
-class ObservableMock(Observable):
-    def __init__(self):
-        super().__init__()
-
-    @property
-    def i_notify_observers(self):
-        return True
-
-    @i_notify_observers.setter
-    def i_notify_observers(self, new_value):
-        self._notify(new_value, "i_notify_observers")
+from doubles.util.observable import ObservableMock
 
 
 class ObservableTestSuite(unittest.TestCase):
@@ -22,7 +9,7 @@ class ObservableTestSuite(unittest.TestCase):
         observable = ObservableMock()
         called = False
 
-        def callback(sender, event):
+        def callback(sender, event): # pylint: disable=unused-argument
             nonlocal called
             called = True
 
