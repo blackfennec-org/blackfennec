@@ -7,7 +7,7 @@ from doubles.extension.type_registry import TypeRegistryMock
 from src.core.auction.auctioneer import Auctioneer
 
 
-class InterpretationTestSuite(unittest.TestCase):
+class AuctioneerTestSuite(unittest.TestCase):
     def test_create_auctioneer(self):
         type_registry = Dummy('type_registry')
         Auctioneer(type_registry)

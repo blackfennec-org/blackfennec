@@ -4,7 +4,7 @@ import unittest
 from doubles.util.comparable import ComparableMock
 
 
-class InterpreterTestSuite(unittest.TestCase):
+class ComparableTestSuite(unittest.TestCase):
     def test_not_equal_equal_elements(self):
         comp = ComparableMock(1)
         equal_comp = ComparableMock(1)

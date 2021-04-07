@@ -7,7 +7,7 @@ from doubles.dummy import Dummy
 from src.core.navigation.navigation_service import NavigationService
 
 
-class InterpretationTestSuite(unittest.TestCase):
+class NavigationServiceTestSuite(unittest.TestCase):
     def test_create_navigation_service(self):
         info_presenter = Dummy('InfoPresenter')
         auctioneer = Dummy('Auctioneer')

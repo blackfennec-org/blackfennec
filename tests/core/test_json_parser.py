@@ -8,7 +8,7 @@ from src.core.number import Number
 from src.core.string import String
 
 
-class JsonParserTestSuit(unittest.TestCase):
+class JsonParserTestSuite(unittest.TestCase):
     def test_can_parse_json_list_to_list(self):
         data = []
         result = JsonParser.from_json(data)
@@ -87,7 +87,3 @@ class JsonParserTestSuit(unittest.TestCase):
                 JsonParser.from_json(o)
             except TypeError:
                 pass
-
-
-
-

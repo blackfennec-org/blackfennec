@@ -5,7 +5,7 @@ from doubles.dummy import Dummy
 from src.core.auction.offer import Offer
 
 
-class InterpreterTestSuite(unittest.TestCase):
+class OfferTestSuite(unittest.TestCase):
     def test_create_offer(self):
         subject = Dummy('Info')
         specificity = 1
