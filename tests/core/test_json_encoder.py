@@ -9,7 +9,7 @@ from src.core.number import Number
 from src.core.string import String
 
 
-class JsonEncoderTestSuit(unittest.TestCase):
+class JsonEncoderTestSuite(unittest.TestCase):
 
     def test_list_to_json_string(self):
         black_fennec_obj = List([String('name')])
