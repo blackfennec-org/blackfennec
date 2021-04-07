@@ -10,7 +10,8 @@ class InterpreterTestSuite(unittest.TestCase):
         subject = Dummy('Info')
         specificity = 1
         coverage = 1
-        offer = Offer(subject, specificity, coverage, Dummy('InfoFactory'))
+        view_factory = Dummy('ViewFactory')
+        offer = Offer(subject, specificity, coverage, view_factory)
         self.assertEqual(
             offer.subject,
             subject,
@@ -28,6 +29,12 @@ class InterpreterTestSuite(unittest.TestCase):
             coverage,
             msg='Offer has not initialized ' +
                 'coverage correctly'
+        )
+        self.assertEqual(
+            offer.view_factory,
+            view_factory,
+            msg='Offer has not initialized ' +
+                'view_factory correctly'
         )
 
     def test_create_invalid_offer_negative_coverage(self):

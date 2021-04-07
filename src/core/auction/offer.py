@@ -71,12 +71,14 @@ class Offer(Comparable):
         """
         return self._coverage
 
+    @property
     def view_factory(self):
         """view_factory getter
 
         Returns:
              InfoViewFactory: info_view factory property set by constructor
         """
+        return self._view_factory
 
     def __eq__(self, other: 'Offer') -> bool:
         """Equality operator
