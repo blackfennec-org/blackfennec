@@ -1,18 +1,8 @@
 # -*- coding: utf-8 -*-
 import unittest
 
-from src.util.comparable import Comparable
+from doubles.util.comparable import ComparableMock
 
-
-class ComparableMock(Comparable):
-    def __init__(self, value):
-        self.value = value
-
-    def __eq__(self, other: 'ComparableMock'):
-        return self.value == other.value
-
-    def __lt__(self, other: 'ComparableMock'):
-        return self.value < other.value
 
 class InterpreterTestSuite(unittest.TestCase):
     def test_not_equal_equal_elements(self):

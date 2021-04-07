@@ -1,6 +1,7 @@
 import gi
-gi.require_version("Gtk", "3.0")
+gi.require_version('Gtk', '3.0')
 
+# pylint: disable=wrong-import-position
 import logging
 import threading
 from gi.repository import Gtk, Gdk
@@ -15,6 +16,7 @@ from src.core import BooleanBidder, BooleanViewFactory, \
         Auctioneer, NavigationService
 from src.base.column_based_presenter import ColumnBasedPresenterViewFactory
 from src.splash_screen.splash_screen_view import SplashScreenView
+# pylint: enable=wrong-import-position
 
 logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)

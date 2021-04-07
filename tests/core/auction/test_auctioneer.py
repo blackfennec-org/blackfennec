@@ -5,7 +5,6 @@ from doubles.core.info_bidder import InfoBidderMock
 from doubles.dummy import Dummy
 from doubles.extension.type_registry import TypeRegistryMock
 from src.core.auction.auctioneer import Auctioneer
-from src.core.interpreter import Interpreter
 
 
 class InterpretationTestSuite(unittest.TestCase):
@@ -27,3 +26,14 @@ class InterpretationTestSuite(unittest.TestCase):
         self.assertEqual(bidder1.last_bidding_subject, subject)
         self.assertEqual(bidder2.bid_count, 1)
         self.assertEqual(bidder2.last_bidding_subject, subject)
+
+    def test_auction_no_offers_fitting(self):
+        types = dict()
+        type_registry = TypeRegistryMock(types)
+        auctioneer = Auctioneer(type_registry)
+        subject = Dummy('Info')
+        with self.assertRaises(
+                KeyError,
+                msg='Expected KeyError because no offers were provided'
+        ):
+            auctioneer.auction(subject)

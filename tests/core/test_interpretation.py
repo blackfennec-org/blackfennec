@@ -91,6 +91,24 @@ class InterpretationTestSuite(unittest.TestCase):
                 " returned passed info_view correctly"
         )
 
+    def test_view_getter(self):
+        """Interpreter.view getter test.
+
+        This unit-test tests whether the view getter
+        returns the expected value."""
+        navigation_service = Dummy("nav")
+        info = Dummy("info")
+        info_views = [Dummy("info_view")]
+        interpretation = Interpretation(navigation_service, info)
+        interpretation.info_views = info_views
+        view = interpretation.view
+        self.assertEqual(
+            view,
+            info_views[0],
+            msg="Interpretation view getter has not" +
+                " returned passed info_view correctly"
+        )
+
     def test_navigation(self):
         """Interpreter.navigate function test.
 

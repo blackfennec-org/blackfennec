@@ -1,5 +1,5 @@
 import unittest
-from doubles.core.interpretation import InterprationMock
+from doubles.core.interpretation import InterpretationMock
 from doubles.core.boolean import BooleanMock
 from src.core.boolean import BooleanViewFactory, BooleanView
 
@@ -9,5 +9,5 @@ class BooleanViewFactoryTestSuite(unittest.TestCase):
 
     def test_can_create_boolean_view(self):
         factory = BooleanViewFactory()
-        view = factory.create(InterprationMock(BooleanMock()))
+        view = factory.create(InterpretationMock(BooleanMock()))
         self.assertIsInstance(view, BooleanView)

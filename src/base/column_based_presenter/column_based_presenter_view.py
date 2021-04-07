@@ -9,7 +9,7 @@ from src.core.interpretation import Interpretation
 logger = logging.getLogger(__name__)
 
 
-@Gtk.Template(filename="src/base/column_based_presenter/column_based_presenter.glade")
+@Gtk.Template(filename="src/base/column_based_presenter/column_based_presenter.glade")  # pylint: disable=line-too-long
 class ColumnBasedPresenterView(Gtk.Box):
     """ColumnBasedPresenterView Code behind.
 
@@ -36,7 +36,7 @@ class ColumnBasedPresenterView(Gtk.Box):
         self._view_model.bind(interpretations=self._update_interpretations)
         self.interpretations = list()
 
-    def _update_interpretations(self, sender, interpretations):
+    def _update_interpretations(self, sender, interpretations):  # pylint: disable=unused-argument
         """interpretation update.
 
         listener to changes on view_model interpretations property.

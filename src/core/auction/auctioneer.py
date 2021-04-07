@@ -1,6 +1,5 @@
 import logging
 from src.core.info import Info
-from src.core.interpreter import Interpreter
 from src.core.auction.offer import Offer
 
 logger = logging.getLogger(__name__)
@@ -35,7 +34,8 @@ class Auctioneer:
         Returns:
             [Offer]: most suitable offers
         """
-        best_offer = offers[0][0]
+        if offers:
+            best_offer = offers[0][0]
         selection = None
         for offer, factory in offers:
             if offer > best_offer:
