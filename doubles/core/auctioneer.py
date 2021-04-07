@@ -3,12 +3,12 @@ from doubles.dummy import Dummy
 
 
 class AuctioneerMock:
-    def __init__(self, type_registry):
-        self.type_registry = type_registry
+    def __init__(self, factories=None):
+        self._factories = [Dummy('InfoFactory')] if not factories else factories
         self.auction_count = 0
         self.auction_last_subject = None
 
     def auction(self, subject):
         self.auction_last_subject = subject
         self.auction_count += 1
-        return [Dummy('InfoFactory')]
+        return self._factories
