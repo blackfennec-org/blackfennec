@@ -8,12 +8,12 @@ from gi.repository import Gtk, Gdk
 from src.black_fennec_view_model import BlackFennecViewModel
 from src.black_fennec_view import BlackFennecView
 from src.extension.type_registry import TypeRegistry
-from src.core import BooleanBidder, BooleanViewFactory, \
-        NumberBidder, NumberViewFactory, \
-        StringBidder, StringViewFactory, \
-        ListBidder, ListViewFactory, \
-        MapBidder, MapViewFactory, \
-        Auctioneer, NavigationService
+from src.core.boolean.boolean_bidder import BooleanBidder
+from src.core.number.number_bidder import NumberBidder
+from src.core.string.string_bidder import StringBidder
+from src.core.list.list_bidder import ListBidder
+from src.core.map.map_bidder import MapBidder
+from src.core import Auctioneer, NavigationService
 from src.base.column_based_presenter import ColumnBasedPresenterViewFactory
 from src.splash_screen.splash_screen_view import SplashScreenView
 # pylint: enable=wrong-import-position
@@ -23,11 +23,11 @@ logger = logging.getLogger(__name__)
 
 def create_type_registry() -> TypeRegistry:
     registry = TypeRegistry()
-    registry.register_type(BooleanBidder(), BooleanViewFactory())
-    registry.register_type(NumberBidder(), NumberViewFactory())
-    registry.register_type(StringBidder(), StringViewFactory())
-    registry.register_type(ListBidder(), ListViewFactory())
-    registry.register_type(MapBidder(), MapViewFactory())
+    registry.register_type(BooleanBidder())
+    registry.register_type(NumberBidder())
+    registry.register_type(StringBidder())
+    registry.register_type(ListBidder())
+    registry.register_type(MapBidder())
     return registry
 
 class BlackFennec(Gtk.Application):

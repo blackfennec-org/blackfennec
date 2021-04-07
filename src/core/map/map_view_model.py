@@ -1,5 +1,5 @@
 from src.core.info import Info
-from src.core.map import Map
+
 
 class MapViewModel:
     """View model for core type Map."""

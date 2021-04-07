@@ -1,5 +1,5 @@
 from src.core.info import Info
-from src.core.map import Map
+from src.core.map import Map, MapViewFactory
 from src.core.auction import Offer
 
 import logging
@@ -19,5 +19,5 @@ class MapBidder:
         logger.info('bidding on object')
 
         if isinstance(subject, Map):
-            return Offer(subject, 0, 1.0)
-        return Offer(subject, 0, 0)
+            return Offer(subject, 0, 1.0, MapViewFactory())
+        return Offer(subject, 0, 0, MapViewFactory())

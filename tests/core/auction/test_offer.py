@@ -10,7 +10,7 @@ class InterpreterTestSuite(unittest.TestCase):
         subject = Dummy('Info')
         specificity = 1
         coverage = 1
-        offer = Offer(subject, specificity, coverage)
+        offer = Offer(subject, specificity, coverage, Dummy('InfoFactory'))
         self.assertEqual(
             offer.subject,
             subject,
@@ -38,7 +38,7 @@ class InterpreterTestSuite(unittest.TestCase):
             ValueError,
             msg='Coverage is negative but Offer did not raise Value Error'
         ):
-            Offer(subject, specificity, coverage)
+            Offer(subject, specificity, coverage, Dummy('InfoFactory'))
 
     def test_create_invalid_offer_coverage_over_one(self):
         subject = Dummy('Info')
@@ -48,12 +48,22 @@ class InterpreterTestSuite(unittest.TestCase):
             ValueError,
             msg='Coverage is over 1 but Offer did not raise Value Error'
         ):
-            Offer(subject, specificity, coverage)
+            Offer(subject, specificity, coverage, Dummy('InfoFactory'))
 
     def test_equal_offers_equality(self):
         subject = Dummy('Info')
-        offer = Offer(subject, specificity = 1, coverage = 1)
-        other_offer = Offer(subject, specificity = 1, coverage = 1)
+        offer = Offer(
+            subject,
+            specificity = 1,
+            coverage = 1,
+            type_view_factory=Dummy('InfoFactory')
+        )
+        other_offer = Offer(
+            subject,
+            specificity = 1,
+            coverage = 1,
+            type_view_factory=Dummy('InfoFactory')
+        )
         self.assertTrue(
             offer == other_offer,
             msg='Equal offers are not equal'
@@ -61,8 +71,18 @@ class InterpreterTestSuite(unittest.TestCase):
 
     def test_not_equal_offers_equality(self):
         subject = Dummy('Info')
-        offer = Offer(subject, specificity=1, coverage=1)
-        other_offer = Offer(subject, specificity=2, coverage=1)
+        offer = Offer(
+            subject,
+            specificity=1,
+            coverage=1,
+            type_view_factory=Dummy('InfoFactory')
+        )
+        other_offer = Offer(
+            subject,
+            specificity=2,
+            coverage=1,
+            type_view_factory=Dummy('InfoFactory')
+        )
         self.assertFalse(
             offer == other_offer,
             msg='Not equal offers are equal'
@@ -70,8 +90,18 @@ class InterpreterTestSuite(unittest.TestCase):
 
     def test_lower_than_equal(self):
         subject = Dummy('Info')
-        offer = Offer(subject, specificity=1, coverage=1)
-        other_offer = Offer(subject, specificity=2, coverage=1)
+        offer = Offer(
+            subject,
+            specificity=1,
+            coverage=1,
+            type_view_factory=Dummy('InfoFactory')
+        )
+        other_offer = Offer(
+            subject,
+            specificity=2,
+            coverage=1,
+            type_view_factory=Dummy('InfoFactory')
+        )
         self.assertFalse(
             offer < other_offer,
             msg='Lower offer lower than equal offer'
@@ -83,8 +113,18 @@ class InterpreterTestSuite(unittest.TestCase):
 
     def test_lower_than(self):
         subject = Dummy('Info')
-        offer = Offer(subject, specificity=1, coverage=0.5)
-        other_offer = Offer(subject, specificity=1, coverage=0.49)
+        offer = Offer(
+            subject,
+            specificity=1,
+            coverage=0.5,
+            type_view_factory=Dummy('InfoFactory')
+        )
+        other_offer = Offer(
+            subject,
+            specificity=1,
+            coverage=0.49,
+            type_view_factory=Dummy('InfoFactory')
+        )
         self.assertFalse(
             offer < other_offer,
             msg='Lower offer not lower than greater offer'
@@ -97,8 +137,18 @@ class InterpreterTestSuite(unittest.TestCase):
     def test_lower_than_with_different_subject(self):
         subject = Dummy('Info')
         other_subject = Dummy('Info2')
-        offer = Offer(subject, specificity=1, coverage=1)
-        other_offer = Offer(other_subject, specificity=1, coverage=1)
+        offer = Offer(
+            subject,
+            specificity=1,
+            coverage=1,
+            type_view_factory=Dummy('InfoFactory')
+        )
+        other_offer = Offer(
+            other_subject,
+            specificity=1,
+            coverage=1,
+            type_view_factory=Dummy('InfoFactory')
+        )
         with self.assertRaises(
                 ValueError,
                 msg='Comparison of offers with different subject does ' +
@@ -109,12 +159,32 @@ class InterpreterTestSuite(unittest.TestCase):
     def test_hash_unequal_values(self):
         subject = Dummy('Info')
         other_subject = Dummy('Info2')
-        offer = Offer(subject, specificity=1, coverage=1)
-        other_offer = Offer(other_subject, specificity=2, coverage=0.5)
+        offer = Offer(
+            subject,
+            specificity=1,
+            coverage=1,
+            type_view_factory=Dummy('InfoFactory')
+        )
+        other_offer = Offer(
+            other_subject,
+            specificity=2,
+            coverage=0.5,
+            type_view_factory=Dummy('InfoFactory')
+        )
         self.assertNotEqual(hash(offer), hash(other_offer))
 
     def test_hash_equal_values(self):
         subject = Dummy('Info')
-        offer = Offer(subject, specificity=1, coverage=1)
-        other_offer = Offer(subject, specificity=1, coverage=1)
+        offer = Offer(
+            subject,
+            specificity=1,
+            coverage=1,
+            type_view_factory=Dummy('InfoFactory')
+        )
+        other_offer = Offer(
+            subject,
+            specificity=1,
+            coverage=1,
+            type_view_factory=Dummy('InfoFactory')
+        )
         self.assertEqual(hash(offer), hash(other_offer))

@@ -1,9 +1,15 @@
 # -*- coding: utf-8 -*-
+from doubles.dummy import Dummy
 
 
 class OfferFake:
-    def __init__(self, value):
+    def __init__(self, value, view_factory = Dummy('ViewFactory')):
         self.value = value
+        self._view_factory = view_factory
+
+    @property
+    def view_factory(self):
+        return self._view_factory
 
     def __eq__(self, other):
         return self.value == other.value

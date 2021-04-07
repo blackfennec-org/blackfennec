@@ -35,17 +35,17 @@ class Auctioneer:
             [Offer]: most suitable offers
         """
         if offers:
-            best_offer = offers[0][0]
-        selection = None
-        for offer, factory in offers:
+            best_offer = offers[0]
+        selection = False
+        for offer in offers:
             if offer > best_offer:
                 best_offer = offer
-                selection = factory
+                selection = True
         if not selection:
             message = 'No offer is the best offer'
             logger.error(message)
             raise KeyError(message)
-        return [selection]
+        return [best_offer]
 
     def auction(self, subject: Info):
         """Auction of Info.
@@ -62,8 +62,11 @@ class Auctioneer:
                 selected offers
         """
         logger.debug('starting bidding on %s', subject)
-        types = list()
-        for bidder, factory in self._type_registry.types.items():
-            types.append((bidder.bid(subject), factory))
-        factories = self._select_offers(subject, types)
+        offers = list()
+        for bidder in self._type_registry.types:
+            offers.append(bidder.bid(subject))
+        best_offers = self._select_offers(subject, offers)
+        factories = list()
+        for offer in best_offers:
+            factories.append(offer.view_factory)
         return factories
