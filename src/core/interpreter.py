@@ -16,33 +16,45 @@ class Interpreter:
     Attributes:
         _navigation_service (NavigationService): stores injected
             navigation service
-        _factories ([InfoViewFactory]): stores injected factory list
-
-    Todo:
-        * Add types to function parameters
+        _auctioneer (Auctioneer): stores injected auctioneer
     """
-    def __init__(self, navigation_service, factories):
+    def __init__(self, navigation_service, auctioneer):
         """Interpretation constructor.
 
         Args:
             navigation_service (NavigationService): service to navigate
-            factories ([InfoViewFactory]): list of factories, used to
+            auctioneer (Auctioneer): Auctioneer returning list of factories, used to
                 create info_view
         """
-        assert factories, 'No factories provided to interpreter'
         self._navigation_service = navigation_service
-        self._factories = factories
+        self._auctioneer = auctioneer
 
-    def _create_info_views(self, interpretation):
+    def _retrieve_factories(self, subject: Info):
+        """Retrieval of factories
+
+        Start auction on auctioneer to receive list of factories
+
+        Args:
+            subject (Info): Target to which shall be navigated
+        """
+        factories = self._auctioneer.auction(subject)
+        return factories
+
+    def _create_info_views(self, info, interpretation):
         """Internal function to create info_views.
 
         Creates info_views.
+
+        Args:
+            info (Info): Info to create info_views to
+            interpretation (Interpretation): interpretation with which
+                the info_views are created
 
         Returns:
             [InfoView]: created with factories passed to interpreter
         """
         info_views = []
-        for factory in self._factories:
+        for factory in self._retrieve_factories(info):
             info_views.append(factory.create(interpretation))
             logger.debug(
                 'creating info_view with factory %s',
@@ -62,7 +74,7 @@ class Interpreter:
             Interpretation: including created info_views
         """
         interpretation = Interpretation(self._navigation_service, info)
-        info_views = self._create_info_views(interpretation)
+        info_views = self._create_info_views(info, interpretation)
         logger.debug(
             'creating interpretation of info %s with views %s',
             info,
