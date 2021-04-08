@@ -19,7 +19,4 @@ class BooleanBidder:
                 offer should be produced.
         """
         logger.info('bidding on object')
-
-        if isinstance(subject, Boolean):
-            return Offer(subject, 0, 1.0, BooleanViewFactory())
-        return Offer(subject, 0, 0, BooleanViewFactory())
+        return Offer(subject, 0, Boolean(), BooleanViewFactory())
