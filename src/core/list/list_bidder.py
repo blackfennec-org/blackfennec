@@ -1,5 +1,5 @@
 from src.core.info import Info
-from src.core.list import List
+from src.core.list import List, ListViewFactory
 from src.core.auction import Offer
 
 import logging
@@ -19,5 +19,5 @@ class ListBidder:
         logger.info('bidding on object')
 
         if isinstance(subject, List):
-            return Offer(subject, 0, 1.0)
-        return Offer(subject, 0, 0)
+            return Offer(subject, 0, 1.0, ListViewFactory())
+        return Offer(subject, 0, 0, ListViewFactory())

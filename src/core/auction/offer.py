@@ -19,16 +19,25 @@ class Offer(Comparable):
         _coverage (float): Describes coverage of nodes of subject
     """
 
-    def __init__(self, subject: Info, specificity: int, coverage: float):
+    def __init__(
+            self,
+            subject: Info,
+            specificity: int,
+            coverage: float,
+            type_view_factory
+    ):
         """Offer constructor.
 
         Args:
             subject (Info):
             specificity (int):
             coverage (float):
+            type_view_factory (InfoViewFactory): factory used
+                to create interpreter
         """
         self._subject = subject
         self._specificity = specificity
+        self._view_factory = type_view_factory
         if coverage < 0 or coverage > 1:
             message = 'Coverage can only be in between 0 and 1'
             logger.error(message)
@@ -61,6 +70,15 @@ class Offer(Comparable):
             float: coverage property set by constructor
         """
         return self._coverage
+
+    @property
+    def view_factory(self):
+        """view_factory getter
+
+        Returns:
+             InfoViewFactory: info_view factory property set by constructor
+        """
+        return self._view_factory
 
     def __eq__(self, other: 'Offer') -> bool:
         """Equality operator

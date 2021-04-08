@@ -1,5 +1,6 @@
 from src.core.boolean import BooleanViewModel, BooleanView
 
+
 class BooleanViewFactory:
     """Creator of the BooleanView"""
 
