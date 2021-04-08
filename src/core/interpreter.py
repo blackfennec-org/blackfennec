@@ -23,8 +23,8 @@ class Interpreter:
 
         Args:
             navigation_service (NavigationService): service to navigate
-            auctioneer (Auctioneer): Auctioneer returning list of factories, used to
-                create info_view
+            auctioneer (Auctioneer): Auctioneer returning list
+                of factories, used to create info_view
         """
         self._navigation_service = navigation_service
         self._auctioneer = auctioneer

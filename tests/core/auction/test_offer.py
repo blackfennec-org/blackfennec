@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import unittest
 
+from doubles.core import InfoMock
 from doubles.dummy import Dummy
 from src.core.auction.offer import Offer
 
@@ -9,9 +10,9 @@ class OfferTestSuite(unittest.TestCase):
     def test_create_offer(self):
         subject = Dummy('Info')
         specificity = 1
-        coverage = 1
+        template = Dummy('Info')
         view_factory = Dummy('ViewFactory')
-        offer = Offer(subject, specificity, coverage, view_factory)
+        offer = Offer(subject, specificity, template, view_factory)
         self.assertEqual(
             offer.subject,
             subject,
@@ -25,8 +26,8 @@ class OfferTestSuite(unittest.TestCase):
                 'specificity correctly'
         )
         self.assertEqual(
-            offer.coverage,
-            coverage,
+            offer.template,
+            template,
             msg='Offer has not initialized ' +
                 'coverage correctly'
         )
@@ -37,38 +38,18 @@ class OfferTestSuite(unittest.TestCase):
                 'view_factory correctly'
         )
 
-    def test_create_invalid_offer_negative_coverage(self):
-        subject = Dummy('Info')
-        specificity = 1
-        coverage = -0.01
-        with self.assertRaises(
-            ValueError,
-            msg='Coverage is negative but Offer did not raise Value Error'
-        ):
-            Offer(subject, specificity, coverage, Dummy('InfoFactory'))
-
-    def test_create_invalid_offer_coverage_over_one(self):
-        subject = Dummy('Info')
-        specificity = 1
-        coverage = 1.01
-        with self.assertRaises(
-            ValueError,
-            msg='Coverage is over 1 but Offer did not raise Value Error'
-        ):
-            Offer(subject, specificity, coverage, Dummy('InfoFactory'))
-
     def test_equal_offers_equality(self):
         subject = Dummy('Info')
         offer = Offer(
             subject,
-            specificity = 1,
-            coverage = 1,
+            specificity=1,
+            template=subject,
             type_view_factory=Dummy('InfoFactory')
         )
         other_offer = Offer(
             subject,
-            specificity = 1,
-            coverage = 1,
+            specificity=1,
+            template=subject,
             type_view_factory=Dummy('InfoFactory')
         )
         self.assertTrue(
@@ -81,13 +62,13 @@ class OfferTestSuite(unittest.TestCase):
         offer = Offer(
             subject,
             specificity=1,
-            coverage=1,
+            template=subject,
             type_view_factory=Dummy('InfoFactory')
         )
         other_offer = Offer(
             subject,
             specificity=2,
-            coverage=1,
+            template=subject,
             type_view_factory=Dummy('InfoFactory')
         )
         self.assertFalse(
@@ -100,13 +81,13 @@ class OfferTestSuite(unittest.TestCase):
         offer = Offer(
             subject,
             specificity=1,
-            coverage=1,
+            template=subject,
             type_view_factory=Dummy('InfoFactory')
         )
         other_offer = Offer(
             subject,
             specificity=2,
-            coverage=1,
+            template=subject,
             type_view_factory=Dummy('InfoFactory')
         )
         self.assertFalse(
@@ -120,16 +101,17 @@ class OfferTestSuite(unittest.TestCase):
 
     def test_lower_than(self):
         subject = Dummy('Info')
+        not_subject = InfoMock()
         offer = Offer(
             subject,
             specificity=1,
-            coverage=0.5,
+            template=subject,
             type_view_factory=Dummy('InfoFactory')
         )
         other_offer = Offer(
             subject,
             specificity=1,
-            coverage=0.49,
+            template=not_subject,
             type_view_factory=Dummy('InfoFactory')
         )
         self.assertFalse(
@@ -147,13 +129,13 @@ class OfferTestSuite(unittest.TestCase):
         offer = Offer(
             subject,
             specificity=1,
-            coverage=1,
+            template=subject,
             type_view_factory=Dummy('InfoFactory')
         )
         other_offer = Offer(
             other_subject,
             specificity=1,
-            coverage=1,
+            template=subject,
             type_view_factory=Dummy('InfoFactory')
         )
         with self.assertRaises(
@@ -169,13 +151,13 @@ class OfferTestSuite(unittest.TestCase):
         offer = Offer(
             subject,
             specificity=1,
-            coverage=1,
+            template=subject,
             type_view_factory=Dummy('InfoFactory')
         )
         other_offer = Offer(
             other_subject,
             specificity=2,
-            coverage=0.5,
+            template=subject,
             type_view_factory=Dummy('InfoFactory')
         )
         self.assertNotEqual(hash(offer), hash(other_offer))
@@ -185,13 +167,13 @@ class OfferTestSuite(unittest.TestCase):
         offer = Offer(
             subject,
             specificity=1,
-            coverage=1,
+            template=subject,
             type_view_factory=Dummy('InfoFactory')
         )
         other_offer = Offer(
             subject,
             specificity=1,
-            coverage=1,
+            template=subject,
             type_view_factory=Dummy('InfoFactory')
         )
         self.assertEqual(hash(offer), hash(other_offer))

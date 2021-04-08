@@ -23,7 +23,7 @@ class Offer(Comparable):
             self,
             subject: Info,
             specificity: int,
-            coverage: float,
+            template: Info,
             type_view_factory
     ):
         """Offer constructor.
@@ -31,18 +31,15 @@ class Offer(Comparable):
         Args:
             subject (Info):
             specificity (int):
-            coverage (float):
+            template (Info): Template that describes type
             type_view_factory (InfoViewFactory): factory used
                 to create interpreter
         """
         self._subject = subject
         self._specificity = specificity
         self._view_factory = type_view_factory
-        if coverage < 0 or coverage > 1:
-            message = 'Coverage can only be in between 0 and 1'
-            logger.error(message)
-            raise ValueError(message)
-        self._coverage = coverage
+        self._template = template
+        self._coverage = None
 
     @property
     def subject(self) -> Info:
@@ -63,12 +60,26 @@ class Offer(Comparable):
         return self._specificity
 
     @property
+    def template(self) -> Info:
+        """template getter
+
+        Returns:
+            Info: Template property set by constructor
+        """
+        return self._template
+
+    @property
     def coverage(self) -> float:
         """coverage getter
 
         Returns:
             float: coverage property set by constructor
         """
+        if self._coverage:
+            return self._coverage
+        self._coverage = float(
+            isinstance(self._subject, self._template.__class__)
+        )
         return self._coverage
 
     @property

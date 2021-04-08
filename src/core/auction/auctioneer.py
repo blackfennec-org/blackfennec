@@ -68,6 +68,9 @@ class Auctioneer:
         best_offers = self._select_offers(subject, offers)
         factories = list()
         for offer in best_offers:
-            logger.debug('adding view_factory of offer %s to factory list', offer)
+            logger.debug(
+                'adding view_factory of offer %s to factory list',
+                offer
+            )
             factories.append(offer.view_factory)
         return factories
