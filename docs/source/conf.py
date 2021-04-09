@@ -1,3 +1,4 @@
+# pylint: skip-file
 # Configuration file for the Sphinx documentation builder.
 #
 # This file only contains a selection of the most common options. For a full
@@ -17,14 +18,14 @@
 
 # -- Project information -----------------------------------------------------
 
-PROJECT = 'Black Fennec'
-COPYRIGHT = '2021, Simon Kindhauser, Caspar Martens,' \
+project = 'Black Fennec'
+copyright = '2021, Simon Kindhauser, Caspar Martens, ' \
             'Lara Gubler, Leonie Däullary'
-AUTHOR = 'Simon Kindhauser, Caspar Martens, ' \
+author = 'Simon Kindhauser, Caspar Martens, ' \
          'Lara Gubler, Leonie Däullary'
 
 # The full version, including alpha/beta/rc tags
-RELEASE = '0.2.0'
+release = '0.3.0'
 
 
 # -- General configuration ---------------------------------------------------
@@ -51,7 +52,7 @@ exclude_patterns = []
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-HTML_THEME = 'alabaster'
+html_theme = 'alabaster'
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,

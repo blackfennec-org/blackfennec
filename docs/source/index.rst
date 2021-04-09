@@ -47,10 +47,11 @@ Welcome to Black Fennec's documentation!
 
 .. toctree::
    :maxdepth: 3
-   :caption: The Domain
-   :numbered:
+   :caption: Documentation
 
-   domain_model/index
+   documentation/index
+   documentation/architecture
+   documentation/domain_model
 
 
 Indices and tables
