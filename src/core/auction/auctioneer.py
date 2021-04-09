@@ -38,9 +38,9 @@ class Auctioneer:
             best_offer = offers[0]
         selection = False
         for offer in offers:
-            if offer > best_offer:
+            if offer >= best_offer:
                 best_offer = offer
-                selection = True
+                selection = offer
         if not selection:
             message = 'No offer is the best offer'
             logger.error(message)

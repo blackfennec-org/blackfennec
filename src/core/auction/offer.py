@@ -2,10 +2,11 @@
 import logging
 
 from src.core.info import Info
+from src.core.list import List
+from src.core.map import Map
 from src.util.comparable import Comparable
 
 logger = logging.getLogger(__name__)
-
 
 class Offer(Comparable):
     """Offer that is sent to Auctioneer by InfoViewBidder.
@@ -68,6 +69,118 @@ class Offer(Comparable):
         """
         return self._template
 
+    def _calculate_coverage(
+            self,
+            subject: Info,
+            template: Info,
+            subject_node_count: int = 0,
+            template_node_count: int = 0
+    ):
+        subject_node_count += 1
+        if isinstance(subject, template.__class__):
+            logger.debug(
+                'Type of subject(%s) and template(%s) matched;'
+                'Counting node_count up',
+                type(subject),
+                type(template)
+            )
+            template_node_count += 1
+            if template.children:
+                if isinstance(subject, List):
+                    logger.debug(
+                        'List type detected, calculating list coverage'
+                    )
+                    tmp1, tmp2 = self._calculate_list_coverage(
+                        subject,
+                        template,
+                        subject_node_count,
+                        template_node_count
+                    )
+                    logger.debug(
+                        'Received values of list coverage, '
+                        '(subject_node_count = %s, template_node_count = %s)',
+                        tmp1,
+                        tmp2
+                    )
+                    subject_node_count = tmp1
+                    template_node_count = tmp2
+                elif isinstance(subject, Map):
+                    logger.debug(
+                        'Map type detected, calculating map coverage'
+                    )
+                    tmp1, tmp2 = self._calculate_map_coverage(
+                        subject,
+                        template,
+                        subject_node_count,
+                        template_node_count
+                    )
+                    logger.debug(
+                        'Received values of map coverage, '
+                        '(subject_node_count = %s, template_node_count = %s)',
+                        tmp1,
+                        tmp2
+                    )
+                    subject_node_count = tmp1
+                    template_node_count = tmp2
+        return subject_node_count, template_node_count
+
+    def _calculate_list_coverage(
+            self,
+            subject: List,
+            template: List,
+            subject_node_count: int,
+            template_node_count: int
+    ):
+        logger.debug(
+            'Number of children in list %s',
+            len(subject.children)
+        )
+        logger.debug(
+            'Number of types in template %s',
+            len(subject.children)
+        )
+        for template_node in template.children:
+            for subject_node in subject.children:
+                tmp1, tmp2 = self._calculate_coverage(
+                    subject_node,
+                    template_node,
+                    subject_node_count,
+                    template_node_count
+                )
+                subject_node_count = tmp1
+                template_node_count = tmp2
+        return subject_node_count, template_node_count
+
+    def _calculate_map_coverage(
+            self,
+            subject: Map,
+            template: Map,
+            subject_node_count: int,
+            template_node_count: int
+    ):
+        logger.debug(
+            'Number of children in map %s',
+            len(subject.children)
+        )
+        logger.debug(
+            'Number of types in template %s',
+            len(subject.children)
+        )
+        subject_node_count += len(subject.children)
+        for key, value in template.data.items():
+            if key in subject.data:
+                if isinstance(subject.data[key], value.__class__):
+                    subject_node_count -= 1
+                tmp1, tmp2 = self._calculate_coverage(
+                    subject.data[key],
+                    value,
+                    subject_node_count,
+                    template_node_count
+                )
+                subject_node_count = tmp1
+                template_node_count = tmp2
+        return subject_node_count, template_node_count
+
     @property
     def coverage(self) -> float:
         """coverage getter
@@ -77,9 +190,23 @@ class Offer(Comparable):
         """
         if self._coverage:
             return self._coverage
-        self._coverage = float(
-            isinstance(self._subject, self._template.__class__)
+        subject_node_count, template_node_count = self._calculate_coverage(
+            self.subject,
+            self.template
         )
+        logger.debug(
+            'Received values of coverage calculation, '
+            '(subject_node_count = %s, template_node_count = %s,'
+            'subject_type = %s, template_type = %s)',
+            subject_node_count,
+            template_node_count,
+            type(self.subject),
+            type(self.template)
+        )
+        assert template_node_count <= subject_node_count, \
+            'Template node count cannot be greater than subject node count'
+        assert subject_node_count > 0, 'Subject node count cannot be 0'
+        self._coverage = template_node_count / subject_node_count
         return self._coverage
 
     @property
@@ -102,14 +229,14 @@ class Offer(Comparable):
             bool: comparison of subject, specificity and coverage with other
         """
         return (
-            self.subject,
-            self.coverage,
-            self.specificity
-        ) == (
-            other.subject,
-            other.coverage,
-            other.specificity
-        )
+                   self.subject,
+                   self.coverage,
+                   self.specificity
+               ) == (
+                   other.subject,
+                   other.coverage,
+                   other.specificity
+               )
 
     def __lt__(self, other: 'Offer') -> bool:
         """Lower-than operator
@@ -126,7 +253,13 @@ class Offer(Comparable):
             message = 'Subject of compared offers are not equal'
             logger.error(message)
             raise ValueError(message)
-        return self.coverage < other.coverage
+        return (
+            self.coverage,
+            self.specificity
+        ) < (
+            other.coverage,
+            other.specificity
+        )
 
     def __hash__(self):
         return hash((self.coverage, self.specificity, self.subject))
