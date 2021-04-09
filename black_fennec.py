@@ -1,4 +1,7 @@
 import gi
+
+from src.base.types.address.address_bidder import AddressBidder
+
 gi.require_version('Gtk', '3.0')
 
 # pylint: disable=wrong-import-position
@@ -27,6 +30,7 @@ def create_type_registry() -> TypeRegistry:
     registry.register_type(StringBidder())
     registry.register_type(ListBidder())
     registry.register_type(MapBidder())
+    registry.register_type(AddressBidder())
     return registry
 
 class BlackFennec(Gtk.Application):
