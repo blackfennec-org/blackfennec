@@ -1,17 +1,10 @@
 Domain Model
 ============
-
-.. toctree::
-    :maxdepth: 2
-
-    type_system/index
-    layers/index
-    interaction/index
-    extensions/index
-
+This document introduces the domain model of Black Fennec. Due to the inherit complexity of the project different levels of abstraction are used. If you are interested in how a specific component works just follow the link to its dedicated page where it will be described in more detail. 
 
 Simplified Domain Model
 """""""""""""""""""""""
+This high level abstraction only shows the most prominent components of the system. It is meant to give an overview over the core components and their interactions.
 
 .. uml::
     
@@ -69,7 +62,7 @@ Extension
 The Domain Model
 """"""""""""""""
 
-The currently documented domain model is depicted below. To read more about the components take a look at the table of contents at the top of the page.
+The currently documented domain model is depicted below. To read more about the components take a look at the table of contents below the diagram.
 
 .. uml::
 
@@ -150,3 +143,12 @@ The currently documented domain model is depicted below. To read more about the 
     tsp                 -->     Interpreter         : creates
 
     @enduml
+
+
+.. toctree::
+    :maxdepth: 2
+
+    type_system/index
+    layers/index
+    interaction/index
+    extensions/index

@@ -3,8 +3,7 @@ gi.require_version('Gtk', '3.0')
 
 # pylint: disable=wrong-import-position
 import logging
-import threading
-from gi.repository import Gtk, Gdk
+from gi.repository import Gtk, Gdk, GLib
 from src.black_fennec_view_model import BlackFennecViewModel
 from src.black_fennec_view import BlackFennecView
 from src.extension.type_registry import TypeRegistry
@@ -53,16 +52,16 @@ class BlackFennec(Gtk.Application):
     def do_activate(self):
         logger.info('BlackFennec do_activate')
         self.set_window(SplashScreenView(self, {}))
+        GLib.timeout_add(200, self.show_main_ui)
 
-        def show_main_ui():
-            view_model = BlackFennecViewModel(
-                self._presenter_view,
-                self._navigation_service)
-            black_fennec_view = BlackFennecView(self, view_model)
-            self.set_window(black_fennec_view)
-
-        threading.Timer(
-            0.25, show_main_ui).start()
+    def show_main_ui(self):
+        logger.debug('show_main_ui')
+        view_model = BlackFennecViewModel(
+            self._presenter_view,
+            self._navigation_service)
+        black_fennec_view = BlackFennecView(self, view_model)
+        self.set_window(black_fennec_view)
+        return False
 
     def set_window(self, view):
         if self._window:
