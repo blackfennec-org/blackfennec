@@ -4,7 +4,6 @@ from doubles.dummy import Dummy
 from src.base.types.address.address_bidder import AddressBidder
 from src.core.auction import Offer
 from src.core.map import Map
-from src.core.map.map_bidder import MapBidder
 
 
 class AddressBidderTestSuite(unittest.TestCase):

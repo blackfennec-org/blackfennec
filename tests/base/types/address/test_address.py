@@ -21,7 +21,7 @@ class AddressTestSuite(unittest.TestCase):
         data['city'] = StringMock('city')
 
         data_map = MapMock(data)
-        address = Address(data_map)
+        Address(data_map)
 
     def test_first_name_getter(self):
         data = dict()
@@ -113,7 +113,7 @@ class AddressTestSuite(unittest.TestCase):
 
     def test_equal_unequal_elements(self):
         data_map = MapMock({})
-        other_data_map = MapMock({"first_name": InfoMock('test')})
+        other_data_map = MapMock({'first_name': InfoMock('test')})
         comp = Address(data_map)
         other_comp = Address(other_data_map)
         self.assertFalse(
@@ -132,7 +132,7 @@ class AddressTestSuite(unittest.TestCase):
 
     def test_not_equal_unequal_elements(self):
         data_map = MapMock({})
-        other_data_map = MapMock({"first_name": InfoMock('test')})
+        other_data_map = MapMock({'first_name': InfoMock('test')})
         comp = Address(data_map)
         other_comp = Address(other_data_map)
         self.assertTrue(
@@ -150,7 +150,7 @@ class AddressTestSuite(unittest.TestCase):
 
         data_map = MapMock(data)
         address = Address(data_map)
-        expected = "first_name last_name\nstreet street_nr\ncity"
+        expected = 'first_name last_name\nstreet street_nr\ncity'
         self.assertEqual(str(address), expected)
 
     def test_representation(self):
@@ -163,5 +163,5 @@ class AddressTestSuite(unittest.TestCase):
 
         data_map = MapMock(data)
         address = Address(data_map)
-        expected = "Address(first_name last_name, street street_nr, city)"
+        expected = 'Address(first_name last_name, street street_nr, city)'
         self.assertEqual(repr(address), expected)
