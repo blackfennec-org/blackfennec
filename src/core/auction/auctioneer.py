@@ -38,7 +38,7 @@ class Auctioneer:
             best_offer = offers[0][0]
         selection = None
         for offer, factory in offers:
-            if offer > best_offer:
+            if offer >= best_offer:
                 best_offer = offer
                 selection = factory
         if not selection:
@@ -61,7 +61,8 @@ class Auctioneer:
             [InfoFactory]: Factories selected according to
                 selected offers
         """
-        logger.debug('starting bidding on %s', subject)
+        logger.debug('starting bidding on %s which is %s',
+            subject, subject.__class__)
         types = list()
         for bidder, factory in self._type_registry.types.items():
             types.append((bidder.bid(subject), factory))
