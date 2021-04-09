@@ -52,6 +52,7 @@ Welcome to Black Fennec's documentation!
    documentation/index
    documentation/architecture
    documentation/domain_model
+   documentation/code/modules
 
 
 Indices and tables
