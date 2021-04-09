@@ -53,6 +53,14 @@ Welcome to Black Fennec's documentation!
    documentation/architecture
    documentation/domain_model
 
+.. toctree::
+   :maxdepth: 3
+   :caption: Testing
+   :numbered:
+
+   testing/system_test.rst
+   testing/system_test_templates.rst
+
 
 Indices and tables
 ==================
