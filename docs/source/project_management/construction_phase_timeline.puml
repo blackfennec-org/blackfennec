@@ -1,0 +1,102 @@
+@startuml
+scale 1 as 150 pixels
+
+concise "Iterations" as it
+concise "Conceptual" as con1
+concise "Components" as con2
+concise "Types" as con3
+
+legend
+Project Weeks
+end legend
+
+it is SCRUM #gray
+
+
+@6 as :Iteration2
+@6 as :CoreTypes
+@7 as :Preview
+@7 as :Specification
+@7 as :BaseTypes
+@8 as :Iteration3
+@8 as :ExtensionManager
+@8 as :Editable
+@9 as :Templating
+@9 as :SettingManager
+@10 as :Iteration4
+@10 as :Action
+@10 as :ExtensionStore
+@10 as :ExtensionTypes
+@11 as :Collaboration
+@12 as :Iteration5
+@14 as :End
+@13 as :ConstructionEnd
+
+
+@it
+
+@:Iteration2
+it is Iteration2
+
+@:CoreTypes
+con3 is CoreTypes
+
+@:Preview
+con1 is Preview
+
+@:Specification
+con2 is Specification
+
+@:BaseTypes
+con3 is BaseTypes
+
+@:Iteration3
+it is Iteration3
+
+@:Action
+con1 is Action
+
+@:ExtensionManager
+con2 is "Extension Manager"
+
+@:Templating
+con1 is Templating
+
+@:SettingManager
+con2 is "Setting Manager"
+
+@:Editable
+con1 is "Editable data"
+
+@:Iteration4
+it is Iteration4
+
+@:Collaboration
+con1 is "Collaboration"
+
+@:ExtensionStore
+con2 is "Extension Store"
+
+@:ExtensionTypes
+con3 is ExtensionTypes
+
+@:Iteration5
+it is Iteration5
+
+@:End
+it is End
+
+@:ConstructionEnd
+con1 is "End of Construction"
+con2 is "End of Construction"
+con3 is "End of Construction"
+
+
+highlight :Iteration2 to :Iteration2+2#pink: Elab.
+highlight :Iteration2+1 to :Iteration5+1#lightblue: Construction
+highlight :Iteration5 to :End#yellow: Transition
+
+it@:Iteration2 <-> @:Iteration2+2 : phase buffer
+it@:Iteration5 <-> @:Iteration5+1 : phase buffer
+
+@enduml

@@ -15,6 +15,7 @@ Welcome to Black Fennec's documentation!
    project_management/project_proposal.rst
    project_management/project_plan.rst
    project_management/risk_analysis.rst
+   project_management/elaboration.rst
 
 .. toctree::
    :maxdepth: 2
