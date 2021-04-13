@@ -30,6 +30,12 @@ build docs image:
 # Build Latest Documentation
 ###############################################################################
 
+build latest code docs:
+  image: $DOCS_BUILD_IMAGE
+  stage: prebuild
+  script:
+    - sphinx-apidoc -f -o docs/source/documentation/code/ .
+
 build latest html:
   image: $DOCS_BUILD_IMAGE
   stage: build
