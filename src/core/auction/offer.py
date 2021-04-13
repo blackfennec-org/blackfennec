@@ -143,6 +143,8 @@ class Offer(Comparable):
                 )
                 subject_node_count += coverage[0]
                 template_node_count += coverage[1]
+            else:
+                return subject_node_count, -1
         return subject_node_count, template_node_count
 
     @property

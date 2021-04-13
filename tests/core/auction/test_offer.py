@@ -157,6 +157,27 @@ class OfferTestSuite(unittest.TestCase):
             2/4
         )
 
+    def test_coverage_getter_map_unhandleable(self):
+        subject = Map(
+            {
+                'info1': InfoMock('Info')
+            }
+        )
+        specificity = 1
+        template = Map(
+            {
+                'info1': InfoMock('Info'),
+                'info2': InfoMock('Info'),
+            }
+        )
+        view_factory = Dummy('ViewFactory')
+
+        offer = Offer(subject, specificity, template, view_factory)
+        self.assertAlmostEqual(
+            offer.coverage,
+            0
+        )
+
     def test_equal_offers_equality(self):
         subject = InfoMock('Info')
         offer = Offer(

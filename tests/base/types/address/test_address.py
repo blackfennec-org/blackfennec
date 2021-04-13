@@ -6,11 +6,11 @@ from src.base.types.address.address import Address
 class AddressTestSuite(unittest.TestCase):
     def test_can_construct(self):
         address = Address()
-        self.assertFalse(address.first_name)
-        self.assertFalse(address.last_name)
-        self.assertFalse(address.street)
-        self.assertFalse(address.street_number)
-        self.assertFalse(address.city)
+        self.assertIsNone(address.first_name)
+        self.assertIsNone(address.last_name)
+        self.assertIsNone(address.street)
+        self.assertIsNone(address.street_number)
+        self.assertIsNone(address.city)
 
     def test_can_construct_with_map(self):
         data = dict()
