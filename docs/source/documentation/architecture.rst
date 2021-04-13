@@ -102,4 +102,4 @@ Visualisation
 Presenter
     The :ref:`presenter <presenter>` displays interpretations which he receives from the interpreter. The presenter also acts on navigation request which are forwarded to him by the navigation service.
 
-Further information and more detailed descriptions of the mentioned components can be found in the :doc:`domain_model`. If you are interested in the documentation of the source code... well atm you got to read it.
+Further information and more detailed descriptions of the mentioned components can be found in the :doc:`domain_model`. If you are interested in the documentation of the source code :doc:`follow this link <code/modules>`
