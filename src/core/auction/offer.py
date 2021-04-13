@@ -72,113 +72,77 @@ class Offer(Comparable):
     def _calculate_coverage(
             self,
             subject: Info,
-            template: Info,
-            subject_node_count: int = 0,
-            template_node_count: int = 0
+            template: Info
     ):
-        subject_node_count += 1
+        subject_node_count: int = 1
+        template_node_count: int = 0
         if isinstance(subject, template.__class__):
             logger.debug(
-                'Type of subject(%s) and template(%s) matched;'
-                'Counting node_count up',
+                'Type of subject(%s) and template(%s) matched',
                 type(subject),
                 type(template)
             )
             template_node_count += 1
             if template.children:
+                coverage: (int, int) = (0,0)
                 if isinstance(subject, List):
-                    logger.debug(
-                        'List type detected, calculating list coverage'
-                    )
-                    tmp1, tmp2 = self._calculate_list_coverage(
+                    coverage = self._calculate_list_coverage(
                         subject,
-                        template,
-                        subject_node_count,
-                        template_node_count
+                        template
                     )
-                    logger.debug(
-                        'Received values of list coverage, '
-                        '(subject_node_count = %s, template_node_count = %s)',
-                        tmp1,
-                        tmp2
-                    )
-                    subject_node_count = tmp1
-                    template_node_count = tmp2
                 elif isinstance(subject, Map):
-                    logger.debug(
-                        'Map type detected, calculating map coverage'
-                    )
-                    tmp1, tmp2 = self._calculate_map_coverage(
+                    coverage = self._calculate_map_coverage(
                         subject,
-                        template,
-                        subject_node_count,
-                        template_node_count
+                        template
                     )
-                    logger.debug(
-                        'Received values of map coverage, '
-                        '(subject_node_count = %s, template_node_count = %s)',
-                        tmp1,
-                        tmp2
-                    )
-                    subject_node_count = tmp1
-                    template_node_count = tmp2
+                subject_node_count += coverage[0]
+                template_node_count += coverage[1]
         return subject_node_count, template_node_count
 
     def _calculate_list_coverage(
             self,
             subject: List,
-            template: List,
-            subject_node_count: int,
-            template_node_count: int
+            template: List
     ):
         logger.debug(
-            'Number of children in list %s',
+            'Calculating list coverage (children=%s, types in template=%s)',
+            len(subject.children),
             len(subject.children)
         )
-        logger.debug(
-            'Number of types in template %s',
-            len(subject.children)
-        )
+        subject_node_count: int = 0
+        template_node_count: int = 0
         for template_node in template.children:
             for subject_node in subject.children:
-                tmp1, tmp2 = self._calculate_coverage(
+                coverage = self._calculate_coverage(
                     subject_node,
-                    template_node,
-                    subject_node_count,
-                    template_node_count
+                    template_node
                 )
-                subject_node_count = tmp1
-                template_node_count = tmp2
+                subject_node_count += coverage[0]
+                template_node_count += coverage[1]
         return subject_node_count, template_node_count
 
     def _calculate_map_coverage(
             self,
             subject: Map,
-            template: Map,
-            subject_node_count: int,
-            template_node_count: int
+            template: Map
     ):
         logger.debug(
-            'Number of children in map %s',
+            'Calculating map coverage (children=%s, types in template=%s)',
+            len(subject.children),
             len(subject.children)
         )
-        logger.debug(
-            'Number of types in template %s',
-            len(subject.children)
-        )
-        subject_node_count += len(subject.children)
+        subject_node_count: int = len(subject.children)
+        template_node_count: int = 0
         for key, value in template.data.items():
             if key in subject.data:
                 if isinstance(subject.data[key], value.__class__):
                     subject_node_count -= 1
-                tmp1, tmp2 = self._calculate_coverage(
+                coverage = self._calculate_coverage(
                     subject.data[key],
-                    value,
-                    subject_node_count,
-                    template_node_count
+                    value
                 )
-                subject_node_count = tmp1
-                template_node_count = tmp2
+                subject_node_count += coverage[0]
+                template_node_count += coverage[1]
         return subject_node_count, template_node_count
 
     @property
