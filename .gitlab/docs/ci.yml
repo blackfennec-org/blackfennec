@@ -35,6 +35,8 @@ build latest code docs:
   stage: prebuild
   script:
     - sphinx-apidoc -f -o docs/source/documentation/code/ .
+  only:
+    - tags
 
 build latest html:
   image: $DOCS_BUILD_IMAGE
