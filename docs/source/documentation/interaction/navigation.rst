@@ -25,6 +25,8 @@ An :ref:`InfoView <definition_info_view>` might not want to display the entire s
     @enduml
 
 
+.. _definition_navigation_service:
+
 Navigation Service
 """"""""""""""""""
 The NavigationService provides the means to request the navigation to a structure. The NavigationService starts :ref:`the selection process <definition_selection_process>`, the result of which is then transferred to the Presenter. Besides the :ref:`Interpreter <definition_interpreter>` the Presenter also gets the calling :ref:`Interpretation <definition_interpretation>` from the NavigationService. This allows the Presenter to visualise causality to the user.

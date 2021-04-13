@@ -1,3 +1,14 @@
 .borderless tr, .borderless td {
     border: none !important;
 }
+
+/* override table width restrictions */
+.wy-table-responsive table td, .wy-table-responsive table th {
+    white-space: normal;
+}
+
+.wy-table-responsive table {
+    margin-bottom: 24px;
+    max-width: 100%;
+    overflow: visible;
+}

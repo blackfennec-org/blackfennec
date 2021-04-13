@@ -146,6 +146,8 @@ Project Timeline
 
 The blue arrows in the milestone section show when Milestones with respecting reviews are planned in our project. As this plan is in the future the red arrows indicate the scope of the time-window in which they should be fulfilled.
 
+During the Elaboration phase a more detailed plan for the Construction phase has been created. It can be found in the :doc:`elaboration` document.
+
 Milestones
 ^^^^^^^^^^
 

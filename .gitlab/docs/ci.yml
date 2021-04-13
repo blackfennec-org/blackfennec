@@ -6,7 +6,7 @@ variables:
 # Build Docs Building Docker Image
 ###############################################################################
 build docs image:
-  stage: prebuild
+  stage: imagebuild
   image: docker:latest
   script:
     - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
@@ -29,6 +29,17 @@ build docs image:
 ###############################################################################
 # Build Latest Documentation
 ###############################################################################
+
+build latest code docs:
+  image: $DOCS_BUILD_IMAGE
+  stage: prebuild
+  script:
+    - sphinx-apidoc -f -o docs/source/documentation/code/ .
+  artifacts:
+    paths:
+      - docs/source/documentation/code
+  only:
+      - tags
 
 build latest html:
   image: $DOCS_BUILD_IMAGE
