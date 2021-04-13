@@ -15,6 +15,7 @@ Welcome to Black Fennec's documentation!
    project_management/project_proposal.rst
    project_management/project_plan.rst
    project_management/risk_analysis.rst
+   project_management/elaboration.rst
 
 .. toctree::
    :maxdepth: 2
@@ -47,10 +48,20 @@ Welcome to Black Fennec's documentation!
 
 .. toctree::
    :maxdepth: 3
-   :caption: The Domain
+   :caption: Documentation
+
+   documentation/index
+   documentation/architecture
+   documentation/domain_model
+   documentation/code/modules
+
+.. toctree::
+   :maxdepth: 3
+   :caption: Testing
    :numbered:
 
-   domain_model/index
+   testing/system_test.rst
+   testing/system_test_templates.rst
 
 
 Indices and tables

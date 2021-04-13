@@ -1,3 +1,5 @@
+.. _definition_type_system:
+
 The Type System
 ===============
 

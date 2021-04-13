@@ -1,6 +1,7 @@
 docs/_build/
 docs/_versions
 docs/source/_build/
+docs/source/documentation/code/*
 .vscode/
 .idea/
 .coverage

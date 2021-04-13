@@ -1,20 +1,21 @@
 import csv
 import matplotlib.pyplot as plt
-# import numpy as np
-# import pandas as pd
-# import datetime
-# import json
+import numpy as np
 
-with open('Timereport2.stats.csv', 'r') as csv_file:
+with open('Timereport.stats.csv', 'r') as csv_file:
     csv_reader = csv.reader(csv_file)
 
     test_json = {}
 
-    for line in csv_reader:
-        test_json['LG'] = line[3]
-        test_json['SK'] = line[4]
-        test_json['CM'] = line[5]
-        test_json['LD'] = line[6]
+    header = next(csv_reader)
+
+    line = next(csv_reader)
+    test_json['estimate'] = line[0]
+    test_json['spend'] = line[1]
+    test_json['LG'] = line[header.index('lara.gubler')]
+    test_json['SK'] = line[header.index('simon.kindhauser')]
+    test_json['CM'] = line[header.index('caspar.martens')]
+    test_json['LD'] = line[header.index('leonie.daeullary')]
 
 json_data = test_json.copy()
 
@@ -47,16 +48,44 @@ print('total time')
 print(test_json)
 
 # Pie chart, where the slices will be ordered and plotted counter-clockwise:
-labels = 'Simon Kindhauser: \n' + json_data['SK'] +\
-         'Caspar Martens: \n' + json_data['CM'] +\
-         'Leonie Däullary: \n' + json_data['LD'] +\
-         'Lara Gubler: \n' + json_data['LG']
+labels = ['Simon Kindhauser: \n' + json_data['SK'],
+         'Caspar Martens: \n' + json_data['CM'],
+         'Leonie Däullary: \n' + json_data['LD'],
+         'Lara Gubler: \n' + json_data['LG']]
 sizes = [test_json['SK'], test_json['CM'], test_json['LD'], test_json['LG']]
 
 fig1, ax1 = plt.subplots()
 ax1.pie(sizes, labels=labels, autopct='%1.1f%%', startangle=90)
-ax1.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
+ax1.axis('equal')
 
-plt.savefig('hours_per_member.png')
+plt.savefig('time_tracking.png')
 plt.show()
+
+# Bar chart, time estimate/spend
+labels = ['estimate/spend']
+estimate_means = test_json['estimate']
+spend_means = test_json['spend']
+
+x = np.arange(len(labels))
+width = 0.35
+
+fig, ax = plt.subplots()
+rects1 = ax.bar(x - width / 2, estimate_means, width, label='estimate')
+rects2 = ax.bar(x + width / 2, spend_means, width, label='spend')
+
+ax.set_ylabel('Time in minutes')
+ax.set_title('Comparison time estimate and spend')
+ax.set_xticks(x)
+ax.set_xticklabels(labels)
+ax.legend()
+
+ax.bar_label(rects1, padding=3)
+ax.bar_label(rects2, padding=3)
+
+fig.tight_layout()
+
+plt.savefig('estimate_spend_comparison.png')
+plt.show()
+
+
 

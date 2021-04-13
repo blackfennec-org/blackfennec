@@ -47,12 +47,12 @@ it is Iteration5
 it is End
 
 highlight :Start to :Iteration0+1#palegreen:Inception
-highlight :Iteration0+1 to :Iteration2+1#pink: Elaboration
+highlight :Iteration0+1 to :Iteration2+2#pink: Elaboration
 highlight :Iteration2 to :Iteration5+1#lightblue: Construction
 highlight :Iteration5 to :End#yellow: Transition
 
 it@:Start <-> @:Iteration0 : setup time
-it@:Iteration2-1 <-> @:Iteration2+1 : phase buffer
+it@:Iteration2-1 <-> @:Iteration2+2 : phase buffer
 it@:Iteration5 <-> @:Iteration5+1 : phase buffer
 
 ms@:Iteration0+1 -> it@:Iteration0+1 : R1
@@ -62,7 +62,7 @@ ms@:Iteration1+1 -> it@:Iteration1+1 : R2
 ms@:Iteration1 <-> @:Iteration1+1 : R2
 
 ms@:Iteration2+1 -> it@:Iteration2+1 : R3
-ms@:Iteration2-1 <-> @:Iteration2+1 : R3
+ms@:Iteration2-1 <-> @:Iteration2+2 : R3
 
 ms@:Iteration5 -> it@:Iteration5 : R4
 ms@:Iteration4+1 <-> @:Iteration5+1 : R4
