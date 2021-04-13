@@ -4,6 +4,7 @@ from collections import UserDict
 class MapMock(UserDict):
     def __init__(self, value: dict = None):
         UserDict.__init__(self)
+        self.data = {} if value is None else value
         self._value = {} if value is None else value
         self._value_property_access_count = 0
         self._value_history = [value]

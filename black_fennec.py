@@ -1,4 +1,5 @@
 import gi
+
 gi.require_version('Gtk', '3.0')
 
 # pylint: disable=wrong-import-position
@@ -12,6 +13,7 @@ from src.core.number.number_bidder import NumberBidder
 from src.core.string.string_bidder import StringBidder
 from src.core.list.list_bidder import ListBidder
 from src.core.map.map_bidder import MapBidder
+from src.base.types.address.address_bidder import AddressBidder
 from src.core import Auctioneer, NavigationService
 from src.base.column_based_presenter import ColumnBasedPresenterViewFactory
 from src.splash_screen.splash_screen_view import SplashScreenView
@@ -20,6 +22,7 @@ from src.splash_screen.splash_screen_view import SplashScreenView
 logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
 
+
 def create_type_registry() -> TypeRegistry:
     registry = TypeRegistry()
     registry.register_type(BooleanBidder())
@@ -27,7 +30,9 @@ def create_type_registry() -> TypeRegistry:
     registry.register_type(StringBidder())
     registry.register_type(ListBidder())
     registry.register_type(MapBidder())
+    registry.register_type(AddressBidder())
     return registry
+
 
 class BlackFennec(Gtk.Application):
     def __init__(self, presenter_view, navigation_service):
