@@ -1,7 +1,12 @@
 import unittest
 
-from src.core import BooleanBidder, BooleanViewFactory, NumberBidder, NumberViewFactory, StringViewFactory, \
-    StringBidder, ListBidder, ListViewFactory, MapBidder, MapViewFactory, Auctioneer, Boolean, Number, List, Map, String
+from src.core import \
+    BooleanBidder, BooleanViewFactory, Boolean, \
+    NumberBidder, NumberViewFactory, Number, \
+    StringViewFactory, StringBidder, String, \
+    ListBidder, ListViewFactory, List, \
+    MapBidder, MapViewFactory, Map, \
+    Auctioneer
 from src.extension.type_registry import TypeRegistry
 
 
@@ -40,8 +45,3 @@ class AuctionOfCoreTypesTestSuite(unittest.TestCase):
     def test_auction_string(self):
         result = self.auctioneer.auction(String())
         self.assertIsInstance(result[0], StringViewFactory)
-
-
-
-
-

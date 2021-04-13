@@ -1,11 +1,13 @@
 import unittest
 
-
 from doubles.dummy import Dummy
-from src.core import BooleanViewFactory, NumberViewFactory, StringViewFactory, \
-    ListViewFactory, MapViewFactory, \
-    Map, List, Interpreter, Boolean, BooleanView, \
-    ListView, MapView, Number, NumberView, String, StringView
+from src.core import \
+    BooleanView, BooleanViewFactory, Boolean, \
+    NumberView, NumberViewFactory, Number, \
+    StringViewFactory, StringView, String, \
+    ListView, ListViewFactory, List, \
+    MapView, MapViewFactory, Map
+from src.core.interpreter import Interpreter
 
 
 class IntegrationFromInterpreterToViewTestSuite(unittest.TestCase):
@@ -44,8 +46,3 @@ class IntegrationFromInterpreterToViewTestSuite(unittest.TestCase):
         interpretation = interpreter.interpret(String())
         view = interpretation.view
         self.assertIsInstance(view, StringView)
-
-
-
-
-
