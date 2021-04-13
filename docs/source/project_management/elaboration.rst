@@ -104,4 +104,6 @@ The overall timeline of our project was created during the inception phase and a
 
 The Construction phase spanning at least the two next iterations is planned more detailed in the following diagram. Additionally to this plan, a look into the `issue board <https://gitlab.ost.ch/epj/2021-FS/g01_blackfennec/black-fennec/-/boards/240>`_ can be worthwhile to get a picture of the current and planned processes.
 
-.. uml:: construction_phase_timeline.puml
+The timeline we provide is a gantt diagram to visualise dependencies of certain component of our system and provides a detailed planning overview. This plan is just a provisional aid for the creation of stories and work-items during the sprint planning meetings, and is thus subject to change.
+
+.. uml:: construction_phase_roadmap.puml
