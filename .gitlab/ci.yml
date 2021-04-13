@@ -2,6 +2,7 @@ services:
   - docker:stable-dind
 
 stages:
+  - imagebuild
   - prebuild
   - build
   - test
