@@ -1,5 +1,7 @@
 Risk Analysis
 =============
+.. _risk_analysis:
+
 This document contains a list of all identified technical risks to the Black Fennec engineering project. It is updated on a need be basis.
 
 Reaching the Complexity Ceiling
@@ -31,7 +33,7 @@ Mitigation
     **Remaining Risk**  Medium
     ==================  ===========
 
-Managing complexity effectively is very hard. We must deploy many techniques and tools to mitigate this risk effectively. We will invest heavily into the architecture of the system and additionally strive for flexibility for when simpler solution arise they mey be implemented. Flexibility through refactoring is aided by unit tests, giving the developers confidence in rapid changes.
+Managing complexity effectively is very hard. We must deploy many techniques and tools to mitigate this risk effectively. We will invest heavily into the architecture of the system and additionally strive for flexibility for when simpler solution arise they may be implemented. Flexibility through refactoring is aided by unit tests, giving the developers confidence in rapid changes.
 
 The remaining risk must be watched carefully and further analysis will take place before the issue raises to dangerous levels.
 
@@ -64,7 +66,7 @@ Mitigation
     **Remaining Risk**  Very Low
     ==================  ===========
 
-Since we are in control of the requirements for our product we will try not to change them in any braking way. Additionally, we have already analysed the requirements on a higher level and believe them to be manageable.
+Since we are in control of the requirements for our product we will try not to change them in any breaking way. Additionally, we have already analysed the requirements on a higher level and believe them to be manageable.
 
 Documentation Tools
 """""""""""""""""""
