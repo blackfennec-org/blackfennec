@@ -4,7 +4,7 @@ from gi.repository import Gtk
 logger = logging.getLogger(__name__)
 
 
-@Gtk.Template(filename="src/black_fennec.glade")
+@Gtk.Template(filename='src/black_fennec.glade')
 class BlackFennecView(Gtk.ApplicationWindow):
     """Black Fennec Main UI view"""
     __gtype_name__ = 'BlackFennecView'
@@ -28,7 +28,9 @@ class BlackFennecView(Gtk.ApplicationWindow):
         """Callback for the button click event"""
         logger.debug('open clicked')
         dialog = Gtk.FileChooserDialog(
-            title="Please choose a file", parent=self, action=Gtk.FileChooserAction.OPEN
+            title='Please choose a file',
+            parent=self,
+            action=Gtk.FileChooserAction.OPEN
         )
         dialog.add_buttons(
             Gtk.STOCK_CANCEL,

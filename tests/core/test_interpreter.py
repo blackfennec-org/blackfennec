@@ -8,7 +8,6 @@ import unittest
 from doubles.core.auctioneer import AuctioneerMock
 from doubles.core.info_view_factory import InfoViewFactoryMock
 from doubles.dummy import Dummy
-from doubles.extension.type_registry import TypeRegistryMock
 from src.core.interpretation import Interpretation
 from src.core.interpreter import Interpreter
 
