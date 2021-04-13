@@ -6,7 +6,7 @@ variables:
 # Build Docs Building Docker Image
 ###############################################################################
 build docs image:
-  stage: prebuild
+  stage: imagebuild
   image: docker:latest
   script:
     - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
