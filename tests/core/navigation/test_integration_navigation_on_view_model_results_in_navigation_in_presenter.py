@@ -1,13 +1,15 @@
 import unittest
 
 from doubles.base.info_presenter import InfoPresenterMock
-from src.core import \
-    BooleanBidder, BooleanViewFactory, \
-    NumberBidder, NumberViewFactory, \
-    StringViewFactory, StringBidder, \
-    ListBidder, ListViewFactory, ListViewModel, List, \
-    MapBidder, MapViewFactory, MapViewModel, Map, \
-    Auctioneer, NavigationService
+from src.core import NavigationService
+from src.core import Auctioneer
+from src.core.boolean.boolean_bidder import BooleanBidder
+from src.core.list import List, ListViewModel
+from src.core.list.list_bidder import ListBidder
+from src.core.map import Map, MapViewModel
+from src.core.map.map_bidder import MapBidder
+from src.core.number.number_bidder import NumberBidder
+from src.core.string.string_bidder import StringBidder
 from src.core.interpretation import Interpretation
 from src.extension.type_registry import TypeRegistry
 
@@ -17,11 +19,11 @@ class NavigationOnViewModelResultsInNavigationInPresenterTestSuite(
 
     def setUp(self):
         registry = TypeRegistry()
-        registry.register_type(BooleanBidder(), BooleanViewFactory())
-        registry.register_type(NumberBidder(), NumberViewFactory())
-        registry.register_type(StringBidder(), StringViewFactory())
-        registry.register_type(ListBidder(), ListViewFactory())
-        registry.register_type(MapBidder(), MapViewFactory())
+        registry.register_type(BooleanBidder())
+        registry.register_type(NumberBidder())
+        registry.register_type(StringBidder())
+        registry.register_type(ListBidder())
+        registry.register_type(MapBidder())
         self.presenter = InfoPresenterMock()
         auctioneer = Auctioneer(registry)
         self.navigation_service = NavigationService(self.presenter, auctioneer)

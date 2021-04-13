@@ -1,12 +1,16 @@
 import unittest
 
-from src.core import \
-    BooleanBidder, BooleanViewFactory, Boolean, \
-    NumberBidder, NumberViewFactory, Number, \
-    StringViewFactory, StringBidder, String, \
-    ListBidder, ListViewFactory, List, \
-    MapBidder, MapViewFactory, Map, \
-    Auctioneer
+from src.core import Auctioneer
+from src.core.boolean import BooleanViewFactory, Boolean
+from src.core.boolean.boolean_bidder import BooleanBidder
+from src.core.list import ListViewFactory, List
+from src.core.list.list_bidder import ListBidder
+from src.core.map import MapViewFactory, Map
+from src.core.map.map_bidder import MapBidder
+from src.core.number import NumberViewFactory, Number
+from src.core.number.number_bidder import NumberBidder
+from src.core.string import StringViewFactory, String
+from src.core.string.string_bidder import StringBidder
 from src.extension.type_registry import TypeRegistry
 
 
@@ -14,11 +18,11 @@ class AuctionOfCoreTypesTestSuite(unittest.TestCase):
 
     def setUp(self):
         registry = TypeRegistry()
-        registry.register_type(BooleanBidder(), BooleanViewFactory())
-        registry.register_type(NumberBidder(), NumberViewFactory())
-        registry.register_type(StringBidder(), StringViewFactory())
-        registry.register_type(ListBidder(), ListViewFactory())
-        registry.register_type(MapBidder(), MapViewFactory())
+        registry.register_type(BooleanBidder())
+        registry.register_type(NumberBidder())
+        registry.register_type(StringBidder())
+        registry.register_type(ListBidder())
+        registry.register_type(MapBidder())
         self.registry = registry
         self.auctioneer = Auctioneer(registry)
 
