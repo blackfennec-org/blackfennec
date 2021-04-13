@@ -10,9 +10,9 @@ class TypeRegistry:
     def __init__(self):
         """ type_registry constructor.
 
-        Initializes the _types attribute with empty dictionary
+        Initializes the _types attribute with empty list
         """
-        self._types = dict()
+        self._types = list()
 
 
 
@@ -21,27 +21,25 @@ class TypeRegistry:
         """types getter
 
             Returns:
-                dict: key type_bidder, value type_view_factory
+                list: of type_bidder
         """
         return self._types
 
 
-    def register_type(self, type_bidder, type_view_factory):
+    def register_type(self, type_bidder):
         """Function to register a new type
 
             Args:
-                type_bidder (InfoBidder): key of the type dictionary
-                type_view_factory (InfoViewFactory): value of the type
-                    dictionary
+                type_bidder (InfoBidder): future element of the type list
         """
-        self._types[type_bidder] = type_view_factory
+        self._types.append(type_bidder)
 
 
     def deregister_type(self, type_bidder):
         """Function to deregister a type from the dictionary
 
         Args:
-            type_bidder (InfoBidder): key of the type dictionary
+            type_bidder (InfoBidder): element in the type list
 
         """
-        self._types.pop(type_bidder)
+        self._types.remove(type_bidder)

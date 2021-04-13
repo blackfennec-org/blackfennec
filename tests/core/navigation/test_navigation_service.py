@@ -7,7 +7,7 @@ from doubles.dummy import Dummy
 from src.core.navigation.navigation_service import NavigationService
 
 
-class InterpretationTestSuite(unittest.TestCase):
+class NavigationServiceTestSuite(unittest.TestCase):
     def test_create_navigation_service(self):
         info_presenter = Dummy('InfoPresenter')
         auctioneer = Dummy('Auctioneer')
@@ -16,19 +16,10 @@ class InterpretationTestSuite(unittest.TestCase):
     def test_navigate(self):
         sender = Dummy('Interpretation')
         destination = Dummy('Info')
-        type_registry = Dummy('TypeRegistry')
-        auctioneer = AuctioneerMock(type_registry)
+        auctioneer = AuctioneerMock()
         info_presenter = InfoPresenterMock()
         navigation_service = NavigationService(info_presenter, auctioneer)
         navigation_service.navigate(sender, destination)
-        self.assertEqual(
-            auctioneer.auction_count,
-            1
-        )
-        self.assertEqual(
-            auctioneer.auction_last_subject,
-            destination
-        )
         self.assertEqual(
             info_presenter.show_count,
             1
