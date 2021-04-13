@@ -26,6 +26,7 @@ Welcome to Black Fennec's documentation!
    project_standards/logging_standards.rst
    project_standards/version_control_strategy.rst
    project_standards/definition_of_scrum.rst
+   project_standards/ci_cd.rst
 
 .. toctree::
    :maxdepth: 2
@@ -46,10 +47,19 @@ Welcome to Black Fennec's documentation!
 
 .. toctree::
    :maxdepth: 3
-   :caption: The Domain
+   :caption: Documentation
+
+   documentation/index
+   documentation/architecture
+   documentation/domain_model
+
+.. toctree::
+   :maxdepth: 3
+   :caption: Testing
    :numbered:
 
-   domain_model/index
+   testing/system_test.rst
+   testing/system_test_templates.rst
 
 
 Indices and tables

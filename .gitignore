@@ -4,6 +4,9 @@ docs/source/_build/
 .vscode/
 .idea/
 .coverage
+cov.xml
 *.glade~
 __pycache__/
 pylint/
+venv/
+.venv/
