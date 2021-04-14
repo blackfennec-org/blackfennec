@@ -1,6 +1,6 @@
 @startgantt
-printscale weekly
-scale 2
+printscale daily
+scale 1
 Project starts the 2nd of april 2021
 
 '========== Iteration 2 ===============
@@ -38,7 +38,7 @@ Project starts the 2nd of april 2021
 [Auctioneer] as [auct] lasts 1 week
 [auct] starts at [it2]'s start
 
-[ColumnBasedPresenter] as [colPres] lasts 1 week
+[ColBasedPresenter] as [colPres] lasts 1 week
 [colPres] starts at [it2]'s start
 
 [Action] lasts 2 weeks
