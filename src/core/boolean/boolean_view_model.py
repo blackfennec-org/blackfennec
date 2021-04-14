@@ -1,5 +1,3 @@
-from src.core.boolean import Boolean
-
 class BooleanViewModel:
     """View model for core type Boolean."""
 

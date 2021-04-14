@@ -43,6 +43,10 @@ class BlackFennecViewModelTestSuite(unittest.TestCase):
         with self.assertLogs(None, logging.WARNING):
             view_model.about_and_help()
 
-
-
-
+    def test_presenter_getter(self):
+        presenter = Dummy('Presenter')
+        view_model = BlackFennecViewModel(presenter, Dummy())
+        self.assertEqual(
+            view_model.presenter,
+            presenter
+        )

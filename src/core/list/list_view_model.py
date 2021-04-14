@@ -1,5 +1,5 @@
 from src.core.info import Info
-from src.core.list import List
+
 
 class ListViewModel:
     """View model for core type List."""

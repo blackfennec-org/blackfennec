@@ -1,5 +1,5 @@
 import numbers
-from src.core.number import Number
+
 
 class NumberViewModel:
     """View model for core type Number."""

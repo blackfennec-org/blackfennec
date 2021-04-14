@@ -5,6 +5,7 @@ This module contains the unit-tests of the Interpreter class."""
 
 import unittest
 
+from doubles.core.auctioneer import AuctioneerMock
 from doubles.core.info_view_factory import InfoViewFactoryMock
 from doubles.dummy import Dummy
 from src.core.interpretation import Interpretation
@@ -22,8 +23,8 @@ class InterpreterTestSuite(unittest.TestCase):
         member variable
         """
         navigation_service = Dummy("nav")
-        factories = Dummy("factories")
-        interpreter = Interpreter(navigation_service, factories)
+        auctioneer = Dummy("auctioneer")
+        interpreter = Interpreter(navigation_service, auctioneer)
         self.assertEqual(
             interpreter._navigation_service,
             navigation_service,
@@ -31,10 +32,10 @@ class InterpreterTestSuite(unittest.TestCase):
                 "_navigation_service correctly"
         )
         self.assertEqual(
-            interpreter._factories,
-            factories,
+            interpreter._auctioneer,
+            auctioneer,
             msg="Interpreter has not initialized " +
-                "_factories correctly"
+                "_auctioneer correctly"
         )
 
     def test_can_create_interpretation(self):
@@ -46,8 +47,11 @@ class InterpreterTestSuite(unittest.TestCase):
         """
         navigation_service = Dummy("nav")
         info = Dummy("info")
+
         factories = [InfoViewFactoryMock()]
-        interpreter = Interpreter(navigation_service, factories)
+
+        auctioneer = AuctioneerMock(factories)
+        interpreter = Interpreter(navigation_service, auctioneer)
         interpretation = interpreter.interpret(info)
         self.assertIsInstance(
             interpretation,
@@ -59,4 +63,12 @@ class InterpreterTestSuite(unittest.TestCase):
             factories[0].creation_count,
             1,
             msg="Interpreter did not create info_view from factory"
+        )
+        self.assertEqual(
+            auctioneer.auction_count,
+            1
+        )
+        self.assertEqual(
+            auctioneer.auction_last_subject,
+            info
         )

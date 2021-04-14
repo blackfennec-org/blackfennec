@@ -24,7 +24,7 @@ class Map(Info, UserDict):
 
     def __delitem__(self, key):
         """Custom delete hook, resets parent for removed info.
-        
+
         Args:
             key (any): The key of the item to delete.
         """

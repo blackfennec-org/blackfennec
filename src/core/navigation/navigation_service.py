@@ -27,18 +27,6 @@ class NavigationService:
         self._info_presenter = info_presenter
         self._auctioneer = auctioneer
 
-    def _resolve_route(self, route_target: Info) -> Interpreter:
-        """Resolve of route
-
-        Start auction on auctioneer to receive list of factories
-        and return Interpreter
-
-        Args:
-            route_target (Info): Target to which shall be navigated
-        """
-        factories = self._auctioneer.auction(route_target)
-        return Interpreter(self, factories)
-
     def navigate(self, sender: Interpretation, destination: Info):
         """Navigation request dispatch
 
@@ -50,5 +38,5 @@ class NavigationService:
             sender (Interpretation) Interpretation which invoked navigation
             destination (Info): Destination to which shall be navigated
         """
-        interpreter = self._resolve_route(destination)
+        interpreter = Interpreter(self, self._auctioneer)
         self._info_presenter.show(sender, destination, interpreter)

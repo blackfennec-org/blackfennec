@@ -76,16 +76,19 @@ Addressed Risks
 ^^^^^^^^^^^^^^^
 All risk included in this table correspond to a heading in the :doc:`risk_analysis` document.
 
-======================================================  ======================
- Risk                                                    Conclusion
-======================================================  ======================
-:ref:`Reaching the Complexity Ceiling <risk_analysis>`  In order to mitigate and minimize this risk a great deal of time was spent to refine and refactor concepts in the core such as the auctioneer and navigation service. Thanks to this measure we are confident that the complexity encountered during this project in manageable. But still a complete mitigation of this risk can never be claimed, and thus we have to keep this risk in mind.
-:ref:`Changing Requirements <risk_analysis>`            During the elaboration phase the requirements of our project have been concretised, and thanks to this we can conclude that this already very low risk has further been lowered.
-:ref:`Documentation Tools <risk_analysis>`              The prototype features an extensive documentation in the form of docstrings. Contrary to popular belief that docstrings are not maintainable and do not add worthwhile value, our team decided to use docstrings especially to ensure that external extension developers can understand the underlying code of the Black Fennec core with lower time investments. We deliberately refrain from documenting our tests and doubles, but core code is to be documented at all times. We believe our documentation tools to be adequate and thus see this risk as mitigated.
-:ref:`Development Tools <risk_analysis>`                The members of the project have set up their IDEs preceding the start of the elaboration phase as a part of the inception phase. Now up to this point all members have made contact with all the development tools and any occurring problems were successfully solved.
-:ref:`Low Software Quality <risk_analysis>`             Our Prototype adheres strictly to our quality standards, and with the inclusion of a code quality rating with pylint this risk has been mitigated. Up to this point all members of the team have made contact with the quality standards and know how to adhere to them.
-:ref:`Bad User Experience <risk_analysis>`              This long-term risk still exists for our project, but with the assignment of one team member that is has the competence to ensure best possible user experience, at least a bit of this risk has been mitigated.
-======================================================  ======================
+.. table::
+    :widths: 25 75
+
+    ======================================================  ======================
+     Risk                                                    Conclusion
+    ======================================================  ======================
+    :ref:`Reaching the Complexity Ceiling <risk_analysis>`  In order to mitigate and minimize this risk a great deal of time was spent to refine and refactor concepts in the core such as the auctioneer and navigation service. Thanks to this measure we are confident that the complexity encountered during this project in manageable. But still a complete mitigation of this risk can never be claimed, and thus we have to keep this risk in mind.
+    :ref:`Changing Requirements <risk_analysis>`            During the elaboration phase the requirements of our project have been concretised, and thanks to this we can conclude that this already very low risk has further been lowered.
+    :ref:`Documentation Tools <risk_analysis>`              The prototype features an extensive documentation in the form of docstrings. Contrary to popular belief that docstrings are not maintainable and do not add worthwhile value, our team decided to use docstrings especially to ensure that external extension developers can understand the underlying code of the Black Fennec core with lower time investments. We deliberately refrain from documenting our tests and doubles, but core code is to be documented at all times. We believe our documentation tools to be adequate and thus see this risk as mitigated.
+    :ref:`Development Tools <risk_analysis>`                The members of the project have set up their IDEs preceding the start of the elaboration phase as a part of the inception phase. Now up to this point all members have made contact with all the development tools and any occurring problems were successfully solved.
+    :ref:`Low Software Quality <risk_analysis>`             Our Prototype adheres strictly to our quality standards, and with the inclusion of a code quality rating with pylint this risk has been mitigated. Up to this point all members of the team have made contact with the quality standards and know how to adhere to them.
+    :ref:`Bad User Experience <risk_analysis>`              This long-term risk still exists for our project, but with the assignment of one team member that is has the competence to ensure best possible user experience, at least a bit of this risk has been mitigated.
+    ======================================================  ======================
 
 Retained Risks
 ^^^^^^^^^^^^^^

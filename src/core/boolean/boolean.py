@@ -1,5 +1,6 @@
 from src.core.info import Info
 
+
 class Boolean(Info):
     """Core Type Boolean, represents booleans in the domain model."""
 

@@ -4,9 +4,10 @@ from src.core.json_parser import JsonParser
 
 logger = logging.getLogger(__name__)
 
+
 class BlackFennecViewModel:
     def __init__(self, presenter, navigation_service):
-        logger.info("BlackFennecViewModel __init__")
+        logger.info('BlackFennecViewModel __init__')
         self._presenter = presenter
         self._navigation_service = navigation_service
 

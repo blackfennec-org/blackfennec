@@ -54,7 +54,7 @@ class List(Info, UserList):
 
     def remove(self, item: Info):
         """Remove item form List.
-        
+
         Args:
             item (Info): Item to remove.
         """
