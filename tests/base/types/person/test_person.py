@@ -45,7 +45,7 @@ class PersonTestSuite(unittest.TestCase):
         person = Person()
         person.courtesy_title = courtesy_title
         courtesy_title.parent = person
-        self.assertEqual(person.first_name, courtesy_title)
+        self.assertEqual(person.courtesy_title, courtesy_title)
 
     def test_first_name_getter(self):
         data = dict()
@@ -215,7 +215,7 @@ class PersonTestSuite(unittest.TestCase):
         data['suffix'] = StringMock('suffix')
         data['gender'] = StringMock('gender')
         data['sex'] = StringMock('sex')
-        data['marital_status'] = StringMock('marital_state')
+        data['marital_status'] = StringMock('marital_status')
         data['nationality'] = StringMock('nationality')
 
         data_map = MapMock(data)
@@ -232,7 +232,7 @@ class PersonTestSuite(unittest.TestCase):
         data['suffix'] = StringMock('suffix')
         data['gender'] = StringMock('gender')
         data['sex'] = StringMock('sex')
-        data['marital_status'] = StringMock('marital_state')
+        data['marital_status'] = StringMock('marital_status')
         data['nationality'] = StringMock('nationality')
 
         data_map = MapMock(data)
