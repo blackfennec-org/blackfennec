@@ -1,5 +1,7 @@
 import gi
 
+from src.base.types.file.file_bidder import FileBidder
+
 gi.require_version('Gtk', '3.0')
 
 # pylint: disable=wrong-import-position
@@ -30,6 +32,7 @@ def create_type_registry() -> TypeRegistry:
     registry.register_type(StringBidder())
     registry.register_type(ListBidder())
     registry.register_type(MapBidder())
+    registry.register_type(FileBidder())
     registry.register_type(AddressBidder())
     return registry
 
