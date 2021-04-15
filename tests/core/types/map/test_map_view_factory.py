@@ -1,7 +1,7 @@
 import unittest
 
 from doubles.core.interpretation import InterpretationMock
-from doubles.core.map import MapMock
+from doubles.core.types.map import MapMock
 from src.core.types.map import MapViewFactory, MapView
 
 class MapViewFactoryTestSuite(unittest.TestCase):

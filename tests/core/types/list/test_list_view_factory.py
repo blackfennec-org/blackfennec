@@ -1,7 +1,7 @@
 import unittest
 
 from doubles.core.interpretation import InterpretationMock
-from doubles.core.list import ListMock
+from doubles.core.types.list import ListMock
 from src.core.types.list import ListViewFactory, ListView
 
 class MapViewFactoryTestSuite(unittest.TestCase):

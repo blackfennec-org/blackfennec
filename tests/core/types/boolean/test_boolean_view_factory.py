@@ -1,6 +1,6 @@
 import unittest
 from doubles.core.interpretation import InterpretationMock
-from doubles.core.boolean import BooleanMock
+from doubles.core.types.boolean import BooleanMock
 from src.core.types.boolean import BooleanViewFactory, BooleanView
 
 

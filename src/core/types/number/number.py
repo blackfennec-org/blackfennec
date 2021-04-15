@@ -1,5 +1,5 @@
 import numbers
-from src.core.info import Info
+from src.core.types.info import Info
 
 class Number(Info):
     """Core Type Number, represents numbers in the domain model."""

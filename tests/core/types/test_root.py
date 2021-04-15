@@ -1,6 +1,6 @@
 import unittest
 from doubles.core import RootMock
-from src.core.root import Root
+from src.core.types.root import Root
 
 class InfoTestSuite(unittest.TestCase):
     def test_can_construct(self):

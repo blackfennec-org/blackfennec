@@ -1,7 +1,7 @@
 import unittest
 
 from doubles.core.interpretation import InterpretationMock
-from doubles.core.string import StringMock
+from doubles.core.types.string import StringMock
 from src.core.types.string import StringViewFactory, StringView
 
 

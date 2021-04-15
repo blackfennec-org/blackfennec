@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from src.core.auction.auctioneer import Auctioneer
-from src.core.info import Info
+from src.core.types.info import Info
 from src.core.interpretation import Interpretation
 from src.core.interpreter import Interpreter
 

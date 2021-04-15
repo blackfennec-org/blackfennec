@@ -1,5 +1,5 @@
 from collections import UserString
-from src.core.info import Info
+from src.core.types.info import Info
 
 class String(Info, UserString):
     """Core Type String, represents strings in the domain model."""

@@ -1,4 +1,4 @@
-from src.core.info import Info
+from src.core.types.info import Info
 from src.core.types.number import Number, NumberViewFactory
 from src.core.auction import Offer
 

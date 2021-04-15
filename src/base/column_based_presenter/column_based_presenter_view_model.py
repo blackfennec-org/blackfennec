@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import logging
 
-from src.core.info import Info
+from src.core.types.info import Info
 from src.core.interpretation import Interpretation
 from src.core.interpreter import Interpreter
 from src.util.observable import Observable

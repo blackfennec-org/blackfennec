@@ -1,4 +1,4 @@
-from src.core.info import Info
+from src.core.types.info import Info
 from src.core.types.boolean import Boolean, BooleanViewFactory
 from src.core.auction import Offer
 

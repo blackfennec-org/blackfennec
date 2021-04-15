@@ -1,5 +1,5 @@
 from gi.repository import Gtk
-from src.core.info import Info
+from src.core.types.info import Info
 
 @Gtk.Template(filename='src/core/types/list/list_item_view.glade')
 class ListItemView(Gtk.Bin):

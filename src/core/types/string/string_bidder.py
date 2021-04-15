@@ -1,4 +1,4 @@
-from src.core.info import Info
+from src.core.types.info import Info
 from src.core.types.string import String, StringViewFactory
 from src.core.auction import Offer
 import logging

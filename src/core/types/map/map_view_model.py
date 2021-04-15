@@ -1,4 +1,4 @@
-from src.core.info import Info
+from src.core.types.info import Info
 
 
 class MapViewModel:

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import logging
-from src.core.info import Info
+from src.core.types.info import Info
 
 logger = logging.getLogger(__name__)
 
