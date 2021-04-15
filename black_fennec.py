@@ -1,6 +1,7 @@
 import gi
 
 from src.base.types.file.file_bidder import FileBidder
+from src.base.types.image.image_bidder import ImageBidder
 
 gi.require_version('Gtk', '3.0')
 
@@ -32,7 +33,7 @@ def create_type_registry() -> TypeRegistry:
     registry.register_type(StringBidder())
     registry.register_type(ListBidder())
     registry.register_type(MapBidder())
-    registry.register_type(FileBidder())
+    registry.register_type(ImageBidder())
     registry.register_type(AddressBidder())
     return registry
 
