@@ -6,8 +6,8 @@ from src.base.types.file.file import File
 class FileTestSuite(unittest.TestCase):
     def test_can_construct(self):
         file = File()
-        self.assertEqual(file.file_path, "")
-        self.assertEqual(file.file_type, "")
+        self.assertEqual(file.file_path, '')
+        self.assertEqual(file.file_type, '')
 
     def test_can_construct_with_map(self):
         data = dict()

@@ -4,7 +4,6 @@ import logging
 from src.base.types.image.image import Image
 from src.core import Interpretation
 from src.core.map import Map
-from src.core.string import String
 
 logger = logging.getLogger(__name__)
 

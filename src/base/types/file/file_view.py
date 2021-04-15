@@ -4,7 +4,6 @@ import logging
 from gi.repository import Gtk
 
 from src.base.types.file.file_view_model import FileViewModel
-from src.core.string import String
 
 logger = logging.getLogger(__name__)
 

@@ -1,8 +1,5 @@
 import gi
 
-from src.base.types.file.file_bidder import FileBidder
-from src.base.types.image.image_bidder import ImageBidder
-
 gi.require_version('Gtk', '3.0')
 
 # pylint: disable=wrong-import-position
@@ -17,6 +14,8 @@ from src.core.string.string_bidder import StringBidder
 from src.core.list.list_bidder import ListBidder
 from src.core.map.map_bidder import MapBidder
 from src.base.types.address.address_bidder import AddressBidder
+from src.base.types.file.file_bidder import FileBidder
+from src.base.types.image.image_bidder import ImageBidder
 from src.core import Auctioneer, NavigationService
 from src.base.column_based_presenter import ColumnBasedPresenterViewFactory
 from src.splash_screen.splash_screen_view import SplashScreenView
@@ -33,6 +32,7 @@ def create_type_registry() -> TypeRegistry:
     registry.register_type(StringBidder())
     registry.register_type(ListBidder())
     registry.register_type(MapBidder())
+    registry.register_type(FileBidder())
     registry.register_type(ImageBidder())
     registry.register_type(AddressBidder())
     return registry

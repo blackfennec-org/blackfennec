@@ -6,7 +6,7 @@ from src.base.types.image.image import Image
 class ImageTestSuite(unittest.TestCase):
     def test_can_construct(self):
         image = Image()
-        self.assertEqual(image.file_path, "")
+        self.assertEqual(image.file_path, '')
         self.assertTrue(image.file_type.startswith('image/'))
 
     def test_can_construct_with_map(self):
