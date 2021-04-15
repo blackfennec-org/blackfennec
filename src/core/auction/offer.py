@@ -2,8 +2,8 @@
 import logging
 
 from src.core.info import Info
-from src.core.list import List
-from src.core.map import Map
+from src.core.types.list import List
+from src.core.types.map import Map
 from src.util.comparable import Comparable
 
 logger = logging.getLogger(__name__)

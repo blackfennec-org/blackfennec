@@ -2,17 +2,17 @@ import unittest
 
 from doubles.dummy import Dummy
 from src.core import Auctioneer
-from src.core.boolean import Boolean, BooleanView
-from src.core.boolean.boolean_bidder import BooleanBidder
-from src.core.list import List, ListView
-from src.core.list.list_bidder import ListBidder
-from src.core.map import Map, MapView
-from src.core.map.map_bidder import MapBidder
-from src.core.number import Number, NumberView
-from src.core.number.number_bidder import NumberBidder
-from src.core.string import String, StringView
+from src.core.types.boolean import Boolean, BooleanView
+from src.core.types.boolean.boolean_bidder import BooleanBidder
+from src.core.types.list import List, ListView
+from src.core.types.list.list_bidder import ListBidder
+from src.core.types.map import Map, MapView
+from src.core.types.map.map_bidder import MapBidder
+from src.core.types.number import Number, NumberView
+from src.core.types.number.number_bidder import NumberBidder
+from src.core.types.string import String, StringView
 from src.core.interpreter import Interpreter
-from src.core.string.string_bidder import StringBidder
+from src.core.types.string.string_bidder import StringBidder
 from src.extension.type_registry import TypeRegistry
 
 

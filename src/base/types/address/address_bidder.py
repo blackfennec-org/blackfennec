@@ -3,8 +3,8 @@ import logging
 
 from src.base.types.address.address_view_factory import AddressViewFactory
 from src.core import Info, Offer
-from src.core.map import Map
-from src.core.string import String
+from src.core.types.map import Map
+from src.core.types.string import String
 
 logger = logging.getLogger(__name__)
 

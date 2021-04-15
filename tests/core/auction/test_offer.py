@@ -4,8 +4,8 @@ import unittest
 from doubles.core import InfoMock
 from doubles.dummy import Dummy
 from src.core.auction.offer import Offer
-from src.core.list import List
-from src.core.map import Map
+from src.core.types.list import List
+from src.core.types.map import Map
 
 
 class OfferTestSuite(unittest.TestCase):
