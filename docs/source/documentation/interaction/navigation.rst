@@ -19,9 +19,9 @@ An :ref:`InfoView <definition_info_view>` might not want to display the entire s
     User -> InfoView                    : click \non preview
     InfoView -> Interpretation          : navigation request \nwith substructure
     Interpretation -> NavigationService : navigation request \nwith caller \nand sub-substructure
-    NavigationService -> "Selection Process" : create interpreter \nfor substructure
-    "Selection Process" -> NavigationService : Interpreter \nfor substructure
-    NavigationService -> Presenter         : navigation request \nwith caller and interpreter
+    NavigationService -> "Selection Process" : create interpretation service \nfor substructure
+    "Selection Process" -> NavigationService : InterpretationService \nfor substructure
+    NavigationService -> Presenter         : navigation request \nwith caller and interpretation service
     @enduml
 
 
@@ -29,4 +29,4 @@ An :ref:`InfoView <definition_info_view>` might not want to display the entire s
 
 Navigation Service
 """"""""""""""""""
-The NavigationService provides the means to request the navigation to a structure. The NavigationService starts :ref:`the selection process <definition_selection_process>`, the result of which is then transferred to the Presenter. Besides the :ref:`Interpreter <definition_interpreter>` the Presenter also gets the calling :ref:`Interpretation <definition_interpretation>` from the NavigationService. This allows the Presenter to visualise causality to the user.
+The NavigationService provides the means to request the navigation to a structure. The NavigationService starts :ref:`the selection process <definition_selection_process>`, the result of which is then transferred to the Presenter. Besides the :ref:`InterpretationService <definition_interpretation_service>` the Presenter also gets the calling :ref:`Interpretation <definition_interpretation>` from the NavigationService. This allows the Presenter to visualise causality to the user.

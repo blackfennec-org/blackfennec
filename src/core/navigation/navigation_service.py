@@ -2,7 +2,7 @@
 from src.core.auction.auctioneer import Auctioneer
 from src.core.types.info import Info
 from src.core.interpretation import Interpretation
-from src.core.interpreter import Interpreter
+from src.core.interpretation_service import InterpretationService
 
 
 class NavigationService:
@@ -32,11 +32,11 @@ class NavigationService:
 
         Dispatches navigation request received by Interpretation
         to column_based_presenter to show navigation with the help
-        of the received interpreter
+        of the received interpretation_service
 
         Args:
             sender (Interpretation) Interpretation which invoked navigation
             destination (Info): Destination to which shall be navigated
         """
-        interpreter = Interpreter(self, self._auctioneer)
+        interpreter = InterpretationService(self, self._auctioneer)
         self._info_presenter.show(sender, destination, interpreter)

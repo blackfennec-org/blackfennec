@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-class InterpreterMock:
+class InterpretationServiceMock:
     def __init__(self, interpretation):
         self.interpretation = interpretation
         self.interpret_count = 0

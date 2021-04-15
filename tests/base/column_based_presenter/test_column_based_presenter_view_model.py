@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import unittest
 
-from doubles.core import InfoMock, InterpretationMock, InterpreterMock
+from doubles.core import InfoMock, InterpretationMock, InterpretationServiceMock
 from src.base.column_based_presenter import ColumnBasedPresenterViewModel
 
 
@@ -13,7 +13,7 @@ class ColumnBasedPresenterViewModelTestSuite(unittest.TestCase):
         column_based_presenter_view_model = ColumnBasedPresenterViewModel()
         info = InfoMock()
         sender = InterpretationMock(info)
-        interpreter = InterpreterMock(sender)
+        interpreter = InterpretationServiceMock(sender)
         column_based_presenter_view_model.show(sender, info, interpreter)
         self.assertIn(
             sender,
@@ -32,17 +32,17 @@ class ColumnBasedPresenterViewModelTestSuite(unittest.TestCase):
         column_based_presenter_view_model = ColumnBasedPresenterViewModel()
         info = InfoMock()
         root = InterpretationMock(info)
-        root_interpreter = InterpreterMock(root)
+        root_interpreter = InterpretationServiceMock(root)
         column_based_presenter_view_model.show(root, info, root_interpreter)
         parent_interpretation = InterpretationMock(info)
-        parent_interpreter = InterpreterMock(parent_interpretation)
+        parent_interpreter = InterpretationServiceMock(parent_interpretation)
         column_based_presenter_view_model.show(root, info, parent_interpreter)
         self.assertEqual(
             len(column_based_presenter_view_model.interpretations),
             2
         )
         child_interpretation = InterpretationMock(info)
-        child_interpreter = InterpreterMock(child_interpretation)
+        child_interpreter = InterpretationServiceMock(child_interpretation)
         column_based_presenter_view_model.show(
             parent_interpretation,
             info,

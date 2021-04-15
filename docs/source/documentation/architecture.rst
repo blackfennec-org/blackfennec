@@ -54,11 +54,11 @@ When we take a closer look at the interfaces and services that are used by the "
 
     package "Black Fennec" <<Frame>> {
         rectangle Navigation
-        rectangle Interpreter
+        rectangle InterpretationService
         rectangle Structure
         rectangle "Type System" as TS
 
-        Interpreter     -up->           TS
+        InterpretationService     -up->           TS
         Structure       -[hidden]->     Navigation
     }
 
@@ -68,10 +68,10 @@ When we take a closer look at the interfaces and services that are used by the "
     rectangle Extension
     rectangle "User Data" as UA
 
-    Presenter       -up->       Interpreter
+    Presenter       -up->       InterpretationService
     Navigation      -->         Presenter
     Visualisation   -up->       Navigation
-    Visualisation   -up->       Interpreter
+    Visualisation   -up->       InterpretationService
     Extension       -->         TS
     UA              -->         Structure
     Visualisation   -->         Structure
@@ -87,8 +87,8 @@ Type System
 Navigation
     The :ref:`navigation service <definition_navigation_service>` allows components to request navigation within the structure. The service forwards the request to the relevant components, including the currently active presenter.
 
-Interpreter
-    The :ref:`interpreter <definition_interpreter>` does most of the heavy lifting as he decides which types from the type system ought to be used to visualize a given structure. This service is used by both, the presenter and the visualisation.
+InterpretationService
+    The :ref:`interpretation service <definition_interpretation_service>` does most of the heavy lifting as he decides which types from the type system ought to be used to visualize a given structure. This service is used by both, the presenter and the visualisation.
 
 User Data
     :ref:`User data <definition_source_layer>` is the information the user is viewing/editing with Black Fennec. It is loaded into Black Fennec and interpreted into a structure, from where it will be interpreted and visualised.
@@ -97,9 +97,9 @@ Extension
     :ref:`Extensions <definition_extension>` allow the extension of the type system. The more available types the better the interpretation can get. At least that's the theory.
 
 Visualisation
-    :ref:`Visualisations <definition_info_view>` are the visual representation of the Structure. They play a big role in what the user sees and interacts with. They use the navigation service to communicate navigation events with Black Fennec. They use the interpreter to visualise subcomponents of themselves.
+    :ref:`Visualisations <definition_info_view>` are the visual representation of the Structure. They play a big role in what the user sees and interacts with. They use the navigation service to communicate navigation events with Black Fennec. They use the interpretation service to visualise subcomponents of themselves.
 
 Presenter
-    The :ref:`presenter <presenter>` displays interpretations which he receives from the interpreter. The presenter also acts on navigation request which are forwarded to him by the navigation service.
+    The :ref:`presenter <presenter>` displays interpretations which he receives from the interpretation service. The presenter also acts on navigation request which are forwarded to him by the navigation service.
 
 Further information and more detailed descriptions of the mentioned components can be found in the :doc:`domain_model`. If you are interested in the documentation of the source code :doc:`follow this link <code/modules>`

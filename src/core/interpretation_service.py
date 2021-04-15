@@ -7,8 +7,8 @@ from src.core.interpretation import Interpretation
 logger = logging.getLogger(__name__)
 
 
-class Interpreter:
-    """Interpreter Class.
+class InterpretationService:
+    """Interpretation Service Class.
 
     Is produced during the selection process and is the
     Creator of Interpretations
@@ -51,7 +51,7 @@ class Interpreter:
                 the info_views are created
 
         Returns:
-            [InfoView]: created with factories passed to interpreter
+            [InfoView]: created with factories passed to interpretation_service
         """
         info_views = []
         for factory in self._retrieve_factories(info):

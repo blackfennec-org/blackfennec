@@ -3,7 +3,7 @@ import logging
 
 from src.core.types.info import Info
 from src.core.interpretation import Interpretation
-from src.core.interpreter import Interpreter
+from src.core.interpretation_service import InterpretationService
 from src.util.observable import Observable
 
 logger = logging.getLogger(__name__)
@@ -35,7 +35,7 @@ class ColumnBasedPresenterViewModel(Observable):
             self,
             sender: Interpretation,
             info: Info,
-            interpreter: Interpreter
+            interpretation_service: InterpretationService
     ):
         """Show of interpretation.
 
@@ -44,13 +44,13 @@ class ColumnBasedPresenterViewModel(Observable):
 
         Args:
             sender (Interpretation): interpretation calling navigation
-            info (Info): info corresponding with interpreter
-            interpreter (Interpreter): Producer of interpretation for
+            info (Info): info corresponding with interpretation_service
+            interpretation_service (InterpretationService): Producer of interpretation for
                 info passed.
         """
         logger.debug("show info (%s) for sender (%s)", info, sender)
         self._try_cut_interpretations_at(sender)
-        interpretation = interpreter.interpret(info)
+        interpretation = interpretation_service.interpret(info)
         self._add_interpretation(interpretation)
 
     def _try_cut_interpretations_at(self, sender: Interpretation):

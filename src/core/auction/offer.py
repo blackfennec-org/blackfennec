@@ -34,7 +34,7 @@ class Offer(Comparable):
             specificity (int):
             template (Info): Template that describes type
             type_view_factory (InfoViewFactory): factory used
-                to create interpreter
+                to create interpretation_service
         """
         self._subject = subject
         self._specificity = specificity

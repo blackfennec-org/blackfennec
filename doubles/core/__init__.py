@@ -6,4 +6,4 @@ from doubles.core.types.number import *
 from doubles.core.types.string import *
 from doubles.core.types.boolean import *
 from .interpretation import *
-from .interpreter import *
+from .interpretation_service import *

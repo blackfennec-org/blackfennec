@@ -11,12 +11,12 @@ from src.core.types.map.map_bidder import MapBidder
 from src.core.types.number import Number, NumberView
 from src.core.types.number.number_bidder import NumberBidder
 from src.core.types.string import String, StringView
-from src.core.interpreter import Interpreter
+from src.core.interpretation_service import InterpretationService
 from src.core.types.string.string_bidder import StringBidder
 from src.extension.type_registry import TypeRegistry
 
 
-class IntegrationFromInterpreterToViewTestSuite(unittest.TestCase):
+class IntegrationFromInterpretationServiceToViewTestSuite(unittest.TestCase):
 
     def setUp(self):
         registry = TypeRegistry()
@@ -26,7 +26,7 @@ class IntegrationFromInterpreterToViewTestSuite(unittest.TestCase):
         registry.register_type(ListBidder())
         registry.register_type(MapBidder())
         auctioneer = Auctioneer(registry)
-        self.interpreter = Interpreter(
+        self.interpreter = InterpretationService(
             Dummy('NavigationService'),
             auctioneer
         )

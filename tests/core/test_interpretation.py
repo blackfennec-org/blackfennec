@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Interpreter Tests.
+"""InterpretationService Tests.
 
 This module contains the unit-tests of the Interpretation class."""
 
@@ -14,7 +14,7 @@ class InterpretationTestSuite(unittest.TestCase):
     """Class containing the TestSuite with the individual unit-tests."""
 
     def test_create_interpretation(self):
-        """Interpreter instantiation test.
+        """InterpretationService instantiation test.
 
         This unit-test tests whether all constructor arguments of the
         Interpretation class are saved to the corresponding internal
@@ -43,7 +43,7 @@ class InterpretationTestSuite(unittest.TestCase):
         )
 
     def test_info_getter(self):
-        """Interpreter.info getter test.
+        """InterpretationService.info getter test.
 
         This unit-test tests whether the info getter
         returns the expected value."""
@@ -58,7 +58,7 @@ class InterpretationTestSuite(unittest.TestCase):
         )
 
     def test_info_view_setter(self):
-        """Interpreter.info_view getter test.
+        """InterpretationService.info_view getter test.
 
         This unit-test tests whether the info_view getter
         returns the expected value."""
@@ -75,7 +75,7 @@ class InterpretationTestSuite(unittest.TestCase):
         )
 
     def test_info_view_getter(self):
-        """Interpreter.info_view getter test.
+        """InterpretationService.info_view getter test.
 
         This unit-test tests whether the info_view getter
         returns the expected value."""
@@ -92,7 +92,7 @@ class InterpretationTestSuite(unittest.TestCase):
         )
 
     def test_view_getter(self):
-        """Interpreter.view getter test.
+        """InterpretationService.view getter test.
 
         This unit-test tests whether the view getter
         returns the expected value."""
@@ -110,7 +110,7 @@ class InterpretationTestSuite(unittest.TestCase):
         )
 
     def test_navigation(self):
-        """Interpreter.navigate function test.
+        """InterpretationService.navigate function test.
 
         This unit-test tests whether the member function
         navigate of the Interpretation dispatches the

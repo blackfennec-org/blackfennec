@@ -7,7 +7,7 @@ logger = logging.getLogger(__name__)
 class Interpretation:
     """Interpretation Class.
 
-    Is produced by the Interpreter. Contains info_view and info
+    Is produced by the InterpretationService. Contains info_view and info
     obtained through dependency injection. Dispatches navigation
     requests to navigation_service
 

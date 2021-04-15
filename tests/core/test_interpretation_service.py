@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
-"""Interpreter Tests.
+"""InterpretationService Tests.
 
-This module contains the unit-tests of the Interpreter class."""
+This module contains the unit-tests of the InterpretationService class."""
 
 import unittest
 
@@ -9,40 +9,40 @@ from doubles.core.auction.auctioneer import AuctioneerMock
 from doubles.core.types.info_view_factory import InfoViewFactoryMock
 from doubles.dummy import Dummy
 from src.core.interpretation import Interpretation
-from src.core.interpreter import Interpreter
+from src.core.interpretation_service import InterpretationService
 
 
-class InterpreterTestSuite(unittest.TestCase):
+class InterpretationServiceTestSuite(unittest.TestCase):
     """Class containing the TestSuite with the individual unit-tests."""
 
     def test_create_interpreter(self):
-        """Interpreter instantiation test.
+        """InterpretationService instantiation test.
 
         This unit-test tests whether all constructor arguments of the
-        Interpreter class are saved to the corresponding internal
+        InterpretationService class are saved to the corresponding internal
         member variable
         """
         navigation_service = Dummy("nav")
         auctioneer = Dummy("auctioneer")
-        interpreter = Interpreter(navigation_service, auctioneer)
+        interpreter = InterpretationService(navigation_service, auctioneer)
         self.assertEqual(
             interpreter._navigation_service,
             navigation_service,
-            msg="Interpreter has not initialized " +
+            msg="InterpretationService has not initialized " +
                 "_navigation_service correctly"
         )
         self.assertEqual(
             interpreter._auctioneer,
             auctioneer,
-            msg="Interpreter has not initialized " +
+            msg="InterpretationService has not initialized " +
                 "_auctioneer correctly"
         )
 
     def test_can_create_interpretation(self):
-        """Interpreter.interpret function test.
+        """InterpretationService.interpret function test.
 
         This unit-test tests whether the member function
-        interpret of the Interpreter creates the info_view
+        interpret of the InterpretationService creates the info_view
         as expected, and whether an interpretation is returned
         """
         navigation_service = Dummy("nav")
@@ -51,18 +51,18 @@ class InterpreterTestSuite(unittest.TestCase):
         factories = [InfoViewFactoryMock()]
 
         auctioneer = AuctioneerMock(factories)
-        interpreter = Interpreter(navigation_service, auctioneer)
+        interpreter = InterpretationService(navigation_service, auctioneer)
         interpretation = interpreter.interpret(info)
         self.assertIsInstance(
             interpretation,
             Interpretation,
-            msg="Interpreter did not return " +
+            msg="InterpretationService did not return " +
                 "interpretation after interpreting"
         )
         self.assertEqual(
             factories[0].creation_count,
             1,
-            msg="Interpreter did not create info_view from factory"
+            msg="InterpretationService did not create info_view from factory"
         )
         self.assertEqual(
             auctioneer.auction_count,
