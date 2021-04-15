@@ -8,6 +8,12 @@ logger = logging.getLogger(__name__)
 
 
 class Address:
+    FIRST_NAME_KEY = 'first_name'
+    LAST_NAME_KEY = 'last_name'
+    STREET_KEY = 'street'
+    STREET_NUMBER_KEY = 'street_nr'
+    CITY_KEY = 'city'
+
     def __init__(self, map_interpretation: Map = Map()):
         """Address Constructor
 
@@ -16,6 +22,16 @@ class Address:
                 which property calls are dispatched
         """
         self._data: Map = map_interpretation
+        if Address.FIRST_NAME_KEY not in self._data:
+            self._data[Address.FIRST_NAME_KEY] = String()
+        if Address.LAST_NAME_KEY not in self._data:
+            self._data[Address.LAST_NAME_KEY] = String()
+        if Address.STREET_KEY not in self._data:
+            self._data[Address.STREET_KEY] = String()
+        if Address.STREET_NUMBER_KEY not in self._data:
+            self._data[Address.STREET_NUMBER_KEY] = String()
+        if Address.CITY_KEY not in self._data:
+            self._data[Address.CITY_KEY] = String()
 
     def _get_from_map(self, key):
         """Wrapper for map access
@@ -31,47 +47,47 @@ class Address:
         """
         if key not in self._data:
             return None
-        return self._data[key]
+        return self._data[key].value
 
     @property
-    def first_name(self) -> String:
-        return self._get_from_map('first_name')
+    def first_name(self) -> str:
+        return self._get_from_map(Address.FIRST_NAME_KEY)
 
     @first_name.setter
-    def first_name(self, value: String):
-        self._data['first_name'] = value
+    def first_name(self, value: str):
+        self._data[Address.FIRST_NAME_KEY].value = value
 
     @property
-    def last_name(self) -> String:
-        return self._get_from_map('last_name')
+    def last_name(self) -> str:
+        return self._get_from_map(Address.LAST_NAME_KEY)
 
     @last_name.setter
-    def last_name(self, value: String):
-        self._data['last_name'] = value
+    def last_name(self, value: str):
+        self._data[Address.LAST_NAME_KEY].value = value
 
     @property
-    def street(self) -> String:
-        return self._get_from_map('street')
+    def street(self) -> str:
+        return self._get_from_map(Address.STREET_KEY)
 
     @street.setter
-    def street(self, value: String):
-        self._data['street'] = value
+    def street(self, value: str):
+        self._data[Address.STREET_KEY].value = value
 
     @property
-    def street_number(self) -> String:
-        return self._get_from_map('street_nr')
+    def street_number(self) -> str:
+        return self._get_from_map(Address.STREET_NUMBER_KEY)
 
     @street_number.setter
-    def street_number(self, value: String):
-        self._data['street_nr'] = value
+    def street_number(self, value: str):
+        self._data[Address.STREET_NUMBER_KEY].value = value
 
     @property
-    def city(self) -> String:
-        return self._get_from_map('city')
+    def city(self) -> str:
+        return self._get_from_map(Address.CITY_KEY)
 
     @city.setter
-    def city(self, value: String):
-        self._data['city'] = value
+    def city(self, value: str):
+        self._data[Address.CITY_KEY].value = value
 
     def __eq__(self, other) -> bool:
         return (

@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import logging
 
+from src.base.types.address.address import Address
 from src.base.types.address.address_view_factory import AddressViewFactory
 from src.core import Info, Offer
 from src.core.types.map import Map
@@ -22,10 +23,10 @@ class AddressBidder:
         """
         logger.info('bidding on object')
         template = Map()
-        template['first_name'] = String()
-        template['last_name'] = String()
-        template['street'] = String()
-        template['street_nr'] = String()
-        template['city'] = String()
+        template[Address.FIRST_NAME_KEY] = String()
+        template[Address.LAST_NAME_KEY] = String()
+        template[Address.STREET_KEY] = String()
+        template[Address.STREET_NUMBER_KEY] = String()
+        template[Address.CITY_KEY] = String()
 
         return Offer(subject, 1, template, AddressViewFactory())
