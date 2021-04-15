@@ -100,7 +100,10 @@ class AddressTestSuite(unittest.TestCase):
         data_map = MapMock(data)
         address = Address(data_map)
 
-        self.assertEqual(address.street_number, data[Address.STREET_NUMBER_KEY].value)
+        self.assertEqual(
+            address.street_number,
+            data[Address.STREET_NUMBER_KEY].value
+        )
 
     def test_street_number_setter(self):
         street_number = StringMock('street_nr')

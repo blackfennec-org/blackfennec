@@ -45,8 +45,8 @@ class ColumnBasedPresenterViewModel(Observable):
         Args:
             sender (Interpretation): interpretation calling navigation
             info (Info): info corresponding with interpretation_service
-            interpretation_service (InterpretationService): Producer of interpretation for
-                info passed.
+            interpretation_service (InterpretationService): Producer of
+             interpretation for info passed.
         """
         logger.debug("show info (%s) for sender (%s)", info, sender)
         self._try_cut_interpretations_at(sender)

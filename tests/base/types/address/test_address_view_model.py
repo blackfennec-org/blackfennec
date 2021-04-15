@@ -19,7 +19,10 @@ class AddressViewModelTestSuite(unittest.TestCase):
 
         data_map = MapMock(data)
         view_model = AddressViewModel(InterpretationMock(data_map))
-        self.assertEqual(view_model.first_name, data[Address.FIRST_NAME_KEY].value)
+        self.assertEqual(
+            view_model.first_name,
+            data[Address.FIRST_NAME_KEY].value
+        )
 
     def test_first_name_setter(self):
         first_name = StringMock('first_name')
@@ -38,7 +41,10 @@ class AddressViewModelTestSuite(unittest.TestCase):
 
         data_map = MapMock(data)
         view_model = AddressViewModel(InterpretationMock(data_map))
-        self.assertEqual(view_model.last_name, data[Address.LAST_NAME_KEY].value)
+        self.assertEqual(
+            view_model.last_name,
+            data[Address.LAST_NAME_KEY].value
+        )
 
     def test_last_name_setter(self):
         last_name = StringMock('last_name')
@@ -76,7 +82,10 @@ class AddressViewModelTestSuite(unittest.TestCase):
 
         data_map = MapMock(data)
         view_model = AddressViewModel(InterpretationMock(data_map))
-        self.assertEqual(view_model.street_number, data[Address.STREET_NUMBER_KEY].value)
+        self.assertEqual(
+            view_model.street_number,
+            data[Address.STREET_NUMBER_KEY].value
+        )
 
     def test_street_number_setter(self):
         street_number = StringMock('street_nr')
