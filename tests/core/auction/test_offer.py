@@ -6,6 +6,7 @@ from doubles.dummy import Dummy
 from src.core.auction.offer import Offer
 from src.core.list import List
 from src.core.map import Map
+from src.core.string import String
 
 
 class OfferTestSuite(unittest.TestCase):
@@ -170,6 +171,30 @@ class OfferTestSuite(unittest.TestCase):
                 'info2': InfoMock('Info'),
             }
         )
+        view_factory = Dummy('ViewFactory')
+
+        offer = Offer(subject, specificity, template, view_factory)
+        self.assertAlmostEqual(
+            offer.coverage,
+            0
+        )
+
+    def test_coverage_getter_string_pattern_match(self):
+        subject = String('Test123')
+        specificity = 1
+        template = String('^[a-zA-Z]{4}[1-3]{3}$')
+        view_factory = Dummy('ViewFactory')
+
+        offer = Offer(subject, specificity, template, view_factory)
+        self.assertAlmostEqual(
+            offer.coverage,
+            1
+        )
+
+    def test_coverage_getter_string_pattern_mismatch(self):
+        subject = String('Test1234')
+        specificity = 1
+        template = String('^[a-zA-Z]{4}[1-3]{3}$')
         view_factory = Dummy('ViewFactory')
 
         offer = Offer(subject, specificity, template, view_factory)
