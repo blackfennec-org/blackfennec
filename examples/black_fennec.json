@@ -6,6 +6,10 @@
         "file_path": "logo.jpg",
         "file_type": "image/jpg"
     },
+    "address": {
+        "file_path": "address_test.json",
+        "file_type": "application/json"
+    },
     "Team": [
         {
             "First Name": "Lara"
