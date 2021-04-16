@@ -2,10 +2,10 @@
 import logging
 import re
 
-from src.core.info import Info
-from src.core.list import List
-from src.core.map import Map
-from src.core.string import String
+from src.core.types.info import Info
+from src.core.types.list import List
+from src.core.types.map import Map
+from src.core.types.string import String
 from src.util.comparable import Comparable
 
 logger = logging.getLogger(__name__)
@@ -37,7 +37,7 @@ class Offer(Comparable):
             specificity (int):
             template (Info): Template that describes type
             type_view_factory (InfoViewFactory): factory used
-                to create interpreter
+                to create interpretation_service
         """
         self._subject = subject
         self._specificity = specificity
@@ -100,12 +100,19 @@ class Offer(Comparable):
                     )
                 subject_node_count += coverage[0]
                 template_node_count += coverage[1]
-            if isinstance(template, String) and not self._check_pattern_match_if_has_value(subject, template):
+            if isinstance(template, String) and\
+                    not self._check_pattern_match_if_has_value(
+                        subject,
+                        template
+                    ):
                 template_node_count -= 1
         return subject_node_count, template_node_count
 
     @staticmethod
-    def _check_pattern_match_if_has_value(subject: String, template: String) -> bool:
+    def _check_pattern_match_if_has_value(
+            subject: String,
+            template: String
+    ) -> bool:
         if template.value and template.value != '':
             if not re.match(template.value, subject.value):
                 return False

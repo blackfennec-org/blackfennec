@@ -4,8 +4,8 @@ import logging
 from src.base.types.image.image import Image
 from src.base.types.image.image_view_factory import ImageViewFactory
 from src.core import Info, Offer
-from src.core.map import Map
-from src.core.string import String
+from src.core.types.map import Map
+from src.core.types.string import String
 
 logger = logging.getLogger(__name__)
 

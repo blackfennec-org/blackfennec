@@ -3,9 +3,9 @@ import unittest
 from doubles.dummy import Dummy
 from src.base.types.person.person_bidder import PersonBidder
 from src.core.auction import Offer
-from src.core.map import Map
-from src.core.map.map_bidder import MapBidder
-from src.core.string import String
+from src.core.types.map import Map
+from src.core.types.map.map_bidder import MapBidder
+from src.core.types.string import String
 
 
 class PersonBidderTestSuite(unittest.TestCase):

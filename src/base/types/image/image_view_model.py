@@ -3,7 +3,7 @@ import logging
 
 from src.base.types.image.image import Image
 from src.core import Interpretation
-from src.core.map import Map
+from src.core.types.map import Map
 
 logger = logging.getLogger(__name__)
 

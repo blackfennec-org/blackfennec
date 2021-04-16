@@ -1,16 +1,16 @@
 import unittest
 
 from src.core import Auctioneer
-from src.core.boolean import BooleanViewFactory, Boolean
-from src.core.boolean.boolean_bidder import BooleanBidder
-from src.core.list import ListViewFactory, List
-from src.core.list.list_bidder import ListBidder
-from src.core.map import MapViewFactory, Map
-from src.core.map.map_bidder import MapBidder
-from src.core.number import NumberViewFactory, Number
-from src.core.number.number_bidder import NumberBidder
-from src.core.string import StringViewFactory, String
-from src.core.string.string_bidder import StringBidder
+from src.core.types.boolean import BooleanViewFactory, Boolean
+from src.core.types.boolean.boolean_bidder import BooleanBidder
+from src.core.types.list import ListViewFactory, List
+from src.core.types.list.list_bidder import ListBidder
+from src.core.types.map import MapViewFactory, Map
+from src.core.types.map.map_bidder import MapBidder
+from src.core.types.number import NumberViewFactory, Number
+from src.core.types.number.number_bidder import NumberBidder
+from src.core.types.string import StringViewFactory, String
+from src.core.types.string.string_bidder import StringBidder
 from src.extension.type_registry import TypeRegistry
 
 

@@ -2,8 +2,8 @@
 import logging
 
 from src.base.types.file.file import File
-from src.core.map import Map
-from src.core.string import String
+from src.core.types.map import Map
+from src.core.types.string import String
 
 logger = logging.getLogger(__name__)
 

@@ -1,6 +1,6 @@
 Interpretation
 ==============
-The domain concepts of interpreter and interpretation have been created to allow flexibility in the implementation of the :ref:`selection process <definition_selection_process>` and to provide a layer of abstraction for the :ref:`presenter <definition_presenter>` towards the :ref:`info view <definition_info_view>`.
+The domain concepts of interpretation service and interpretation have been created to allow flexibility in the implementation of the :ref:`selection process <definition_selection_process>` and to provide a layer of abstraction for the :ref:`presenter <definition_presenter>` towards the :ref:`info view <definition_info_view>`.
 
 .. uml::
     
@@ -19,32 +19,32 @@ The domain concepts of interpreter and interpretation have been created to allow
     title Interpretation Abstraction Overview
     
     class Presenter {}
-    class Interpreter {}
+    class InterpretationService {}
     class Interpretation {}
     class "The Selection Process" as tsp
     class InfoViewFactory {}
     class InfoView {}
     
-    Interpreter     -left-> Presenter       : is passed to
-    Interpreter     -->     Interpretation  : creates
-    Interpreter     -->     InfoViewFactory : references
+    InterpretationService     -left-> Presenter       : is passed to
+    InterpretationService     -->     Interpretation  : creates
+    InterpretationService     -->     InfoViewFactory : references
     Interpretation  -->     InfoView        : based on
-    tsp             -left-> Interpreter     : constructs an
+    tsp             -left-> InterpretationService     : constructs an
     tsp             -->     InfoViewFactory : selects
     InfoViewFactory -->     InfoView        : creates
 
-    Presenter       .down.> Interpretation  : has access to {}\nvia interpreter
+    Presenter       .down.> Interpretation  : has access to {}\nvia interpretation service
     
 
     @enduml
 
-.. _definition_interpreter:
+.. _definition_interpretation_service:
 
-Interpreter
-'''''''''''
-The :ref:`selection process <definition_selection_process>` produces an interpreter which in turn creates interpretations. To create an interpretation the interpreter must create info views from info view factories. The resulting info views are included in the interpretation and are later displayed.
+InterpretationService
+'''''''''''''''''''''
+The :ref:`selection process <definition_selection_process>` produces an interpretation service which in turn creates interpretations. To create an interpretation the interpretation service must create info views from info view factories. The resulting info views are included in the interpretation and are later displayed.
 
-Interpreters hold references to :ref:`info view factories <info_view_factory>` and know how to produce :ref:`info views <info_view>` from them. In GRASP terminology the interpreter is the Creator for interpretations.
+Interpretation services hold references to :ref:`info view factories <info_view_factory>` and know how to produce :ref:`info views <info_view>` from them. In GRASP terminology the interpretation service is the Creator for interpretations.
 
 .. _definition_interpretation:
 

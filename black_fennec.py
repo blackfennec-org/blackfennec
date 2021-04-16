@@ -7,11 +7,11 @@ from gi.repository import Gtk, Gdk, GLib
 from src.black_fennec_view_model import BlackFennecViewModel
 from src.black_fennec_view import BlackFennecView
 from src.extension.type_registry import TypeRegistry
-from src.core.boolean.boolean_bidder import BooleanBidder
-from src.core.number.number_bidder import NumberBidder
-from src.core.string.string_bidder import StringBidder
-from src.core.list.list_bidder import ListBidder
-from src.core.map.map_bidder import MapBidder
+from src.core.types.boolean.boolean_bidder import BooleanBidder
+from src.core.types.number.number_bidder import NumberBidder
+from src.core.types.string.string_bidder import StringBidder
+from src.core.types.list.list_bidder import ListBidder
+from src.core.types.map.map_bidder import MapBidder
 from src.base.types.address.address_bidder import AddressBidder
 from src.base.types.date_time.date_time_bidder import DateTimeBidder
 from src.base.types.file.file_bidder import FileBidder

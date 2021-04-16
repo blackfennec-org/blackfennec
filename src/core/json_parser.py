@@ -1,10 +1,10 @@
 import numbers
 import logging
-from src.core.map import Map
-from src.core.list import List
-from src.core.string import String
-from src.core.number import Number
-from src.core.boolean import Boolean
+from src.core.types.map import Map
+from src.core.types.list import List
+from src.core.types.string import String
+from src.core.types.number import Number
+from src.core.types.boolean import Boolean
 
 logger = logging.getLogger(__name__)
 

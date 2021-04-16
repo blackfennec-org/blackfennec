@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 import logging
 
-from src.core.map import Map
-from src.core.string import String
-from datetime import datetime, timedelta
+from src.core.types.map import Map
+from src.core.types.string import String
+from datetime import datetime
 
 logger = logging.getLogger(__name__)
 

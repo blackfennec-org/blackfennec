@@ -3,7 +3,7 @@ import unittest
 
 from doubles.base.column_based_presenter_view_model import ColumnBasedPresenterViewModelMock
 from doubles.core import InterpretationMock
-from doubles.core.info_view import InfoViewDummy
+from doubles.core.types.info_view import InfoViewDummy
 from src.base.column_based_presenter import ColumnBasedPresenterView
 
 

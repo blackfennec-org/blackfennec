@@ -3,8 +3,8 @@ import logging
 
 from src.base.types.person.person import Person
 from src.core import Interpretation
-from src.core.map import Map
-from src.core.string import String
+from src.core.types.map import Map
+from src.core.types.string import String
 
 logger = logging.getLogger(__name__)
 

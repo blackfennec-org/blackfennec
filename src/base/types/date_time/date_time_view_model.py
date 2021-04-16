@@ -4,7 +4,6 @@ from datetime import datetime
 
 from src.base.types.date_time.date_time import DateTime
 from src.core import Interpretation
-from src.core.string import String
 
 logger = logging.getLogger(__name__)
 

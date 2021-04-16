@@ -108,15 +108,15 @@ The currently documented domain model is depicted below. To read more about the 
     register_type       --> TypeRegistry            : registration
 
     class Interpretation
-    class Interpreter
+    class InterpretationService
     class Presenter
 
-    Interpreter         o-->    "1..*"  InfoViewFactory
-    Interpreter         -->             Interpretation      : creates
-    'Interpreter         -->            Presenter
+    InterpretationService         o-->    "1..*"  InfoViewFactory
+    InterpretationService         -->             Interpretation      : creates
+    'InterpretationService         -->            Presenter
     Interpretation      o-->    "1..*"  InfoView
     Interpretation      -->             Overlay             : of
-    'Presenter           o..>    "0..*"  Interpreter
+    'Presenter           o..>    "0..*"  InterpretationService
     
     package Extensions <<Frame>> {
         abstract Extension
@@ -134,13 +134,13 @@ The currently documented domain model is depicted below. To read more about the 
 
     class NavigationService
     Interpretation      -->     NavigationService   : navigation request
-    NavigationService   -->     tsp                 : requests interpreter
-    NavigationService   -->     Presenter           : forwards navigation request \nwith interpreter
+    NavigationService   -->     tsp                 : requests interpretation service
+    NavigationService   -->     Presenter           : forwards navigation request \nwith interpretation service
 
     tsp                 o-->    TypeRegistry        
     tsp                 ..>     Overlay             : has indirect access to  
     tsp                 ..>     InfoBidder          : has indirect access to
-    tsp                 -->     Interpreter         : creates
+    tsp                 -->     InterpretationService         : creates
 
     @enduml
 

@@ -1,5 +1,5 @@
-from doubles.core.info_bidder import InfoBidderMock
-from doubles.core.info_view_factory import InfoViewFactoryMock
+from doubles.core.types.info_bidder import InfoBidderMock
+from doubles.core.types.info_view_factory import InfoViewFactoryMock
 
 
 class TypeRegistryMock:

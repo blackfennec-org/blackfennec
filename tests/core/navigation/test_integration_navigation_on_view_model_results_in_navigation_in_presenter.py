@@ -3,13 +3,13 @@ import unittest
 from doubles.base.info_presenter import InfoPresenterMock
 from src.core import NavigationService
 from src.core import Auctioneer
-from src.core.boolean.boolean_bidder import BooleanBidder
-from src.core.list import List, ListViewModel
-from src.core.list.list_bidder import ListBidder
-from src.core.map import Map, MapViewModel
-from src.core.map.map_bidder import MapBidder
-from src.core.number.number_bidder import NumberBidder
-from src.core.string.string_bidder import StringBidder
+from src.core.types.boolean.boolean_bidder import BooleanBidder
+from src.core.types.list import List, ListViewModel
+from src.core.types.list.list_bidder import ListBidder
+from src.core.types.map import Map, MapViewModel
+from src.core.types.map.map_bidder import MapBidder
+from src.core.types.number.number_bidder import NumberBidder
+from src.core.types.string.string_bidder import StringBidder
 from src.core.interpretation import Interpretation
 from src.extension.type_registry import TypeRegistry
 

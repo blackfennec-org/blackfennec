@@ -5,9 +5,9 @@ from doubles.dummy import Dummy
 from src.base.types.date_time.date_time import DateTime
 from src.base.types.date_time.date_time_bidder import DateTimeBidder
 from src.core.auction import Offer
-from src.core.map import Map
-from src.core.map.map_bidder import MapBidder
-from src.core.string import String
+from src.core.types.map import Map
+from src.core.types.map.map_bidder import MapBidder
+from src.core.types.string import String
 
 
 class DateTimeBidderTestSuite(unittest.TestCase):

@@ -2,7 +2,7 @@
 import unittest
 
 from doubles.base.info_presenter import InfoPresenterMock
-from doubles.core.auctioneer import AuctioneerMock
+from doubles.core.auction.auctioneer import AuctioneerMock
 from doubles.dummy import Dummy
 from src.core.navigation.navigation_service import NavigationService
 
