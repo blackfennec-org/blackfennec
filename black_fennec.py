@@ -16,6 +16,7 @@ from src.core.map.map_bidder import MapBidder
 from src.base.types.address.address_bidder import AddressBidder
 from src.base.types.file.file_bidder import FileBidder
 from src.base.types.image.image_bidder import ImageBidder
+from src.base.types.person.person_bidder import PersonBidder
 from src.core import Auctioneer, NavigationService
 from src.base.column_based_presenter import ColumnBasedPresenterViewFactory
 from src.splash_screen.splash_screen_view import SplashScreenView
@@ -35,6 +36,7 @@ def create_type_registry() -> TypeRegistry:
     registry.register_type(FileBidder())
     registry.register_type(ImageBidder())
     registry.register_type(AddressBidder())
+    registry.register_type(PersonBidder())
     return registry
 
 
