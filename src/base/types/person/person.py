@@ -3,6 +3,7 @@ import logging
 
 from src.core.map import Map
 from src.core.string import String
+# from src.base.types.image import Image
 # from src.base.types.address import Address
 # from src.base.types.date import Date
 
@@ -82,6 +83,15 @@ class Person:
 
         """
         self._data['suffix'] = value
+
+    # @property
+    # def personal_photo(self) -> Image:
+    #     return self._get_from_map('personal_photo')
+    #
+    # @personal_photo.setter
+    # def personal_photo(self, value: Image):
+    #     self._data['personal_photo'] = value
+    # TODO: Add Base Type Image to implement birth_date property
 
     # @property
     # def home_address(self) -> Address:

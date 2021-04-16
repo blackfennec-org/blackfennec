@@ -78,4 +78,4 @@ class PersonView(Gtk.Bin):
 
     def _set_nationality(self):
         nationality = self._view_model.nationality
-        self._nationality_value_value.set_text(str(nationality))
+        self._nationality_value.set_text(str(nationality))

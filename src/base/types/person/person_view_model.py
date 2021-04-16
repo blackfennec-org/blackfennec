@@ -91,7 +91,7 @@ class PersonViewModel:
     @property
     def marital_status(self):
         """Property for marital status"""
-        return self._marital_status
+        return self._model.marital_status
 
     @marital_status.setter
     def marital_status(self, value: String):
