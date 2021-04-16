@@ -1,24 +1,24 @@
 @startgantt
-printscale weekly
-scale 2
+printscale daily
+scale 1
 Project starts the 2nd of april 2021
 
 '========== Iteration 2 ===============
-[Iter. 2] as [it2] lasts 2 weeks
+[Iteration 2] as [it2] lasts 2 weeks
 [it2] starts 2nd of april 2021
 
 '========== Iteration 3 ===============
-[Iter. 3] as [it3] lasts 2 weeks
+[Iteration 3] as [it3] lasts 2 weeks
 [it3] starts 16th of april 2021
 [it3] displays on same row as [it2]
 
 '========== Iteration 4 ===============
-[Iter. 4] as [it4] lasts 2 weeks
+[Iteration 4] as [it4] lasts 2 weeks
 [it4] starts 30th of april 2021
 [it4] displays on same row as [it2]
 
 '========== Iteration 5 ===============
-[Iter. 5] as [it5] lasts 2 weeks
+[Iteration 5] as [it5] lasts 2 weeks
 [it5] starts 14th of may 2021
 [it5] displays on same row as [it2]
 
@@ -38,7 +38,7 @@ Project starts the 2nd of april 2021
 [Auctioneer] as [auct] lasts 1 week
 [auct] starts at [it2]'s start
 
-[ColumnBasedPresenter] as [colPres] lasts 1 week
+[ColBasedPresenter] as [colPres] lasts 1 week
 [colPres] starts at [it2]'s start
 
 [Action] lasts 2 weeks
