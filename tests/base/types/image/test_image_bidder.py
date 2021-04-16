@@ -30,7 +30,7 @@ class ImageBidderTestSuite(unittest.TestCase):
         })
         map_offer = map_bidder.bid(subject)
         image_offer = image_bidder.bid(subject)
-        self.assertGreater(image_offer, map_offer)
+        self.assertLess(image_offer, map_offer)
 
     def test_offer_image_like_structure_of_file(self):
         file_bidder = FileBidder()
@@ -52,4 +52,4 @@ class ImageBidderTestSuite(unittest.TestCase):
         })
         file_offer = file_bidder.bid(subject)
         image_offer = image_bidder.bid(subject)
-        self.assertLesser(image_offer, file_offer)
+        self.assertLess(image_offer, file_offer)
