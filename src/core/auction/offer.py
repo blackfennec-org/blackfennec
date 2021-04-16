@@ -100,12 +100,19 @@ class Offer(Comparable):
                     )
                 subject_node_count += coverage[0]
                 template_node_count += coverage[1]
-            if isinstance(template, String) and not self._check_pattern_match_if_has_value(subject, template):
+            if isinstance(template, String) and\
+                    not self._check_pattern_match_if_has_value(
+                        subject,
+                        template
+                    ):
                 template_node_count -= 1
         return subject_node_count, template_node_count
 
     @staticmethod
-    def _check_pattern_match_if_has_value(subject: String, template: String) -> bool:
+    def _check_pattern_match_if_has_value(
+            subject: String,
+            template: String
+    ) -> bool:
         if template.value and template.value != '':
             if not re.match(template.value, subject.value):
                 return False

@@ -78,7 +78,8 @@ class Person:
 
     @suffix.setter
     def suffix(self, value: String):
-        """A group of letters provided after a person’s name to provide additional information
+        """A group of letters provided after a person’s
+        name to provide additional information
         (such as Jr., Sr., M.D., PhD, I, II, III,...).
 
         """
@@ -118,7 +119,8 @@ class Person:
     @gender.setter
     def gender(self, value: String):
         """The gender identity of the person.
-        The value of this property must be equal to one of the following known enum values.
+        The value of this property must be equal to one of the
+        following known enum values:
                 - female
                 - male
                 - not_specified
@@ -134,7 +136,8 @@ class Person:
     @sex.setter
     def sex(self, value: String):
         """The biological gender of the person.
-                The value of this property must be equal to one of the following known enum values.
+                The value of this property must be equal to one of the
+                 following known enum values:
                         - female
                         - male
                         - not_specified
@@ -150,7 +153,8 @@ class Person:
     @marital_status.setter
     def marital_status(self, value: String):
         """Describes a person’s relationship with a significant other.
-        The value of this property must be equal to one of the following enum values.
+        The value of this property must be equal to one of the following
+        enum values:
                 - married
                 - single
                 - divorced
@@ -166,8 +170,10 @@ class Person:
 
     @nationality.setter
     def nationality(self, value: String):
-        """The legal relationship between a person and their state represented using the ISO 3166-1 Alpha-2 code.
-        The format of this property must conform to this regular expression ^[A-Z]{2}$.
+        """The legal relationship between a person and their state
+         represented using the ISO 3166-1 Alpha-2 code.
+        The format of this property must conform to this
+         regular expression ^[A-Z]{2}$.
         """
         self._data['nationality'] = value
 

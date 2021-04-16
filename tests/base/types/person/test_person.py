@@ -220,7 +220,10 @@ class PersonTestSuite(unittest.TestCase):
 
         data_map = MapMock(data)
         person = Person(data_map)
-        expected = 'courtesy_title first_name middle_name last_name suffix\ngender\nsex\nmarital_status\nnationality'
+        expected = 'courtesy_title first_name ' \
+                   'middle_name last_name ' \
+                   'suffix\ngender\nsex\n' \
+                   'marital_status\nnationality'
         self.assertEqual(str(person), expected)
 
     def test_representation(self):
@@ -237,5 +240,8 @@ class PersonTestSuite(unittest.TestCase):
 
         data_map = MapMock(data)
         person = Person(data_map)
-        expected = 'Person(courtesy_title first_name middle_name last_name suffix, gender, sex, marital_status, nationality)'
+        expected = 'Person(courtesy_title ' \
+                   'first_name middle_name last_name ' \
+                   'suffix, gender, sex, ' \
+                   'marital_status, nationality)'
         self.assertEqual(repr(person), expected)
