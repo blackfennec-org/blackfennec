@@ -1,6 +1,5 @@
-window {
+.main-window {
  font-family: Ubuntu;
- color: #4d77fd;;
  background-color: #515151;
 }
 
@@ -11,17 +10,46 @@ border-color: #4d77fd;
 border-radius: 25px;
 }
 
-statusbar {
+.main-status-bar {
 background-color: #464545;
+margin: 8px;
 }
 
-.file-tree{
+.main-file-tree{
 background-color: #515151;
 }
 
-box{
+.main-presenter-container{
 background-color: #464545;
-border: 1px solid #464545;
+}
+
+.main-header-bar {
+color: #4d77fd;
+}
+
+.main-header-bar > label {
+color: #e4e4e4;
+font-weight:700;
+}
+
+.main-header-bar > box {
+background-color: #2b2b2b;
+border: none;
+}
+
+.empty-list-pattern {
+margin: 100px;
+font-family: Courier;
+}
+
+.column-based-presenter button{
+border: none;
+padding: 10px 40px;
+}
+
+.column-based-presenter button:hover{
+border: none;
+padding: 20px 40px;
 }
 
 progressbar > trough > progress {
@@ -31,14 +59,3 @@ progressbar > trough > progress {
 progressbar > trough  {
 background-color: #fff;
 }
-
-headerbar > label {
-color: #e4e4e4;
-font-weight:700;
-}
-
-headerbar > box {
-background-color: #2b2b2b;
-border: none;
-}
-
