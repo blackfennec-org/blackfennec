@@ -31,10 +31,7 @@ class IntegrationFromInterpretationServiceToViewTestSuite(unittest.TestCase):
         registry.register_type(ListBidder())
         registry.register_type(MapBidder())
         auctioneer = Auctioneer(registry)
-        self.interpreter = InterpretationService(
-            Dummy('NavigationService'),
-            auctioneer
-        )
+        self.interpreter = InterpretationService(auctioneer)
 
     def tearDown(self) -> None:
         self.interpreter = None

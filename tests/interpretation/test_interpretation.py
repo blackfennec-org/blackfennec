@@ -20,15 +20,8 @@ class InterpretationTestSuite(unittest.TestCase):
         Interpretation class are saved to the corresponding internal
         member variable
         """
-        navigation_service = Dummy("nav")
         info = Dummy("info")
-        interpretation = Interpretation(navigation_service, info)
-        self.assertEqual(
-            interpretation._navigation_service,
-            navigation_service,
-            msg="Interpretation has not initialized" +
-                " _navigation_service correctly"
-        )
+        interpretation = Interpretation(info)
         self.assertEqual(
             interpretation._info,
             info,
@@ -47,9 +40,8 @@ class InterpretationTestSuite(unittest.TestCase):
 
         This unit-test tests whether the info getter
         returns the expected value."""
-        navigation_service = Dummy("nav")
         info = Dummy("info")
-        interpretation = Interpretation(navigation_service, info)
+        interpretation = Interpretation(info)
         self.assertEqual(
             interpretation.info,
             info,
@@ -62,10 +54,9 @@ class InterpretationTestSuite(unittest.TestCase):
 
         This unit-test tests whether the info_view getter
         returns the expected value."""
-        navigation_service = Dummy("nav")
         info = Dummy("info")
         info_views = Dummy("info_view")
-        interpretation = Interpretation(navigation_service, info)
+        interpretation = Interpretation(info)
         interpretation.info_views = info_views
         self.assertEqual(
             interpretation.info_views,
@@ -79,10 +70,9 @@ class InterpretationTestSuite(unittest.TestCase):
 
         This unit-test tests whether the info_view getter
         returns the expected value."""
-        navigation_service = Dummy("nav")
         info = Dummy("info")
         info_views = Dummy("info_view")
-        interpretation = Interpretation(navigation_service, info)
+        interpretation = Interpretation(info)
         interpretation.info_views = info_views
         self.assertEqual(
             interpretation.info_views,
@@ -96,10 +86,9 @@ class InterpretationTestSuite(unittest.TestCase):
 
         This unit-test tests whether the view getter
         returns the expected value."""
-        navigation_service = Dummy("nav")
         info = Dummy("info")
         info_views = [Dummy("info_view")]
-        interpretation = Interpretation(navigation_service, info)
+        interpretation = Interpretation(info)
         interpretation.info_views = info_views
         view = interpretation.view
         self.assertEqual(
@@ -119,7 +108,8 @@ class InterpretationTestSuite(unittest.TestCase):
         navigation_service = NavigationServiceMock()
         info = Dummy("info")
         destination = Dummy("destination")
-        interpretation = Interpretation(navigation_service, info)
+        interpretation = Interpretation(info)
+        interpretation.set_navigation_service(navigation_service)
         interpretation.navigate(destination)
         self.assertEqual(
             navigation_service.sender,

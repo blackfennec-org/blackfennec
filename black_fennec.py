@@ -6,6 +6,7 @@ gi.require_version('Gtk', '3.0')
 import logging
 from gi.repository import Gtk, Gdk, GLib
 from src.interpretation.auction.auctioneer import Auctioneer
+from src.interpretation.interpretation_service import InterpretationService
 from src.navigation.navigation_service import NavigationService
 from src.presentation.column_based_presenter.column_based_presenter_view_factory import ColumnBasedPresenterViewFactory
 from src.type_system.type_registry import TypeRegistry
@@ -85,10 +86,12 @@ class BlackFennec(Gtk.Application):
 
 
 if __name__ == '__main__':
-    presenter_view = ColumnBasedPresenterViewFactory().create()
-    presenter = presenter_view._view_model
     type_registry = create_type_registry()
     auctioneer = Auctioneer(type_registry)
-    navigation_service = NavigationService(presenter, auctioneer)
+    interpretation_service = InterpretationService(auctioneer)
+    navigation_service = NavigationService()
+    presenter_view = ColumnBasedPresenterViewFactory() \
+        .create(interpretation_service, navigation_service)
+    presenter = presenter_view._view_model
     black_fennec = BlackFennec(presenter_view, navigation_service)
     black_fennec.run()

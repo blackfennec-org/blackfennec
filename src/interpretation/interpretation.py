@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import logging
 from src.structure.info import Info
+#from src.navigation.navigation_service import NavigationService
 
 logger = logging.getLogger(__name__)
 
@@ -20,7 +21,7 @@ class Interpretation:
     Todo:
         * Add types to function parameters
     """
-    def __init__(self, navigation_service, info: Info):
+    def __init__(self, info: Info):
         """Interpretation constructor.
 
         Args:
@@ -28,10 +29,13 @@ class Interpretation:
             info (Info): info lying behind interpretation
             info_views (InfoView): Created view of info
         """
-        self._navigation_service = navigation_service
+        self._navigation_service = None
         self._info_views = list()
         self._info = info
         self._view = None
+
+    def set_navigation_service(self, navigation_service):
+        self._navigation_service = navigation_service
 
 
     @property

@@ -4,6 +4,7 @@ import logging
 from src.structure.info import Info
 from src.interpretation.interpretation import Interpretation
 from src.interpretation.interpretation_service import InterpretationService
+from src.navigation.navigation_service import NavigationService
 from src.util.observable import Observable
 
 logger = logging.getLogger(__name__)
@@ -17,26 +18,35 @@ class ColumnBasedPresenterViewModel(Observable):
     bind to interpretations to be notified of changes by this class.
 
     Attributes:
-        __infos (dict): stores infos of corresponding interpretation
         interpretations (list): stores list of interpretations
             notifies on changes in attribute.
     """
 
-    def __init__(self):
-        """ColumnBasedPresenterViewModel constructor.
+    def __init__(self,
+            interpretation_service: InterpretationService,
+            navigation_service: NavigationService):
+        """Constructor of Column-Based Presenter View Model
 
-        Initialises attributes with empty dict/list
+        A presenter that arranges interpretations in columns.
+            Similar to the MacOS finder, which displays folder hierarchy
+            in a similar fassion. This is the default presenter.
+
+        Args:
+            interpretation_service (InterpretationService): required for the
+                interpretation of structures.
+            navigation_service (NavigationService): currently required because
+                interpretation service does not configure navigation service
+                for new interpretations.
         """
         super().__init__()
-        self.__infos = dict()
         self.interpretations = list()
+        self._interpretation_service = interpretation_service
+        self._navigation_service = navigation_service
 
     def show(
             self,
             sender: Interpretation,
-            info: Info,
-            interpretation_service: InterpretationService
-    ):
+            info: Info):
         """Show of interpretation.
 
         Procedure invoked by navigation service to navigate
@@ -45,26 +55,24 @@ class ColumnBasedPresenterViewModel(Observable):
         Args:
             sender (Interpretation): interpretation calling navigation
             info (Info): info corresponding with interpretation_service
-            interpretation_service (InterpretationService): Producer of
-             interpretation for info passed.
         """
         logger.debug("show info (%s) for sender (%s)", info, sender)
         self._try_cut_interpretations_at(sender)
-        interpretation = interpretation_service.interpret(info)
+        interpretation = self._interpretation_service.interpret(info)
+        interpretation.set_navigation_service(self._navigation_service)
         self._add_interpretation(interpretation)
 
-    def _try_cut_interpretations_at(self, sender: Interpretation):
-        """Removal of interpretation after sender.
+    def _try_cut_interpretations_at(self, sender: Interpretation) -> None:
+        """Removal of interpretations after sender.
 
-        Cuts interpretations attribute at sender position meaning
-        succeeding interpretations are removed. After removal
-        notifies observers.
+        Cuts interpretation list at position of `sender`, meaning
+        succeeding interpretations are removed. Notifies observers.
 
         Args:
-            sender (Interpretation): interpretation calling navigation
+            sender (Interpretation): the callee of the navigation request.
         """
-        if sender in self.__infos:
-            index = self.__infos[sender]
+        if sender in self.interpretations:
+            index = self.interpretations.index(sender) + 1
             logger.debug(
                 "_try_cut_interpretations_at(sender: %s => index: %i)",
                 sender, index)
@@ -82,5 +90,4 @@ class ColumnBasedPresenterViewModel(Observable):
         """
         logger.debug("_add_interpretation(%s)", interpretation)
         self.interpretations.append(interpretation)
-        self.__infos[interpretation] = len(self.interpretations)
         self._notify(self.interpretations, "interpretations")

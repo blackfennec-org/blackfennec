@@ -10,6 +10,9 @@ class InterpretationMock:
         self._info = InfoMock() if info is None else info
         self.info_view = InfoViewDummy() if info_view is None else info_view
 
+    def set_navigation_service(self, navigation_service):
+        pass
+
     def navigate(self, info):
         self.navigation_requests.append(info)
 
