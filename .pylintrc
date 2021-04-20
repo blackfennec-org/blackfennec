@@ -8,18 +8,22 @@
 [MASTER]
 
 # Files or directories to be skipped. They should be base names, not paths.
+<<<<<<< Updated upstream
 ignore=third_party,.gitlab
+=======
+ignore=third_party,.gitlab,.venv,venv,.vscode,doubles
+>>>>>>> Stashed changes
 
 # Files or directories matching the regex patterns are skipped. The regex
 # matches against base names, not paths.
-ignore-patterns=^\..*$
+ignore-patterns=^\..*/**/*.py$,^test\_.*$
 
 # Pickle collected data for later comparisons.
 persistent=no
 
 # List of plugins (as comma separated values of python modules names) to load,
 # usually to register additional checkers.
-load-plugins=
+load-plugins=pylint.extensions.docparams,pylint.extensions.mccabe
 
 # Use multiple processes to speed up Pylint.
 jobs=4
@@ -27,7 +31,6 @@ jobs=4
 # Allow loading of arbitrary C extensions. Extensions are imported into the
 # active Python interpreter and may run arbitrary code.
 unsafe-load-any-extension=no
-
 
 [MESSAGES CONTROL]
 
@@ -89,7 +92,6 @@ disable=abstract-method,
         long-suffix,
         map-builtin-not-iterating,
         misplaced-comparison-constant,
-        missing-function-docstring,
         metaclass-assignment,
         next-method-called,
         next-method-defined,
@@ -147,8 +149,6 @@ disable=abstract-method,
         xrange-builtin,
         zip-builtin-not-iterating,
         missing-module-docstring,
-        missing-class-docstring,
-        missing-function-docstring,
         protected-access,
 
 
@@ -361,7 +361,6 @@ ignore-docstrings=yes
 # Ignore imports when computing similarities.
 ignore-imports=no
 
-
 [SPELLING]
 
 # Spelling dictionary name. Available dictionaries: none. To make it working
@@ -443,3 +442,10 @@ valid-metaclass-classmethod-first-arg=mcs
 overgeneral-exceptions=StandardError,
                        Exception,
                        BaseException
+
+[COMPLEXITY]
+
+# Refers to the calculated McCabe value that according to the NIST
+# Structured Testing methodology shall only exceed 10 if a valid
+# explanation is provided
+max-complexity=10
