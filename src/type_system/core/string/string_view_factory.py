@@ -10,7 +10,8 @@ class StringViewFactory:
         """Test if this view factory can satisfy the specification
 
         Args:
-            specification (Specification): the specification to be satisfied
+            unused_specification (Specification): the specification to be
+                satisfied
 
         Returns:
             bool: True if the specification can be satisfied. Otherwise False.

@@ -1,6 +1,7 @@
 from src.structure.info import Info
 from src.navigation.navigation_proxy import NavigationProxy
 from src.interpretation.specification import Specification
+from src.interpretation.interpretation import Interpretation
 
 
 class MapViewModel:
@@ -23,7 +24,15 @@ class MapViewModel:
         """Readonly property for value."""
         return self._map
 
-    def create_preview(self, substructure: Info):
+    def create_preview(self, substructure: Info) -> Interpretation:
+        """create preview for substructure
+
+        Args:
+            substructure (Info): will be interpreted as a preview
+
+        Returns:
+            Interpretation: represents the substructure as preview
+        """
         preview = self._interpretation_service.interpret(
             substructure, Specification(request_preview=True))
         navigation_proxy = NavigationProxy(self._interpretation)

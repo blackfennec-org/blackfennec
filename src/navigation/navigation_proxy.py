@@ -15,7 +15,7 @@ class NavigationProxy:
 
         Args:
             interpretation (Interpretation): The interpretation to which
-                requests are dipached. In the end, the navigation service
+                requests are dispatched. In the end, the navigation service
                 configured in the interpretation is used.
         """
         self._interpretation = interpretation
@@ -27,7 +27,7 @@ class NavigationProxy:
         interpretation, discarding the sender
 
         Args:
-            sender (Interpretation): Ignored
+            unused_sender (Interpretation): Ignored
             destination (Info): destination which will be passed on
         """
         self._interpretation.navigate(destination)
