@@ -9,9 +9,10 @@ class InterpretationMock:
         self.info_property_access_count = 0
         self._info = InfoMock() if info is None else info
         self.info_view = InfoViewDummy() if info_view is None else info_view
+        self.navigation_service = None
 
     def set_navigation_service(self, navigation_service):
-        pass
+        self.navigation_service = navigation_service
 
     def navigate(self, info):
         self.navigation_requests.append(info)

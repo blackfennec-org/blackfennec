@@ -1,7 +1,8 @@
 import unittest
 
+from doubles.dummy import Dummy
 from doubles.presentation.info_presenter import InfoPresenterMock
-from src.interpretation.auction.auctioneer import Auctioneer
+from doubles.interpretation.interpretation_service import InterpretationServiceMock
 from src.interpretation.interpretation import Interpretation
 from src.navigation.navigation_service import NavigationService
 from src.structure.list import List
@@ -25,7 +26,7 @@ class NavigationOnViewModelResultsInNavigationInPresenterTestSuite(
         registry.register_type(NumberBidder())
         registry.register_type(StringBidder())
         registry.register_type(ListBidder())
-        registry.register_type(MapBidder())
+        registry.register_type(MapBidder(InterpretationServiceMock([])))
         self.presenter = InfoPresenterMock()
         self.navigation_service = NavigationService()
         self.navigation_service.set_presenter(self.presenter)
@@ -36,15 +37,18 @@ class NavigationOnViewModelResultsInNavigationInPresenterTestSuite(
 
     def test_map_can_navigate(self):
         info = Map()
-        interpretation = Interpretation(info)
+        interpretation = Interpretation(
+            info, Dummy('specification'), Dummy('factoires'))
         interpretation.set_navigation_service(self.navigation_service)
-        map_view_model = MapViewModel(interpretation)
+        interpretation_service = Dummy('interpretation service')
+        map_view_model = MapViewModel(interpretation, interpretation_service)
         map_view_model.navigate_to(Map())
         self.assertEqual(self.presenter.show_count, 1)
 
     def test_list_can_navigate(self):
         info = List()
-        interpretation = Interpretation(info)
+        interpretation = Interpretation(
+            info, Dummy('specification'), Dummy('factoires'))
         interpretation.set_navigation_service(self.navigation_service)
         list_view_model = ListViewModel(interpretation)
         list_view_model.navigate_to(List())

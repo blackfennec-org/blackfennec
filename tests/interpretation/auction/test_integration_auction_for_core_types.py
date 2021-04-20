@@ -1,6 +1,8 @@
 import unittest
 
+from doubles.interpretation.interpretation_service import InterpretationServiceMock
 from src.interpretation.auction.auctioneer import Auctioneer
+from src.interpretation.specification import Specification
 from src.structure.boolean import Boolean
 from src.structure.list import List
 from src.structure.map import Map
@@ -27,7 +29,7 @@ class AuctionOfCoreTypesTestSuite(unittest.TestCase):
         registry.register_type(NumberBidder())
         registry.register_type(StringBidder())
         registry.register_type(ListBidder())
-        registry.register_type(MapBidder())
+        registry.register_type(MapBidder(InterpretationServiceMock([])))
         self.registry = registry
         self.auctioneer = Auctioneer(registry)
 
@@ -36,21 +38,21 @@ class AuctionOfCoreTypesTestSuite(unittest.TestCase):
         self.auctioneer = None
 
     def test_auction_boolean(self):
-        result = self.auctioneer.auction(Boolean())
+        result = self.auctioneer.auction(Boolean(), Specification())
         self.assertIsInstance(result[0], BooleanViewFactory)
 
     def test_auction_number(self):
-        result = self.auctioneer.auction(Number())
+        result = self.auctioneer.auction(Number(), Specification())
         self.assertIsInstance(result[0], NumberViewFactory)
 
     def test_auction_list(self):
-        result = self.auctioneer.auction(List())
+        result = self.auctioneer.auction(List(), Specification())
         self.assertIsInstance(result[0], ListViewFactory)
 
     def test_auction_map(self):
-        result = self.auctioneer.auction(Map())
+        result = self.auctioneer.auction(Map(), Specification())
         self.assertIsInstance(result[0], MapViewFactory)
 
     def test_auction_string(self):
-        result = self.auctioneer.auction(String())
+        result = self.auctioneer.auction(String(), Specification())
         self.assertIsInstance(result[0], StringViewFactory)

@@ -45,22 +45,7 @@ class InterpretationServiceTestSuite(unittest.TestCase):
         auctioneer = AuctioneerMock(factories)
         interpreter = InterpretationService(auctioneer)
         interpretation = interpreter.interpret(info)
-        self.assertIsInstance(
-            interpretation,
-            Interpretation,
-            msg="InterpretationService did not return " +
-                "interpretation after interpreting"
-        )
-        self.assertEqual(
-            factories[0].creation_count,
-            1,
-            msg="InterpretationService did not create info_view from factory"
-        )
-        self.assertEqual(
-            auctioneer.auction_count,
-            1
-        )
-        self.assertEqual(
-            auctioneer.auction_last_subject,
-            info
-        )
+        self.assertIsInstance(interpretation, Interpretation)
+        self.assertIn(factories[0], interpretation._factories)
+        self.assertEqual(1, auctioneer.auction_count)
+        self.assertEqual(info, auctioneer.auction_last_subject)

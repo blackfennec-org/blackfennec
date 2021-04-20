@@ -1,5 +1,5 @@
 from gi.repository import Gtk
-from src.structure.info import Info
+from src.interpretation.interpretation import Interpretation
 
 
 @Gtk.Template(filename='src/type_system/core/map/map_item_view.glade')
@@ -7,22 +7,25 @@ class MapItemView(Gtk.Bin):
     """View for a key value pair of a map."""
     __gtype_name__ = 'MapItemView'
     _key_label: Gtk.Label = Gtk.Template.Child()
+    _preview_container: Gtk.Bin = Gtk.Template.Child()
 
-    def __init__(self, key, value: Info, preview_click_handler):
+    def __init__(self, key, preview: Interpretation, preview_click_handler):
         """Create map item view
 
         Args:
             key: The key of the map item
-            value (:obj:`Info`): The info which should be previewed
+            preview (:obj:`Interpretation`): The preview
             click_handler: A handler that is called when the map item is pressed
         """
         super().__init__()
 
         self._key = key
-        self._value = value
+        self._preview = preview
         self._preview_click_handler = preview_click_handler
 
         self._key_label.set_text(self._key)
+        self._preview_container.add(self._preview.view)
+
 
     @property
     def key(self) -> str:
@@ -32,4 +35,4 @@ class MapItemView(Gtk.Bin):
     @Gtk.Template.Callback()
     def on_preview_clicked(self, _) -> None:
         """Callback for the button click event"""
-        self._preview_click_handler(self, self._value)
+        self._preview_click_handler(self, self._preview.info)

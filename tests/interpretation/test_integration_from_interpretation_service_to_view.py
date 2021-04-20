@@ -1,6 +1,6 @@
 import unittest
 
-from doubles.dummy import Dummy
+from doubles.interpretation.interpretation_service import InterpretationServiceMock
 from src.interpretation.auction.auctioneer import Auctioneer
 from src.structure.boolean import Boolean
 from src.structure.list import List
@@ -29,7 +29,7 @@ class IntegrationFromInterpretationServiceToViewTestSuite(unittest.TestCase):
         registry.register_type(NumberBidder())
         registry.register_type(StringBidder())
         registry.register_type(ListBidder())
-        registry.register_type(MapBidder())
+        registry.register_type(MapBidder(InterpretationServiceMock([])))
         auctioneer = Auctioneer(registry)
         self.interpreter = InterpretationService(auctioneer)
 

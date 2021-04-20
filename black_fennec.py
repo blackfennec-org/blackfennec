@@ -25,23 +25,23 @@ from src.visualisation.main_window.black_fennec_view import BlackFennecView
 from src.visualisation.splash_screen.splash_screen_view import SplashScreenView
 # pylint: enable=wrong-import-position
 
-logging.basicConfig(level=logging.DEBUG)
+logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 
-def create_type_registry() -> TypeRegistry:
-    registry = TypeRegistry()
+def populate_type_registry(
+        registry: TypeRegistry, 
+        interpretation_service: InterpretationService) -> None:
     registry.register_type(BooleanBidder())
     registry.register_type(NumberBidder())
     registry.register_type(StringBidder())
     registry.register_type(ListBidder())
-    registry.register_type(MapBidder())
+    registry.register_type(MapBidder(interpretation_service))
     registry.register_type(FileBidder())
     registry.register_type(ImageBidder())
     registry.register_type(AddressBidder())
     registry.register_type(DateTimeBidder())
     registry.register_type(PersonBidder())
-    return registry
 
 
 class BlackFennec(Gtk.Application):
@@ -86,12 +86,14 @@ class BlackFennec(Gtk.Application):
 
 
 if __name__ == '__main__':
-    type_registry = create_type_registry()
+    type_registry = TypeRegistry()
     auctioneer = Auctioneer(type_registry)
     interpretation_service = InterpretationService(auctioneer)
     navigation_service = NavigationService()
     presenter_view = ColumnBasedPresenterViewFactory() \
         .create(interpretation_service, navigation_service)
     presenter = presenter_view._view_model
+    navigation_service.set_presenter(presenter)
+    populate_type_registry(type_registry, interpretation_service)
     black_fennec = BlackFennec(presenter_view, navigation_service)
     black_fennec.run()

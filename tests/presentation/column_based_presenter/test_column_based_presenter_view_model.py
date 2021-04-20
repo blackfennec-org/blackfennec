@@ -28,7 +28,6 @@ class ColumnBasedPresenterViewModelTestSuite(unittest.TestCase):
         self.assertEqual(1, interpreter.interpret_count)
         self.assertEqual(interpreter.last_interpreted_info, info)
 
-    
     def test_show_multiple(self):
         info = InfoMock()
         root_interpretation = InterpretationMock(info)
@@ -36,8 +35,6 @@ class ColumnBasedPresenterViewModelTestSuite(unittest.TestCase):
         child_interpretation = InterpretationMock(info)
         interpretations_queue = deque([
             root_interpretation,
-            parent_interpretation,
-            child_interpretation,
             parent_interpretation])
         interpreter = InterpretationServiceMock(interpretations_queue)
         navigator = Dummy('navigation_service')
@@ -47,7 +44,6 @@ class ColumnBasedPresenterViewModelTestSuite(unittest.TestCase):
         presenter.show(root_interpretation, info)
         self.assertEqual(2, len(presenter.interpretations))
         self.assertIn(parent_interpretation, presenter.interpretations)
-
 
     def test_show_with_cut_at(self):
         info = InfoMock()
@@ -70,3 +66,26 @@ class ColumnBasedPresenterViewModelTestSuite(unittest.TestCase):
         self.assertEqual(2, len(presenter.interpretations))
         self.assertNotIn(child_interpretation, presenter.interpretations)
         self.assertIn(parent_interpretation, presenter.interpretations)
+
+    def test_show_sibling(self):
+        info = InfoMock()
+        root_interpretation = InterpretationMock(info)
+        parent_interpretation = InterpretationMock(info)
+        child_interpretation = InterpretationMock(info)
+        sibling_interpretation = InterpretationMock(info)
+        interpretations_queue = deque([
+            root_interpretation,
+            parent_interpretation,
+            child_interpretation,
+            sibling_interpretation])
+        interpreter = InterpretationServiceMock(interpretations_queue)
+        navigator = Dummy('navigation_service')
+        presenter = ColumnBasedPresenterViewModel(interpreter, navigator)
+
+        presenter.show(None, info)
+        presenter.show(root_interpretation, info)
+        presenter.show(parent_interpretation, info)
+        presenter.show(parent_interpretation, info)
+        self.assertIn(parent_interpretation, presenter.interpretations)
+        self.assertIn(sibling_interpretation, presenter.interpretations)
+        self.assertNotIn(child_interpretation, presenter.interpretations)

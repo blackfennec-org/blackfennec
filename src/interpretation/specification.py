@@ -21,3 +21,7 @@ class Specification:
             bool: true iff a preview has been ruested.
         """
         return self._is_request_for_preview
+
+    def __repr__(self):
+        return 'Specification(request_preview=%s)' % \
+            self._is_request_for_preview

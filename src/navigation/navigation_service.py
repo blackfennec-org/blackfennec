@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
+import logging
 from src.structure.info import Info
 from src.interpretation.interpretation import Interpretation
+
+logger = logging.getLogger(__name__)
 
 
 class NavigationService:
@@ -37,4 +40,5 @@ class NavigationService:
             sender (Interpretation) Interpretation which invoked navigation
             destination (Info): Destination to which shall be navigated
         """
+        logger.info('%s requested navigation to %s', sender, destination)
         self._presenter.show(sender, destination)

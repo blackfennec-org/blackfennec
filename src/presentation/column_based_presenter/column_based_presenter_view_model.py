@@ -8,6 +8,7 @@ from src.navigation.navigation_service import NavigationService
 from src.util.observable import Observable
 
 logger = logging.getLogger(__name__)
+logger.setLevel(logging.DEBUG)
 
 
 class ColumnBasedPresenterViewModel(Observable):
@@ -39,6 +40,8 @@ class ColumnBasedPresenterViewModel(Observable):
                 for new interpretations.
         """
         super().__init__()
+        assert interpretation_service, 'interpretation service must not be None'
+        assert navigation_service, 'navigation_service must not be None'
         self.interpretations = list()
         self._interpretation_service = interpretation_service
         self._navigation_service = navigation_service
@@ -56,7 +59,7 @@ class ColumnBasedPresenterViewModel(Observable):
             sender (Interpretation): interpretation calling navigation
             info (Info): info corresponding with interpretation_service
         """
-        logger.debug("show info (%s) for sender (%s)", info, sender)
+        logger.debug('show info (%s) for sender (%s)', info, sender)
         self._try_cut_interpretations_at(sender)
         interpretation = self._interpretation_service.interpret(info)
         interpretation.set_navigation_service(self._navigation_service)
@@ -74,10 +77,10 @@ class ColumnBasedPresenterViewModel(Observable):
         if sender in self.interpretations:
             index = self.interpretations.index(sender) + 1
             logger.debug(
-                "_try_cut_interpretations_at(sender: %s => index: %i)",
+                '_try_cut_interpretations_at(sender: %s => index: %i)',
                 sender, index)
             self.interpretations = self.interpretations[:index]
-            self._notify(self.interpretations, "interpretations")
+            self._notify(self.interpretations, 'interpretations')
 
     def _add_interpretation(self, interpretation: Interpretation):
         """Append interpretation to interpretations attribute.
@@ -88,6 +91,6 @@ class ColumnBasedPresenterViewModel(Observable):
         Args:
             interpretation (Interpretation): interpretation to be inserted
         """
-        logger.debug("_add_interpretation(%s)", interpretation)
+        logger.debug('_add_interpretation(%s)', interpretation)
         self.interpretations.append(interpretation)
-        self._notify(self.interpretations, "interpretations")
+        self._notify(self.interpretations, 'interpretations')

@@ -7,12 +7,18 @@ class ColumnBasedPresenterViewFactory:
     """Creator or the ColumnBasedPresenterView"""
 
     def create(self, interpretation_service, navigation_service) \
-             -> ColumnBasedPresenterView:
+            -> ColumnBasedPresenterView:
         """Create column based presenter view
+
+        Args:
+            interpretation_service (InterpretationService): used to interpret
+                structures.
+            navigation_service (NavigationService): used to inject navigation
+                service into interpreted structures.
 
         Returns:
             ColumnBasedPresenterView: The column based presenter view.
-                Can be used as presenter in the main UI. 
+                Can be used as presenter in the main UI.
         """
         view_model = ColumnBasedPresenterViewModel(
             interpretation_service, navigation_service)

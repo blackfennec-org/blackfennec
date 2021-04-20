@@ -4,6 +4,7 @@ import logging
 from src.structure.info import Info
 from src.interpretation.auction.auctioneer import Auctioneer
 from src.interpretation.interpretation import Interpretation
+from src.interpretation.specification import Specification
 
 logger = logging.getLogger(__name__)
 
@@ -28,25 +29,23 @@ class InterpretationService:
         """
         self._auctioneer = auctioneer
 
-    def interpret(self, structure: Info) -> Interpretation:
+    def interpret(self, structure: Info,
+            specification: Specification= None) -> Interpretation:
         """Interpret the given structure follwing the a specification
 
         Args:
             structure (Info): The structure to be interpreted
+            specification (Specification, optional): The specification
+                to be followed. Defaults to default constructed Specification.
+
         Returns:
             Interpretation: Represents what black fennec believes to be
                 the meaning of the structure.
         """
-        interpretation = Interpretation(structure)
-        factories = self._auctioneer.auction(structure)
+        if specification is None:
+            specification = Specification()
+
+        factories = self._auctioneer.auction(structure, specification)
         assert len(factories) == 1, 'cannot currently handle multiple factores'
-
-        info_views = [ factories[0].create(interpretation) ]
-
-        logger.debug(
-            'creating interpretation of info %s with views %s',
-            structure,
-            info_views
-        )
-        interpretation.info_views = info_views
+        interpretation = Interpretation(structure, specification, factories)
         return interpretation

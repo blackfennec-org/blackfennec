@@ -1,76 +1,85 @@
 import logging
 from src.structure.info import Info
+from src.interpretation.specification import Specification
 from src.interpretation.auction.offer import Offer
 
 logger = logging.getLogger(__name__)
 class Auctioneer:
-    """Auctioneer Class.
+    """A service to find the best offer, Auctioneer.
 
-    Decides how Info is interpreted and creates
-    an list of factories of the most suitable type
-
-    Attributes:
-        _type_registry (TypeRegistry): stores injected
-            type registry
+    Searches for the best offer provided by the types registered in
+    the type registry. Only offers that satisfy the requested specification
+    are considered. The sorting of offers is based on their implementation
+    of the '>=' operator.
     """
     def __init__(self, type_registry):
         """Auctioneer constructor.
 
         Args:
-            type_registry(TypeRegistry): type registry to
-                retrieve registered types from.
+            type_registry(TypeRegistry): source for known types. Only known
+                types can be asked for an offer.
         """
         self._type_registry = type_registry
 
-    def _select_offers(self, subject, offers: [Offer]) -> [Offer]:
-        """Offer selection.
-
-        Gets a list of Offers and selects the most suitable.
-        Can be multiple.
+    def _select_offers(self,
+            subject: Info, bidders,
+            specification: Specification) -> [Offer]:
+        """Select the best offers.
 
         Args:
-            offers([Offer]): list of offers to choose from
+            subject (Info): The subject to be auctioned off.
+            bidders: The bidders participating in the auction.
+            specification (Specification): The specification which describes
+                acceptable offers.
+
+        Raises:
+            KeyError: If no offer could be selected a key error is raised
 
         Returns:
-            [Offer]: most suitable offers
+            [Offer]: The best offers given a list of bidders.
         """
-        if offers:
-            best_offer = offers[0]
-        selection = False
-        for offer in offers:
-            if offer >= best_offer:
+        best_offer = None
+
+        for bidder in bidders:
+            offer = bidder.bid(subject)
+
+            if not offer.satisfies(specification):
+                logger.debug('%s does not satisfy %s', offer, specification)
+                continue
+
+            if best_offer is None or offer >= best_offer:
                 best_offer = offer
-                selection = True
-        if not selection:
+
+        if best_offer is None or best_offer.coverage == 0:
             message = 'No offer is the best offer'
             logger.error(message)
             raise KeyError(message)
         return [best_offer]
 
-    def auction(self, subject: Info):
-        """Auction of Info.
+    def auction(self, subject: Info, specification: Specification) -> list:
+        """Auction off a subject, using the specification when selecting offers.
 
-        Auctions subject to all know types and each
-        type can make an offer of how capable he is
-        in handling the subject
+        Auctions subject to all known types which can follow the specification.
+            Each remaining type makes an offer communicating its suitability
+            for handling the subject. The auctioneer selects the best offer.
 
         Args:
-            subject(Info): Info to auction
+            subject (Info): The subject (a.k.a structure) to be auctioned off.
+            specification (Specification): The specification which must be
+                upheld by bidders participating in the bidding.
+
+        Raises:
+            KeyError: If no factories could be selected a key error is raised
 
         Returns:
-            [InfoFactory]: Factories selected according to
-                selected offers
+            [ViewFactory]: The factories which create views of the best types.
         """
         logger.debug('starting bidding on %s', subject)
-        offers = list()
-        for bidder in self._type_registry.types:
-            offers.append(bidder.bid(subject))
-        best_offers = self._select_offers(subject, offers)
+        bidders = self._type_registry.types
+        best_offers = self._select_offers(subject, bidders, specification)
         factories = list()
         for offer in best_offers:
             logger.debug(
-                'adding view_factory of offer %s to factory list',
-                offer
-            )
+                'adding view_factory of offer %s to factory list',offer)
             factories.append(offer.view_factory)
         return factories

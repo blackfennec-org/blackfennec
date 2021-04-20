@@ -2,6 +2,7 @@ import unittest
 from datetime import datetime
 
 from doubles.dummy import Dummy
+from doubles.interpretation.interpretation_service import InterpretationServiceMock
 from src.interpretation.auction import Offer
 from src.structure.map import Map
 from src.structure.string import String
@@ -22,7 +23,7 @@ class DateTimeBidderTestSuite(unittest.TestCase):
         self.assertEqual(offer, expected_offer)
 
     def test_offer_date_time_like_structure(self):
-        map_bidder = MapBidder()
+        map_bidder = MapBidder(InterpretationServiceMock([]))
         date_time_bidder = DateTimeBidder()
         subject = Map({
             DateTime.DATE_TIME_KEY: String(datetime.now().isoformat())

@@ -7,8 +7,10 @@ class AuctioneerMock:
         self._factories = [Dummy('InfoFactory')] if not factories else factories
         self.auction_count = 0
         self.auction_last_subject = None
+        self.auction_last_specification = None
 
-    def auction(self, subject):
+    def auction(self, subject, specification):
         self.auction_last_subject = subject
+        self.auction_last_specification = specification
         self.auction_count += 1
         return self._factories
