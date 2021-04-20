@@ -6,7 +6,7 @@ from src.interpretation.specification import Specification
 
 class StringViewFactory:
     """Creator of the StringView"""
-    def satisfies(self, specification: Specification) -> bool:
+    def satisfies(self, unused_specification: Specification) -> bool:
         """Test if this view factory can satisfy the specification
 
         Args:

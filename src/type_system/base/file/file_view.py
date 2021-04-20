@@ -39,7 +39,7 @@ class FileView(Gtk.Bin):
         self._file_type_value.set_text(str(file_type))
 
     @Gtk.Template.Callback()
-    def on_choose_clicked(self, _) -> None:
+    def on_choose_clicked(self, unused_sender) -> None:
         """Callback for the button click event"""
         logger.debug('choose clicked')
         dialog = Gtk.FileChooserDialog(

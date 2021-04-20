@@ -25,6 +25,6 @@ class ListItemView(Gtk.Bin):
         return self._item
 
     @Gtk.Template.Callback()
-    def on_preview_clicked(self, _) -> None:
+    def on_preview_clicked(self, unused_sender) -> None:
         """Callback for the button click event"""
         self._click_handler(self)

@@ -11,7 +11,7 @@ class OfferFake:
         self._satisfies = satisfies
         self._coverage = coverage
 
-    def satisfies(self, specification):
+    def satisfies(self, unused_specification):
         return self._satisfies
 
     @property

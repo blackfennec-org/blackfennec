@@ -31,6 +31,6 @@ class MapView(Gtk.Bin):
                 self._preview_click_handler)
             self._item_container.add(item)
 
-    def _preview_click_handler(self, _, route_target) -> None:
+    def _preview_click_handler(self, unused_sender, route_target) -> None:
         """Handles clicks on map items, triggers navigation"""
         self._view_model.navigate_to(route_target)

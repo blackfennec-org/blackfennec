@@ -20,7 +20,7 @@ class NavigationProxy:
         """
         self._interpretation = interpretation
 
-    def navigate(self, sender: Interpretation, destination: Info):
+    def navigate(self, unused_sender: Interpretation, destination: Info):
         """Navigate to destination, sender is ignored.
 
         This function dispatches the navigation request to the configured

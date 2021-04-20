@@ -5,12 +5,13 @@ from src.interpretation.interpretation import Interpretation
 from src.interpretation.interpretation_service import InterpretationService
 from src.interpretation.specification import Specification
 
+
 class MapViewFactory:
     """Creator of the MapView"""
     def __init__(self, interpretation_service: InterpretationService):
         self._interpretation_service = interpretation_service
 
-    def satisfies(self, specification: Specification) -> bool:
+    def satisfies(self, unused_specification: Specification) -> bool:
         """Test if this view factory can satisfy the specification
 
         Args:

@@ -32,7 +32,6 @@ class ColumnBasedPresenterViewModelTestSuite(unittest.TestCase):
         info = InfoMock()
         root_interpretation = InterpretationMock(info)
         parent_interpretation = InterpretationMock(info)
-        child_interpretation = InterpretationMock(info)
         interpretations_queue = deque([
             root_interpretation,
             parent_interpretation])

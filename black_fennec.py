@@ -30,7 +30,7 @@ logger = logging.getLogger(__name__)
 
 
 def populate_type_registry(
-        registry: TypeRegistry, 
+        registry: TypeRegistry,
         interpretation_service: InterpretationService) -> None:
     registry.register_type(BooleanBidder())
     registry.register_type(NumberBidder())
@@ -45,13 +45,10 @@ def populate_type_registry(
 
 
 class BlackFennec(Gtk.Application):
-    def __init__(self, presenter_view, navigation_service):
+    def __init__(self):
         super().__init__(
             application_id='org.darwin.blackfennec')
-        logger.info('BlackFennec __init__')
         self._window: Gtk.Window = None
-        self._presenter_view = presenter_view
-        self._navigation_service = navigation_service
 
         screen = Gdk.Screen.get_default()
         provider = Gtk.CssProvider()
@@ -61,20 +58,28 @@ class BlackFennec(Gtk.Application):
             Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
 
     def do_startup(self):
-        logger.info('BlackFennec do_startup')
         Gtk.Application.do_startup(self)
 
     def do_activate(self):
-        logger.info('BlackFennec do_activate')
         self.set_window(SplashScreenView(self, {}))
-        GLib.timeout_add(200, self.show_main_ui)
+        GLib.timeout_add(100, self.do_setup)
 
-    def show_main_ui(self):
-        logger.debug('show_main_ui')
+    def do_setup(self):
+        logger.debug('do_setup')
+        type_registry = TypeRegistry()
+        auctioneer = Auctioneer(type_registry)
+        interpretation_service = InterpretationService(auctioneer)
+        navigation_service = NavigationService()
+        presenter_view = ColumnBasedPresenterViewFactory() \
+            .create(interpretation_service, navigation_service)
+        presenter = presenter_view._view_model
+        navigation_service.set_presenter(presenter)
+        populate_type_registry(type_registry, interpretation_service)
         view_model = BlackFennecViewModel(
-            self._presenter_view,
-            self._navigation_service)
+            presenter_view,
+            navigation_service)
         black_fennec_view = BlackFennecView(self, view_model)
+        logger.debug('show_main_ui')
         self.set_window(black_fennec_view)
         return False
 
@@ -86,14 +91,5 @@ class BlackFennec(Gtk.Application):
 
 
 if __name__ == '__main__':
-    type_registry = TypeRegistry()
-    auctioneer = Auctioneer(type_registry)
-    interpretation_service = InterpretationService(auctioneer)
-    navigation_service = NavigationService()
-    presenter_view = ColumnBasedPresenterViewFactory() \
-        .create(interpretation_service, navigation_service)
-    presenter = presenter_view._view_model
-    navigation_service.set_presenter(presenter)
-    populate_type_registry(type_registry, interpretation_service)
-    black_fennec = BlackFennec(presenter_view, navigation_service)
+    black_fennec = BlackFennec()
     black_fennec.run()

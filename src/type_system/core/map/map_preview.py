@@ -20,6 +20,6 @@ class MapPreview(Gtk.Bin):
         logger.info('MapPreview created')
 
     @Gtk.Template.Callback()
-    def _click_handler(self, _, __) -> None:
+    def _click_handler(self, unused_sender, unused_argument) -> None:
         """Handles clicks on map items, triggers navigation"""
         self._view_model.navigate_to(self._view_model.value)

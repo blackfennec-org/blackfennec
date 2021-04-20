@@ -7,8 +7,8 @@ class TypeRegistryMock:
     def __init__(self, types=None):
         if type is None:
             self._types = dict()
-            self._types[InfoBidderMock(1)] = InfoViewFactoryMock()
-            self._types[InfoBidderMock(2)] = InfoViewFactoryMock()
+            self._types[InfoBidderMock(coverage=1)] = InfoViewFactoryMock()
+            self._types[InfoBidderMock(coverage=2)] = InfoViewFactoryMock()
         self._types = types
         self.types_getter_count = 0
 
