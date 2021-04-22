@@ -137,3 +137,38 @@ background: none;
 background-color: #515151;
 box-shadow: none;
 }
+
+.map-view label{
+padding: 10px 20px;
+background-image: none;
+}
+
+.map-preview{
+border: none;
+border-radius: 0px;
+padding: 10px 40px;
+background-image: none;
+background-color: #515151;
+border-style: solid;
+border-color: #515151;
+border-width: 1px;
+margin: 0px 1px;
+outline: none;
+box-shadow: none;
+text-decoration: none;
+}
+
+.map-view > * > box:focus{
+border: none;
+background-image: none;
+background-color: #626262;
+border-style: solid;
+border-color: #626262;
+border-width: 1px;
+}
+
+.map-is-active{
+border-style: solid;
+border-color: #4d77fd;
+border-width: 1px;
+}
