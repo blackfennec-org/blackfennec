@@ -208,6 +208,9 @@
                         </child>
                       </object>
                     </child>
+                    <style>
+                      <class name="main-menu-item"/>
+                    </style>
                   </object>
                 </child>
                 <child>
@@ -242,6 +245,9 @@
                         </child>
                       </object>
                     </child>
+                    <style>
+                      <class name="main-menu-item"/>
+                    </style>
                   </object>
                 </child>
                 <child>
@@ -251,6 +257,9 @@
                     <property name="label" translatable="yes">_Go to Store</property>
                     <property name="use-underline">True</property>
                     <signal name="activate" handler="on_go_to_store_clicked" swapped="no"/>
+                    <style>
+                      <class name="main-menu-item"/>
+                    </style>
                   </object>
                 </child>
                 <child>
@@ -260,8 +269,14 @@
                     <property name="label" translatable="yes">_About &amp; Help</property>
                     <property name="use-underline">True</property>
                     <signal name="activate" handler="on_about_and_help_clicked" swapped="no"/>
+                    <style>
+                      <class name="main-menu-item"/>
+                    </style>
                   </object>
                 </child>
+                <style>
+                  <class name="main-menu-bar"/>
+                </style>
               </object>
               <packing>
                 <property name="position">1</property>

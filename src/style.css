@@ -1,7 +1,11 @@
 .main-window {
  font-family: Ubuntu;
  background-color: #515151;
- color:#e4e4e4;
+}
+
+.main-main-grid * {
+border-image: none;
+background-image: none;
 }
 
 .search-entry{
@@ -33,6 +37,11 @@ border-width: 2px;
 }
 
 .main-header-bar {
+background-image: none;
+background-color: #2b2b2b;
+}
+
+.main-menu-bar {
 color: #4d77fd;
 background-image: none;
 background-color: #2b2b2b;
@@ -91,6 +100,10 @@ progressbar > trough > progress {
 
 progressbar > trough  {
 background-color: #fff;
+}
+
+.main-main-grid label{
+color:#e4e4e4;
 }
 
 .main-main-grid > * {
