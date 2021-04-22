@@ -13,7 +13,125 @@
     <property name="default-width">1600</property>
     <property name="default-height">900</property>
     <property name="has-resize-grip">True</property>
-        <child type="titlebar">
+    <child>
+      <!-- n-columns=3 n-rows=3 -->
+      <object class="GtkGrid" id="main-grid">
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
+        <child>
+          <!-- n-columns=3 n-rows=3 -->
+          <object class="GtkGrid">
+            <property name="height-request">449</property>
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <child>
+              <object class="GtkTreeView" id="file_tree">
+                <property name="width-request">287</property>
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="vexpand">True</property>
+                <property name="enable-grid-lines">vertical</property>
+                <child internal-child="selection">
+                  <object class="GtkTreeSelection"/>
+                </child>
+                <style>
+                  <class name="main-file-tree"/>
+                </style>
+              </object>
+              <packing>
+                <property name="left-attach">0</property>
+                <property name="top-attach">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkBox" id="_presenter_container">
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="hexpand">True</property>
+                <property name="orientation">vertical</property>
+                <child>
+                  <placeholder/>
+                </child>
+                <style>
+                  <class name="main-presenter-container"/>
+                </style>
+              </object>
+              <packing>
+                <property name="left-attach">1</property>
+                <property name="top-attach">0</property>
+              </packing>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+          </object>
+          <packing>
+            <property name="left-attach">0</property>
+            <property name="top-attach">1</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkStatusbar" id="statusbar">
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="hexpand">True</property>
+            <property name="vexpand">True</property>
+            <property name="orientation">vertical</property>
+            <property name="spacing">2</property>
+            <style>
+              <class name="main-status-bar"/>
+            </style>
+          </object>
+          <packing>
+            <property name="left-attach">0</property>
+            <property name="top-attach">2</property>
+          </packing>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <style>
+          <class name="main-main-grid"/>
+        </style>
+      </object>
+    </child>
+    <child type="titlebar">
       <object class="GtkBox">
         <property name="visible">True</property>
         <property name="can-focus">False</property>
@@ -90,6 +208,9 @@
                         </child>
                       </object>
                     </child>
+                    <style>
+                      <class name="main-menu-item"/>
+                    </style>
                   </object>
                 </child>
                 <child>
@@ -124,6 +245,9 @@
                         </child>
                       </object>
                     </child>
+                    <style>
+                      <class name="main-menu-item"/>
+                    </style>
                   </object>
                 </child>
                 <child>
@@ -133,6 +257,9 @@
                     <property name="label" translatable="yes">_Go to Store</property>
                     <property name="use-underline">True</property>
                     <signal name="activate" handler="on_go_to_store_clicked" swapped="no"/>
+                    <style>
+                      <class name="main-menu-item"/>
+                    </style>
                   </object>
                 </child>
                 <child>
@@ -142,8 +269,14 @@
                     <property name="label" translatable="yes">_About &amp; Help</property>
                     <property name="use-underline">True</property>
                     <signal name="activate" handler="on_about_and_help_clicked" swapped="no"/>
+                    <style>
+                      <class name="main-menu-item"/>
+                    </style>
                   </object>
                 </child>
+                <style>
+                  <class name="main-menu-bar"/>
+                </style>
               </object>
               <packing>
                 <property name="position">1</property>
@@ -167,6 +300,9 @@
                 <property name="position">2</property>
               </packing>
             </child>
+            <style>
+              <class name="main-header-bar"/>
+            </style>
           </object>
           <packing>
             <property name="expand">False</property>
@@ -176,128 +312,8 @@
         </child>
       </object>
     </child>
-    <child>
-      <object class="GtkGrid" id="main-grid">
-        <property name="visible">True</property>
-        <property name="can-focus">False</property>
-        <child>
-          <object class="GtkGrid">
-            <property name="height-request">449</property>
-            <property name="visible">True</property>
-            <property name="can-focus">False</property>
-            <child>
-              <object class="GtkTreeView" id="file_tree">
-                <property name="width-request">287</property>
-                <property name="visible">True</property>
-                <property name="can-focus">True</property>
-                <property name="vexpand">True</property>
-                <property name="enable-grid-lines">vertical</property>
-                <child internal-child="selection">
-                  <object class="GtkTreeSelection"/>
-                </child>
-                <style>
-                  <class name="file-tree"/>
-                </style>
-              </object>
-              <packing>
-                <property name="left-attach">0</property>
-                <property name="top-attach">0</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkBox" id="_presenter_container">
-                <property name="visible">True</property>
-                <property name="can-focus">False</property>
-                <property name="hexpand">True</property>
-                <property name="orientation">vertical</property>
-                <child>
-                  <object class="GtkImage">
-                    <property name="visible">True</property>
-                    <property name="can-focus">False</property>
-                    <property name="icon-name">document-open</property>
-                  </object>
-                  <packing>
-                    <property name="expand">True</property>
-                    <property name="fill">True</property>
-                    <property name="pack-type">end</property>
-                    <property name="position">0</property>
-                  </packing>
-                </child>
-              </object>
-              <packing>
-                <property name="left-attach">1</property>
-                <property name="top-attach">0</property>
-              </packing>
-            </child>
-            <child>
-              <placeholder/>
-            </child>
-            <child>
-              <placeholder/>
-            </child>
-            <child>
-              <placeholder/>
-            </child>
-            <child>
-              <placeholder/>
-            </child>
-            <child>
-              <placeholder/>
-            </child>
-            <child>
-              <placeholder/>
-            </child>
-            <child>
-              <placeholder/>
-            </child>
-          </object>
-          <packing>
-            <property name="left-attach">0</property>
-            <property name="top-attach">1</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkStatusbar" id="statusbar">
-            <property name="visible">True</property>
-            <property name="can-focus">False</property>
-            <property name="margin-left">10</property>
-            <property name="margin-right">10</property>
-            <property name="margin-start">10</property>
-            <property name="margin-end">10</property>
-            <property name="margin-top">10</property>
-            <property name="margin-bottom">10</property>
-            <property name="hexpand">True</property>
-            <property name="vexpand">True</property>
-            <property name="orientation">vertical</property>
-            <property name="spacing">2</property>
-          </object>
-          <packing>
-            <property name="left-attach">0</property>
-            <property name="top-attach">2</property>
-          </packing>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-      </object>
-    </child>
+    <style>
+      <class name="main-window"/>
+    </style>
   </template>
 </interface>
