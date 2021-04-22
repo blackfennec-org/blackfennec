@@ -1,6 +1,7 @@
 import unittest
 
 from doubles.dummy import Dummy
+from doubles.interpretation.interpretation_service import InterpretationServiceMock
 from src.interpretation.auction import Offer
 from src.structure.map import Map
 from src.structure.string import String
@@ -22,7 +23,7 @@ class ImageBidderTestSuite(unittest.TestCase):
         self.assertEqual(offer, expected_offer)
 
     def test_offer_image_like_structure_of_map(self):
-        map_bidder = MapBidder()
+        map_bidder = MapBidder(InterpretationServiceMock([]))
         image_bidder = ImageBidder()
         subject = Map({
             Image.FILE_PATH_KEY: String('image_path'),

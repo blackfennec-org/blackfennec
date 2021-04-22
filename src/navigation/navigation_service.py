@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
-from src.interpretation.auction.auctioneer import Auctioneer
+import logging
 from src.structure.info import Info
 from src.interpretation.interpretation import Interpretation
-from src.interpretation.interpretation_service import InterpretationService
+
+logger = logging.getLogger(__name__)
 
 
 class NavigationService:
@@ -13,19 +14,20 @@ class NavigationService:
     request to info presenter.
 
     Attributes:
-        _info_presenter (InfoPresenter): stores injected
+        _presenter (InfoPresenter): stores injected
             info presenter
-        _auctioneer (Auctioneer): stores injected auctioneer
     """
-    def __init__(self, info_presenter, auctioneer: Auctioneer):
-        """Navigation Service constructor.
+    def __init__(self):
+        """Navigation Service constructor."""
+        self._presenter = None
+
+    def set_presenter(self, presenter):
+        """Set target for navigation requests
 
         Args:
-            info_presenter (InfoPresenter): info presenter to show navigation
-            auctioneer (Auctioneer): Auctioneer for type resolving
+            presenter: The presenter must have the `show` method
         """
-        self._info_presenter = info_presenter
-        self._auctioneer = auctioneer
+        self._presenter = presenter
 
     def navigate(self, sender: Interpretation, destination: Info):
         """Navigation request dispatch
@@ -38,5 +40,5 @@ class NavigationService:
             sender (Interpretation) Interpretation which invoked navigation
             destination (Info): Destination to which shall be navigated
         """
-        interpreter = InterpretationService(self, self._auctioneer)
-        self._info_presenter.show(sender, destination, interpreter)
+        logger.info('%s requested navigation to %s', sender, destination)
+        self._presenter.show(sender, destination)

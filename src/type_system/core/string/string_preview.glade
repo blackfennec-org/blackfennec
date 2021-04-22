@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with glade 3.38.2 -->
+<interface>
+  <requires lib="gtk+" version="3.24"/>
+  <template class="StringPreview" parent="GtkBin">
+    <property name="visible">True</property>
+    <property name="can-focus">False</property>
+    <child>
+      <object class="GtkTextView" id="_value">
+        <property name="visible">True</property>
+        <property name="can-focus">True</property>
+        <property name="wrap-mode">word</property>
+      </object>
+    </child>
+  </template>
+</interface>

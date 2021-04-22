@@ -22,15 +22,8 @@ class InterpretationServiceTestSuite(unittest.TestCase):
         InterpretationService class are saved to the corresponding internal
         member variable
         """
-        navigation_service = Dummy("nav")
         auctioneer = Dummy("auctioneer")
-        interpreter = InterpretationService(navigation_service, auctioneer)
-        self.assertEqual(
-            interpreter._navigation_service,
-            navigation_service,
-            msg="InterpretationService has not initialized " +
-                "_navigation_service correctly"
-        )
+        interpreter = InterpretationService(auctioneer)
         self.assertEqual(
             interpreter._auctioneer,
             auctioneer,
@@ -45,30 +38,14 @@ class InterpretationServiceTestSuite(unittest.TestCase):
         interpret of the InterpretationService creates the info_view
         as expected, and whether an interpretation is returned
         """
-        navigation_service = Dummy("nav")
         info = Dummy("info")
 
         factories = [InfoViewFactoryMock()]
 
         auctioneer = AuctioneerMock(factories)
-        interpreter = InterpretationService(navigation_service, auctioneer)
+        interpreter = InterpretationService(auctioneer)
         interpretation = interpreter.interpret(info)
-        self.assertIsInstance(
-            interpretation,
-            Interpretation,
-            msg="InterpretationService did not return " +
-                "interpretation after interpreting"
-        )
-        self.assertEqual(
-            factories[0].creation_count,
-            1,
-            msg="InterpretationService did not create info_view from factory"
-        )
-        self.assertEqual(
-            auctioneer.auction_count,
-            1
-        )
-        self.assertEqual(
-            auctioneer.auction_last_subject,
-            info
-        )
+        self.assertIsInstance(interpretation, Interpretation)
+        self.assertIn(factories[0], interpretation._factories)
+        self.assertEqual(1, auctioneer.auction_count)
+        self.assertEqual(info, auctioneer.auction_last_subject)

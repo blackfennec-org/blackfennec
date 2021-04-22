@@ -18,13 +18,13 @@ class BlackFennecView(Gtk.ApplicationWindow):
         self._presenter_container.show_all()
 
     @Gtk.Template.Callback()
-    def on_new_clicked(self, _) -> None:
+    def on_new_clicked(self, unused_sender) -> None:
         """Callback for the button click event"""
         self._view_model.new()
         logger.debug('new clicked')
 
     @Gtk.Template.Callback()
-    def on_open_clicked(self, _) -> None:
+    def on_open_clicked(self, unused_sender) -> None:
         """Callback for the button click event"""
         logger.debug('open clicked')
         dialog = Gtk.FileChooserDialog(
@@ -50,31 +50,31 @@ class BlackFennecView(Gtk.ApplicationWindow):
 
 
     @Gtk.Template.Callback()
-    def on_quit_clicked(self, _) -> None:
+    def on_quit_clicked(self, unused_sender) -> None:
         """Callback for the button click event"""
         self._view_model.quit()
         logger.debug('quit clicked')
 
     @Gtk.Template.Callback()
-    def on_save_clicked(self, _) -> None:
+    def on_save_clicked(self, unused_sender) -> None:
         """Callback for the button click event"""
         self._view_model.save()
         logger.debug('save clicked')
 
     @Gtk.Template.Callback()
-    def on_save_as_clicked(self, _) -> None:
+    def on_save_as_clicked(self, unused_sender) -> None:
         """Callback for the button click event"""
         self._view_model.save_as()
         logger.debug('save as clicked')
 
     @Gtk.Template.Callback()
-    def on_go_to_store_clicked(self, _) -> None:
+    def on_go_to_store_clicked(self, unused_sender) -> None:
         """Callback for the button click event"""
         self._view_model.go_to_store()
         logger.debug('go to store clicked')
 
     @Gtk.Template.Callback()
-    def on_about_and_help_clicked(self, _) -> None:
+    def on_about_and_help_clicked(self, unused_sender) -> None:
         """Callback for the button click event"""
         self._view_model.about_and_help()
         logger.debug('about and help clicked')

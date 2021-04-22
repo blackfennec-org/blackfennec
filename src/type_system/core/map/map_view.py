@@ -24,10 +24,13 @@ class MapView(Gtk.Bin):
 
     def _populate_items(self) -> None:
         """Populates the list that displays the map items"""
-        for key, value in self._view_model.value.items():
-            map_item_view = MapItemView(key, value, self._preview_click_handler)
-            self._item_container.add(map_item_view)
+        for key, substructure in self._view_model.value.items():
+            preview = self._view_model.create_preview(substructure)
+            item = MapItemView(
+                key, preview,
+                self._preview_click_handler)
+            self._item_container.add(item)
 
-    def _preview_click_handler(self, _, route_target) -> None:
+    def _preview_click_handler(self, unused_sender, route_target) -> None:
         """Handles clicks on map items, triggers navigation"""
         self._view_model.navigate_to(route_target)

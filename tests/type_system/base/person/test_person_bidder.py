@@ -1,6 +1,7 @@
 import unittest
 
 from doubles.dummy import Dummy
+from doubles.interpretation.interpretation_service import InterpretationServiceMock
 from src.type_system.base.person.person_bidder import PersonBidder
 from src.interpretation.auction import Offer
 from src.structure.map import Map
@@ -20,7 +21,7 @@ class PersonBidderTestSuite(unittest.TestCase):
         self.assertEqual(offer, expected_offer)
 
     def test_offer_person_like_structure(self):
-        map_bidder = MapBidder()
+        map_bidder = MapBidder(InterpretationServiceMock([]))
         person_bidder = PersonBidder()
         subject = Map({
             'courtesy_title': String('courtesy_title'),

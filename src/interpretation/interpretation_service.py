@@ -2,7 +2,9 @@
 import logging
 
 from src.structure.info import Info
+from src.interpretation.auction.auctioneer import Auctioneer
 from src.interpretation.interpretation import Interpretation
+from src.interpretation.specification import Specification
 
 logger = logging.getLogger(__name__)
 
@@ -18,67 +20,32 @@ class InterpretationService:
             navigation service
         _auctioneer (Auctioneer): stores injected auctioneer
     """
-    def __init__(self, navigation_service, auctioneer):
-        """Interpretation constructor.
+    def __init__(self, auctioneer: Auctioneer):
+        """Constructor of interpretation service
 
         Args:
-            navigation_service (NavigationService): service to navigate
-            auctioneer (Auctioneer): Auctioneer returning list
-                of factories, used to create info_view
+            auctioneer (Auctioneer): selects the best offer based on the
+                registered types.
         """
-        self._navigation_service = navigation_service
         self._auctioneer = auctioneer
 
-    def _retrieve_factories(self, subject: Info):
-        """Retrieval of factories
-
-        Start auction on auctioneer to receive list of factories
-
-        Args:
-            subject (Info): Target to which shall be navigated
-        """
-        factories = self._auctioneer.auction(subject)
-        return factories
-
-    def _create_info_views(self, info, interpretation):
-        """Internal function to create info_views.
-
-        Creates info_views.
+    def interpret(self, structure: Info,
+            specification: Specification= None) -> Interpretation:
+        """Interpret the given structure follwing the a specification
 
         Args:
-            info (Info): Info to create info_views to
-            interpretation (Interpretation): interpretation with which
-                the info_views are created
+            structure (Info): The structure to be interpreted
+            specification (Specification, optional): The specification
+                to be followed. Defaults to default constructed Specification.
 
         Returns:
-            [InfoView]: created with factories passed to interpretation_service
+            Interpretation: Represents what black fennec believes to be
+                the meaning of the structure.
         """
-        info_views = []
-        for factory in self._retrieve_factories(info):
-            info_views.append(factory.create(interpretation))
-            logger.debug(
-                'creating info_view with factory %s',
-                factory
-            )
-        return info_views
+        if specification is None:
+            specification = Specification()
 
-    def interpret(self, info: Info) -> Interpretation:
-        """interpretation creation function.
-
-        Creates Interpretation with created info_view
-
-        Args:
-            info (Info): info to create interpretation from
-
-        Returns:
-            Interpretation: including created info_views
-        """
-        interpretation = Interpretation(self._navigation_service, info)
-        info_views = self._create_info_views(info, interpretation)
-        logger.debug(
-            'creating interpretation of info %s with views %s',
-            info,
-            info_views
-        )
-        interpretation.info_views = info_views
+        factories = self._auctioneer.auction(structure, specification)
+        assert len(factories) == 1, 'cannot currently handle multiple factores'
+        interpretation = Interpretation(structure, specification, factories)
         return interpretation

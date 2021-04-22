@@ -2,33 +2,24 @@
 import unittest
 
 from doubles.presentation.info_presenter import InfoPresenterMock
-from doubles.interpretation.auction.auctioneer import AuctioneerMock
 from doubles.dummy import Dummy
 from src.navigation.navigation_service import NavigationService
 
 
 class NavigationServiceTestSuite(unittest.TestCase):
     def test_create_navigation_service(self):
-        info_presenter = Dummy('InfoPresenter')
-        auctioneer = Dummy('Auctioneer')
-        NavigationService(info_presenter, auctioneer)
+        presenter = Dummy('InfoPresenter')
+        navigation_service = NavigationService()
+        navigation_service.set_presenter(presenter)
+        self.assertEqual(presenter, navigation_service._presenter)
 
     def test_navigate(self):
         sender = Dummy('Interpretation')
         destination = Dummy('Info')
-        auctioneer = AuctioneerMock()
-        info_presenter = InfoPresenterMock()
-        navigation_service = NavigationService(info_presenter, auctioneer)
+        presenter = InfoPresenterMock()
+        navigation_service = NavigationService()
+        navigation_service.set_presenter(presenter)
         navigation_service.navigate(sender, destination)
-        self.assertEqual(
-            info_presenter.show_count,
-            1
-        )
-        self.assertEqual(
-            info_presenter.show_last_sender,
-            sender
-        )
-        self.assertEqual(
-            info_presenter.show_last_destination,
-            destination
-        )
+        self.assertEqual(1, presenter.show_count)
+        self.assertEqual(sender, presenter.show_last_sender)
+        self.assertEqual(presenter.show_last_destination, destination)

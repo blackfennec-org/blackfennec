@@ -332,12 +332,22 @@ class OfferTestSuite(unittest.TestCase):
             subject,
             specificity=1,
             template=subject,
-            type_view_factory=Dummy('InfoFactory')
-        )
+            type_view_factory=Dummy('InfoFactory'))
         other_offer = Offer(
             subject,
             specificity=1,
             template=subject,
-            type_view_factory=Dummy('InfoFactory')
-        )
+            type_view_factory=Dummy('InfoFactory'))
         self.assertEqual(hash(offer), hash(other_offer))
+
+    def test_representation(self):
+        factory = Dummy('InfoFactory')
+        subject = InfoMock('Info')
+        offer = Offer(
+            subject,
+            specificity=1,
+            template=subject,
+            type_view_factory=factory)
+        representation = repr(offer)
+        factory_representation = repr(factory)
+        self.assertIn(factory_representation, representation)

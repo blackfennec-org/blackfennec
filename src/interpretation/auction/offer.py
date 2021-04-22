@@ -7,6 +7,7 @@ from src.structure.list import List
 from src.structure.map import Map
 from src.structure.string import String
 from src.util.comparable import Comparable
+from src.interpretation.specification import Specification
 
 logger = logging.getLogger(__name__)
 
@@ -44,6 +45,18 @@ class Offer(Comparable):
         self._view_factory = type_view_factory
         self._template = template
         self._coverage = None
+
+    def satisfies(self, specification: Specification):
+        """Evaluates this offers capability to satisfy a given specification.
+
+        Args:
+            specification (Specification): The specification which must be
+                satisfyable for this function to return true.
+
+        Returns:
+            bool: True iff specification can be satisfied. Otherwise False.
+        """
+        return self._view_factory.satisfies(specification)
 
     @property
     def subject(self) -> Info:
@@ -175,6 +188,7 @@ class Offer(Comparable):
         """
         if self._coverage:
             return self._coverage
+
         subject_node_count, template_node_count = self._calculate_coverage(
             self.subject,
             self.template
@@ -248,3 +262,6 @@ class Offer(Comparable):
 
     def __hash__(self):
         return hash((self.coverage, self.specificity, self.subject))
+
+    def __repr__(self):
+        return 'Offer(%s)' % self._view_factory
