@@ -8,11 +8,11 @@
 [MASTER]
 
 # Files or directories to be skipped. They should be base names, not paths.
-ignore=third_party,.gitlab,.venv,venv,.vscode,doubles
+ignore=third_party,.gitlab,.venv,venv,.vscode
 
 # Files or directories matching the regex patterns are skipped. The regex
 # matches against base names, not paths.
-ignore-patterns=^\..*/**/*.py$,^test\_.*$
+ignore-patterns=^\..*$,^(test|double)\_.*$
 
 # Pickle collected data for later comparisons.
 persistent=no
@@ -145,7 +145,8 @@ disable=abstract-method,
         xrange-builtin,
         zip-builtin-not-iterating,
         missing-module-docstring,
-        protected-access,
+        useless-param-doc,
+        useless-type-doc
 
 
 [REPORTS]

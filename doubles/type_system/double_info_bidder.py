@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from doubles.interpretation.auction.offer import OfferFake
+from doubles.interpretation.auction.double_offer import OfferFake
 
 
 class InfoBidderMock:
