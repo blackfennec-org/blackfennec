@@ -8,11 +8,7 @@
 [MASTER]
 
 # Files or directories to be skipped. They should be base names, not paths.
-<<<<<<< Updated upstream
-ignore=third_party,.gitlab
-=======
 ignore=third_party,.gitlab,.venv,venv,.vscode,doubles
->>>>>>> Stashed changes
 
 # Files or directories matching the regex patterns are skipped. The regex
 # matches against base names, not paths.
