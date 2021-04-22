@@ -1,6 +1,6 @@
 import unittest
 
-from doubles.dummy import Dummy
+from doubles.double_dummy import Dummy
 from src.interpretation.auction import Offer
 from src.structure.list import List
 from src.type_system.core.list.list_bidder import ListBidder

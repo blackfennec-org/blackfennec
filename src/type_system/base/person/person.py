@@ -11,6 +11,14 @@ logger = logging.getLogger(__name__)
 
 
 class Person:
+    """Person BaseType Class
+
+    Helper class used by the person view_model representing
+    the actual type 'Person'.
+    Can be used by other classes as a helper to be able to
+    include persons in a overlaying datatype.
+    """
+
     def __init__(self, map_interpretation: Map = Map()):
         """Person Constructor
 
@@ -30,7 +38,7 @@ class Person:
             key (str): Key of value to check
 
         Returns:
-            : Value at key in map
+            Info: Value at key in map
         """
         if key not in self._data:
             return None

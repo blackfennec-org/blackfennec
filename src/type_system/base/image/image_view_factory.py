@@ -21,13 +21,13 @@ class ImageViewFactory:
         return not specification.is_request_for_preview
 
     def create(self, interpretation: Interpretation,
-            _: Specification) -> ImageView:
+               _: Specification) -> ImageView:
         """creates a ImageView
 
         Args:
             interpretation (Interpretation): The overarching
                 interpretation.
-            specification (Specification): The specification which can fine
+            _ (Specification): The specification which can fine
                 tune the creation function.
 
         Returns:

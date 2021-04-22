@@ -1,8 +1,8 @@
 import unittest
 import logging
 
-from doubles.dummy import Dummy
-from doubles.navigation.navigation_service import NavigationServiceMock
+from doubles.double_dummy import Dummy
+from doubles.navigation.double_navigation_service import NavigationServiceMock
 from src.visualisation.main_window.black_fennec_view_model import BlackFennecViewModel
 
 

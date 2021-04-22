@@ -6,7 +6,23 @@ logger = logging.getLogger(__name__)
 
 
 class BlackFennecViewModel:
+    """BlackFennec MainWindow view_model.
+
+    view_model to which views can dispatch calls
+    that include business logic.
+
+    Attributes:
+        _presenter (InfoPresenter): stores injected presenter
+        _navigation_service (NavigationService): stores injected
+            navigation service
+    """
     def __init__(self, presenter, navigation_service):
+        """BlackFennecViewModel constructor.
+
+        Args:
+            presenter (InfoPresenter): presenter
+            presenter (navigation_service): navigation service
+        """
         logger.info('BlackFennecViewModel __init__')
         self._presenter = presenter
         self._navigation_service = navigation_service
@@ -19,8 +35,13 @@ class BlackFennecViewModel:
         """Future implementation of new()"""
         logger.warning('new() not yet implemented')
 
-    def open(self, filename):
-        """Future implementation of open()"""
+    def open(self, filename: str):
+        """Opens a file
+        specified by the filename
+
+        Args:
+            filename (str): Path of the file to open
+        """
 
         with open(filename, 'r') as file:
             raw = json.load(file)

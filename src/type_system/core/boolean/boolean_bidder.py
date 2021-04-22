@@ -18,6 +18,10 @@ class BooleanBidder:
         Args:
             subject (:obj:`Info`): The Info for which an
                 offer should be produced.
+
+        Returns:
+            Offer: Offer that this type offers for
+                the received subject.
         """
         logger.info('bidding on object')
         return Offer(subject, 0, Boolean(), BooleanViewFactory())

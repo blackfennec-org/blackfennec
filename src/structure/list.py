@@ -57,6 +57,10 @@ class List(Info, UserList):
 
         Args:
             item (Info): Item to remove.
+
+        Raises:
+            KeyError: If the item passed is not in
+                list and hence cannot be removed.
         """
         if item not in self:
             message = "item not in list"

@@ -1,10 +1,10 @@
 import unittest
 from collections import deque
-from doubles.dummy import Dummy
-from doubles.interpretation.interpretation import InterpretationMock
-from doubles.interpretation.interpretation_service import InterpretationServiceMock
-from doubles.structure.info import InfoMock
-from doubles.structure.map import MapMock
+from doubles.double_dummy import Dummy
+from doubles.interpretation.double_interpretation import InterpretationMock
+from doubles.interpretation.double_interpretation_service import InterpretationServiceMock
+from doubles.structure.double_info import InfoMock
+from doubles.structure.double_map import MapMock
 from src.type_system.core.map.map_view_model import MapViewModel
 
 

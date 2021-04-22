@@ -1,8 +1,8 @@
 import unittest
 
-from doubles.dummy import Dummy
-from doubles.presentation.info_presenter import InfoPresenterMock
-from doubles.interpretation.interpretation_service import InterpretationServiceMock
+from doubles.double_dummy import Dummy
+from doubles.presentation.double_info_presenter import InfoPresenterMock
+from doubles.interpretation.double_interpretation_service import InterpretationServiceMock
 from src.interpretation.interpretation import Interpretation
 from src.navigation.navigation_service import NavigationService
 from src.structure.list import List

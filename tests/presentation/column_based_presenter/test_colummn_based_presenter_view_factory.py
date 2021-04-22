@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import unittest
-from doubles.dummy import Dummy
+from doubles.double_dummy import Dummy
 from src.presentation.column_based_presenter.column_based_presenter_view import ColumnBasedPresenterView
 from src.presentation.column_based_presenter.column_based_presenter_view_factory import ColumnBasedPresenterViewFactory
 

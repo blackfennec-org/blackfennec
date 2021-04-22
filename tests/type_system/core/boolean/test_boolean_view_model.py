@@ -1,7 +1,7 @@
 import unittest
 
-from doubles.interpretation.interpretation import InterpretationMock
-from doubles.structure.boolean import BooleanMock
+from doubles.interpretation.double_interpretation import InterpretationMock
+from doubles.structure.double_boolean import BooleanMock
 from src.type_system.core.boolean.boolean_view_model import BooleanViewModel
 
 

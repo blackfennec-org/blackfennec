@@ -20,6 +20,10 @@ class PersonBidder:
         Args:
             subject (Info): The Info for which an
                 offer should be produced.
+
+        Returns:
+            Offer: Offer that this type offers for
+                the received subject.
         """
         logger.info('bidding on object')
         template = Map()

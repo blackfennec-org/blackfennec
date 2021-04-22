@@ -37,7 +37,7 @@ class NavigationService:
         of the received interpretation_service
 
         Args:
-            sender (Interpretation) Interpretation which invoked navigation
+            sender (Interpretation): Interpretation which invoked navigation
             destination (Info): Destination to which shall be navigated
         """
         logger.info('%s requested navigation to %s', sender, destination)
