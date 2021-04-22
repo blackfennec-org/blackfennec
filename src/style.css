@@ -74,6 +74,9 @@ border-style: solid;
 border-color: #515151;
 border-width: 2px;
 margin: 0px 1px;
+outline: none;
+box-shadow: none;
+text-decoration: none;
 }
 
 .column-based-presenter button:hover{
@@ -94,6 +97,14 @@ border-color: #4d77fd;
 border-width: 2px;
 }
 
+.column-based-presenter > * > box {
+border-style: solid;
+border-color: #464545;
+border-width: 0px 2px 0px 0px;
+background-color: #515151;
+}
+
+
 progressbar > trough > progress {
     background-color: #4d77fd;
 }
@@ -104,6 +115,9 @@ background-color: #fff;
 
 .main-main-grid label{
 color:#e4e4e4;
+text-shadow: none;
+text-decoration: none;
+outline: none;
 }
 
 .main-main-grid > * {
@@ -111,4 +125,15 @@ border-image: none;
 border-style: solid;
 border-color: #464646;
 border-width: 2px;
+}
+
+menuitem:hover {
+background: none;
+box-shadow: inset 0px -3px #4d77fd;
+}
+
+menuitem *:hover {
+background: none;
+background-color: #515151;
+box-shadow: none;
 }
