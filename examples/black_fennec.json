@@ -1,28 +1,25 @@
 {
-    "Project Name": "Back Fennec",
-    "Is Active": true,
-    "Rating": 5,
+    "Project Name": "Black Fennec",
     "Logo": {
         "file_path": "logo.jpg",
         "file_type": "image/jpg"
     },
-    "address": {
+    "Address": {
         "file_path": "address_test.json",
         "file_type": "application/json"
     },
-    "Team": [
-        {
-            "First Name": "Lara"
-        },
-        {
-            "First Name": "Leonie"
-        },
-        {
+    "Roles": {
+        "Quality Control": {
             "First Name": "Caspar"
         },
-        {
+        "Scrum Master": {
+            "First Name": "Lara"
+        },
+        "User Experience": {
+            "First Name": "Leonie"
+        },
+        "Product Owner": {
             "First Name": "Simon"
         }
-    ],
-    "Repository": "https://gitlab.ost.ch/epj/2021-FS/g01_blackfennec/black-fennec"
+    }
 }

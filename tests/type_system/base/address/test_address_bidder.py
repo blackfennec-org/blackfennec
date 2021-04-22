@@ -1,6 +1,7 @@
 import unittest
 
 from doubles.dummy import Dummy
+from doubles.interpretation.interpretation_service import InterpretationServiceMock
 from src.interpretation.auction import Offer
 from src.structure.map import Map
 from src.structure.string import String
@@ -20,7 +21,7 @@ class AddressBidderTestSuite(unittest.TestCase):
         self.assertEqual(offer, expected_offer)
 
     def test_offer_address_like_structure(self):
-        map_bidder = MapBidder()
+        map_bidder = MapBidder(InterpretationServiceMock([]))
         address_bidder = AddressBidder()
         subject = Map({
             'first_name': String('first_name'),

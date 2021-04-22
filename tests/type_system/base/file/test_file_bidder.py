@@ -1,6 +1,7 @@
 import unittest
 
 from doubles.dummy import Dummy
+from doubles.interpretation.interpretation_service import InterpretationServiceMock
 from src.interpretation.auction import Offer
 from src.structure.map import Map
 from src.structure.string import String
@@ -21,7 +22,7 @@ class FileBidderTestSuite(unittest.TestCase):
         self.assertEqual(offer, expected_offer)
 
     def test_offer_file_like_structure(self):
-        map_bidder = MapBidder()
+        map_bidder = MapBidder(InterpretationServiceMock([]))
         file_bidder = FileBidder()
         subject = Map({
             File.FILE_PATH_KEY: String('file_path'),

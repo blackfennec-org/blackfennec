@@ -6,6 +6,7 @@
     <property name="visible">True</property>
     <property name="can-focus">False</property>
     <property name="hexpand">True</property>
+    <property name="vexpand">True</property>
     <child>
       <object class="GtkBox" id="_empty_list_pattern">
         <property name="visible">True</property>
@@ -44,6 +45,9 @@ Open or Create new project</property>
             <property name="position">1</property>
           </packing>
         </child>
+        <style>
+          <class name="empty-list-pattern"/>
+        </style>
       </object>
       <packing>
         <property name="expand">False</property>
@@ -51,5 +55,8 @@ Open or Create new project</property>
         <property name="position">0</property>
       </packing>
     </child>
+    <style>
+      <class name="column-based-presenter"/>
+    </style>
   </template>
 </interface>

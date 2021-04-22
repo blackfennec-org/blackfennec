@@ -1,141 +1,84 @@
 # -*- coding: utf-8 -*-
-"""InterpretationService Tests.
+'''InterpretationService Tests.
 
-This module contains the unit-tests of the Interpretation class."""
+This module contains the unit-tests of the Interpretation class.'''
 
 import unittest
 
 from doubles.dummy import Dummy
+from doubles.type_system.info_view_factory import InfoViewFactoryMock
 from doubles.navigation.navigation_service import NavigationServiceMock
 from src.interpretation.interpretation import Interpretation
 
 
 class InterpretationTestSuite(unittest.TestCase):
-    """Class containing the TestSuite with the individual unit-tests."""
-
     def test_create_interpretation(self):
-        """InterpretationService instantiation test.
+        info = Dummy('info')
+        specification = Dummy('specification')
+        factories = Dummy('factories')
+        interpretation = Interpretation(info, specification, factories)
+        self.assertIsNotNone(interpretation)
 
-        This unit-test tests whether all constructor arguments of the
-        Interpretation class are saved to the corresponding internal
-        member variable
-        """
-        navigation_service = Dummy("nav")
-        info = Dummy("info")
-        interpretation = Interpretation(navigation_service, info)
-        self.assertEqual(
-            interpretation._navigation_service,
-            navigation_service,
-            msg="Interpretation has not initialized" +
-                " _navigation_service correctly"
-        )
-        self.assertEqual(
-            interpretation._info,
-            info,
-            msg="Interpretation has not initialized " +
-                "_info correctly"
-        )
-        self.assertEqual(
-            interpretation._info_views,
-            [],
-            msg="Interpretation has not initialized " +
-                "_info_view correctly"
-        )
 
     def test_info_getter(self):
-        """InterpretationService.info getter test.
-
-        This unit-test tests whether the info getter
-        returns the expected value."""
-        navigation_service = Dummy("nav")
-        info = Dummy("info")
-        interpretation = Interpretation(navigation_service, info)
-        self.assertEqual(
-            interpretation.info,
-            info,
-            msg="Interpretation info getter has not " +
-                "returned passed info correctly"
-        )
-
-    def test_info_view_setter(self):
-        """InterpretationService.info_view getter test.
-
-        This unit-test tests whether the info_view getter
-        returns the expected value."""
-        navigation_service = Dummy("nav")
-        info = Dummy("info")
-        info_views = Dummy("info_view")
-        interpretation = Interpretation(navigation_service, info)
-        interpretation.info_views = info_views
-        self.assertEqual(
-            interpretation.info_views,
-            info_views,
-            msg="Interpretation info_view getter has not" +
-                " returned passed info_view correctly"
-        )
-
-    def test_info_view_getter(self):
-        """InterpretationService.info_view getter test.
-
-        This unit-test tests whether the info_view getter
-        returns the expected value."""
-        navigation_service = Dummy("nav")
-        info = Dummy("info")
-        info_views = Dummy("info_view")
-        interpretation = Interpretation(navigation_service, info)
-        interpretation.info_views = info_views
-        self.assertEqual(
-            interpretation.info_views,
-            info_views,
-            msg="Interpretation info_view getter has not" +
-                " returned passed info_view correctly"
-        )
+        info = Dummy('info')
+        specification = Dummy('specification')
+        factories = Dummy('factories')
+        interpretation = Interpretation(info, specification, factories)
+        self.assertEqual(info, interpretation.info)
 
     def test_view_getter(self):
-        """InterpretationService.view getter test.
+        info = Dummy('info')
+        view = Dummy('view')
+        specification = Dummy('specification')
+        factories = [InfoViewFactoryMock(view=view)]
+        interpretation = Interpretation(info, specification, factories)
+        self.assertEqual(view, interpretation.view)
 
-        This unit-test tests whether the view getter
-        returns the expected value."""
-        navigation_service = Dummy("nav")
-        info = Dummy("info")
-        info_views = [Dummy("info_view")]
-        interpretation = Interpretation(navigation_service, info)
-        interpretation.info_views = info_views
-        view = interpretation.view
-        self.assertEqual(
-            view,
-            info_views[0],
-            msg="Interpretation view getter has not" +
-                " returned passed info_view correctly"
-        )
-
-    def test_navigation(self):
-        """InterpretationService.navigate function test.
-
-        This unit-test tests whether the member function
-        navigate of the Interpretation dispatches the
-        navigation as expected to the NavigationService.
-        """
+    def test_navigation_sender_is_interpretation(self):
+        info = Dummy('info')
+        specification = Dummy('specification')
+        factories = Dummy('factories')
+        interpretation = Interpretation(info, specification, factories)
         navigation_service = NavigationServiceMock()
-        info = Dummy("info")
-        destination = Dummy("destination")
-        interpretation = Interpretation(navigation_service, info)
+        interpretation.set_navigation_service(navigation_service)
+        destination = Dummy('destination')
         interpretation.navigate(destination)
-        self.assertEqual(
-            navigation_service.sender,
-            interpretation,
-            msg="Interpretation has not executed navigate function " +
-                "on NavigationService with the sender argument"
-        )
-        self.assertEqual(
-            navigation_service.destination,
-            destination,
-            msg="Interpretation has not executed navigate function " +
-                "on NavigationService with the destination argument"
-        )
-        self.assertEqual(
-            navigation_service.navigation_count,
-            1,
-            msg="Interpretation has not executed navigate function " +
-                "on NavigationService the amount expected"
-        )
+        self.assertEqual(navigation_service.sender, interpretation)
+
+    def test_navigation_destination_is_argument(self):
+        info = Dummy('info')
+        specification = Dummy('specification')
+        factories = Dummy('factories')
+        interpretation = Interpretation(info, specification, factories)
+        navigation_service = NavigationServiceMock()
+        interpretation.set_navigation_service(navigation_service)
+        destination = Dummy('destination')
+        interpretation.navigate(destination)
+        self.assertEqual(navigation_service.destination, destination)
+
+    def test_navigation_request_is_dispatched(self):
+        info = Dummy('info')
+        specification = Dummy('specification')
+        factories = Dummy('factories')
+        interpretation = Interpretation(info, specification, factories)
+        navigation_service = NavigationServiceMock()
+        interpretation.set_navigation_service(navigation_service)
+        destination = Dummy('destination')
+        interpretation.navigate(destination)
+        self.assertEqual(1, navigation_service.navigation_count)
+
+    def test_set_navigation_service(self):
+        info = Dummy('info')
+        specification = Dummy('specification')
+        factories = Dummy('factories')
+        destination = Dummy('destination')
+        interpretation = Interpretation(info, specification, factories)
+        navigation_service1 = NavigationServiceMock()
+        interpretation.set_navigation_service(navigation_service1)
+        interpretation.navigate(destination)
+        navigation_service2 = NavigationServiceMock()
+        interpretation.set_navigation_service(navigation_service2)
+        interpretation.navigate(destination)
+        self.assertEqual(1, navigation_service1.navigation_count)
+        self.assertEqual(1, navigation_service2.navigation_count)
