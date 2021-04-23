@@ -21,4 +21,5 @@ class DateTimeRangeBidder:
                 offer should be produced.
         """
 
-        return Offer(subject, 1, DateTimeRange.TEMPLATE, DateTimeRangeViewFactory())
+        return Offer(subject, 1, DateTimeRange.TEMPLATE,
+                     DateTimeRangeViewFactory())

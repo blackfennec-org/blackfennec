@@ -38,19 +38,23 @@ class DateTimeRange:
         """
         if DateTimeRange.START_KEY not in structure:
             default_start_time: datetime = datetime.min
-            structure[DateTimeRange.START_KEY] = String(default_start_time.isoformat())
+            structure[DateTimeRange.START_KEY] = \
+                String(default_start_time.isoformat())
 
         if DateTimeRange.END_KEY not in structure:
             default_end_time: datetime = datetime.max
-            structure[DateTimeRange.END_KEY] = String(default_end_time.isoformat())
+            structure[DateTimeRange.END_KEY] = \
+                String(default_end_time.isoformat())
 
         self._data: Map = structure
 
     @property
     def date_time_start(self) -> datetime:
-        date_time_start_string: String = self._data[DateTimeRange.START_KEY]
+        date_time_start_string: String = \
+            self._data[DateTimeRange.START_KEY]
         try:
-            value: datetime = datetime.fromisoformat(date_time_start_string.value)
+            value: datetime = \
+                datetime.fromisoformat(date_time_start_string.value)
         except ValueError:
             logger.error('could not parse start date time format')
             value: datetime = datetime.min

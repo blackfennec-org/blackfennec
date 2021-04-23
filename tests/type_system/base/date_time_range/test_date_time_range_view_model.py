@@ -23,7 +23,8 @@ class DateTimeRangeViewModelTestSuite(unittest.TestCase):
 
         data_map = MapMock(data)
         view_model = DateTimeRangeViewModel(InterpretationMock(data_map))
-        date_time_start = datetime.fromisoformat(data[DateTimeRange.START_KEY].value)
+        date_time_start = \
+            datetime.fromisoformat(data[DateTimeRange.START_KEY].value)
         self.assertEqual(view_model.date_time_start, date_time_start)
 
     def test_date_time_start_setter(self):
@@ -37,8 +38,10 @@ class DateTimeRangeViewModelTestSuite(unittest.TestCase):
         data[DateTimeRange.END_KEY] = StringMock(datetime.now().isoformat())
 
         data_map = MapMock(data)
-        view_model = DateTimeRangeViewModel(InterpretationMock(data_map))
-        date_time_end = datetime.fromisoformat(data[DateTimeRange.END_KEY].value)
+        view_model = \
+            DateTimeRangeViewModel(InterpretationMock(data_map))
+        date_time_end = \
+            datetime.fromisoformat(data[DateTimeRange.END_KEY].value)
         self.assertEqual(view_model.date_time_end, date_time_end)
 
     def test_date_time_end_setter(self):

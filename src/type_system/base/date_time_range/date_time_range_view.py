@@ -8,7 +8,8 @@ from src.type_system.base.date_time_range.date_time_range_view_model import Date
 logger = logging.getLogger(__name__)
 
 
-@Gtk.Template(filename='src/type_system/base/date_time_range/date_time_range_view.glade')
+@Gtk.Template(filename=
+              'src/type_system/base/date_time_range/date_time_range_view.glade')
 class DateTimeRangeView(Gtk.Bin):
     """View for the core type DateTimeRange."""
 
