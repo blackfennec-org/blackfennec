@@ -167,7 +167,7 @@ border-color: #626262;
 border-width: 1px;
 }
 
-.map-is-active{
+.is-active {
 border-style: solid;
 border-color: #4d77fd;
 border-width: 1px;
