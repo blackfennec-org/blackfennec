@@ -1,6 +1,6 @@
 import unittest
 
-from doubles.interpretation.interpretation_service import InterpretationServiceMock
+from doubles.interpretation.double_interpretation_service import InterpretationServiceMock
 from src.interpretation.auction.auctioneer import Auctioneer
 from src.interpretation.specification import Specification
 from src.structure.boolean import Boolean

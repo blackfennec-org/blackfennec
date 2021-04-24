@@ -1,7 +1,7 @@
 import unittest
 
-from doubles.dummy import Dummy
-from doubles.interpretation.interpretation_service import InterpretationServiceMock
+from doubles.double_dummy import Dummy
+from doubles.interpretation.double_interpretation_service import InterpretationServiceMock
 from src.type_system.base.person.person_bidder import PersonBidder
 from src.interpretation.auction import Offer
 from src.structure.map import Map

@@ -9,6 +9,14 @@ logger = logging.getLogger(__name__)
 
 
 class DateTime:
+    """DateTime BaseType Class
+
+    Helper class used by the date time view_model representing
+    the actual type 'DateTime'.
+    Can be used by other classes as a helper to be able to
+    include date times in a overlaying datatype.
+    """
+
     DATE_TIME_KEY = 'date_time'
     ACCURACY_KEY = 'accuracy'
 

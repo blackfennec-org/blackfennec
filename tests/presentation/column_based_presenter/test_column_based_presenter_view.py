@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 import unittest
 
-from doubles.interpretation.interpretation import InterpretationMock
-from doubles.presentation.column_based_presenter.column_based_presenter_view_model import ColumnBasedPresenterViewModelMock
-from doubles.type_system.info_view import InfoViewDummy
+from doubles.interpretation.double_interpretation import InterpretationMock
+from doubles.presentation.column_based_presenter.double_column_based_presenter_view_model import ColumnBasedPresenterViewModelMock
+from doubles.type_system.double_info_view import InfoViewDummy
 from src.presentation.column_based_presenter.column_based_presenter_view import ColumnBasedPresenterView
 
 

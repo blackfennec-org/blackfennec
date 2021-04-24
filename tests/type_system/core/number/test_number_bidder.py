@@ -1,6 +1,6 @@
 import unittest
 
-from doubles.dummy import Dummy
+from doubles.double_dummy import Dummy
 from src.interpretation.auction import Offer
 from src.structure.number import Number
 from src.type_system.core.number.number_bidder import NumberBidder

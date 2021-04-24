@@ -8,6 +8,13 @@ logger = logging.getLogger(__name__)
 
 
 class Address:
+    """Address BaseType Class
+
+    Helper class used by the address view_model representing
+    the actual type 'Address'.
+    Can be used by other classes as a helper to be able to
+    include addresses in a overlaying datatype.
+    """
     FIRST_NAME_KEY = 'first_name'
     LAST_NAME_KEY = 'last_name'
     STREET_KEY = 'street'
@@ -43,7 +50,7 @@ class Address:
             key (str): Key of value to check
 
         Returns:
-            : Value at key in map
+            Info: Value at key in map
         """
         if key not in self._data:
             return None

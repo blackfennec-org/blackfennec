@@ -4,6 +4,8 @@ from src.interpretation.specification import Specification
 from src.interpretation.auction.offer import Offer
 
 logger = logging.getLogger(__name__)
+
+
 class Auctioneer:
     """A service to find the best offer, Auctioneer.
 
@@ -12,6 +14,7 @@ class Auctioneer:
     are considered. The sorting of offers is based on their implementation
     of the '>=' operator.
     """
+
     def __init__(self, type_registry):
         """Auctioneer constructor.
 
@@ -22,13 +25,15 @@ class Auctioneer:
         self._type_registry = type_registry
 
     def _select_offers(self,
-            subject: Info, bidders,
-            specification: Specification) -> [Offer]:
+                       subject: Info,
+                       bidders,
+                       specification: Specification
+    ) -> [Offer]:
         """Select the best offers.
 
         Args:
             subject (Info): The subject to be auctioned off.
-            bidders: The bidders participating in the auction.
+            bidders (InfoBidder): The bidders participating in the auction.
             specification (Specification): The specification which describes
                 acceptable offers.
 
@@ -80,6 +85,6 @@ class Auctioneer:
         factories = list()
         for offer in best_offers:
             logger.debug(
-                'adding view_factory of offer %s to factory list',offer)
+                'adding view_factory of offer %s to factory list', offer)
             factories.append(offer.view_factory)
         return factories

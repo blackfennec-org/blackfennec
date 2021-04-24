@@ -18,7 +18,14 @@ class JsonParser:
         returns the parsed python object
 
         Args:
-            raw: preparsed JSON
+            raw (Any): preparsed JSON
+
+        Returns:
+            Info: Subclass of Info
+
+        Raises:
+            TypeError: If the type contained in the passed json
+                could not be recognised.
         """
         if isinstance(raw, dict):
             return JsonParser._parse_map(raw)

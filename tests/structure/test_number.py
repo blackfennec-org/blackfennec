@@ -1,5 +1,5 @@
 import unittest
-from doubles.structure.root import RootMock
+from doubles.structure.double_root import RootMock
 from src.structure.number import Number
 
 

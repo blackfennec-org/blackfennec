@@ -89,7 +89,18 @@ class Offer(Comparable):
             self,
             subject: Info,
             template: Info
-    ):
+    ) -> (int, int):
+        """Coverage calculation for Info Class
+
+        Args:
+            subject (Info): Info for which coverage is calculated
+            template (Info): Template received by type bidder
+                describing how the subject should look like
+                to match perfectly
+
+        Returns:
+            (int, int): subject/template node count encountered in map
+        """
         subject_node_count: int = 1
         template_node_count: int = 0
         if isinstance(subject, template.__class__):
@@ -126,6 +137,19 @@ class Offer(Comparable):
             subject: String,
             template: String
     ) -> bool:
+        """Check value of String for regexp
+
+        Checks whether the value contained in the template
+            if any can be matched with the strings value.
+
+        Args:
+            subject (List): String whose value has to match template
+            template (List): Template that may contains value which
+                if existing will be matched against the subjects value.
+
+        Returns:
+            bool: Whether value of string matches regexp if any
+        """
         if template.value and template.value != '':
             if not re.match(template.value, subject.value):
                 return False
@@ -135,7 +159,21 @@ class Offer(Comparable):
             self,
             subject: List,
             template: List
-    ):
+    ) -> (int, int):
+        """Coverage calculation for List Class
+
+        Subject may contain a type multiple times, which
+        will be then matched by a single child of the List
+        template multiple times.
+
+        Args:
+            subject (List): List for which coverage is calculated
+            template (List): Template received by type bidder
+                describing which Children of the List can be handled
+
+        Returns:
+            (int, int): subject/template node count encountered in map
+        """
         logger.debug(
             'Calculating list coverage (children=%s, types in template=%s)',
             len(subject.children),
@@ -157,7 +195,17 @@ class Offer(Comparable):
             self,
             subject: Map,
             template: Map
-    ):
+    ) -> (int, int):
+        """Coverage calculation for Map Class
+
+        Args:
+            subject (Map): Map for which coverage is calculated
+            template (Map): Template received by type bidder
+                describing which Children of the Map can be handled
+
+        Returns:
+            (int, int): subject/template node count encountered in map
+        """
         logger.debug(
             'Calculating map coverage (children=%s, types in template=%s)',
             len(subject.children),
@@ -247,6 +295,9 @@ class Offer(Comparable):
         Returns:
             bool: comparison of specificity and coverage with other.
                 specificity is more important than coverage
+
+        Raises:
+            ValueError: If the subject of the compared offers do not match
         """
         if self.subject != other.subject:
             message = 'Subject of compared offers are not equal'

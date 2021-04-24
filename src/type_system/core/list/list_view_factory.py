@@ -24,7 +24,7 @@ class ListViewFactory:
         Args:
             interpretation (:obj:`Interpretation`): The overarching
                 interpretation.
-            specification (Specification): The specification which can fine
+            _ (Specification): The specification which can fine
                 tune the creation function.
 
         Returns:

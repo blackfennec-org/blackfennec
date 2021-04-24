@@ -46,7 +46,7 @@ class ColumnBasedPresenterView(Gtk.Box):
 
         Args:
             sender (): Sender filled by Observable
-            interpretations (list): updated list of interpretations
+            interpretations ([interpretations]): updated list of interpretations
         """
         pivot = self._diff_interpretations(
             self.interpretations,
@@ -107,7 +107,7 @@ class ColumnBasedPresenterView(Gtk.Box):
             self._empty_list_pattern.hide()
 
     @staticmethod
-    def _diff_interpretations(old, new):
+    def _diff_interpretations(old, new) -> int:
         """interpretation differences.
 
         Returns index of first interpretation that is
@@ -116,6 +116,10 @@ class ColumnBasedPresenterView(Gtk.Box):
         Args:
             old ([Interpretation]): old interpretation list
             new ([Interpretation]): new interpretation list
+
+        Returns:
+            int: index of first interpretation different from
+                old interpretation list
         """
         length = min(len(old), len(new))
         for i in range(length):

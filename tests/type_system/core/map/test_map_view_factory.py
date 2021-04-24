@@ -1,8 +1,8 @@
 import unittest
 
-from doubles.interpretation.interpretation import InterpretationMock
-from doubles.interpretation.interpretation_service import InterpretationServiceMock
-from doubles.structure.map import MapMock
+from doubles.interpretation.double_interpretation import InterpretationMock
+from doubles.interpretation.double_interpretation_service import InterpretationServiceMock
+from doubles.structure.double_map import MapMock
 from src.interpretation.specification import Specification
 from src.type_system.core.map.map_view import MapView
 from src.type_system.core.map.map_preview import MapPreview

@@ -1,8 +1,8 @@
 import unittest
 
-from doubles.interpretation.interpretation import InterpretationMock
-from doubles.structure.info import InfoMock
-from doubles.structure.list import ListMock
+from doubles.interpretation.double_interpretation import InterpretationMock
+from doubles.structure.double_info import InfoMock
+from doubles.structure.double_list import ListMock
 from src.type_system.core.list.list_view_model import ListViewModel
 
 
