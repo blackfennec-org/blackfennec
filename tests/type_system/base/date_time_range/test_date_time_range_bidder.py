@@ -1,8 +1,8 @@
 import unittest
 from datetime import datetime
 
-from doubles.dummy import Dummy
-from doubles.interpretation.interpretation_service import InterpretationServiceMock
+from doubles.double_dummy import Dummy
+from doubles.interpretation.double_interpretation_service import InterpretationServiceMock
 from src.interpretation.auction import Offer
 from src.structure.map import Map
 from src.structure.string import String
