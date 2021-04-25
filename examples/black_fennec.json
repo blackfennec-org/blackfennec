@@ -10,7 +10,9 @@
     },
     "Roles": {
         "Quality Control": {
-            "First Name": "Caspar"
+            "is": {
+                "$ref": "3/Project Member"
+            }
         },
         "Scrum Master": {
             "First Name": "Lara"
@@ -21,5 +23,10 @@
         "Product Owner": {
             "First Name": "Simon"
         }
+    },
+    "Project Member": {
+        "courtesy_title": "Sir",
+        "first_name": "Caspar",
+        "last_name": "Martens"
     }
 }

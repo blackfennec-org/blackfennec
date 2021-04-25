@@ -41,4 +41,8 @@ class NavigationService:
             destination (Info): Destination to which shall be navigated
         """
         logger.info('%s requested navigation to %s', sender, destination)
+        if not self._presenter:
+            message = 'Navigate called without presenter set'
+            logger.error(message)
+            raise AssertionError(message)
         self._presenter.show(sender, destination)

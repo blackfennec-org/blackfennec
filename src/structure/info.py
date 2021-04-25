@@ -1,3 +1,6 @@
+# -*- coding: utf-8 -*-
+
+
 class Info:
     """Abstract base class for all types (Infos)."""
 
@@ -24,6 +27,6 @@ class Info:
         return list()
 
     @property
-    def root(self) -> 'Info':
+    def root(self) -> 'Root':
         """Readonly property for :obj:`Root` of this structure."""
         return self.parent.root

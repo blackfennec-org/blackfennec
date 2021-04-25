@@ -1,7 +1,9 @@
+# -*- coding: utf-8 -*-
 import numbers
 import logging
 from src.structure.map import Map
 from src.structure.list import List
+from src.structure.reference import Reference
 from src.structure.string import String
 from src.structure.number import Number
 from src.structure.boolean import Boolean
@@ -9,11 +11,20 @@ from src.structure.boolean import Boolean
 logger = logging.getLogger(__name__)
 
 
-class JsonParser:
-    """JsonParser, creates python objects from json"""
+class StructureParsingService:
+    """StructureParsingService, creates python objects from json"""
+    def __init__(self):
+        self._reference_resolving_service = None
 
-    @staticmethod
-    def _parse(raw):
+    def set_reference_resolving_service(self, reference_resolving_service):
+        """
+        Args:
+            reference_resolving_service: The reference resolving service must
+                have the `resolve` method
+        """
+        self._reference_resolving_service = reference_resolving_service
+
+    def _parse(self, raw):
         """Checks if object is an instance of a specific type and
         returns the parsed python object
 
@@ -28,30 +39,35 @@ class JsonParser:
                 could not be recognised.
         """
         if isinstance(raw, dict):
-            return JsonParser._parse_map(raw)
+            if Reference.is_json_reference(raw):
+                return self._parse_reference(raw)
+            return self._parse_map(raw)
         if isinstance(raw, list):
-            return JsonParser._parse_list(raw)
+            return self._parse_list(raw)
         if isinstance(raw, str):
-            return JsonParser._parse_string(raw)
+            return StructureParsingService._parse_string(raw)
         if isinstance(raw, bool):
-            return JsonParser._parse_boolean(raw)
+            return StructureParsingService._parse_boolean(raw)
         if isinstance(raw, numbers.Number):
-            return JsonParser._parse_number(raw)
+            return StructureParsingService._parse_number(raw)
 
         message = "Type '{}' not known".format(type(raw))
         logger.error(message)
         raise TypeError(message)
 
-    @staticmethod
-    def _parse_map(raw):
+    def _parse_reference(self, raw):
+        """parse json reference to python reference"""
+        parsed = raw[Reference.REFERENCE_KEY]
+        return Reference(self._reference_resolving_service, parsed)
+
+    def _parse_map(self, raw):
         """parse json dict to python map"""
-        parsed = {key: JsonParser._parse(value) for key, value in raw.items()}
+        parsed = {key: self._parse(value) for key, value in raw.items()}
         return Map(parsed)
 
-    @staticmethod
-    def _parse_list(raw):
+    def _parse_list(self, raw):
         """parse python list to black fennec list"""
-        parsed = [JsonParser._parse(value) for value in raw]
+        parsed = [self._parse(value) for value in raw]
         return List(parsed)
 
     @staticmethod
@@ -69,6 +85,5 @@ class JsonParser:
         """parse python boolean to black fennec boolean"""
         return Boolean(raw)
 
-    @staticmethod
-    def from_json(raw):
-        return JsonParser._parse(raw)
+    def from_json(self, raw):
+        return self._parse(raw)

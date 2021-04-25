@@ -1,42 +1,48 @@
 import unittest
 import logging
 from src.structure.boolean import Boolean
-from src.util.json_parser import JsonParser
+from src.util.file.structure_parsing_service import StructureParsingService
 from src.structure.list import List
 from src.structure.map import Map
 from src.structure.number import Number
 from src.structure.string import String
 
 
-class JsonParserTestSuite(unittest.TestCase):
+class StructureParserTestSuite(unittest.TestCase):
+    def setUp(self):
+        self._structure_parsing_service = StructureParsingService()
+
+    def tearDown(self) -> None:
+        self.interpreter = None
+
     def test_can_parse_json_list_to_list(self):
         data = []
-        result = JsonParser.from_json(data)
+        result = self._structure_parsing_service.from_json(data)
         self.assertIsInstance(result, List)
 
     def test_can_parse_json_dict_to_map(self):
         data = {}
-        result = JsonParser.from_json(data)
+        result = self._structure_parsing_service.from_json(data)
         self.assertIsInstance(result, Map)
 
     def test_can_parse_json_list_to_string(self):
         data = 'Black Fennec'
-        result = JsonParser.from_json(data)
+        result = self._structure_parsing_service.from_json(data)
         self.assertIsInstance(result, String)
 
     def test_can_parse_json_int_to_number(self):
         data = 1337
-        result = JsonParser.from_json(data)
+        result = self._structure_parsing_service.from_json(data)
         self.assertIsInstance(result, Number)
 
     def test_can_parse_json_float_to_number(self):
         data = 3.141
-        result = JsonParser.from_json(data)
+        result = self._structure_parsing_service.from_json(data)
         self.assertIsInstance(result, Number)
 
     def test_can_parse_json_boolean_to_boolean(self):
         data = True
-        result = JsonParser.from_json(data)
+        result = self._structure_parsing_service.from_json(data)
         self.assertIsInstance(result, Boolean)
 
     def test_can_parse_person(self):
@@ -48,7 +54,7 @@ class JsonParserTestSuite(unittest.TestCase):
                 'hobbies': ['climbing', 'soccer']
             }
         }
-        result = JsonParser.from_json(data)
+        result = self._structure_parsing_service.from_json(data)
         self.assertIsInstance(result, Map)
         self.assertIsInstance(result['Tim'], Map)
         self.assertIsInstance(result['Tim']['firstname'], String)
@@ -66,7 +72,7 @@ class JsonParserTestSuite(unittest.TestCase):
                     ['Switzerland', 'Germany', 'France', 'Italy', 'Austria']}
             ]
         }
-        result = JsonParser.from_json(data)
+        result = self._structure_parsing_service.from_json(data)
         self.assertIsInstance(result['continents'], List)
         self.assertIsInstance(result['continents'][0]['name'], String)
         self.assertIsInstance(result['continents'][0]['countries'], List)
@@ -77,13 +83,13 @@ class JsonParserTestSuite(unittest.TestCase):
         o = object()
 
         with self.assertRaises(TypeError):
-            JsonParser.from_json(o)
+            self._structure_parsing_service.from_json(o)
 
     def test_logs_error_on_unknown_type(self):
         o = object()
 
         with self.assertLogs(None, logging.ERROR):
             try:
-                JsonParser.from_json(o)
+                self._structure_parsing_service.from_json(o)
             except TypeError:
                 pass

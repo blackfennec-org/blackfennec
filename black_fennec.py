@@ -1,5 +1,10 @@
 import gi
 
+from src.type_system.core.reference.reference_bidder import ReferenceBidder
+from src.util.file.file_import_service import FileImportService
+from src.util.file.json.json_reference_resolving_service import JsonReferenceResolvingService
+from src.util.file.structure_parsing_service import StructureParsingService
+
 gi.require_version('Gtk', '3.0')
 
 # pylint: disable=wrong-import-position
@@ -25,7 +30,7 @@ from src.visualisation.main_window.black_fennec_view import BlackFennecView
 from src.visualisation.splash_screen.splash_screen_view import SplashScreenView
 # pylint: enable=wrong-import-position
 
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
 
 
@@ -47,6 +52,7 @@ def populate_type_registry(
     registry.register_type(StringBidder())
     registry.register_type(ListBidder())
     registry.register_type(MapBidder(interpretation_service))
+    registry.register_type(ReferenceBidder(interpretation_service))
     registry.register_type(FileBidder())
     registry.register_type(ImageBidder())
     registry.register_type(AddressBidder())
@@ -82,6 +88,10 @@ class BlackFennec(Gtk.Application):
         auctioneer = Auctioneer(type_registry)
         interpretation_service = InterpretationService(auctioneer)
         navigation_service = NavigationService()
+        structure_parsing_service = StructureParsingService()
+        file_import_service = FileImportService(structure_parsing_service)
+        reference_resolving_service = JsonReferenceResolvingService(file_import_service)
+        structure_parsing_service.set_reference_resolving_service(reference_resolving_service)
         presenter_view = ColumnBasedPresenterViewFactory() \
             .create(interpretation_service, navigation_service)
         presenter = presenter_view._view_model # pylint: disable=protected-access
@@ -89,7 +99,9 @@ class BlackFennec(Gtk.Application):
         populate_type_registry(type_registry, interpretation_service)
         view_model = BlackFennecViewModel(
             presenter_view,
-            navigation_service)
+            navigation_service,
+            file_import_service
+        )
         black_fennec_view = BlackFennecView(self, view_model)
         logger.debug('show_main_ui')
         self.set_window(black_fennec_view)

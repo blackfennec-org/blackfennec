@@ -1,6 +1,8 @@
 import logging
-import json
-from src.util.json_parser import JsonParser
+import mimetypes
+
+from src.structure.info import Info
+from src.structure.root import Root
 
 logger = logging.getLogger(__name__)
 
@@ -16,7 +18,7 @@ class BlackFennecViewModel:
         _navigation_service (NavigationService): stores injected
             navigation service
     """
-    def __init__(self, presenter, navigation_service):
+    def __init__(self, presenter, navigation_service, file_import_service):
         """BlackFennecViewModel constructor.
 
         Args:
@@ -26,6 +28,7 @@ class BlackFennecViewModel:
         logger.info('BlackFennecViewModel __init__')
         self._presenter = presenter
         self._navigation_service = navigation_service
+        self._file_import_service = file_import_service
 
     @property
     def presenter(self):
@@ -42,10 +45,7 @@ class BlackFennecViewModel:
         Args:
             filename (str): Path of the file to open
         """
-
-        with open(filename, 'r') as file:
-            raw = json.load(file)
-        structure = JsonParser.from_json(raw)
+        structure: Info = self._file_import_service.load(filename)
         self._navigation_service.navigate(None, structure)
 
     def quit(self):
