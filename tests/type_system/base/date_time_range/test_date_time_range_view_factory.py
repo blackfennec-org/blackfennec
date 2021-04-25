@@ -1,7 +1,7 @@
 import unittest
 
-from doubles.interpretation.interpretation import InterpretationMock
-from doubles.structure.map import MapMock
+from doubles.interpretation.double_interpretation import InterpretationMock
+from doubles.structure.double_map import MapMock
 from src.interpretation.specification import Specification
 from src.type_system.base.date_time_range.date_time_range_view import DateTimeRangeView
 from src.type_system.base.date_time_range.date_time_range_view_factory import DateTimeRangeViewFactory
