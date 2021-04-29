@@ -172,3 +172,7 @@ border-style: solid;
 border-color: #4d77fd;
 border-width: 1px;
 }
+
+.test *{
+background-color: red;
+}
