@@ -137,3 +137,7 @@ background: none;
 background-color: #515151;
 box-shadow: none;
 }
+
+.image {
+padding: 20px;
+}
