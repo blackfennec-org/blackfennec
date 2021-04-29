@@ -3,6 +3,7 @@ import logging
 
 logger = logging.getLogger(__name__)
 
+
 @Gtk.Template(filename='src/type_system/core/map/map_preview.glade')
 class MapPreview(Gtk.Bin):
     """Preview for the core type Map."""

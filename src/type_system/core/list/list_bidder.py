@@ -1,3 +1,4 @@
+from src.interpretation.interpretation_service import InterpretationService
 from src.structure.info import Info
 from src.structure.list import List
 from src.type_system.core.list.list_view_factory import ListViewFactory
@@ -10,6 +11,14 @@ logger = logging.getLogger(__name__)
 
 class ListBidder:
     """The bidding service for the core type `List`."""
+    def __init__(self, interpretation_service: InterpretationService):
+        """Construct list bidder.
+
+        Args:
+            interpretation_service (InterpretationService): dependency of
+                list view factory
+        """
+        self._factory = ListViewFactory(interpretation_service)
 
     def bid(self, subject: Info):
         """"Produces an offer for a given object.
@@ -22,4 +31,4 @@ class ListBidder:
                 the received subject.
         """
         logger.info('bidding on object')
-        return Offer(subject, 0, List(), ListViewFactory())
+        return Offer(subject, 0, List(), self._factory)

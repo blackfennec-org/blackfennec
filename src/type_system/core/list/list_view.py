@@ -29,6 +29,6 @@ class ListView(Gtk.Bin):
             list_item_view = ListItemView(item, self._click_handler)
             self._item_container.add(list_item_view)
 
-    def _click_handler(self, list_item_view) -> None:
+    def _preview_click_handler(self, unused_sender, route_target) -> None:
         """Handles clicks on map items, triggers navigation"""
-        self._view_model.navigate_to(list_item_view.item)
+        self._view_model.navigate_to(route_target)

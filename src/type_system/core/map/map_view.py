@@ -4,6 +4,7 @@ from src.type_system.core.map.map_item_view import MapItemView
 
 logger = logging.getLogger(__name__)
 
+
 @Gtk.Template(filename='src/type_system/core/map/map_view.glade')
 class MapView(Gtk.Bin):
     """View for the core type Map."""
