@@ -15,11 +15,10 @@ class NumberPreview(Gtk.Bin):
         """Construct with view_model.
 
         Args:
-            view_model (:obj:`StringViewmodel`): The view_model.
+            view_model (:obj:`NumberViewmodel`): The view_model.
         """
         super().__init__()
-        self.view_model = view_model
-        buffer = self._value.get_buffer()
-        buffer.set_text(self._view_model.value)
+        self._view_model = view_model
+        self._value.set_text(str(self._view_model.value))
         logger.info(
-            'NumberPreview with text: "%s" created', self._view_model.value)
+            'NumberView with text: "%s" created', self._view_model.value)

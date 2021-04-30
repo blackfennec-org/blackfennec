@@ -3,7 +3,6 @@ import logging
 
 logger = logging.getLogger(__name__)
 
-
 @Gtk.Template(filename='src/type_system/core/number/number_view.glade')
 class NumberView(Gtk.Bin):
     """View for the core type Number."""
@@ -19,7 +18,6 @@ class NumberView(Gtk.Bin):
         """
         super().__init__()
         self._view_model = view_model
-        buffer = self._value.getbuffer()
-        buffer.set_text(self._view_model.value)
+        self._value.set_text(str(self._view_model.value))
         logger.info(
             'NumberView with text: "%s" created', self._view_model.value)
