@@ -1,7 +1,21 @@
 import logging
 from gi.repository import Gtk
+import os
 
 logger = logging.getLogger(__name__)
+
+
+def create_folder_structure(root_directory):
+    store = Gtk.TreeStore(str, str)
+    s = dict()
+    s[root_directory] = None
+    for sub_directory, directories, files in os.walk(root_directory):
+        for file in files:
+            store.append(s[sub_directory], [file, sub_directory + '/' + file])
+        for directory in directories:
+            p = store.append(s[sub_directory], [directory, 'directory is not a file...'])
+            s[sub_directory + '/' + directory] = p
+    return store
 
 
 @Gtk.Template(filename='src/visualisation/main_window/black_fennec.glade')
@@ -9,6 +23,7 @@ class BlackFennecView(Gtk.ApplicationWindow):
     """Black Fennec Main UI view"""
     __gtype_name__ = 'BlackFennecView'
     _presenter_container = Gtk.Template.Child()
+    _file_tree = Gtk.Template.Child()
 
     def __init__(self, app, view_model):
         super().__init__(application=app)
@@ -28,9 +43,9 @@ class BlackFennecView(Gtk.ApplicationWindow):
         """Callback for the button click event"""
         logger.debug('open clicked')
         dialog = Gtk.FileChooserDialog(
-            title='Please choose a file',
+            title='Please choose a project directory',
             parent=self,
-            action=Gtk.FileChooserAction.OPEN
+            action=Gtk.FileChooserAction.SELECT_FOLDER
         )
         dialog.add_buttons(
             Gtk.STOCK_CANCEL,
@@ -42,12 +57,25 @@ class BlackFennecView(Gtk.ApplicationWindow):
         response = dialog.run()
         if response == Gtk.ResponseType.OK:
             filename = dialog.get_filename()
-            self._view_model.open(filename)
         elif response == Gtk.ResponseType.CANCEL:
-            logger.debug('file selection canceled')
+            logger.debug('Directory selection canceled')
 
         dialog.destroy()
 
+        store = create_folder_structure(filename)
+        self._file_tree.set_model(store)
+        renderer = Gtk.CellRendererText()
+        tree_view_column = Gtk.TreeViewColumn(
+            'Project', renderer, text=0)
+        self._file_tree.append_column(tree_view_column)
+
+    @Gtk.Template.Callback()
+    def on_file_clicked(self, unused_sender, path, unused_column) -> None:
+        model = self._file_tree.get_model()
+        iterator = model.get_iter(path)
+        if iterator:
+            file = model.get_value(iterator, 1)
+            self._view_model.open(file)
 
     @Gtk.Template.Callback()
     def on_quit_clicked(self, unused_sender) -> None:
@@ -78,5 +106,3 @@ class BlackFennecView(Gtk.ApplicationWindow):
         """Callback for the button click event"""
         self._view_model.about_and_help()
         logger.debug('about and help clicked')
-
-

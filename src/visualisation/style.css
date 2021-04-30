@@ -24,10 +24,6 @@ border-color: #464545;
 border-width: 10px;
 }
 
-.main-file-tree{
-background-color: #515151;
-}
-
 .main-presenter-container{
 background-color: #464545;
 border-image: none;
@@ -136,6 +132,31 @@ menuitem *:hover {
 background: none;
 background-color: #515151;
 box-shadow: none;
+}
+
+.main-window treeview.view header button{
+background: none;
+background-color: #515151;
+box-shadow: none;
+padding: 10px 20px;
+font-weight: 400;
+text-shadow: none;
+text-decoration: none;
+}
+
+.main-window treeview.view header button * {
+color: #4d77fd;
+}
+
+.main-file-tree{
+background-color: #515151;
+color: #e4e4e4;
+}
+
+.main-file-tree *:hover {
+background: none;
+background-color: #626262;
+box-shadow: 3px 0px 0px #4d77fd inset;
 }
 
 .image {
