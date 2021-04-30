@@ -138,6 +138,10 @@ background-color: #515151;
 box-shadow: none;
 }
 
+.image {
+padding: 20px;
+}
+
 .map-view label{
 padding: 10px 20px;
 background-image: none;
@@ -171,8 +175,4 @@ border-width: 1px;
 border-style: solid;
 border-color: #4d77fd;
 border-width: 1px;
-}
-
-.test *{
-background-color: red;
 }
