@@ -25,6 +25,7 @@ class IntegrationFromInterpretationServiceToViewTestSuite(unittest.TestCase):
 
     def setUp(self):
         registry = TypeRegistry()
+        interpretation_service = InterpretationServiceMock([])
         registry.register_type(BooleanBidder())
         registry.register_type(NumberBidder())
         registry.register_type(StringBidder())
