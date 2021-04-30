@@ -25,12 +25,13 @@
             <property name="visible">True</property>
             <property name="can-focus">False</property>
             <child>
-              <object class="GtkTreeView" id="file_tree">
+              <object class="GtkTreeView" id="_file_tree">
                 <property name="width-request">287</property>
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
                 <property name="vexpand">True</property>
                 <property name="enable-grid-lines">vertical</property>
+                <signal name="row-activated" handler="on_file_clicked" swapped="no"/>
                 <child internal-child="selection">
                   <object class="GtkTreeSelection"/>
                 </child>
