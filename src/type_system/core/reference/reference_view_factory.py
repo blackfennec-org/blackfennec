@@ -1,8 +1,12 @@
+import logging
+
 from src.type_system.core.reference.reference_view_model import ReferenceViewModel
 from src.type_system.core.reference.reference_preview import ReferencePreview
 from src.interpretation.interpretation import Interpretation
 from src.interpretation.interpretation_service import InterpretationService
 from src.interpretation.specification import Specification
+
+logger = logging.getLogger(__name__)
 
 
 class ReferenceViewFactory:
@@ -23,7 +27,7 @@ class ReferenceViewFactory:
         return specification.is_request_for_preview
 
     def create(self, interpretation: Interpretation,
-            _: Specification) -> ReferencePreview:
+            specification: Specification) -> ReferencePreview:
         """creates a ReferenceView
 
         Args:
@@ -35,5 +39,12 @@ class ReferenceViewFactory:
         Returns:
             ReferencePreview:
         """
-        view_model = ReferenceViewModel(interpretation, self._interpretation_service)
+        if not specification.is_request_for_preview:
+            message = 'View for References not implemented'
+            logger.error(message)
+            raise NotImplementedError(message)
+        view_model = ReferenceViewModel(
+            interpretation,
+            self._interpretation_service
+        )
         return ReferencePreview(view_model)

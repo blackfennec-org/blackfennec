@@ -13,9 +13,9 @@ logger = logging.getLogger(__name__)
 
 class JsonReferenceResolvingService:
 
-    def __init__(self, file_loading_service):
+    def __init__(self, file_import_service):
         self._cached_structure = dict()
-        self._file_import_service = file_loading_service
+        self._file_import_service = file_import_service
 
     def resolve(self, reference: str, source: Info = None):
         if reference in self._cached_structure:

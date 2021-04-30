@@ -1,8 +1,9 @@
 from collections import UserList
 
+
 class ListMock(UserList):
-    def __init__(self, value=None, children: list=None):
-        UserList.__init__(self)
+    def __init__(self, value=None, children: list = None):
+        UserList.__init__(self, children)
         self._value_property_access_count = 0
         self._value_history = [value]
         self._children_property_access_count = 0

@@ -53,7 +53,7 @@ class Reference(Map):
         if self.destination:
             return self.destination.children
         else:
-            list()
+            return list()
 
     @property
     def destination(self) -> Info:
@@ -69,13 +69,7 @@ class Reference(Map):
 
     @staticmethod
     def is_json_reference(dictionary: dict):
-        if Reference.REFERENCE_KEY in dictionary:
-            try:
-                URI(dictionary[Reference.REFERENCE_KEY])
-                return True
-            except ...:
-                pass
-        return False
+        return Reference.REFERENCE_KEY in dictionary
 
     def __eq__(self, other) -> bool:
         return (
@@ -93,9 +87,7 @@ class Reference(Map):
 
     def __repr__(self) -> str:
         """Create representation for pretty printing"""
-        return 'Reference({})'.format(
-            self.reference
-        )
+        return f'Reference({self.reference})'
 
 
 Reference.TEMPLATE = Reference(Dummy())
