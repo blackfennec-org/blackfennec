@@ -43,7 +43,7 @@ def populate_type_registry(
             required by map to be able to show previews.
     """
     registry.register_type(BooleanBidder())
-    registry.register_type(NumberBidder())
+    registry.register_type(NumberBidder(interpretation_service))
     registry.register_type(StringBidder())
     registry.register_type(ListBidder())
     registry.register_type(MapBidder(interpretation_service))
