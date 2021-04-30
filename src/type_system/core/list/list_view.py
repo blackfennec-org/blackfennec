@@ -16,7 +16,7 @@ class ListView(Gtk.Bin):
         """Construct with view_model.
 
         Args:
-            view_model (:obj:`ListViewmodel`): The view_model.
+            view_model (ListViewModel): The view_model.
         """
         super().__init__()
         self._view_model = view_model
@@ -25,9 +25,13 @@ class ListView(Gtk.Bin):
 
     def _populate_items(self) -> None:
         """Populates the list that displays the map items"""
-        for item in self._view_model.value:
-            list_item_view = ListItemView(item, self._click_handler)
-            self._item_container.add(list_item_view)
+
+        for substructure in self._view_model.value:
+            preview = self._view_model.create_preview(substructure)
+            item = ListItemView(
+                preview,
+                self._preview_click_handler)
+            self._item_container.add(item)
 
     def _preview_click_handler(self, unused_sender, route_target) -> None:
         """Handles clicks on map items, triggers navigation"""

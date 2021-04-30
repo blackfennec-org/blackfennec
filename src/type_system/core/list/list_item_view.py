@@ -7,7 +7,7 @@ from src.structure.info import Info
 class ListItemView(Gtk.Bin):
     """View for a key value pair of a list."""
     __gtype_name__ = 'ListItemView'
-    _key_label: Gtk.label = Gtk.Template.Child()
+    _key_label: Gtk.Label = Gtk.Template.Child()
     _preview_container: Gtk.Bin = Gtk.Template.Child()
 
     def __init__(self, preview: Interpretation, preview_click_handler):
@@ -19,10 +19,9 @@ class ListItemView(Gtk.Bin):
         """
         super().__init__()
 
-        self.preview = preview
+        self._preview = preview
         self._preview_click_handler = preview_click_handler
 
-        self._key_label.set_text(self._key)
         self._preview_container.add(self._preview.view)
 
     @property

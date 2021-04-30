@@ -10,19 +10,6 @@
         <property name="visible">True</property>
         <property name="can-focus">False</property>
         <child>
-          <object class="GtkLabel" id="_key_label">
-            <property name="visible">True</property>
-            <property name="can-focus">False</property>
-            <property name="label" translatable="yes">&lt;key-text-here&gt;</property>
-            <signal name="key-release-event" handler="on_preview_clicked" swapped="no"/>
-          </object>
-          <packing>
-            <property name="expand">True</property>
-            <property name="fill">True</property>
-            <property name="position">0</property>
-          </packing>
-        </child>
-        <child>
           <object class="GtkBox" id="_preview_container">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
