@@ -13,8 +13,11 @@
         <child>
           <object class="GtkLabel">
             <property name="visible">True</property>
-            <property name="can-focus">False</property>
+            <property name="can-focus">True</property>
             <property name="label" translatable="yes">Map</property>
+            <style>
+              <class name="map-preview"/>
+            </style>
           </object>
         </child>
       </object>
