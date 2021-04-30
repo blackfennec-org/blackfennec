@@ -77,8 +77,8 @@ class JsonPointer:
 
     @staticmethod
     def _navigate_in_map(source_map: Map, navigator: str) -> Info:
-        if navigator in source_map.data:
-            return source_map.data[navigator]
+        if navigator in source_map:
+            return source_map[navigator]
         else:
             message = 'Key({}) could be found in map({})'.format(
                 navigator,
@@ -184,9 +184,9 @@ class JsonPointer:
             logger.error(message)
             raise TypeError(message)
         parent_list: List = parent_info
-        index = parent_list.data.index(child)
+        index = parent_list.index(child)
         index += n
-        return parent_list.data[index]
+        return parent_list[index]
 
     def resolve_from(self, source: Info):
         if not source:
