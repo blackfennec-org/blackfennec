@@ -1,34 +1,42 @@
 from src.type_system.core.list.list_view_model import ListViewModel
 from src.type_system.core.list.list_view import ListView
+from src.type_system.core.list.list_preview import ListPreview
 from src.interpretation.interpretation import Interpretation
+from src.interpretation.interpretation_service import InterpretationService
 from src.interpretation.specification import Specification
+
 
 class ListViewFactory:
     """Creator of the ListView"""
+    def __init__(self, interpretation_service: InterpretationService):
+        self._interpretation_service = interpretation_service
 
-    def satisfies(self, specification: Specification) -> bool:
+    def satisfies(self, unused_specification: Specification) -> bool:
         """Test if this view factory can satisfy the specification
 
         Args:
-            specification (Specification): the specification to be satisfied
+            unused_specification (Specification): the specification to be
+                satisfied
 
         Returns:
             bool: True if the specification can be satisfied. Otherwise False.
         """
-        return not specification.is_request_for_preview
+        return True
 
     def create(self, interpretation: Interpretation,
-            _: Specification) -> ListView:
+               specification: Specification) -> ListView:
         """creates a ListView
 
         Args:
             interpretation (:obj:`Interpretation`): The overarching
                 interpretation.
-            _ (Specification): The specification which can fine
+            specification (Specification): The specification which can fine
                 tune the creation function.
 
         Returns:
             :obj:`ListView`
         """
-        view_model = ListViewModel(interpretation)
+        view_model = ListViewModel(interpretation, self._interpretation_service)
+        if specification.is_request_for_preview:
+            return ListPreview(view_model)
         return ListView(view_model)

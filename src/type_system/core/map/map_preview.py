@@ -3,6 +3,7 @@ import logging
 
 logger = logging.getLogger(__name__)
 
+
 @Gtk.Template(filename='src/type_system/core/map/map_preview.glade')
 class MapPreview(Gtk.Bin):
     """Preview for the core type Map."""
@@ -13,7 +14,7 @@ class MapPreview(Gtk.Bin):
         """Construct with view_model.
 
         Args:
-            view_model (:obj:`MapViewmodel`): The view_model.
+            view_model (:obj:`MapViewModel`): The view_model.
         """
         super().__init__()
         self._view_model = view_model
