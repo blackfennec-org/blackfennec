@@ -6,10 +6,9 @@
     <property name="visible">True</property>
     <property name="can-focus">False</property>
     <child>
-      <object class="GtkTextView" id="_value">
+      <object class="GtkSwitch" id="_value">
         <property name="visible">True</property>
         <property name="can-focus">True</property>
-        <property name="wrap-mode">word</property>
       </object>
     </child>
   </template>

@@ -42,7 +42,7 @@ def populate_type_registry(
         interpretation_service (InterpretationService): interpretation service
             required by map to be able to show previews.
     """
-    registry.register_type(BooleanBidder(interpretation_service))
+    registry.register_type(BooleanBidder())
     registry.register_type(NumberBidder())
     registry.register_type(StringBidder())
     registry.register_type(ListBidder())

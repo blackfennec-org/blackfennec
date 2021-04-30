@@ -19,7 +19,6 @@ class BooleanPreview(Gtk.Bin):
         """
         super().__init__()
         self._view_model = view_model
-        buffer = self._value.get_buffer()
-        buffer.set_text(self._view_model.value)
+        self._value.set_state(self._view_model.value)
         logger.info(
-            'BooleanPreview with text: "%s" created', self._view_model.value)
+            'BooleanView with text: "%s" created', self._view_model.value)
