@@ -16,7 +16,7 @@ class MapView(Gtk.Bin):
         """Construct with view_model.
 
         Args:
-            view_model (:obj:`MapViewmodel`): The view_model.
+            view_model (:obj:`MapViewModel`): The view_model.
         """
         super().__init__()
         self._view_model = view_model

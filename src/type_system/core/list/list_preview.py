@@ -22,5 +22,5 @@ class ListPreview(Gtk.Bin):
 
     @Gtk.Template.Callback()
     def _click_handler(self, unused_sender, unused_argument) -> None:
-        """Handles clicks on map items, triggers navigation"""
+        """Handles clicks on list items, triggers navigation"""
         self._view_model.navigate_to(self._view_model.value)

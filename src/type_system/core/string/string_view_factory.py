@@ -4,8 +4,10 @@ from src.type_system.core.string.string_preview import StringPreview
 from src.interpretation.interpretation import Interpretation
 from src.interpretation.specification import Specification
 
+
 class StringViewFactory:
     """Creator of the StringView"""
+
     def satisfies(self, unused_specification: Specification) -> bool:
         """Test if this view factory can satisfy the specification
 
@@ -19,7 +21,7 @@ class StringViewFactory:
         return True
 
     def create(self, interpretation: Interpretation,
-            specification: Specification) -> StringView:
+               specification: Specification) -> StringView:
         """creates a StringView
 
         Args:

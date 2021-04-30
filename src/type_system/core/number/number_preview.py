@@ -15,7 +15,7 @@ class NumberPreview(Gtk.Bin):
         """Construct with view_model.
 
         Args:
-            view_model (:obj:`NumberViewmodel`): The view_model.
+            view_model (:obj:`NumberViewModel`): The view_model.
         """
         super().__init__()
         self._view_model = view_model

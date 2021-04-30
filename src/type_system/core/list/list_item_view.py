@@ -14,8 +14,9 @@ class ListItemView(Gtk.Bin):
         """Create list item view
 
         Args:
-            item (:obj:`Info`): The info which should be previewed
-            preview_click_handler: A handler that is called when the list item is pressed
+            preview (:obj:`Interpretation`): The preview
+            preview_click_handler: A handler that is called
+            when the list item is pressed
         """
         super().__init__()
 

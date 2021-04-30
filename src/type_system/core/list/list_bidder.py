@@ -16,7 +16,7 @@ class ListBidder:
 
         Args:
             interpretation_service (InterpretationService): dependency of
-                list view factory
+            list view factory
         """
         self._factory = ListViewFactory(interpretation_service)
 

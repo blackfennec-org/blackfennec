@@ -24,7 +24,7 @@ class ListView(Gtk.Bin):
         logger.info('ListView created')
 
     def _populate_items(self) -> None:
-        """Populates the list that displays the map items"""
+        """Populates the list that displays the list items"""
 
         for substructure in self._view_model.value:
             preview = self._view_model.create_preview(substructure)
@@ -34,5 +34,5 @@ class ListView(Gtk.Bin):
             self._item_container.add(item)
 
     def _preview_click_handler(self, unused_sender, route_target) -> None:
-        """Handles clicks on map items, triggers navigation"""
+        """Handles clicks on list items, triggers navigation"""
         self._view_model.navigate_to(route_target)

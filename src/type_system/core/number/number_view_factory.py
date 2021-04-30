@@ -12,7 +12,8 @@ class NumberViewFactory:
         """Test if this view factory can satisfy the specification
 
         Args:
-            unused_specification (Specification): the specification to be satisfied
+            unused_specification (Specification): the specification to be
+                satisfied
 
         Returns:
             bool: True if the specification can be satisfied. Otherwise False.
@@ -20,7 +21,7 @@ class NumberViewFactory:
         return True
 
     def create(self, interpretation: Interpretation,
-            specification: Specification) -> NumberView:
+               specification: Specification) -> NumberView:
         """creates a NumberView
 
         Args:

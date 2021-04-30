@@ -1,6 +1,6 @@
 import unittest
-from collections import deque
 
+from collections import deque
 from doubles.double_dummy import Dummy
 from doubles.interpretation.double_interpretation import InterpretationMock
 from doubles.interpretation.double_interpretation_service import InterpretationServiceMock
@@ -15,7 +15,6 @@ class ListViewModelTestSuite(unittest.TestCase):
         interpretation_service = Dummy('interpretation service')
         view_model = ListViewModel(interpretation, interpretation_service)
         self.assertIsNotNone(view_model)
-
 
     def test_can_get_value(self):
         interpretation = InterpretationMock(ListMock())

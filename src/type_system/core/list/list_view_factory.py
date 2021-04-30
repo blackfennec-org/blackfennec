@@ -16,7 +16,7 @@ class ListViewFactory:
 
         Args:
             unused_specification (Specification): the specification to be
-            satisfied
+                satisfied
 
         Returns:
             bool: True if the specification can be satisfied. Otherwise False.
