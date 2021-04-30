@@ -21,5 +21,11 @@ class StringPreview(Gtk.Bin):
         self._view_model = view_model
         buffer = self._value.get_buffer()
         buffer.set_text(self._view_model.value)
+        buffer.connect('changed', self._on_buffer_changed)
         logger.info(
             'StringPreview with text: "%s" created', self._view_model.value)
+
+    def _on_buffer_changed(self, buffer):
+        start, end = buffer.get_bounds()
+        text = buffer.get_text(start, end, False)
+        self._view_model.value = text
