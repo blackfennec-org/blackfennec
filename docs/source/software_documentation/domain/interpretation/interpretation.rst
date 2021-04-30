@@ -40,11 +40,18 @@ The domain concepts of interpretation service and interpretation have been creat
 
 .. _definition_interpretation_service:
 
-InterpretationService
-'''''''''''''''''''''
+Interpretation Service
+''''''''''''''''''''''
 The :ref:`selection process <definition_selection_process>` produces an interpretation service which in turn creates interpretations. To create an interpretation the interpretation service must create info views from info view factories. The resulting info views are included in the interpretation and are later displayed.
 
 Interpretation services hold references to :ref:`info view factories <info_view_factory>` and know how to produce :ref:`info views <info_view>` from them. In GRASP terminology the interpretation service is the Creator for interpretations.
+
+.. _advanced_interpretation:
+
+Advanced Interpretation Algorithm
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+TODO
 
 .. _definition_interpretation:
 

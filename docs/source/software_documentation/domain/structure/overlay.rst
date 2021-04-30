@@ -1,4 +1,5 @@
 .. _definition_overlay:
+.. _overlay_adapter:
 
 Overlay
 =======

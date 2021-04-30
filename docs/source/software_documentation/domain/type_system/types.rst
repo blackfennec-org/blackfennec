@@ -39,6 +39,13 @@ This component is the user interface of the "type". It provides the UI for the u
 
 .. caution:: It is highly discouraged to use scrollable views in Info Views. The recommended approach is to leave overflow handling up to the Presenter.
 
+
+.. _definition_preview:
+
+InfoPreview
+"""""""""""
+Similar to the view, the preview provides the UI for the underlining structure. The difference between the two is the context in which they are used. The preview is used within lists and values of maps to tease the element.
+
 .. _definition_info_view_factory:
 
 InfoViewFactory

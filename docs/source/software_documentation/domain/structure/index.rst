@@ -1,18 +1,25 @@
-.. _definition_layer:
+.. _definition_structure:
 
-The Layers
-==========
+The Structure
+=============
 
 .. toctree::
     :maxdepth: 2
 
-    interpretation
+    object_model/index
+    template
+    filter
     overlay
     underlay
     source_layer
 
+
+.. _definition_layer:
+
 Overview
 """"""""
+Although not represented in the source code itself, it is helpful to reason about the different levels of structure as layers. In this model each layer adds (or removes) something to the layer below. Services tend to act on the same layer. However this is most often because they are not aware of this concept. Layers above the underlay must be transparent (class adapter pattern) which allows - in theory - arbitrary combination of adapters to create novel layers. In practice the following stack is used most often. It is worth noting, that the underlay itself is not represented in code either but in fact just the not yet processed deserialized user data represented in the :ref:`object model <object_model>`
+
 .. uml::
     
     @startuml
@@ -37,7 +44,7 @@ Overview
     
     Presenter       .down>     Interpretation  : shows
     Interpretation  -down>     Overlay         : of
-    Overlay         -down>     Underlay        : is based on
+    Overlay         -down>     Underlay        : is adapted from
     Underlay        -down>     SourceLayer     : is deserialized from
 
     @enduml
@@ -49,7 +56,7 @@ Interpretation
     The :ref:`interpretation <definition_interpretation>` is based on the :ref:`overlay <definition_overlay>` and created in the :ref:`selection process <definition_selection_process>`
 
 Overlay
-    The :ref:`overlay <definition_overlay>` is the processed :ref:`underlay <definition_underlay>`. It mainly resolves references.
+    The :ref:`overlay <definition_overlay>` is the processed :ref:`underlay <definition_underlay>`. Its main contribution is the resolution of references.
     
 Underlay
     The :ref:`underlay <definition_underlay>` is the deserialized :ref:`source layer <definition_source_layer>`. It consists solely of :ref:`core types <definition_core_types>`.

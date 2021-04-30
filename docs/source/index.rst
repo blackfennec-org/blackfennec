@@ -48,12 +48,12 @@ Welcome to Black Fennec's documentation!
 
 .. toctree::
    :maxdepth: 3
-   :caption: Documentation
+   :caption: Software Documentation
 
-   documentation/index
-   documentation/architecture
-   documentation/domain_model
-   documentation/code/modules
+   software_documentation/index
+   software_documentation/architecture/index
+   software_documentation/domain/index
+   software_documentation/code/modules
 
 .. toctree::
    :maxdepth: 3

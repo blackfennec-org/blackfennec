@@ -1,7 +1,8 @@
 .. _definition_core_types:
+.. _object_model:
 
-Core Types
-==========
+The Object Model
+================
 Core :ref:`types <definition_type>` are the fundamental types. All other types are actually structures built with core types. The most commonly used structures are considered :ref:`base types <definition_base_types>`.
 
 .. uml::
@@ -78,7 +79,7 @@ A map is a collection of key-value pairs of information.
 
 Reference
 """""""""
-A reference is a absolute or relative path to information. This type only exists on the :ref:`underlay <definition_underlay>` and is not visible on any higher :ref:`layer <definition_layer>`.
+A reference is an absolute or relative path to information. This type only exists on the :ref:`underlay <definition_underlay>` and is not visible on higher :ref:`layers <definition_layer>`.
 
 Root
 """"
