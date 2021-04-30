@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 import unittest
 
-from doubles.structure.info import InfoMock
-from doubles.dummy import Dummy
+from doubles.structure.double_info import InfoMock
+from doubles.double_dummy import Dummy
 from src.interpretation.auction.offer import Offer
 from src.structure.list import List
 from src.structure.map import Map

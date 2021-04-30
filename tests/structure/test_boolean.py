@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import unittest
 
-from doubles.structure.root import RootMock
+from doubles.structure.double_root import RootMock
 from src.structure.boolean import Boolean
 
 

@@ -1,7 +1,7 @@
 import unittest
 
-from doubles.interpretation.interpretation import InterpretationMock
-from doubles.structure.string import StringMock
+from doubles.interpretation.double_interpretation import InterpretationMock
+from doubles.structure.double_string import StringMock
 from src.type_system.core.string.string_view_model import StringViewModel
 
 

@@ -19,6 +19,9 @@
         <child>
           <placeholder/>
         </child>
+        <style>
+          <class name="map-view"/>
+        </style>
       </object>
     </child>
   </template>

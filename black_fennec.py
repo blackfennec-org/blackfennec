@@ -31,11 +31,21 @@ logger = logging.getLogger(__name__)
 
 def populate_type_registry(
         registry: TypeRegistry,
-        interpretation_service: InterpretationService) -> None:
+        interpretation_service: InterpretationService):
+    """
+    Function populates type registry. Used
+    as a mock before the ExtensionManager makes
+    this function obsolete.
+
+    Args:
+        registry (TypeRegistry): type registry on which to register types
+        interpretation_service (InterpretationService): interpretation service
+            required by map to be able to show previews.
+    """
     registry.register_type(BooleanBidder())
-    registry.register_type(NumberBidder())
+    registry.register_type(NumberBidder(interpretation_service))
     registry.register_type(StringBidder())
-    registry.register_type(ListBidder())
+    registry.register_type(ListBidder(interpretation_service))
     registry.register_type(MapBidder(interpretation_service))
     registry.register_type(FileBidder())
     registry.register_type(ImageBidder())
@@ -45,6 +55,7 @@ def populate_type_registry(
 
 
 class BlackFennec(Gtk.Application):
+    """BlackFennec Main Window GTK Application"""
     def __init__(self):
         super().__init__(
             application_id='org.darwin.blackfennec')
@@ -65,6 +76,7 @@ class BlackFennec(Gtk.Application):
         GLib.timeout_add(100, self.do_setup)
 
     def do_setup(self):
+        """Setup BlackFennec application"""
         logger.debug('do_setup')
         type_registry = TypeRegistry()
         auctioneer = Auctioneer(type_registry)
@@ -72,7 +84,7 @@ class BlackFennec(Gtk.Application):
         navigation_service = NavigationService()
         presenter_view = ColumnBasedPresenterViewFactory() \
             .create(interpretation_service, navigation_service)
-        presenter = presenter_view._view_model
+        presenter = presenter_view._view_model # pylint: disable=protected-access
         navigation_service.set_presenter(presenter)
         populate_type_registry(type_registry, interpretation_service)
         view_model = BlackFennecViewModel(

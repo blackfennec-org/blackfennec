@@ -1,8 +1,8 @@
 import unittest
 import logging
 
-from doubles.structure.info import InfoMock
-from doubles.structure.root import RootMock
+from doubles.structure.double_info import InfoMock
+from doubles.structure.double_root import RootMock
 from src.structure.map import Map
 
 class MapTestSuite(unittest.TestCase):

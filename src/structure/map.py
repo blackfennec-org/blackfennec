@@ -28,6 +28,10 @@ class Map(Info, UserDict):
 
         Args:
             key (any): The key of the item to delete.
+
+        Raises:
+            KeyError: If the item with the key to delete
+                is not contained in map.
         """
         try:
             value = self.data.pop(key)
@@ -42,6 +46,9 @@ class Map(Info, UserDict):
         Args:
             key: The key for the inserted value.
             value (:obj:`Info`): The value which will be inserted.
+
+        Raises:
+            ValueError: If the item already has a parent.
         """
         if value.parent is not None:
             message = "value already has a parent {}; {}".format(

@@ -1,5 +1,5 @@
-from doubles.structure.info import InfoMock
-from doubles.type_system.info_view import InfoViewDummy
+from doubles.structure.double_info import InfoMock
+from doubles.type_system.double_info_view import InfoViewDummy
 
 
 class InterpretationMock:

@@ -8,6 +8,7 @@ from src.interpretation.specification import Specification
 
 class MapViewFactory:
     """Creator of the MapView"""
+
     def __init__(self, interpretation_service: InterpretationService):
         self._interpretation_service = interpretation_service
 
@@ -24,7 +25,7 @@ class MapViewFactory:
         return True
 
     def create(self, interpretation: Interpretation,
-            specification: Specification) -> MapView:
+               specification: Specification) -> MapView:
         """creates a MapView
 
         Args:

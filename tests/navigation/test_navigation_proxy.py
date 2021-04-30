@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 import unittest
 
-from doubles.interpretation.interpretation import InterpretationMock
-from doubles.dummy import Dummy
+from doubles.interpretation.double_interpretation import InterpretationMock
+from doubles.double_dummy import Dummy
 from src.navigation.navigation_proxy import NavigationProxy
 
 

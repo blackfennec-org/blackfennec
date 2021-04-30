@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 import unittest
 
-from doubles.presentation.info_presenter import InfoPresenterMock
-from doubles.dummy import Dummy
+from doubles.presentation.double_info_presenter import InfoPresenterMock
+from doubles.double_dummy import Dummy
 from src.navigation.navigation_service import NavigationService
 
 

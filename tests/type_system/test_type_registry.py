@@ -4,7 +4,7 @@ This module contains the unit-tests of the type-registry."""
 
 import unittest
 
-from doubles.dummy import Dummy
+from doubles.double_dummy import Dummy
 from src.type_system.type_registry import TypeRegistry
 
 

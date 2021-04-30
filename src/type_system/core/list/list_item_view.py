@@ -1,4 +1,5 @@
 from gi.repository import Gtk
+from src.interpretation.interpretation import Interpretation
 from src.structure.info import Info
 
 
@@ -6,18 +7,23 @@ from src.structure.info import Info
 class ListItemView(Gtk.Bin):
     """View for a key value pair of a list."""
     __gtype_name__ = 'ListItemView'
+    _key_label: Gtk.Label = Gtk.Template.Child()
+    _preview_container: Gtk.Bin = Gtk.Template.Child()
 
-    def __init__(self, item: Info, click_handler):
+    def __init__(self, preview: Interpretation, preview_click_handler):
         """Create list item view
 
         Args:
-            item (:obj:`Info`): The info which should be previewed
-            click_handler: A handler that is called when the map item is pressed
+            preview (:obj:`Interpretation`): The preview
+            preview_click_handler: A handler that is called
+            when the list item is pressed
         """
         super().__init__()
 
-        self._item = item
-        self._click_handler = click_handler
+        self._preview = preview
+        self._preview_click_handler = preview_click_handler
+
+        self._preview_container.add(self._preview.view)
 
     @property
     def item(self) -> Info:
@@ -27,4 +33,4 @@ class ListItemView(Gtk.Bin):
     @Gtk.Template.Callback()
     def on_preview_clicked(self, unused_sender) -> None:
         """Callback for the button click event"""
-        self._click_handler(self)
+        self._preview_click_handler(self, self._preview.info)

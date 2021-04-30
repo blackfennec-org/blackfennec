@@ -3,6 +3,7 @@ import logging
 
 logger = logging.getLogger(__name__)
 
+
 @Gtk.Template(filename='src/type_system/core/boolean/boolean_view.glade')
 class BooleanView(Gtk.Bin):
     """View for the core type Boolean."""
@@ -14,7 +15,7 @@ class BooleanView(Gtk.Bin):
         """Construct with view_model.
 
         Args:
-            view_model (:obj:`BooleanViewmodel`): The view_model.
+            view_model (:obj:`BooleanViewModel`): The view_model.
         """
         super().__init__()
         self._view_model = view_model

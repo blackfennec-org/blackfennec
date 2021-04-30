@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import unittest
 
-from doubles.util.observable import ObservableMock
+from doubles.util.double_observable import ObservableMock
 
 
 class ObservableTestSuite(unittest.TestCase):

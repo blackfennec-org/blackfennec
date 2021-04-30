@@ -15,7 +15,8 @@ class MapItemView(Gtk.Bin):
         Args:
             key: The key of the map item
             preview (:obj:`Interpretation`): The preview
-            click_handler: A handler that is called when the map item is pressed
+            preview_click_handler: A handler that is called when
+            the map item is pressed
         """
         super().__init__()
 
@@ -25,7 +26,6 @@ class MapItemView(Gtk.Bin):
 
         self._key_label.set_text(self._key)
         self._preview_container.add(self._preview.view)
-
 
     @property
     def key(self) -> str:

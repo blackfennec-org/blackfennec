@@ -9,6 +9,14 @@ logger = logging.getLogger(__name__)
 
 
 class Image(File):
+    """Image BaseType Class
+
+    Helper class used by the image view_model representing
+    the actual type 'Image'.
+    Can be used by other classes as a helper to be able to
+    include images in a overlaying datatype.
+    """
+
     FILE_PATH_KEY = 'file_path'
     FILE_TYPE_KEY = 'file_type'
 

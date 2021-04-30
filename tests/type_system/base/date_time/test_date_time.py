@@ -1,8 +1,8 @@
 import unittest
 from datetime import datetime
 
-from doubles.structure.map import MapMock
-from doubles.structure.string import StringMock
+from doubles.structure.double_map import MapMock
+from doubles.structure.double_string import StringMock
 from src.type_system.base.date_time.date_time import DateTime
 
 

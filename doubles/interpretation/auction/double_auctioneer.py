@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from doubles.dummy import Dummy
+from doubles.double_dummy import Dummy
 
 
 class AuctioneerMock:
