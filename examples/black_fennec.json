@@ -1,5 +1,6 @@
 {
     "Project Name": "Black Fennec",
+    "Is Active": true,
     "Logo": {
         "file_path": "logo.jpg",
         "file_type": "image/jpg"
