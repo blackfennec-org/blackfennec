@@ -28,7 +28,7 @@ class IntegrationFromInterpretationServiceToViewTestSuite(unittest.TestCase):
         registry.register_type(BooleanBidder())
         registry.register_type(NumberBidder())
         registry.register_type(StringBidder())
-        registry.register_type(ListBidder())
+        registry.register_type(ListBidder(InterpretationServiceMock([])))
         registry.register_type(MapBidder(InterpretationServiceMock([])))
         auctioneer = Auctioneer(registry)
         self.interpreter = InterpretationService(auctioneer)
