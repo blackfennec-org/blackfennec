@@ -18,8 +18,8 @@ class JsonPointerType(Enum):
 
 
 class JsonPointer:
-    ABSOLUTE_POINTER_PATTERN = re.compile('^((/?(([^/~])|(~[01]))*))+$')
-    RELATIVE_POINTER_PATTERN = re.compile('^([0-9]+([+][0-9]+|[-][0-9]+)?)((/(([^/~])|(~[01]))*))+$')
+    ABSOLUTE_POINTER_PATTERN = re.compile('^(/?(([^/~])|(~[01]))*)+$')
+    RELATIVE_POINTER_PATTERN = re.compile('^([0-9]+([+][0-9]+|[-][0-9]+)?)(/(([^/~])|(~[01]))*)*$')
 
     def __init__(self, json_pointer: str, json_pointer_type: JsonPointerType):
         self.path = (json_pointer, json_pointer_type)
@@ -87,7 +87,7 @@ class JsonPointer:
             logger.error(message)
             raise KeyError(message)
 
-    def resolve_absolute_pointer(self, source: Info):
+    def _resolve_absolute_pointer(self, source: Info):
         hierarchy_index: int = 0 if self._hierarchy[0] else 1
         current_location: Info = source
         while hierarchy_index < len(self._hierarchy):
@@ -105,7 +105,7 @@ class JsonPointer:
         assert hierarchy_index == len(self._hierarchy)
         return current_location
 
-    def resolve_relative_pointer(self, source: Info):
+    def _resolve_relative_pointer(self, source: Info):
         """Resolve relative json pointers
 
         Args:
@@ -114,7 +114,13 @@ class JsonPointer:
             Info: Destination to which pointer points
         """
         current_location: Info = source
-        level_navigator: str = self._hierarchy[0]
+
+        get_key_of_value = False
+        if str(self._hierarchy[-1]).endswith('#'):
+            self._hierarchy[-1] = self._hierarchy[-1][:-1]
+            get_key_of_value = True
+
+        level_navigator: str = str(self._hierarchy[0])
         self._hierarchy[0] = None
 
         index_increment = None
@@ -149,9 +155,10 @@ class JsonPointer:
             raise ValueError(message)
         if index_increment:
             current_location = self._get_nth_next_sibling(current_location, index_increment)
-        if self._hierarchy[-1].endswith('#'):
-            return String(self._get_key_of_self(current_location))
-        return self.resolve_absolute_pointer(current_location)
+        resolved = self._resolve_absolute_pointer(current_location)
+        if get_key_of_value:
+            return String(self._get_key_of_self(resolved))
+        return resolved
 
     @staticmethod
     def _get_key_of_self(child: Info) -> str:
@@ -195,15 +202,21 @@ class JsonPointer:
             logger.error(message)
             raise ValueError(message)
         if self.type == JsonPointerType.ABSOLUTE_JSON_POINTER:
-            return self.resolve_absolute_pointer(source.root.child)
+            return self._resolve_absolute_pointer(source.root.child)
         elif self.type == JsonPointerType.RELATIVE_JSON_POINTER:
-            return self.resolve_relative_pointer(source)
+            return self._resolve_relative_pointer(source)
         message = 'Json Pointer type({}) not handled'.format(self.type.name)
         logger.error(message)
-        raise ValueError(message)
+        raise NotImplementedError(message)
 
 
 def is_relative_json_pointer(pointer: str):
     if JsonPointer.RELATIVE_POINTER_PATTERN.match(pointer):
+        return True
+    return False
+
+
+def is_absolute_json_pointer(pointer: str):
+    if JsonPointer.ABSOLUTE_POINTER_PATTERN.match(pointer):
         return True
     return False
