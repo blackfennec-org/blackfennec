@@ -4,8 +4,6 @@ from enum import Enum
 
 from uri import URI
 
-from src.util.file.json.json_pointer import is_relative_json_pointer
-
 
 class UriType(Enum):
     CURRENT_LOCATION = 0

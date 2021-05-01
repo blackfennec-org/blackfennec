@@ -1,13 +1,11 @@
 # -*- coding: utf-8 -*-
 import logging
 
-from uri import URI
-
 from doubles.double_dummy import Dummy
 from src.structure.info import Info
 from src.structure.map import Map
 from src.structure.string import String
-from src.util.file.json.json_reference_resolving_service import JsonReferenceResolvingService
+from src.util.json.json_reference_resolving_service import JsonReferenceResolvingService
 
 logger = logging.getLogger(__name__)
 

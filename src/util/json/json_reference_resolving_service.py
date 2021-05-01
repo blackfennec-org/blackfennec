@@ -5,8 +5,8 @@ from uri import URI
 
 from src.structure.info import Info
 from src.structure.root import Root
-from src.util.file.json.json_pointer import JsonPointer, JsonPointerType, is_relative_json_pointer
-from src.util.file.json.uri_type import UriType
+from src.util.json.json_pointer import JsonPointer, JsonPointerType, is_relative_json_pointer
+from src.util.uri.uri_type import UriType
 
 logger = logging.getLogger(__name__)
 
@@ -42,14 +42,14 @@ class JsonReferenceResolvingService:
         ):
             structure = source
         else:
-            structure = self._load_file(uri, source)
+            structure = self._load_structure_from_uri(uri, source)
 
         if json_pointer:
             structure = json_pointer.resolve_from(structure)
         self._cached_structure[reference] = structure
         return structure
 
-    def _load_file(
+    def _load_structure_from_uri(
             self,
             uri: URI,
             source: Info = None

@@ -18,7 +18,7 @@ class BlackFennecViewModel:
         _navigation_service (NavigationService): stores injected
             navigation service
     """
-    def __init__(self, presenter, navigation_service, file_import_service):
+    def __init__(self, presenter, navigation_service, uri_import_service):
         """BlackFennecViewModel constructor.
 
         Args:
@@ -28,7 +28,7 @@ class BlackFennecViewModel:
         logger.info('BlackFennecViewModel __init__')
         self._presenter = presenter
         self._navigation_service = navigation_service
-        self._file_import_service = file_import_service
+        self._uri_import_service = uri_import_service
 
     @property
     def presenter(self):
@@ -45,7 +45,7 @@ class BlackFennecViewModel:
         Args:
             filename (str): Path of the file to open
         """
-        structure: Info = self._file_import_service.load(filename)
+        structure: Info = self._uri_import_service.load(filename)
         self._navigation_service.navigate(None, structure)
 
     def quit(self):

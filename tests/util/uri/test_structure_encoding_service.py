@@ -2,14 +2,14 @@ import json
 import unittest
 
 from src.structure.boolean import Boolean
-from src.util.file.structure_encoding_service import StructureEncodingService
+from src.util.uri.structure_encoding_service import StructureEncodingService
 from src.structure.list import List
 from src.structure.map import Map
 from src.structure.number import Number
 from src.structure.string import String
 
 
-class StructureEncoderTestSuite(unittest.TestCase):
+class StructureEncodingServiceTestSuite(unittest.TestCase):
 
     def test_list_to_json_string(self):
         black_fennec_obj = List([String('name')])

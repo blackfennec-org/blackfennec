@@ -4,7 +4,8 @@ from src.structure.map import Map
 
 class MapToOverlayAdapter(Map):
     def __init__(self, adaptee: Map):
-        super().__init__()
+        Map.__init__()
+        Map.data = adaptee.data
         self._adaptee = adaptee
 
     @property
