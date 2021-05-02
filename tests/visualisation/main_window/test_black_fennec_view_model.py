@@ -3,14 +3,14 @@ import logging
 
 from doubles.double_dummy import Dummy
 from doubles.navigation.double_navigation_service import NavigationServiceMock
-from doubles.util.file.double_file_import_service import FileImportServiceMock
+from doubles.util.uri.double_uri_import_service import UriImportServiceMock
 from src.visualisation.main_window.black_fennec_view_model import BlackFennecViewModel
 
 
 class BlackFennecViewModelTestSuite(unittest.TestCase):
     def test_can_open_file(self):
         navigation_service = NavigationServiceMock()
-        file_import_service = FileImportServiceMock()
+        file_import_service = UriImportServiceMock()
         view_model = BlackFennecViewModel(Dummy(), navigation_service, file_import_service)
         view_model.open('examples/black_fennec.json')
         self.assertEqual(1, navigation_service.navigation_count)

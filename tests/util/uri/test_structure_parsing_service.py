@@ -2,7 +2,7 @@ import logging
 import unittest
 
 from doubles.double_dummy import Dummy
-from doubles.util.file.json.double_json_reference_resolving_service import JsonReferenceResolvingServiceMock
+from doubles.util.json.double_json_reference_resolving_service import JsonReferenceResolvingServiceMock
 from src.structure.boolean import Boolean
 from src.structure.list import List
 from src.structure.map import Map

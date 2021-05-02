@@ -13,9 +13,9 @@ logger = logging.getLogger(__name__)
 
 class JsonReferenceResolvingService:
 
-    def __init__(self, file_import_service):
+    def __init__(self, uri_import_service):
         self._cached_structure = dict()
-        self._file_import_service = file_import_service
+        self._uri_import_service = uri_import_service
 
     def resolve(self, reference: str, source: Info = None):
         if reference in self._cached_structure:
@@ -46,7 +46,10 @@ class JsonReferenceResolvingService:
 
         if json_pointer:
             structure = json_pointer.resolve_from(structure)
-        self._cached_structure[reference] = structure
+
+        if uri_type == UriType.HOST_URI or uri_type == UriType.ABSOLUTE_PATH:
+            self._cached_structure[reference] = structure
+
         return structure
 
     def _load_structure_from_uri(
@@ -56,5 +59,5 @@ class JsonReferenceResolvingService:
     ) -> (Info, str):
         root: Root = source.root
         current_path = root.uri
-        structure = self._file_import_service.load(str(uri), current_path)
+        structure = self._uri_import_service.load(str(uri), current_path)
         return structure

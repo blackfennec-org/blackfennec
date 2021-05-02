@@ -2,7 +2,7 @@ import unittest
 
 from doubles.double_dummy import Dummy
 from doubles.structure.double_list import ListMock
-from doubles.util.file.json.double_json_reference_resolving_service import JsonReferenceResolvingServiceMock
+from doubles.util.json.double_json_reference_resolving_service import JsonReferenceResolvingServiceMock
 from src.structure.reference import Reference
 
 

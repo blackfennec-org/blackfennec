@@ -33,8 +33,7 @@
     "$ref": "#/Project Member"
   },
   "Project Member": {
-        "courtesy_title": "Sir",
-        "first_name": "Caspar",
-        "last_name": "Martens"
+        "first_name": "Hans",
+        "last_name": "Wurst"
     }
 }

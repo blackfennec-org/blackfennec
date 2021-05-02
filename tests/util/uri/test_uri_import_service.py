@@ -6,9 +6,9 @@ from uri import URI
 
 from doubles.double_dummy import Dummy
 from doubles.structure.double_map import MapMock
-from doubles.util.file.double_uri_import_strategy_factory import UriImportStrategyFactoryMock
-from doubles.util.file.double_structure_parsing_service import StructureParsingServiceMock
-from doubles.util.file.double_uri_loading_strategy_factory import UriLoadingStrategyFactoryMock
+from doubles.util.uri.double_uri_import_strategy_factory import UriImportStrategyFactoryMock
+from doubles.util.uri.double_structure_parsing_service import StructureParsingServiceMock
+from doubles.util.uri.double_uri_loading_strategy_factory import UriLoadingStrategyFactoryMock
 from src.util.uri.uri_type import UriType
 from src.util.uri.uri_import_service import UriImportService
 from src.util.uri.uri_import_strategy_factory import UriImportStrategyFactory
