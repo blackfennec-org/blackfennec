@@ -53,7 +53,7 @@ class List(Info, UserList):
         self._set_parent(item)
 
     def remove(self, item: Info):
-        """Remove item form List.
+        """Remove item from List.
 
         Args:
             item (Info): Item to remove.

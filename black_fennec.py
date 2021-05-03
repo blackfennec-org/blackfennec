@@ -112,7 +112,7 @@ class BlackFennec(Gtk.Application):
         view_model = BlackFennecViewModel(
             presenter_view,
             navigation_service,
-            uri_import_service
+            uri_import_service,
         )
         black_fennec_view = BlackFennecView(self, view_model)
         logger.debug('show_main_ui')
