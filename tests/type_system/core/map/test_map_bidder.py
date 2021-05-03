@@ -24,4 +24,3 @@ class MapBidderTestSuite(unittest.TestCase):
         expected_offer = Offer(subject, 0, Map(), Dummy())
         offer = bidder.bid(subject)
         self.assertEqual(offer, expected_offer)
-    
