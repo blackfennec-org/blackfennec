@@ -66,4 +66,4 @@ class ListTemplate(TemplateBase, List):
 
     def __contains__(self, item):
         decapsulated_value = self._remove_template_class(item)
-        return decapsulated_value in self.subject.data
+        return decapsulated_value in self.subject

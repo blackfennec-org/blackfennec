@@ -1,8 +1,6 @@
 import unittest
-from collections import deque
 from doubles.double_dummy import Dummy
 from doubles.interpretation.double_interpretation import InterpretationMock
-from doubles.interpretation.double_interpretation_service import InterpretationServiceMock
 from doubles.structure.double_info import InfoMock
 from doubles.structure.double_reference import ReferenceMock, ReferenceInstanceMock
 from src.type_system.core.reference.reference_view_model import ReferenceViewModel

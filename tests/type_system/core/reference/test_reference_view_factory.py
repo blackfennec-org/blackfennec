@@ -3,7 +3,7 @@ import unittest
 from doubles.interpretation.double_interpretation import InterpretationMock
 from doubles.interpretation.double_interpretation_service import InterpretationServiceMock
 from doubles.structure.double_map import MapMock
-from doubles.structure.double_reference import ReferenceMock, ReferenceInstanceMock
+from doubles.structure.double_reference import ReferenceInstanceMock
 from src.interpretation.specification import Specification
 from src.type_system.core.reference.reference_preview import ReferencePreview
 from src.type_system.core.reference.reference_view_factory import ReferenceViewFactory
