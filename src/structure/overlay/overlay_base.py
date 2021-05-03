@@ -6,13 +6,13 @@ class OverlayBase:
     @property
     def subject(self):
         """Property for access on encapsulated info
-            in this OverlayAdapter."""
+            in this Overlay."""
         return self._subject
 
     @property
     def parent(self):
         """Property for parent of this info encapsulated
-            in an OverlayAdapter."""
+            in an Overlay."""
         return self._overlay_factory.create(self.subject.parent)
 
     @parent.setter
@@ -22,7 +22,7 @@ class OverlayBase:
 
     @property
     def root(self):
-        """Property for root of this info encapsulated in an OverlayAdapter."""
+        """Property for root of this info encapsulated in an Overlay."""
         return self._overlay_factory.create(self.subject.root)
 
     @staticmethod
