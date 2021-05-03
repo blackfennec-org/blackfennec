@@ -47,7 +47,7 @@ class JsonReferenceResolvingService:
         if json_pointer:
             structure = json_pointer.resolve_from(structure)
 
-        if uri_type == UriType.HOST_URI or uri_type == UriType.ABSOLUTE_PATH:
+        if uri_type in (UriType.HOST_URI, UriType.ABSOLUTE_PATH):
             self._cached_structure[reference] = structure
 
         return structure

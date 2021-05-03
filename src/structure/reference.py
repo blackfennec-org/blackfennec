@@ -15,7 +15,11 @@ class Reference(Map):
     REFERENCE_KEY = '$ref'
     TEMPLATE = None
 
-    def __init__(self, json_reference_resolve_service: JsonReferenceResolvingService, reference: str = ''):
+    def __init__(
+            self,
+            json_reference_resolve_service: JsonReferenceResolvingService,
+            reference: str = ''
+    ):
         """Reference Constructor.
 
         Args:
@@ -63,7 +67,10 @@ class Reference(Map):
                 points
         """
         if self.reference:
-            return self._json_reference_resolve_service.resolve(self.reference, self)
+            return self._json_reference_resolve_service.resolve(
+                self.reference,
+                self
+            )
 
     @staticmethod
     def is_json_reference(dictionary: dict):

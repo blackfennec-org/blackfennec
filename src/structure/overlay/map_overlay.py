@@ -22,7 +22,11 @@ class MapOverlay(OverlayBase, Map):
         for child in self.subject.children:
             if isinstance(child, Reference):
                 reference: Reference = child
-                result.append(self._overlay_factory.create(reference.destination))
+                result.append(
+                    self._overlay_factory.create(
+                        reference.destination
+                    )
+                )
             else:
                 result.append(self._overlay_factory.create(child))
         return result

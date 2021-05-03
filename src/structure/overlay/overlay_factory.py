@@ -38,7 +38,8 @@ def _get_overlay_class(subject_class: type):
 
         @property
         def subject(self) -> subject_class:
-            """Property for access on encapsulated info in this OverlayAdapter."""
+            """Property for access on encapsulated info in
+                this OverlayAdapter."""
             return self._subject
 
     return GenericOverlay

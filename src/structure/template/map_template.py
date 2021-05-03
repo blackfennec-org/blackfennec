@@ -4,8 +4,18 @@ from src.structure.template.template_base import TemplateBase
 
 
 class MapTemplate(TemplateBase, Map):
-    def __init__(self, subject: Map, template_factory, property_storage: dict = None):
-        TemplateBase.__init__(self, subject, template_factory, property_storage)
+    def __init__(
+            self,
+            subject: Map,
+            template_factory,
+            property_storage: dict = None
+    ):
+        TemplateBase.__init__(
+            self,
+            subject,
+            template_factory,
+            property_storage
+        )
 
     @property
     def subject(self) -> Map:
@@ -17,7 +27,12 @@ class MapTemplate(TemplateBase, Map):
         if not self.subject.children:
             return result
         for child in self.subject.children:
-            result.append(self._template_factory.create(child, self._property_storage))
+            result.append(
+                self._template_factory.create(
+                    child,
+                    self._property_storage
+                )
+            )
         return result
 
     def __getitem__(self, key):

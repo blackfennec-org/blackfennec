@@ -9,7 +9,7 @@ from src.util.uri.uri_loading_strategy_factory import UriLoadingStrategyFactory
 
 gi.require_version('Gtk', '3.0')
 
-# pylint: disable=wrong-import-position
+# pylint: disable=wrong-import-position,ungrouped-imports
 import logging
 from gi.repository import Gtk, Gdk, GLib
 from src.interpretation.auction.auctioneer import Auctioneer
@@ -100,9 +100,12 @@ class BlackFennec(Gtk.Application):
             uri_loading_strategy_factory,
             uri_import_strategy_factory
         )
-        reference_resolving_service = JsonReferenceResolvingService(uri_import_service)
+        reference_resolving_service = \
+            JsonReferenceResolvingService(uri_import_service)
 
-        structure_parsing_service.set_reference_resolving_service(reference_resolving_service)
+        structure_parsing_service.set_reference_resolving_service(
+            reference_resolving_service
+        )
 
         presenter_view = ColumnBasedPresenterViewFactory() \
             .create(interpretation_service, navigation_service)

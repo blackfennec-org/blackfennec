@@ -29,7 +29,12 @@ class UriImportService:
         self._import_strategy_factory = uri_import_strategy_factory
         self._uri_cache = uri_cache if uri_cache else dict()
 
-    def load(self, uri_str: str, current_path: str = None, mime_type: str = None):
+    def load(
+            self,
+            uri_str: str,
+            current_path: str = None,
+            mime_type: str = None
+    ):
         uri = URI(uri_str)
         uri_type: UriType = UriType.from_uri(uri)
         mime_type = self._get_mime_type(uri, uri_type, mime_type)
@@ -46,11 +51,19 @@ class UriImportService:
             structure: Info = self._parser.from_json(raw)
             self._uri_cache[uri_id] = structure
             uri_id_without_mime_type, _ = uri_id
-            structure.parent = Root(structure, uri_id_without_mime_type, mime_type)
+            structure.parent = Root(
+                structure,
+                uri_id_without_mime_type,
+                mime_type
+            )
             return structure
 
     @staticmethod
-    def _uri_identification(uri: URI, uri_type: UriType, mime_type: str) -> (str, str):
+    def _uri_identification(
+            uri: URI,
+            uri_type: UriType,
+            mime_type: str
+    ) -> (str, str):
         if uri_type == UriType.HOST_URI:
             return str(uri.host) + str(uri.path), mime_type
         return str(uri.path), mime_type

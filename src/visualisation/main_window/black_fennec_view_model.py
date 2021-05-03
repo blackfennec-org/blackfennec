@@ -1,8 +1,6 @@
 import logging
-import mimetypes
 
 from src.structure.info import Info
-from src.structure.root import Root
 
 logger = logging.getLogger(__name__)
 

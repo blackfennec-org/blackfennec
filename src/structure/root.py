@@ -41,7 +41,7 @@ class Root(Info):
 
     @parent.setter
     def parent(self, new_parent):
-        raise TypeError("cannot set parent on type Root")
+        raise TypeError('cannot set parent on type Root')
 
     @property
     def root(self) -> 'Root':

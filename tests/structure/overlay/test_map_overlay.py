@@ -1,17 +1,15 @@
 import unittest
 from typing import Optional
 
-from doubles.double_dummy import Dummy
 from doubles.structure.double_info import InfoMock
-from doubles.structure.double_map import MapMock
 from doubles.structure.overlay.double_overlay_factory import OverlayFactoryMock
 from doubles.util.json.double_json_reference_resolving_service import JsonReferenceResolvingServiceMock
 from src.structure.info import Info
 from src.structure.map import Map
-from src.structure.reference import Reference
-from src.structure.root import Root
 from src.structure.overlay.map_overlay import MapOverlay
 from src.structure.overlay.overlay_factory import _get_overlay_class
+from src.structure.reference import Reference
+from src.structure.root import Root
 
 
 class MapOverlayTestSuite(unittest.TestCase):

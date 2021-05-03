@@ -27,7 +27,9 @@ class ListOverlay(OverlayBase, List):
         for child in self.subject.children:
             if isinstance(child, Reference):
                 reference: Reference = child
-                result.append(self._overlay_factory.create(reference.destination))
+                result.append(
+                    self._overlay_factory.create(reference.destination)
+                )
             else:
                 result.append(self._overlay_factory.create(child))
         return result
@@ -53,7 +55,7 @@ class ListOverlay(OverlayBase, List):
         """
         decapsulated_item = self._remove_overlay_class(item)
         if decapsulated_item not in self:
-            message = "item not in list"
+            message = 'item not in list'
             logger.error(message)
             raise KeyError(message)
         self.subject.remove(decapsulated_item)

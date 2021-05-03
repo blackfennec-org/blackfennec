@@ -5,18 +5,20 @@ class OverlayBase:
 
     @property
     def subject(self):
-        """Property for access on encapsulated info in this OverlayAdapter."""
+        """Property for access on encapsulated info
+            in this OverlayAdapter."""
         return self._subject
 
     @property
     def parent(self):
-        """Property for parent of this info encapsulated in an OverlayAdapter."""
+        """Property for parent of this info encapsulated
+            in an OverlayAdapter."""
         return self._overlay_factory.create(self.subject.parent)
 
     @parent.setter
     def parent(self, parent: 'Info'):
         decapsulated_parent = self._remove_overlay_class(parent)
-        self.subject._parent = decapsulated_parent
+        self.subject.parent = decapsulated_parent
 
     @property
     def root(self):

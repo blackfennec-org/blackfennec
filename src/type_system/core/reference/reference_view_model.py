@@ -1,9 +1,7 @@
 import logging
 
-from src.structure.info import Info
-from src.navigation.navigation_proxy import NavigationProxy
-from src.interpretation.specification import Specification
 from src.interpretation.interpretation import Interpretation
+from src.structure.info import Info
 from src.structure.reference import Reference
 
 logger = logging.getLogger(__name__)
@@ -26,7 +24,8 @@ class ReferenceViewModel:
         if isinstance(interpretation_info, Reference):
             self._reference: Reference = interpretation_info
         else:
-            message = 'Info contained in Interpretation has to be of type Reference'
+            message = 'Info contained in Interpretation has to be' \
+                      ' of type Reference'
             logger.error(message)
             raise TypeError(message)
 

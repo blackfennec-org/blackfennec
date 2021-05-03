@@ -9,8 +9,18 @@ logger = logging.getLogger(__name__)
 
 
 class ListTemplate(TemplateBase, List):
-    def __init__(self, subject: List, template_factory, property_storage: dict = None):
-        TemplateBase.__init__(self, subject, template_factory, property_storage)
+    def __init__(
+            self,
+            subject: List,
+            template_factory,
+            property_storage: dict = None
+    ):
+        TemplateBase.__init__(
+            self,
+            subject,
+            template_factory,
+            property_storage
+        )
 
     @property
     def subject(self) -> List:
@@ -48,7 +58,7 @@ class ListTemplate(TemplateBase, List):
         """
         decapsulated_value = self._remove_template_class(item)
         if decapsulated_value not in self:
-            message = "item not in list"
+            message = 'item not in list'
             logger.error(message)
             raise KeyError(message)
         self.subject.remove(decapsulated_value)

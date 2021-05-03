@@ -13,7 +13,10 @@ def create_folder_structure(root_directory):
         for file in files:
             store.append(s[sub_directory], [file, sub_directory + '/' + file])
         for directory in directories:
-            p = store.append(s[sub_directory], [directory, 'directory is not a file...'])
+            p = store.append(
+                s[sub_directory],
+                [directory, 'directory is not a file...']
+            )
             s[sub_directory + '/' + directory] = p
     return store
 

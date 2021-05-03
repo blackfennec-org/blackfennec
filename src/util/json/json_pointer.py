@@ -18,8 +18,10 @@ class JsonPointerType(Enum):
 
 
 class JsonPointer:
-    ABSOLUTE_POINTER_PATTERN = re.compile('^(/?(([^/~])|(~[01]))*)+$')
-    RELATIVE_POINTER_PATTERN = re.compile('^([0-9]+([+][0-9]+|[-][0-9]+)?)(/(([^/~])|(~[01]))*)*$')
+    ABSOLUTE_POINTER_PATTERN = \
+        re.compile('^(/?(([^/~])|(~[01]))*)+$')
+    RELATIVE_POINTER_PATTERN = \
+        re.compile('^([0-9]+([+][0-9]+|[-][0-9]+)?)(/(([^/~])|(~[01]))*)*$')
 
     def __init__(self, json_pointer: str, json_pointer_type: JsonPointerType):
         self.path = (json_pointer, json_pointer_type)
@@ -35,7 +37,9 @@ class JsonPointer:
         hierarchy = pointer.split('/')
         self._hierarchy: [str] = list()
         for navigator in hierarchy:
-            self._hierarchy.append(self._remove_escaping_from_navigator(navigator))
+            self._hierarchy.append(
+                self._remove_escaping_from_navigator(navigator)
+            )
 
     @property
     def type(self) -> JsonPointerType:
@@ -61,17 +65,15 @@ class JsonPointer:
             if list_index < len(source_list.children):
                 return source_list[list_index]
             else:
-                message = 'Tried to access source_list(len={}) with index({}) ' \
-                          'which is out of bounds'\
-                    .format(
-                        len(source_list), list_index
-                    )
+                message = f'Tried to access source_list(' \
+                          f'len={len(source_list)}) ' \
+                          f'with index({list_index}) which is out of bounds'
                 logger.error(message)
                 raise IndexError(message)
         else:
             message = 'Tried to access source_list with invalid ' \
-                      'index({}) which is non-decimal and ' \
-                      'thus invalid'.format(navigator),
+                      f'index({navigator}) which is non-decimal and ' \
+                      'thus invalid'
             logger.error(message)
             raise ValueError(message)
 
@@ -93,12 +95,18 @@ class JsonPointer:
         while hierarchy_index < len(self._hierarchy):
             navigator: str = self._hierarchy[hierarchy_index]
             if isinstance(current_location, Map):
-                current_location = self._navigate_in_map(current_location, navigator)
+                current_location = self._navigate_in_map(
+                    current_location,
+                    navigator
+                )
             elif isinstance(current_location, List):
-                current_location = self._navigate_in_list(current_location, navigator)
+                current_location = self._navigate_in_list(
+                    current_location,
+                    navigator
+                )
             else:
-                message = 'Navigator({}) could not be resolved on' \
-                          'type {}'.format(navigator, type(current_location))
+                message = f'Navigator({navigator}) could not be resolved on' \
+                          f'type {type(current_location)}'
                 logger.error(message)
                 raise TypeError(message)
             hierarchy_index += 1
@@ -130,8 +138,7 @@ class JsonPointer:
             if split[1].isdecimal():
                 index_increment = int(split[1]) * -1
             else:
-                message = 'Array decrement({}) is not decimal'.format(
-                    split[1])
+                message = f'Array decrement({split[1]}) is not decimal'
                 logger.error(message)
                 raise ValueError(message)
         elif '+' in level_navigator:
@@ -149,12 +156,14 @@ class JsonPointer:
             for _ in itertools.repeat(None, int(level_navigator)):
                 current_location = current_location.parent
         else:
-            message = 'Level_navigator({}) is not decimal'.format(
-                level_navigator)
+            message = f'Level_navigator({level_navigator}) is not decimal'
             logger.error(message)
             raise ValueError(message)
         if index_increment:
-            current_location = self._get_nth_next_sibling(current_location, index_increment)
+            current_location = self._get_nth_next_sibling(
+                current_location,
+                index_increment
+            )
         resolved = self._resolve_absolute_pointer(current_location)
         if get_key_of_value:
             return String(self._get_key_of_self(resolved))
@@ -205,7 +214,7 @@ class JsonPointer:
             return self._resolve_absolute_pointer(source.root.child)
         elif self.type == JsonPointerType.RELATIVE_JSON_POINTER:
             return self._resolve_relative_pointer(source)
-        message = 'Json Pointer type({}) not handled'.format(self.type.name)
+        message = f'Json Pointer type({self.type.name}) not handled'
         logger.error(message)
         raise NotImplementedError(message)
 

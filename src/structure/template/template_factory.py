@@ -33,12 +33,23 @@ class TemplateFactory:
 @lru_cache(maxsize=32, typed=True)
 def _get_template_class(subject_class: type):
     class GenericTemplate(TemplateBase, subject_class):
-        def __init__(self, subject: subject_class, template_factory, property_storage):
-            TemplateBase.__init__(self, subject, template_factory, property_storage)
+        def __init__(
+                self,
+                subject: subject_class,
+                template_factory,
+                property_storage
+        ):
+            TemplateBase.__init__(
+                self,
+                subject,
+                template_factory,
+                property_storage
+            )
 
         @property
         def subject(self) -> subject_class:
-            """Property for access on encapsulated info in this TemplateAdapter."""
+            """Property for access on encapsulated info
+                in this TemplateAdapter."""
             return self._subject
 
     return GenericTemplate
