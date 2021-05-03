@@ -13,7 +13,20 @@ class OverlayBase:
         """Property for parent of this info encapsulated in an OverlayAdapter."""
         return self._overlay_factory.create(self.subject.parent)
 
+    @parent.setter
+    def parent(self, parent: 'Info'):
+        decapsulated_parent = self._remove_overlay_class(parent)
+        self.subject._parent = decapsulated_parent
+
     @property
     def root(self):
         """Property for root of this info encapsulated in an OverlayAdapter."""
         return self._overlay_factory.create(self.subject.root)
+
+    @staticmethod
+    def _remove_overlay_class(value):
+        decapsulated_value = value
+        if isinstance(value, OverlayBase):
+            subject: OverlayBase = value
+            decapsulated_value = subject.subject
+        return decapsulated_value

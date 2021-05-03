@@ -6,7 +6,6 @@ from src.structure.reference import Reference
 
 class MapOverlay(OverlayBase, Map):
     def __init__(self, subject: Map, overlay_factory):
-        Map.__init__(self)
         OverlayBase.__init__(self, subject, overlay_factory)
 
     @property
@@ -20,20 +19,20 @@ class MapOverlay(OverlayBase, Map):
             [MapTemplate]: Empty list
         """
         result: list = list()
-        for child in super().children:
-            result.append(child)
+        for child in self.subject.children:
             if isinstance(child, Reference):
                 reference: Reference = child
-                result.append(reference.destination)
+                result.append(self._overlay_factory.create(reference.destination))
+            else:
+                result.append(self._overlay_factory.create(child))
         return result
 
     def __getitem__(self, key):
-        item = super().__getitem__(key)
+        item = self.subject[key]
         return self._overlay_factory.create(item)
 
     def __setitem__(self, key, value):
-        decapsulated_value = value
-        if isinstance(value, OverlayBase):
-            subject: OverlayBase = value
-            decapsulated_value = subject.subject
-        Map.__setitem__(self, key, decapsulated_value)
+        self.subject[key] = self._remove_overlay_class(value)
+
+    def __repr__(self):
+        return f'MapOverlay({self.subject.__repr__()})'

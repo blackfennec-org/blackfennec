@@ -1,9 +1,7 @@
 import unittest
 from typing import Optional
 
-from doubles.double_dummy import Dummy
 from doubles.structure.double_info import InfoMock
-from doubles.structure.double_list import ListMock, ListInstanceMock
 from doubles.structure.template.double_template_factory import TemplateFactoryMock
 from src.structure.info import Info
 from src.structure.list import List
@@ -119,7 +117,7 @@ class ListTemplateTestSuite(unittest.TestCase):
         list_template.remove(encapsulated)
         self.assertEqual(len(self.subject), 0)
 
-    def test_remove_item(self):
+    def test_remove_item_not_in_list(self):
         value = InfoMock('test_value')
         subject = List([value])
         self.factory._create_return = value

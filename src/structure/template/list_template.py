@@ -46,11 +46,12 @@ class ListTemplate(TemplateBase, List):
             KeyError: If the item passed is not in
                 list and hence cannot be removed.
         """
-        if self._remove_template_class(item) not in self:
+        decapsulated_value = self._remove_template_class(item)
+        if decapsulated_value not in self:
             message = "item not in list"
             logger.error(message)
             raise KeyError(message)
-        self.subject.remove(self._remove_template_class(item))
+        self.subject.remove(decapsulated_value)
 
     def __getitem__(self, index):
         item = self.subject[index]
@@ -61,9 +62,9 @@ class ListTemplate(TemplateBase, List):
         self.subject[index] = decapsulated_value
         decapsulated_value.parent = self.subject
 
-    def __repr__(self):
-        return f'ListTemplate({self.subject.__repr__()})'
-
     def __contains__(self, item):
         decapsulated_value = self._remove_template_class(item)
         return decapsulated_value in self.subject
+
+    def __repr__(self):
+        return f'ListTemplate({self.subject.__repr__()})'

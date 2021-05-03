@@ -33,8 +33,7 @@ class OverlayFactory:
 @lru_cache(maxsize=32, typed=True)
 def _get_overlay_class(subject_class: type):
     class GenericOverlay(OverlayBase, subject_class):
-        def __init__(self, subject: subject_class, overlay_factory, **kwargs):
-            subject_class.__init__(self, kwargs)
+        def __init__(self, subject: subject_class, overlay_factory):
             OverlayBase.__init__(self, subject, overlay_factory)
 
         @property

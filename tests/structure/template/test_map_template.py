@@ -1,9 +1,7 @@
 import unittest
 from typing import Optional
 
-from doubles.double_dummy import Dummy
 from doubles.structure.double_info import InfoMock
-from doubles.structure.double_map import MapMock
 from doubles.structure.template.double_template_factory import TemplateFactoryMock
 from src.structure.info import Info
 from src.structure.map import Map
