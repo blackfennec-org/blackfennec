@@ -24,5 +24,8 @@
         </style>
       </object>
     </child>
+    <style>
+      <class name="map-view"/>
+    </style>
   </template>
 </interface>

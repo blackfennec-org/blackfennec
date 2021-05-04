@@ -9,6 +9,9 @@
       <object class="GtkSwitch" id="_value">
         <property name="visible">True</property>
         <property name="can-focus">True</property>
+        <style>
+          <class name=".boolean"/>
+        </style>
       </object>
     </child>
   </template>
