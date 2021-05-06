@@ -254,10 +254,37 @@ text-decoration: none;
 background-color: #393838;
 }
 
-.address-key, address-value {
+.base-key, .base-value {
 margin: 2px 0px;
 }
 
-.address-box {
+.base-box {
 padding: 0px 20px;
+}
+
+.base-title {
+padding: 10px 0px;
+border-style: solid;
+border-color: #474747;
+border-width: 0px 0px 1px 0px;
+}
+
+.base-box button{
+background-image: none;
+border-image: none;
+border: 1px solid #e4e4e4;
+background-color: #515151;
+padding: 0px;
+border-radius: 5px;
+margin: 5px 5px 5px 10px;
+}
+
+.base-box button:hover {
+background-color: #4d77fd;
+border-color:#4d77fd;
+
+}
+
+.base-box button image {
+padding: 5px;
 }

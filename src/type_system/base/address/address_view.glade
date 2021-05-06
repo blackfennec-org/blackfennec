@@ -19,6 +19,9 @@
             <attributes>
               <attribute name="weight" value="bold"/>
             </attributes>
+            <style>
+              <class name="base-title"/>
+            </style>
           </object>
           <packing>
             <property name="expand">False</property>
@@ -39,7 +42,7 @@
                 <property name="width-chars">10</property>
                 <property name="xalign">0</property>
                 <style>
-                  <class name="address-key"/>
+                  <class name="base-key"/>
                 </style>
               </object>
               <packing>
@@ -57,7 +60,7 @@
                 <property name="ellipsize">start</property>
                 <property name="xalign">0</property>
                 <style>
-                  <class name="address-value"/>
+                  <class name="base-value"/>
                 </style>
               </object>
               <packing>
@@ -87,7 +90,7 @@
                 <property name="width-chars">10</property>
                 <property name="xalign">0</property>
                 <style>
-                  <class name="address-key"/>
+                  <class name="base-key"/>
                 </style>
               </object>
               <packing>
@@ -104,7 +107,7 @@
                 <property name="selectable">True</property>
                 <property name="xalign">0</property>
                 <style>
-                  <class name="address-value"/>
+                  <class name="base-value"/>
                 </style>
               </object>
               <packing>
@@ -134,7 +137,7 @@
                 <property name="width-chars">10</property>
                 <property name="xalign">0</property>
                 <style>
-                  <class name="address-key"/>
+                  <class name="base-key"/>
                 </style>
               </object>
               <packing>
@@ -151,7 +154,7 @@
                 <property name="selectable">True</property>
                 <property name="xalign">0</property>
                 <style>
-                  <class name="address-value"/>
+                  <class name="base-value"/>
                 </style>
               </object>
               <packing>
@@ -181,7 +184,7 @@
                 <property name="width-chars">10</property>
                 <property name="xalign">0</property>
                 <style>
-                  <class name="address-key"/>
+                  <class name="base-key"/>
                 </style>
               </object>
               <packing>
@@ -198,7 +201,7 @@
                 <property name="selectable">True</property>
                 <property name="xalign">0</property>
                 <style>
-                  <class name="address-value"/>
+                  <class name="base-value"/>
                 </style>
               </object>
               <packing>
@@ -216,7 +219,7 @@
           </packing>
         </child>
         <style>
-          <class name="address-box"/>
+          <class name="base-box"/>
         </style>
       </object>
     </child>

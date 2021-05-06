@@ -19,6 +19,9 @@
             <attributes>
               <attribute name="weight" value="bold"/>
             </attributes>
+            <style>
+              <class name="base-title"/>
+            </style>
           </object>
           <packing>
             <property name="expand">False</property>
@@ -36,8 +39,11 @@
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
                 <property name="label" translatable="yes">Courtesy title:</property>
-                <property name="width-chars">10</property>
+                <property name="width-chars">13</property>
                 <property name="xalign">0</property>
+                <style>
+                  <class name="base-key"/>
+                </style>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -48,11 +54,14 @@
             <child>
               <object class="GtkLabel" id="_courtesy_title_value">
                 <property name="visible">True</property>
-                <property name="can-focus">False</property>
+                <property name="can-focus">True</property>
                 <property name="label" translatable="yes">&lt;value-here&gt;</property>
                 <property name="selectable">True</property>
                 <property name="ellipsize">start</property>
                 <property name="xalign">0</property>
+                <style>
+                  <class name="base-value"/>
+                </style>
               </object>
               <packing>
                 <property name="expand">True</property>
@@ -78,8 +87,11 @@
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
                 <property name="label" translatable="yes">First name:</property>
-                <property name="width-chars">10</property>
+                <property name="width-chars">13</property>
                 <property name="xalign">0</property>
+                <style>
+                  <class name="base-key"/>
+                </style>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -95,6 +107,9 @@
                 <property name="selectable">True</property>
                 <property name="ellipsize">start</property>
                 <property name="xalign">0</property>
+                <style>
+                  <class name="base-value"/>
+                </style>
               </object>
               <packing>
                 <property name="expand">True</property>
@@ -120,8 +135,11 @@
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
                 <property name="label" translatable="yes">Middle name:</property>
-                <property name="width-chars">10</property>
+                <property name="width-chars">13</property>
                 <property name="xalign">0</property>
+                <style>
+                  <class name="base-key"/>
+                </style>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -132,11 +150,14 @@
             <child>
               <object class="GtkLabel" id="_middle_name_value">
                 <property name="visible">True</property>
-                <property name="can-focus">False</property>
+                <property name="can-focus">True</property>
                 <property name="label" translatable="yes">&lt;value-here&gt;</property>
                 <property name="selectable">True</property>
                 <property name="ellipsize">start</property>
                 <property name="xalign">0</property>
+                <style>
+                  <class name="base-value"/>
+                </style>
               </object>
               <packing>
                 <property name="expand">True</property>
@@ -162,8 +183,11 @@
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
                 <property name="label" translatable="yes">Last name:</property>
-                <property name="width-chars">10</property>
+                <property name="width-chars">13</property>
                 <property name="xalign">0</property>
+                <style>
+                  <class name="base-key"/>
+                </style>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -178,6 +202,9 @@
                 <property name="label" translatable="yes">&lt;value-here&gt;</property>
                 <property name="selectable">True</property>
                 <property name="xalign">0</property>
+                <style>
+                  <class name="base-value"/>
+                </style>
               </object>
               <packing>
                 <property name="expand">True</property>
@@ -203,8 +230,11 @@
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
                 <property name="label" translatable="yes">Suffix:</property>
-                <property name="width-chars">10</property>
+                <property name="width-chars">13</property>
                 <property name="xalign">0</property>
+                <style>
+                  <class name="base-key"/>
+                </style>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -215,11 +245,14 @@
             <child>
               <object class="GtkLabel" id="_suffix_value">
                 <property name="visible">True</property>
-                <property name="can-focus">False</property>
+                <property name="can-focus">True</property>
                 <property name="label" translatable="yes">&lt;value-here&gt;</property>
                 <property name="selectable">True</property>
                 <property name="ellipsize">start</property>
                 <property name="xalign">0</property>
+                <style>
+                  <class name="base-value"/>
+                </style>
               </object>
               <packing>
                 <property name="expand">True</property>
@@ -245,8 +278,11 @@
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
                 <property name="label" translatable="yes">Gender:</property>
-                <property name="width-chars">10</property>
+                <property name="width-chars">13</property>
                 <property name="xalign">0</property>
+                <style>
+                  <class name="base-key"/>
+                </style>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -257,11 +293,14 @@
             <child>
               <object class="GtkLabel" id="_gender_value">
                 <property name="visible">True</property>
-                <property name="can-focus">False</property>
+                <property name="can-focus">True</property>
                 <property name="label" translatable="yes">&lt;value-here&gt;</property>
                 <property name="selectable">True</property>
                 <property name="ellipsize">start</property>
                 <property name="xalign">0</property>
+                <style>
+                  <class name="base-value"/>
+                </style>
               </object>
               <packing>
                 <property name="expand">True</property>
@@ -287,8 +326,11 @@
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
                 <property name="label" translatable="yes">Sex:</property>
-                <property name="width-chars">10</property>
+                <property name="width-chars">13</property>
                 <property name="xalign">0</property>
+                <style>
+                  <class name="base-key"/>
+                </style>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -299,11 +341,14 @@
             <child>
               <object class="GtkLabel" id="_sex_value">
                 <property name="visible">True</property>
-                <property name="can-focus">False</property>
+                <property name="can-focus">True</property>
                 <property name="label" translatable="yes">&lt;value-here&gt;</property>
                 <property name="selectable">True</property>
                 <property name="ellipsize">start</property>
                 <property name="xalign">0</property>
+                <style>
+                  <class name="base-value"/>
+                </style>
               </object>
               <packing>
                 <property name="expand">True</property>
@@ -329,8 +374,11 @@
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
                 <property name="label" translatable="yes">Marital status:</property>
-                <property name="width-chars">10</property>
+                <property name="width-chars">13</property>
                 <property name="xalign">0</property>
+                <style>
+                  <class name="base-key"/>
+                </style>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -341,11 +389,14 @@
             <child>
               <object class="GtkLabel" id="_marital_status_value">
                 <property name="visible">True</property>
-                <property name="can-focus">False</property>
+                <property name="can-focus">True</property>
                 <property name="label" translatable="yes">&lt;value-here&gt;</property>
                 <property name="selectable">True</property>
                 <property name="ellipsize">start</property>
                 <property name="xalign">0</property>
+                <style>
+                  <class name="base-value"/>
+                </style>
               </object>
               <packing>
                 <property name="expand">True</property>
@@ -371,8 +422,11 @@
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
                 <property name="label" translatable="yes">Nationality:</property>
-                <property name="width-chars">10</property>
+                <property name="width-chars">13</property>
                 <property name="xalign">0</property>
+                <style>
+                  <class name="base-key"/>
+                </style>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -383,11 +437,14 @@
             <child>
               <object class="GtkLabel" id="_nationality_value">
                 <property name="visible">True</property>
-                <property name="can-focus">False</property>
+                <property name="can-focus">True</property>
                 <property name="label" translatable="yes">&lt;value-here&gt;</property>
                 <property name="selectable">True</property>
                 <property name="ellipsize">start</property>
                 <property name="xalign">0</property>
+                <style>
+                  <class name="base-value"/>
+                </style>
               </object>
               <packing>
                 <property name="expand">True</property>
@@ -403,6 +460,9 @@
             <property name="position">9</property>
           </packing>
         </child>
+        <style>
+          <class name="base-box"/>
+        </style>
       </object>
     </child>
   </template>
