@@ -6,6 +6,7 @@
 .main-main-grid * {
 border-image: none;
 background-image: none;
+box-shadow: none;
 }
 
 .main-window selection{
@@ -133,6 +134,7 @@ text-decoration: none;
 
 .main-window treeview.view header button * {
 color: #4d77fd;
+font-weight: 500;
 }
 
 .main-file-tree{
@@ -267,6 +269,11 @@ padding: 10px 0px;
 border-style: solid;
 border-color: #474747;
 border-width: 0px 0px 1px 0px;
+font-weight:500;
+}
+
+.base-title image {
+margin: 0px 5px;
 }
 
 .base-box button{
