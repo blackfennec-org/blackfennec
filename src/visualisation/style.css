@@ -197,3 +197,15 @@ border-style: solid;
 border-color: #4d77fd;
 border-width: 1px;
 }
+
+.main-window paned separator.wide {
+border-image: none;
+background-image: none;
+background-color: #464545;
+}
+
+.main-window paned separator.wide:hover{
+border-image: none;
+background-image: none;
+background-color: #626262;
+}
