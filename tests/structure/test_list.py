@@ -2,6 +2,7 @@ import unittest
 import logging
 from doubles.structure.double_info import InfoMock
 from doubles.structure.double_root import RootMock
+from doubles.structure.encapsulation_base.double_factory_base_visitor import FactoryBaseVisitorMock
 from src.structure.list import List
 
 class ListTestSuite(unittest.TestCase):
@@ -145,3 +146,21 @@ class ListTestSuite(unittest.TestCase):
                 del l[0]
             except KeyError:
                 pass
+
+    def test_can_get_value(self):
+        value = InfoMock('value')
+        info_list = List([value])
+        self.assertIn(value, info_list.value)
+
+    def test_can_set_value(self):
+        value = InfoMock('value')
+        info_list = List()
+        info_list.value = [value]
+        self.assertIn(value, info_list.value)
+
+    def test_accept(self):
+        visitor = FactoryBaseVisitorMock()
+        info_list = List()
+        info_list.accept(visitor)
+        self.assertEqual(visitor.list, info_list)
+        self.assertEqual(visitor.visit_list_count, 1)

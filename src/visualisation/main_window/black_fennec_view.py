@@ -2,6 +2,8 @@ import logging
 from gi.repository import Gtk
 import os
 
+from uri import URI
+
 logger = logging.getLogger(__name__)
 
 
@@ -13,7 +15,10 @@ def create_folder_structure(root_directory):
         for file in files:
             store.append(s[sub_directory], [file, sub_directory + '/' + file])
         for directory in directories:
-            p = store.append(s[sub_directory], [directory, 'directory is not a file...'])
+            p = store.append(
+                s[sub_directory],
+                [directory, 'directory is not a file...']
+            )
             s[sub_directory + '/' + directory] = p
     return store
 
@@ -75,8 +80,8 @@ class BlackFennecView(Gtk.ApplicationWindow):
         model = self._file_tree.get_model()
         iterator = model.get_iter(path)
         if iterator:
-            file = model.get_value(iterator, 1)
-            self._view_model.open(file)
+            uri = URI(model.get_value(iterator, 1))
+            self._view_model.open(uri)
 
     @Gtk.Template.Callback()
     def on_quit_clicked(self, unused_sender) -> None:

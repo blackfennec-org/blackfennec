@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import json
 
 from src.structure.boolean import Boolean
@@ -7,7 +8,7 @@ from src.structure.number import Number
 from src.structure.string import String
 
 
-class JsonEncoder(json.JSONEncoder):
+class StructureEncodingService(json.JSONEncoder):
     """Json Encoder"""
 
     def default(self, obj):

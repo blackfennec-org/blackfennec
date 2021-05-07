@@ -1,9 +1,9 @@
-class BooleanMock:
-    def __init__(self, value = False):
-        self._value = value
-        self._value_property_access_count = 0
+from doubles.structure.double_info import InfoMock
 
-    @property
-    def value(self):
-        self._value_property_access_count += 1
-        return self._value
+
+class BooleanMock(InfoMock):
+    def __init__(self, value=None, children=None, parent=None, root=None):
+        InfoMock.__init__(self, value, children, parent, root)
+
+    def accept(self, visitor):
+        return visitor.visit_number(self)

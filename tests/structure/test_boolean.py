@@ -2,6 +2,7 @@
 import unittest
 
 from doubles.structure.double_root import RootMock
+from doubles.structure.encapsulation_base.double_factory_base_visitor import FactoryBaseVisitorMock
 from src.structure.boolean import Boolean
 
 
@@ -79,3 +80,10 @@ class BooleanTestSuite(unittest.TestCase):
             comp != other_comp,
             msg='Unequal elements are equal'
         )
+
+    def test_accept(self):
+        visitor = FactoryBaseVisitorMock()
+        boolean = Boolean()
+        boolean.accept(visitor)
+        self.assertEqual(visitor.boolean, boolean)
+        self.assertEqual(visitor.visit_boolean_count, 1)
