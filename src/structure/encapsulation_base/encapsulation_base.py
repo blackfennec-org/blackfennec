@@ -20,7 +20,8 @@ class EncapsulationBase:
 
     @property
     def subject(self):
-        """Property for access on encapsulated info in this EncapsulationBase."""
+        """Property for access on encapsulated
+            info in this EncapsulationBase."""
         return self._subject
 
     @property
@@ -45,7 +46,10 @@ class EncapsulationBase:
     @property
     def children(self):
         if self.subject.children:
-            return [child.accept(self._visitor) for child in self.subject.children]
+            return [
+                child.accept(self._visitor)
+                for child in self.subject.children
+            ]
         else:
             return list()
 

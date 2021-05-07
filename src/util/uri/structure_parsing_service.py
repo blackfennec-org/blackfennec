@@ -62,7 +62,8 @@ class StructureParsingService:
 
     @staticmethod
     def is_json_reference(dictionary: dict):
-        if len(dictionary) == 1 and StructureParsingService.JSON_REFERENCE_KEY in dictionary:
+        if len(dictionary) == 1 and\
+                StructureParsingService.JSON_REFERENCE_KEY in dictionary:
             return True
         return False
 

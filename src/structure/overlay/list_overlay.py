@@ -2,10 +2,8 @@
 import logging
 
 from src.structure.encapsulation_base.list_encapsulation_base import ListEncapsulationBase
-from src.structure.info import Info
 from src.structure.list import List
 from src.structure.overlay.overlay_base import OverlayBase
-from src.structure.reference import Reference
 
 logger = logging.getLogger(__name__)
 

@@ -9,7 +9,10 @@ class OverlayBase(EncapsulationBase):
     @property
     def children(self) -> ['OverlayBase']:
         if self.subject.children:
-            return [self._encapsulate_and_dereference(child) for child in self.subject.children]
+            return [
+                self._encapsulate_and_dereference(child)
+                for child in self.subject.children
+            ]
         else:
             return list()
 

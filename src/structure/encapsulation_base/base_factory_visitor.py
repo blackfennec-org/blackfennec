@@ -60,7 +60,10 @@ class BaseFactoryVisitor:
         return MapEncapsulationBase(self, subject_map)
 
     def _create_generic_instance(self, subject: Info):
-        GenericClass = _create_generic_class(self.factory_base_class, subject.__class__)
+        GenericClass = _create_generic_class(
+            self.factory_base_class,
+            subject.__class__
+        )
         return GenericClass(self, subject)
 
 
