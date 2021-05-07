@@ -22,6 +22,14 @@ class List(Info, UserList):
                 self.append(item)
 
     @property
+    def value(self):
+        return list(self.data)
+
+    @value.setter
+    def value(self, value: list):
+        self.data = value
+
+    @property
     def children(self):
         """Readonly property for child infos"""
         return list(self.data)
@@ -33,7 +41,7 @@ class List(Info, UserList):
             item (Info): Item on which to set parent to `self`.
         """
         if item.parent is not None:
-            message = "value already has a parent {}; {}".format(
+            message = "item already has a parent {}; {}".format(
                 item.parent, self)
             logger.error(message)
             raise ValueError(message)
@@ -82,9 +90,12 @@ class List(Info, UserList):
         """Custom set item hook, adds self as parent or raises error.
 
         Args:
-            key: The key for the inserted value.
-            value (:obj:`Info`): The value which will be inserted.
+            key: The key for the inserted item.
+            item (:obj:`Info`): The item which will be inserted.
         """
         self._set_parent(item)
         self._unset_parent(self.data[key])
         self.data[key] = item
+
+    def accept(self, visitor):
+        return visitor.visit_list(self)

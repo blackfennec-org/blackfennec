@@ -11,6 +11,9 @@ class MapMock(UserDict, InfoMock):
         self.data = {} if value is None else value
         self._children = self.data.values()
 
+    def accept(self, visitor):
+        return visitor.visit_map(self)
+
 
 class MapInstanceMock(Map, MapMock):
     def __init__(self, value: dict = None, parent=None, root=None):

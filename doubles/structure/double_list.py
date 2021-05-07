@@ -9,6 +9,9 @@ class ListMock(UserList, InfoMock):
         UserList.__init__(self, children)
         InfoMock.__init__(self, value, children, parent, root)
 
+    def accept(self, visitor):
+        return visitor.visit_list(self)
+
 
 class ListInstanceMock(List, ListMock):
     def __init__(self, value=None, children: list=None, parent=None, root=None):

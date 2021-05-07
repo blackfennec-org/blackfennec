@@ -4,26 +4,18 @@ from src.structure.reference import Reference
 
 
 class ReferenceMock(InfoMock):
-    def __init__(self, reference=None, destination=None):
-        InfoMock.__init__(self)
-        self._reference = reference
+    def __init__(self, value=None, children=None, parent=None, root=None, destination=None):
+        InfoMock.__init__(self, value, children, parent, root)
         self._destination = destination
-        self.get_reference_count = 0
-        self.set_reference_count = 0
-
-    @property
-    def reference(self):
-        self.get_reference_count += 1
-        return self._reference
-
-    @reference.setter
-    def reference(self, value: str):
-        self.set_reference_count += 1
-        self._reference = value
+        self.get_destination_count = 0
 
     @property
     def destination(self):
+        self.get_destination_count += 1
         return self._destination
+
+    def accept(self, visitor):
+        return visitor.visit_reference(self)
 
 
 class ReferenceInstanceMock(ReferenceMock, Reference):

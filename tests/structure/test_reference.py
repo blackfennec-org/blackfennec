@@ -2,24 +2,25 @@ import unittest
 
 from doubles.double_dummy import Dummy
 from doubles.structure.double_list import ListMock
+from doubles.structure.encapsulation_base.double_factory_base_visitor import FactoryBaseVisitorMock
 from doubles.util.json.double_json_reference_resolving_service import JsonReferenceResolvingServiceMock
 from src.structure.reference import Reference
 
 
 class ReferenceTestSuite(unittest.TestCase):
     def test_can_construct(self):
-        reference = Reference(Dummy(), 'ref')
+        Reference(Dummy(), 'ref')
 
-    def test_get_reference(self):
+    def test_get_value(self):
         reference_str = 'ref'
         reference = Reference(Dummy(), reference_str)
-        self.assertEqual(reference.reference, reference_str)
+        self.assertEqual(reference.value, reference_str)
 
-    def test_set_reference(self):
+    def test_set_value(self):
         reference_str = 'ref'
         reference = Reference(Dummy())
-        reference.reference = reference_str
-        self.assertEqual(reference.reference, reference_str)
+        reference.value = reference_str
+        self.assertEqual(reference.value, reference_str)
 
     def test_get_destination(self):
         reference_str = 'ref'
@@ -98,3 +99,10 @@ class ReferenceTestSuite(unittest.TestCase):
         reference = Reference(Dummy(), reference_str)
         expected = 'Reference(ref)'
         self.assertEqual(repr(reference), expected)
+
+    def test_accept(self):
+        visitor = FactoryBaseVisitorMock()
+        reference = Reference(Dummy())
+        reference.accept(visitor)
+        self.assertEqual(visitor.reference, reference)
+        self.assertEqual(visitor.visit_reference_count, 1)

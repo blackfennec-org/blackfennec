@@ -4,47 +4,90 @@ from typing import Optional
 
 from doubles.double_dummy import Dummy
 from doubles.structure.double_info import InfoMock
-from doubles.structure.overlay.double_overlay_factory import OverlayFactoryMock
+from doubles.structure.encapsulation_base.double_factory_base_visitor import FactoryBaseVisitorMock
+from doubles.util.json.double_json_reference_resolving_service import JsonReferenceResolvingServiceMock
+from src.structure.list import List
+from src.structure.map import Map
 from src.structure.overlay.overlay_base import OverlayBase
+from src.structure.reference import Reference
 
 
-class OverlayFactoryTestSuite(unittest.TestCase):
+class OverlayBaseTestSuite(unittest.TestCase):
     def setUp(self):
-        self.property_storage = dict()
-        self.factory = OverlayFactoryMock()
+        self.visitor = FactoryBaseVisitorMock()
         self.parent = Dummy('parent')
         self.root = Dummy('root')
         self.subject = InfoMock(parent=self.parent, root=self.root)
-        self.overlay_base: Optional[OverlayBase] = OverlayBase(self.subject, self.factory)
+        self.overlay_base: Optional[OverlayBase] = OverlayBase(self.visitor, self.subject)
 
     def tearDown(self) -> None:
-        self.property_storage = None
-        self.factory = None
+        self.visitor = None
         self.subject = None
         self.overlay_base: Optional[OverlayBase] = None
 
     def test_can_construct(self):
         pass
 
-    def test_subject_getter(self):
-        self.assertEqual(self.overlay_base.subject, self.subject)
+    def test_get_list_children(self):
+        value = InfoMock('test_value')
+        subject = List([value])
+        overlay_base: Optional[OverlayBase] = OverlayBase(
+            self.visitor,
+            subject
+        )
+        children = overlay_base.children
+        self.assertEqual(len(children), 1)
+        self.assertEqual(self.visitor.info, value)
+        self.assertEqual(self.visitor.visit_info_count, 1)
 
-    def test_parent_getter(self):
-        self.factory._create_return = self.parent
-        parent = self.overlay_base.parent
-        self.assertEqual(self.factory._subject, self.parent)
-        self.assertEqual(self.factory._create_calls, 1)
+    def test_get_list_children_with_reference(self):
+        value = InfoMock('test_value')
+        resolving_service = JsonReferenceResolvingServiceMock(resolve_return=value)
+        ref = Reference(resolving_service, '0')
+        subject = List([ref])
+        overlay_base: Optional[OverlayBase] = OverlayBase(
+            self.visitor,
+            subject
+        )
+        children = overlay_base.children
+        self.assertEqual(len(children), 1)
+        self.assertEqual(self.visitor.info, value)
+        self.assertEqual(self.visitor.visit_info_count, 1)
 
-    def test_parent_setter(self):
-        self.factory._create_return = self.parent
-        new_parent = Dummy('new_parent')
-        self.overlay_base.parent = new_parent
-        parent = self.overlay_base.parent
-        self.assertEqual(self.factory._subject, new_parent)
-        self.assertEqual(self.factory._create_calls, 1)
+    def test_get_map_children(self):
+        key = 'test'
+        value = InfoMock('test_value')
+        subject = Map({key: value})
+        overlay_base: Optional[OverlayBase] = OverlayBase(
+            self.visitor,
+            subject
+        )
+        children = overlay_base.children
+        self.assertEqual(len(children), 1)
+        self.assertEqual(self.visitor.info, value)
+        self.assertEqual(self.visitor.visit_info_count, 1)
 
-    def test_root_getter(self):
-        self.factory._create_return = self.root
-        root = self.overlay_base.root
-        self.assertEqual(self.factory._subject, self.root)
-        self.assertEqual(self.factory._create_calls, 1)
+    def test_get_map_children_with_reference(self):
+        key = 'test'
+        value = InfoMock('test_value')
+        resolving_service = \
+            JsonReferenceResolvingServiceMock(resolve_return=value)
+        ref = Reference(resolving_service, '0')
+        subject = Map({key: ref})
+        overlay_base: Optional[OverlayBase] = OverlayBase(
+            self.visitor,
+            subject
+        )
+        children = overlay_base.children
+        self.assertEqual(len(children), 1)
+        self.assertEqual(self.visitor.info, value)
+        self.assertEqual(self.visitor.visit_info_count, 1)
+
+    def test_get_empty_children(self):
+        children = self.overlay_base.children
+        self.assertEqual(len(children), 0)
+        self.assertEqual(self.visitor.visit_info_count, 0)
+
+    def test_can_get_repr(self):
+        representation: str = self.overlay_base.__repr__()
+        self.assertTrue(representation.startswith('OverlayBase('))

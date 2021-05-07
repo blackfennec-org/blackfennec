@@ -29,19 +29,19 @@ class Reference(Map):
         Map.__init__(self, {Reference.REFERENCE_KEY: String(reference)})
 
     @property
-    def reference(self) -> str:
+    def value(self) -> str:
         """Reference getter.
 
         JsonReference object is cached, and reset
-            if value in underlying dictionary is changed.
+            if item in underlying dictionary is changed.
 
         Returns:
             JsonReference: which is contained in reference
         """
         return self[Reference.REFERENCE_KEY].value
 
-    @reference.setter
-    def reference(self, value: str):
+    @value.setter
+    def value(self, value: str):
         """Reference setter.
 
         Args:
@@ -66,9 +66,9 @@ class Reference(Map):
             Info: destination to which the reference
                 points
         """
-        if self.reference:
+        if self.value:
             return self._json_reference_resolve_service.resolve(
-                self.reference,
+                self.value,
                 self
             )
 
@@ -78,9 +78,9 @@ class Reference(Map):
 
     def __eq__(self, other) -> bool:
         return (
-                   self.reference
+                   self.value
                ) == (
-                   other.reference
+                   other.value
                )
 
     def __ne__(self, other) -> bool:
@@ -88,11 +88,14 @@ class Reference(Map):
 
     def __str__(self) -> str:
         """Convert to string"""
-        return str(self.reference)
+        return str(self.value)
 
     def __repr__(self) -> str:
         """Create representation for pretty printing"""
-        return f'Reference({self.reference})'
+        return f'Reference({self.value})'
+
+    def accept(self, visitor):
+        return visitor.visit_reference(self)
 
 
 Reference.TEMPLATE = Reference(Dummy())

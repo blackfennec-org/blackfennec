@@ -11,7 +11,7 @@ class Root(Info):
         super().__init__(self)
         self.uri = URI(uri)
         self.mime_type = mime_type
-        self._child = child
+        self._value = child
 
     @property
     def uri(self) -> str:
@@ -49,13 +49,16 @@ class Root(Info):
         return self
 
     @property
-    def child(self) -> Info:
-        return self._child
+    def value(self) -> Info:
+        return self._value
 
-    @child.setter
-    def child(self, child: Info):
-        self._child = child
+    @value.setter
+    def value(self, child: Info):
+        self._value = child
 
     @property
     def children(self) -> list:
-        return [self.child]
+        return [self.value]
+
+    def accept(self, visitor):
+        return visitor.visit_root(self)

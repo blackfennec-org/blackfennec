@@ -211,7 +211,7 @@ class JsonPointer:
             logger.error(message)
             raise ValueError(message)
         if self.type == JsonPointerType.ABSOLUTE_JSON_POINTER:
-            return self._resolve_absolute_pointer(source.root.child)
+            return self._resolve_absolute_pointer(source.root.value)
         elif self.type == JsonPointerType.RELATIVE_JSON_POINTER:
             return self._resolve_relative_pointer(source)
         message = f'Json Pointer type({self.type.name}) not handled'

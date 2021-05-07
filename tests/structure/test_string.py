@@ -1,5 +1,6 @@
 import unittest
 from doubles.structure.double_root import RootMock
+from doubles.structure.encapsulation_base.double_factory_base_visitor import FactoryBaseVisitorMock
 from src.structure.string import String
 
 
@@ -28,3 +29,10 @@ class StringTestSuite(unittest.TestCase):
         string = String("Black Fennec")
         string.parent = root
         self.assertEqual(string.root, root)
+
+    def test_accept(self):
+        visitor = FactoryBaseVisitorMock()
+        string = String()
+        string.accept(visitor)
+        self.assertEqual(visitor.string, string)
+        self.assertEqual(visitor.visit_string_count, 1)

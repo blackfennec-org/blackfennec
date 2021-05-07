@@ -12,7 +12,7 @@ from src.util.uri.uri_loading_strategy_factory import UriLoadingStrategyFactory
 
 class UriImportServiceIntegrationTestSuite(unittest.TestCase):
     def setUp(self) -> None:
-        self.host_uri = "http://echo.jsontest.com/key/value/"
+        self.host_uri = "https://jsonplaceholder.typicode.com/posts/1"
         self.tmp_file = tempfile.mktemp()
         req.urlretrieve(self.host_uri, self.tmp_file)
         parser = StructureParsingService()

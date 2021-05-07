@@ -2,13 +2,14 @@ import unittest
 
 from doubles.structure.double_info import InfoMock
 from doubles.structure.double_root import RootMock
+from doubles.structure.encapsulation_base.double_factory_base_visitor import FactoryBaseVisitorMock
 from src.structure.root import Root
 
 
 class RootTestSuite(unittest.TestCase):
     def test_can_construct(self):
         root = Root()
-        self.assertEqual(root.parent, root)
+        self.assertEqual(root.root, root)
 
     def test_get_uri(self):
         uri = 'test'
@@ -32,16 +33,16 @@ class RootTestSuite(unittest.TestCase):
         root.mime_type = mime_type
         self.assertEqual(root.mime_type, mime_type)
 
-    def test_get_child(self):
+    def test_get_value(self):
         child = InfoMock()
         root = Root(child)
-        self.assertEqual(child, root.child)
+        self.assertEqual(child, root.value)
 
-    def test_set_child(self):
+    def test_set_value(self):
         child = InfoMock()
         root = Root()
-        root.child = child
-        self.assertEqual(root.child, child)
+        root.value = child
+        self.assertEqual(root.value, child)
 
     def test_get_children(self):
         child = InfoMock()
@@ -61,3 +62,10 @@ class RootTestSuite(unittest.TestCase):
     def test_can_get_root(self):
         root = Root()
         self.assertEqual(root.root, root)
+
+    def test_accept(self):
+        visitor = FactoryBaseVisitorMock()
+        root = Root()
+        root.accept(visitor)
+        self.assertEqual(visitor.root, root)
+        self.assertEqual(visitor.visit_root_count, 1)

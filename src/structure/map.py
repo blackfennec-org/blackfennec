@@ -19,6 +19,14 @@ class Map(Info, UserDict):
         UserDict.__init__(self, data)
 
     @property
+    def value(self) -> dict:
+        return dict(self.data)
+
+    @value.setter
+    def value(self, value: dict):
+        self.data = value
+
+    @property
     def children(self):
         """Readonly property for child infos"""
         return list(self.data.values())
@@ -44,16 +52,19 @@ class Map(Info, UserDict):
         """Custom set item hook, adds self as parent or raises error.
 
         Args:
-            key: The key for the inserted value.
-            value (:obj:`Info`): The value which will be inserted.
+            key: The key for the inserted item.
+            value (:obj:`Info`): The item which will be inserted.
 
         Raises:
             ValueError: If the item already has a parent.
         """
         if value.parent is not None:
-            message = "value already has a parent {}; {}".format(
+            message = "item already has a parent {}; {}".format(
                 value.parent, self)
             logger.error(message)
             raise ValueError(message)
         value.parent = self
         self.data[key] = value
+
+    def accept(self, visitor):
+        return visitor.visit_map(self)

@@ -5,50 +5,49 @@ from typing import Optional
 from doubles.structure.double_info import InfoInstanceMock, InfoMock
 from doubles.structure.double_list import ListInstanceMock
 from doubles.structure.double_map import MapInstanceMock
+from src.structure.template.template_factory_visitor import TemplateFactoryVisitor
 from src.structure.template.list_template import ListTemplate
 from src.structure.template.map_template import MapTemplate
 from src.structure.template.template_base import TemplateBase
-from src.structure.template.template_factory import TemplateFactory
 
 
-class TemplateFactoryTestSuite(unittest.TestCase):
+class TemplateFactoryVisitorTestSuite(unittest.TestCase):
     def setUp(self):
-        self.factory: Optional[TemplateFactory] = TemplateFactory()
+        self.visitor: Optional[TemplateFactoryVisitor] = TemplateFactoryVisitor()
 
     def tearDown(self) -> None:
-        self.factory: Optional[TemplateFactory] = None
+        self.visitor: Optional[TemplateFactoryVisitor] = None
 
     def test_can_construct(self):
         pass
 
-    def test_can_create(self):
+    def test_can_get_metadata_storage(self):
+        metadata = self.visitor.metadata_storage
+        self.assertIsInstance(metadata, dict)
+
+    def test_can_visit_info(self):
         info = InfoInstanceMock()
-        info_template = self.factory.create(info)
+        info_template = self.visitor.visit_info(info)
         self.assertIsInstance(info_template, TemplateBase)
 
-    def test_can_create_list(self):
+    def test_can_visit_list(self):
         info_list = ListInstanceMock()
-        list_template = self.factory.create(info_list)
+        list_template = self.visitor.visit_list(info_list)
         self.assertIsInstance(list_template, ListTemplate)
 
-    def test_can_create_map(self):
+    def test_can_visit_map(self):
         info_map = MapInstanceMock()
-        map_template = self.factory.create(info_map)
+        map_template = self.visitor.visit_map(info_map)
         self.assertIsInstance(map_template, MapTemplate)
 
-    def test_create_caches_class(self):
+    def test_visit_caches_class(self):
         info = InfoInstanceMock()
-        info_template_type = type(self.factory.create(info))
-        self.assertIsInstance(self.factory.create(info), info_template_type)
-
-    def test_create_with_wrong_class(self):
-        info = InfoMock()
-        with self.assertRaises(TypeError):
-            self.factory.create(info)
+        info_template_type = type(self.visitor.visit_info(info))
+        self.assertIsInstance(self.visitor.visit_info(info), info_template_type)
 
     def test_generic_template_subject(self):
         info = InfoInstanceMock()
-        info_template = self.factory.create(info).subject
+        info_template = self.visitor.visit_info(info).subject
         # checking a property type is not possible thus,
         # only the existence is checked:
         # https://stackoverflow.com/questions/52201094/check-underlying-type-of-a-property-in-python

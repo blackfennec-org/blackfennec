@@ -1,34 +1,22 @@
-class OverlayBase:
-    def __init__(self, subject, overlay_factory):
-        self._subject = subject
-        self._overlay_factory = overlay_factory
+from src.structure.encapsulation_base.encapsulation_base import EncapsulationBase
+from src.structure.reference import Reference
+
+
+class OverlayBase(EncapsulationBase):
+    def __init__(self, visitor, subject):
+        EncapsulationBase.__init__(self, visitor, subject)
 
     @property
-    def subject(self):
-        """Property for access on encapsulated info
-            in this Overlay."""
-        return self._subject
+    def children(self) -> ['OverlayBase']:
+        if self.subject.children:
+            return [self._encapsulate_and_dereference(child) for child in self.subject.children]
+        else:
+            return list()
 
-    @property
-    def parent(self):
-        """Property for parent of this info encapsulated
-            in an Overlay."""
-        return self._overlay_factory.create(self.subject.parent)
+    def _encapsulate_and_dereference(self, item):
+        if isinstance(item, Reference):
+            item = item.destination
+        return item.accept(self._visitor)
 
-    @parent.setter
-    def parent(self, parent: 'Info'):
-        decapsulated_parent = self._remove_overlay_class(parent)
-        self.subject.parent = decapsulated_parent
-
-    @property
-    def root(self):
-        """Property for root of this info encapsulated in an Overlay."""
-        return self._overlay_factory.create(self.subject.root)
-
-    @staticmethod
-    def _remove_overlay_class(value):
-        decapsulated_value = value
-        if isinstance(value, OverlayBase):
-            subject: OverlayBase = value
-            decapsulated_value = subject.subject
-        return decapsulated_value
+    def __repr__(self):
+        return f'OverlayBase({self.subject.__repr__()})'
