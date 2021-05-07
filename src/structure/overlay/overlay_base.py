@@ -3,6 +3,7 @@ from src.structure.reference import Reference
 
 
 class OverlayBase(EncapsulationBase):
+    """Base Class for Overlay of any Info."""
     def __init__(self, visitor, subject):
         EncapsulationBase.__init__(self, visitor, subject)
 

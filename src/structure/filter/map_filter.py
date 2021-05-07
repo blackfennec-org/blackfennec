@@ -5,6 +5,7 @@ from src.structure.filter.filter_base import FilterBase
 
 
 class MapFilter(MapEncapsulationBase, FilterBase):
+    """Base Class for Filter of a Map."""
     def __init__(
             self,
             visitor: 'FilterFactoryVisitor',

@@ -15,6 +15,8 @@ logger = logging.getLogger(__name__)
 
 
 class StructureParsingService:
+    """Service parses raw json structure into Info composition"""
+
     JSON_REFERENCE_KEY = '$ref'
 
     """StructureParsingService, creates python objects from json"""

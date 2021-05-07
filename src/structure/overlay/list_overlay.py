@@ -9,6 +9,7 @@ logger = logging.getLogger(__name__)
 
 
 class ListOverlay(ListEncapsulationBase, OverlayBase):
+    """Base Class for Overlay of a List."""
     def __init__(
             self,
             visitor: 'TemplateFactoryVisitor',

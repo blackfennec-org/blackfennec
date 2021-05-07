@@ -9,6 +9,7 @@ logger = logging.getLogger(__name__)
 
 
 class ListTemplate(ListEncapsulationBase, TemplateBase):
+    """Base Class for Template of a List."""
     def __init__(
             self,
             visitor: 'TemplateFactoryVisitor',

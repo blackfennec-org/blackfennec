@@ -10,8 +10,23 @@ logger = logging.getLogger(__name__)
 
 
 class UriLoadingStrategyFactory:
+    """Factory for a import strategy"""
+
     @staticmethod
     def create(uri: URI):
+        """Creates Strategy based on UriType of passed uri
+
+        Args:
+            uri: uri which should be imported with strategy
+
+        Returns:
+            Any: strategy that takes a uri and returns
+            a FilePointer
+
+        Raises:
+            NotImplementedError: if no fitting strategy is found for
+                the type of the passed uri
+        """
         uri_type: UriType = UriType.from_uri(uri)
 
         if uri_type == UriType.HOST_URI:

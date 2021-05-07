@@ -68,7 +68,10 @@ class EncapsulationBase:
             of EncapsulationBase
 
         Args:
-            item (Info): to decapsulate
+            item (Info): to decapsulate.
+        Returns:
+            Info: subject of passed item, if item
+                is encapsulated.
         """
         decapsulated_value = item
         if isinstance(item, EncapsulationBase):
@@ -77,4 +80,9 @@ class EncapsulationBase:
         return decapsulated_value
 
     def __repr__(self):
+        """
+        Returns:
+             str: containing the subjects representation encapsulated
+                by a parentheses with the EncapsulationBase prefix.
+        """
         return f'EncapsulationBase({self.subject.__repr__()})'

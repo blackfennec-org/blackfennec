@@ -9,6 +9,12 @@ logger = logging.getLogger(__name__)
 
 
 class ListEncapsulationBase(EncapsulationBase, List):
+    """Base Class for ecapsulations of a List.
+
+    Contains List specific overrides of certain functions
+        to ensure the encapsulation of any Info returned
+        in order to stay in the encapsulation layer.
+    """
     def __init__(
             self,
             visitor: 'BaseFactoryVisitor',

@@ -5,6 +5,7 @@ from src.structure.overlay.overlay_base import OverlayBase
 
 
 class MapOverlay(MapEncapsulationBase, OverlayBase):
+    """Base Class for Overlay of a Map."""
     def __init__(
             self,
             visitor: 'TemplateFactoryVisitor',

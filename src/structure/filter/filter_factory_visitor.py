@@ -7,6 +7,13 @@ from src.structure.filter.filter_base import FilterBase
 
 
 class FilterFactoryVisitor(BaseFactoryVisitor):
+    """Filter Factory Visitor
+
+    Class is a concrete factory which produces Filter based
+        info encapsulations. Only few methods are overwritten
+        which require specialised functionality. For all other
+        info types the abstract factory implementation suffices.
+    """
     def __init__(self, metadata_storage: dict = None):
         BaseFactoryVisitor.__init__(self, FilterBase)
         self._metadata_storage = metadata_storage if metadata_storage\
@@ -14,6 +21,17 @@ class FilterFactoryVisitor(BaseFactoryVisitor):
 
     @property
     def metadata_storage(self):
+        """Metadata storage getter.
+
+        Is used to keep track of the decoration attributes for
+            the respecting encapsulated info. The info functions
+            as key in the dictionary.
+
+        Returns:
+             dict: dictionary containing values that belong to
+                a specific encapsulated info, which is used as
+                key in the dictionary.
+        """
         return self._metadata_storage
 
     def visit_map(self, subject_map: Map):

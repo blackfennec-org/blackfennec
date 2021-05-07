@@ -18,6 +18,11 @@ class JsonPointerType(Enum):
 
 
 class JsonPointer:
+    """JsonPointer Implementation according to RFC6901
+
+    Class is able to resolve JsonPointers in relative and
+        absolute format on the black_fennec structure.
+    """
     ABSOLUTE_POINTER_PATTERN = \
         re.compile('^(/?(([^/~])|(~[01]))*)+$')
     RELATIVE_POINTER_PATTERN = \
@@ -28,10 +33,27 @@ class JsonPointer:
 
     @property
     def path(self) -> [str]:
+        """Path setter
+
+        Returns:
+            [str]: the JsonPointer split by slashes whereas each
+                item represents one hierarchy level. The first item
+                might be empty because pointers with trailing slashes
+                exist.
+        """
         return self._hierarchy
 
     @path.setter
     def path(self, value: (str, JsonPointerType)):
+        """
+
+        Args:
+            value (str, JsonPointerType): path setter takes JsonPointer
+                in the form of a string accompanied by the type of the
+                pointer in a tuple. The function splits the received pointer
+                by slashes and decodes the escapings '~0' -> '~' and
+                '~1' -> '/'.
+        """
         pointer, pointer_type = value
         self._type = pointer_type
         hierarchy = pointer.split('/')
@@ -47,12 +69,16 @@ class JsonPointer:
 
     @staticmethod
     def _remove_escaping_from_navigator(navigator):
-        """
-        Note that the order of escape resolving
+        """Removes escaping from navigator
+
+        Note that the order of escape resolvation
         is crucial. See [RFC6901] Section 4.
 
-        :param navigator:
-        :return:
+        Args:
+            navigator (str): Represents on level of the JsonPointer
+                that is inbetween two slashes.
+        Returns:
+            str: navigator with resolved escapings
         """
         navigator.replace('~1', '/')
         navigator.replace('~0', '~')
@@ -60,6 +86,21 @@ class JsonPointer:
 
     @staticmethod
     def _navigate_in_list(source_list: List, navigator: str) -> Info:
+        """Navigation in list(source_list) to index(navigator).
+
+        Args:
+            source_list (List): List of Infos
+            navigator (str): Navigator to navigate in list. Expected to
+                be the index that belongs to the item in the list
+
+        Returns:
+            Info: which is identified through the index in the list
+                that was passed as navigator
+
+        Raises:
+            IndexError: if the navigator(index) is out of bounds
+            ValueError: if the navigator(index) is not decimal
+        """
         if navigator.isdecimal():
             list_index: int = int(navigator)
             if list_index < len(source_list.children):
@@ -79,6 +120,20 @@ class JsonPointer:
 
     @staticmethod
     def _navigate_in_map(source_map: Map, navigator: str) -> Info:
+        """Navigation in Map(source_map) to key(navigator).
+
+        Args:
+            source_map (Map): Map of Infos
+            navigator (str): Navigator to navigate in list. Expected to
+                be the key that identifies the item in the Map
+
+        Returns:
+            Info: which is identified through the key in the Map
+                that was passed as navigator
+
+        Raises:
+            KeyError: if the navigator(key) does not exist in Map
+        """
         if navigator in source_map:
             return source_map[navigator]
         else:
@@ -90,6 +145,20 @@ class JsonPointer:
             raise KeyError(message)
 
     def _resolve_absolute_pointer(self, source: Info):
+        """Resolve absolute JsonPointer.
+
+        Args:
+            source (Info): Info from which to navigate
+
+        Returns:
+            Info: to which was navigated with the JsonPointer
+                according to its path
+
+        Raises:
+            TypeError: if the JsonPointer could not be resolved
+                properly, because the path did not correspond with
+                the graph from the passed Info
+        """
         hierarchy_index: int = 0 if self._hierarchy[0] else 1
         current_location: Info = source
         while hierarchy_index < len(self._hierarchy):
@@ -114,12 +183,19 @@ class JsonPointer:
         return current_location
 
     def _resolve_relative_pointer(self, source: Info):
-        """Resolve relative json pointers
+        """Resolve relative JsonPointer.
+
+        Resolves first navigator to find the starting point
+            for the later resolving of the absolute pointer
 
         Args:
             source (Info): Location from where to resolve pointer
         Returns:
             Info: Destination to which pointer points
+
+        Raises:
+            ValueError: if the first navigator in path did not match
+                the expected format. [0-9]+([+-][0-9]+)?
         """
         current_location: Info = source
 
@@ -171,6 +247,19 @@ class JsonPointer:
 
     @staticmethod
     def _get_key_of_self(child: Info) -> str:
+        """Helper function to get Key of Map Item
+
+        Args:
+            child (Info): for which the key should
+                be searched
+
+        Returns:
+            str: Key of child that was passed
+
+        Raises:
+            TypeError: if the parent of the passed Info is
+                not of type Map
+        """
         parent_info = child.parent
         if not isinstance(parent_info, Map):
             message = 'Cannot get key because parent is no Map'
@@ -193,6 +282,10 @@ class JsonPointer:
             n (int): Index shift
         Returns:
             Info: sibling
+
+        Raises:
+            TypeError: if the parent of the passed Info is
+                not of type List
         """
         parent_info = child.parent
         if not isinstance(parent_info, List):
@@ -205,6 +298,16 @@ class JsonPointer:
         return parent_list[index]
 
     def resolve_from(self, source: Info):
+        """Resolves JsonPointer from certain point.
+
+        Returns:
+            Info: destination of JsonPointer.
+
+        Raises:
+            ValueError: if no source is passed to the function.
+            NotImplementedError: if JsonPointerType of JsonPointer
+                is not handled in this function.
+        """
         if not source:
             message = 'No source passed to function ' \
                       'thus resolve of json_pointer impossible'

@@ -9,6 +9,8 @@ logger = logging.getLogger(__name__)
 
 
 class ReferenceViewFactory:
+    """View Factory of Reference CoreType"""
+
     def satisfies(self, specification: Specification) -> bool:
         """Test if this view factory can satisfy the specification
 
@@ -28,11 +30,16 @@ class ReferenceViewFactory:
         Args:
             interpretation (Interpretation): The overarching
                 interpretation.
-            _ (Specification): The specification which can fine
+            specification (Specification): The specification which can fine
                 tune the creation function.
 
         Returns:
-            ReferencePreview:
+            ReferencePreview: View that is used as the Preview
+                of a Reference
+
+        Raises:
+            NotImplementedError: if the specification requires
+                a View instead of the Preview.
         """
         if not specification.is_request_for_preview:
             message = 'View for References not implemented'

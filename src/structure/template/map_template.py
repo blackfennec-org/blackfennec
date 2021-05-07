@@ -5,6 +5,7 @@ from src.structure.template.template_base import TemplateBase
 
 
 class MapTemplate(MapEncapsulationBase, TemplateBase):
+    """Base Class for Template of a Map."""
     def __init__(
             self,
             visitor: 'TemplateFactoryVisitor',

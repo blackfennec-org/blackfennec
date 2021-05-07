@@ -39,6 +39,10 @@ class NavigationService:
         Args:
             sender (Interpretation): Interpretation which invoked navigation
             destination (Info): Destination to which shall be navigated
+
+        Raises:
+            AssertionError: if no presenter is set for navigation_service.
+                can be done with set_presenter()
         """
         logger.info('%s requested navigation to %s', sender, destination)
         if not self._presenter:

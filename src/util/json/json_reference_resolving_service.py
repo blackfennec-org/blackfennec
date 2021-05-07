@@ -12,12 +12,23 @@ logger = logging.getLogger(__name__)
 
 
 class JsonReferenceResolvingService:
+    """Service resolves a JsonReference"""
 
     def __init__(self, uri_import_service):
         self._cached_structure = dict()
         self._uri_import_service = uri_import_service
 
-    def resolve(self, uri: URI, source: Info = None):
+    def resolve(self, uri: URI, source: Info = None) -> Info:
+        """Resolves JsonReference in the form of an URI
+            to a Info.
+
+        Args:
+            uri (URI): uri containing JsonReference
+            source (Optional[Info]): Source is required for some
+                types of JsonReference to be able to navigate from.
+        Returns:
+            Info: Destination of JsonReference
+        """
         if str(uri) in self._cached_structure:
             return self._cached_structure[str(uri)]
         uri_type = UriType.from_uri(uri)

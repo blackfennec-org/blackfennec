@@ -2,6 +2,11 @@ from src.structure.encapsulation_base.encapsulation_base import EncapsulationBas
 
 
 class TemplateBase(EncapsulationBase):
+    """Base Class for Template of a any Info.
+
+    Contains decorating additional property optional,
+        that can be set on a Template to indicate optionality
+    """
     def __init__(
             self,
             visitor: 'TemplateFactoryVisitor',

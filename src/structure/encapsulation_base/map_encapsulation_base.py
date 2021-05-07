@@ -5,6 +5,7 @@ from src.structure.map import Map
 
 
 class MapEncapsulationBase(EncapsulationBase, Map):
+    """Base Class for Encapsulation of a Map."""
     def __init__(
             self,
             visitor: 'BaseFactoryVisitor',
