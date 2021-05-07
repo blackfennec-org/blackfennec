@@ -8,6 +8,7 @@
     <property name="valign">center</property>
     <child>
       <object class="GtkTextView" id="_value">
+        <property name="width-request">169</property>
         <property name="height-request">35</property>
         <property name="visible">True</property>
         <property name="can-focus">True</property>
