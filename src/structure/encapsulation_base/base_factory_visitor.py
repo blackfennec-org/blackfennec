@@ -17,9 +17,8 @@ class BaseFactoryVisitor:
 
     This class implements the base visitor behaviour
         and returns the input wrapped in an adapter/decorator
-        like manner while implementing the flyweight pattern
-        to save the generically generated adapter/decorator
-        classes.
+        like manner while to save the generically generated
+        adapter/decorator classes.
 
     Python does not support overloading by Type, thus the visit
         function are present for all existing core types.
@@ -69,6 +68,8 @@ class BaseFactoryVisitor:
 
 @lru_cache(maxsize=32, typed=True)
 def _create_generic_class(encapsulation_base_class, subject_class):
+    """Is a static method because the lru_cache would not
+        work properly with a class_method."""
 
     class GenericClass(encapsulation_base_class, subject_class):
         def __init__(self, visitor, subject):

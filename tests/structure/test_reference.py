@@ -40,14 +40,6 @@ class ReferenceTestSuite(unittest.TestCase):
         reference = Reference(reference_resolving_service, reference_uri)
         self.assertEqual(len(reference.children), 0)
 
-    def test_get_children_with_destination_set(self):
-        reference_uri = URI('ref')
-        children = [0,1]
-        info = ListMock(children=children)
-        reference_resolving_service = JsonReferenceResolvingServiceMock(resolve_return=info)
-        reference = Reference(reference_resolving_service, reference_uri)
-        self.assertEqual(children, reference.children)
-
     def test_equal_equal_elements(self):
         comp = Reference(Dummy(), URI('ref'))
         equal_comp = Reference(Dummy(), URI('ref'))

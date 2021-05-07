@@ -49,14 +49,6 @@ class Reference(Info):
         self._value = value
 
     @property
-    def children(self) -> list:
-        """Readonly property for children of References"""
-        if self.destination:
-            return self.destination.children
-        else:
-            return list()
-
-    @property
     def destination(self) -> Info:
         """Getter for destination
 
