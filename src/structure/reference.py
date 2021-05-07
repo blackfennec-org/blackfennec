@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 import logging
 
+from uri import URI
+
 from doubles.double_dummy import Dummy
 from src.structure.info import Info
 from src.structure.map import Map
@@ -10,26 +12,25 @@ from src.util.json.json_reference_resolving_service import JsonReferenceResolvin
 logger = logging.getLogger(__name__)
 
 
-class Reference(Map):
+class Reference(Info):
     """Core Type Reference, represents references in the domain model."""
-    REFERENCE_KEY = '$ref'
     TEMPLATE = None
 
     def __init__(
             self,
             json_reference_resolve_service: JsonReferenceResolvingService,
-            reference: str = ''
+            reference: URI = URI('')
     ):
         """Reference Constructor.
 
         Args:
             reference (str): string containing a json reference
         """
+        Info.__init__(self, reference)
         self._json_reference_resolve_service = json_reference_resolve_service
-        Map.__init__(self, {Reference.REFERENCE_KEY: String(reference)})
 
     @property
-    def value(self) -> str:
+    def value(self) -> URI:
         """Reference getter.
 
         JsonReference object is cached, and reset
@@ -38,20 +39,20 @@ class Reference(Map):
         Returns:
             JsonReference: which is contained in reference
         """
-        return self[Reference.REFERENCE_KEY].value
+        return self._value
 
     @value.setter
-    def value(self, value: str):
+    def value(self, value: URI):
         """Reference setter.
 
         Args:
             value (str): which is contained in reference
         """
-        self[Reference.REFERENCE_KEY].value = value
+        self._value = value
 
     @property
     def children(self) -> list:
-        """Readonly property for children of References, by default empty."""
+        """Readonly property for children of References"""
         if self.destination:
             return self.destination.children
         else:
@@ -71,10 +72,6 @@ class Reference(Map):
                 self.value,
                 self
             )
-
-    @staticmethod
-    def is_json_reference(dictionary: dict):
-        return Reference.REFERENCE_KEY in dictionary
 
     def __eq__(self, other) -> bool:
         return (
@@ -98,4 +95,4 @@ class Reference(Map):
         return visitor.visit_reference(self)
 
 
-Reference.TEMPLATE = Reference(Dummy())
+Reference.TEMPLATE = Reference(Dummy('ReferenceResolvingService'))

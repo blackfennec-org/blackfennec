@@ -1,6 +1,8 @@
 import unittest
 from typing import Optional
 
+from uri import URI
+
 from doubles.structure.double_info import InfoMock
 from doubles.structure.encapsulation_base.double_factory_base_visitor import FactoryBaseVisitorMock
 from doubles.util.json.double_json_reference_resolving_service import JsonReferenceResolvingServiceMock
@@ -29,7 +31,7 @@ class ListOverlayTestSuite(unittest.TestCase):
     def test_get_item_with_reference(self):
         value = InfoMock('test_value')
         resolving_service = JsonReferenceResolvingServiceMock(resolve_return=value)
-        ref = Reference(resolving_service, '0')
+        ref = Reference(resolving_service, URI('0'))
         subject = List([ref])
         list_overlay: Optional[ListOverlay] = ListOverlay(
             self.visitor,

@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
 import numbers
 import logging
+
+from uri import URI
+
 from src.structure.map import Map
 from src.structure.list import List
 from src.structure.reference import Reference
@@ -12,6 +15,8 @@ logger = logging.getLogger(__name__)
 
 
 class StructureParsingService:
+    JSON_REFERENCE_KEY = '$ref'
+
     """StructureParsingService, creates python objects from json"""
     def __init__(self):
         self._reference_resolving_service = None
@@ -39,7 +44,7 @@ class StructureParsingService:
                 could not be recognised.
         """
         if isinstance(raw, dict):
-            if Reference.is_json_reference(raw):
+            if self.is_json_reference(raw):
                 return self._parse_reference(raw)
             return self._parse_map(raw)
         if isinstance(raw, list):
@@ -55,9 +60,13 @@ class StructureParsingService:
         logger.error(message)
         raise TypeError(message)
 
+    @staticmethod
+    def is_json_reference(dictionary: dict):
+        return StructureParsingService.JSON_REFERENCE_KEY in dictionary
+
     def _parse_reference(self, raw):
         """parse json reference to python reference"""
-        parsed = raw[Reference.REFERENCE_KEY]
+        parsed = URI(raw[StructureParsingService.JSON_REFERENCE_KEY])
         return Reference(self._reference_resolving_service, parsed)
 
     def _parse_map(self, raw):

@@ -1,5 +1,7 @@
 import logging
 
+from uri import URI
+
 from src.structure.info import Info
 
 logger = logging.getLogger(__name__)
@@ -36,14 +38,14 @@ class BlackFennecViewModel:
         """Future implementation of new()"""
         logger.warning('new() not yet implemented')
 
-    def open(self, filename: str):
+    def open(self, uri: URI):
         """Opens a file
         specified by the filename
 
         Args:
-            filename (str): Path of the file to open
+            uri (URI): URI of the file to open
         """
-        structure: Info = self._uri_import_service.load(filename)
+        structure: Info = self._uri_import_service.load(uri)
         self._navigation_service.navigate(None, structure)
 
     def quit(self):

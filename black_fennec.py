@@ -54,7 +54,7 @@ def populate_type_registry(
     registry.register_type(StringBidder())
     registry.register_type(ListBidder(interpretation_service))
     registry.register_type(MapBidder(interpretation_service))
-    registry.register_type(ReferenceBidder(interpretation_service))
+    registry.register_type(ReferenceBidder())
     registry.register_type(FileBidder())
     registry.register_type(ImageBidder())
     registry.register_type(AddressBidder())

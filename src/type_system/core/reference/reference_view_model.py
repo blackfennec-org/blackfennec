@@ -10,16 +10,13 @@ logger = logging.getLogger(__name__)
 class ReferenceViewModel:
     """View model for core type Reference."""
 
-    def __init__(self, interpretation, interpretation_service):
+    def __init__(self, interpretation):
         """Create with value empty reference.
 
         Args:
             interpretation (Interpretation): The overarching interpretation
-            interpretation_service (InterpretationService): service to
-                interpret substructures and create previews
         """
         self._interpretation = interpretation
-        self._interpretation_service = interpretation_service
         interpretation_info = interpretation.info
         if isinstance(interpretation_info, Reference):
             self._reference: Reference = interpretation_info

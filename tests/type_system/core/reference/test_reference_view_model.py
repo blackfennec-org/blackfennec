@@ -9,27 +9,23 @@ from src.type_system.core.reference.reference_view_model import ReferenceViewMod
 class ReferenceViewModelTestSuite(unittest.TestCase):
     def test_can_construct(self):
         interpretation = InterpretationMock(ReferenceInstanceMock())
-        interpretation_service = Dummy('interpretation service')
-        view_model = ReferenceViewModel(interpretation, interpretation_service)
+        view_model = ReferenceViewModel(interpretation)
         self.assertIsNotNone(view_model)
 
     def test_wrong_instance_in_interpretation(self):
         interpretation = InterpretationMock(ReferenceMock())
-        interpretation_service = Dummy('interpretation service')
         with self.assertRaises(TypeError):
-            ReferenceViewModel(interpretation, interpretation_service)
+            ReferenceViewModel(interpretation)
 
     def test_can_get_reference(self):
         reference = ReferenceInstanceMock()
         interpretation = InterpretationMock(reference)
-        interpretation_service = Dummy('interpretation service')
-        view_model = ReferenceViewModel(interpretation, interpretation_service)
+        view_model = ReferenceViewModel(interpretation)
         self.assertEqual(view_model.reference, reference)
 
     def test_can_forward_navigation_request(self):
         interpretation = InterpretationMock(ReferenceInstanceMock())
-        interpretation_service = Dummy('interpretation service')
-        view_model = ReferenceViewModel(interpretation, interpretation_service)
+        view_model = ReferenceViewModel(interpretation)
         route_target = InfoMock()
         view_model.navigate_to(route_target)
         self.assertListEqual(

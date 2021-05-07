@@ -32,7 +32,7 @@ class UriImportServiceTestSuite(unittest.TestCase):
                 loading_strategy_factory,
                 import_strategy_factory
             )
-        result = uri_import_service.load(str(uri))
+        result = uri_import_service.load(uri)
 
         self.assertEqual(uri, loading_strategy_factory.uri)
         self.assertEqual(tmp_file, import_strategy_factory.file_pointer)
@@ -55,7 +55,7 @@ class UriImportServiceTestSuite(unittest.TestCase):
                 import_strategy_factory,
                 cache
             )
-        result = uri_import_service.load(str(uri), mime_type=UriImportStrategyFactory.JSON_MIME_TYPE)
+        result = uri_import_service.load(uri, mime_type=UriImportStrategyFactory.JSON_MIME_TYPE)
 
         self.assertIsNone(loading_strategy_factory.uri)
         self.assertIsNone(import_strategy_factory.file_pointer)
@@ -75,4 +75,4 @@ class UriImportServiceTestSuite(unittest.TestCase):
                 import_strategy_factory,
             )
         with self.assertRaises(ValueError):
-            uri_import_service.load(str(uri), mime_type=None)
+            uri_import_service.load(uri, mime_type=None)

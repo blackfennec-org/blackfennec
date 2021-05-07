@@ -11,14 +11,14 @@ logger = logging.getLogger(__name__)
 
 class ReferenceBidder:
     """The bidding service for the core type Reference."""
-    def __init__(self, interpretation_service: InterpretationService):
+    def __init__(self):
         """Construct reference bidder.
 
         Args:
             interpretation_service (InterpretationService): dependency of
                 reference view factory
         """
-        self._factory = ReferenceViewFactory(interpretation_service)
+        self._factory = ReferenceViewFactory()
 
     def bid(self, subject: Info):
         """"Produces an offer for a given object.
@@ -27,4 +27,4 @@ class ReferenceBidder:
             subject (Info): The Info for which an offer should be produced.
         """
         logger.info('bidding on object')
-        return Offer(subject, 1, Reference.TEMPLATE, self._factory)
+        return Offer(subject, 0, Reference.TEMPLATE, self._factory)

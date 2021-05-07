@@ -109,3 +109,13 @@ class StructureParsingServiceTestSuite(unittest.TestCase):
                 self.structure_parsing_service.from_json(o)
             except TypeError:
                 pass
+
+    def test_is_json_reference(self):
+        reference = dict()
+        reference[StructureParsingService.JSON_REFERENCE_KEY] = 'ref'
+        self.assertTrue(StructureParsingService.is_json_reference(reference))
+
+    def test_is_json_reference_with_no_json_reference(self):
+        reference = dict()
+        reference[StructureParsingService.JSON_REFERENCE_KEY + '$'] = 'ref'
+        self.assertFalse(StructureParsingService.is_json_reference(reference))

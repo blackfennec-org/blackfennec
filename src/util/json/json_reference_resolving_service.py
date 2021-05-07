@@ -17,10 +17,9 @@ class JsonReferenceResolvingService:
         self._cached_structure = dict()
         self._uri_import_service = uri_import_service
 
-    def resolve(self, reference: str, source: Info = None):
-        if reference in self._cached_structure:
-            return self._cached_structure[reference]
-        uri = URI(reference)
+    def resolve(self, uri: URI, source: Info = None):
+        if str(uri) in self._cached_structure:
+            return self._cached_structure[str(uri)]
         uri_type = UriType.from_uri(uri)
         json_pointer = None
         relative_json_pointer = False
@@ -29,7 +28,7 @@ class JsonReferenceResolvingService:
                 uri.fragment,
                 JsonPointerType.ABSOLUTE_JSON_POINTER
             )
-        elif not uri.host and is_relative_json_pointer(reference):
+        elif not uri.host and is_relative_json_pointer(str(uri)):
             relative_json_pointer = True
             json_pointer = JsonPointer(
                 str(uri.path),
@@ -48,7 +47,7 @@ class JsonReferenceResolvingService:
             structure = json_pointer.resolve_from(structure)
 
         if uri_type in (UriType.HOST_URI, UriType.ABSOLUTE_PATH):
-            self._cached_structure[reference] = structure
+            self._cached_structure[str(uri)] = structure
 
         return structure
 
@@ -59,5 +58,5 @@ class JsonReferenceResolvingService:
     ) -> (Info, str):
         root: Root = source.root
         current_path = root.uri
-        structure = self._uri_import_service.load(str(uri), current_path)
+        structure = self._uri_import_service.load(uri, current_path)
         return structure

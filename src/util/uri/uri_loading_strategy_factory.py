@@ -33,7 +33,7 @@ class UriLoadingStrategyFactory:
         if mime_type != content_type:
             message = f'Mime_type({mime_type}) does not correspond with ' \
                       f'content type({content_type}) of uri({str(uri)})'
-            logger.info(message)
+            logger.warning(message)
         file = open(path, 'r')
         return file
 

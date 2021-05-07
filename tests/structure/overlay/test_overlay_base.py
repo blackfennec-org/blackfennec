@@ -2,6 +2,8 @@
 import unittest
 from typing import Optional
 
+from uri import URI
+
 from doubles.double_dummy import Dummy
 from doubles.structure.double_info import InfoMock
 from doubles.structure.encapsulation_base.double_factory_base_visitor import FactoryBaseVisitorMock
@@ -43,7 +45,7 @@ class OverlayBaseTestSuite(unittest.TestCase):
     def test_get_list_children_with_reference(self):
         value = InfoMock('test_value')
         resolving_service = JsonReferenceResolvingServiceMock(resolve_return=value)
-        ref = Reference(resolving_service, '0')
+        ref = Reference(resolving_service, URI('0'))
         subject = List([ref])
         overlay_base: Optional[OverlayBase] = OverlayBase(
             self.visitor,
@@ -72,7 +74,7 @@ class OverlayBaseTestSuite(unittest.TestCase):
         value = InfoMock('test_value')
         resolving_service = \
             JsonReferenceResolvingServiceMock(resolve_return=value)
-        ref = Reference(resolving_service, '0')
+        ref = Reference(resolving_service, URI('0'))
         subject = Map({key: ref})
         overlay_base: Optional[OverlayBase] = OverlayBase(
             self.visitor,

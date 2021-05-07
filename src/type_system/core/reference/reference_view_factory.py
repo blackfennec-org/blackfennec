@@ -3,17 +3,12 @@ import logging
 from src.type_system.core.reference.reference_view_model import ReferenceViewModel
 from src.type_system.core.reference.reference_preview import ReferencePreview
 from src.interpretation.interpretation import Interpretation
-from src.interpretation.interpretation_service import InterpretationService
 from src.interpretation.specification import Specification
 
 logger = logging.getLogger(__name__)
 
 
 class ReferenceViewFactory:
-    """Creator of the ReferenceView"""
-    def __init__(self, interpretation_service: InterpretationService):
-        self._interpretation_service = interpretation_service
-
     def satisfies(self, specification: Specification) -> bool:
         """Test if this view factory can satisfy the specification
 
@@ -44,7 +39,6 @@ class ReferenceViewFactory:
             logger.error(message)
             raise NotImplementedError(message)
         view_model = ReferenceViewModel(
-            interpretation,
-            self._interpretation_service
+            interpretation
         )
         return ReferencePreview(view_model)

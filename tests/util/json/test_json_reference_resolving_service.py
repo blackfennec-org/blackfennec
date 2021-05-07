@@ -1,5 +1,7 @@
 import unittest
 
+from uri import URI
+
 from doubles.util.uri.double_uri_import_service import UriImportServiceMock
 from src.structure.map import Map
 from src.structure.root import Root
@@ -21,7 +23,7 @@ class JsonReferenceResolvingServiceTestSuite(unittest.TestCase):
 
         uri_import_service = UriImportServiceMock(map)
         resolving_service = JsonReferenceResolvingService(uri_import_service)
-        result = resolving_service.resolve('https://test.test', map)
+        result = resolving_service.resolve(URI('https://test.test'), map)
         self.assertEqual(result, map)
 
     def test_resolve_absolute_uri(self):
@@ -33,7 +35,7 @@ class JsonReferenceResolvingServiceTestSuite(unittest.TestCase):
 
         uri_import_service = UriImportServiceMock(map)
         resolving_service = JsonReferenceResolvingService(uri_import_service)
-        result = resolving_service.resolve('C:/test.json', map)
+        result = resolving_service.resolve(URI('C:/test.json'), map)
         self.assertEqual(result, map)
 
     def test_resolve_relative_uri(self):
@@ -45,7 +47,7 @@ class JsonReferenceResolvingServiceTestSuite(unittest.TestCase):
 
         uri_import_service = UriImportServiceMock(map)
         resolving_service = JsonReferenceResolvingService(uri_import_service)
-        result = resolving_service.resolve('./test.json', map)
+        result = resolving_service.resolve(URI('./test.json'), map)
         self.assertEqual(result, map)
 
     def test_resolve_relative_json_pointer(self):
@@ -57,7 +59,7 @@ class JsonReferenceResolvingServiceTestSuite(unittest.TestCase):
 
         uri_import_service = UriImportServiceMock(map)
         resolving_service = JsonReferenceResolvingService(uri_import_service)
-        result = resolving_service.resolve('1', map['key'])
+        result = resolving_service.resolve(URI('1'), map['key'])
         self.assertEqual(result, map)
 
     def test_resolve_current_location_uri(self):
@@ -69,7 +71,7 @@ class JsonReferenceResolvingServiceTestSuite(unittest.TestCase):
 
         uri_import_service = UriImportServiceMock(map)
         resolving_service = JsonReferenceResolvingService(uri_import_service)
-        result = resolving_service.resolve('#key', map)
+        result = resolving_service.resolve(URI('#key'), map)
         self.assertEqual(result, map['key'])
 
     def test_resolve_caching(self):
@@ -81,6 +83,6 @@ class JsonReferenceResolvingServiceTestSuite(unittest.TestCase):
 
         uri_import_service = UriImportServiceMock(map)
         resolving_service = JsonReferenceResolvingService(uri_import_service)
-        resolving_service.resolve('https://test.test', map)
-        result = resolving_service.resolve('https://test.test', None)
+        resolving_service.resolve(URI('https://test.test'), map)
+        result = resolving_service.resolve(URI('https://test.test'), None)
         self.assertEqual(result, map)

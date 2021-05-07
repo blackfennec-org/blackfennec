@@ -31,11 +31,10 @@ class UriImportService:
 
     def load(
             self,
-            uri_str: str,
+            uri: URI,
             current_path: str = None,
             mime_type: str = None
     ):
-        uri = URI(uri_str)
         uri_type: UriType = UriType.from_uri(uri)
         mime_type = self._get_mime_type(uri, uri_type, mime_type)
 
