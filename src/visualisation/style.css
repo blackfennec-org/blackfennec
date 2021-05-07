@@ -197,3 +197,37 @@ border-style: solid;
 border-color: #4d77fd;
 border-width: 1px;
 }
+
+.main-window paned separator.wide {
+border-image: none;
+background-image: none;
+background-color: #464545;
+}
+
+.main-window paned separator.wide:hover{
+border-image: none;
+background-image: none;
+background-color: #626262;
+}
+
+.main-window scrollbar {
+border: none;
+background-color: #626262;
+padding: 1px;
+}
+
+.main-window scrollbar slider {
+border-radius: 10px;
+background-color: #464646;
+border: none;
+padding: 1px;
+margin: 2px;
+}
+
+.main-window scrollbar slider:hover {
+background-color: #e4e4e4;
+}
+
+.container {
+background-color: #515151;
+}
