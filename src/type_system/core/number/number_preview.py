@@ -22,3 +22,10 @@ class NumberPreview(Gtk.Bin):
         self._value.set_text(str(self._view_model.value))
         logger.info(
             'NumberView with text: "%s" created', self._view_model.value)
+
+    @Gtk.Template.Callback()
+    def _on_text_changed(self, unused_sender):
+        text = self._value.get_text()
+        digits_string = ''.join([i for i in text if i in '0123456789'])
+        self._value.set_text(digits_string)
+        self._view_model.value = int(digits_string)

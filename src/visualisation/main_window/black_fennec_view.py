@@ -11,10 +11,12 @@ def create_folder_structure(root_directory):
     s[root_directory] = None
     for sub_directory, directories, files in os.walk(root_directory):
         for file in files:
-            store.append(s[sub_directory], [file, sub_directory + '/' + file])
+            absolute_path = os.path.join(sub_directory, file)
+            store.append(s[sub_directory], [file, absolute_path])
         for directory in directories:
             p = store.append(s[sub_directory], [directory, 'directory is not a file...'])
-            s[sub_directory + '/' + directory] = p
+            absolute_path = os.path.join(sub_directory, directory)
+            s[absolute_path] = p
     return store
 
 

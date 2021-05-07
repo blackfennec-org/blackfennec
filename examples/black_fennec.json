@@ -1,6 +1,12 @@
 {
     "Project Name": "Black Fennec",
     "Is Active": true,
+    "FAQ" : [
+        {
+            "Question": "Answer to everything",
+            "Answer": 42
+        }
+    ],
     "Logo": {
         "file_path": "logo.jpg",
         "file_type": "image/jpg"

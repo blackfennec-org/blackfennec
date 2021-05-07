@@ -10,6 +10,7 @@
         <property name="visible">True</property>
         <property name="can-focus">True</property>
         <property name="input-purpose">number</property>
+        <signal name="changed" handler="_on_text_changed" swapped="no"/>
       </object>
     </child>
   </template>

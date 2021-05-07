@@ -20,11 +20,12 @@ class StringView(Gtk.Bin):
         super().__init__()
         self._view_model = view_model
         buffer = self._value.get_buffer()
+        buffer.connect('changed', self._on_buffer_changed)
         buffer.set_text(self._view_model.value)
         logger.info(
             'StringView with text: "%s" created', self._view_model.value)
 
-    def _on_buffer_changed(self, buffer):
+    def _on_text_changed(self, buffer):
         start, end = buffer.get_bounds()
         text = buffer.get_text(start, end, False)
         self._view_model.value = text
