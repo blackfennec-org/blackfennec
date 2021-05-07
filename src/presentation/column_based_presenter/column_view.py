@@ -13,7 +13,7 @@ class ColumnView(Gtk.Bin):
         super().__init__()
         self._column_right = None
         self._interpretation = interpretation
-        self._container.add_with_viewport(interpretation.view)
+        self._container.add(interpretation.view)
 
     def add_column(self, column: 'Column'):
         if self._column_right is None:
