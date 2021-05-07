@@ -11,16 +11,20 @@
         <property name="visible">True</property>
         <property name="can-focus">True</property>
         <property name="vexpand">True</property>
-        <property name="position">200</property>
+        <property name="position">300</property>
         <property name="position-set">True</property>
         <property name="wide-handle">True</property>
         <child>
           <object class="GtkScrolledWindow" id="_container">
+            <property name="width-request">200</property>
             <property name="visible">True</property>
             <property name="can-focus">True</property>
             <child>
               <placeholder/>
             </child>
+            <style>
+              <class name="container"/>
+            </style>
           </object>
           <packing>
             <property name="resize">True</property>

@@ -227,3 +227,7 @@ margin: 2px;
 .main-window scrollbar slider:hover {
 background-color: #e4e4e4;
 }
+
+.container {
+background-color: #515151;
+}
