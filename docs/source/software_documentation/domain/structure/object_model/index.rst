@@ -3,7 +3,9 @@
 
 The Object Model
 ================
-Core :ref:`types <definition_type>` are the fundamental types. All other types are actually structures built with core types. The most commonly used structures are considered :ref:`base types <definition_base_types>`.
+Core :ref:`types <definition_type>` are the fundamental types. All other types are - from the point of view of black fennec - structures built with core types. The most commonly used structures are considered :ref:`base types <definition_base_types>` and are shipped with black fennec.
+
+The object model is a DAG - apart from references - implemented with a composite pattern. It is possible to recognise this from the member of type Information in Lists and Maps. As for References, accessing the Information they point to is a special operation and References never has any children from the perspective of the DAG. Therefore, although they can break the DAG properties this is not their default behaviour. 
 
 .. uml::
     
