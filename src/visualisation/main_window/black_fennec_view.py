@@ -32,6 +32,11 @@ class BlackFennecView(Gtk.ApplicationWindow):
         self._presenter_container.add(self._view_model.presenter)
         self._presenter_container.show_all()
 
+        renderer = Gtk.CellRendererText()
+        tree_view_column = Gtk.TreeViewColumn(
+            'Project', renderer, text=0)
+        self._file_tree.append_column(tree_view_column)
+
     @Gtk.Template.Callback()
     def on_new_clicked(self, unused_sender) -> None:
         """Callback for the button click event"""
@@ -64,10 +69,6 @@ class BlackFennecView(Gtk.ApplicationWindow):
 
         store = create_folder_structure(filename)
         self._file_tree.set_model(store)
-        renderer = Gtk.CellRendererText()
-        tree_view_column = Gtk.TreeViewColumn(
-            'Project', renderer, text=0)
-        self._file_tree.append_column(tree_view_column)
 
     @Gtk.Template.Callback()
     def on_file_clicked(self, unused_sender, path, unused_column) -> None:
