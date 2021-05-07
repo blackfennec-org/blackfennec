@@ -8,7 +8,6 @@ from src.navigation.navigation_service import NavigationService
 from src.util.observable import Observable
 
 logger = logging.getLogger(__name__)
-logger.setLevel(logging.DEBUG)
 
 
 class ColumnBasedPresenterViewModel(Observable):

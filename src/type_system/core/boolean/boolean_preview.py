@@ -22,3 +22,8 @@ class BooleanPreview(Gtk.Bin):
         self._value.set_state(self._view_model.value)
         logger.info(
             'BooleanView with text: "%s" created', self._view_model.value)
+
+    @Gtk.Template.Callback()
+    def _on_state_changed(self, unused_sender, state):
+        self._view_model.value = state
+

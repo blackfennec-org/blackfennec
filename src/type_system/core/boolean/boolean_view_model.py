@@ -1,3 +1,8 @@
+import logging
+
+logger = logging.getLogger(__name__)
+
+
 class BooleanViewModel:
     """View model for core type Boolean."""
 

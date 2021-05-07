@@ -4,7 +4,8 @@
     "FAQ" : [
         {
             "Question": "Answer to everything",
-            "Answer": 42
+            "Answer": 42,
+            "Is this true?": false
         }
     ],
     "Logo": {
