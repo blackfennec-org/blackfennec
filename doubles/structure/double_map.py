@@ -1,26 +1,22 @@
 from collections import UserDict
 
+from doubles.structure.double_info import InfoMock
+from src.structure.map import Map
 
-class MapMock(UserDict):
-    def __init__(self, value: dict = None):
-        UserDict.__init__(self)
+
+class MapMock(UserDict, InfoMock):
+    def __init__(self, value: dict = None, parent=None, root=None):
+        UserDict.__init__(self, value)
+        InfoMock.__init__(self, value, parent=parent, root=root)
         self.data = {} if value is None else value
-        self._value = {} if value is None else value
-        self._value_property_access_count = 0
-        self._value_history = [value]
-        self._children_property_access_count = 0
-        self._children = [] if value is None else value.values()
+        self._children = self.data.values()
 
-    @property
-    def value(self):
-        self._value_property_access_count += 1
-        return self._value_history[-1]
+    def accept(self, visitor):
+        return visitor.visit_map(self)
 
-    @value.setter
-    def value(self, value):
-        self._value_history.append(value)
 
-    @property
-    def children(self):
-        self._children_property_access_count += 1
-        return self._children
+class MapInstanceMock(Map, MapMock):
+    def __init__(self, value: dict = None, parent=None, root=None):
+        Map.__init__(self)
+        Map.data = value
+        MapMock.__init__(self, value, parent, root)

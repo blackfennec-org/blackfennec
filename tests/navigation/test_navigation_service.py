@@ -23,3 +23,10 @@ class NavigationServiceTestSuite(unittest.TestCase):
         self.assertEqual(1, presenter.show_count)
         self.assertEqual(sender, presenter.show_last_sender)
         self.assertEqual(presenter.show_last_destination, destination)
+
+    def test_navigate_without_presenter(self):
+        sender = Dummy('Interpretation')
+        destination = Dummy('Info')
+        navigation_service = NavigationService()
+        with self.assertRaises(AssertionError):
+            navigation_service.navigate(sender, destination)

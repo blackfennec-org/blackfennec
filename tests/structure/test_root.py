@@ -1,11 +1,53 @@
 import unittest
+
+from doubles.structure.double_info import InfoMock
 from doubles.structure.double_root import RootMock
+from doubles.structure.encapsulation_base.double_factory_base_visitor import FactoryBaseVisitorMock
 from src.structure.root import Root
 
-class InfoTestSuite(unittest.TestCase):
+
+class RootTestSuite(unittest.TestCase):
     def test_can_construct(self):
         root = Root()
-        self.assertEqual(root.parent, root)
+        self.assertEqual(root.root, root)
+
+    def test_get_uri(self):
+        uri = 'test'
+        root = Root(uri=uri)
+        self.assertEqual(root.uri, uri)
+
+    def test_set_uri(self):
+        uri = 'test'
+        root = Root()
+        root.uri = uri
+        self.assertEqual(root.uri, uri)
+
+    def test_get_mime_type(self):
+        mime_type = 'test'
+        root = Root(mime_type=mime_type)
+        self.assertEqual(root.mime_type, mime_type)
+
+    def test_set_mime_type(self):
+        mime_type = 'test'
+        root = Root()
+        root.mime_type = mime_type
+        self.assertEqual(root.mime_type, mime_type)
+
+    def test_get_value(self):
+        child = InfoMock()
+        root = Root(child)
+        self.assertEqual(child, root.value)
+
+    def test_set_value(self):
+        child = InfoMock()
+        root = Root()
+        root.value = child
+        self.assertEqual(root.value, child)
+
+    def test_get_children(self):
+        child = InfoMock()
+        root = Root(child)
+        self.assertIn(child, root.children)
 
     def test_can_not_change_parent(self):
         new_parent = RootMock()
@@ -20,3 +62,10 @@ class InfoTestSuite(unittest.TestCase):
     def test_can_get_root(self):
         root = Root()
         self.assertEqual(root.root, root)
+
+    def test_accept(self):
+        visitor = FactoryBaseVisitorMock()
+        root = Root()
+        root.accept(visitor)
+        self.assertEqual(visitor.root, root)
+        self.assertEqual(visitor.visit_root_count, 1)

@@ -1,42 +1,64 @@
-import unittest
 import logging
+import unittest
+
+from doubles.double_dummy import Dummy
+from doubles.util.json.double_json_reference_resolving_service import JsonReferenceResolvingServiceMock
 from src.structure.boolean import Boolean
-from src.util.json_parser import JsonParser
 from src.structure.list import List
 from src.structure.map import Map
 from src.structure.number import Number
+from src.structure.reference import Reference
 from src.structure.string import String
+from src.util.uri.structure_parsing_service import StructureParsingService
 
 
-class JsonParserTestSuite(unittest.TestCase):
+class StructureParsingServiceTestSuite(unittest.TestCase):
+    def setUp(self):
+        self.structure_parsing_service = StructureParsingService()
+
+    def tearDown(self) -> None:
+        self.structure_parsing_service: StructureParsingService = None
+
+    def test_can_set_reference_resolving_service(self):
+        reference_resolving_service = Dummy()
+        self.structure_parsing_service.set_reference_resolving_service(reference_resolving_service)
+
+    def test_can_parse_json_reference_to_reference(self):
+        data = {'$ref': 'ref'}
+        reference_resolving_service = JsonReferenceResolvingServiceMock()
+        self.structure_parsing_service.set_reference_resolving_service(reference_resolving_service)
+        result: Reference = self.structure_parsing_service.from_json(data)
+        self.assertIsInstance(result, Reference)
+        self.assertEqual(result._json_reference_resolve_service, reference_resolving_service)
+
     def test_can_parse_json_list_to_list(self):
         data = []
-        result = JsonParser.from_json(data)
+        result = self.structure_parsing_service.from_json(data)
         self.assertIsInstance(result, List)
 
     def test_can_parse_json_dict_to_map(self):
         data = {}
-        result = JsonParser.from_json(data)
+        result = self.structure_parsing_service.from_json(data)
         self.assertIsInstance(result, Map)
 
     def test_can_parse_json_list_to_string(self):
         data = 'Black Fennec'
-        result = JsonParser.from_json(data)
+        result = self.structure_parsing_service.from_json(data)
         self.assertIsInstance(result, String)
 
     def test_can_parse_json_int_to_number(self):
         data = 1337
-        result = JsonParser.from_json(data)
+        result = self.structure_parsing_service.from_json(data)
         self.assertIsInstance(result, Number)
 
     def test_can_parse_json_float_to_number(self):
         data = 3.141
-        result = JsonParser.from_json(data)
+        result = self.structure_parsing_service.from_json(data)
         self.assertIsInstance(result, Number)
 
     def test_can_parse_json_boolean_to_boolean(self):
         data = True
-        result = JsonParser.from_json(data)
+        result = self.structure_parsing_service.from_json(data)
         self.assertIsInstance(result, Boolean)
 
     def test_can_parse_person(self):
@@ -48,7 +70,7 @@ class JsonParserTestSuite(unittest.TestCase):
                 'hobbies': ['climbing', 'soccer']
             }
         }
-        result = JsonParser.from_json(data)
+        result = self.structure_parsing_service.from_json(data)
         self.assertIsInstance(result, Map)
         self.assertIsInstance(result['Tim'], Map)
         self.assertIsInstance(result['Tim']['firstname'], String)
@@ -66,7 +88,7 @@ class JsonParserTestSuite(unittest.TestCase):
                     ['Switzerland', 'Germany', 'France', 'Italy', 'Austria']}
             ]
         }
-        result = JsonParser.from_json(data)
+        result = self.structure_parsing_service.from_json(data)
         self.assertIsInstance(result['continents'], List)
         self.assertIsInstance(result['continents'][0]['name'], String)
         self.assertIsInstance(result['continents'][0]['countries'], List)
@@ -77,13 +99,23 @@ class JsonParserTestSuite(unittest.TestCase):
         o = object()
 
         with self.assertRaises(TypeError):
-            JsonParser.from_json(o)
+            self.structure_parsing_service.from_json(o)
 
     def test_logs_error_on_unknown_type(self):
         o = object()
 
         with self.assertLogs(None, logging.ERROR):
             try:
-                JsonParser.from_json(o)
+                self.structure_parsing_service.from_json(o)
             except TypeError:
                 pass
+
+    def test_is_json_reference(self):
+        reference = dict()
+        reference[StructureParsingService.JSON_REFERENCE_KEY] = 'ref'
+        self.assertTrue(StructureParsingService.is_json_reference(reference))
+
+    def test_is_json_reference_with_no_json_reference(self):
+        reference = dict()
+        reference[StructureParsingService.JSON_REFERENCE_KEY + '$'] = 'ref'
+        self.assertFalse(StructureParsingService.is_json_reference(reference))
