@@ -12,13 +12,39 @@
         <property name="orientation">vertical</property>
         <property name="spacing">2</property>
         <child>
-          <object class="GtkLabel" id="_date_time_title">
+          <object class="GtkBox">
             <property name="visible">True</property>
-            <property name="can-focus">True</property>
-            <property name="label" translatable="yes">Date and Time</property>
-            <attributes>
-              <attribute name="weight" value="bold"/>
-            </attributes>
+            <property name="can-focus">False</property>
+            <child>
+              <object class="GtkImage">
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="pixbuf">src/type_system/base/date.png</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="_date_time_title">
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="label" translatable="yes">Date Time</property>
+                <attributes>
+                  <attribute name="weight" value="bold"/>
+                </attributes>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">1</property>
+              </packing>
+            </child>
+            <style>
+              <class name="base-title"/>
+            </style>
           </object>
           <packing>
             <property name="expand">False</property>
@@ -38,6 +64,9 @@
                 <property name="label" translatable="yes">DateTime:</property>
                 <property name="width-chars">10</property>
                 <property name="xalign">0</property>
+                <style>
+                  <class name="base-key"/>
+                </style>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -53,6 +82,9 @@
                 <property name="selectable">True</property>
                 <property name="ellipsize">start</property>
                 <property name="xalign">0</property>
+                <style>
+                  <class name="base-value"/>
+                </style>
               </object>
               <packing>
                 <property name="expand">True</property>
@@ -68,6 +100,9 @@
             <property name="position">1</property>
           </packing>
         </child>
+        <style>
+          <class name="base-box"/>
+        </style>
       </object>
     </child>
   </template>
