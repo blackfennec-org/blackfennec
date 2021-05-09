@@ -25,13 +25,15 @@ class MapEncapsulationBase(EncapsulationBase, Map):
     @property
     def value(self):
         return {
-            key: item.accept(self._visitor) for key, item in self.subject.value.items()
+            key: item.accept(self._visitor)
+            for key, item in self.subject.value.items()
         }
 
     @value.setter
     def value(self, value):
         self.subject.value = {
-            key: self._remove_template_class(item) for key, item in value.items()
+            key: self._remove_template_class(item)
+            for key, item in value.items()
         }
 
     def __getitem__(self, key):

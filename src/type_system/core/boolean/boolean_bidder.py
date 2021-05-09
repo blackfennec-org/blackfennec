@@ -31,4 +31,9 @@ class BooleanBidder:
                 the received subject.
         """
         logger.info('bidding on object')
-        return Offer(subject, 0, create_boolean_template(), BooleanViewFactory())
+        return Offer(
+            subject,
+            0,
+            create_boolean_template(),
+            BooleanViewFactory()
+        )

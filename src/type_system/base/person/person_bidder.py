@@ -1,12 +1,10 @@
 # -*- coding: utf-8 -*-
 import logging
 
-from src.type_system.base.person.person import Person
-from src.type_system.base.person.person_view_factory import PersonViewFactory
 from src.interpretation.auction import Offer
 from src.structure.info import Info
-from src.structure.map import Map
-from src.structure.string import String
+from src.type_system.base.person.person import Person
+from src.type_system.base.person.person_view_factory import PersonViewFactory
 
 logger = logging.getLogger(__name__)
 

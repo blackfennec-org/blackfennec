@@ -12,7 +12,9 @@ logger = logging.getLogger(__name__)
 
 def create_reference_template():
     template_factory = TemplateFactoryVisitor()
-    template = Reference(Dummy('ReferenceResolvingService')).accept(template_factory)
+    template = Reference(
+        Dummy('ReferenceResolvingService')
+    ).accept(template_factory)
     return template
 
 

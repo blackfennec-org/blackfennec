@@ -19,6 +19,10 @@ class DateTimeRangeBidder:
         Args:
             subject (Info): The Info for which an
                 offer should be produced.
+
+        Returns:
+            Offer: with how well the type can handle the passed
+                subject.
         """
         logger.info('bidding on object')
         return Offer(subject, 1, DateTimeRange.TEMPLATE,

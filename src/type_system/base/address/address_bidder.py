@@ -5,8 +5,6 @@ from src.interpretation.auction import Offer
 from src.structure.info import Info
 from src.type_system.base.address.address import Address
 from src.type_system.base.address.address_view_factory import AddressViewFactory
-from src.structure.map import Map
-from src.structure.string import String
 
 logger = logging.getLogger(__name__)
 

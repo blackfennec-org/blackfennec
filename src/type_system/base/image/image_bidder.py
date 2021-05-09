@@ -1,12 +1,10 @@
 # -*- coding: utf-8 -*-
 import logging
 
-from src.type_system.base.image.image import Image
-from src.type_system.base.image.image_view_factory import ImageViewFactory
 from src.interpretation.auction import Offer
 from src.structure.info import Info
-from src.structure.map import Map
-from src.structure.string import String
+from src.type_system.base.image.image import Image
+from src.type_system.base.image.image_view_factory import ImageViewFactory
 
 logger = logging.getLogger(__name__)
 

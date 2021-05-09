@@ -135,12 +135,14 @@ class Offer(Comparable):
                         subject,
                         template
                     ):
-                logger.info(f'Pattern mismatch of subject({subject})'
-                            f' and pattern({template.value})')
+                message = f'Pattern mismatch of subject({subject})' \
+                          f' and pattern({template.value})'
+                logger.info(message)
                 template_node_count -= 1
         else:
-            logger.info(f'Type mismatch of subject({type(subject)}) and '
-                        f'template({type(template.subject)})')
+            message = f'Type mismatch of subject({type(subject)}) and ' \
+                        f'template({type(template.subject)})'
+            logger.info(message)
         return subject_node_count, template_node_count
 
     @staticmethod
@@ -237,7 +239,8 @@ class Offer(Comparable):
                 subject_node_count += coverage[0]
                 template_node_count += coverage[1]
             else:
-                logger.debug(f'key {key} not found in subject{subject}')
+                message = f'key {key} not found in subject{subject}'
+                logger.debug(message)
                 return subject_node_count, -1
         return subject_node_count, template_node_count
 

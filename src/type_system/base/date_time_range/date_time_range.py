@@ -1,11 +1,9 @@
 # -*- coding: utf-8 -*-
 import logging
-
-from src.structure.map import Map
-from src.structure.root import Root
-from src.structure.string import String
 from datetime import datetime
 
+from src.structure.map import Map
+from src.structure.string import String
 from src.structure.template.template_factory_visitor import TemplateFactoryVisitor
 
 logger = logging.getLogger(__name__)
@@ -30,6 +28,7 @@ def create_date_time_range_template():
 
 
 class DateTimeRange:
+    """DateTimeRange Base Type"""
     TEMPLATE = None
     START_KEY = 'date_time_start'
     END_KEY = 'date_time_end'
@@ -55,6 +54,12 @@ class DateTimeRange:
 
     @property
     def date_time_start(self) -> datetime:
+        """start getter
+
+        Raises:
+            ValueError: if the value contained in the underlying map
+                could not have been parsed. Expects iso format.
+        """
         date_time_start_string: String = \
             self._data[DateTimeRange.START_KEY]
         try:

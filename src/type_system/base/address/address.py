@@ -2,7 +2,6 @@
 import logging
 
 from src.structure.map import Map
-from src.structure.root import Root
 from src.structure.string import String
 from src.structure.template.template_factory_visitor import TemplateFactoryVisitor
 

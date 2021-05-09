@@ -1,12 +1,10 @@
 # -*- coding: utf-8 -*-
 import logging
 
-from src.type_system.base.date_time.date_time import DateTime
-from src.type_system.base.date_time.date_time_view_factory import DateTimeViewFactory
 from src.interpretation.auction import Offer
 from src.structure.info import Info
-from src.structure.map import Map
-from src.structure.string import String
+from src.type_system.base.date_time.date_time import DateTime
+from src.type_system.base.date_time.date_time_view_factory import DateTimeViewFactory
 
 logger = logging.getLogger(__name__)
 
