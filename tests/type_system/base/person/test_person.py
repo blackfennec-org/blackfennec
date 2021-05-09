@@ -3,6 +3,7 @@ import unittest
 from doubles.structure.double_info import InfoMock
 from doubles.structure.double_map import MapMock
 from doubles.structure.double_string import StringMock
+from src.type_system.base.image.image import Image
 from src.type_system.base.person.person import Person
 
 
@@ -110,6 +111,36 @@ class PersonTestSuite(unittest.TestCase):
         person.suffix = suffix
         suffix.parent = person
         self.assertEqual(person.suffix, suffix)
+
+    def test_personal_photo_getter(self):
+        data = dict()
+        data[Person.PERSONAL_PHOTO_KEY] = InfoMock(Person.PERSONAL_PHOTO_KEY)
+
+        data_map = MapMock(data)
+        person = Person(data_map)
+        self.assertEqual(person.personal_photo, data[Person.PERSONAL_PHOTO_KEY])
+
+    def test_personal_photo_setter(self):
+        personal_photo = InfoMock(Person.PERSONAL_PHOTO_KEY)
+        person = Person()
+        person.personal_photo = personal_photo
+        personal_photo.parent = person
+        self.assertEqual(person.personal_photo, personal_photo)
+
+    def test_home_address_getter(self):
+        data = dict()
+        data[Person.HOME_ADDRESS_KEY] = InfoMock(Person.HOME_ADDRESS_KEY)
+
+        data_map = MapMock(data)
+        person = Person(data_map)
+        self.assertEqual(person.home_address, data[Person.HOME_ADDRESS_KEY])
+
+    def test_home_address_setter(self):
+        home_address = InfoMock(Person.HOME_ADDRESS_KEY)
+        person = Person()
+        person.home_address = home_address
+        home_address.parent = person
+        self.assertEqual(person.home_address, home_address)
 
     def test_gender_getter(self):
         data = dict()
