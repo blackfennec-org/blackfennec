@@ -43,3 +43,6 @@ class Info:
 
     def accept(self, visitor):
         return visitor.visit_info(self)
+
+    def __hash__(self):
+        return hash(id(self))

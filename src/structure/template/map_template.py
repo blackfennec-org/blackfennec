@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from src.structure.encapsulation_base.map_encapsulation_base import MapEncapsulationBase
+from src.structure.info import Info
 from src.structure.map import Map
 from src.structure.template.template_base import TemplateBase
 

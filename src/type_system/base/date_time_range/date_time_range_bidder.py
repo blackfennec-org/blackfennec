@@ -20,6 +20,6 @@ class DateTimeRangeBidder:
             subject (Info): The Info for which an
                 offer should be produced.
         """
-
+        logger.info('bidding on object')
         return Offer(subject, 1, DateTimeRange.TEMPLATE,
                      DateTimeRangeViewFactory())

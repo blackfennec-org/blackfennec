@@ -27,8 +27,4 @@ class ImageBidder:
                 the received subject.
         """
         logger.info('bidding on object')
-        template = Map()
-        template[Image.FILE_PATH_KEY] = String()
-        template[Image.FILE_TYPE_KEY] = String('image/')
-
-        return Offer(subject, 2, template, ImageViewFactory())
+        return Offer(subject, 2, Image.TEMPLATE, ImageViewFactory())

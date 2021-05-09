@@ -2,13 +2,16 @@
 import logging
 
 from src.structure.map import Map
+from src.structure.root import Root
 from src.structure.string import String
 from datetime import datetime
+
+from src.structure.template.template_factory_visitor import TemplateFactoryVisitor
 
 logger = logging.getLogger(__name__)
 
 
-def create_template():
+def create_date_time_range_template():
     """DateTimeRange Template
     Defines the format of the date time range
     """
@@ -17,10 +20,12 @@ def create_template():
                 r'([0-5][0-9])(\.[0-9]+)?(Z|[+-](?:2[0-3]|[01][0-9]):' \
                 r'[0-5][0-9])?$'
 
-    logger.info('bidding on object')
-    template = Map()
-    template[DateTimeRange.START_KEY] = String(iso_regex)
-    template[DateTimeRange.END_KEY] = String(iso_regex)
+    template_map = Map()
+    template_map[DateTimeRange.START_KEY] = String(iso_regex)
+    template_map[DateTimeRange.END_KEY] = String(iso_regex)
+
+    template_factory = TemplateFactoryVisitor()
+    template = template_map.accept(template_factory)
     return template
 
 
@@ -79,4 +84,4 @@ class DateTimeRange:
         self._data[DateTimeRange.END_KEY].value = value.isoformat()
 
 
-DateTimeRange.TEMPLATE = create_template()
+DateTimeRange.TEMPLATE = create_date_time_range_template()

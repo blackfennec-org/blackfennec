@@ -17,6 +17,7 @@ class EncapsulationBase:
         """
         self._visitor = visitor
         self._subject = subject
+        self._value = None
 
     @property
     def subject(self):
@@ -28,7 +29,8 @@ class EncapsulationBase:
     def parent(self):
         """Property for parent of this info
             encapsulated in a EncapsulationBase."""
-        return self.subject.parent.accept(self._visitor)
+        if self.subject.parent:
+            return self.subject.parent.accept(self._visitor)
 
     @parent.setter
     def parent(self, parent: Info):
@@ -42,6 +44,14 @@ class EncapsulationBase:
         """
         decapsulated_parent = self._remove_template_class(parent)
         self.subject.parent = decapsulated_parent
+
+    @property
+    def value(self):
+        return self.subject.value
+
+    @value.setter
+    def value(self, value):
+        self.subject.value = value
 
     @property
     def children(self):

@@ -27,7 +27,4 @@ class DateTimeBidder:
                 the received subject.
         """
         logger.info('bidding on object')
-        template = Map()
-        template[DateTime.DATE_TIME_KEY] = String()
-
-        return Offer(subject, 1, template, DateTimeViewFactory())
+        return Offer(subject, 1, DateTime.TEMPLATE, DateTimeViewFactory())

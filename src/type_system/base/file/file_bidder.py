@@ -27,8 +27,4 @@ class FileBidder:
                 the received subject.
         """
         logger.info('bidding on object')
-        template = Map()
-        template[File.FILE_PATH_KEY] = String()
-        template[File.FILE_TYPE_KEY] = String()
-
-        return Offer(subject, 1, template, FileViewFactory())
+        return Offer(subject, 1, File.TEMPLATE, FileViewFactory())

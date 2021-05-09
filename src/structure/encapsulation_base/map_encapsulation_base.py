@@ -11,6 +11,7 @@ class MapEncapsulationBase(EncapsulationBase, Map):
             visitor: 'BaseFactoryVisitor',
             subject: Map,
     ):
+        Map.__init__(self)
         EncapsulationBase.__init__(
             self,
             visitor,
@@ -20,6 +21,18 @@ class MapEncapsulationBase(EncapsulationBase, Map):
     @property
     def subject(self) -> Map:
         return self._subject
+
+    @property
+    def value(self):
+        return {
+            key: item.accept(self._visitor) for key, item in self.subject.value.items()
+        }
+
+    @value.setter
+    def value(self, value):
+        self.subject.value = {
+            key: self._remove_template_class(item) for key, item in value.items()
+        }
 
     def __getitem__(self, key):
         item: Info = self.subject[key]

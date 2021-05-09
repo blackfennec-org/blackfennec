@@ -27,11 +27,4 @@ class AddressBidder:
                 the received subject.
         """
         logger.info('bidding on object')
-        template = Map()
-        template[Address.FIRST_NAME_KEY] = String()
-        template[Address.LAST_NAME_KEY] = String()
-        template[Address.STREET_KEY] = String()
-        template[Address.STREET_NUMBER_KEY] = String()
-        template[Address.CITY_KEY] = String()
-
-        return Offer(subject, 1, template, AddressViewFactory())
+        return Offer(subject, 1, Address.TEMPLATE, AddressViewFactory())

@@ -6,6 +6,9 @@ from src.structure.info import Info
 from src.structure.list import List
 from src.structure.map import Map
 from src.structure.string import String
+from src.structure.template.list_template import ListTemplate
+from src.structure.template.map_template import MapTemplate
+from src.structure.template.template_base import TemplateBase
 from src.util.comparable import Comparable
 from src.interpretation.specification import Specification
 
@@ -21,6 +24,8 @@ class Offer(Comparable):
     Attributes:
         _subject (Info): Info that is auctioned
         _specificity (Int): Describes inheritance hierarchy level
+        _view_factory: View Factory for corresponding type
+        _template: structure that type can handle
         _coverage (float): Describes coverage of nodes of subject
     """
 
@@ -28,7 +33,7 @@ class Offer(Comparable):
             self,
             subject: Info,
             specificity: int,
-            template: Info,
+            template: TemplateBase,
             type_view_factory
     ):
         """Offer constructor.
@@ -36,7 +41,7 @@ class Offer(Comparable):
         Args:
             subject (Info):
             specificity (int):
-            template (Info): Template that describes type
+            template (TemplateBase): Template that describes type
             type_view_factory (InfoViewFactory): factory used
                 to create interpretation_service
         """
@@ -77,7 +82,7 @@ class Offer(Comparable):
         return self._specificity
 
     @property
-    def template(self) -> Info:
+    def template(self) -> TemplateBase:
         """template getter
 
         Returns:
@@ -88,7 +93,7 @@ class Offer(Comparable):
     def _calculate_coverage(
             self,
             subject: Info,
-            template: Info
+            template: TemplateBase
     ) -> (int, int):
         """Coverage calculation for Info Class
 
@@ -103,33 +108,39 @@ class Offer(Comparable):
         """
         subject_node_count: int = 1
         template_node_count: int = 0
-        if isinstance(subject, template.__class__):
+        if isinstance(subject, template.subject.__class__):
             logger.debug(
                 'Type of subject(%s) and template(%s) matched',
                 type(subject),
-                type(template)
+                type(template.subject)
             )
             template_node_count += 1
-            if template.children:
-                coverage: (int, int) = (0,0)
-                if isinstance(subject, List):
-                    coverage = self._calculate_list_coverage(
-                        subject,
-                        template
-                    )
-                elif isinstance(subject, Map):
-                    coverage = self._calculate_map_coverage(
-                        subject,
-                        template
-                    )
-                subject_node_count += coverage[0]
-                template_node_count += coverage[1]
-            if isinstance(template, String) and\
+
+            coverage: (int, int) = (0, 0)
+            if isinstance(subject, List):
+                coverage = self._calculate_list_coverage(
+                    subject,
+                    template
+                )
+            elif isinstance(subject, Map):
+                coverage = self._calculate_map_coverage(
+                    subject,
+                    template
+                )
+            subject_node_count += coverage[0]
+            template_node_count += coverage[1]
+
+            if isinstance(template, String) and \
                     not self._check_pattern_match_if_has_value(
                         subject,
                         template
                     ):
+                logger.info(f'Pattern mismatch of subject({subject})'
+                            f' and pattern({template.value})')
                 template_node_count -= 1
+        else:
+            logger.info(f'Type mismatch of subject({type(subject)}) and '
+                        f'template({type(template.subject)})')
         return subject_node_count, template_node_count
 
     @staticmethod
@@ -158,7 +169,7 @@ class Offer(Comparable):
     def _calculate_list_coverage(
             self,
             subject: List,
-            template: List
+            template: ListTemplate
     ) -> (int, int):
         """Coverage calculation for List Class
 
@@ -194,7 +205,7 @@ class Offer(Comparable):
     def _calculate_map_coverage(
             self,
             subject: Map,
-            template: Map
+            template: MapTemplate
     ) -> (int, int):
         """Coverage calculation for Map Class
 
@@ -213,17 +224,20 @@ class Offer(Comparable):
         )
         subject_node_count: int = len(subject.children)
         template_node_count: int = 0
-        for key, value in template.data.items():
-            if key in subject.data:
-                if isinstance(subject.data[key], value.__class__):
+        for key, value in template.value.items():
+            if key in subject.value:
+                if isinstance(subject.value[key], value.subject.__class__):
                     subject_node_count -= 1
                 coverage = self._calculate_coverage(
-                    subject.data[key],
+                    subject.value[key],
                     value
                 )
+                if coverage[1] <= 0:
+                    return subject_node_count, -1
                 subject_node_count += coverage[0]
                 template_node_count += coverage[1]
             else:
+                logger.debug(f'key {key} not found in subject{subject}')
                 return subject_node_count, -1
         return subject_node_count, template_node_count
 
@@ -289,12 +303,14 @@ class Offer(Comparable):
         """Lower-than operator
 
         Arguments:
-            other (Offer): Forwarding Reference because Offer
-                does not exist while creating operator
+            other (Offer): to compare self with.
 
         Returns:
-            bool: comparison of specificity and coverage with other.
-                specificity is more important than coverage
+            bool: comparison of coverage and specificity with other.
+                coverage is more important than specificity.
+                Special case: if the coverage is equal and one of the
+                two offers is an offer for a core type specificity is
+                ranked in reverse order.
 
         Raises:
             ValueError: If the subject of the compared offers do not match
@@ -303,13 +319,18 @@ class Offer(Comparable):
             message = 'Subject of compared offers are not equal'
             logger.error(message)
             raise ValueError(message)
+
+        if self.coverage == other.coverage \
+                and 0 in (self.specificity, other.specificity):
+            return self.specificity > other.specificity
+
         return (
-            self.coverage,
-            self.specificity
-        ) < (
-            other.coverage,
-            other.specificity
-        )
+                   self.coverage,
+                   self.specificity
+               ) < (
+                   other.coverage,
+                   other.specificity
+               )
 
     def __hash__(self):
         return hash((self.coverage, self.specificity, self.subject))
