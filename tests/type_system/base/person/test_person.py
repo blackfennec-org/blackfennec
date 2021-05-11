@@ -3,6 +3,7 @@ import unittest
 from doubles.structure.double_info import InfoMock
 from doubles.structure.double_map import MapMock
 from doubles.structure.double_string import StringMock
+from src.type_system.base.image.image import Image
 from src.type_system.base.person.person import Person
 
 
@@ -21,30 +22,30 @@ class PersonTestSuite(unittest.TestCase):
 
     def test_can_construct_with_map(self):
         data = dict()
-        data['courtesy_title'] = StringMock('courtesy_title')
-        data['first_name'] = StringMock('first_name')
-        data['middle_name'] = StringMock('middle_name')
-        data['last_name'] = StringMock('last_name')
-        data['suffix'] = StringMock('suffix')
-        data['gender'] = StringMock('gender')
-        data['sex'] = StringMock('sex')
-        data['marital_status'] = StringMock('marital_status')
-        data['nationality'] = StringMock('nationality')
+        data[Person.COURTESY_TITLE_KEY] = StringMock(Person.COURTESY_TITLE_KEY)
+        data[Person.FIRST_NAME_KEY] = StringMock(Person.FIRST_NAME_KEY)
+        data[Person.MIDDLE_NAME_KEY] = StringMock(Person.MIDDLE_NAME_KEY)
+        data[Person.LAST_NAME_KEY] = StringMock(Person.LAST_NAME_KEY)
+        data[Person.SUFFIX_KEY] = StringMock(Person.SUFFIX_KEY)
+        data[Person.GENDER_KEY] = StringMock(Person.GENDER_KEY)
+        data[Person.SEX_KEY] = StringMock(Person.SEX_KEY)
+        data[Person.MARITAL_STATUS_KEY] = StringMock(Person.MARITAL_STATUS_KEY)
+        data[Person.NATIONALITY_KEY] = StringMock(Person.NATIONALITY_KEY)
 
         data_map = MapMock(data)
         Person(data_map)
 
     def test_courtesy_title_getter(self):
         data = dict()
-        data['courtesy_title'] = StringMock('courtesy_title')
+        data[Person.COURTESY_TITLE_KEY] = StringMock(Person.COURTESY_TITLE_KEY)
 
         data_map = MapMock(data)
         person = Person(data_map)
 
-        self.assertEqual(person.courtesy_title, data['courtesy_title'])
+        self.assertEqual(person.courtesy_title, data[Person.COURTESY_TITLE_KEY])
 
     def test_courtesy_title_setter(self):
-        courtesy_title = StringMock('courtesy_title')
+        courtesy_title = StringMock(Person.COURTESY_TITLE_KEY)
         person = Person()
         person.courtesy_title = courtesy_title
         courtesy_title.parent = person
@@ -52,15 +53,15 @@ class PersonTestSuite(unittest.TestCase):
 
     def test_first_name_getter(self):
         data = dict()
-        data['first_name'] = StringMock('first_name')
+        data[Person.FIRST_NAME_KEY] = StringMock(Person.FIRST_NAME_KEY)
 
         data_map = MapMock(data)
         person = Person(data_map)
 
-        self.assertEqual(person.first_name, data['first_name'])
+        self.assertEqual(person.first_name, data[Person.FIRST_NAME_KEY])
 
     def test_first_name_setter(self):
-        first_name = StringMock('first_name')
+        first_name = StringMock(Person.FIRST_NAME_KEY)
         person = Person()
         person.first_name = first_name
         first_name.parent = person
@@ -68,14 +69,14 @@ class PersonTestSuite(unittest.TestCase):
 
     def test_middle_name_getter(self):
         data = dict()
-        data['middle_name'] = StringMock('middle_name')
+        data[Person.MIDDLE_NAME_KEY] = StringMock(Person.MIDDLE_NAME_KEY)
 
         data_map = MapMock(data)
         person = Person(data_map)
-        self.assertEqual(person.middle_name, data['middle_name'])
+        self.assertEqual(person.middle_name, data[Person.MIDDLE_NAME_KEY])
 
     def test_middle_name_setter(self):
-        middle_name = StringMock('middle_name')
+        middle_name = StringMock(Person.MIDDLE_NAME_KEY)
         person = Person()
         person.middle_name = middle_name
         middle_name.parent = person
@@ -83,14 +84,14 @@ class PersonTestSuite(unittest.TestCase):
 
     def test_last_name_getter(self):
         data = dict()
-        data['last_name'] = StringMock('last_name')
+        data[Person.LAST_NAME_KEY] = StringMock(Person.LAST_NAME_KEY)
 
         data_map = MapMock(data)
         person = Person(data_map)
-        self.assertEqual(person.last_name, data['last_name'])
+        self.assertEqual(person.last_name, data[Person.LAST_NAME_KEY])
 
     def test_last_name_setter(self):
-        last_name = StringMock('last_name')
+        last_name = StringMock(Person.LAST_NAME_KEY)
         person = Person()
         person.last_name = last_name
         last_name.parent = person
@@ -98,29 +99,59 @@ class PersonTestSuite(unittest.TestCase):
 
     def test_suffix_getter(self):
         data = dict()
-        data['suffix'] = StringMock('suffix')
+        data[Person.SUFFIX_KEY] = StringMock(Person.SUFFIX_KEY)
 
         data_map = MapMock(data)
         person = Person(data_map)
-        self.assertEqual(person.suffix, data['suffix'])
+        self.assertEqual(person.suffix, data[Person.SUFFIX_KEY])
 
     def test_suffix_setter(self):
-        suffix = StringMock('suffix')
+        suffix = StringMock(Person.SUFFIX_KEY)
         person = Person()
         person.suffix = suffix
         suffix.parent = person
         self.assertEqual(person.suffix, suffix)
 
-    def test_gender_getter(self):
+    def test_personal_photo_getter(self):
         data = dict()
-        data['gender'] = StringMock('gender')
+        data[Person.PERSONAL_PHOTO_KEY] = InfoMock(Person.PERSONAL_PHOTO_KEY)
 
         data_map = MapMock(data)
         person = Person(data_map)
-        self.assertEqual(person.gender, data['gender'])
+        self.assertEqual(person.personal_photo, data[Person.PERSONAL_PHOTO_KEY])
+
+    def test_personal_photo_setter(self):
+        personal_photo = InfoMock(Person.PERSONAL_PHOTO_KEY)
+        person = Person()
+        person.personal_photo = personal_photo
+        personal_photo.parent = person
+        self.assertEqual(person.personal_photo, personal_photo)
+
+    def test_home_address_getter(self):
+        data = dict()
+        data[Person.HOME_ADDRESS_KEY] = InfoMock(Person.HOME_ADDRESS_KEY)
+
+        data_map = MapMock(data)
+        person = Person(data_map)
+        self.assertEqual(person.home_address, data[Person.HOME_ADDRESS_KEY])
+
+    def test_home_address_setter(self):
+        home_address = InfoMock(Person.HOME_ADDRESS_KEY)
+        person = Person()
+        person.home_address = home_address
+        home_address.parent = person
+        self.assertEqual(person.home_address, home_address)
+
+    def test_gender_getter(self):
+        data = dict()
+        data['gender'] = StringMock(Person.GENDER_KEY)
+
+        data_map = MapMock(data)
+        person = Person(data_map)
+        self.assertEqual(person.gender, data[Person.GENDER_KEY])
 
     def test_gender_setter(self):
-        gender = StringMock('gender')
+        gender = StringMock(Person.GENDER_KEY)
         person = Person()
         person.gender = gender
         gender.parent = person
@@ -128,14 +159,14 @@ class PersonTestSuite(unittest.TestCase):
 
     def test_sex_getter(self):
         data = dict()
-        data['sex'] = StringMock('sex')
+        data[Person.SEX_KEY] = StringMock(Person.SEX_KEY)
 
         data_map = MapMock(data)
         person = Person(data_map)
-        self.assertEqual(person.sex, data['sex'])
+        self.assertEqual(person.sex, data[Person.SEX_KEY])
 
     def test_sex_setter(self):
-        sex = StringMock('sex')
+        sex = StringMock(Person.SEX_KEY)
         person = Person()
         person.sex = sex
         sex.parent = person
@@ -143,14 +174,14 @@ class PersonTestSuite(unittest.TestCase):
 
     def test_marital_status_getter(self):
         data = dict()
-        data['marital_status'] = StringMock('marital_status')
+        data[Person.MARITAL_STATUS_KEY] = StringMock(Person.MARITAL_STATUS_KEY)
 
         data_map = MapMock(data)
         person = Person(data_map)
-        self.assertEqual(person.marital_status, data['marital_status'])
+        self.assertEqual(person.marital_status, data[Person.MARITAL_STATUS_KEY])
 
     def test_marital_status_setter(self):
-        marital_status = StringMock('marital_status')
+        marital_status = StringMock(Person.MARITAL_STATUS_KEY)
         person = Person()
         person.marital_status = marital_status
         marital_status.parent = person
@@ -158,14 +189,14 @@ class PersonTestSuite(unittest.TestCase):
 
     def test_nationality_getter(self):
         data = dict()
-        data['nationality'] = StringMock('nationality')
+        data[Person.NATIONALITY_KEY] = StringMock(Person.NATIONALITY_KEY)
 
         data_map = MapMock(data)
         person = Person(data_map)
-        self.assertEqual(person.nationality, data['nationality'])
+        self.assertEqual(person.nationality, data[Person.NATIONALITY_KEY])
 
     def test_nationality_setter(self):
-        nationality = StringMock('nationality')
+        nationality = StringMock(Person.NATIONALITY_KEY)
         person = Person()
         person.nationality = nationality
         nationality.parent = person
@@ -211,40 +242,42 @@ class PersonTestSuite(unittest.TestCase):
 
     def test_to_string(self):
         data = dict()
-        data['courtesy_title'] = StringMock('courtesy_title')
-        data['first_name'] = StringMock('first_name')
-        data['middle_name'] = StringMock('middle_name')
-        data['last_name'] = StringMock('last_name')
-        data['suffix'] = StringMock('suffix')
-        data['gender'] = StringMock('gender')
-        data['sex'] = StringMock('sex')
-        data['marital_status'] = StringMock('marital_status')
-        data['nationality'] = StringMock('nationality')
+        data[Person.COURTESY_TITLE_KEY] = StringMock(Person.COURTESY_TITLE_KEY)
+        data[Person.FIRST_NAME_KEY] = StringMock(Person.FIRST_NAME_KEY)
+        data[Person.MIDDLE_NAME_KEY] = StringMock(Person.MIDDLE_NAME_KEY)
+        data[Person.LAST_NAME_KEY] = StringMock(Person.LAST_NAME_KEY)
+        data[Person.SUFFIX_KEY] = StringMock(Person.SUFFIX_KEY)
+        data[Person.GENDER_KEY] = StringMock(Person.GENDER_KEY)
+        data[Person.SEX_KEY] = StringMock(Person.SEX_KEY)
+        data[Person.MARITAL_STATUS_KEY] = StringMock(Person.MARITAL_STATUS_KEY)
+        data[Person.NATIONALITY_KEY] = StringMock(Person.NATIONALITY_KEY)
 
         data_map = MapMock(data)
         person = Person(data_map)
-        expected = 'courtesy_title first_name ' \
-                   'middle_name last_name ' \
-                   'suffix\ngender\nsex\n' \
-                   'marital_status\nnationality'
+        expected = f'{Person.COURTESY_TITLE_KEY} {Person.FIRST_NAME_KEY} ' \
+                   f'{Person.MIDDLE_NAME_KEY} {Person.LAST_NAME_KEY} ' \
+                   f'{Person.SUFFIX_KEY}\n{Person.GENDER_KEY}\n{Person.SEX_KEY}\n' \
+                   f'{Person.MARITAL_STATUS_KEY}\n{Person.NATIONALITY_KEY}'
         self.assertEqual(str(person), expected)
 
     def test_representation(self):
         data = dict()
-        data['courtesy_title'] = StringMock('courtesy_title')
-        data['first_name'] = StringMock('first_name')
-        data['middle_name'] = StringMock('middle_name')
-        data['last_name'] = StringMock('last_name')
-        data['suffix'] = StringMock('suffix')
-        data['gender'] = StringMock('gender')
-        data['sex'] = StringMock('sex')
-        data['marital_status'] = StringMock('marital_status')
-        data['nationality'] = StringMock('nationality')
+        data[Person.COURTESY_TITLE_KEY] = StringMock(Person.COURTESY_TITLE_KEY)
+        data[Person.FIRST_NAME_KEY] = StringMock(Person.FIRST_NAME_KEY)
+        data[Person.MIDDLE_NAME_KEY] = StringMock(Person.MIDDLE_NAME_KEY)
+        data[Person.LAST_NAME_KEY] = StringMock(Person.LAST_NAME_KEY)
+        data[Person.SUFFIX_KEY] = StringMock(Person.SUFFIX_KEY)
+        data[Person.GENDER_KEY] = StringMock(Person.GENDER_KEY)
+        data[Person.SEX_KEY] = StringMock(Person.SEX_KEY)
+        data[Person.MARITAL_STATUS_KEY] = StringMock(Person.MARITAL_STATUS_KEY)
+        data[Person.NATIONALITY_KEY] = StringMock(Person.NATIONALITY_KEY)
 
         data_map = MapMock(data)
         person = Person(data_map)
-        expected = 'Person(courtesy_title ' \
-                   'first_name middle_name last_name ' \
-                   'suffix, gender, sex, ' \
-                   'marital_status, nationality)'
+        expected = f'Person({Person.COURTESY_TITLE_KEY} ' \
+                   f'{Person.FIRST_NAME_KEY} {Person.MIDDLE_NAME_KEY}' \
+                   f' {Person.LAST_NAME_KEY} ' \
+                   f'{Person.SUFFIX_KEY}, {Person.GENDER_KEY}, ' \
+                   f'{Person.SEX_KEY}, ' \
+                   f'{Person.MARITAL_STATUS_KEY}, {Person.NATIONALITY_KEY})'
         self.assertEqual(repr(person), expected)

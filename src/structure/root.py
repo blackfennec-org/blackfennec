@@ -37,7 +37,7 @@ class Root(Info):
             to disallow changing the parent of the root.
             If the operation is attempted a TypeError is raised.
         """
-        return super().parent
+        return self
 
     @parent.setter
     def parent(self, new_parent):

@@ -30,6 +30,16 @@ class ListEncapsulationBase(EncapsulationBase, List):
     def subject(self) -> List:
         return self._subject
 
+    @property
+    def value(self):
+        return [item.accept(self._visitor) for item in self.subject.value]
+
+    @value.setter
+    def value(self, value):
+        self.subject.value = [
+            self._remove_template_class(item) for item in value
+        ]
+
     def append(self, item: Info):
         """Append item to list template.
 

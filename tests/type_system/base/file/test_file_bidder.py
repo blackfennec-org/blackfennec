@@ -17,7 +17,7 @@ class FileBidderTestSuite(unittest.TestCase):
     def test_offer_equal_map_offer(self):
         bidder = FileBidder()
         subject = {}
-        expected_offer = Offer(subject, 1, Map(), Dummy())
+        expected_offer = Offer(subject, 1, File.TEMPLATE, Dummy())
         offer = bidder.bid(subject)
         self.assertEqual(offer, expected_offer)
 

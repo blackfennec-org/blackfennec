@@ -53,6 +53,28 @@ class MapEncapsulationBaseTestSuite(unittest.TestCase):
         self.map_encapsulation_base[key] = encapsulated
         self.assertEqual(value, self.map_encapsulation_base[key])
 
+    def test_get_value(self):
+        key = 'test'
+        subject_content = InfoMock('test')
+        subject = Map({key: subject_content})
+        subject.parent = Root(subject)
+        map_encapsulation_base = MapEncapsulationBase(
+            self.visitor,
+            subject
+        )
+        value = map_encapsulation_base.value
+        self.assertEqual(subject_content, value[key])
+
+    def test_can_get_value_empty(self):
+        value = self.map_encapsulation_base.value
+        self.assertIsInstance(value, dict)
+
+    def test_set_value(self):
+        key = 'test'
+        value = InfoMock('test')
+        self.map_encapsulation_base.value = {key: value}
+        self.assertEqual(value, self.map_encapsulation_base[key])
+
     def test_get_children(self):
         key = 'test'
         value = InfoMock('test_value')

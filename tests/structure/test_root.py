@@ -59,6 +59,10 @@ class RootTestSuite(unittest.TestCase):
         self.assertRaises(TypeError,
             lambda: set_parent(root, new_parent))
 
+    def test_can_get_parent(self):
+        root = Root()
+        self.assertEqual(root.parent, root)
+
     def test_can_get_root(self):
         root = Root()
         self.assertEqual(root.root, root)

@@ -3,8 +3,22 @@ import logging
 
 from src.structure.map import Map
 from src.structure.string import String
+from src.structure.template.template_factory_visitor import TemplateFactoryVisitor
 
 logger = logging.getLogger(__name__)
+
+
+def create_file_template():
+    """File Template
+    Defines the format of the file
+    """
+    template_map = Map()
+    template_map[File.FILE_PATH_KEY] = String()
+    template_map[File.FILE_TYPE_KEY] = String()
+
+    template_factory = TemplateFactoryVisitor()
+    template = template_map.accept(template_factory)
+    return template
 
 
 class File:
@@ -15,6 +29,7 @@ class File:
     Can be used by other classes as a helper to be able to
     include files in a overlaying datatype.
     """
+    TEMPLATE = None
     FILE_PATH_KEY = 'file_path'
     FILE_TYPE_KEY = 'file_type'
 
@@ -86,3 +101,6 @@ class File:
             self.file_path,
             self.file_type
         )
+
+
+File.TEMPLATE = create_file_template()

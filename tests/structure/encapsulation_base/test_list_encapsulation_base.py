@@ -3,7 +3,6 @@ from typing import Optional
 
 from doubles.structure.double_info import InfoMock
 from doubles.structure.encapsulation_base.double_factory_base_visitor import FactoryBaseVisitorMock
-from doubles.structure.template.double_template_factory import TemplateFactoryMock
 from src.structure.encapsulation_base.encapsulation_base import EncapsulationBase
 from src.structure.encapsulation_base.base_factory_visitor import _create_generic_class
 from src.structure.info import Info
@@ -82,6 +81,26 @@ class ListEncapsulationBaseTestSuite(unittest.TestCase):
         children = self.list_encapsulation_base.children
         self.assertEqual(len(children), 0)
         self.assertEqual(self.visitor.visit_info_count, 0)
+
+    def test_get_value(self):
+        subject_content = InfoMock('test')
+        subject = List([subject_content])
+        subject.parent = Root(subject)
+        list_encapsulation_base = ListEncapsulationBase(
+            self.visitor,
+            subject
+        )
+        value = list_encapsulation_base.value
+        self.assertEqual(subject_content, value[0])
+
+    def test_can_get_value_empty(self):
+        value = self.list_encapsulation_base.value
+        self.assertIsInstance(value, list)
+
+    def test_set_value(self):
+        value = InfoMock('test')
+        self.list_encapsulation_base.value = [value]
+        self.assertIn(value, self.list_encapsulation_base.subject.value)
 
     def test_remove_item(self):
         value = InfoMock('test_value')
