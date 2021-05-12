@@ -80,19 +80,19 @@ class StructureParsingServiceTestSuite(unittest.TestCase):
     def test_can_parse_nested_list(self):
         data = {
             'continents': [
-                {'name': 'Asia', 'countries':
+                {'identification': 'Asia', 'countries':
                     ['Russia', 'China', 'India', 'Mongolia']},
-                {'name': 'Africa', 'countries':
+                {'identification': 'Africa', 'countries':
                     ['Nigeria', 'Ethiopia', 'Egypt', 'Kenya']},
-                {'name': 'Europe', 'countries':
+                {'identification': 'Europe', 'countries':
                     ['Switzerland', 'Germany', 'France', 'Italy', 'Austria']}
             ]
         }
         result = self.structure_parsing_service.from_json(data)
         self.assertIsInstance(result['continents'], List)
-        self.assertIsInstance(result['continents'][0]['name'], String)
+        self.assertIsInstance(result['continents'][0]['identification'], String)
         self.assertIsInstance(result['continents'][0]['countries'], List)
-        self.assertIsInstance(result['continents'][2]['name'], String)
+        self.assertIsInstance(result['continents'][2]['identification'], String)
         self.assertIsInstance(result['continents'][2]['countries'], List)
 
     def test_throws_error_on_unknown_type(self):

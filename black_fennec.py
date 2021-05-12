@@ -1,32 +1,32 @@
+import os
+
 import gi
-
-from src.type_system.core.reference.reference_bidder import ReferenceBidder
-from src.util.uri.uri_import_service import UriImportService
-from src.util.json.json_reference_resolving_service import JsonReferenceResolvingService
-from src.util.uri.structure_parsing_service import StructureParsingService
-from src.util.uri.uri_import_strategy_factory import UriImportStrategyFactory
-from src.util.uri.uri_loading_strategy_factory import UriLoadingStrategyFactory
-
 gi.require_version('Gtk', '3.0')
 
 # pylint: disable=wrong-import-position,ungrouped-imports
 import logging
+from uri import URI
 from gi.repository import Gtk, Gdk, GLib
+from src.extension.extension_api import ExtensionApi
+from src.extension.extension_source import ExtensionSource
+from src.extension.local_extension_service import LocalExtensionService
+from src.extension.pypi_extension_service import PyPIExtensionService
 from src.interpretation.auction.auctioneer import Auctioneer
 from src.interpretation.interpretation_service import InterpretationService
 from src.navigation.navigation_service import NavigationService
-from src.presentation.column_based_presenter.column_based_presenter_view_factory import ColumnBasedPresenterViewFactory
-from src.type_system.type_registry import TypeRegistry
-from src.type_system.base.address.address_bidder import AddressBidder
-from src.type_system.base.date_time.date_time_bidder import DateTimeBidder
-from src.type_system.base.file.file_bidder import FileBidder
-from src.type_system.base.image.image_bidder import ImageBidder
-from src.type_system.base.person.person_bidder import PersonBidder
+from src.presentation.presenter_registry import PresenterRegistry
+from src.type_system.core.reference.reference_bidder import ReferenceBidder
 from src.type_system.core.boolean.boolean_bidder import BooleanBidder
 from src.type_system.core.list.list_bidder import ListBidder
 from src.type_system.core.map.map_bidder import MapBidder
 from src.type_system.core.number.number_bidder import NumberBidder
 from src.type_system.core.string.string_bidder import StringBidder
+from src.type_system.type_registry import TypeRegistry
+from src.util.uri.uri_import_service import UriImportService
+from src.util.json.json_reference_resolving_service import JsonReferenceResolvingService
+from src.util.uri.structure_parsing_service import StructureParsingService
+from src.util.uri.uri_import_strategy_factory import UriImportStrategyFactory
+from src.util.uri.uri_loading_strategy_factory import UriLoadingStrategyFactory
 from src.visualisation.main_window.black_fennec_view_model import BlackFennecViewModel
 from src.visualisation.main_window.black_fennec_view import BlackFennecView
 from src.visualisation.splash_screen.splash_screen_view import SplashScreenView
@@ -36,9 +36,10 @@ logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
 
 
-def populate_type_registry(
-        registry: TypeRegistry,
-        interpretation_service: InterpretationService):
+def register_core_types(
+    registry: TypeRegistry,
+    interpretation_service: InterpretationService
+):
     """
     Function populates type registry. Used
     as a mock before the ExtensionManager makes
@@ -55,11 +56,28 @@ def populate_type_registry(
     registry.register_type(ListBidder(interpretation_service))
     registry.register_type(MapBidder(interpretation_service))
     registry.register_type(ReferenceBidder())
-    registry.register_type(FileBidder())
-    registry.register_type(ImageBidder())
-    registry.register_type(AddressBidder())
-    registry.register_type(DateTimeBidder())
-    registry.register_type(PersonBidder())
+
+
+def load_extensions_from_file(uri_import_service, extension_api, uri):
+    extension_services = {
+        'local': LocalExtensionService(),
+        'pypi': PyPIExtensionService()
+    }
+    extension_source_list = uri_import_service.load(
+        uri,
+        os.path.realpath(__file__)
+    )
+    extension_sources = list()
+    for extension_source_structure in extension_source_list.children:
+        source_type = extension_source_structure['type'].value
+        extension_source = ExtensionSource(
+            extension_services[source_type],
+            extension_source_structure
+        )
+        extension_source.load_extensions(extension_api)
+        extension_sources.append(
+            extension_source
+        )
 
 
 class BlackFennec(Gtk.Application):
@@ -107,11 +125,25 @@ class BlackFennec(Gtk.Application):
             reference_resolving_service
         )
 
-        presenter_view = ColumnBasedPresenterViewFactory() \
-            .create(interpretation_service, navigation_service)
+        presenter_registry = PresenterRegistry()
+        extension_api = ExtensionApi(
+            presenter_registry,
+            type_registry,
+            navigation_service,
+            interpretation_service
+        )
+        load_extensions_from_file(
+            uri_import_service,
+            extension_api,
+            URI('extensions.json')
+        )
+
+        register_core_types(type_registry, interpretation_service)
+
+        presenter_view = presenter_registry.presenters[0].create()
         presenter = presenter_view._view_model # pylint: disable=protected-access
         navigation_service.set_presenter(presenter)
-        populate_type_registry(type_registry, interpretation_service)
+
         view_model = BlackFennecViewModel(
             presenter_view,
             navigation_service,

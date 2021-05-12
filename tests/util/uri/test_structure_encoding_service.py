@@ -12,9 +12,9 @@ from src.structure.string import String
 class StructureEncodingServiceTestSuite(unittest.TestCase):
 
     def test_list_to_json_string(self):
-        black_fennec_obj = List([String('name')])
+        black_fennec_obj = List([String('identification')])
         expected = """[
-    "name"
+    "identification"
 ]"""
         json_string = json.dumps(
             black_fennec_obj,
@@ -23,9 +23,9 @@ class StructureEncodingServiceTestSuite(unittest.TestCase):
         self.assertEqual(expected, json_string)
 
     def test_Map_to_json_string(self):
-        black_fennec_obj = Map({'name': String('Timo')})
+        black_fennec_obj = Map({'identification': String('Timo')})
         expected = """{
-    "name": "Timo"
+    "identification": "Timo"
 }"""
         json_string = json.dumps(
             black_fennec_obj,
