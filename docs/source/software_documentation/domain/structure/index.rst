@@ -18,7 +18,7 @@ The Structure
 
 Overview
 """"""""
-Although not represented in the source code itself, it is helpful to reason about the different levels of structure as layers. In this model each layer adds (or removes) something to the layer below. Services tend to act on the same layer. However this is most often because they are not aware of this concept. Layers above the underlay must be transparent (class adapter pattern) which allows - in theory - arbitrary combination of adapters to create novel layers. In practice the following stack is used most often. It is worth noting, that the underlay itself is not represented in code either but in fact just the not yet processed deserialized user data represented in the :ref:`object model <object_model>`
+Although not represented in the source code itself, it is helpful to reason about the different levels of structure as layers. In this model each layer adds (or removes) something to the layer below. Services tend to act on the same layer. However this is most often because they are not aware of this concept. Layers above the underlay must be transparent which allows - in theory - arbitrary combinations to create novel layers. In practice the following stack is used most often. It is worth noting, that the underlay itself is not represented in code either but in fact just the not yet processed deserialized user data represented in the :ref:`object model <object_model>`
 
 .. uml::
     

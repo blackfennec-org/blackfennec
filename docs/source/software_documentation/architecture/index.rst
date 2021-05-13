@@ -43,7 +43,7 @@ Black Fennec is a desktop application without backend integration. All code runs
 
 Black Fennec
 """"""""""""
-When we take a closer look at the interfaces and services used by the "external" components, we can identify some concepts that can be found throughout this documentation. These are the heigh level concepts which are important for a complete picture of the project. Each component is conceptually largely independent of the others. This allows us to tune their view of the system to their needs. Think facade pattern but towards the core and not to hide legacy code but to minimize complexity whereby development efficiency is maximised.
+When we take a closer look at the interfaces and services used by the "external" components, we can identify some concepts that can be found throughout this documentation. These are the heigh-level concepts which are important for a complete picture of the project. Each component is conceptually largely independent of the others. This allows us to tune their view of the system to their needs. Think of the facade pattern but towards the core and not to hide legacy code but to minimize complexity whereby development efficiency is maximised.
 
 .. uml::
     
