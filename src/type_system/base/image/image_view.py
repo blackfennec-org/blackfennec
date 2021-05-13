@@ -27,9 +27,12 @@ class ImageView(Gtk.Bin):
         super().__init__()
         self._view_model = view_model
         file_path = self._set_file_path()
-        pixbuf = self.get_pixbuf(file_path)
-        pixbuf = self.rescale_pixbuf(pixbuf, 200)
-        self.set_image_via_pixbuf(pixbuf)
+        if file_path == '':
+            self.set_file_not_found()
+        else:
+            pixbuf = self.get_pixbuf(file_path)
+            pixbuf = self.rescale_pixbuf(pixbuf, 200)
+            self.set_image_via_pixbuf(pixbuf)
         self._set_file_type()
         logger.info(
             'ImageView created'
@@ -61,6 +64,9 @@ class ImageView(Gtk.Bin):
     def _set_file_type(self):
         file_type = self._view_model.file_type
         self._file_type_value.set_text(str(file_type))
+
+    def set_file_not_found(self):
+        self._image.set_from_file('src/type_system/base/image/not-found.png')
 
     @Gtk.Template.Callback()
     def on_choose_clicked(self, unused_sender) -> None:
