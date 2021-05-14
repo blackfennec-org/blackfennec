@@ -56,5 +56,14 @@ class MapViewModel:
         """
         self._map.pop(key)
 
+    def rename_key(self, old_key, new_key):
+        """Rename the key of an item.
+
+                Args:
+                    old_key: The key of the key value pair which should be renamed
+                    new_key: The new key name of the key value pair
+                """
+        self._map[new_key] = self._map.pop(old_key)
+
     def navigate_to(self, route_target: Info):
         self._interpretation.navigate(route_target)

@@ -35,3 +35,27 @@ class MapView(Gtk.Bin):
     def _preview_click_handler(self, unused_sender, route_target) -> None:
         """Handles clicks on map items, triggers navigation"""
         self._view_model.navigate_to(route_target)
+
+"""
+    @Gtk.Template.Callback()
+    def _on_delete_item(self, sender):
+        # Do stuff
+        self._view_model.delete_item()
+
+    @Gtk.Template.Callback()
+    def _on_rename_key(self, sender):
+        # Do stuff
+        self._view_model.rename_key()
+
+"""
+"""
+    @Gtk.Template.Callback()
+    def _on_option_clicked(self, sender):
+        button = sender.label
+        if button == 'Edit':
+            # something
+        elif button == 'Delete':
+            # something else
+        else:
+            # something else else
+"""

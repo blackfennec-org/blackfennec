@@ -35,4 +35,19 @@ class MapItemView(Gtk.Bin):
     @Gtk.Template.Callback()
     def on_preview_clicked(self, unused_sender) -> None:
         """Callback for the button click event"""
+
+        print('_preview_click_handler')
         self._preview_click_handler(self, self._preview.info)
+
+    @Gtk.Template.Callback()
+    def _on_button_click(self, sender, widget):
+        print('_on_button_click')
+        self.popover = Gtk.Popover()
+        self.popover.set_relative_to(sender)
+        self.popover.show()
+
+    """
+        if event.type == Gdk.EventType.BUTTON_PRESS and event.button == 3:
+            self.popup.popup(None, None, None, None, event.button, event.time)
+            return True  # event has been handled
+    """
