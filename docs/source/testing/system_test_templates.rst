@@ -1,3 +1,5 @@
+.. _System Test Templates:
+
 System Test Templates
 =====================
 
