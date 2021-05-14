@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
 import logging
 
-from gi.repository import Gtk
-from gi.repository import Gdk, GdkPixbuf
+from gi.repository import Gtk, GdkPixbuf
 
 from src.type_system.base.image.image_view_model import ImageViewModel
 
@@ -26,52 +25,53 @@ class ImageView(Gtk.Bin):
         """
         super().__init__()
         self._view_model = view_model
-        file_path = self._set_file_path()
-        if file_path == '':
-            self.set_file_not_found()
-        else:
-            pixbuf = self.get_pixbuf(file_path)
-            pixbuf = self.rescale_pixbuf(pixbuf, 200)
-            self.set_image_via_pixbuf(pixbuf)
-        self._set_file_type()
-        logger.info(
-            'ImageView created'
-        )
+        self._set_file_path(self._view_model.file_path)
+        self._set_file_type(self._view_model.file_type)
 
-    def get_pixbuf(self, file_path):
+        logger.info('ImageView created')
+
+    def _set_image_from_path(self, file_path) -> None:
+        try:
+            pixbuf = self._get_pixbuf(file_path)
+            pixbuf = self._rescale_pixbuf(pixbuf, 200)
+            self._set_image(pixbuf)
+        except Exception as e:
+            logger.warning(e)
+            self._set_file_not_found()
+
+    def _get_pixbuf(self, file_path) -> GdkPixbuf.Pixbuf:
         return GdkPixbuf.Pixbuf.new_from_file(file_path)
 
-    def rescale_pixbuf(self, pixbuf, width):
-        scaling = self.calculate_new_image_size_factor(width, pixbuf)
+    def _rescale_pixbuf(self, pixbuf, width) -> GdkPixbuf.Pixbuf:
+        scaling = self._calculate_new_image_size_factor(width, pixbuf)
         old_width = pixbuf.get_width()
         old_height = pixbuf.get_height()
         pixbuf = pixbuf.scale_simple(old_width * scaling, old_height * scaling, 2)
         return pixbuf
 
-    def calculate_new_image_size_factor(self, width, pixbuf):
+    def _calculate_new_image_size_factor(self, width, pixbuf) -> float:
         old_width = pixbuf.get_width()
         factor = width/old_width
         return factor
 
-    def _set_file_path(self):
-        file_path = self._view_model.file_path
-        self._file_path_value.set_text(str(file_path))
-        return file_path
-
-    def set_image_via_pixbuf(self, pixbuf):
+    def _set_image(self, pixbuf) -> None:
         self._image.set_from_pixbuf(pixbuf)
 
-    def _set_file_type(self):
-        file_type = self._view_model.file_type
+    def _set_file_path(self, file_path):
+        self._view_model.file_path = file_path
+        self._file_path_value.set_text(str(file_path))
+        self._set_image_from_path(file_path)
+
+    def _set_file_type(self, file_type):
+        self._view_model.file_type = file_type
         self._file_type_value.set_text(str(file_type))
 
-    def set_file_not_found(self):
+    def _set_file_not_found(self):
         self._image.set_from_file('src/type_system/base/image/not-found.png')
 
     @Gtk.Template.Callback()
-    def on_choose_clicked(self, unused_sender) -> None:
+    def _on_choose_clicked(self, unused_sender) -> None:
         """Callback for the button click event"""
-        logger.debug('choose clicked')
         dialog = Gtk.FileChooserDialog(
             title='Please choose a image',
             action=Gtk.FileChooserAction.OPEN
@@ -86,17 +86,16 @@ class ImageView(Gtk.Bin):
         response = dialog.run()
         if response == Gtk.ResponseType.OK:
             filename = dialog.get_filename()
-            self._view_model.file_path = filename
-            self._set_file_path()
         elif response == Gtk.ResponseType.CANCEL:
             logger.debug('image selection canceled')
-
         dialog.destroy()
 
+        self._set_file_path(filename)
+
     @Gtk.Template.Callback()
-    def _on_resize(self, unused1, unused2):
-        file_path = self._file_path_value.get_text()
-        pixbuf = self.get_pixbuf(file_path)
+    def _on_resize(self, unused1, unused2) -> None:
+        file_path = self._view_model.file_path
+        pixbuf = self._get_pixbuf(file_path)
         width = self.get_allocation().width
-        pixbuf = self.rescale_pixbuf(pixbuf, width - 100)
-        self.set_image_via_pixbuf(pixbuf)
+        scaled_pixbuf = self._rescale_pixbuf(pixbuf, width - 100)
+        self._set_image(scaled_pixbuf)
