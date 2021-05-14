@@ -65,6 +65,8 @@ border-color: #4d77fd;
 .empty-list-pattern {
 margin: 100px;
 font-family: Courier;
+box-shadow: none;
+border: none;
 }
 
 .column-based-presenter button{
@@ -86,7 +88,7 @@ text-decoration: none;
 border-style: solid;
 border-color: #464545;
 border-width: 0px 2px 0px 0px;
-background-color: #515151;
+/* background-color: #515151; */
 }
 
 progressbar > trough > progress {
@@ -327,4 +329,37 @@ background-color: #e4e4e4;
 
 .container {
 background-color: #515151;
+}
+
+.main-window notebook * {
+border-image: none;
+background-image: none;
+}
+
+.main-window notebook {
+border: none;
+}
+
+.main-window notebook header {
+background-color: #464545;
+border-color: #464545;
+}
+
+.main-window notebook tab {
+background-color: #393838;
+padding: 5px 15px;
+margin-top: 2px;
+}
+.main-window notebook tabs {
+margin-left: 0px;
+}
+
+.main-window notebook tab:checked {
+background-color: #515151;
+border-radius: 7px 7px 0px 0px;
+}
+
+.main-window notebook tab:hover {
+background-color: #515151;
+border-radius: 7px 7px 0px 0px;
 }

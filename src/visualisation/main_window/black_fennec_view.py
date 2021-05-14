@@ -5,6 +5,7 @@ import os
 from uri import URI
 
 logger = logging.getLogger(__name__)
+logger.setLevel(logging.DEBUG)
 
 
 def create_folder_structure(root_directory):
@@ -34,13 +35,14 @@ class BlackFennecView(Gtk.ApplicationWindow):
         super().__init__(application=app)
         logger.info('BlackFennecView __init__')
         self._view_model = view_model
-        self._presenter_container.add(self._view_model.presenter)
-        self._presenter_container.show_all()
+        self._view_model.bind(tabs=self._update_tabs)
+        self._tabs = set()
 
         renderer = Gtk.CellRendererText()
         tree_view_column = Gtk.TreeViewColumn(
             'Project', renderer, text=0)
         self._file_tree.append_column(tree_view_column)
+
 
     @Gtk.Template.Callback()
     def on_new_clicked(self, unused_sender) -> None:
@@ -112,3 +114,19 @@ class BlackFennecView(Gtk.ApplicationWindow):
         """Callback for the button click event"""
         self._view_model.about_and_help()
         logger.debug('about and help clicked')
+
+    def _update_tabs(self, unused_sender, tabs):
+        intersection = self._tabs.intersection(tabs)
+
+        to_be_added = tabs.difference(intersection)
+        for tab in to_be_added:
+            tab_label = Gtk.Label.new(tab.uri.path.name)
+            self._presenter_container.append_page(tab.presenter, tab_label)
+
+        to_be_deleted = self._tabs.difference(intersection)
+        for tab in to_be_deleted:
+            index = self._presenter_container.page_num(tab.presenter)
+            self._presenter_container.remove_page(index)
+
+        self._tabs = set(tabs)
+        self._presenter_container.show_all()
