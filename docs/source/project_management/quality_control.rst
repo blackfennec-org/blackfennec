@@ -11,7 +11,7 @@ One of the first artifacts produced was our :ref:`quality assurance <Quality Ass
 
 Documentation
 -------------
-Changes to the documentation are handled like any other changes to any other artefact with the addition of work items specifically to ensure consistency and relevance. We utilise our usual review processes to ensure correctness and the communication of knowledge. This entails the inclusion of the work done in sprint reviews and retrospectives as outlined in our :ref:`definition of scrum <Definition of Scrum>`. The results of these meetings is documented in gitlab issues such as %%TODO%%.
+Changes to the documentation are handled like any other changes to any other artefact with the addition of work items specifically to ensure consistency and relevance. We utilise our usual review processes to ensure correctness and the communication of knowledge. This entails the inclusion of the work done in sprint reviews and retrospectives as outlined in our :ref:`definition of scrum <Definition of Scrum>`. The results of these meetings is documented in gitlab issues such as <https://gitlab.ost.ch/epj/2021-FS/g01_blackfennec/black-fennec/-/issues/114> and <https://gitlab.ost.ch/epj/2021-FS/g01_blackfennec/black-fennec/-/issues/93>.
 
 Code Reviews
 ------------
