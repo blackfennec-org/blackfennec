@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import unittest
 
-from doubles.util.comparable import ComparableMock
+from doubles.util.double_comparable import ComparableMock
 
 
 class ComparableTestSuite(unittest.TestCase):

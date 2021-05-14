@@ -11,10 +11,24 @@
         <property name="can-focus">False</property>
         <signal name="button-release-event" handler="_click_handler" swapped="no"/>
         <child>
-          <object class="GtkLabel">
+          <object class="GtkButton">
+            <property name="width-request">0</property>
+            <property name="height-request">35</property>
             <property name="visible">True</property>
-            <property name="can-focus">False</property>
-            <property name="label" translatable="yes">Map</property>
+            <property name="can-focus">True</property>
+            <property name="receives-default">True</property>
+            <property name="halign">end</property>
+            <child>
+              <object class="GtkImage">
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="halign">center</property>
+                <property name="pixbuf">src/type_system/core/map/arrow.png</property>
+              </object>
+            </child>
+            <style>
+              <class name="map-preview"/>
+            </style>
           </object>
         </child>
       </object>

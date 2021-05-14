@@ -5,9 +5,9 @@ This module contains the unit-tests of the Interpretation class.'''
 
 import unittest
 
-from doubles.dummy import Dummy
-from doubles.type_system.info_view_factory import InfoViewFactoryMock
-from doubles.navigation.navigation_service import NavigationServiceMock
+from doubles.double_dummy import Dummy
+from doubles.type_system.double_info_view_factory import InfoViewFactoryMock
+from doubles.navigation.double_navigation_service import NavigationServiceMock
 from src.interpretation.interpretation import Interpretation
 
 

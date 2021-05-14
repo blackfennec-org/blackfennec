@@ -9,7 +9,14 @@
       <object class="GtkSwitch" id="_value">
         <property name="visible">True</property>
         <property name="can-focus">True</property>
+        <signal name="activate" handler="_click_handler" swapped="no"/>
+        <style>
+          <class name="boolean"/>
+        </style>
       </object>
     </child>
+    <style>
+      <class name="bool-parent"/>
+    </style>
   </template>
 </interface>

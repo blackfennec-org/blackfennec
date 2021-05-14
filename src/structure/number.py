@@ -6,10 +6,10 @@ class Number(Info):
     """Core Type Number, represents numbers in the domain model."""
 
     def __init__(self, value: numbers.Number = 0):
-        """Construct Number with value `value`.
+        """Construct Number with item `item`.
 
         Args:
-            value (:obj:`numbers.Number`, optional): The value of the `Number`.
+            value (:obj:`numbers.Number`, optional): The item of the `Number`.
                 By default "" (empty number)
         """
         Info.__init__(self)
@@ -17,7 +17,7 @@ class Number(Info):
 
     @property
     def value(self) -> numbers.Number:
-        """"Property for the value of `Number`"""
+        """"Property for the item of `Number`"""
         return self._value
 
     @value.setter
@@ -50,3 +50,6 @@ class Number(Info):
     def __repr__(self) -> str:
         """Create representation for pretty printing"""
         return 'Number(%s)' % self._value
+
+    def accept(self, visitor):
+        return visitor.visit_number(self)

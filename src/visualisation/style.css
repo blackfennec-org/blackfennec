@@ -6,6 +6,13 @@
 .main-main-grid * {
 border-image: none;
 background-image: none;
+box-shadow: none;
+}
+
+.main-window selection{
+color: #2b2b2b;
+background-color: #4d77fd;
+margin: 10px;
 }
 
 .search-entry{
@@ -22,10 +29,6 @@ border-image: none;
 border-style: solid;
 border-color: #464545;
 border-width: 10px;
-}
-
-.main-file-tree{
-background-color: #515151;
 }
 
 .main-presenter-container{
@@ -79,31 +82,12 @@ box-shadow: none;
 text-decoration: none;
 }
 
-.column-based-presenter button:hover{
-border: none;
-background-image: none;
-background-color: #626262;
-border-style: solid;
-border-color: #626262;
-border-width: 2px;
-}
-.column-based-presenter button:active{
-border: none;
-border-image: none;
-background-image: none;
-background-color: #515151;
-border-style: solid;
-border-color: #4d77fd;
-border-width: 2px;
-}
-
 .column-based-presenter > * > box {
 border-style: solid;
 border-color: #464545;
 border-width: 0px 2px 0px 0px;
 background-color: #515151;
 }
-
 
 progressbar > trough > progress {
     background-color: #4d77fd;
@@ -136,4 +120,211 @@ menuitem *:hover {
 background: none;
 background-color: #515151;
 box-shadow: none;
+}
+
+.main-window treeview.view header button{
+background: none;
+background-color: #515151;
+box-shadow: none;
+padding: 10px 20px;
+font-weight: 400;
+text-shadow: none;
+text-decoration: none;
+}
+
+.main-window treeview.view header button * {
+color: #4d77fd;
+font-weight: 500;
+}
+
+.main-file-tree{
+background-color: #515151;
+color: #e4e4e4;
+}
+
+.main-file-tree *:hover {
+background: none;
+background-color: #626262;
+box-shadow: 3px 0px 0px #4d77fd inset;
+}
+
+.image {
+padding: 20px;
+}
+
+.preview-item{
+margin: 2px 3px;
+
+}
+
+.preview-item > * > * {
+background-color: #515151;
+}
+
+.item-row {
+border-style: solid;
+border-color: #474747;
+border-width: 1px 0px 0px 0px;
+}
+
+.map-view label{
+padding: 10px 20px;
+background-image: none;
+}
+
+.map-preview, .list-preview{
+border: none;
+border-radius: 0px;
+background-image: none;
+outline: none;
+box-shadow: none;
+text-decoration: none;
+}
+
+.map-view button, .list-view button {
+margin: 0px;
+padding: 0px;
+}
+
+.map-preview image, .list-preview image {
+margin: 0px 10px 0px 10px;
+}
+
+.map-preview:hover image {
+margin: 0px 5px 0px 15px;
+}
+
+.is-active {
+border-style: solid;
+border-color: #4d77fd;
+border-width: 1px;
+}
+
+.boolean {
+background-image: none;
+border-image: none;
+border: none;
+margin: 4px 0px;
+border-radius: 25px;
+}
+
+.boolean slider{
+background-image: none;
+border-image: none;
+border: none;
+background-color: #515151;
+margin: 3px;
+}
+
+.boolean-true {
+background-color: #4d77fd;
+}
+
+.boolean-false {
+background-color: #e4e4e4;
+}
+
+.number {
+background-image: none;
+border-image: none;
+border: none;
+border-radius: 25px;
+font-style: italic;
+font-weight: 300;
+background-color: #393838;
+color: #e4e4e4;
+margin: 3px 0px;
+}
+
+textview text {
+border-radius: 10px;
+}
+
+.string.view {
+background-image: none;
+border-image: none;
+border: none;
+font-style: italic;
+font-weight: 300;
+}
+
+.string.view text {
+background-image: none;
+border-image: none;
+text-decoration: none;
+background-color: #393838;
+}
+
+.base-key, .base-value {
+margin: 2px 0px;
+}
+
+.base-box {
+padding: 0px 20px;
+}
+
+.base-title {
+padding: 10px 0px;
+border-style: solid;
+border-color: #474747;
+border-width: 0px 0px 1px 0px;
+font-weight:500;
+}
+
+.base-title image {
+margin: 0px 5px;
+}
+
+.base-box button{
+background-image: none;
+border-image: none;
+border: 1px solid #e4e4e4;
+background-color: #515151;
+padding: 0px;
+border-radius: 5px;
+margin: 5px 5px 5px 10px;
+}
+
+.base-box button:hover {
+background-color: #4d77fd;
+border-color:#4d77fd;
+
+}
+
+.base-box button image {
+padding: 5px;
+}
+
+.main-window paned separator.wide {
+border-image: none;
+background-image: none;
+background-color: #464545;
+}
+
+.main-window paned separator.wide:hover{
+border-image: none;
+background-image: none;
+background-color: #626262;
+}
+
+.main-window scrollbar {
+border: none;
+background-color: #626262;
+padding: 1px;
+}
+
+.main-window scrollbar slider {
+border-radius: 10px;
+background-color: #464646;
+border: none;
+padding: 1px;
+margin: 2px;
+}
+
+.main-window scrollbar slider:hover {
+background-color: #e4e4e4;
+}
+
+.container {
+background-color: #515151;
 }

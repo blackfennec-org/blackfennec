@@ -21,13 +21,13 @@ class FileViewFactory:
         return not specification.is_request_for_preview
 
     def create(self, interpretation: Interpretation,
-            _: Specification) -> FileView:
+               _: Specification) -> FileView:
         """creates a FileView
 
         Args:
             interpretation (Interpretation): The overarching
                 interpretation.
-            specification (Specification): The specification which can fine
+            _ (Specification): The specification which can fine
                 tune the creation function.
 
         Returns:

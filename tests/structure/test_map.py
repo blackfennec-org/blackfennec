@@ -1,8 +1,9 @@
 import unittest
 import logging
 
-from doubles.structure.info import InfoMock
-from doubles.structure.root import RootMock
+from doubles.structure.double_info import InfoMock
+from doubles.structure.double_root import RootMock
+from doubles.structure.encapsulation_base.double_factory_base_visitor import FactoryBaseVisitorMock
 from src.structure.map import Map
 
 class MapTestSuite(unittest.TestCase):
@@ -86,3 +87,23 @@ class MapTestSuite(unittest.TestCase):
                 del m[not_key]
             except KeyError:
                 pass
+
+    def test_can_get_value(self):
+        key = 'key'
+        value = InfoMock('value')
+        info_map = Map({key: value})
+        self.assertEqual(value, info_map.value[key])
+
+    def test_can_set_value(self):
+        key = 'key'
+        value = InfoMock('value')
+        info_map = Map()
+        info_map.value = {key: value}
+        self.assertEqual(value, info_map.value[key])
+
+    def test_accept(self):
+        visitor = FactoryBaseVisitorMock()
+        info_map = Map()
+        info_map.accept(visitor)
+        self.assertEqual(visitor.map, info_map)
+        self.assertEqual(visitor.visit_map_count, 1)

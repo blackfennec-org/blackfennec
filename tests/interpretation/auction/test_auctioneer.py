@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 import unittest
 
-from doubles.dummy import Dummy
-from doubles.type_system.info_bidder import InfoBidderMock
-from doubles.interpretation.specification import SpecificationMock
-from doubles.type_system.type_registry import TypeRegistryMock
+from doubles.double_dummy import Dummy
+from doubles.type_system.double_info_bidder import InfoBidderMock
+from doubles.interpretation.double_specification import SpecificationMock
+from doubles.type_system.double_type_registry import TypeRegistryMock
 from src.interpretation.auction.auctioneer import Auctioneer
 
 

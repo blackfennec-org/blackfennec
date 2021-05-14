@@ -1,8 +1,15 @@
 import gi
 
+from src.type_system.core.reference.reference_bidder import ReferenceBidder
+from src.util.uri.uri_import_service import UriImportService
+from src.util.json.json_reference_resolving_service import JsonReferenceResolvingService
+from src.util.uri.structure_parsing_service import StructureParsingService
+from src.util.uri.uri_import_strategy_factory import UriImportStrategyFactory
+from src.util.uri.uri_loading_strategy_factory import UriLoadingStrategyFactory
+
 gi.require_version('Gtk', '3.0')
 
-# pylint: disable=wrong-import-position
+# pylint: disable=wrong-import-position,ungrouped-imports
 import logging
 from gi.repository import Gtk, Gdk, GLib
 from src.interpretation.auction.auctioneer import Auctioneer
@@ -25,18 +32,29 @@ from src.visualisation.main_window.black_fennec_view import BlackFennecView
 from src.visualisation.splash_screen.splash_screen_view import SplashScreenView
 # pylint: enable=wrong-import-position
 
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
 
 
 def populate_type_registry(
         registry: TypeRegistry,
-        interpretation_service: InterpretationService) -> None:
+        interpretation_service: InterpretationService):
+    """
+    Function populates type registry. Used
+    as a mock before the ExtensionManager makes
+    this function obsolete.
+
+    Args:
+        registry (TypeRegistry): type registry on which to register types
+        interpretation_service (InterpretationService): interpretation service
+            required by map to be able to show previews.
+    """
     registry.register_type(BooleanBidder())
     registry.register_type(NumberBidder())
     registry.register_type(StringBidder())
-    registry.register_type(ListBidder())
+    registry.register_type(ListBidder(interpretation_service))
     registry.register_type(MapBidder(interpretation_service))
+    registry.register_type(ReferenceBidder())
     registry.register_type(FileBidder())
     registry.register_type(ImageBidder())
     registry.register_type(AddressBidder())
@@ -45,6 +63,7 @@ def populate_type_registry(
 
 
 class BlackFennec(Gtk.Application):
+    """BlackFennec Main Window GTK Application"""
     def __init__(self):
         super().__init__(
             application_id='org.darwin.blackfennec')
@@ -65,19 +84,39 @@ class BlackFennec(Gtk.Application):
         GLib.timeout_add(100, self.do_setup)
 
     def do_setup(self):
+        """Setup BlackFennec application"""
         logger.debug('do_setup')
         type_registry = TypeRegistry()
         auctioneer = Auctioneer(type_registry)
         interpretation_service = InterpretationService(auctioneer)
         navigation_service = NavigationService()
+
+        structure_parsing_service = StructureParsingService()
+
+        uri_import_strategy_factory = UriImportStrategyFactory()
+        uri_loading_strategy_factory = UriLoadingStrategyFactory()
+        uri_import_service = UriImportService(
+            structure_parsing_service,
+            uri_loading_strategy_factory,
+            uri_import_strategy_factory
+        )
+        reference_resolving_service = \
+            JsonReferenceResolvingService(uri_import_service)
+
+        structure_parsing_service.set_reference_resolving_service(
+            reference_resolving_service
+        )
+
         presenter_view = ColumnBasedPresenterViewFactory() \
             .create(interpretation_service, navigation_service)
-        presenter = presenter_view._view_model
+        presenter = presenter_view._view_model # pylint: disable=protected-access
         navigation_service.set_presenter(presenter)
         populate_type_registry(type_registry, interpretation_service)
         view_model = BlackFennecViewModel(
             presenter_view,
-            navigation_service)
+            navigation_service,
+            uri_import_service,
+        )
         black_fennec_view = BlackFennecView(self, view_model)
         logger.debug('show_main_ui')
         self.set_window(black_fennec_view)

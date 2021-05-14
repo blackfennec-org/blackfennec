@@ -2,9 +2,9 @@
 import logging
 
 from gi.repository import Gtk
-
 from src.presentation.column_based_presenter.column_based_presenter_view_model import ColumnBasedPresenterViewModel
 from src.interpretation.interpretation import Interpretation
+from src.presentation.column_based_presenter.column_view import ColumnView
 
 logger = logging.getLogger(__name__)
 
@@ -35,6 +35,7 @@ class ColumnBasedPresenterView(Gtk.Box):
         self._view_model = view_model
         self._view_model.bind(interpretations=self._update_interpretations)
         self.interpretations = list()
+        self._root_column = None
 
     def _update_interpretations(self, sender, interpretations):  # pylint: disable=unused-argument
         """interpretation update.
@@ -46,7 +47,7 @@ class ColumnBasedPresenterView(Gtk.Box):
 
         Args:
             sender (): Sender filled by Observable
-            interpretations (list): updated list of interpretations
+            interpretations ([interpretations]): updated list of interpretations
         """
         pivot = self._diff_interpretations(
             self.interpretations,
@@ -70,9 +71,14 @@ class ColumnBasedPresenterView(Gtk.Box):
             interpretation (Interpretation): interpretation to remove
         """
         logger.debug("remove interpretation %s", interpretation)
-        info_view = interpretation.view
+        assert self._root_column
+        if self._root_column.i_host_interpretation(interpretation):
+            self.remove(self._root_column)
+            self._root_column = None
+        else:
+            self._root_column.remove_column(interpretation)
+
         self.interpretations.remove(interpretation)
-        self.remove(info_view)
         self._toggle_empty_list_pattern()
 
     def _add_interpretation(self, interpretation: Interpretation):
@@ -85,10 +91,14 @@ class ColumnBasedPresenterView(Gtk.Box):
             interpretation (Interpretation): interpretation to add
         """
         logger.debug("add interpretation %s", interpretation)
-        info_view = interpretation.view
-        info_view.show_all()
+        column = ColumnView(interpretation)
         self.interpretations.append(interpretation)
-        self.add(info_view)
+        if self._root_column is None:
+            self.add(column)
+            self._root_column = column
+        else:
+            self._root_column.add_column(column)
+
         self._toggle_empty_list_pattern()
 
     def _toggle_empty_list_pattern(self):
@@ -107,7 +117,7 @@ class ColumnBasedPresenterView(Gtk.Box):
             self._empty_list_pattern.hide()
 
     @staticmethod
-    def _diff_interpretations(old, new):
+    def _diff_interpretations(old, new) -> int:
         """interpretation differences.
 
         Returns index of first interpretation that is
@@ -116,6 +126,10 @@ class ColumnBasedPresenterView(Gtk.Box):
         Args:
             old ([Interpretation]): old interpretation list
             new ([Interpretation]): new interpretation list
+
+        Returns:
+            int: index of first interpretation different from
+                old interpretation list
         """
         length = min(len(old), len(new))
         for i in range(length):
