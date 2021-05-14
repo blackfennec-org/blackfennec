@@ -1,5 +1,6 @@
 import unittest
 from doubles.structure.double_root import RootMock
+from doubles.structure.encapsulation_base.double_factory_base_visitor import FactoryBaseVisitorMock
 from src.structure.number import Number
 
 
@@ -71,3 +72,10 @@ class NumberTestSuite(unittest.TestCase):
         actual = Number(3.141)
         expected = 'Number(%s)' % actual.value
         self.assertEqual(actual.__repr__(), expected)
+
+    def test_accept(self):
+        visitor = FactoryBaseVisitorMock()
+        number = Number()
+        number.accept(visitor)
+        self.assertEqual(visitor.number, number)
+        self.assertEqual(visitor.visit_number_count, 1)

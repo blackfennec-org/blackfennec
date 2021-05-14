@@ -19,7 +19,13 @@
         <child>
           <placeholder/>
         </child>
+        <style>
+          <class name="list-view"/>
+        </style>
       </object>
     </child>
+    <style>
+      <class name="list-view"/>
+    </style>
   </template>
 </interface>

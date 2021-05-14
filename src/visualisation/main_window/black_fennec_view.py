@@ -2,6 +2,8 @@ import logging
 from gi.repository import Gtk
 import os
 
+from uri import URI
+
 logger = logging.getLogger(__name__)
 
 
@@ -17,6 +19,7 @@ def create_folder_structure(root_directory):
             p = store.append(s[sub_directory], [directory, 'directory is not a file...'])
             absolute_path = os.path.join(sub_directory, directory)
             s[absolute_path] = p
+
     return store
 
 
@@ -33,6 +36,11 @@ class BlackFennecView(Gtk.ApplicationWindow):
         self._view_model = view_model
         self._presenter_container.add(self._view_model.presenter)
         self._presenter_container.show_all()
+
+        renderer = Gtk.CellRendererText()
+        tree_view_column = Gtk.TreeViewColumn(
+            'Project', renderer, text=0)
+        self._file_tree.append_column(tree_view_column)
 
     @Gtk.Template.Callback()
     def on_new_clicked(self, unused_sender) -> None:
@@ -66,18 +74,14 @@ class BlackFennecView(Gtk.ApplicationWindow):
 
         store = create_folder_structure(filename)
         self._file_tree.set_model(store)
-        renderer = Gtk.CellRendererText()
-        tree_view_column = Gtk.TreeViewColumn(
-            'Project', renderer, text=0)
-        self._file_tree.append_column(tree_view_column)
 
     @Gtk.Template.Callback()
     def on_file_clicked(self, unused_sender, path, unused_column) -> None:
         model = self._file_tree.get_model()
         iterator = model.get_iter(path)
         if iterator:
-            file = model.get_value(iterator, 1)
-            self._view_model.open(file)
+            uri = URI(model.get_value(iterator, 1))
+            self._view_model.open(uri)
 
     @Gtk.Template.Callback()
     def on_quit_clicked(self, unused_sender) -> None:

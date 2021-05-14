@@ -1,12 +1,10 @@
 # -*- coding: utf-8 -*-
 import logging
 
-from src.type_system.base.file.file import File
-from src.type_system.base.file.file_view_factory import FileViewFactory
 from src.interpretation.auction import Offer
 from src.structure.info import Info
-from src.structure.map import Map
-from src.structure.string import String
+from src.type_system.base.file.file import File
+from src.type_system.base.file.file_view_factory import FileViewFactory
 
 logger = logging.getLogger(__name__)
 
@@ -27,8 +25,4 @@ class FileBidder:
                 the received subject.
         """
         logger.info('bidding on object')
-        template = Map()
-        template[File.FILE_PATH_KEY] = String()
-        template[File.FILE_TYPE_KEY] = String()
-
-        return Offer(subject, 1, template, FileViewFactory())
+        return Offer(subject, 1, File.TEMPLATE, FileViewFactory())

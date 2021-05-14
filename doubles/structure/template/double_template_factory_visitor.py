@@ -1,0 +1,52 @@
+from doubles.structure.encapsulation_base.double_factory_base_visitor import FactoryBaseVisitorMock
+from src.structure.encapsulation_base.base_factory_visitor import _create_generic_class
+from src.structure.encapsulation_base.list_encapsulation_base import ListEncapsulationBase
+from src.structure.encapsulation_base.map_encapsulation_base import MapEncapsulationBase
+from src.structure.template.template_base import TemplateBase
+
+
+class TemplateFactoryVisitorMock(FactoryBaseVisitorMock):
+    def __init__(self):
+        FactoryBaseVisitorMock.__init__(self)
+
+    def visit_info(self, subject_info):
+        subject_info = super().visit_info(subject_info)
+        Encapsulation = _create_generic_class(TemplateBase, subject_info.__class__)
+        return Encapsulation(self, subject_info)
+
+    def visit_root(self, subject_root):
+        subject_root = super().visit_root(subject_root)
+        Encapsulation = _create_generic_class(TemplateBase, subject_root.__class__)
+        return Encapsulation(self, subject_root)
+
+    def visit_string(self, subject_string):
+        subject_string = super().visit_string(subject_string)
+        Encapsulation = _create_generic_class(TemplateBase, subject_string.__class__)
+        return Encapsulation(self, subject_string)
+
+    def visit_number(self, subject_number):
+        subject_number = super().visit_number(subject_number)
+        Encapsulation = _create_generic_class(TemplateBase, subject_number.__class__)
+        return Encapsulation(self, subject_number)
+
+    def visit_boolean(self, subject_boolean):
+        subject_boolean = super().visit_boolean(subject_boolean)
+        Encapsulation = _create_generic_class(TemplateBase, subject_boolean.__class__)
+        return Encapsulation(self, subject_boolean)
+
+    def visit_reference(self, subject_reference):
+        subject_reference = super().visit_reference(subject_reference)
+        Encapsulation = _create_generic_class(TemplateBase, subject_reference.__class__)
+        return Encapsulation(self, subject_reference)
+
+    def visit_list(self, subject_list):
+        subject_list = super().visit_list(subject_list)
+        return ListEncapsulationBase(self, subject_list)
+
+    def visit_map(self, subject_map):
+        subject_map = super().visit_map(subject_map)
+        return MapEncapsulationBase(self, subject_map)
+
+    @property
+    def metadata_storage(self):
+        return self._metadata_storage

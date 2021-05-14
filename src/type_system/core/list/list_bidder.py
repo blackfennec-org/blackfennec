@@ -1,12 +1,19 @@
 from src.interpretation.interpretation_service import InterpretationService
 from src.structure.info import Info
 from src.structure.list import List
+from src.structure.template.template_factory_visitor import TemplateFactoryVisitor
 from src.type_system.core.list.list_view_factory import ListViewFactory
 from src.interpretation.auction import Offer
 
 import logging
 
 logger = logging.getLogger(__name__)
+
+
+def create_list_template():
+    template_factory = TemplateFactoryVisitor()
+    template = List().accept(template_factory)
+    return template
 
 
 class ListBidder:
@@ -31,4 +38,4 @@ class ListBidder:
                 the received subject.
         """
         logger.info('bidding on object')
-        return Offer(subject, 0, List(), self._factory)
+        return Offer(subject, 0, create_list_template(), self._factory)

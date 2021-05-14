@@ -56,7 +56,9 @@ class Auctioneer:
                 best_offer = offer
 
         if best_offer is None or best_offer.coverage == 0:
-            message = 'No offer is the best offer'
+            message = 'No offer is the best offer for subject({})'.format(
+                str(subject)
+            )
             logger.error(message)
             raise KeyError(message)
         return [best_offer]
