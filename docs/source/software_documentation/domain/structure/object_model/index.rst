@@ -3,7 +3,7 @@
 
 The Object Model
 ================
-Core :ref:`types <definition_type>` are the fundamental types. All other types are - from the point of view of black fennec - structures built with core types. The most commonly used structures are considered :ref:`base types <definition_base_types>` and are shipped with black fennec.
+The object model (also known as core :ref:`types <definition_type>`) defines the  fundamental types. All other types are structures built with it. The most commonly used structures are considered :ref:`base types <definition_base_types>` and are included in the base installation.
 
 The object model is a DAG - apart from references - implemented with a composite pattern. It is possible to recognise this from the member of type Information in Lists and Maps. As for References, accessing the Information they point to is a special operation and References never has any children from the perspective of the DAG. Therefore, although they can break the DAG properties this is not their default behaviour. 
 
@@ -21,7 +21,7 @@ The object model is a DAG - apart from references - implemented with a composite
         BorderColor Black
     }
     
-    package "Core Types" {
+    package "Object Model" {
         class Information {}
         class Number {}
         class String {}
@@ -85,6 +85,6 @@ A reference is an absolute or relative path to information. This type only exist
 
 Root
 """"
-The root is special as it is unique in a :ref:`tree <definition_underlay>`. It can be any type of information and differs only in that it is its own parent.
+The root is special as it is unique in a :ref:`tree <definition_underlay>`. It can be of any type and differs only in that it is its own parent.
 
 Absolute paths of references start from the root.
