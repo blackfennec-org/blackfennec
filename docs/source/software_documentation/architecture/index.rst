@@ -1,3 +1,5 @@
+.. _Architecture:
+
 Architecture
 ============
 The ecosystem of Black Fennec can be divided into four components and the means by which they interact. From the architectural standpoint, Black Fennec provides the interfaces between the components and also some services to solve common problems. These interfaces and services are largely independent and allow for the high degree of cohesion and low coupling which is required to manage the complexity in this project. The following graph gives a good overview. It does not strive to be a perfect reflection of the code and its complexity but instead should serve as an entry point for new developers.

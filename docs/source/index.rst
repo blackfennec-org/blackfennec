@@ -16,6 +16,7 @@ Welcome to Black Fennec's documentation!
    project_management/project_plan.rst
    project_management/risk_analysis.rst
    project_management/elaboration.rst
+   project_management/architecture_and_design.rst
 
 .. toctree::
    :maxdepth: 2
@@ -38,6 +39,7 @@ Welcome to Black Fennec's documentation!
    requirements_engineering/non_functional.rst
    requirements_engineering/personas.rst
    requirements_engineering/ui_sketches.rst
+   requirements_engineering/ui_ux_design-decisions.rst
 
 .. toctree::
    :maxdepth: 2
