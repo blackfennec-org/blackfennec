@@ -83,17 +83,17 @@ class Extension:
         return self._data
 
     def load(self, extension_api):
-        self._module = self._extension_loading_service.load(self)
+        module = self._extension_loading_service.load(self)
         try:
-            self._module.create_extension(extension_api)
-            self.status = (ExtensionStatus.LOADED, None)
+            module.create_extension(extension_api)
+            self.status = (ExtensionStatus.LOADED, module)
         except Exception as exception:
             self.status = (ExtensionStatus.CREATE_FAILED, exception)
             raise exception
 
     def unload(self, extension_api):
         try:
-            self._module.destroy_extension(extension_api)
+            self.status[1].destroy_extension(extension_api)
             self.status = (ExtensionStatus.NOT_LOADED, None)
         except Exception as exception:
             self.status = (ExtensionStatus.UNLOAD_FAILED, exception)

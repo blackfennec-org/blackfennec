@@ -23,7 +23,7 @@ class ExtensionSourceTestSuite(unittest.TestCase):
         self.extension_source_map = Map({
             ExtensionSource.SOURCE_IDENTIFICATION: String(self.source_identification),
             ExtensionSource.SOURCE_LOCATION: List([
-                String(self.source_location)
+                String(self.source_location[0])
             ]),
         })
         self.extension_loading_service = LocalExtensionService()
@@ -48,12 +48,11 @@ class ExtensionSourceTestSuite(unittest.TestCase):
         self.extension_loading_service = None
 
     def test_can_load_extension(self):
-        extensions = self.extension_source.extensions
-        for extension in extensions:
-            if extension.name != doubles.extension.double_extensions.valid_extension.__name__:
-                extension.enabled = False
+        for extension in self.extension_source.extensions:
+            if extension.name == doubles.extension.double_extensions.valid_extension.__name__:
+                extension.enabled = True
         self.extension_source.load_extensions(self.extension_api)
-        for extension in extensions:
+        for extension in self.extension_source.extensions:
             if extension.name == doubles.extension.double_extensions.valid_extension.__name__:
                 self.assertEqual(extension.status[0], ExtensionStatus.LOADED)
             else:
