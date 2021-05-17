@@ -1,10 +1,16 @@
 import os
 
 import gi
+
+from src.structure.list import List
+from src.util.uri.structure_encoding_service import StructureEncodingService
+
 gi.require_version('Gtk', '3.0')
 
 # pylint: disable=wrong-import-position,ungrouped-imports
 import logging
+import src.type_system
+import src.presentation
 from uri import URI
 from gi.repository import Gtk, Gdk, GLib
 from src.extension.extension_api import ExtensionApi
@@ -15,12 +21,6 @@ from src.interpretation.auction.auctioneer import Auctioneer
 from src.interpretation.interpretation_service import InterpretationService
 from src.navigation.navigation_service import NavigationService
 from src.presentation.presenter_registry import PresenterRegistry
-from src.type_system.core.reference.reference_bidder import ReferenceBidder
-from src.type_system.core.boolean.boolean_bidder import BooleanBidder
-from src.type_system.core.list.list_bidder import ListBidder
-from src.type_system.core.map.map_bidder import MapBidder
-from src.type_system.core.number.number_bidder import NumberBidder
-from src.type_system.core.string.string_bidder import StringBidder
 from src.type_system.type_registry import TypeRegistry
 from src.util.uri.uri_import_service import UriImportService
 from src.util.json.json_reference_resolving_service import JsonReferenceResolvingService
@@ -35,34 +35,77 @@ from src.visualisation.splash_screen.splash_screen_view import SplashScreenView
 logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
 
+EXTENSIONS = 'extensions.json'
 
-def register_core_types(
-    registry: TypeRegistry,
-    interpretation_service: InterpretationService
+
+def default_initialise_extensions(
+        encoding_service: StructureEncodingService,
+        path
 ):
     """
-    Function populates type registry. Used
-    as a mock before the ExtensionManager makes
-    this function obsolete.
+    Function creates default Extension sources
+    and writes them to a file located at path
 
     Args:
-        registry (TypeRegistry): type registry on which to register types
-        interpretation_service (InterpretationService): interpretation service
-            required by map to be able to show previews.
+        encoding_service (StructureEncodingService): to convert
+            structure to raw json
+        path (str): path of file to create
     """
-    registry.register_type(BooleanBidder())
-    registry.register_type(NumberBidder())
-    registry.register_type(StringBidder())
-    registry.register_type(ListBidder(interpretation_service))
-    registry.register_type(MapBidder(interpretation_service))
-    registry.register_type(ReferenceBidder())
+    type_system = src.type_system
+    type_system_source = ExtensionSource(
+        LocalExtensionService(),
+        identification=type_system.__name__,
+        location=type_system.__path__,
+        source_type='local'
+    )
+    for extension in type_system_source.extensions:
+        extension.enabled = True
+
+    presentation = src.presentation
+    presentation_source = ExtensionSource(
+        LocalExtensionService(),
+        identification=presentation.__name__,
+        location=presentation.__path__,
+        source_type='local'
+    )
+    for extension in presentation_source.extensions:
+        extension.enabled = True
+
+    source_list = List([
+        type_system_source.underlay,
+        presentation_source.underlay
+    ])
+
+    raw = encoding_service.encode(source_list)
+    file = open(path, 'w')
+    file.write(raw)
 
 
-def load_extensions_from_file(uri_import_service, extension_api, uri):
+def load_extensions_from_file(
+        uri_import_service,
+        encoding_service,
+        extension_api,
+        uri
+):
+    """
+    Function loads extensions from configuration file.
+    If it does not exists, it is created.
+
+    Args:
+        uri_import_service (UriImportService): used to import the config file
+        encoding_service (StructureEncodingService): used to initialise file if
+            it does not exists at path of uri
+        extension_api (ExtensionApi): passed to loaded extensions
+        uri (URI): uri of file where extension config is located
+    """
     extension_services = {
         'local': LocalExtensionService(),
         'pypi': PyPIExtensionService()
     }
+    absolute_path = os.path.abspath(str(uri))
+    if not os.path.exists(absolute_path):
+        default_initialise_extensions(encoding_service, absolute_path)
+
     extension_source_list = uri_import_service.load(
         uri,
         os.path.realpath(__file__)
@@ -110,6 +153,7 @@ class BlackFennec(Gtk.Application):
         navigation_service = NavigationService()
 
         structure_parsing_service = StructureParsingService()
+        structure_encoding_service = StructureEncodingService()
 
         uri_import_strategy_factory = UriImportStrategyFactory()
         uri_loading_strategy_factory = UriLoadingStrategyFactory()
@@ -134,11 +178,10 @@ class BlackFennec(Gtk.Application):
         )
         load_extensions_from_file(
             uri_import_service,
+            structure_encoding_service,
             extension_api,
-            URI('extensions.json')
+            URI(EXTENSIONS)
         )
-
-        register_core_types(type_registry, interpretation_service)
 
         presenter_view = presenter_registry.presenters[0].create()
         presenter = presenter_view._view_model # pylint: disable=protected-access

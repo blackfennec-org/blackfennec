@@ -6,6 +6,10 @@ from src.type_system.type_registry import TypeRegistry
 
 
 class ExtensionApi:
+    """
+    Enables extensions to load types, actions or presenters
+    with services and registries contained within the this class.
+    """
     def __init__(
             self,
             presenter_registry: PresenterRegistry,

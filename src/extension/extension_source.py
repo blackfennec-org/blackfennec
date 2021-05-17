@@ -11,8 +11,14 @@ logger = logging.getLogger(__name__)
 
 
 class ExtensionSource:
+    """
+    Source of multiple extensions
+
+    Identifies one location in which extensions can be found.
+    """
     SOURCE_LOCATION = 'location_path'
     SOURCE_IDENTIFICATION = 'location_id'
+    SOURCE_TYPE = 'type'
     EXTENSION_LIST_KEY = 'extensions'
 
     def __init__(
@@ -20,7 +26,8 @@ class ExtensionSource:
             extension_loading_service,
             source_map: Map = None,
             identification=None,
-            location=None
+            location=None,
+            source_type=None
     ):
         self._extension_loading_service = extension_loading_service
         self._extensions = dict()
@@ -30,10 +37,13 @@ class ExtensionSource:
             self._data[self.SOURCE_IDENTIFICATION] = String()
         if self.SOURCE_LOCATION not in self._data:
             self._data[self.SOURCE_LOCATION] = List()
+        if self.SOURCE_TYPE not in self._data:
+            self._data[self.SOURCE_TYPE] = String()
 
         self.identification = identification if identification \
             else self.identification
         self.location = location if location else self.location
+        self.type = source_type if source_type else self.type
 
         if self.EXTENSION_LIST_KEY not in self._data:
             self._data[self.EXTENSION_LIST_KEY] = List()
@@ -46,6 +56,14 @@ class ExtensionSource:
     @identification.setter
     def identification(self, value):
         self._data[self.SOURCE_IDENTIFICATION].value = value
+
+    @property
+    def type(self):
+        return self._data[self.SOURCE_TYPE].value
+
+    @type.setter
+    def type(self, value):
+        self._data[self.SOURCE_TYPE].value = value
 
     @property
     def location(self):
@@ -66,7 +84,14 @@ class ExtensionSource:
         return self._data
 
     @property
-    def extensions(self):
+    def extensions(self) -> [Extension]:
+        """
+        Reloads extensions from underlay, but keeps
+            status of already loaded extensions.
+
+        Returns:
+             [Extension]: list of extensions in source
+        """
         source_extension_list = self._data[self.EXTENSION_LIST_KEY].children
         result = dict()
         if source_extension_list:

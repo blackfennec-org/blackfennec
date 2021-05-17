@@ -8,6 +8,12 @@ from src.structure.string import String
 
 
 class Extension:
+    """
+    Class representing Extension
+
+    Wrapper for underlay, able to load and unload
+    the extension saved in an underlay
+    """
     NAME_KEY = 'identification'
     LOCATION_KEY = 'location'
     ENABLED_KEY = 'enabled'

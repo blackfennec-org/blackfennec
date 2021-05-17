@@ -76,6 +76,22 @@ class ExtensionSourceTestSuite(unittest.TestCase):
         extension_source.identification = 'new identification'
         self.assertEqual(self.extension_source_map[ExtensionSource.SOURCE_IDENTIFICATION].value, new_identification)
 
+    def test_can_get_type(self):
+        extension_source = ExtensionSource(
+            self.extension_loading_service,
+            identification=self.source_identification
+        )
+        self.assertEqual(extension_source.identification, self.source_identification)
+
+    def test_can_set_type(self):
+        extension_source = ExtensionSource(
+            self.extension_loading_service,
+            self.extension_source_map
+        )
+        new_identification = 'new source_type'
+        extension_source.identification = 'new source_type'
+        self.assertEqual(self.extension_source_map[ExtensionSource.SOURCE_IDENTIFICATION].value, new_identification)
+
     def test_can_get_location(self):
         extension_source = ExtensionSource(
             self.extension_loading_service,
