@@ -106,7 +106,7 @@ class ExtensionSource:
                     and extension.enabled:
                 extension.load(extension_api)
             else:
-                message = f'Extension({extension}) already loaded'
+                message = f'Extension({extension}) disabled or already loaded'
                 logger.info(message)
 
     def unload_extensions(self, extension_api):
