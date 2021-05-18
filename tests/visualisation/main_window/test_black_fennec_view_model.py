@@ -3,20 +3,23 @@ import logging
 from uri import URI
 
 from doubles.double_dummy import Dummy
+from doubles.interpretation.double_interpretation_service import InterpretationServiceMock
 from doubles.navigation.double_navigation_service import NavigationServiceMock
 from doubles.presentation.double_info_presenter import InfoPresenterMock
+from doubles.presentation.double_presenter_factory import PresenterFactoryMock
 from doubles.util.uri.double_uri_import_service import UriImportServiceMock
 from src.visualisation.main_window.black_fennec_view_model import BlackFennecViewModel
 
 
 class BlackFennecViewModelTestSuite(unittest.TestCase):
     def test_can_open_file(self):
-        navigation_service = NavigationServiceMock()
-        file_import_service = UriImportServiceMock()
-        view_model = BlackFennecViewModel(Dummy(), navigation_service, file_import_service)
+        presenter_factory = PresenterFactoryMock()
+        interpretation_service = InterpretationServiceMock(Dummy())
+        uri_import_service = UriImportServiceMock()
+        view_model = BlackFennecViewModel(presenter_factory, interpretation_service, uri_import_service)
         view_model.open(URI('/examples/black_fennec.json'))
-        self.assertEqual(1, navigation_service.navigation_count)
-        self.assertEqual(1, file_import_service.load_count)
+        self.assertEqual(1, presenter_factory.create_call_count)
+        self.assertEqual(1, uri_import_service.load_count)
 
     def test_can_create_new_file(self):
         view_model = BlackFennecViewModel(Dummy(), Dummy(), Dummy())
