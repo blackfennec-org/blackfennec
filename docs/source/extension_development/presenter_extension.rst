@@ -22,8 +22,7 @@ In this file the 'create_extension' and 'load_extension' functions are defined.
     def create_extension(extension_api: ExtensionApi):
         extension_api.presenter_registry.register_presenter(
             ColumnBasedPresenterViewFactory(
-                extension_api.interpretation_service,
-                extension_api.navigation_service
+                extension_api.interpretation_service
             )
         )
 
@@ -45,11 +44,10 @@ It is a *must* that the class, in our case the view factory, that is registered 
     :linenos:
 
     """Creator or the ColumnBasedPresenterView"""
-    def __init__(self, interpretation_service, navigation_service):
+    def __init__(self, interpretation_service):
         self._interpretation_service = interpretation_service
-        self._navigation_service = navigation_service
 
-    def create(self) -> ColumnBasedPresenterView:
+    def create(self, navigation_service) -> ColumnBasedPresenterView:
         """Create column based presenter view
 
         Returns:
@@ -58,7 +56,7 @@ It is a *must* that the class, in our case the view factory, that is registered 
         """
         view_model = ColumnBasedPresenterViewModel(
             self._interpretation_service,
-            self._navigation_service
+            navigation_service
         )
         return ColumnBasedPresenterView(view_model)
 
@@ -75,4 +73,4 @@ The presenter view is something, that is in the responsibility of the extension 
 <presenter_name>_view_model.py
 """"""""""""""""""""""""""""""
 
-The presenter that is currently active in black-fennec gets notified by a black-fennec component via the 'show' function. This function gets passed which interpretation has triggered the show event, and which part  of the :ref:`structure <definition_structure>` should now be displayed. This structure can be interpreted with the :ref:`interpretation_service <definition_interpretation_service>` in order for types beyond the core_types to be shown. It is the responsibility of the presenter of setting the navigation service on the interpretation he created. Otherwise navigational requests that happen in the interpretation will not reach the presenter. This is why when interpreting the structure your presenter will also require the navigation service to be injected into the view_factory.
+The presenter that is currently active in black-fennec gets notified by a black-fennec component via the 'show' function. This function gets passed which interpretation has triggered the show event, and which part  of the :ref:`structure <definition_structure>` should now be displayed. This structure can be interpreted with the :ref:`interpretation_service <definition_interpretation_service>` in order for types beyond the core_types to be shown. It is the responsibility of the presenter of setting the navigation service on the interpretation he created. Otherwise navigational requests that happen in the interpretation would not reach the presenter.
