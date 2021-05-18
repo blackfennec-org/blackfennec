@@ -21,7 +21,10 @@ class BlackFennecViewModel(Observable):
         _navigation_service (NavigationService): stores injected
             navigation service
     """
-    def __init__(self, presenter_factory, interpretation_service, uri_import_service):
+    def __init__(self,
+            presenter_factory,
+            interpretation_service,
+            uri_import_service):
         """BlackFennecViewModel constructor.
 
         Args:

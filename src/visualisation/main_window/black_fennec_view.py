@@ -16,7 +16,9 @@ def create_folder_structure(root_directory):
             absolute_path = os.path.join(sub_directory, file)
             store.append(s[sub_directory], [file, absolute_path])
         for directory in directories:
-            p = store.append(s[sub_directory], [directory, 'directory is not a file...'])
+            p = store.append(
+                s[sub_directory],
+                [directory, 'directory is not a file...'])
             absolute_path = os.path.join(sub_directory, directory)
             s[absolute_path] = p
 
