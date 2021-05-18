@@ -16,6 +16,8 @@ Welcome to Black Fennec's documentation!
    project_management/project_plan.rst
    project_management/risk_analysis.rst
    project_management/elaboration.rst
+   project_management/quality_control.rst
+   project_management/architecture_and_design.rst
 
 .. toctree::
    :maxdepth: 2
@@ -48,12 +50,21 @@ Welcome to Black Fennec's documentation!
 
 .. toctree::
    :maxdepth: 3
-   :caption: Documentation
+   :caption: Software Documentation
 
-   documentation/index
-   documentation/architecture
-   documentation/domain_model
-   documentation/code/modules
+   software_documentation/index
+   software_documentation/architecture/index
+   software_documentation/domain/index
+   software_documentation/code/modules
+   software_documentation/ui_ux_design-decisions.rst
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Extension Development
+
+   extension_development/index
+   extension_development/type_extension
+   extension_development/presenter_extension
 
 .. toctree::
    :maxdepth: 3

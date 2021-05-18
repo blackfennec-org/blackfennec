@@ -64,7 +64,27 @@ border-color: #4d77fd;
 
 .empty-list-pattern {
 margin: 100px;
+background-image: none;
 font-family: Courier;
+box-shadow: none;
+border: none;
+}
+
+.empty-list-pattern > * {
+margin: 5px;
+}
+
+.empty-list-pattern button{
+font-family: Ubuntu;
+border-style: solid;
+border-color: #515151;
+border-width: 2px;
+border-radius: 30px;
+padding: 5px 20px;
+}
+
+.empty-list-pattern button:hover{
+background-color: #515151;
 }
 
 .column-based-presenter button{
@@ -86,7 +106,7 @@ text-decoration: none;
 border-style: solid;
 border-color: #464545;
 border-width: 0px 2px 0px 0px;
-background-color: #515151;
+/* background-color: #515151; */
 }
 
 progressbar > trough > progress {
@@ -98,7 +118,7 @@ background-color: #fff;
 }
 
 .main-main-grid label{
-color:#e4e4e4;
+color: #e4e4e4;
 text-shadow: none;
 text-decoration: none;
 outline: none;
@@ -164,7 +184,7 @@ background-color: #515151;
 .item-row {
 border-style: solid;
 border-color: #474747;
-border-width: 1px 0px 0px 0px;
+border-width: 0px 0px 1px 0px;
 }
 
 .map-view label{
@@ -184,14 +204,17 @@ text-decoration: none;
 .map-view button, .list-view button {
 margin: 0px;
 padding: 0px;
+box-shadow: none;
 }
 
 .map-preview image, .list-preview image {
 margin: 0px 10px 0px 10px;
+box-shadow: none;
 }
 
 .map-preview:hover image {
 margin: 0px 5px 0px 15px;
+box-shadow: none;
 }
 
 .is-active {
@@ -348,4 +371,95 @@ background-image: none;
 border-image: none;
 text-decoration: none;
 background-color: #393838;
+}
+.presenter-container * {
+border-image: none;
+background-image: none;
+}
+
+.presenter-container {
+border: none;
+}
+
+.presenter-container header {
+background-color: #393838;
+border-color: #464545;
+}
+
+.presenter-container tab {
+background-color: #393838;
+padding: 5px 15px 2px 15px;
+
+margin: 2px 0px 0px 0px;
+border-width: 0px 1px 0px 0px;
+border-color: #515151;
+}
+
+.presenter-container tab:checked {
+margin: 2px 0px 0px 0px;
+background-color: #515151;
+border-radius: 7px 7px 0px 0px;
+border: none;
+}
+
+.presenter-container tab:hover {
+margin: 2px 0px 0px 0px;
+background-color: #414141;
+border-radius: 7px 7px 0px 0px;
+border: none;
+}
+
+.presenter-container tab button{
+border: none;
+padding: 0px;
+}
+
+.presenter-container tab button:hover{
+border-radius: 50px;
+background-color: #626262;
+}
+
+.presenter-container menu {
+background-image: none;
+background-color: #626262;
+border-image: none;
+}
+
+.presenter-container menu > *{
+padding: 4px 0px 4px 0px;
+}
+
+.presenter-container menu *:hover{
+background-image: none;
+box-shadow: 4px 0px 0px #4d77fd inset;
+}
+
+.hide-tab header {
+border-radius: 0px;
+background-color: #343434;
+background-image: none;
+border: none;
+border-image: none;
+margin: 0px;
+padding:0px;
+}
+
+.hide-tab tab:checked {
+border-radius: 0px;
+background-color: #343434;
+background-image: none;
+border: none;
+border-image: none;
+margin: 0px;
+padding:0px;
+}
+
+.hide-tab tab:hover {
+border-radius: 0px;
+background-color: #343434;
+background-image: none;
+border: none;
+border-image: none;
+margin: 0px;
+padding: 0px;
 }

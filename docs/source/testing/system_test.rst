@@ -1,3 +1,5 @@
+.. _System Tests:
+
 System Tests
 =============
 

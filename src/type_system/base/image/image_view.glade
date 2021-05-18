@@ -5,6 +5,7 @@
   <template class="ImageView" parent="GtkBin">
     <property name="visible">True</property>
     <property name="can-focus">False</property>
+    <signal name="size-allocate" handler="_on_resize" swapped="no"/>
     <child>
       <object class="GtkBox" id="_item_container">
         <property name="visible">True</property>
@@ -79,7 +80,7 @@
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
                 <property name="receives-default">True</property>
-                <signal name="clicked" handler="on_choose_clicked" swapped="no"/>
+                <signal name="clicked" handler="_on_choose_clicked" swapped="no"/>
                 <child>
                   <object class="GtkImage">
                     <property name="visible">True</property>
