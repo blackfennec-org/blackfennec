@@ -153,7 +153,7 @@ class BlackFennec(Gtk.Application):
         navigation_service = NavigationService()
 
         structure_parsing_service = StructureParsingService()
-        structure_encoding_service = StructureEncodingService()
+        structure_encoding_service = StructureEncodingService(indent=2)
 
         uri_import_strategy_factory = UriImportStrategyFactory()
         uri_loading_strategy_factory = UriLoadingStrategyFactory()
