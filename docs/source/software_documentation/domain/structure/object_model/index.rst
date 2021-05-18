@@ -1,8 +1,11 @@
 .. _definition_core_types:
+.. _object_model:
 
-Core Types
-==========
-Core :ref:`types <definition_type>` are the fundamental types. All other types are actually structures built with core types. The most commonly used structures are considered :ref:`base types <definition_base_types>`.
+The Object Model
+================
+The object model (also known as core :ref:`types <definition_type>`) defines the  fundamental types. All other types are structures built with it. The most commonly used structures are considered :ref:`base types <definition_base_types>` and are included in the base installation.
+
+The object model is a DAG - apart from references - implemented with a composite pattern. It is possible to recognise this from the member of type Information in Lists and Maps. As for References, accessing the Information they point to is a special operation and References never has any children from the perspective of the DAG. Therefore, although they can break the DAG properties this is not their default behaviour. 
 
 .. uml::
     
@@ -18,7 +21,7 @@ Core :ref:`types <definition_type>` are the fundamental types. All other types a
         BorderColor Black
     }
     
-    package "Core Types" {
+    package "Object Model" {
         class Information {}
         class Number {}
         class String {}
@@ -78,10 +81,10 @@ A map is a collection of key-value pairs of information.
 
 Reference
 """""""""
-A reference is a absolute or relative path to information. This type only exists on the :ref:`underlay <definition_underlay>` and is not visible on any higher :ref:`layer <definition_layer>`.
+A reference is an absolute or relative path to information. This type only exists on the :ref:`underlay <definition_underlay>` and is not visible on higher :ref:`layers <definition_layer>`.
 
 Root
 """"
-The root is special as it is unique in a :ref:`tree <definition_underlay>`. It can be any type of information and differs only in that it is its own parent.
+The root is special as it is unique in a :ref:`tree <definition_underlay>`. It can be of any type and differs only in that it is its own parent.
 
 Absolute paths of references start from the root.

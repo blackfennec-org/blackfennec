@@ -1,0 +1,31 @@
+@startuml
+
+hide circle
+hide members
+hide methods
+
+skinparam class {
+    BackgroundColor #EEE
+    ArrowColor Black
+    BorderColor Black
+}
+
+title Simplified Domain Model
+
+class "Interpretation Service"   as is 
+class "Structure"               as s
+class "Types"                   as t
+class "Interpretation"          as i
+class "Presenter"               as p
+class "Navigation Service"       as ns
+
+is              -->     s           : selects types for
+is              -->     t           : from registered
+is              -->     i           : and creates
+p               -left-> is          : requests interpretation
+ns              -up->   p           : forwards request to
+i               -->     ns          : requests navigation
+
+s -[hidden]right-> t
+t -[hidden]right-> i
+i -[hidden]right-> ns

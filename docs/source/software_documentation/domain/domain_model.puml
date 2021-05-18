@@ -1,0 +1,112 @@
+@startuml
+
+hide circle
+hide members
+hide methods
+
+skinparam class {
+    BackgroundColor #EEE
+    ArrowColor Black
+    BorderColor Black
+}
+
+title The Domain Model
+
+package "Black Fennec" <<Frame>>{
+    package Structure  as p_s <<Frame>> {
+        class Overlay
+        class Underlay
+        class SourceLayer
+
+        package "Object Model" as om <<Frame>> {
+            class "Structure" as structure
+            class Reference extends structure
+            class Map extends structure
+            class List extends structure
+            class String extends structure
+            class Number extends structure
+            class Boolean extends structure
+          
+            structure o--> "1" structure  : parent
+            structure o--> "*" structure  : children
+            
+        }
+      
+        Overlay         -down->     Underlay        : adapted from
+        Underlay        -down->     SourceLayer     : deserialized from
+        Underlay        --|>        om              : is
+    }
+
+    package Interpreter <<Frame>> {
+        class "Auctioneer"              as auction
+        class "Offer"                   as offer
+        class "InterpretationService"   as is
+        class "Interpretation"          as i
+        class "Specification"           as spec
+        abstract "Bidder"               as bidder
+        
+        is o-- auction
+        bidder --> offer    : creates
+    }
+
+    package Navigation <<Frame>> {
+        class "Navigation Service"  as ns
+        class "Navigation Proxy"    as np
+    }
+
+    package "Type System" <<Frame>> {
+        Class "Type Registry"   as tr
+    }
+    i o--> p_s
+    i o--> "1" ns
+    tr o--> "*" bidder
+}
+
+package "User Data" <<Frame>> {
+    class "Json File" as jf
+}
+
+
+package Visualisation <<Frame>> {
+    class "View"        as view
+    class "Preview"     as preview
+}
+
+package Type <<Frame>> {
+    class "TypeBidder"      as type_bidder extends bidder
+    class "ViewFactory" as view_factory
+    
+    view_factory  -->   view : creates
+    view_factory  -->   preview : creates
+}
+
+Visualisation "*" -- "1" i
+
+package Presenter <<Frame>>{
+    class "Presenter" as p
+}
+
+p o--> is
+p -- ns : observer pattern
+
+package Extensions <<Frame>> {
+    class "ExtensionApi"      as api
+    abstract "Extension"      as e
+    class TypeExtension
+    class ActionExtension
+    class PresenterExtension
+
+    e "1" o-- "0..*" TypeExtension
+    e "1" o-- "0..*" ActionExtension
+    e "1" o-- "0..*" PresenterExtension
+
+    TypeExtension       -->     Type            : provides
+    PresenterExtension  -->     Presenter       : provides
+    e   o-->   api
+}
+api o--> tr
+api o--> ar
+api o--> pr
+
+
+@enduml

@@ -34,10 +34,10 @@ build latest code docs:
   image: $DOCS_BUILD_IMAGE
   stage: prebuild
   script:
-    - sphinx-apidoc -f -o docs/source/documentation/code/ .
+    - sphinx-apidoc -f -o docs/source/software_documentation/code/ .
   artifacts:
     paths:
-      - docs/source/documentation/code
+      - docs/source/software_documentation/code
   only:
       - tags
 

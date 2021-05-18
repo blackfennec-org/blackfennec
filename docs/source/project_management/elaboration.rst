@@ -15,7 +15,7 @@ In this chapter a preview of the prototype is shown, and the assessed risks are 
 Prototype Preview
 ^^^^^^^^^^^^^^^^^
 
-The prototype is not a total spike solution but rather focussed on the feasibility of certain components and concepts. This is why for example the :doc:`../documentation/layers/underlay` is mocked and no :doc:`../documentation/layers/source_layer` exists.
+The prototype is not a total spike solution but rather focussed on the feasibility of certain components and concepts. This is why for example the :ref:`underlay <definition_underlay>` is mocked and no :ref:`source layer <definition_source_layer>` exists.
 
 The two previews shown represent each a different GUI framework, but both include essentially the same functionality.
 

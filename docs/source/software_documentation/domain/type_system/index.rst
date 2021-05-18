@@ -7,8 +7,6 @@ The Type System
     :maxdepth: 2
     :caption: References
 
-    selection_process
     types
-    core_types
-    base_types
     type_registry
+    base_types
