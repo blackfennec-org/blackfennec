@@ -45,9 +45,3 @@ class MapItemView(Gtk.Bin):
         self.popover = Gtk.Popover()
         self.popover.set_relative_to(sender)
         self.popover.show()
-
-    """
-        if event.type == Gdk.EventType.BUTTON_PRESS and event.button == 3:
-            self.popup.popup(None, None, None, None, event.button, event.time)
-            return True  # event has been handled
-    """
