@@ -328,3 +328,24 @@ background-color: #e4e4e4;
 .container {
 background-color: #515151;
 }
+
+.item-view-popup {
+background-color: #626262;
+border-radius: 10px;
+border: none;
+}
+
+.item-view-popup label{
+padding: 10px;
+}
+
+.item-view-popup *:hover {
+box-shadow: 3px 0px 0px #4d77fd inset;
+}
+
+.item-view-popup entry{
+background-image: none;
+border-image: none;
+text-decoration: none;
+background-color: #393838;
+}

@@ -1,5 +1,7 @@
 from gi.repository import Gtk
 import logging
+
+from src.structure.string import String
 from src.type_system.core.map.map_item_view import MapItemView
 
 logger = logging.getLogger(__name__)
@@ -29,6 +31,9 @@ class MapView(Gtk.Bin):
             preview = self._view_model.create_preview(substructure)
             item = MapItemView(
                 key, preview,
+                self._delete_request_handler,
+                self._rename_request_handler,
+                self._add_request_handler,
                 self._preview_click_handler)
             self._item_container.add(item)
 
@@ -36,26 +41,23 @@ class MapView(Gtk.Bin):
         """Handles clicks on map items, triggers navigation"""
         self._view_model.navigate_to(route_target)
 
-"""
-    @Gtk.Template.Callback()
-    def _on_delete_item(self, sender):
-        # Do stuff
-        self._view_model.delete_item()
+    def _delete_request_handler(self, sender):
+        self._item_container.remove(sender)
+        self._view_model.delete_item(sender.key)
 
-    @Gtk.Template.Callback()
-    def _on_rename_key(self, sender):
-        # Do stuff
-        self._view_model.rename_key()
+    def _add_request_handler(self, key, template_id):
+        substructure = String("")
+        self._view_model.add_item(key, substructure)
+        preview = self._view_model.create_preview(substructure)
+        item = MapItemView(
+            key, preview,
+            self._delete_request_handler,
+            self._rename_request_handler,
+            self._add_request_handler,
+            self._preview_click_handler)
+        self._item_container.add(item)
 
-"""
-"""
-    @Gtk.Template.Callback()
-    def _on_option_clicked(self, sender):
-        button = sender.label
-        if button == 'Edit':
-            # something
-        elif button == 'Delete':
-            # something else
-        else:
-            # something else else
-"""
+    def _rename_request_handler(self, sender, new_key):
+        sender.set_key(new_key)
+        self._view_model.rename_key(sender.key, new_key)
+
