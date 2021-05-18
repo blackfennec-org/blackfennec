@@ -55,6 +55,15 @@ class BlackFennecViewModel(Observable):
         navigation_service.navigate(None, structure)
         self._notify(self.tabs, 'tabs')
 
+    def close_tab(self, filename):
+        for tab in self.tabs:
+            if tab.uri == filename:
+                element = tab
+                self.tabs.remove(element)
+                break
+
+        self._notify(self.tabs, 'tabs')
+
     def quit(self):
         """Future implementation of quit()"""
         logger.warning('quit() not yet implemented')

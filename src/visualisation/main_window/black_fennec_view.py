@@ -30,6 +30,7 @@ class BlackFennecView(Gtk.ApplicationWindow):
     __gtype_name__ = 'BlackFennecView'
     _presenter_container = Gtk.Template.Child()
     _file_tree = Gtk.Template.Child()
+    _empty_list_pattern = Gtk.Template.Child()
 
     def __init__(self, app, view_model):
         super().__init__(application=app)
@@ -42,7 +43,6 @@ class BlackFennecView(Gtk.ApplicationWindow):
         tree_view_column = Gtk.TreeViewColumn(
             'Project', renderer, text=0)
         self._file_tree.append_column(tree_view_column)
-
 
     @Gtk.Template.Callback()
     def on_new_clicked(self, unused_sender) -> None:
@@ -115,13 +115,23 @@ class BlackFennecView(Gtk.ApplicationWindow):
         self._view_model.about_and_help()
         logger.debug('about and help clicked')
 
-    def _update_tabs(self, unused_sender, tabs):
-        intersection = self._tabs.intersection(tabs)
+    @Gtk.Template.Callback()
+    def on_close_tab_clicked(self, sender):
+        self._view_model.close_tab(sender.get_name())
 
+    def _update_tabs(self, unused_sender, tabs):
+        if len(self._tabs) == 0:
+            self._presenter_container.remove_page(0)
+            self._show_tab()
+
+        intersection = self._tabs.intersection(tabs)
         to_be_added = tabs.difference(intersection)
         for tab in to_be_added:
-            tab_label = Gtk.Label.new(tab.uri.path.name)
-            self._presenter_container.append_page(tab.presenter, tab_label)
+            notebook = self._presenter_container
+            tab_box = self._create_tab_widget(tab)
+
+            page_index = notebook.append_page_menu(tab.presenter, tab_box, Gtk.Label.new(tab.uri.path.name))
+            notebook.set_tab_reorderable(self._presenter_container.get_nth_page(page_index), True)
 
         to_be_deleted = self._tabs.difference(intersection)
         for tab in to_be_deleted:
@@ -129,4 +139,38 @@ class BlackFennecView(Gtk.ApplicationWindow):
             self._presenter_container.remove_page(index)
 
         self._tabs = set(tabs)
+        if not self._tabs:
+            self._add_empty_list_pattern()
+
         self._presenter_container.show_all()
+
+    def _add_empty_list_pattern(self):
+        self._presenter_container.append_page(
+            self._empty_list_pattern,
+            Gtk.Label.new(""))
+        self._presenter_container.child_set_property(self._presenter_container.get_nth_page(0), 'tab-expand', True)
+        self._hide_tab()
+
+    def _hide_tab(self):
+        style_context = self._presenter_container.get_style_context()
+        style_context.add_class('hide-tab')
+
+    def _show_tab(self):
+        style_context = self._presenter_container.get_style_context()
+        style_context.remove_class('hide-tab')
+
+    def _create_tab_widget(self, tab):
+        button_image = Gtk.Image.new()
+        button_image.set_from_icon_name("application-exit", Gtk.IconSize.BUTTON)
+
+        tab_button = Gtk.Button.new()
+        tab_button.set_name(str(tab.uri))
+        tab_button.set_image(button_image)
+        tab_button.connect("clicked", self.on_close_tab_clicked)
+
+        tab_box = Gtk.Box.new(0, 5)
+        tab_box.pack_start(Gtk.Label.new(tab.uri.path.name), False, False, 0)
+        tab_box.pack_end(tab_button, True, True, 0)
+        tab_box.show_all()
+
+        return tab_box
