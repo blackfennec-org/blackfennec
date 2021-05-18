@@ -8,7 +8,7 @@ from doubles.double_dummy import Dummy
 from src.type_system.type_registry import TypeRegistry
 
 
-class ExtensionApiTestSuite(unittest.TestCase):
+class TypeRegistryTestSuite(unittest.TestCase):
     def test_create_type_registry(self):
         type_registry = TypeRegistry()
         self.assertIsInstance(type_registry.types, list)

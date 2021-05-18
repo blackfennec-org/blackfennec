@@ -11,3 +11,4 @@ __pycache__/
 pylint/
 venv/
 .venv/
+extensions.json
