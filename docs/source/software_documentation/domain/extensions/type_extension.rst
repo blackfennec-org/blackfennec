@@ -1,3 +1,5 @@
+.. _type_extension:
+
 Type Extension
 ==============
 A type extension defines and adds a new :ref:`type <definition_type>` to the object model. For this new type to be usable it must be accessible to the user. Therefore, it is necessary for the extension to also provide three further components, namely a user interface henceforth `Info View`_ and a factory (`Info View Factory`_) that can produce them on demand, and a service that participates in the InfoView selection process henceforth the `Info Bidder`_.

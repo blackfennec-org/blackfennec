@@ -59,6 +59,14 @@ Welcome to Black Fennec's documentation!
    software_documentation/ui_ux_design-decisions.rst
 
 .. toctree::
+   :maxdepth: 2
+   :caption: Extension Development
+
+   extension_development/index
+   extension_development/type_extension
+   extension_development/presenter_extension
+
+.. toctree::
    :maxdepth: 3
    :caption: Testing
    :numbered:

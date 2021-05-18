@@ -1,5 +1,6 @@
 .. _presenter:
 .. _definition_presenter:
+.. _presenter_extension:
 
 Presenter Extension
 ===================
