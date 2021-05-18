@@ -38,7 +38,7 @@ As you can see the extension_api that is passed can be used to register our pres
 """"""""""""""""""""""""""""""""
 
 This file contains a simple factory used to create the presenter view model and inject it into the view. The simple factory is instantiated with all arguments that are later on required by the view model to be able to navigate and interpret information.
-It is a *must* that the class, in our case the view factory, that is registered in the presenter registry contains a 'create' function that is can be executed without parameters. Otherwise black-fennec will not be able to create the view of your extension, and it will not be usable.
+It is a *must* that the class, in our case the view factory, that is registered in the presenter registry contains a 'create' function that is can be executed without parameters. Otherwise, black-fennec will not be able to create the view of your extension, and it will not be usable.
 
 .. code-block:: python
     :linenos:
