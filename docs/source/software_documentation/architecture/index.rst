@@ -1,3 +1,5 @@
+.. _Architecture:
+
 Architecture
 ============
 The ecosystem of Black Fennec can be divided into four components and the means by which they interact. From the architectural standpoint, Black Fennec provides the interfaces between the components and also some services to solve common problems. These interfaces and services are largely independent and allow for the high degree of cohesion and low coupling which is required to manage the complexity in this project. The following graph gives a good overview. It does not strive to be a perfect reflection of the code and its complexity but instead should serve as an entry point for new developers.
@@ -43,7 +45,7 @@ Black Fennec is a desktop application without backend integration. All code runs
 
 Black Fennec
 """"""""""""
-When we take a closer look at the interfaces and services used by the "external" components, we can identify some concepts that can be found throughout this documentation. These are the heigh-level concepts which are important for a complete picture of the project. Each component is conceptually largely independent of the others. This allows us to tune their view of the system to their needs. Think of the facade pattern but towards the core and not to hide legacy code but to minimize complexity whereby development efficiency is maximised.
+When we take a closer look at the interfaces and services used by the "external" components, we can identify some concepts that can be found throughout this documentation. These are the high-level concepts which are important for a complete picture of the project. Each component is conceptually largely independent of the others. This allows us to tune their view of the system to their needs. Think of the facade pattern but towards the core and not to hide legacy code but to minimize complexity whereby development efficiency is maximised.
 
 .. uml::
     
@@ -107,7 +109,7 @@ Navigation
     The :ref:`navigation service <definition_navigation_service>` allows components to request navigation within the structure. The service forwards the request to the relevant components via an observer pattern. Usually, the observer is set to the currently active presenter.
 
 Interpretation
-    The :ref:`interpretation service <definition_interpretation_service>` does most of the heavy lifting as it decides which types from the :ref:`type system <definition_type_system>` ought to be used to visualize a given structure. The service can be configured on a per request basis with a :ref:`specification <specification>`, giving fine tuned control to the user of the service. This service is used by both, the presenter and the visualisation, although they usually use different specifications.
+    The :ref:`interpretation service <definition_interpretation_service>` does most of the heavy lifting as it decides which types from the :ref:`type system <definition_type_system>` ought to be used to visualize a given structure. The service can be configured on a 'per request' basis with a :ref:`specification <specification>`, giving fine-tuned control to the user of the service. This service is used by both, the presenter and the visualisation, although they usually use different specifications.
 
 User Data
     :ref:`User data <definition_source_layer>` is the information the user is viewing/editing with Black Fennec. As such it is not part of the source code. When it's loaded from a file into Black Fennec it is deserialized into the :ref:`object model <object_model>`. The resulting structure will be interpreted by the interpretation service, visualised partially by extension provided views, and displayed by a presenter.
@@ -116,7 +118,7 @@ Extension
     :ref:`Extensions <definition_extension>` allow the addition of types, actions and presenters. The richer the ecosystem and the more types are available to the interpretation service the better the interpretation. At least that's the theory. Extensions get access to the :ref:`extension api <definition_extension_api>` via inversion of control (constructor dependency injection).
 
 Visualisation
-    :ref:`Visualisations <definition_info_view>` are the visual representation of the Structure. They play a big role in what the user sees and interacts with. They use the navigation service to communicate navigation requests to Black Fennec. They use the interpretation service to visualise :ref:`previews <definition_preview>` of substructures of themselves. Internally, MVVM is used to decouple view and logic. Note that this - from the point of view from Black Fennec - is an implementation detail and neither enforced nor required by extensions.
+    :ref:`Visualisations <definition_info_view>` are the visual representation of the Structure. They play a big role in what the user sees and interacts with. They use the navigation service to communicate navigation requests to Black Fennec. They use the interpretation service to visualise :ref:`previews <definition_preview>` of substructures of themselves. Internally, MVVM is used to decouple view and logic. Note that this - from the point of view of Black Fennec - is an implementation detail and neither enforced nor required by extensions.
 
 Presentation
     The presentation is the responsibility of the :ref:`presenter <presenter>`. It displays interpretations which are requested from the interpretation service. The presenter also observes the navigation service for navigation request and is responsible for acting on them.

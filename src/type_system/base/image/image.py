@@ -3,12 +3,34 @@ import logging
 
 from src.structure.map import Map
 from src.structure.string import String
+from src.structure.template.template_factory_visitor import TemplateFactoryVisitor
 from src.type_system.base.file.file import File
 
 logger = logging.getLogger(__name__)
 
 
+def create_image_template():
+    """File Template
+    Defines the format of the file
+    """
+    template_map = Map()
+    template_map[File.FILE_PATH_KEY] = String()
+    template_map[File.FILE_TYPE_KEY] = String('image/')
+
+    template_factory = TemplateFactoryVisitor()
+    template = template_map.accept(template_factory)
+    return template
+
+
 class Image(File):
+    """Image BaseType Class
+
+    Helper class used by the image view_model representing
+    the actual type 'Image'.
+    Can be used by other classes as a helper to be able to
+    include images in a overlaying datatype.
+    """
+
     FILE_PATH_KEY = 'file_path'
     FILE_TYPE_KEY = 'file_type'
 
@@ -30,3 +52,6 @@ class Image(File):
             self.file_path,
             self.file_type
         )
+
+
+Image.TEMPLATE = create_image_template()

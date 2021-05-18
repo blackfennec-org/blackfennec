@@ -1,8 +1,8 @@
 import unittest
 
-from doubles.dummy import Dummy
-from doubles.presentation.info_presenter import InfoPresenterMock
-from doubles.interpretation.interpretation_service import InterpretationServiceMock
+from doubles.double_dummy import Dummy
+from doubles.presentation.double_info_presenter import InfoPresenterMock
+from doubles.interpretation.double_interpretation_service import InterpretationServiceMock
 from src.interpretation.interpretation import Interpretation
 from src.navigation.navigation_service import NavigationService
 from src.structure.list import List
@@ -22,11 +22,12 @@ class NavigationOnViewModelResultsInNavigationInPresenterTestSuite(
 
     def setUp(self):
         registry = TypeRegistry()
+        interpretation_service = InterpretationServiceMock([])
         registry.register_type(BooleanBidder())
         registry.register_type(NumberBidder())
         registry.register_type(StringBidder())
-        registry.register_type(ListBidder())
-        registry.register_type(MapBidder(InterpretationServiceMock([])))
+        registry.register_type(ListBidder(interpretation_service))
+        registry.register_type(MapBidder(interpretation_service))
         self.presenter = InfoPresenterMock()
         self.navigation_service = NavigationService()
         self.navigation_service.set_presenter(self.presenter)
@@ -50,6 +51,7 @@ class NavigationOnViewModelResultsInNavigationInPresenterTestSuite(
         interpretation = Interpretation(
             info, Dummy('specification'), Dummy('factoires'))
         interpretation.set_navigation_service(self.navigation_service)
-        list_view_model = ListViewModel(interpretation)
+        interpretation_service = Dummy('interpretation service')
+        list_view_model = ListViewModel(interpretation, interpretation_service)
         list_view_model.navigate_to(List())
         self.assertEqual(self.presenter.show_count, 1)

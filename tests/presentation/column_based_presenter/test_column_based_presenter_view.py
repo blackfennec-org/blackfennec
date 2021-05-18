@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 import unittest
 
-from doubles.interpretation.interpretation import InterpretationMock
-from doubles.presentation.column_based_presenter.column_based_presenter_view_model import ColumnBasedPresenterViewModelMock
-from doubles.type_system.info_view import InfoViewDummy
+from doubles.interpretation.double_interpretation import InterpretationMock
+from doubles.presentation.column_based_presenter.double_column_based_presenter_view_model import ColumnBasedPresenterViewModelMock
+from doubles.type_system.double_info_view import InfoViewDummy
 from src.presentation.column_based_presenter.column_based_presenter_view import ColumnBasedPresenterView
 
 
@@ -15,22 +15,16 @@ class ColumnBasedPresenterViewTestSuite(unittest.TestCase):
         interpretations = list()
         first_info_view = InfoViewDummy()
         first_interpretation = InterpretationMock(first_info_view)
-        interpretations.append(first_interpretation)
-        view_model = ColumnBasedPresenterViewModelMock(interpretations)
-        ColumnBasedPresenterView(view_model)
-        view_model._notify(view_model.interpretations, 'interpretations')
         second_info_view = InfoViewDummy()
         second_interpretation = InterpretationMock(second_info_view)
+        view_model = ColumnBasedPresenterViewModelMock(interpretations)
+        ColumnBasedPresenterView(view_model)
+
+        interpretations.append(first_interpretation)
+        view_model._notify(view_model.interpretations, 'interpretations')
         view_model.interpretations.clear()
         view_model.interpretations.append(second_interpretation)
         view_model._notify(view_model.interpretations, 'interpretations')
-        self.assertEqual(
-            first_interpretation.view_property_access_count,
-            2,
-            msg='Expected view property access count to be two, '
-                'once for creation and once for removal of the info view'
-        )
-        self.assertEqual(
-            second_interpretation.view_property_access_count,
-            1
-        )
+
+        self.assertEqual(first_interpretation.view_property_access_count, 1)
+        self.assertEqual(second_interpretation.view_property_access_count, 1)

@@ -1,7 +1,7 @@
 import unittest
 
-from doubles.interpretation.interpretation import InterpretationMock
-from doubles.structure.number import NumberMock
+from doubles.interpretation.double_interpretation import InterpretationMock
+from doubles.structure.double_number import NumberMock
 from src.type_system.core.number.number_view_model import NumberViewModel
 
 

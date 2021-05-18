@@ -53,7 +53,7 @@ Presenter
     The :ref:`presenter <definition_presenter>` is responsible for presenting the :ref:`interpretation <definition_interpretation>` to the user.
 
 Interpretation
-    The :ref:`interpretation <definition_interpretation>` is based on the :ref:`overlay <definition_overlay>` and created by the :ref:`interpretation service <interpretation_service>`
+    The :ref:`interpretation <definition_interpretation>` is based on the :ref:`overlay <definition_overlay>` and created by the :ref:`interpretation service <definition_interpretation_service>`
 
 Overlay
     The :ref:`overlay <definition_overlay>` is the processed :ref:`underlay <definition_underlay>`. Its main contribution is the resolution of references.

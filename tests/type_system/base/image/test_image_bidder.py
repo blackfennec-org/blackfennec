@@ -1,7 +1,7 @@
 import unittest
 
-from doubles.dummy import Dummy
-from doubles.interpretation.interpretation_service import InterpretationServiceMock
+from doubles.double_dummy import Dummy
+from doubles.interpretation.double_interpretation_service import InterpretationServiceMock
 from src.interpretation.auction import Offer
 from src.structure.map import Map
 from src.structure.string import String
@@ -18,7 +18,7 @@ class ImageBidderTestSuite(unittest.TestCase):
     def test_offer_equal_map_offer(self):
         bidder = ImageBidder()
         subject = {}
-        expected_offer = Offer(subject, 2, Map(), Dummy())
+        expected_offer = Offer(subject, 2, Image.TEMPLATE, Dummy())
         offer = bidder.bid(subject)
         self.assertEqual(offer, expected_offer)
 

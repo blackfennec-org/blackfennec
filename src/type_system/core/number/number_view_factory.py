@@ -1,3 +1,4 @@
+from src.type_system.core.number.number_preview import NumberPreview
 from src.type_system.core.number.number_view_model import NumberViewModel
 from src.type_system.core.number.number_view import NumberView
 from src.interpretation.interpretation import Interpretation
@@ -7,19 +8,20 @@ from src.interpretation.specification import Specification
 class NumberViewFactory:
     """Creator of the NumberView"""
 
-    def satisfies(self, specification: Specification) -> bool:
+    def satisfies(self, unused_specification: Specification) -> bool:
         """Test if this view factory can satisfy the specification
 
         Args:
-            specification (Specification): the specification to be satisfied
+            unused_specification (Specification): the specification to be
+                satisfied
 
         Returns:
             bool: True if the specification can be satisfied. Otherwise False.
         """
-        return not specification.is_request_for_preview
+        return True
 
     def create(self, interpretation: Interpretation,
-            _: Specification) -> NumberView:
+               specification: Specification) -> NumberView:
         """creates a NumberView
 
         Args:
@@ -32,4 +34,6 @@ class NumberViewFactory:
             :obj:`NumberView`
         """
         view_model = NumberViewModel(interpretation)
+        if specification.is_request_for_preview:
+            return NumberPreview(view_model)
         return NumberView(view_model)

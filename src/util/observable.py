@@ -1,6 +1,11 @@
 # -*- coding: utf-8 -*-
 
-class Observable():
+class Observable:
+    """
+    Observable Class
+
+    Base for Observable used in Observer Pattern.
+    """
     def __init__(self):
         self._bindings = dict()
 

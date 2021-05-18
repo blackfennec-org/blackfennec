@@ -3,6 +3,7 @@ import logging
 
 logger = logging.getLogger(__name__)
 
+
 @Gtk.Template(filename='src/type_system/core/map/map_preview.glade')
 class MapPreview(Gtk.Bin):
     """Preview for the core type Map."""
@@ -13,7 +14,7 @@ class MapPreview(Gtk.Bin):
         """Construct with view_model.
 
         Args:
-            view_model (:obj:`MapViewmodel`): The view_model.
+            view_model (:obj:`MapViewModel`): The view_model.
         """
         super().__init__()
         self._view_model = view_model
@@ -22,4 +23,18 @@ class MapPreview(Gtk.Bin):
     @Gtk.Template.Callback()
     def _click_handler(self, unused_sender, unused_argument) -> None:
         """Handles clicks on map items, triggers navigation"""
+        self.remove_style_class('is-active')
+        self.add_style_class('is-active')
         self._view_model.navigate_to(self._view_model.value)
+
+    def add_style_class(self, class_name):
+        my_object = self.get_parent().get_parent()
+        object_context = my_object.get_style_context()
+        object_context.add_class(class_name)
+
+    def remove_style_class(self, class_name):
+        my_object = self.get_parent().get_parent().get_parent().get_parent()
+        children = my_object.get_children()
+        for child in children:
+            object_context = child.get_child().get_style_context()
+            object_context.remove_class(class_name)

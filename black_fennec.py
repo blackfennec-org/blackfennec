@@ -1,50 +1,130 @@
+import os
+
 import gi
+
+from src.structure.list import List
+from src.util.uri.structure_encoding_service import StructureEncodingService
 
 gi.require_version('Gtk', '3.0')
 
-# pylint: disable=wrong-import-position
+# pylint: disable=wrong-import-position,ungrouped-imports
 import logging
+import src.type_system
+import src.presentation
+from uri import URI
 from gi.repository import Gtk, Gdk, GLib
+from src.extension.extension_api import ExtensionApi
+from src.extension.extension_source import ExtensionSource
+from src.extension.local_extension_service import LocalExtensionService
+from src.extension.pypi_extension_service import PyPIExtensionService
 from src.interpretation.auction.auctioneer import Auctioneer
 from src.interpretation.interpretation_service import InterpretationService
 from src.navigation.navigation_service import NavigationService
-from src.presentation.column_based_presenter.column_based_presenter_view_factory import ColumnBasedPresenterViewFactory
+from src.presentation.presenter_registry import PresenterRegistry
 from src.type_system.type_registry import TypeRegistry
-from src.type_system.base.address.address_bidder import AddressBidder
-from src.type_system.base.date_time.date_time_bidder import DateTimeBidder
-from src.type_system.base.file.file_bidder import FileBidder
-from src.type_system.base.image.image_bidder import ImageBidder
-from src.type_system.base.person.person_bidder import PersonBidder
-from src.type_system.core.boolean.boolean_bidder import BooleanBidder
-from src.type_system.core.list.list_bidder import ListBidder
-from src.type_system.core.map.map_bidder import MapBidder
-from src.type_system.core.number.number_bidder import NumberBidder
-from src.type_system.core.string.string_bidder import StringBidder
+from src.util.uri.uri_import_service import UriImportService
+from src.util.json.json_reference_resolving_service import JsonReferenceResolvingService
+from src.util.uri.structure_parsing_service import StructureParsingService
+from src.util.uri.uri_import_strategy_factory import UriImportStrategyFactory
+from src.util.uri.uri_loading_strategy_factory import UriLoadingStrategyFactory
 from src.visualisation.main_window.black_fennec_view_model import BlackFennecViewModel
 from src.visualisation.main_window.black_fennec_view import BlackFennecView
 from src.visualisation.splash_screen.splash_screen_view import SplashScreenView
 # pylint: enable=wrong-import-position
 
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(level=logging.WARNING)
 logger = logging.getLogger(__name__)
 
+EXTENSIONS = 'extensions.json'
 
-def populate_type_registry(
-        registry: TypeRegistry,
-        interpretation_service: InterpretationService) -> None:
-    registry.register_type(BooleanBidder())
-    registry.register_type(NumberBidder())
-    registry.register_type(StringBidder())
-    registry.register_type(ListBidder())
-    registry.register_type(MapBidder(interpretation_service))
-    registry.register_type(FileBidder())
-    registry.register_type(ImageBidder())
-    registry.register_type(AddressBidder())
-    registry.register_type(DateTimeBidder())
-    registry.register_type(PersonBidder())
+
+def default_initialise_extensions(
+        encoding_service: StructureEncodingService,
+        path
+):
+    """
+    Function creates default Extension sources
+    and writes them to a file located at path
+
+    Args:
+        encoding_service (StructureEncodingService): to convert
+            structure to raw json
+        path (str): path of file to create
+    """
+    type_system = src.type_system
+    type_system_source = ExtensionSource(
+        LocalExtensionService(),
+        identification=type_system.__name__,
+        location=type_system.__path__,
+        source_type='local'
+    )
+    for extension in type_system_source.extensions:
+        extension.enabled = True
+
+    presentation = src.presentation
+    presentation_source = ExtensionSource(
+        LocalExtensionService(),
+        identification=presentation.__name__,
+        location=presentation.__path__,
+        source_type='local'
+    )
+    for extension in presentation_source.extensions:
+        extension.enabled = True
+
+    source_list = List([
+        type_system_source.underlay,
+        presentation_source.underlay
+    ])
+
+    raw = encoding_service.encode(source_list)
+    file = open(path, 'w')
+    file.write(raw)
+
+
+def load_extensions_from_file(
+        uri_import_service,
+        encoding_service,
+        extension_api,
+        uri
+):
+    """
+    Function loads extensions from configuration file.
+    If it does not exists, it is created.
+
+    Args:
+        uri_import_service (UriImportService): used to import the config file
+        encoding_service (StructureEncodingService): used to initialise file if
+            it does not exists at path of uri
+        extension_api (ExtensionApi): passed to loaded extensions
+        uri (URI): uri of file where extension config is located
+    """
+    extension_services = {
+        'local': LocalExtensionService(),
+        'pypi': PyPIExtensionService()
+    }
+    absolute_path = os.path.abspath(str(uri))
+    if not os.path.exists(absolute_path):
+        default_initialise_extensions(encoding_service, absolute_path)
+
+    extension_source_list = uri_import_service.load(
+        uri,
+        os.path.realpath(__file__)
+    )
+    extension_sources = list()
+    for extension_source_structure in extension_source_list.children:
+        source_type = extension_source_structure['type'].value
+        extension_source = ExtensionSource(
+            extension_services[source_type],
+            extension_source_structure
+        )
+        extension_source.load_extensions(extension_api)
+        extension_sources.append(
+            extension_source
+        )
 
 
 class BlackFennec(Gtk.Application):
+    """BlackFennec Main Window GTK Application"""
     def __init__(self):
         super().__init__(
             application_id='org.darwin.blackfennec')
@@ -65,19 +145,52 @@ class BlackFennec(Gtk.Application):
         GLib.timeout_add(100, self.do_setup)
 
     def do_setup(self):
+        """Setup BlackFennec application"""
         logger.debug('do_setup')
         type_registry = TypeRegistry()
         auctioneer = Auctioneer(type_registry)
         interpretation_service = InterpretationService(auctioneer)
-        navigation_service = NavigationService()
-        presenter_view = ColumnBasedPresenterViewFactory() \
-            .create(interpretation_service, navigation_service)
-        presenter = presenter_view._view_model
+
+        structure_parsing_service = StructureParsingService()
+        structure_encoding_service = StructureEncodingService(indent=2)
+
+        uri_import_strategy_factory = UriImportStrategyFactory()
+        uri_loading_strategy_factory = UriLoadingStrategyFactory()
+        uri_import_service = UriImportService(
+            structure_parsing_service,
+            uri_loading_strategy_factory,
+            uri_import_strategy_factory
+        )
+        reference_resolving_service = \
+            JsonReferenceResolvingService(uri_import_service)
+
+        structure_parsing_service.set_reference_resolving_service(
+            reference_resolving_service
+        )
+
+        presenter_registry = PresenterRegistry()
+        extension_api = ExtensionApi(
+            presenter_registry,
+            type_registry,
+            navigation_service,
+            interpretation_service
+        )
+        load_extensions_from_file(
+            uri_import_service,
+            structure_encoding_service,
+            extension_api,
+            URI(EXTENSIONS)
+        )
+
+        presenter_view = presenter_registry.presenters[0].create()
+        presenter = presenter_view._view_model # pylint: disable=protected-access
         navigation_service.set_presenter(presenter)
-        populate_type_registry(type_registry, interpretation_service)
+
         view_model = BlackFennecViewModel(
-            presenter_view,
-            navigation_service)
+            ColumnBasedPresenterViewFactory(),
+            interpretation_service,
+            uri_import_service
+        )
         black_fennec_view = BlackFennecView(self, view_model)
         logger.debug('show_main_ui')
         self.set_window(black_fennec_view)

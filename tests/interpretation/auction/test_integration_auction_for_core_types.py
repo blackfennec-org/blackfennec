@@ -1,6 +1,6 @@
 import unittest
 
-from doubles.interpretation.interpretation_service import InterpretationServiceMock
+from doubles.interpretation.double_interpretation_service import InterpretationServiceMock
 from src.interpretation.auction.auctioneer import Auctioneer
 from src.interpretation.specification import Specification
 from src.structure.boolean import Boolean
@@ -25,11 +25,12 @@ class AuctionOfCoreTypesTestSuite(unittest.TestCase):
 
     def setUp(self):
         registry = TypeRegistry()
+        interpretation_service = InterpretationServiceMock([])
         registry.register_type(BooleanBidder())
         registry.register_type(NumberBidder())
         registry.register_type(StringBidder())
-        registry.register_type(ListBidder())
-        registry.register_type(MapBidder(InterpretationServiceMock([])))
+        registry.register_type(ListBidder(interpretation_service))
+        registry.register_type(MapBidder(interpretation_service))
         self.registry = registry
         self.auctioneer = Auctioneer(registry)
 

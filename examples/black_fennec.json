@@ -1,5 +1,7 @@
 {
     "Project Name": "Black Fennec",
+    "Is Active": true,
+    "Hours per sprint": 16,
     "Logo": {
         "file_path": "logo.jpg",
         "file_type": "image/jpg"
@@ -8,9 +10,25 @@
         "file_path": "address_test.json",
         "file_type": "application/json"
     },
+    "Members": [
+        {
+            "First Name": "Caspar"
+        },
+        {
+            "First Name": "Lara"
+        },
+        {
+            "First Name": "Leonie"
+        },
+        {
+            "First Name": "Simon"
+        }
+    ],
     "Roles": {
         "Quality Control": {
-            "First Name": "Caspar"
+            "is": {
+                "$ref": "3/Project Member"
+            }
         },
         "Scrum Master": {
             "First Name": "Lara"
@@ -21,5 +39,10 @@
         "Product Owner": {
             "First Name": "Simon"
         }
+    },
+    "Project Member": {
+        "courtesy_title": "Sir",
+        "first_name": "Caspar",
+        "last_name": "Martens"
     }
 }

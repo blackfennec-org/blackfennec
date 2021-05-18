@@ -4,6 +4,7 @@ import argparse
 
 
 def convert_to_hours(time):
+    """Converts time in gitlab format to hours"""
     time = time.split()
     time_in_hours = 0
     for entry in time:
@@ -27,6 +28,7 @@ def convert_to_date(date):
 
 
 def read_issues(issues_file):
+    """Reads issues from file"""
     with open(issues_file, 'r') as file:
         dict_reader = csv.DictReader(file)
         issues = [{
@@ -48,6 +50,7 @@ def write_issues(issues, issues_file):
 
 
 def read_records(records_file):
+    """Reads records from records file"""
     with open(records_file, 'r') as file:
         dict_reader = csv.DictReader(file)
         records = [{
@@ -74,6 +77,7 @@ def check_file(file_path):
 
 
 def main_function():
+    """Main"""
     parser = argparse.ArgumentParser(
         description='gitlab-time-tracker CSV files to SQLite file.', )
     parser.add_argument('-i', '--issues', dest='issues',

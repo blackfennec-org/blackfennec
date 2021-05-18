@@ -1,7 +1,7 @@
 import unittest
-from doubles.structure.info import InfoMock
-from doubles.structure.map import MapMock
-from doubles.structure.string import StringMock
+from doubles.structure.double_info import InfoMock
+from doubles.structure.double_map import MapMock
+from doubles.structure.double_string import StringMock
 from src.type_system.base.address.address import Address
 
 

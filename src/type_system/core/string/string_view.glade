@@ -9,7 +9,11 @@
       <object class="GtkTextView" id="_value">
         <property name="visible">True</property>
         <property name="can-focus">True</property>
+        <property name="vexpand">True</property>
         <property name="wrap-mode">word</property>
+        <style>
+          <class name="string"/>
+        </style>
       </object>
     </child>
   </template>

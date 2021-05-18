@@ -5,9 +5,9 @@ This module contains the unit-tests of the InterpretationService class."""
 
 import unittest
 
-from doubles.interpretation.auction.auctioneer import AuctioneerMock
-from doubles.type_system.info_view_factory import InfoViewFactoryMock
-from doubles.dummy import Dummy
+from doubles.interpretation.auction.double_auctioneer import AuctioneerMock
+from doubles.type_system.double_info_view_factory import InfoViewFactoryMock
+from doubles.double_dummy import Dummy
 from src.interpretation.interpretation import Interpretation
 from src.interpretation.interpretation_service import InterpretationService
 
