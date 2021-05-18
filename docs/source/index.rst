@@ -39,7 +39,6 @@ Welcome to Black Fennec's documentation!
    requirements_engineering/non_functional.rst
    requirements_engineering/personas.rst
    requirements_engineering/ui_sketches.rst
-   requirements_engineering/ui_ux_design-decisions.rst
 
 .. toctree::
    :maxdepth: 2
@@ -56,6 +55,7 @@ Welcome to Black Fennec's documentation!
    software_documentation/architecture/index
    software_documentation/domain/index
    software_documentation/code/modules
+   software_documentation/ui_ux_design-decisions.rst
 
 .. toctree::
    :maxdepth: 3

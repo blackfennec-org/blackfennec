@@ -26,7 +26,7 @@ We deploy a great many design patterns to manage the complexity of this project;
 
 User Experience
 ===============
-To ensure the user experience, we created a special role in the team. We started early on with design concepts and integrated UX requriements with the help of :ref:`Matthew`.
+To ensure the user experience, we created a special role in the team. We started early on with design concepts and integrated UX requirements with the help of :ref:`Matthew`. Design decisions have been documented in :ref:`UX/UI Design Decisions <Design Decisions>` 
 
 Architecture Highlights
 =======================

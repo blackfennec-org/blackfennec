@@ -1,3 +1,5 @@
+.. _Design Decisions:
+
 UI/UX Design Decisions
 ======================
 
