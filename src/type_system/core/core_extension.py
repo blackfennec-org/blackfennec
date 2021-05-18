@@ -27,4 +27,9 @@ def create_extension(extension_api: ExtensionApi):
 
 
 def destroy_extension(extension_api: ExtensionApi):
-    raise NotImplementedError('Not implemented yet')
+    extension_api.type_registry.deregister_type(BooleanBidder)
+    extension_api.type_registry.deregister_type(NumberBidder)
+    extension_api.type_registry.deregister_type(StringBidder)
+    extension_api.type_registry.deregister_type(ListBidder)
+    extension_api.type_registry.deregister_type(MapBidder)
+    extension_api.type_registry.deregister_type(ReferenceBidder)

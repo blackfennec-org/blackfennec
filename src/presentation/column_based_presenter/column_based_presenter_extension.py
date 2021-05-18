@@ -12,4 +12,4 @@ def create_extension(extension_api: ExtensionApi):
 
 
 def destroy_extension(extension_api: ExtensionApi):
-    raise NotImplementedError('Not implemented yet')
+    extension_api.presenter_registry.deregister_presenter(ColumnBasedPresenterViewFactory)

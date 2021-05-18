@@ -24,6 +24,6 @@ class PresenterRegistryTestSuite(unittest.TestCase):
         presenter_registry = PresenterRegistry()
         presenter_bidder = Dummy()
         presenter_registry.presenters.append(presenter_bidder)
-        presenter_registry.deregister_presenter(presenter_bidder)
+        presenter_registry.deregister_presenter(Dummy)
 
         self.assertNotIn(presenter_bidder, presenter_registry.presenters)

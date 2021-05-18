@@ -31,11 +31,14 @@ class TypeRegistry:
         """
         self._types.append(type_bidder)
 
-    def deregister_type(self, type_bidder):
-        """Function to deregister a type from the dictionary
+    def deregister_type(self, type_bidder_type: type):
+        """Function to deregister a type from the dictionary if its class
+            matches the passed type
 
         Args:
-            type_bidder (InfoBidder): element in the type list
+            type_bidder_type (type): element in the type list
 
         """
-        self._types.remove(type_bidder)
+        for current_type in self._types:
+            if current_type.__class__ == type_bidder_type:
+                self._types.remove(current_type)
