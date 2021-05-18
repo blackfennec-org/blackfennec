@@ -9,19 +9,19 @@ logger = logging.getLogger(__name__)
 
 def create_folder_structure(root_directory):
     store = Gtk.TreeStore(str, str)
-    s = dict()
-    s[root_directory] = None
+    parent_map = dict()
+    parent_map[root_directory] = None
     for sub_directory, directories, files in os.walk(root_directory):
         for file in files:
-            absolute_path = os.path.join(sub_directory, file)
-            store.append(s[sub_directory], [file, absolute_path])
+            path = os.path.join(sub_directory, file)
+            store.append(parent_map[sub_directory], [file, path])
         for directory in directories:
-            p = store.append(
-                s[sub_directory],
-                [directory, 'directory is not a file...'])
-            absolute_path = os.path.join(sub_directory, directory)
-            s[absolute_path] = p
-
+            store_entry = store.append(
+                parent_map[sub_directory],
+                [directory, 'directory is not a file...']
+            )
+            path = os.path.join(sub_directory, directory)
+            parent_map[path] = store_entry
     return store
 
 
