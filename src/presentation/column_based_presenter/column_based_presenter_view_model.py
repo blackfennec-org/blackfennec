@@ -1,14 +1,13 @@
 # -*- coding: utf-8 -*-
 import logging
 
-from src.structure.info import Info
-from src.interpretation.interpretation import Interpretation
-from src.interpretation.interpretation_service import InterpretationService
-from src.navigation.navigation_service import NavigationService
-from src.util.observable import Observable
+from src.black_fennec.structure.info import Info
+from src.black_fennec.interpretation.interpretation import Interpretation
+from src.black_fennec.interpretation.interpretation_service import InterpretationService
+from src.black_fennec.navigation.navigation_service import NavigationService
+from src.black_fennec.util.observable import Observable
 
 logger = logging.getLogger(__name__)
-logger.setLevel(logging.DEBUG)
 
 
 class ColumnBasedPresenterViewModel(Observable):

@@ -6,14 +6,13 @@ from src.extension.extension_api import ExtensionApi
 from src.extension.extension_source import ExtensionSource
 from src.extension.extension_status import ExtensionStatus
 from src.extension.local_extension_service import LocalExtensionService
-from src.interpretation.auction.auctioneer import Auctioneer
-from src.interpretation.interpretation_service import InterpretationService
-from src.navigation.navigation_service import NavigationService
-from src.presentation.presenter_registry import PresenterRegistry
-from src.structure.list import List
-from src.structure.map import Map
-from src.structure.string import String
-from src.type_system.type_registry import TypeRegistry
+from src.black_fennec.interpretation.auction.auctioneer import Auctioneer
+from src.black_fennec.interpretation.interpretation_service import InterpretationService
+from src.black_fennec.type_system.presenter_registry import PresenterRegistry
+from src.black_fennec.structure.list import List
+from src.black_fennec.structure.map import Map
+from src.black_fennec.structure.string import String
+from src.black_fennec.type_system.type_registry import TypeRegistry
 
 
 class ExtensionSourceTestSuite(unittest.TestCase):
@@ -37,7 +36,6 @@ class ExtensionSourceTestSuite(unittest.TestCase):
         self.extension_api = ExtensionApi(
             PresenterRegistry(),
             type_registry,
-            NavigationService(),
             InterpretationService(Auctioneer(type_registry))
         )
 

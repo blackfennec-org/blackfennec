@@ -2,9 +2,9 @@
 from typing import Optional
 
 from src.extension.extension_status import ExtensionStatus
-from src.structure.boolean import Boolean
-from src.structure.map import Map
-from src.structure.string import String
+from src.black_fennec.structure.boolean import Boolean
+from src.black_fennec.structure.map import Map
+from src.black_fennec.structure.string import String
 
 
 class Extension:

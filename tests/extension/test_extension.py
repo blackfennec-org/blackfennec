@@ -7,9 +7,9 @@ from doubles.extension.double_extensions.create_failing_extension.double_create_
     CreateFailingExtensionMock
 from doubles.extension.double_extensions.destroy_failing_extension.double_destroy_failing_extension import \
     DestroyFailingExtensionMock
-from doubles.structure.double_boolean import BooleanMock
-from doubles.structure.double_map import MapMock
-from doubles.structure.double_string import StringMock
+from doubles.black_fennec.structure.double_boolean import BooleanMock
+from doubles.black_fennec.structure.double_map import MapMock
+from doubles.black_fennec.structure.double_string import StringMock
 from src.extension.extension import Extension
 from src.extension.extension_status import ExtensionStatus
 

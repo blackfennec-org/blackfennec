@@ -19,3 +19,5 @@ To integrate :ref:`extensions <definition_extension>` into the domain of Black F
 .. py:attribute:: ExtensionApi.presenter_registry
     :type: PresenterRegistry
 
+.. py:attribute:: ExtensionApi.interpretation_service
+    :type: InterpretationService

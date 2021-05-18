@@ -8,14 +8,10 @@ from src.presentation.column_based_presenter.column_based_presenter_view_factory
 class ColumnBasedPresenterViewFactoryTestSuite(unittest.TestCase):
     def test_can_construct(self):
         ColumnBasedPresenterViewFactory(
-            Dummy('interpretation_service'),
-            Dummy('navigation_service')
-        )
+            Dummy('interpretation_service'))
 
     def test_can_create_column_based_presenter_view(self):
         factory = ColumnBasedPresenterViewFactory(
-            Dummy('interpretation_service'),
-            Dummy('navigation_service')
-        )
-        view = factory.create()
+            Dummy('interpretation_service'))
+        view = factory.create(Dummy('navigation_service'))
         self.assertIsInstance(view, ColumnBasedPresenterView)
