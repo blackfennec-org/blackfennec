@@ -1,3 +1,5 @@
+.. _Definition of Scrum:
+
 Definition of Scrum
 ===================
 This document defines the definition of Scrum used in this project. This document can be edited during e.g. `Sprint Retrospective`_

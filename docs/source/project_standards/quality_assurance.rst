@@ -1,3 +1,5 @@
+.. _Quality Assurance:
+
 Quality Assurance
 =================
 To ensure the desired quality in this project many different standards are enforced.
@@ -45,6 +47,8 @@ Procedure
 As previously mentioned all our artifacts including our code is contained in Gitlab. For any versioning specific practices one can look into the file :doc:`/project_standards/version_control_strategy`. In there the handling of merge requests is explained. This ensures a dual control principle regarding not only logic errors but also formatting and code style.
 
 Additionally to the dual control principle our Gitlab pipelines have built in execution for testing and linting.
+
+.. _Code Style Guidelines:
 
 Code Style Guidelines
 ^^^^^^^^^^^^^^^^^^^^^
