@@ -99,12 +99,6 @@
             <property name="model">_liststore</property>
             <property name="has-entry">True</property>
             <property name="entry-text-column">0</property>
-            <child>
-              <object class="GtkCellRendererText"/>
-              <attributes>
-                <attribute name="text">0</attribute>
-              </attributes>
-            </child>
             <child internal-child="entry">
               <object class="GtkEntry">
                 <property name="can-focus">True</property>
