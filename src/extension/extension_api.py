@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
-from src.interpretation.interpretation_service import InterpretationService
-from src.navigation.navigation_service import NavigationService
-from src.presentation.presenter_registry import PresenterRegistry
-from src.type_system.type_registry import TypeRegistry
+from src.black_fennec.interpretation.interpretation_service import InterpretationService
+from src.black_fennec.type_system.presenter_registry import PresenterRegistry
+from src.black_fennec.type_system.type_registry import TypeRegistry
 
 
 class ExtensionApi:

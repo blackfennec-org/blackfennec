@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from src.util.observable import Observable
+from src.black_fennec.util.observable import Observable
 
 
 class ColumnBasedPresenterViewModelMock(Observable):

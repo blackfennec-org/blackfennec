@@ -3,9 +3,9 @@ import logging
 
 from src.extension.extension import Extension
 from src.extension.extension_status import ExtensionStatus
-from src.structure.list import List
-from src.structure.map import Map
-from src.structure.string import String
+from src.black_fennec.structure.list import List
+from src.black_fennec.structure.map import Map
+from src.black_fennec.structure.string import String
 
 logger = logging.getLogger(__name__)
 

@@ -1,6 +1,13 @@
 {
     "Project Name": "Black Fennec",
     "Is Active": true,
+    "FAQ" : [
+        {
+            "Question": "Answer to everything",
+            "Answer": 42,
+            "Is this true?": false
+        }
+    ],
     "Hours per sprint": 16,
     "Logo": {
         "file_path": "logo.jpg",

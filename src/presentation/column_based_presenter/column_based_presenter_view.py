@@ -3,7 +3,7 @@ import logging
 
 from gi.repository import Gtk
 from src.presentation.column_based_presenter.column_based_presenter_view_model import ColumnBasedPresenterViewModel
-from src.interpretation.interpretation import Interpretation
+from src.black_fennec.interpretation.interpretation import Interpretation
 from src.presentation.column_based_presenter.column_view import ColumnView
 
 logger = logging.getLogger(__name__)
