@@ -114,7 +114,6 @@ class BlackFennecView(Gtk.ApplicationWindow):
         self._view_model.about_and_help()
         logger.debug('about and help clicked')
 
-    @Gtk.Template.Callback()
     def on_close_tab_clicked(self, sender):
         self._view_model.close_tab(sender.get_name())
 
@@ -129,8 +128,10 @@ class BlackFennecView(Gtk.ApplicationWindow):
             notebook = self._presenter_container
             tab_box = self._create_tab_widget(tab)
 
-            page_index = notebook.append_page_menu(tab.presenter, tab_box, Gtk.Label.new(tab.uri.path.name))
-            notebook.set_tab_reorderable(self._presenter_container.get_nth_page(page_index), True)
+            page_index = notebook.append_page_menu(
+                tab.presenter, tab_box, Gtk.Label.new(tab.uri.path.name))
+            notebook.set_tab_reorderable(
+                self._presenter_container.get_nth_page(page_index), True)
 
         to_be_deleted = self._tabs.difference(intersection)
         for tab in to_be_deleted:
@@ -146,8 +147,9 @@ class BlackFennecView(Gtk.ApplicationWindow):
     def _add_empty_list_pattern(self):
         self._presenter_container.append_page(
             self._empty_list_pattern,
-            Gtk.Label.new(""))
-        self._presenter_container.child_set_property(self._presenter_container.get_nth_page(0), 'tab-expand', True)
+            Gtk.Label.new(''))
+        self._presenter_container.child_set_property(
+            self._presenter_container.get_nth_page(0), 'tab-expand', True)
         self._hide_tab()
 
     def _hide_tab(self):
@@ -160,12 +162,12 @@ class BlackFennecView(Gtk.ApplicationWindow):
 
     def _create_tab_widget(self, tab):
         button_image = Gtk.Image.new()
-        button_image.set_from_icon_name("application-exit", Gtk.IconSize.BUTTON)
+        button_image.set_from_icon_name('window-close', Gtk.IconSize.BUTTON)
 
         tab_button = Gtk.Button.new()
         tab_button.set_name(str(tab.uri))
         tab_button.set_image(button_image)
-        tab_button.connect("clicked", self.on_close_tab_clicked)
+        tab_button.connect('clicked', self.on_close_tab_clicked)
 
         tab_box = Gtk.Box.new(0, 5)
         tab_box.pack_start(Gtk.Label.new(tab.uri.path.name), False, False, 0)

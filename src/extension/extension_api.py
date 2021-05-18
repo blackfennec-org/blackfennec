@@ -14,12 +14,10 @@ class ExtensionApi:
             self,
             presenter_registry: PresenterRegistry,
             type_registry: TypeRegistry,
-            navigation_service: NavigationService,
             interpretation_service: InterpretationService
     ):
         self._presenter_registry = presenter_registry
         self._type_registry = type_registry
-        self._navigation_service = navigation_service
         self._interpretation_service = interpretation_service
 
     @property
@@ -29,10 +27,6 @@ class ExtensionApi:
     @property
     def presenter_registry(self) -> PresenterRegistry:
         return self._presenter_registry
-
-    @property
-    def navigation_service(self) -> NavigationService:
-        return self._navigation_service
 
     @property
     def interpretation_service(self):

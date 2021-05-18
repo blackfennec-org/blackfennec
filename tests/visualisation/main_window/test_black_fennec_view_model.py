@@ -16,7 +16,8 @@ class BlackFennecViewModelTestSuite(unittest.TestCase):
         presenter_factory = PresenterFactoryMock()
         interpretation_service = InterpretationServiceMock(Dummy())
         uri_import_service = UriImportServiceMock()
-        view_model = BlackFennecViewModel(presenter_factory, interpretation_service, uri_import_service)
+        view_model = BlackFennecViewModel(
+            presenter_factory, interpretation_service, uri_import_service)
         view_model.open(URI('/examples/black_fennec.json'))
         self.assertEqual(1, presenter_factory.create_call_count)
         self.assertEqual(1, uri_import_service.load_count)

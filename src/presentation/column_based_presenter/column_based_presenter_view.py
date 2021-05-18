@@ -37,7 +37,7 @@ class ColumnBasedPresenterView(Gtk.Box):
         self.interpretations = list()
         self._root_column = None
 
-    def _update_interpretations(self, sender, interpretations):  # pylint: disable=unused-argument
+    def _update_interpretations(self, unused_sender, interpretations):
         """interpretation update.
 
         listener to changes on view_model interpretations property.

@@ -48,8 +48,8 @@ class BlackFennecViewModel(Observable):
         """
         structure: Info = self._uri_import_service.load(uri)
         navigation_service = NavigationService()
-        presenter_view = self._presenter_factory.create(self._interpretation_service, navigation_service)
-        presenter = presenter_view._view_model  # pylint: disable=protected-access
+        presenter_view = self._presenter_factory.create(navigation_service)
+        presenter = presenter_view._view_model
         navigation_service.set_presenter(presenter)
         self.tabs.add(Tab(presenter_view, uri))
         navigation_service.navigate(None, structure)

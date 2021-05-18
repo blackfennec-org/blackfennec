@@ -172,7 +172,6 @@ class BlackFennec(Gtk.Application):
         extension_api = ExtensionApi(
             presenter_registry,
             type_registry,
-            navigation_service,
             interpretation_service
         )
         load_extensions_from_file(
@@ -182,12 +181,8 @@ class BlackFennec(Gtk.Application):
             URI(EXTENSIONS)
         )
 
-        presenter_view = presenter_registry.presenters[0].create()
-        presenter = presenter_view._view_model # pylint: disable=protected-access
-        navigation_service.set_presenter(presenter)
-
         view_model = BlackFennecViewModel(
-            ColumnBasedPresenterViewFactory(),
+            presenter_registry.presenters[0],
             interpretation_service,
             uri_import_service
         )

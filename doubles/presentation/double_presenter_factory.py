@@ -9,8 +9,7 @@ class PresenterFactoryMock:
         self.navigation_service = None
         self.create_call_count = 0
 
-    def create(self, interpretation_service, navigation_service):
-        self.interpretation_service = interpretation_service
+    def create(self, navigation_service):
         self.navigation_service = navigation_service
         self.create_call_count += 1
 

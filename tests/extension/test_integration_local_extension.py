@@ -37,7 +37,6 @@ class ExtensionSourceTestSuite(unittest.TestCase):
         self.extension_api = ExtensionApi(
             PresenterRegistry(),
             type_registry,
-            NavigationService(),
             InterpretationService(Auctioneer(type_registry))
         )
 
