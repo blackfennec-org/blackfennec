@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import logging
+from collections import UserList
 
 from src.structure.encapsulation_base.encapsulation_base import EncapsulationBase
 from src.structure.info import Info
@@ -20,6 +21,7 @@ class ListEncapsulationBase(EncapsulationBase, List):
             visitor: 'BaseFactoryVisitor',
             subject: List,
     ):
+        UserList.__init__(self)
         EncapsulationBase.__init__(
             self,
             visitor,

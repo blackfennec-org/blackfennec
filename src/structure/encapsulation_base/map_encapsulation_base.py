@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+from collections import UserDict
+
 from src.structure.encapsulation_base.encapsulation_base import EncapsulationBase
 from src.structure.info import Info
 from src.structure.map import Map
@@ -11,6 +13,7 @@ class MapEncapsulationBase(EncapsulationBase, Map):
             visitor: 'BaseFactoryVisitor',
             subject: Map,
     ):
+        UserDict.__init__(self)
         EncapsulationBase.__init__(
             self,
             visitor,
