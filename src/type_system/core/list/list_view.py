@@ -28,14 +28,16 @@ class ListView(Gtk.Bin):
         """Populates the list that displays the list items"""
 
         for substructure in self._view_model.value:
-            preview = self._view_model.create_preview(substructure)
-            item = ListItemView(
-                preview,
-                self._delete_request_handler,
-                self._rename_request_handler,
-                self._add_request_handler,
-                self._preview_click_handler)
-            self._item_container.add(item)
+            self._add_item(substructure)
+            
+    def _add_item(self, structure):
+        preview = self._view_model.create_preview(structure)
+        item = ListItemView(
+            preview,
+            self._delete_request_handler,
+            self._add_request_handler,
+            self._preview_click_handler)
+        self._item_container.add(item)
 
     def _preview_click_handler(self, unused_sender, route_target) -> None:
         """Handles clicks on list items, triggers navigation"""
@@ -43,19 +45,12 @@ class ListView(Gtk.Bin):
 
     def _delete_request_handler(self, sender):
         self._item_container.remove(sender)
-        self._view_model.delete_item(sender.key)
+        self._view_model.delete_item(sender.item)
 
-    def _add_request_handler(self, key, template_id):
-        substructure = String("")
-        self._view_model.add_item(key, substructure)
-        preview = self._view_model.create_preview(substructure)
-        item = ListItemView(
-            key, preview,
-            self._delete_request_handler,
-            self._rename_request_handler,
-            self._add_request_handler,
-            self._preview_click_handler)
-        self._item_container.add(item)
+    def _add_request_handler(self, template_id):
+        structure = String('')
+        self._view_model.add_item(structure)
+        self._add_item(structure)
 
     def _rename_request_handler(self, sender, new_key):
         sender.set_key(new_key)
