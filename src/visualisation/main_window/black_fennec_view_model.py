@@ -2,12 +2,15 @@ import logging
 
 from uri import URI
 
+from src.navigation.navigation_service import NavigationService
+from src.util.observable import Observable
 from src.structure.info import Info
+from src.visualisation.main_window.tab import Tab
 
 logger = logging.getLogger(__name__)
 
 
-class BlackFennecViewModel:
+class BlackFennecViewModel(Observable):
     """BlackFennec MainWindow view_model.
 
     view_model to which views can dispatch calls
@@ -18,7 +21,7 @@ class BlackFennecViewModel:
         _navigation_service (NavigationService): stores injected
             navigation service
     """
-    def __init__(self, presenter, navigation_service, uri_import_service):
+    def __init__(self, presenter_factory, interpretation_service, uri_import_service):
         """BlackFennecViewModel constructor.
 
         Args:
@@ -26,13 +29,11 @@ class BlackFennecViewModel:
             presenter (navigation_service): navigation service
         """
         logger.info('BlackFennecViewModel __init__')
-        self._presenter = presenter
-        self._navigation_service = navigation_service
+        super().__init__()
+        self._presenter_factory = presenter_factory
+        self._interpretation_service = interpretation_service
         self._uri_import_service = uri_import_service
-
-    @property
-    def presenter(self):
-        return self._presenter
+        self.tabs = set()
 
     def new(self):
         """Future implementation of new()"""
@@ -46,7 +47,22 @@ class BlackFennecViewModel:
             uri (URI): URI of the file to open
         """
         structure: Info = self._uri_import_service.load(uri)
-        self._navigation_service.navigate(None, structure)
+        navigation_service = NavigationService()
+        presenter_view = self._presenter_factory.create(self._interpretation_service, navigation_service)
+        presenter = presenter_view._view_model  # pylint: disable=protected-access
+        navigation_service.set_presenter(presenter)
+        self.tabs.add(Tab(presenter_view, uri))
+        navigation_service.navigate(None, structure)
+        self._notify(self.tabs, 'tabs')
+
+    def close_tab(self, filename):
+        for tab in self.tabs:
+            if tab.uri == filename:
+                element = tab
+                self.tabs.remove(element)
+                break
+
+        self._notify(self.tabs, 'tabs')
 
     def quit(self):
         """Future implementation of quit()"""
