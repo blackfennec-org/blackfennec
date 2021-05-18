@@ -6,7 +6,7 @@ gi.require_version('Gtk', '3.0')
 
 # pylint: disable=wrong-import-position,ungrouped-imports
 import logging
-import src.black_fennec.type_system
+import src.visualisation
 import src.presentation
 from uri import URI
 from gi.repository import Gtk, Gdk, GLib
@@ -49,11 +49,11 @@ def default_initialise_extensions(
             structure to raw json
         path (str): path of file to create
     """
-    type_system = src.type_system
+    visualisation = src.visualisation
     type_system_source = ExtensionSource(
         LocalExtensionService(),
-        identification=type_system.__name__,
-        location=type_system.__path__,
+        identification=visualisation.__name__,
+        location=visualisation.__path__,
         source_type='local'
     )
     for extension in type_system_source.extensions:

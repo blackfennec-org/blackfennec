@@ -101,7 +101,7 @@
                                       <object class="GtkImage">
                                         <property name="visible">True</property>
                                         <property name="can-focus">False</property>
-                                        <property name="pixbuf">src/black_fennec/facades/main_window/icon_folder.png</property>
+                                        <property name="pixbuf">src/black_fennec/facade/main_window/icon_folder.png</property>
                                         <property name="pixel-size">128</property>
                                         <property name="icon_size">6</property>
                                       </object>
