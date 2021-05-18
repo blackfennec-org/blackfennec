@@ -3,6 +3,7 @@ import gi
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk
 
+
 @Gtk.Template(filename="src/presentation/column_based_presenter/column_view.glade")
 class ColumnView(Gtk.Bin):
     __gtype_name__ = 'ColumnView'

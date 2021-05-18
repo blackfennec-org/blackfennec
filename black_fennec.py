@@ -2,14 +2,11 @@ import os
 
 import gi
 
-from src.structure.list import List
-from src.util.uri.structure_encoding_service import StructureEncodingService
-
 gi.require_version('Gtk', '3.0')
 
 # pylint: disable=wrong-import-position,ungrouped-imports
 import logging
-import src.type_system
+import src.black_fennec.type_system
 import src.presentation
 from uri import URI
 from gi.repository import Gtk, Gdk, GLib
@@ -17,19 +14,20 @@ from src.extension.extension_api import ExtensionApi
 from src.extension.extension_source import ExtensionSource
 from src.extension.local_extension_service import LocalExtensionService
 from src.extension.pypi_extension_service import PyPIExtensionService
-from src.interpretation.auction.auctioneer import Auctioneer
-from src.interpretation.interpretation_service import InterpretationService
-from src.navigation.navigation_service import NavigationService
-from src.presentation.presenter_registry import PresenterRegistry
-from src.type_system.type_registry import TypeRegistry
-from src.util.uri.uri_import_service import UriImportService
-from src.util.json.json_reference_resolving_service import JsonReferenceResolvingService
-from src.util.uri.structure_parsing_service import StructureParsingService
-from src.util.uri.uri_import_strategy_factory import UriImportStrategyFactory
-from src.util.uri.uri_loading_strategy_factory import UriLoadingStrategyFactory
-from src.visualisation.main_window.black_fennec_view_model import BlackFennecViewModel
-from src.visualisation.main_window.black_fennec_view import BlackFennecView
-from src.visualisation.splash_screen.splash_screen_view import SplashScreenView
+from src.black_fennec.interpretation.auction.auctioneer import Auctioneer
+from src.black_fennec.interpretation.interpretation_service import InterpretationService
+from src.black_fennec.type_system.presenter_registry import PresenterRegistry
+from src.black_fennec.type_system.type_registry import TypeRegistry
+from src.black_fennec.structure.list import List
+from src.black_fennec.util.uri.structure_encoding_service import StructureEncodingService
+from src.black_fennec.util.uri.uri_import_service import UriImportService
+from src.black_fennec.util.json.json_reference_resolving_service import JsonReferenceResolvingService
+from src.black_fennec.util.uri.structure_parsing_service import StructureParsingService
+from src.black_fennec.util.uri.uri_import_strategy_factory import UriImportStrategyFactory
+from src.black_fennec.util.uri.uri_loading_strategy_factory import UriLoadingStrategyFactory
+from src.black_fennec.facade.main_window.black_fennec_view_model import BlackFennecViewModel
+from src.black_fennec.facade.main_window.black_fennec_view import BlackFennecView
+from src.black_fennec.facade.splash_screen.splash_screen_view import SplashScreenView
 # pylint: enable=wrong-import-position
 
 logging.basicConfig(level=logging.WARNING)
@@ -132,7 +130,7 @@ class BlackFennec(Gtk.Application):
 
         screen = Gdk.Screen.get_default()
         provider = Gtk.CssProvider()
-        provider.load_from_path('src/visualisation/style.css')
+        provider.load_from_path('src/black_fennec/facade/style.css')
         Gtk.StyleContext.add_provider_for_screen(
             screen, provider,
             Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
