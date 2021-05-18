@@ -12,11 +12,11 @@ Extensions get loaded by being present in an extension source which can point ei
 
 This means that when developing an extension, the package containing the extension is required to import these two functions in its __init__.py File.
 
-.. hint:: The __init__.py files are required to make Python treat the directories as containing packages. In this file one can import functions or classes of the package and make them accessible on the package level.
+.. hint:: The __init__.py files are required to make Python treat the directories as containing packages. In this file, one can import functions or classes of the package and make them accessible on the package level.
 
-As only Parameter for your 'create_extension' and 'destroy_extension' functions they are passed the :ref:`extension api <definition_extension_api>` which is an object encapsulating multiple properties that might be needed to interact with black-fennec when developing an extension.
+As the only Parameter for your 'create_extension' and 'destroy_extension' functions they are passed the :ref:`extension API <definition_extension_api>` which is an object encapsulating multiple properties that might be needed to interact with black-fennec when developing an extension.
 
-Besides the requirements for these two functions an extension developer is completely free on how to structure his extension. At the moment extensions can only be developed with the GUI Framework GTK.
+Besides the requirements for these two functions, an extension developer is completely free on how to structure his extension. At the moment extensions can only be developed with the GUI Framework GTK.
 
 Developing a Type Extension
     If you are here to know how to develop a type extension, that integrates in the auction of the structure parts and can be used to create specialised types directly integrated in the present, you may take a look at :ref:`this section <develop_type_extension>`
