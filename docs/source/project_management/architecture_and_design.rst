@@ -10,19 +10,19 @@ Black Fennec is a single user application running on a single computer and does 
 
 Logical Architecture
 ====================
-Black Fennec is best described as a set of services and interfaces that serve different stakeholders and allows communication between them. The main packages are described in the Architecture documentation and a detailed overview over the most important components are documented in the domain model. Each loosely coupled components solves a different problem. For example, the `Structure` abstracts data access, filtering and implements recursion via `References`.
+Black Fennec is best described as a set of services and interfaces that serve different stakeholders and allows communication between them. The main packages are described in the Architecture documentation and a detailed overview over the most important components are documented in the domain model. Each loosely coupled component solves a different problem. For example, the `Structure` abstracts data access, filtering and implements recursion via `References`.
 
 Application and Programming Interfaces
 ======================================
-The packages have been designed with low coupling high cohesion in mind and exist largely independent from each other. This was necessary to manage the complexity of the project. The interfaces are weakly typed and rigorously tested as this is the pythonic way.
+The packages have been designed with low coupling and high cohesion in mind and exist largely independent from each other. This was necessary to manage the complexity of the project. The interfaces are weakly typed and rigorously tested as this is the pythonic way.
 
 Persistence
 ===========
-Since we do not have a backend and no database, persistence was not a real problem which needed solving in our case. Nevertheless, serialisation of user date was implemented with the visitor pattern giving us great flexibility in the output format (JSON, YAML etc).
+Since we do not have a backend or database, persistence was not a real problem which needed solving in our case. Nevertheless, serialisation of user data was implemented with the visitor pattern giving us great flexibility in the output format (JSON, YAML etc).
 
 Package Design
 ==============
-We deploy a great many design pattern to manage the complexity of this project; MVVM, Abstract and Simple Factory, Visitor to name a few. Listing them all here would be besides the point.
+We deploy a great many design patterns to manage the complexity of this project; MVVM, Abstract and Simple Factory, Visitor to name the most prominent ones. Listing them all here would be besides the point.
 
 User Experience
 ===============
@@ -30,7 +30,7 @@ To ensure the user experience, we created a special role in the team. We started
 
 Architecture Highlights
 =======================
-The main feat of the architecture is its capability to hide enormous complexity in simple to use services. Many of our components require significant time to understand - not because they are poorly implemented but due to the sheer complexity of the problem they are solving. But even so, using them is as simple as it gets. This allowed us to work in parallel at different aspects of the system and resulted in near seamless integration and extensibility.
+The main feat of the architecture is its capability to hide enormous complexity in simple to use services. Many of our components require significant time to understand - not because they are poorly implemented but due to the sheer complexity of the problem they are solving. But even so, using them is as simple as it gets. This allowed us to work in parallel at different aspects of the system and resulted in near seamless integrations and extensibility.
 
 
 Possible Extensions
