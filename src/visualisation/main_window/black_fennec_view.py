@@ -5,7 +5,6 @@ import os
 from uri import URI
 
 logger = logging.getLogger(__name__)
-logger.setLevel(logging.DEBUG)
 
 
 def create_folder_structure(root_directory):
