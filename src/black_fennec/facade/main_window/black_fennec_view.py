@@ -120,6 +120,12 @@ class BlackFennecView(Gtk.ApplicationWindow):
         self._view_model.close_tab(sender.get_name())
 
     def _update_tabs(self, unused_sender, tabs):
+        """observer for updates of tabs
+
+        Args:
+            unused_sender (any): unused
+            tabs (list): Updated list of tabs
+        """
         if len(self._tabs) == 0:
             self._presenter_container.remove_page(0)
             self._show_tab()

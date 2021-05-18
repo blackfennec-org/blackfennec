@@ -33,7 +33,7 @@ class BooleanPreview(Gtk.Bin):
         else:
             self.add_style_class('boolean-false')
 
-    def on_switch_toggled(self, switch, state):
+    def on_switch_toggled(self, unused_switch, unused_state):
         if self._value.get_state():
             self.remove_style_class('boolean-false')
             self.add_style_class('boolean-true')

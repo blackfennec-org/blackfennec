@@ -75,8 +75,8 @@ def default_initialise_extensions(
     ])
 
     raw = encoding_service.encode(source_list)
-    file = open(path, 'w')
-    file.write(raw)
+    with open(path, 'w') as file:
+        file.write(raw)
 
 
 def load_extensions_from_file(

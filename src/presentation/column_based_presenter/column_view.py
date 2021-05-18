@@ -1,11 +1,10 @@
-import gi
-
-gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk
 
 
-@Gtk.Template(filename="src/presentation/column_based_presenter/column_view.glade")
+@Gtk.Template(filename='src/presentation/column_based_presenter/column_view.glade') # pylint: disable=line-too-long
 class ColumnView(Gtk.Bin):
+    """View for a single column for the column-based presenter
+    """
     __gtype_name__ = 'ColumnView'
     _paned_right = Gtk.Template.Child()
     _container = Gtk.Template.Child()

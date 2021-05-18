@@ -46,7 +46,8 @@ class ImageView(Gtk.Bin):
         scaling = self._calculate_new_image_size_factor(width, pixbuf)
         old_width = pixbuf.get_width()
         old_height = pixbuf.get_height()
-        pixbuf = pixbuf.scale_simple(old_width * scaling, old_height * scaling, 2)
+        pixbuf = pixbuf.scale_simple(
+            old_width * scaling, old_height * scaling, 2)
         return pixbuf
 
     def _calculate_new_image_size_factor(self, width, pixbuf) -> float:
@@ -93,7 +94,7 @@ class ImageView(Gtk.Bin):
         self._set_file_path(filename)
 
     @Gtk.Template.Callback()
-    def _on_resize(self, unused1, unused2) -> None:
+    def _on_resize(self, unused_sender, unused_event) -> None:
         file_path = self._view_model.file_path
         pixbuf = self._get_pixbuf(file_path)
         width = self.get_allocation().width
