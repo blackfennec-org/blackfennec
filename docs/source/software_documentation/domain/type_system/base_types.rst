@@ -2,7 +2,7 @@
 
 Base Types
 ==========
-Base types are structures built on core types. They are not special compared to any other type a type extension might provide but are so commonly used that they are pre-installed with Black Fennec.
+Base types are structures built on core types. They are not special compared to any other type a type extension might provide but are commonly used and thus directly bundled with Black Fennec. The list below is neither exhaustive nor implemented in its entirety. The main purpose is to show examples of base types.
 
 Time
 """"
@@ -35,5 +35,3 @@ Represents a file pointed to by a URL (e.g. file url: "file://file.csv")
 Image
 """""
 Represents a image and can render it within Black Fennec. Inherits properties from File.
-
-

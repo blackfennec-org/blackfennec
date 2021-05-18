@@ -12,8 +12,7 @@ class ColumnBasedPresenterViewModelMock(Observable):
         self.interpretations = list() if interpretations is None\
             else interpretations
 
-    def show(self, sender, destination, interpreter):
+    def show(self, sender, destination):
         self.show_last_sender = sender
         self.show_last_destination = destination
-        self.show_last_interpreter = interpreter
         self.show_count += 1

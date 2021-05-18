@@ -32,7 +32,7 @@ from src.visualisation.main_window.black_fennec_view import BlackFennecView
 from src.visualisation.splash_screen.splash_screen_view import SplashScreenView
 # pylint: enable=wrong-import-position
 
-logging.basicConfig(level=logging.DEBUG)
+logging.basicConfig(level=logging.WARNING)
 logger = logging.getLogger(__name__)
 
 EXTENSIONS = 'extensions.json'
@@ -150,7 +150,6 @@ class BlackFennec(Gtk.Application):
         type_registry = TypeRegistry()
         auctioneer = Auctioneer(type_registry)
         interpretation_service = InterpretationService(auctioneer)
-        navigation_service = NavigationService()
 
         structure_parsing_service = StructureParsingService()
         structure_encoding_service = StructureEncodingService(indent=2)
@@ -188,9 +187,9 @@ class BlackFennec(Gtk.Application):
         navigation_service.set_presenter(presenter)
 
         view_model = BlackFennecViewModel(
-            presenter_view,
-            navigation_service,
-            uri_import_service,
+            ColumnBasedPresenterViewFactory(),
+            interpretation_service,
+            uri_import_service
         )
         black_fennec_view = BlackFennecView(self, view_model)
         logger.debug('show_main_ui')

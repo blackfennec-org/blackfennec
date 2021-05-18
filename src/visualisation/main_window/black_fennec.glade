@@ -77,17 +77,100 @@
                             <property name="can-focus">False</property>
                             <property name="shadow-type">none</property>
                             <child>
-                              <object class="GtkBox" id="_presenter_container">
+                              <object class="GtkNotebook" id="_presenter_container">
                                 <property name="width-request">200</property>
                                 <property name="visible">True</property>
-                                <property name="can-focus">False</property>
-                                <property name="hexpand">True</property>
-                                <property name="orientation">vertical</property>
+                                <property name="can-focus">True</property>
+                                <property name="scrollable">True</property>
+                                <property name="enable-popup">True</property>
+                                <child>
+                                  <object class="GtkBox" id="_empty_list_pattern">
+                                    <property name="name">empty-list-pattern</property>
+                                    <property name="visible">True</property>
+                                    <property name="can-focus">False</property>
+                                    <property name="valign">center</property>
+                                    <property name="margin-left">32</property>
+                                    <property name="margin-right">32</property>
+                                    <property name="margin-start">32</property>
+                                    <property name="margin-end">32</property>
+                                    <property name="hexpand">True</property>
+                                    <property name="vexpand">True</property>
+                                    <property name="orientation">vertical</property>
+                                    <property name="spacing">8</property>
+                                    <child>
+                                      <object class="GtkImage">
+                                        <property name="visible">True</property>
+                                        <property name="can-focus">False</property>
+                                        <property name="pixbuf">src/visualisation/main_window/icon_folder.png</property>
+                                        <property name="pixel-size">128</property>
+                                        <property name="icon_size">6</property>
+                                      </object>
+                                      <packing>
+                                        <property name="expand">False</property>
+                                        <property name="fill">True</property>
+                                        <property name="position">0</property>
+                                      </packing>
+                                    </child>
+                                    <child>
+                                      <object class="GtkLabel">
+                                        <property name="visible">True</property>
+                                        <property name="can-focus">False</property>
+                                        <property name="label" translatable="yes">Nothing to show...</property>
+                                      </object>
+                                      <packing>
+                                        <property name="expand">False</property>
+                                        <property name="fill">True</property>
+                                        <property name="position">1</property>
+                                      </packing>
+                                    </child>
+                                    <child>
+                                      <object class="GtkButton">
+                                        <property name="label" translatable="yes">Open Project</property>
+                                        <property name="visible">True</property>
+                                        <property name="can-focus">True</property>
+                                        <property name="receives-default">True</property>
+                                        <property name="halign">center</property>
+                                        <property name="hexpand">False</property>
+                                        <signal name="clicked" handler="on_open_clicked" swapped="no"/>
+                                      </object>
+                                      <packing>
+                                        <property name="expand">False</property>
+                                        <property name="fill">True</property>
+                                        <property name="position">2</property>
+                                      </packing>
+                                    </child>
+                                    <style>
+                                      <class name="empty-list-pattern"/>
+                                    </style>
+                                  </object>
+                                  <packing>
+                                    <property name="tab-expand">True</property>
+                                  </packing>
+                                </child>
+                                <child type="tab">
+                                  <object class="GtkLabel">
+                                    <property name="visible">True</property>
+                                    <property name="can-focus">False</property>
+                                  </object>
+                                  <packing>
+                                    <property name="tab-fill">False</property>
+                                  </packing>
+                                </child>
                                 <child>
                                   <placeholder/>
                                 </child>
+                                <child type="tab">
+                                  <placeholder/>
+                                </child>
+                                <child>
+                                  <placeholder/>
+                                </child>
+                                <child type="tab">
+                                  <placeholder/>
+                                </child>
                                 <style>
-                                  <class name="main-presenter-container"/>
+                                  <class name="presenter-container"/>
+                                  <class name="hide-tab"/>
                                 </style>
                               </object>
                             </child>
@@ -172,7 +255,7 @@
                   <object class="GtkMenuItem" id="_open">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
-                    <property name="label" translatable="yes">_Open</property>
+                    <property name="label" translatable="yes">_Project</property>
                     <property name="use-underline">True</property>
                     <child type="submenu">
                       <object class="GtkMenu">
