@@ -244,7 +244,10 @@
               <object class="GtkImage">
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
-                <property name="stock">gtk-dialog-error</property>
+                <property name="pixbuf">src/black_fennec/facade/main_window/window_icon.png</property>
+                <style>
+                  <class name="window-icon"/>
+                </style>
               </object>
             </child>
             <child>
