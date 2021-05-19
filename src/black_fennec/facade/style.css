@@ -104,13 +104,13 @@ border-color: @blue;
 }
 
 /*status-bar*/
-.main-status-bar {
-background-color: @rocky;
-margin: 8px;
+.main-status-bar * {
+background-color: @iron-d;
 border-image: none;
 border-style: solid;
-border-color: @rocky;
+border-color: @iron;
 border-width: 10px;
+color: @blue;
 }
 
 /*presenter container */
@@ -329,7 +329,7 @@ color: @silver;
 margin: 3px 0px;
 }
 
-textview text {
+.presenter-container textview text {
 border-radius: 10px;
 }
 
