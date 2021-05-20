@@ -1,3 +1,5 @@
+.. _Definition of Done:
+
 Definition of Done
 ==================
 For each work item an issue MUST be created. An issue is considered done IFF it's corresponding commits have been successfully merged into the dev branch. Furthermore, the time spent MUST be documented.

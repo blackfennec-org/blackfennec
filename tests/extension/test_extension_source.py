@@ -5,14 +5,14 @@ import unittest
 from doubles.double_dummy import Dummy
 from doubles.extension.double_extension import ExtensionMock
 from doubles.extension.double_extension_loading_service import ExtensionLoadingServiceMock
-from doubles.structure.double_boolean import BooleanMock
-from doubles.structure.double_list import ListMock
-from doubles.structure.double_map import MapMock
-from doubles.structure.double_string import StringMock
+from doubles.black_fennec.structure.double_boolean import BooleanMock
+from doubles.black_fennec.structure.double_list import ListMock
+from doubles.black_fennec.structure.double_map import MapMock
+from doubles.black_fennec.structure.double_string import StringMock
 from src.extension.extension import Extension
 from src.extension.extension_source import ExtensionSource
 from src.extension.extension_status import ExtensionStatus
-from src.structure.map import Map
+from src.black_fennec.structure.map import Map
 
 
 class ExtensionSourceTestSuite(unittest.TestCase):

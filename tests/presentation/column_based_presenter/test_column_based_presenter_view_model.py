@@ -4,9 +4,9 @@ import unittest
 from collections import deque
 
 from doubles.double_dummy import Dummy
-from doubles.interpretation.double_interpretation import InterpretationMock
-from doubles.interpretation.double_interpretation_service import InterpretationServiceMock
-from doubles.structure.double_info import InfoMock
+from doubles.black_fennec.interpretation.double_interpretation import InterpretationMock
+from doubles.black_fennec.interpretation.double_interpretation_service import InterpretationServiceMock
+from doubles.black_fennec.structure.double_info import InfoMock
 from src.presentation.column_based_presenter.column_based_presenter_view_model import ColumnBasedPresenterViewModel
 
 

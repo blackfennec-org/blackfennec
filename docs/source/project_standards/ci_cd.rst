@@ -1,5 +1,7 @@
-Corporate identity & design
-=============================
+.. _Corporate Identity & Design:
+
+Corporate Identity & Design
+===========================
 
 Overview
 *********

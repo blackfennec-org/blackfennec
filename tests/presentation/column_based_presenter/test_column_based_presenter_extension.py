@@ -12,8 +12,7 @@ class Column_based_presenterExtensionTestSuite(unittest.TestCase):
         self.extension_api = ExtensionApi(
             type_registry=Dummy('typeRegistry'),
             presenter_registry=self.presenter_registry,
-            interpretation_service=Dummy('InterpretationService'),
-            navigation_service=Dummy('NavigationService')
+            interpretation_service=Dummy('InterpretationService')
         )
 
     def test_create_column_based_presenter_extension(self):

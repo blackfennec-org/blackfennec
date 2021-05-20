@@ -5,11 +5,10 @@ from src.presentation.column_based_presenter.column_based_presenter_view_model i
 
 class ColumnBasedPresenterViewFactory:
     """Creator or the ColumnBasedPresenterView"""
-    def __init__(self, interpretation_service, navigation_service):
+    def __init__(self, interpretation_service):
         self._interpretation_service = interpretation_service
-        self._navigation_service = navigation_service
 
-    def create(self) -> ColumnBasedPresenterView:
+    def create(self, navigation_service) -> ColumnBasedPresenterView:
         """Create column based presenter view
 
         Returns:
@@ -18,6 +17,6 @@ class ColumnBasedPresenterViewFactory:
         """
         view_model = ColumnBasedPresenterViewModel(
             self._interpretation_service,
-            self._navigation_service
+            navigation_service
         )
         return ColumnBasedPresenterView(view_model)

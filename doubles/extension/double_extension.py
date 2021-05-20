@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from doubles.structure.double_map import MapMock
+from doubles.black_fennec.structure.double_map import MapMock
 from src.extension.extension_status import ExtensionStatus
 
 
