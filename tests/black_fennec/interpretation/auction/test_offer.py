@@ -195,10 +195,10 @@ class OfferTestSuite(unittest.TestCase):
         )
 
     def test_coverage_getter_string_pattern_match(self):
-        subject = String('Test123')
+        subject = String('a')
         specificity = 1
         template = String(
-            '^[a-zA-Z]{4}[1-3]{3}$'
+            '^[a]$'
         ).accept(self.template_factory)
         view_factory = Dummy('ViewFactory')
 
@@ -209,10 +209,10 @@ class OfferTestSuite(unittest.TestCase):
         )
 
     def test_coverage_getter_string_pattern_mismatch(self):
-        subject = String('Test1234')
+        subject = String('b')
         specificity = 1
         template = String(
-            '^[a-zA-Z]{4}[1-3]{3}$'
+            '^[a]$'
         ).accept(self.template_factory)
         view_factory = Dummy('ViewFactory')
 
