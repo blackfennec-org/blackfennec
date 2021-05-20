@@ -1,5 +1,6 @@
 import unittest
 
+from doubles.black_fennec.structure.double_map import MapMock
 from doubles.double_dummy import Dummy
 from src.black_fennec.interpretation.auction.offer import Offer
 from src.black_fennec.structure.boolean import Boolean
@@ -20,7 +21,7 @@ class BooleanBidderTestSuite(unittest.TestCase):
 
     def test_offer_equal_boolean_offer(self):
         bidder = BooleanBidder()
-        subject = {}
+        subject = MapMock({})
         expected_offer = Offer(subject, 0, create_boolean_template(), Dummy())
         offer = bidder.bid(subject)
         self.assertEqual(offer, expected_offer)

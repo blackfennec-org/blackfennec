@@ -8,6 +8,7 @@ from src.black_fennec.structure.map import Map
 from src.black_fennec.structure.string import String
 from src.black_fennec.structure.template.list_template import ListTemplate
 from src.black_fennec.structure.template.map_template import MapTemplate
+from src.black_fennec.structure.template.string_template import StringTemplate
 from src.black_fennec.structure.template.template_base import TemplateBase
 from src.black_fennec.util.comparable import Comparable
 from src.black_fennec.interpretation.specification import Specification
@@ -90,160 +91,6 @@ class Offer(Comparable):
         """
         return self._template
 
-    def _calculate_coverage(
-            self,
-            subject: Info,
-            template: TemplateBase
-    ) -> (int, int):
-        """Coverage calculation for Info Class
-
-        Args:
-            subject (Info): Info for which coverage is calculated
-            template (Info): Template received by type bidder
-                describing how the subject should look like
-                to match perfectly
-
-        Returns:
-            (int, int): subject/template node count encountered in map
-        """
-        subject_node_count: int = 1
-        template_node_count: int = 0
-        if isinstance(subject, template.subject.__class__):
-            logger.debug(
-                'Type of subject(%s) and template(%s) matched',
-                type(subject),
-                type(template.subject)
-            )
-            template_node_count += 1
-
-            coverage: (int, int) = (0, 0)
-            if isinstance(subject, List):
-                coverage = self._calculate_list_coverage(
-                    subject,
-                    template
-                )
-            elif isinstance(subject, Map):
-                coverage = self._calculate_map_coverage(
-                    subject,
-                    template
-                )
-            subject_node_count += coverage[0]
-            template_node_count += coverage[1]
-
-            if isinstance(template, String) and \
-                    not self._check_pattern_match_if_has_value(
-                        subject,
-                        template
-                    ):
-                message = f'Pattern mismatch of subject({subject})' \
-                          f' and pattern({template.value})'
-                logger.info(message)
-                template_node_count -= 1
-        else:
-            message = f'Type mismatch of subject({type(subject)}) and ' \
-                        f'template({type(template.subject)})'
-            logger.info(message)
-        return subject_node_count, template_node_count
-
-    @staticmethod
-    def _check_pattern_match_if_has_value(
-            subject: String,
-            template: String
-    ) -> bool:
-        """Check value of String for regexp
-
-        Checks whether the value contained in the template
-            if any can be matched with the strings value.
-
-        Args:
-            subject (List): String whose value has to match template
-            template (List): Template that may contains value which
-                if existing will be matched against the subjects value.
-
-        Returns:
-            bool: Whether value of string matches regexp if any
-        """
-        if template.value and template.value != '':
-            if not re.match(template.value, subject.value):
-                return False
-        return True
-
-    def _calculate_list_coverage(
-            self,
-            subject: List,
-            template: ListTemplate
-    ) -> (int, int):
-        """Coverage calculation for List Class
-
-        Subject may contain a type multiple times, which
-        will be then matched by a single child of the List
-        template multiple times.
-
-        Args:
-            subject (List): List for which coverage is calculated
-            template (List): Template received by type bidder
-                describing which Children of the List can be handled
-
-        Returns:
-            (int, int): subject/template node count encountered in map
-        """
-        logger.debug(
-            'Calculating list coverage (children=%s, types in template=%s)',
-            len(subject.children),
-            len(subject.children)
-        )
-        subject_node_count: int = 0
-        template_node_count: int = 0
-        for template_node in template.children:
-            for subject_node in subject.children:
-                coverage = self._calculate_coverage(
-                    subject_node,
-                    template_node
-                )
-                subject_node_count += coverage[0]
-                template_node_count += coverage[1]
-        return subject_node_count, template_node_count
-
-    def _calculate_map_coverage(
-            self,
-            subject: Map,
-            template: MapTemplate
-    ) -> (int, int):
-        """Coverage calculation for Map Class
-
-        Args:
-            subject (Map): Map for which coverage is calculated
-            template (Map): Template received by type bidder
-                describing which Children of the Map can be handled
-
-        Returns:
-            (int, int): subject/template node count encountered in map
-        """
-        logger.debug(
-            'Calculating map coverage (children=%s, types in template=%s)',
-            len(subject.children),
-            len(subject.children)
-        )
-        subject_node_count: int = len(subject.children)
-        template_node_count: int = 0
-        for key, value in template.value.items():
-            if key in subject.value:
-                if isinstance(subject.value[key], value.subject.__class__):
-                    subject_node_count -= 1
-                coverage = self._calculate_coverage(
-                    subject.value[key],
-                    value
-                )
-                if coverage[1] <= 0:
-                    return subject_node_count, -1
-                subject_node_count += coverage[0]
-                template_node_count += coverage[1]
-            else:
-                message = f'key {key} not found in subject{subject}'
-                logger.debug(message)
-                return subject_node_count, -1
-        return subject_node_count, template_node_count
-
     @property
     def coverage(self) -> float:
         """coverage getter
@@ -254,10 +101,8 @@ class Offer(Comparable):
         if self._coverage:
             return self._coverage
 
-        subject_node_count, template_node_count = self._calculate_coverage(
-            self.subject,
-            self.template
-        )
+        subject_node_count, template_node_count = self.template.calculate_coverage(self.subject)
+
         logger.debug(
             'Received values of coverage calculation, '
             '(subject_node_count = %s, template_node_count = %s,'
@@ -324,7 +169,8 @@ class Offer(Comparable):
             raise ValueError(message)
 
         if self.coverage == other.coverage \
-                and 0 in (self.specificity, other.specificity):
+                and 0 in (self.specificity, other.specificity)\
+                and (0, 0) != (self.specificity, other.specificity):
             return self.specificity > other.specificity
 
         return (

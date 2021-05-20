@@ -1,8 +1,14 @@
+from src.black_fennec.structure.boolean import Boolean
 from src.black_fennec.structure.encapsulation_base.base_factory_visitor import BaseFactoryVisitor
 from src.black_fennec.structure.list import List
 from src.black_fennec.structure.map import Map
+from src.black_fennec.structure.number import Number
+from src.black_fennec.structure.string import String
+from src.black_fennec.structure.template.boolean_template import BooleanTemplate
 from src.black_fennec.structure.template.list_template import ListTemplate
 from src.black_fennec.structure.template.map_template import MapTemplate
+from src.black_fennec.structure.template.number_template import NumberTemplate
+from src.black_fennec.structure.template.string_template import StringTemplate
 from src.black_fennec.structure.template.template_base import TemplateBase
 
 
@@ -33,6 +39,15 @@ class TemplateFactoryVisitor(BaseFactoryVisitor):
                 key in the dictionary.
         """
         return self._metadata_storage
+
+    def visit_string(self, subject_string: String):
+        return StringTemplate(self, subject_string)
+
+    def visit_number(self, subject_number: Number):
+        return NumberTemplate(self, subject_number)
+
+    def visit_boolean(self, subject_boolean: Boolean):
+        return BooleanTemplate(self, subject_boolean)
 
     def visit_map(self, subject_map: Map):
         return MapTemplate(self, subject_map)

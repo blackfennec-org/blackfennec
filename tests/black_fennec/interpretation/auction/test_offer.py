@@ -3,16 +3,18 @@ import unittest
 
 from doubles.black_fennec.structure.double_info import InfoMock
 from doubles.double_dummy import Dummy
-from doubles.black_fennec.structure.template.double_template_factory_visitor import TemplateFactoryVisitorMock
 from src.black_fennec.interpretation.auction.offer import Offer
 from src.black_fennec.structure.list import List
 from src.black_fennec.structure.map import Map
+from src.black_fennec.structure.reference import Reference
 from src.black_fennec.structure.string import String
+from src.black_fennec.structure.template.template_factory_visitor import TemplateFactoryVisitor
+from src.visualisation.core.reference.reference_bidder import create_reference_template
 
 
 class OfferTestSuite(unittest.TestCase):
     def setUp(self) -> None:
-        self.template_factory = TemplateFactoryVisitorMock()
+        self.template_factory = TemplateFactoryVisitor()
 
     def tearDown(self) -> None:
         self.template_factory = None
@@ -219,6 +221,11 @@ class OfferTestSuite(unittest.TestCase):
             offer.coverage,
             0
         )
+
+    def test_offer_coverage_for_reference(self):
+        subject = Reference(Dummy())
+        offer = Offer(subject, 0, create_reference_template(), Dummy())
+        self.assertEqual(offer.coverage, 1)
 
     def test_equal_offers_equality(self):
         subject = InfoMock('Info')

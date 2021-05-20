@@ -26,5 +26,34 @@ class ListTemplate(ListEncapsulationBase, TemplateBase):
             subject
         )
 
+    def visit_list(self, subject: List):
+        """Coverage calculation for List Class
+
+                Subject may contain a type multiple times, which
+                will be then matched by a single child of the List
+                template multiple times.
+
+                Args:
+                    subject (List): List for which coverage is calculated
+
+                Returns:
+                    (int, int): subject/template node count encountered in map
+                """
+        logger.debug(
+            'Calculating list coverage (children=%s, types in template=%s)',
+            len(subject.children),
+            len(subject.children)
+        )
+        subject_node_count, template_node_count = super().visit_list(subject)
+        if (subject_node_count, template_node_count) == TemplateBase.NOT_COVERED:
+            return TemplateBase.NOT_COVERED
+
+        for template_node in self.children:
+            for subject_node in subject.children:
+                coverage = template_node.calculate_coverage(subject_node)
+                subject_node_count += coverage[0]
+                template_node_count += coverage[1]
+        return subject_node_count, template_node_count
+
     def __repr__(self):
         return f'ListTemplate({self.subject.__repr__()})'
