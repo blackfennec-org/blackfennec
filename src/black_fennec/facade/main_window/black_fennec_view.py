@@ -174,7 +174,7 @@ class BlackFennecView(Gtk.ApplicationWindow):
 
         tab_button = Gtk.Button.new()
         tab_button.set_name(str(tab.uri))
-        tab_button.set_image(button_image)
+        tab_button.set_label('✕')
         tab_button.connect('clicked', self.on_close_tab_clicked)
 
         tab_box = Gtk.Box.new(0, 5)

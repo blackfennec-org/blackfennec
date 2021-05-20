@@ -45,6 +45,7 @@ background-color: @silver;
 border-image: none;
 background-image: none;
 box-shadow: none;
+font-family: Ubuntu
 }
 
 .main-window selection{
@@ -485,12 +486,24 @@ border: none;
 
 .presenter-container tab button{
 border: none;
+padding:0px 7px;
+margin-left: 5px;
+border-radius: 50px;
+}
+
+.presenter-container tab button label{
 padding: 0px;
+margin: 0px;
+color: @silver;
 }
 
 .presenter-container tab button:hover{
 border-radius: 50px;
-background-color: @iron-l;
+background-color: @red;
+}
+
+.presenter-container tab button:hover label{
+color: @jet;
 }
 
 .presenter-container menu {
