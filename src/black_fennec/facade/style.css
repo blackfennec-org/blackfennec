@@ -13,6 +13,10 @@
 @define-color silver-d #d3d3d3;
 @define-color silver-l #f5f5f5;
 
+@define-color red #e53855;
+@define-color yellow #ffb017;
+@define-color green #44ab96;
+
 /*splash screen */
 .splash-screen label {
 color: @silver
@@ -101,12 +105,39 @@ color: @blue;
 }
 
 .main-header-bar .titlebutton {
-background-color: @rocky-d;
+padding: 0px;
 }
 
-.main-header-bar .titlebutton:hover {
-background-color: @blue;
+.main-header-bar .titlebutton.close {
+border:1px solid @red;
+color: @red;
 }
+
+.main-header-bar .titlebutton.maximize {
+border:1px solid @yellow;
+color: @yellow;
+}
+
+.main-header-bar .titlebutton.minimize {
+border:1px solid @green;
+color: @green;
+}
+
+.main-header-bar .titlebutton.close:hover {
+background-color: @red;
+color: @jet;
+}
+
+.main-header-bar .titlebutton.maximize:hover {
+background-color: @yellow;
+color: @jet;
+}
+
+.main-header-bar .titlebutton.minimize:hover {
+background-color: @green;
+color: @jet;
+}
+
 
 .main-header-bar > label {
 color: @silver;
