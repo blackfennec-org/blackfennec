@@ -273,6 +273,9 @@
                             <property name="use-underline">True</property>
                             <property name="use-stock">True</property>
                             <signal name="activate" handler="on_new_clicked" swapped="no"/>
+                            <style>
+                              <class name="menu-item"/>
+                            </style>
                           </object>
                         </child>
                         <child>
@@ -283,12 +286,9 @@
                             <property name="use-underline">True</property>
                             <property name="use-stock">True</property>
                             <signal name="activate" handler="on_open_clicked" swapped="no"/>
-                          </object>
-                        </child>
-                        <child>
-                          <object class="GtkSeparatorMenuItem">
-                            <property name="visible">True</property>
-                            <property name="can-focus">False</property>
+                            <style>
+                              <class name="menu-item"/>
+                            </style>
                           </object>
                         </child>
                         <child>
@@ -299,6 +299,10 @@
                             <property name="use-underline">True</property>
                             <property name="use-stock">True</property>
                             <signal name="activate" handler="on_quit_clicked" swapped="no"/>
+                            <style>
+                              <class name="close"/>
+                              <class name="last-item"/>
+                            </style>
                           </object>
                         </child>
                       </object>
@@ -326,6 +330,9 @@
                             <property name="use-underline">True</property>
                             <property name="use-stock">True</property>
                             <signal name="activate" handler="on_save_clicked" swapped="no"/>
+                            <style>
+                              <class name="menu-item"/>
+                            </style>
                           </object>
                         </child>
                         <child>
@@ -336,6 +343,10 @@
                             <property name="use-underline">True</property>
                             <property name="use-stock">True</property>
                             <signal name="activate" handler="on_save_as_clicked" swapped="no"/>
+                            <style>
+                              <class name="menu-item"/>
+                              <class name="last-item"/>
+                            </style>
                           </object>
                         </child>
                       </object>

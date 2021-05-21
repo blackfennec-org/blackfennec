@@ -143,7 +143,6 @@ background-color: @green;
 color: @jet;
 }
 
-
 .main-header-bar > label {
 color: @silver;
 font-weight:700;
@@ -156,9 +155,14 @@ border-style: solid;
 border-color: @blue;
 }
 
+.main-header-bar menuitem > * > *{
+background-color: @jet;
+border-radius: 0px 0px 10px 10px;
+}
+
 .main-header-bar menuitem menu{
-background-color: @rocky;
-border-radius: 0px 0px 7px 7px;
+background-color: @jet;
+border-radius: 0px 0px 10px 10px;
 }
 
 .main-header-bar menuitem menu menuitem {
@@ -168,12 +172,26 @@ padding: 0px;
 margin: 0px;
 }
 
-.main-header-bar menuitem menu menuitem:hover {
+.main-header-bar menuitem menu .menu-item:hover {
 border: none;
 color: @silver;
+background-color: @rocky;
 padding: 0px;
 margin: 0px;
 }
+
+.main-header-bar menuitem menu .last-item:hover {
+border: none;
+border-radius: 0px 0px 10px 10px;
+color: @jet;
+padding: 0px;
+margin: 0px;
+}
+
+.main-header-bar menuitem menu .close:hover {
+background-color: @red;
+}
+
 
 /*status-bar*/
 .main-status-bar * {
@@ -246,7 +264,6 @@ text-decoration: none;
 border-style: solid;
 border-color: @rocky;
 border-width: 0px 2px 0px 0px;
-/* background-color: @iron; */
 }
 
 .main-main-grid label{
@@ -263,15 +280,9 @@ border-color: @rocky;
 border-width: 2px;
 }
 
-menuitem:hover {
+menubar > menuitem:hover {
 background: none;
 box-shadow: inset 0px -3px @blue;
-}
-
-menuitem *:hover {
-background: none;
-background-color: @iron;
-box-shadow: none;
 }
 
 /*tree directory*/
