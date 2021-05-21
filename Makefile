@@ -17,7 +17,7 @@ test:
 		--cov-config=.coveragerc \
 		--cov=src \
 		--cov-report=xml:cov.xml \
-		--cov-report=term \
+		--cov-report=term-missing \
 		tests
 
 run:
