@@ -1,5 +1,6 @@
 import unittest
 
+from doubles.black_fennec.structure.double_map import MapMock
 from doubles.double_dummy import Dummy
 from doubles.black_fennec.interpretation.double_interpretation_service import InterpretationServiceMock
 from src.black_fennec.interpretation.auction.offer import Offer
@@ -16,7 +17,7 @@ class AddressBidderTestSuite(unittest.TestCase):
 
     def test_offer_equal_address_offer(self):
         bidder = AddressBidder()
-        subject = {}
+        subject = MapMock({})
         expected_offer = Offer(subject, 1, Address.TEMPLATE, Dummy())
         offer = bidder.bid(subject)
         self.assertEqual(offer, expected_offer)

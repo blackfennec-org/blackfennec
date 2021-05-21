@@ -24,6 +24,6 @@ class TypeRegistryTestSuite(unittest.TestCase):
         type_registry = TypeRegistry()
         type_bidder = Dummy()
         type_registry.types.append(type_bidder)
-        type_registry.deregister_type(type_bidder)
+        type_registry.deregister_type(Dummy)
 
         self.assertNotIn(type_bidder, type_registry.types)

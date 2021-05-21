@@ -55,7 +55,7 @@ class Auctioneer:
             if best_offer is None or offer >= best_offer:
                 best_offer = offer
 
-        if best_offer is None or best_offer.coverage == 0:
+        if best_offer is None or not best_offer.coverage.is_covered():
             message = 'No offer is the best offer for subject({})'.format(
                 str(subject)
             )

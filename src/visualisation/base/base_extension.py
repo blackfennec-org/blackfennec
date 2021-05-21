@@ -17,4 +17,9 @@ def create_extension(extension_api: ExtensionApi):
 
 
 def destroy_extension(extension_api: ExtensionApi):
-    raise NotImplementedError('Not implemented yet')
+    extension_api.type_registry.deregister_type(AddressBidder)
+    extension_api.type_registry.deregister_type(DateTimeBidder)
+    extension_api.type_registry.deregister_type(DateTimeRangeBidder)
+    extension_api.type_registry.deregister_type(FileBidder)
+    extension_api.type_registry.deregister_type(ImageBidder)
+    extension_api.type_registry.deregister_type(PersonBidder)
