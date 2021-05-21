@@ -1,0 +1,29 @@
+@startuml
+skinparam sequence {
+    ParticipantBorderColor Black
+    ParticipantBackgroundColor #EEE
+    ParticipantBorderColor Black
+    ArrowColor Black
+    ActorBorderColor Black
+    ActorBackgroundColor #EEE
+    LifeLineBorderColor Black
+}
+
+title Interpretation Service
+
+Caller -> InterpretationService : interpret(structure)
+loop until fully interpreted
+    InterpretationService -> Auctioneer : select_best_offer(structure)
+    Auctioneer -> TypeRegistry  : get_types
+    TypeRegistry -> Auctioneer  : bidders
+    Auctioneer -> Bidder1       : get_offer_for(structure)
+    Bidder1 -> Auctioneer       : offer1
+    Auctioneer -> Bidder2       : get_offer_for(structure)
+    Bidder2 -> Auctioneer       : offer2
+    Auctioneer -> Auctioneer    : "select best offer"
+    Auctioneer -> InterpretationService : best_offer
+end
+InterpretationService -> InterpretationService : "create interpretation from offers"
+InterpretationService -> Caller : interpretation
+
+@enduml
