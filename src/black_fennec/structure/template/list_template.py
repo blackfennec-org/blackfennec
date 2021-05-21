@@ -40,9 +40,7 @@ class ListTemplate(ListEncapsulationBase, TemplateBase):
         Returns:
             Coverage: of subject by self(Template)
         """
-        coverage = super().visit_list(subject)
-        if not coverage.is_covered():
-            return Coverage.NOT_COVERED
+        coverage = Coverage.COVERED
 
         logger.debug(
             'Calculating list coverage (children=%s, types in template=%s)',

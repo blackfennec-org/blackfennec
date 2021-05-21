@@ -130,19 +130,6 @@ class MapTemplateTestSuite(unittest.TestCase):
             Coverage.NOT_COVERED
         )
 
-    def test_visit_wrong_type(self):
-        subject = InfoMock()
-        template = Map(
-            {'info1': InfoMock('Info'), 'info2': InfoMock('Info')}
-        )
-        map_template = MapTemplate(self.visitor, template)
-
-        coverage = map_template.visit_map(subject)
-        self.assertEqual(
-            coverage,
-            Coverage.NOT_COVERED
-        )
-
     def test_can_get_repr(self):
         representation: str = self.map_template.__repr__()
         self.assertTrue(representation.startswith('MapTemplate('))

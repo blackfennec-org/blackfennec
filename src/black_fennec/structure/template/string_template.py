@@ -35,7 +35,7 @@ class StringTemplate(TemplateBase):
                         or no regex was contained in the template value;
                         Coverage.NOT_COVERED if the match failed.
                 """
-        coverage = super().visit_string(subject)
+        coverage = Coverage.COVERED
         if self.value and self.value != '':
             if not re.match(self.value, subject.value):
                 message = f'Pattern mismatch of subject({subject})' \

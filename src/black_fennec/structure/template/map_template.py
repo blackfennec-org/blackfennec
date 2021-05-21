@@ -37,9 +37,7 @@ class MapTemplate(MapEncapsulationBase, TemplateBase):
             Coverage: of subject by self(Template)
         """
 
-        coverage = super().visit_map(subject)
-        if not coverage.is_covered():
-            return Coverage.NOT_COVERED
+        coverage = Coverage.COVERED
 
         logger.debug(
             'Calculating map coverage (children=%s, types in template=%s)',
@@ -51,11 +49,11 @@ class MapTemplate(MapEncapsulationBase, TemplateBase):
                 sub_coverage = value.calculate_coverage(subject.value[key])
                 coverage += sub_coverage
                 if not sub_coverage.is_covered():
-                    return Coverage(len(subject.value), 0)
+                    return Coverage(1 + len(subject.value), 0)
             else:
                 message = f'key {key} not found in subject{subject}'
                 logger.debug(message)
-                return Coverage(len(subject.value), 0)
+                return Coverage(1 + len(subject.value), 0)
         coverage += Coverage(
             len(subject.value) - len(self.value),
             0
