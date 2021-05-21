@@ -1,5 +1,5 @@
 import logging
-from gi.repository import Gtk
+from gi.repository import Gtk, Gdk
 import os
 
 from uri import URI

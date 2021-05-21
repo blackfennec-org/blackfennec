@@ -45,7 +45,7 @@ background-color: @silver;
 border-image: none;
 background-image: none;
 box-shadow: none;
-font-family: Ubuntu
+font-family: Ubuntu;
 }
 
 .main-window selection{
@@ -53,7 +53,6 @@ color: @jet;
 background-color: @blue;
 margin: 10px;
 }
-
 
 .main-window paned separator.wide {
 border-image: none;
@@ -84,6 +83,11 @@ margin: 2px;
 .main-window scrollbar slider:hover {
 background-color: @silver;
 }
+
+decoration, decoration:backdrop{
+box-shadow: none;
+}
+
 
 /*Header*/
 .window-icon {
@@ -150,6 +154,25 @@ background-color: @jet;
 border: none;
 border-style: solid;
 border-color: @blue;
+}
+
+.main-header-bar menuitem menu{
+background-color: @rocky;
+border-radius: 0px 0px 7px 7px;
+}
+
+.main-header-bar menuitem menu menuitem {
+border: none;
+color: @silver;
+padding: 0px;
+margin: 0px;
+}
+
+.main-header-bar menuitem menu menuitem:hover {
+border: none;
+color: @silver;
+padding: 0px;
+margin: 0px;
 }
 
 /*status-bar*/
@@ -358,7 +381,7 @@ background-color: @silver;
 .number {
 background-image: none;
 border-image: none;
-border: none;
+border: 1px solid @rocky-d;
 border-radius: 25px;
 font-style: italic;
 font-weight: 300;
@@ -367,8 +390,16 @@ color: @silver;
 margin: 3px 0px;
 }
 
+.number:focus {
+border: 1px solid @blue;
+}
+
 .presenter-container textview text {
 border-radius: 10px;
+}
+
+.string *:focus{
+border: 1px solid @blue;
 }
 
 .string.view {
@@ -384,6 +415,7 @@ background-image: none;
 border-image: none;
 text-decoration: none;
 background-color: @rocky-d;
+color: @silver;
 }
 
 .base-key, .base-value {
@@ -428,7 +460,7 @@ padding: 5px;
 
 /*popup */
 
-.popup {
+.main-window .popup {
 background-color: @rocky;
 border-radius: 10px;
 border: none;
@@ -437,22 +469,22 @@ padding: 0px;
 margin: 0px;
 }
 
-.popup * {
+.main-window .popup * {
 color: @silver;
 }
 
-.popup > box {
+.main-window .popup > box {
 margin: 0px;
 border-radius: 0px;
 }
 
-.popup label{
+.main-window .popup label{
 padding: 10px;
 margin: 0px;
 border-radius: 0px;
 }
 
-.popup .title {
+.main-window .popup .title {
 font-size: 20px;
 font-weight: 700;
 border-radius: 0px;
@@ -460,7 +492,7 @@ box-shadow: 0px -1px 0px @silver inset;
 margin-bottom: 5px;
 }
 
-.popup button {
+.main-window .popup button {
 border-style: solid;
 border-color: @rocky-l;
 border-width: 2px;
@@ -468,17 +500,17 @@ border-radius: 30px;
 margin: 5px;
 }
 
-.popup .confirm {
+.main-window .popup .confirm {
 border-color: @blue;
 color: @blue;
 }
 
-.popup *:hover {
+.main-window .popup *:hover {
 border-radius: 0px;
 background-color: @rocky-l;
 }
 
-.popup button:hover {
+.main-window .popup button:hover {
 background-color: @rocky-l;
 border-style: solid;
 border-color: @rocky-l;
@@ -486,12 +518,12 @@ border-width: 2px;
 border-radius: 30px;
 }
 
-.popup .confirm:hover {
+.main-window .popup .confirm:hover {
 background-color: @blue;
 border-color: @blue;
 }
 
-.popup entry{
+.main-window .popup entry{
 border: 1px solid @rocky-d;
 background-image: none;
 border-image: none;
@@ -500,7 +532,7 @@ background-color: @rocky-d;
 border-radius: 30px;
 }
 
-.popup entry:focus {
+.main-window .popup entry:focus {
 border: 1px solid @blue;
 }
 
