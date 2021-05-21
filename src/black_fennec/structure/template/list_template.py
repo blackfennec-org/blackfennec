@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import logging
 
+from src.black_fennec.interpretation.auction.coverage import Coverage
 from src.black_fennec.structure.encapsulation_base.list_encapsulation_base import ListEncapsulationBase
 from src.black_fennec.structure.list import List
 from src.black_fennec.structure.template.template_base import TemplateBase
@@ -44,16 +45,14 @@ class ListTemplate(ListEncapsulationBase, TemplateBase):
             len(subject.children),
             len(subject.children)
         )
-        subject_node_count, template_node_count = super().visit_list(subject)
-        if (subject_node_count, template_node_count) == TemplateBase.NOT_COVERED:
-            return TemplateBase.NOT_COVERED
+        coverage = super().visit_list(subject)
+        if not coverage.is_covered():
+            return Coverage.NOT_COVERED
 
         for template_node in self.children:
             for subject_node in subject.children:
-                coverage = template_node.calculate_coverage(subject_node)
-                subject_node_count += coverage[0]
-                template_node_count += coverage[1]
-        return subject_node_count, template_node_count
+                coverage += template_node.calculate_coverage(subject_node)
+        return coverage
 
     def __repr__(self):
         return f'ListTemplate({self.subject.__repr__()})'

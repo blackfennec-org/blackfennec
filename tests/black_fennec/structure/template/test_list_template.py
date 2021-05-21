@@ -1,11 +1,11 @@
 import unittest
 
 from doubles.black_fennec.structure.double_info import InfoMock
+from src.black_fennec.interpretation.auction.coverage import Coverage
 from src.black_fennec.structure.list import List
 from src.black_fennec.structure.root import Root
 from src.black_fennec.structure.string import String
 from src.black_fennec.structure.template.list_template import ListTemplate
-from src.black_fennec.structure.template.template_base import TemplateBase
 from src.black_fennec.structure.template.template_factory_visitor import TemplateFactoryVisitor
 
 
@@ -32,7 +32,7 @@ class ListTemplateTestSuite(unittest.TestCase):
         coverage = list_template.calculate_coverage(subject)
         self.assertEqual(
             coverage,
-            (3, 3)
+            Coverage(3, 3)
         )
 
     def test_coverage_getter_list_half_coverage(self):
@@ -43,7 +43,7 @@ class ListTemplateTestSuite(unittest.TestCase):
         coverage = list_template.calculate_coverage(subject)
         self.assertEqual(
             coverage,
-            (3, 2)
+            Coverage(3, 2)
         )
 
     def test_calculate_coverage_wrong_type(self):
@@ -52,7 +52,7 @@ class ListTemplateTestSuite(unittest.TestCase):
         coverage = self.list_template.calculate_coverage(subject)
         self.assertEqual(
             coverage,
-            TemplateBase.NOT_COVERED
+            Coverage.NOT_COVERED
         )
 
     def test_can_get_repr(self):

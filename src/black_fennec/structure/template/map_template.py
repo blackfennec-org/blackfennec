@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import logging
 
+from src.black_fennec.interpretation.auction.coverage import Coverage
 from src.black_fennec.structure.encapsulation_base.map_encapsulation_base import MapEncapsulationBase
 from src.black_fennec.structure.map import Map
 from src.black_fennec.structure.template.template_base import TemplateBase
@@ -41,24 +42,22 @@ class MapTemplate(MapEncapsulationBase, TemplateBase):
             len(subject.children),
             len(subject.children)
         )
-        subject_node_count, template_node_count = super().visit_map(subject)
-        if (subject_node_count, template_node_count) == TemplateBase.NOT_COVERED:
-            return TemplateBase.NOT_COVERED
+        coverage = super().visit_map(subject)
+        if not coverage.is_covered():
+            return Coverage.NOT_COVERED
 
-        subject_node_count += len(subject.children)
         for key, value in self.value.items():
             if key in subject.value:
-                coverage = value.calculate_coverage(subject.value[key])
-                if coverage[1] <= 0:
-                    return subject_node_count, 0
-                subject_node_count += coverage[0] - 1
-                template_node_count += coverage[1]
+                sub_coverage = value.calculate_coverage(subject.value[key])
+                coverage += sub_coverage
+                if not sub_coverage.is_covered():
+                    return Coverage(len(subject.value), 0)
             else:
                 message = f'key {key} not found in subject{subject}'
                 logger.debug(message)
-                return subject_node_count, 0
-
-        return subject_node_count, template_node_count
+                return Coverage(len(subject.value), 0)
+        coverage += Coverage(len(subject.value) - len(self.value), 0)  # workaround
+        return coverage
 
     def __repr__(self):
         return f'MapTemplate({self.subject.__repr__()})'

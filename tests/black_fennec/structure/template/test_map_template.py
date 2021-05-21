@@ -3,6 +3,7 @@ import unittest
 from doubles.black_fennec.structure.double_info import InfoMock
 from doubles.black_fennec.structure.template.double_template_factory_visitor import TemplateFactoryVisitorMock
 from doubles.double_dummy import Dummy
+from src.black_fennec.interpretation.auction.coverage import Coverage
 from src.black_fennec.structure.encapsulation_base.base_factory_visitor import _create_generic_class
 from src.black_fennec.structure.info import Info
 from src.black_fennec.structure.map import Map
@@ -60,7 +61,7 @@ class MapTemplateTestSuite(unittest.TestCase):
         coverage = map_template.calculate_coverage(subject)
         self.assertEqual(
             coverage,
-            (3, 3)
+            Coverage(3, 3)
         )
 
     def test_calculate_coverage_map_half_coverage(self):
@@ -74,7 +75,7 @@ class MapTemplateTestSuite(unittest.TestCase):
         coverage = map_template.calculate_coverage(subject)
         self.assertEqual(
             coverage,
-            (3, 2)
+            Coverage(3, 2)
         )
 
     def test_calculate_coverage_map_third_coverage(self):
@@ -93,7 +94,7 @@ class MapTemplateTestSuite(unittest.TestCase):
         coverage = map_template.calculate_coverage(subject)
         self.assertEqual(
             coverage,
-            (4, 2)
+            Coverage(4, 2)
         )
 
     def test_calculate_coverage_map_unhandleable(self):
@@ -113,7 +114,7 @@ class MapTemplateTestSuite(unittest.TestCase):
         coverage = map_template.calculate_coverage(subject)
         self.assertEqual(
             coverage,
-            (2, 0)
+            Coverage(2, 0)
         )
 
     def test_calculate_coverage_wrong_type(self):
@@ -126,7 +127,7 @@ class MapTemplateTestSuite(unittest.TestCase):
         coverage = map_template.calculate_coverage(subject)
         self.assertEqual(
             coverage,
-            TemplateBase.NOT_COVERED
+            Coverage.NOT_COVERED
         )
 
     def test_can_get_repr(self):

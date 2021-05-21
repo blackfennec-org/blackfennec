@@ -2,6 +2,7 @@ import unittest
 
 from doubles.black_fennec.structure.double_info import InfoMock
 from doubles.black_fennec.structure.encapsulation_base.double_factory_base_visitor import FactoryBaseVisitorMock
+from src.black_fennec.interpretation.auction.coverage import Coverage
 from src.black_fennec.structure.root import Root
 from src.black_fennec.structure.string import String
 from src.black_fennec.structure.template.string_template import StringTemplate
@@ -27,7 +28,7 @@ class ListTemplateTestSuite(unittest.TestCase):
         coverage = self.string_template.calculate_coverage(self.subject)
         self.assertEqual(
             coverage,
-            TemplateBase.COVERED
+            Coverage.COVERED
         )
 
     def test_can_calculate_coverage_pattern_match(self):
@@ -37,7 +38,7 @@ class ListTemplateTestSuite(unittest.TestCase):
         coverage = string_template.calculate_coverage(subject)
         self.assertEqual(
             coverage,
-            TemplateBase.COVERED
+            Coverage.COVERED
         )
 
     def test_can_calculate_coverage_normal_string(self):
@@ -47,7 +48,7 @@ class ListTemplateTestSuite(unittest.TestCase):
         coverage = string_template.calculate_coverage(subject)
         self.assertEqual(
             coverage,
-            TemplateBase.COVERED
+            Coverage.COVERED
         )
 
     def test_can_calculate_coverage_pattern_mismatch(self):
@@ -57,7 +58,7 @@ class ListTemplateTestSuite(unittest.TestCase):
         coverage = string_template.calculate_coverage(subject)
         self.assertEqual(
             coverage,
-            TemplateBase.NOT_COVERED
+            Coverage.NOT_COVERED
         )
 
     def test_calculate_coverage_wrong_type(self):
@@ -66,7 +67,7 @@ class ListTemplateTestSuite(unittest.TestCase):
         coverage = self.string_template.calculate_coverage(subject)
         self.assertEqual(
             coverage,
-            TemplateBase.NOT_COVERED
+            Coverage.NOT_COVERED
         )
 
     def test_can_get_repr(self):

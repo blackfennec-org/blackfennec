@@ -1,5 +1,6 @@
 from numbers import Number
 
+from src.black_fennec.interpretation.auction.coverage import Coverage
 from src.black_fennec.structure.boolean import Boolean
 from src.black_fennec.structure.encapsulation_base.encapsulation_base import EncapsulationBase
 from src.black_fennec.structure.info import Info
@@ -34,9 +35,6 @@ class TemplateBase(EncapsulationBase):
     def optional(self, value: bool):
         self._visitor.metadata_storage[self.subject] = value
 
-    NOT_COVERED = (1, 0)
-    COVERED = (1, 1)
-
     def visit_info(self, subject_info: Info):
         return self._instance_equality_coverage(subject_info)
 
@@ -63,8 +61,8 @@ class TemplateBase(EncapsulationBase):
 
     def _instance_equality_coverage(self, subject):
         if isinstance(subject, self.subject.__class__):
-            return self.COVERED
-        return self.NOT_COVERED
+            return Coverage.COVERED
+        return Coverage.NOT_COVERED
 
     def calculate_coverage(self, subject):
         return subject.accept(self)

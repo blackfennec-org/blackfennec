@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 import logging
 import re
+
+from src.black_fennec.interpretation.auction.coverage import Coverage
 from src.black_fennec.structure.string import String
 from src.black_fennec.structure.template.template_base import TemplateBase
 
@@ -34,14 +36,14 @@ class StringTemplate(TemplateBase):
                 Returns:
                     bool: Whether value of string matches regexp if any
                 """
-        subject_node_count, template_node_count = super().visit_string(subject)
+        coverage = super().visit_string(subject)
         if self.value and self.value != '':
             if not re.match(self.value, subject.value):
                 message = f'Pattern mismatch of subject({subject})' \
                           f' and pattern({self.value})'
                 logger.info(message)
-                template_node_count = 0
-        return subject_node_count, template_node_count
+                return Coverage.NOT_COVERED
+        return coverage
 
     def __repr__(self):
         return f'StringTemplate({self.subject.__repr__()})'

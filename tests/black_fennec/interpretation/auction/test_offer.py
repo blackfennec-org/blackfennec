@@ -3,13 +3,9 @@ import unittest
 
 from doubles.black_fennec.structure.double_info import InfoMock
 from doubles.double_dummy import Dummy
+from src.black_fennec.interpretation.auction.coverage import Coverage
 from src.black_fennec.interpretation.auction.offer import Offer
-from src.black_fennec.structure.list import List
-from src.black_fennec.structure.map import Map
-from src.black_fennec.structure.reference import Reference
-from src.black_fennec.structure.string import String
 from src.black_fennec.structure.template.template_factory_visitor import TemplateFactoryVisitor
-from src.visualisation.core.reference.reference_bidder import create_reference_template
 
 
 class OfferTestSuite(unittest.TestCase):
@@ -110,122 +106,8 @@ class OfferTestSuite(unittest.TestCase):
         offer = Offer(subject, specificity, template, view_factory)
         self.assertEqual(
             offer.coverage,
-            1
+            Coverage.COVERED
         )
-
-    def test_coverage_getter_list_full_coverage(self):
-        subject = List([InfoMock('Info1'), InfoMock('Info2')])
-        specificity = 1
-        template = List([InfoMock('Info')]).accept(self.template_factory)
-        view_factory = Dummy('ViewFactory')
-
-        offer = Offer(subject, specificity, template, view_factory)
-        self.assertEqual(
-            offer.coverage,
-            1
-        )
-
-    def test_coverage_getter_map_full_coverage(self):
-        subject = Map({'info1': InfoMock('Info'), 'info2': InfoMock('Info')})
-        specificity = 1
-        template = Map(
-            {'info1': InfoMock('Info'), 'info2': InfoMock('Info')}
-        ).accept(self.template_factory)
-        view_factory = Dummy('ViewFactory')
-
-        offer = Offer(subject, specificity, template, view_factory)
-        self.assertAlmostEqual(
-            offer.coverage,
-            1
-        )
-
-    def test_coverage_getter_map_half_coverage(self):
-        subject = Map({'info1': InfoMock('Info'), 'info2': InfoMock('Info')})
-        specificity = 1
-        template = Map(
-            {'info1': InfoMock('Info')}
-        ).accept(self.template_factory)
-        view_factory = Dummy('ViewFactory')
-
-        offer = Offer(subject, specificity, template, view_factory)
-        self.assertAlmostEqual(
-            offer.coverage,
-            2/3
-        )
-
-    def test_coverage_getter_map_third_coverage(self):
-        subject = Map(
-            {
-                'info1': InfoMock('Info'),
-                'info2': InfoMock('Info'),
-                'info3': InfoMock('Info')
-            }
-        )
-        specificity = 1
-        template = Map(
-            {'info1': InfoMock('Info')}
-        ).accept(self.template_factory)
-        view_factory = Dummy('ViewFactory')
-
-        offer = Offer(subject, specificity, template, view_factory)
-        self.assertAlmostEqual(
-            offer.coverage,
-            2/4
-        )
-
-    def test_coverage_getter_map_unhandleable(self):
-        subject = Map(
-            {
-                'info1': InfoMock('Info')
-            }
-        )
-        specificity = 1
-        template = Map(
-            {
-                'info1': InfoMock('Info'),
-                'info2': InfoMock('Info'),
-            }
-        ).accept(self.template_factory)
-        view_factory = Dummy('ViewFactory')
-
-        offer = Offer(subject, specificity, template, view_factory)
-        self.assertAlmostEqual(
-            offer.coverage,
-            0
-        )
-
-    def test_coverage_getter_string_pattern_match(self):
-        subject = String('a')
-        specificity = 1
-        template = String(
-            '^[a]$'
-        ).accept(self.template_factory)
-        view_factory = Dummy('ViewFactory')
-
-        offer = Offer(subject, specificity, template, view_factory)
-        self.assertAlmostEqual(
-            offer.coverage,
-            1
-        )
-
-    def test_coverage_getter_string_pattern_mismatch(self):
-        subject = String('b')
-        specificity = 1
-        template = String(
-            '^[a]$'
-        ).accept(self.template_factory)
-        view_factory = Dummy('ViewFactory')
-
-        offer = Offer(subject, specificity, template, view_factory)
-        self.assertAlmostEqual(
-            offer.coverage,
-            0
-        )
-
-    def test_offer_coverage_for_reference(self):
-        subject = Reference(Dummy())
-        offer = Offer(subject, 0, create_reference_template(), Dummy())
-        self.assertEqual(offer.coverage, 1)
 
     def test_equal_offers_equality(self):
         subject = InfoMock('Info')

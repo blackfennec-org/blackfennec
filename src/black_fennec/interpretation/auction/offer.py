@@ -1,17 +1,12 @@
 # -*- coding: utf-8 -*-
 import logging
-import re
+from functools import lru_cache, cached_property
 
+from src.black_fennec.interpretation.auction.coverage import Coverage
+from src.black_fennec.interpretation.specification import Specification
 from src.black_fennec.structure.info import Info
-from src.black_fennec.structure.list import List
-from src.black_fennec.structure.map import Map
-from src.black_fennec.structure.string import String
-from src.black_fennec.structure.template.list_template import ListTemplate
-from src.black_fennec.structure.template.map_template import MapTemplate
-from src.black_fennec.structure.template.string_template import StringTemplate
 from src.black_fennec.structure.template.template_base import TemplateBase
 from src.black_fennec.util.comparable import Comparable
-from src.black_fennec.interpretation.specification import Specification
 
 logger = logging.getLogger(__name__)
 
@@ -27,7 +22,7 @@ class Offer(Comparable):
         _specificity (Int): Describes inheritance hierarchy level
         _view_factory: View Factory for corresponding type
         _template: structure that type can handle
-        _coverage (float): Describes coverage of nodes of subject
+        _coverage (Coverage): Describes coverage of nodes of subject
     """
 
     def __init__(
@@ -91,32 +86,14 @@ class Offer(Comparable):
         """
         return self._template
 
-    @property
-    def coverage(self) -> float:
+    @cached_property
+    def coverage(self) -> Coverage:
         """coverage getter
 
         Returns:
             float: coverage property set by constructor
         """
-        if self._coverage:
-            return self._coverage
-
-        subject_node_count, template_node_count = self.template.calculate_coverage(self.subject)
-
-        logger.debug(
-            'Received values of coverage calculation, '
-            '(subject_node_count = %s, template_node_count = %s,'
-            'subject_type = %s, template_type = %s)',
-            subject_node_count,
-            template_node_count,
-            type(self.subject),
-            type(self.template)
-        )
-        assert template_node_count <= subject_node_count, \
-            'Template node count cannot be greater than subject node count'
-        assert subject_node_count > 0, 'Subject node count cannot be 0'
-        self._coverage = template_node_count / subject_node_count
-        return self._coverage
+        return self.template.calculate_coverage(self.subject)
 
     @property
     def view_factory(self):

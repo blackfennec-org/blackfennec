@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import unittest
 
+from doubles.black_fennec.interpretation.auction.double_coverage import CoverageMock
 from doubles.double_dummy import Dummy
 from doubles.visualisation.double_info_bidder import InfoBidderMock
 from doubles.black_fennec.interpretation.double_specification import SpecificationMock
@@ -15,9 +16,9 @@ class AuctioneerTestSuite(unittest.TestCase):
 
     def test_auction(self):
         factory1 = Dummy('InfoViewFactory1')
-        bidder1 = InfoBidderMock(coverage=0.5, view_factory=factory1)
+        bidder1 = InfoBidderMock(coverage=CoverageMock(0.5), view_factory=factory1)
         factory2 = Dummy('InfoViewFactory2')
-        bidder2 = InfoBidderMock(coverage=1, view_factory=factory2)
+        bidder2 = InfoBidderMock(coverage=CoverageMock(1), view_factory=factory2)
         type_registry = TypeRegistryMock([bidder1, bidder2])
         auctioneer = Auctioneer(type_registry)
         subject = Dummy('Info')
