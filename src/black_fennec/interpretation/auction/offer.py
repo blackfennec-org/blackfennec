@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import logging
-from functools import lru_cache, cached_property
+from functools import cached_property
 
 from src.black_fennec.interpretation.auction.coverage import Coverage
 from src.black_fennec.interpretation.specification import Specification

@@ -35,10 +35,13 @@ class Coverage(Comparable):
         )
 
     def __lt__(self, other: 'Coverage'):
-        return self != other and self._calculate_ratio() < other._calculate_ratio()
+        return self != other and\
+               self._calculate_ratio() < other._calculate_ratio()
 
     def __repr__(self):
-        return f'Coverage({self._subject_node_count}, {self._template_node_count})'
+        return f'Coverage(' \
+               f'{self._subject_node_count}, ' \
+               f'{self._template_node_count})'
 
     def __eq__(self, other: 'Coverage'):
         return math.isclose(self._calculate_ratio(), other._calculate_ratio())

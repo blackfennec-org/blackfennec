@@ -55,6 +55,15 @@ class ListTemplateTestSuite(unittest.TestCase):
             Coverage.NOT_COVERED
         )
 
+    def test_visit_wrong_type(self):
+        subject = InfoMock()
+
+        coverage = self.list_template.visit_list(subject)
+        self.assertEqual(
+            coverage,
+            Coverage.NOT_COVERED
+        )
+
     def test_can_get_repr(self):
         representation: str = self.list_template.__repr__()
         self.assertTrue(representation.startswith('ListTemplate('))

@@ -35,31 +35,31 @@ class TemplateBase(EncapsulationBase):
     def optional(self, value: bool):
         self._visitor.metadata_storage[self.subject] = value
 
-    def visit_info(self, subject_info: Info):
+    def visit_info(self, subject_info: Info) -> Coverage:
         return self._instance_equality_coverage(subject_info)
 
-    def visit_root(self, subject_root: Root):
+    def visit_root(self, subject_root: Root) -> Coverage:
         return self._instance_equality_coverage(subject_root)
 
-    def visit_string(self, subject_string: String):
+    def visit_string(self, subject_string: String) -> Coverage:
         return self._instance_equality_coverage(subject_string)
 
-    def visit_number(self, subject_number: Number):
+    def visit_number(self, subject_number: Number) -> Coverage:
         return self._instance_equality_coverage(subject_number)
 
-    def visit_boolean(self, subject_boolean: Boolean):
+    def visit_boolean(self, subject_boolean: Boolean) -> Coverage:
         return self._instance_equality_coverage(subject_boolean)
 
-    def visit_reference(self, subject_reference: Reference):
+    def visit_reference(self, subject_reference: Reference) -> Coverage:
         return self._instance_equality_coverage(subject_reference)
 
-    def visit_list(self, subject_list: List):
+    def visit_list(self, subject_list: List) -> Coverage:
         return self._instance_equality_coverage(subject_list)
 
-    def visit_map(self, subject_map: Map):
+    def visit_map(self, subject_map: Map) -> Coverage:
         return self._instance_equality_coverage(subject_map)
 
-    def _instance_equality_coverage(self, subject):
+    def _instance_equality_coverage(self, subject) -> Coverage:
         if isinstance(subject, self.subject.__class__):
             return Coverage.COVERED
         return Coverage.NOT_COVERED

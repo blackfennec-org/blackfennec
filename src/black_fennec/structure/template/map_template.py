@@ -27,25 +27,25 @@ class MapTemplate(MapEncapsulationBase, TemplateBase):
             subject
         )
 
-    def visit_map(self, subject: Map):
+    def visit_map(self, subject: Map) -> Coverage:
         """Coverage calculation for Map Class
 
         Args:
             subject (Map): Map for which coverage is calculated
 
         Returns:
-            (int, int): subject/template node count encountered in map
+            Coverage: of subject by self(Template)
         """
+
+        coverage = super().visit_map(subject)
+        if not coverage.is_covered():
+            return Coverage.NOT_COVERED
 
         logger.debug(
             'Calculating map coverage (children=%s, types in template=%s)',
             len(subject.children),
             len(subject.children)
         )
-        coverage = super().visit_map(subject)
-        if not coverage.is_covered():
-            return Coverage.NOT_COVERED
-
         for key, value in self.value.items():
             if key in subject.value:
                 sub_coverage = value.calculate_coverage(subject.value[key])
@@ -56,7 +56,10 @@ class MapTemplate(MapEncapsulationBase, TemplateBase):
                 message = f'key {key} not found in subject{subject}'
                 logger.debug(message)
                 return Coverage(len(subject.value), 0)
-        coverage += Coverage(len(subject.value) - len(self.value), 0)  # workaround
+        coverage += Coverage(
+            len(subject.value) - len(self.value),
+            0
+        )  # workaround
         return coverage
 
     def __repr__(self):

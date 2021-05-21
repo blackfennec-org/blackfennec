@@ -22,7 +22,7 @@ class StringTemplate(TemplateBase):
             subject
         )
 
-    def visit_string(self, subject: String):
+    def visit_string(self, subject: String) -> Coverage:
         """Check value of String for regexp
 
                 Checks whether the value contained in the template
@@ -30,11 +30,10 @@ class StringTemplate(TemplateBase):
 
                 Args:
                     subject (List): String whose value has to match template
-                    template (List): Template that may contains value which
-                        if existing will be matched against the subjects value.
-
                 Returns:
-                    bool: Whether value of string matches regexp if any
+                    Coverage: Coverage.COVERED if the match was successful
+                        or no regex was contained in the template value;
+                        Coverage.NOT_COVERED if the match failed.
                 """
         coverage = super().visit_string(subject)
         if self.value and self.value != '':

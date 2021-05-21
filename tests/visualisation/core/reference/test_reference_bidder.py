@@ -23,8 +23,6 @@ class ReferenceBidderTestSuite(unittest.TestCase):
         subject = Reference(Dummy())
         lesser_offer = Offer(subject, 0, create_string_template(), Dummy())
         offer = bidder.bid(subject)
-        print(f'string_offer: cov({lesser_offer.coverage}), spec({lesser_offer.specificity})')
-        print(f'reference_offer: cov({offer.coverage}), spec({offer.specificity})')
         self.assertGreater(offer, lesser_offer)
 
     def test_offer_equal_map_offer(self):
