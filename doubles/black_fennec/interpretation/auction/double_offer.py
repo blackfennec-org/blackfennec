@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
+from doubles.black_fennec.interpretation.auction.double_coverage import CoverageMock
 from doubles.double_dummy import Dummy
 
 
 class OfferFake:
     def __init__(self,
-            coverage=0.5,
+            coverage=CoverageMock(0.5),
             view_factory=Dummy('ViewFactory'),
             satisfies=True):
         self._view_factory = view_factory
