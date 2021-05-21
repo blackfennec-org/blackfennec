@@ -71,14 +71,25 @@
         <property name="orientation">vertical</property>
         <property name="spacing">8</property>
         <child>
-          <object class="GtkLabel">
+          <object class="GtkBox">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
-            <property name="label" translatable="yes">Edit Key</property>
-            <attributes>
-              <attribute name="weight" value="bold"/>
-              <attribute name="scale" value="1.2"/>
-            </attributes>
+            <property name="orientation">vertical</property>
+            <child>
+              <object class="GtkLabel">
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="label" translatable="yes">Edit Key</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">0</property>
+              </packing>
+            </child>
+            <style>
+              <class name="title"/>
+            </style>
           </object>
           <packing>
             <property name="expand">False</property>
@@ -90,6 +101,7 @@
           <object class="GtkEntry" id="_rename_entry">
             <property name="visible">True</property>
             <property name="can-focus">True</property>
+            <property name="shadow-type">none</property>
             <property name="placeholder-text" translatable="yes">Enter new name</property>
           </object>
           <packing>
@@ -123,6 +135,9 @@
                 <property name="can-focus">True</property>
                 <property name="receives-default">True</property>
                 <signal name="clicked" handler="on_rename_clicked" swapped="no"/>
+                <style>
+                  <class name="confirm"/>
+                </style>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -141,6 +156,7 @@
     </child>
     <style>
       <class name="item-view-popup"/>
+      <class name="popup"/>
     </style>
   </object>
   <object class="GtkListStore" id="_liststore">
@@ -170,14 +186,25 @@
         <property name="orientation">vertical</property>
         <property name="spacing">5</property>
         <child>
-          <object class="GtkLabel">
+          <object class="GtkBox">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
-            <property name="label" translatable="yes">Add Map Item</property>
-            <attributes>
-              <attribute name="weight" value="bold"/>
-              <attribute name="scale" value="1.2"/>
-            </attributes>
+            <property name="orientation">vertical</property>
+            <child>
+              <object class="GtkLabel">
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="label" translatable="yes">Add Map Item</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">0</property>
+              </packing>
+            </child>
+            <style>
+              <class name="title"/>
+            </style>
           </object>
           <packing>
             <property name="expand">False</property>
@@ -186,41 +213,16 @@
           </packing>
         </child>
         <child>
-          <object class="GtkLabel">
-            <property name="visible">True</property>
-            <property name="can-focus">False</property>
-            <property name="halign">start</property>
-            <property name="label" translatable="yes">Key</property>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">1</property>
-          </packing>
-        </child>
-        <child>
           <object class="GtkEntry" id="_add_entry">
             <property name="visible">True</property>
             <property name="can-focus">True</property>
+            <property name="shadow-type">none</property>
             <property name="placeholder-text" translatable="yes">Enter new key</property>
           </object>
           <packing>
             <property name="expand">False</property>
             <property name="fill">True</property>
-            <property name="position">2</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkLabel">
-            <property name="visible">True</property>
-            <property name="can-focus">False</property>
-            <property name="halign">start</property>
-            <property name="label" translatable="yes">Type</property>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">3</property>
+            <property name="position">1</property>
           </packing>
         </child>
         <child>
@@ -235,14 +237,14 @@
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
                 <property name="shadow-type">none</property>
-                <property name="placeholder-text" translatable="yes">Search template</property>
+                <property name="placeholder-text" translatable="yes">Choose type</property>
               </object>
             </child>
           </object>
           <packing>
             <property name="expand">False</property>
             <property name="fill">True</property>
-            <property name="position">4</property>
+            <property name="position">2</property>
           </packing>
         </child>
         <child>
@@ -273,6 +275,9 @@
                 <property name="receives-default">True</property>
                 <property name="halign">end</property>
                 <signal name="clicked" handler="on_add_clicked" swapped="no"/>
+                <style>
+                  <class name="confirm"/>
+                </style>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -285,13 +290,14 @@
           <packing>
             <property name="expand">False</property>
             <property name="fill">True</property>
-            <property name="position">5</property>
+            <property name="position">3</property>
           </packing>
         </child>
       </object>
     </child>
     <style>
       <class name="item-view-popup"/>
+      <class name="popup"/>
     </style>
   </object>
   <object class="GtkEntryCompletion" id="entrycompletion1">
@@ -313,14 +319,25 @@
         <property name="orientation">vertical</property>
         <property name="spacing">4</property>
         <child>
-          <object class="GtkLabel">
+          <object class="GtkBox">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
-            <property name="label" translatable="yes">Options</property>
-            <attributes>
-              <attribute name="weight" value="bold"/>
-              <attribute name="scale" value="1.2"/>
-            </attributes>
+            <property name="orientation">vertical</property>
+            <child>
+              <object class="GtkLabel">
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="label" translatable="yes">Options</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">0</property>
+              </packing>
+            </child>
+            <style>
+              <class name="title"/>
+            </style>
           </object>
           <packing>
             <property name="expand">False</property>
@@ -374,6 +391,7 @@
     </child>
     <style>
       <class name="item-view-popup"/>
+      <class name="popup"/>
     </style>
   </object>
 </interface>

@@ -426,25 +426,82 @@ border-color:@blue;
 padding: 5px;
 }
 
-.item-view-popup {
-background-color: @iron-l;
+/*popup */
+
+.popup {
+background-color: @rocky;
 border-radius: 10px;
 border: none;
+color: @silver;
+padding: 0px;
+margin: 0px;
 }
 
-.item-view-popup label{
+.popup * {
+color: @silver;
+}
+
+.popup > box {
+margin: 0px;
+border-radius: 0px;
+}
+
+.popup label{
 padding: 10px;
+margin: 0px;
+border-radius: 0px;
 }
 
-.item-view-popup *:hover {
-box-shadow: 3px 0px 0px @blue inset;
+.popup .title {
+font-size: 20px;
+font-weight: 700;
+border-radius: 0px;
+box-shadow: 0px -1px 0px @silver inset;
+margin-bottom: 5px;
 }
 
-.item-view-popup entry{
+.popup button {
+border-style: solid;
+border-color: @rocky-l;
+border-width: 2px;
+border-radius: 30px;
+margin: 5px;
+}
+
+.popup .confirm {
+border-color: @blue;
+color: @blue;
+}
+
+.popup *:hover {
+border-radius: 0px;
+background-color: @rocky-l;
+}
+
+.popup button:hover {
+background-color: @rocky-l;
+border-style: solid;
+border-color: @rocky-l;
+border-width: 2px;
+border-radius: 30px;
+}
+
+.popup .confirm:hover {
+background-color: @blue;
+border-color: @blue;
+}
+
+.popup entry{
+border: 1px solid @rocky-d;
 background-image: none;
 border-image: none;
 text-decoration: none;
 background-color: @rocky-d;
+border-radius: 30px;
+}
+
+.popup entry:focus {
+border: 1px solid @blue;
 }
 
 /* Presenter Container Tab system*/
