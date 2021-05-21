@@ -136,8 +136,8 @@ class BlackFennecView(Gtk.ApplicationWindow):
             notebook = self._presenter_container
             tab_box = self._create_tab_widget(tab)
 
-            page_index = notebook.append_page_menu(
-                tab.presenter, tab_box, Gtk.Label.new(tab.uri.path.name))
+            page_index = notebook.append_page(
+                tab.presenter, tab_box)
             notebook.set_tab_reorderable(
                 self._presenter_container.get_nth_page(page_index), True)
 

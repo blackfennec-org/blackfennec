@@ -82,7 +82,6 @@
                                 <property name="visible">True</property>
                                 <property name="can-focus">True</property>
                                 <property name="scrollable">True</property>
-                                <property name="enable-popup">True</property>
                                 <child>
                                   <object class="GtkBox" id="_empty_list_pattern">
                                     <property name="name">empty-list-pattern</property>
