@@ -82,7 +82,6 @@
                                 <property name="visible">True</property>
                                 <property name="can-focus">True</property>
                                 <property name="scrollable">True</property>
-                                <property name="enable-popup">True</property>
                                 <child>
                                   <object class="GtkBox" id="_empty_list_pattern">
                                     <property name="name">empty-list-pattern</property>
@@ -195,13 +194,15 @@
               </packing>
             </child>
             <child>
-              <object class="GtkStatusbar" id="statusbar">
-                <property name="height-request">100</property>
+              <object class="GtkTextView">
                 <property name="visible">True</property>
-                <property name="can-focus">False</property>
-                <property name="hexpand">True</property>
-                <property name="orientation">vertical</property>
-                <property name="spacing">2</property>
+                <property name="can-focus">True</property>
+                <property name="hexpand">False</property>
+                <property name="left-margin">15</property>
+                <property name="right-margin">15</property>
+                <property name="top-margin">15</property>
+                <property name="bottom-margin">15</property>
+                <property name="input-purpose">terminal</property>
                 <style>
                   <class name="main-status-bar"/>
                 </style>
@@ -244,7 +245,10 @@
               <object class="GtkImage">
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
-                <property name="stock">gtk-dialog-error</property>
+                <property name="pixbuf">src/black_fennec/facade/main_window/window_icon.png</property>
+                <style>
+                  <class name="window-icon"/>
+                </style>
               </object>
             </child>
             <child>
@@ -269,6 +273,9 @@
                             <property name="use-underline">True</property>
                             <property name="use-stock">True</property>
                             <signal name="activate" handler="on_new_clicked" swapped="no"/>
+                            <style>
+                              <class name="menu-item"/>
+                            </style>
                           </object>
                         </child>
                         <child>
@@ -279,12 +286,9 @@
                             <property name="use-underline">True</property>
                             <property name="use-stock">True</property>
                             <signal name="activate" handler="on_open_clicked" swapped="no"/>
-                          </object>
-                        </child>
-                        <child>
-                          <object class="GtkSeparatorMenuItem">
-                            <property name="visible">True</property>
-                            <property name="can-focus">False</property>
+                            <style>
+                              <class name="menu-item"/>
+                            </style>
                           </object>
                         </child>
                         <child>
@@ -295,6 +299,10 @@
                             <property name="use-underline">True</property>
                             <property name="use-stock">True</property>
                             <signal name="activate" handler="on_quit_clicked" swapped="no"/>
+                            <style>
+                              <class name="close"/>
+                              <class name="last-item"/>
+                            </style>
                           </object>
                         </child>
                       </object>
@@ -322,6 +330,9 @@
                             <property name="use-underline">True</property>
                             <property name="use-stock">True</property>
                             <signal name="activate" handler="on_save_clicked" swapped="no"/>
+                            <style>
+                              <class name="menu-item"/>
+                            </style>
                           </object>
                         </child>
                         <child>
@@ -332,6 +343,10 @@
                             <property name="use-underline">True</property>
                             <property name="use-stock">True</property>
                             <signal name="activate" handler="on_save_as_clicked" swapped="no"/>
+                            <style>
+                              <class name="menu-item"/>
+                              <class name="last-item"/>
+                            </style>
                           </object>
                         </child>
                       </object>

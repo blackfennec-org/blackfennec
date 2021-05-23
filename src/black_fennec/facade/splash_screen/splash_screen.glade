@@ -14,6 +14,8 @@
     <property name="deletable">False</property>
     <child>
       <object class="GtkFixed">
+        <property name="width-request">700</property>
+        <property name="height-request">438</property>
         <property name="visible">True</property>
         <property name="can-focus">False</property>
         <property name="halign">center</property>
@@ -96,7 +98,28 @@ Data Science</property>
             <property name="y">313</property>
           </packing>
         </child>
+        <child>
+          <object class="GtkLabel">
+            <property name="width-request">100</property>
+            <property name="height-request">80</property>
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="label" translatable="yes">Caspar Martens, Simon Kindhauser, 
+Leonie Däullary, Lara Gubler</property>
+            <property name="justify">right</property>
+            <style>
+              <class name="credit"/>
+            </style>
+          </object>
+          <packing>
+            <property name="x">330</property>
+            <property name="y">341</property>
+          </packing>
+        </child>
       </object>
     </child>
+    <style>
+      <class name="splash-screen"/>
+    </style>
   </template>
 </interface>
