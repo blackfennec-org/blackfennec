@@ -1,5 +1,5 @@
 import logging
-from gi.repository import Gtk
+from gi.repository import Gtk, Gdk
 import os
 
 from uri import URI
@@ -136,8 +136,8 @@ class BlackFennecView(Gtk.ApplicationWindow):
             notebook = self._presenter_container
             tab_box = self._create_tab_widget(tab)
 
-            page_index = notebook.append_page_menu(
-                tab.presenter, tab_box, Gtk.Label.new(tab.uri.path.name))
+            page_index = notebook.append_page(
+                tab.presenter, tab_box)
             notebook.set_tab_reorderable(
                 self._presenter_container.get_nth_page(page_index), True)
 
@@ -174,7 +174,7 @@ class BlackFennecView(Gtk.ApplicationWindow):
 
         tab_button = Gtk.Button.new()
         tab_button.set_name(str(tab.uri))
-        tab_button.set_image(button_image)
+        tab_button.set_label('✕')
         tab_button.connect('clicked', self.on_close_tab_clicked)
 
         tab_box = Gtk.Box.new(0, 5)
