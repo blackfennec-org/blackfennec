@@ -1,18 +1,11 @@
 from src.black_fennec.structure.info import Info
-from src.black_fennec.structure.boolean import Boolean
-from src.black_fennec.structure.template.template_factory_visitor import TemplateFactoryVisitor
+from src.visualisation.core.boolean.boolean_template import BooleanTemplate
 from src.visualisation.core.boolean.boolean_view_factory import BooleanViewFactory
 from src.black_fennec.interpretation.auction.offer import Offer
 
 import logging
 
 logger = logging.getLogger(__name__)
-
-
-def create_boolean_template():
-    template_factory = TemplateFactoryVisitor()
-    template = Boolean().accept(template_factory)
-    return template
 
 
 class BooleanBidder:
@@ -34,6 +27,6 @@ class BooleanBidder:
         return Offer(
             subject,
             0,
-            create_boolean_template(),
+            BooleanTemplate(),
             BooleanViewFactory()
         )

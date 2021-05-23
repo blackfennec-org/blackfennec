@@ -2,6 +2,8 @@ import os
 
 import gi
 
+from src.black_fennec.type_system.template_registry import TemplateRegistry
+
 gi.require_version('Gtk', '3.0')
 
 # pylint: disable=wrong-import-position,ungrouped-imports
@@ -167,9 +169,11 @@ class BlackFennec(Gtk.Application):
         )
 
         presenter_registry = PresenterRegistry()
+        template_registry = TemplateRegistry()
         extension_api = ExtensionApi(
             presenter_registry,
             type_registry,
+            template_registry,
             interpretation_service
         )
         load_extensions_from_file(
