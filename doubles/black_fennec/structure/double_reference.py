@@ -4,8 +4,8 @@ from src.black_fennec.structure.reference import Reference
 
 
 class ReferenceMock(StructureMock):
-    def __init__(self, value=None, children=None, parent=None, root=None, destination=None):
-        StructureMock.__init__(self, value, children, parent, root)
+    def __init__(self, value=None, parent=None, root=None, destination=None):
+        StructureMock.__init__(self, value, parent, root)
         self._destination = destination
         self.get_destination_count = 0
 

@@ -44,11 +44,6 @@ class RootTestSuite(unittest.TestCase):
         root.value = child
         self.assertEqual(root.value, child)
 
-    def test_get_children(self):
-        child = StructureMock()
-        root = Root(child)
-        self.assertIn(child, root.children)
-
     def test_can_not_change_parent(self):
         new_parent = RootMock()
         root = Root()

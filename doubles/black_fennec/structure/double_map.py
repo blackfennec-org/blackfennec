@@ -9,7 +9,6 @@ class MapMock(UserDict, StructureMock):
         UserDict.__init__(self, value)
         StructureMock.__init__(self, value, parent=parent, root=root)
         self.data = {} if value is None else value
-        self._children = self.data.values()
 
     def accept(self, visitor):
         return visitor.visit_map(self)

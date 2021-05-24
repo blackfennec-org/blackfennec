@@ -30,10 +30,10 @@ class ExtensionSourceTestSuite(unittest.TestCase):
         self.source_location = 'location'
         self.extension_source_map = MapMock({
             ExtensionSource.SOURCE_IDENTIFICATION: StringMock(self.source_identification),
-            ExtensionSource.SOURCE_LOCATION: ListMock(children=[
+            ExtensionSource.SOURCE_LOCATION: ListMock(value=[
                 StringMock(self.source_location)
             ]),
-            ExtensionSource.EXTENSION_LIST_KEY: ListMock(children=[
+            ExtensionSource.EXTENSION_LIST_KEY: ListMock(value=[
                 self.extension_map
             ])
         })

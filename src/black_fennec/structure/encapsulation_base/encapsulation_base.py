@@ -12,7 +12,7 @@ class EncapsulationBase:
 
         Args:
             visitor (BaseFactoryVisitor): visitor/abstract visitor used
-                to encapsulate parent/root/children
+                to encapsulate parent/root
             subject (Structure): subject that gets encapsulated
         """
         self._visitor = visitor
@@ -52,16 +52,6 @@ class EncapsulationBase:
     @value.setter
     def value(self, value):
         self.subject.value = value
-
-    @property
-    def children(self):
-        if self.subject.children:
-            return [
-                child.accept(self._visitor)
-                for child in self.subject.children
-            ]
-        else:
-            return list()
 
     @property
     def root(self):

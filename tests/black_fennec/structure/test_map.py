@@ -17,12 +17,6 @@ class MapTestSuite(unittest.TestCase):
         self.assertEqual(structure, data)
         self.assertEqual(data['a'].parent, structure)
 
-    def test_can_get_children(self):
-        data = {'a': StructureMock(), 'b': StructureMock()}
-        structure = Map(data)
-        children = structure.children
-        self.assertListEqual(children, list(data.values()))
-
     def test_can_add_item(self):
         m = Map()
         key = 'Key'

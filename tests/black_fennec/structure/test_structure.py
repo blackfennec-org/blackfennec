@@ -23,11 +23,6 @@ class StructureTestSuite(unittest.TestCase):
         structure = Structure(parent=root)
         self.assertEqual(structure.root, root)
 
-    def test_can_get_children(self):
-        structure = Structure()
-        children = structure.children
-        self.assertEqual(children, [])
-
     def test_can_get_value(self):
         value = 'value'
         structure = Structure(value)

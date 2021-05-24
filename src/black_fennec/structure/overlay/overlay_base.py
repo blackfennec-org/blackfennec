@@ -7,16 +7,6 @@ class OverlayBase(EncapsulationBase):
     def __init__(self, visitor, subject):
         EncapsulationBase.__init__(self, visitor, subject)
 
-    @property
-    def children(self) -> ['OverlayBase']:
-        if self.subject.children:
-            return [
-                self._encapsulate_and_dereference(child)
-                for child in self.subject.children
-            ]
-        else:
-            return list()
-
     def _encapsulate_and_dereference(self, item):
         if isinstance(item, Reference):
             item = item.destination

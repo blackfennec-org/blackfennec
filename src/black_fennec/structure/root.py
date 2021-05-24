@@ -56,9 +56,5 @@ class Root(Structure):
     def value(self, child: Structure):
         self._value = child
 
-    @property
-    def children(self) -> list:
-        return [self.value]
-
     def accept(self, visitor):
         return visitor.visit_root(self)

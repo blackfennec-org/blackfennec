@@ -28,67 +28,7 @@ class OverlayBaseTestSuite(unittest.TestCase):
         self.overlay_base: Optional[OverlayBase] = None
 
     def test_can_construct(self):
-        pass
-
-    def test_get_list_children(self):
-        value = StructureMock('test_value')
-        subject = List([value])
-        overlay_base: Optional[OverlayBase] = OverlayBase(
-            self.visitor,
-            subject
-        )
-        children = overlay_base.children
-        self.assertEqual(len(children), 1)
-        self.assertEqual(self.visitor.structure, value)
-        self.assertEqual(self.visitor.visit_structure_count, 1)
-
-    def test_get_list_children_with_reference(self):
-        value = StructureMock('test_value')
-        resolving_service = JsonReferenceResolvingServiceMock(resolve_return=value)
-        ref = Reference(resolving_service, URI('0'))
-        subject = List([ref])
-        overlay_base: Optional[OverlayBase] = OverlayBase(
-            self.visitor,
-            subject
-        )
-        children = overlay_base.children
-        self.assertEqual(len(children), 1)
-        self.assertEqual(self.visitor.structure, value)
-        self.assertEqual(self.visitor.visit_structure_count, 1)
-
-    def test_get_map_children(self):
-        key = 'test'
-        value = StructureMock('test_value')
-        subject = Map({key: value})
-        overlay_base: Optional[OverlayBase] = OverlayBase(
-            self.visitor,
-            subject
-        )
-        children = overlay_base.children
-        self.assertEqual(len(children), 1)
-        self.assertEqual(self.visitor.structure, value)
-        self.assertEqual(self.visitor.visit_structure_count, 1)
-
-    def test_get_map_children_with_reference(self):
-        key = 'test'
-        value = StructureMock('test_value')
-        resolving_service = \
-            JsonReferenceResolvingServiceMock(resolve_return=value)
-        ref = Reference(resolving_service, URI('0'))
-        subject = Map({key: ref})
-        overlay_base: Optional[OverlayBase] = OverlayBase(
-            self.visitor,
-            subject
-        )
-        children = overlay_base.children
-        self.assertEqual(len(children), 1)
-        self.assertEqual(self.visitor.structure, value)
-        self.assertEqual(self.visitor.visit_structure_count, 1)
-
-    def test_get_empty_children(self):
-        children = self.overlay_base.children
-        self.assertEqual(len(children), 0)
-        self.assertEqual(self.visitor.visit_structure_count, 0)
+        self.assertIsNotNone(self.overlay_base)
 
     def test_can_get_repr(self):
         representation: str = self.overlay_base.__repr__()

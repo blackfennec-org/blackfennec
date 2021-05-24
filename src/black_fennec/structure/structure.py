@@ -32,11 +32,6 @@ class Structure:
         self._parent = parent
 
     @property
-    def children(self) -> list:
-        """Readonly property for children of this Structure, by default empty."""
-        return list()
-
-    @property
     def root(self) -> 'Root':
         """Readonly property for :obj:`Root` of this structure."""
         return self.parent.root

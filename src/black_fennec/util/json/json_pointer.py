@@ -103,7 +103,7 @@ class JsonPointer:
         """
         if navigator.isdecimal():
             list_index: int = int(navigator)
-            if list_index < len(source_list.children):
+            if list_index < len(source_list.value):
                 return source_list[list_index]
             else:
                 message = f'Tried to access source_list(' \

@@ -56,31 +56,14 @@ class ListEncapsulationBaseTestSuite(unittest.TestCase):
     def test_append_item(self):
         value = StructureMock('test_value')
         self.list_encapsulation_base.append(value)
-        self.assertIn(value, self.list_encapsulation_base.subject.children)
+        self.assertIn(value, self.list_encapsulation_base.subject.value)
 
     def test_append_item_already_encapsulated(self):
         value = StructureMock('test_value')
         template_class = _create_generic_class(EncapsulationBase, Structure)
         encapsulated = template_class(self.visitor, value)
         self.list_encapsulation_base.append(encapsulated)
-        self.assertIn(value, self.list_encapsulation_base.subject.children)
-
-    def test_get_children(self):
-        value = StructureMock('test_value')
-        subject = List([value])
-        list_template: Optional[ListEncapsulationBase] = ListEncapsulationBase(
-            self.visitor,
-            subject
-        )
-        children = list_template.children
-        self.assertEqual(len(children), 1)
-        self.assertEqual(self.visitor.structure, value)
-        self.assertEqual(self.visitor.visit_structure_count, 1)
-
-    def test_get_empty_children(self):
-        children = self.list_encapsulation_base.children
-        self.assertEqual(len(children), 0)
-        self.assertEqual(self.visitor.visit_structure_count, 0)
+        self.assertIn(value, self.list_encapsulation_base.subject.value)
 
     def test_get_value(self):
         subject_content = StructureMock('test')

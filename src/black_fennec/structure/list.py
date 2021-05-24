@@ -29,11 +29,6 @@ class List(Structure, UserList):
     def value(self, value: list):
         self.data = value
 
-    @property
-    def children(self):
-        """Readonly property for child structures"""
-        return list(self.data)
-
     def _set_parent(self, item):
         """Helper method to set parent of item
 

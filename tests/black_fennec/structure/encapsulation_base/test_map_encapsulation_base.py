@@ -75,21 +75,6 @@ class MapEncapsulationBaseTestSuite(unittest.TestCase):
         self.map_encapsulation_base.value = {key: value}
         self.assertEqual(value, self.map_encapsulation_base[key])
 
-    def test_get_children(self):
-        key = 'test'
-        value = StructureMock('test_value')
-        self.subject[key] = value
-        map_encapsulation: Optional[MapEncapsulationBase] = MapEncapsulationBase(self.visitor, self.subject)
-        children = map_encapsulation.children
-        self.assertEqual(len(children), 1)
-        self.assertEqual(self.visitor.structure, value)
-        self.assertEqual(self.visitor.visit_structure_count, 1)
-
-    def test_get_empty_children(self):
-        children = self.map_encapsulation_base.children
-        self.assertEqual(len(children), 0)
-        self.assertEqual(self.visitor.visit_structure_count, 0)
-
     def test_can_get_repr(self):
         representation: str = self.map_encapsulation_base.__repr__()
         self.assertTrue(representation.startswith('MapEncapsulationBase('))

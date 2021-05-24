@@ -69,7 +69,7 @@ class ExtensionSource:
     def location(self):
         return [
             uri.value
-            for uri in self._data[self.SOURCE_LOCATION].children
+            for uri in self._data[self.SOURCE_LOCATION].value
         ]
 
     @location.setter
@@ -92,7 +92,7 @@ class ExtensionSource:
         Returns:
              [Extension]: list of extensions in source
         """
-        source_extension_list = self._data[self.EXTENSION_LIST_KEY].children
+        source_extension_list = self._data[self.EXTENSION_LIST_KEY].value
         result = dict()
         if source_extension_list:
             for extension in source_extension_list:

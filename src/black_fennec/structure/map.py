@@ -26,11 +26,6 @@ class Map(Structure, UserDict):
     def value(self, value: dict):
         self.data = value
 
-    @property
-    def children(self):
-        """Readonly property for child structures"""
-        return list(self.data.values())
-
     def __delitem__(self, key):
         """Custom delete hook, resets parent for removed structure.
 

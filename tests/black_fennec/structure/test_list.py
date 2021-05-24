@@ -15,12 +15,6 @@ class ListTestSuite(unittest.TestCase):
         self.assertEqual(len(l), 1)
         self.assertEqual(l[0].parent, l)
 
-    def test_can_get_children(self):
-        data = [StructureMock(), StructureMock()]
-        structure = List(data)
-        children = structure.children
-        self.assertListEqual(children, data)
-
     def test_can_append_item(self):
         l = List()
         value = StructureMock()
