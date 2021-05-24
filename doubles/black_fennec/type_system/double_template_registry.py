@@ -2,7 +2,7 @@ class TemplateRegistryMock:
 
     def __init__(self, templates=None):
         if templates is None:
-            self._templates = list()
+            templates = set()
         self._templates = templates
         self.templates_getter_count = 0
 

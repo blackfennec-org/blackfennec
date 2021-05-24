@@ -15,8 +15,15 @@ class MapItemView(Gtk.Bin):
     _add_entry = Gtk.Template.Child()
     _liststore = Gtk.Template.Child()
 
-    def __init__(self, key, preview: Interpretation, delete_handler, rename_handler, add_handler,
-                 preview_click_handler):
+    def __init__(
+            self,
+            key,
+            preview: Interpretation,
+            delete_handler,
+            rename_handler,
+            add_handler,
+            preview_click_handler
+    ):
         """Create map item view
 
         Args:
@@ -60,6 +67,11 @@ class MapItemView(Gtk.Bin):
 
     @Gtk.Template.Callback()
     def _on_option_clicked(self, sender):
+        """Popover click handler
+
+        Args:
+            sender: popover
+        """
         button = sender.props.text
         if button == 'Edit':
             self._popover.popdown()

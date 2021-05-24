@@ -81,6 +81,15 @@ class BooleanTestSuite(unittest.TestCase):
             msg='Unequal elements are equal'
         )
 
+    def test_can_hash_equal(self):
+        boolean = Boolean(True)
+        self.assertEqual(hash(boolean), hash(boolean))
+
+    def test_can_hash_unequal(self):
+        boolean = Boolean(False)
+        other_boolean = Boolean(False)
+        self.assertNotEqual(hash(boolean), hash(other_boolean))
+
     def test_accept(self):
         visitor = FactoryBaseVisitorMock()
         boolean = Boolean()

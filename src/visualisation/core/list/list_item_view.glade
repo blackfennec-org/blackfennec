@@ -37,17 +37,14 @@
       </object>
     </child>
   </template>
-  <object class="GtkListStore" id="_liststore">
+  <object class="GtkListStore" id="_template_store">
     <columns>
       <!-- column-name Template -->
       <column type="gchararray"/>
     </columns>
     <data>
       <row>
-        <col id="0" translatable="yes">String</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes">Map</col>
+        <col id="0" translatable="yes">No templates found</col>
       </row>
     </data>
   </object>
@@ -91,10 +88,10 @@
           </packing>
         </child>
         <child>
-          <object class="GtkComboBox">
+          <object class="GtkComboBoxText" id="_template_box">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
-            <property name="model">_liststore</property>
+            <property name="model">_template_store</property>
             <property name="has-entry">True</property>
             <property name="entry-text-column">0</property>
             <child internal-child="entry">

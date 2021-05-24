@@ -29,6 +29,9 @@ class Boolean(Info):
     def __ne__(self, other) -> bool:
         return not self == other
 
+    def __hash__(self):
+        return hash(id(self))
+
     def __bool__(self) -> bool:
         """Truth item of Boolean"""
         return self._value

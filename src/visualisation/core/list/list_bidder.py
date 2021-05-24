@@ -1,5 +1,6 @@
 from src.black_fennec.interpretation.interpretation_service import InterpretationService
 from src.black_fennec.structure.info import Info
+from src.black_fennec.type_system.template_registry import TemplateRegistry
 from src.visualisation.core.list.list_template import ListTemplate
 from src.visualisation.core.list.list_view_factory import ListViewFactory
 from src.black_fennec.interpretation.auction.offer import Offer
@@ -11,14 +12,23 @@ logger = logging.getLogger(__name__)
 
 class ListBidder:
     """The bidding service for the core type `List`."""
-    def __init__(self, interpretation_service: InterpretationService):
+    def __init__(
+            self,
+            interpretation_service: InterpretationService,
+            template_registry: TemplateRegistry
+    ):
         """Construct list bidder.
 
         Args:
-            interpretation_service (InterpretationService): dependency of
-            list view factory
+            interpretation_service (InterpretationService): used in list view
+                model to create children previews
+            template_registry (TemplateRegistry): used in list view model to
+                add new items.
         """
-        self._factory = ListViewFactory(interpretation_service)
+        self._factory = ListViewFactory(
+            interpretation_service,
+            template_registry
+        )
 
     def bid(self, subject: Info):
         """"Produces an offer for a given object.

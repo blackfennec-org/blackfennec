@@ -1,4 +1,8 @@
+import logging
+
 from src.black_fennec.structure.template.template_base import TemplateBase
+
+logger = logging.getLogger(__name__)
 
 
 class TemplateRegistry:
@@ -26,7 +30,7 @@ class TemplateRegistry:
         """
         return set(self._templates)
 
-    def register_template(self, template):
+    def register_template(self, template: TemplateBase):
         """Function to register a new template
 
         Args:
@@ -39,7 +43,17 @@ class TemplateRegistry:
 
         Args:
             template_type (type): element in the template registry
+
+        Raises:
+            KeyError: if template type not found in registry
         """
+        to_delete = None
         for template in self._templates:
-            if type(template) == template_type:
-                self._templates.remove(template)
+            if type(template) == template_type:  # pylint: disable=unidiomatic-typecheck
+                to_delete = template
+        if to_delete:
+            self._templates.remove(to_delete)
+        else:
+            message = f'Could not find Template by type({template_type})'
+            logger.error(message)
+            raise KeyError(message)

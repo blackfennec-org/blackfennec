@@ -65,6 +65,15 @@ class NumberTestSuite(unittest.TestCase):
     def test_can_test_equality_to_float(self):
         self.assertEqual(Number(3.141), 3.141)
 
+    def test_can_hash_equal(self):
+        number = Number(3.141)
+        self.assertEqual(hash(number), hash(number))
+
+    def test_can_hash_unequal(self):
+        number = Number(3.141)
+        other_number = Number(3.141)
+        self.assertNotEqual(hash(number), hash(other_number))
+
     def test_can_convert_to_string(self):
         self.assertEqual(str(Number(3.141)), '3.141')
 

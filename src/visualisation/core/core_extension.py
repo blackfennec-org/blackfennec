@@ -15,7 +15,7 @@ from src.visualisation.core.string.string_template import StringTemplate
 
 def create_extension(extension_api: ExtensionApi):
     """
-    Registers all core types in type registry
+    Registers all core types in black-fennec
     Args:
         extension_api (ExtensionApi): contains constructor injection
             parameters
@@ -30,7 +30,10 @@ def create_extension(extension_api: ExtensionApi):
     extension_api.template_registry.register_template(StringTemplate())
 
     extension_api.type_registry.register_type(
-        ListBidder(extension_api.interpretation_service)
+        ListBidder(
+            extension_api.interpretation_service,
+            extension_api.template_registry
+        )
     )
     extension_api.template_registry.register_template(ListTemplate())
 
@@ -44,6 +47,12 @@ def create_extension(extension_api: ExtensionApi):
 
 
 def destroy_extension(extension_api: ExtensionApi):
+    """
+    Deregisters all core types from black-fennec
+    Args:
+        extension_api (ExtensionApi): contains constructor injection
+            parameters
+    """
     extension_api.type_registry.deregister_type(BooleanBidder)
     extension_api.template_registry.deregister_template(BooleanTemplate)
 

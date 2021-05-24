@@ -1,3 +1,4 @@
+from src.black_fennec.type_system.template_registry import TemplateRegistry
 from src.visualisation.core.list.list_view_model import ListViewModel
 from src.visualisation.core.list.list_view import ListView
 from src.visualisation.core.list.list_preview import ListPreview
@@ -8,8 +9,13 @@ from src.black_fennec.interpretation.specification import Specification
 
 class ListViewFactory:
     """Creator of the ListView"""
-    def __init__(self, interpretation_service: InterpretationService):
+    def __init__(
+            self,
+            interpretation_service: InterpretationService,
+            template_registry: TemplateRegistry
+    ):
         self._interpretation_service = interpretation_service
+        self._template_registry = template_registry
 
     def satisfies(self, unused_specification: Specification) -> bool:
         """Test if this view factory can satisfy the specification
@@ -28,15 +34,19 @@ class ListViewFactory:
         """creates a ListView
 
         Args:
-            interpretation (:obj:`Interpretation`): The overarching
+            interpretation (Interpretation): The overarching
                 interpretation.
             specification (Specification): The specification which can fine
                 tune the creation function.
 
         Returns:
-            :obj:`ListView`
+            ListView: with created view model contained.
         """
-        view_model = ListViewModel(interpretation, self._interpretation_service)
+        view_model = ListViewModel(
+            interpretation,
+            self._interpretation_service,
+            self._template_registry
+        )
         if specification.is_request_for_preview:
             return ListPreview(view_model)
         return ListView(view_model)

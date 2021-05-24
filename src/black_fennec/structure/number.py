@@ -43,6 +43,9 @@ class Number(Info):
             other = other.value
         return self._value == other
 
+    def __hash__(self):
+        return hash(id(self))
+
     def __str__(self) -> str:
         """Convert to string"""
         return str(self._value)

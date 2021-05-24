@@ -39,38 +39,6 @@ class ReferenceTestSuite(unittest.TestCase):
         reference = Reference(reference_resolving_service, reference_uri)
         self.assertEqual(len(reference.children), 0)
 
-    def test_equal_equal_elements(self):
-        comp = Reference(Dummy(), URI('ref'))
-        equal_comp = Reference(Dummy(), URI('ref'))
-        self.assertTrue(
-            comp == equal_comp,
-            msg='Equal elements are not equal'
-        )
-
-    def test_equal_unequal_elements(self):
-        comp = Reference(Dummy(), URI('ref1'))
-        other_comp = Reference(Dummy(), URI('ref2'))
-        self.assertFalse(
-            comp == other_comp,
-            msg='Unequal elements are equal'
-        )
-
-    def test_not_equal_equal_elements(self):
-        comp = Reference(Dummy(), URI('ref'))
-        equal_comp = Reference(Dummy(), URI('ref'))
-        self.assertFalse(
-            comp != equal_comp,
-            msg='Equal elements are not equal'
-        )
-
-    def test_not_equal_unequal_elements(self):
-        comp = Reference(Dummy(), URI('ref1'))
-        other_comp = Reference(Dummy(), URI('ref2'))
-        self.assertTrue(
-            comp != other_comp,
-            msg='Unequal elements are equal'
-        )
-
     def test_to_string(self):
         reference_uri = URI('ref')
         reference = Reference(Dummy(), reference_uri)
