@@ -69,7 +69,7 @@ class Address:
             key (str): Key of value to check
 
         Returns:
-            Info: Value at key in map
+            Structure: Value at key in map
         """
         if key not in self._data:
             return None

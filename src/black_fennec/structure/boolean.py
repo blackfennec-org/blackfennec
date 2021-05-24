@@ -1,7 +1,7 @@
-from src.black_fennec.structure.info import Info
+from src.black_fennec.structure.structure import Structure
 
 
-class Boolean(Info):
+class Boolean(Structure):
     """Core Type Boolean, represents booleans in the domain model."""
 
     def __init__(self, value: bool = False):
@@ -11,7 +11,7 @@ class Boolean(Info):
             value (:obj:`bool`, optional): The item of the `Boolean`.
                 Default item is `False`
         """
-        Info.__init__(self)
+        Structure.__init__(self)
         self._value = value
 
     @property

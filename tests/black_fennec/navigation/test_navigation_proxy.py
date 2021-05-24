@@ -14,7 +14,7 @@ class NavigationProxyTestSuite(unittest.TestCase):
 
     def test_navigate(self):
         sender = Dummy('Interpretation')
-        destination = Dummy('Info')
+        destination = Dummy('Structure')
         interpretation = InterpretationMock()
         navigation_proxy = NavigationProxy(interpretation)
         navigation_proxy.navigate(sender, destination)

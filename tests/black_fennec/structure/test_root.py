@@ -1,6 +1,6 @@
 import unittest
 
-from doubles.black_fennec.structure.double_info import InfoMock
+from doubles.black_fennec.structure.double_structure import StructureMock
 from doubles.black_fennec.structure.double_root import RootMock
 from doubles.black_fennec.structure.encapsulation_base.double_factory_base_visitor import FactoryBaseVisitorMock
 from src.black_fennec.structure.root import Root
@@ -34,18 +34,18 @@ class RootTestSuite(unittest.TestCase):
         self.assertEqual(root.mime_type, mime_type)
 
     def test_get_value(self):
-        child = InfoMock()
+        child = StructureMock()
         root = Root(child)
         self.assertEqual(child, root.value)
 
     def test_set_value(self):
-        child = InfoMock()
+        child = StructureMock()
         root = Root()
         root.value = child
         self.assertEqual(root.value, child)
 
     def test_get_children(self):
-        child = InfoMock()
+        child = StructureMock()
         root = Root(child)
         self.assertIn(child, root.children)
 
@@ -53,8 +53,8 @@ class RootTestSuite(unittest.TestCase):
         new_parent = RootMock()
         root = Root()
 
-        def set_parent(info, new_parent):
-            info.parent = new_parent
+        def set_parent(structure, new_parent):
+            structure.parent = new_parent
 
         self.assertRaises(TypeError,
             lambda: set_parent(root, new_parent))

@@ -1,13 +1,13 @@
 from collections import UserDict
 
-from doubles.black_fennec.structure.double_info import InfoMock
+from doubles.black_fennec.structure.double_structure import StructureMock
 from src.black_fennec.structure.map import Map
 
 
-class MapMock(UserDict, InfoMock):
+class MapMock(UserDict, StructureMock):
     def __init__(self, value: dict = None, parent=None, root=None):
         UserDict.__init__(self, value)
-        InfoMock.__init__(self, value, parent=parent, root=root)
+        StructureMock.__init__(self, value, parent=parent, root=root)
         self.data = {} if value is None else value
         self._children = self.data.values()
 

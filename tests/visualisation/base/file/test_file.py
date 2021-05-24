@@ -1,5 +1,5 @@
 import unittest
-from doubles.black_fennec.structure.double_info import InfoMock
+from doubles.black_fennec.structure.double_structure import StructureMock
 from doubles.black_fennec.structure.double_map import MapMock
 from doubles.black_fennec.structure.double_string import StringMock
 from src.visualisation.base.file.file import File
@@ -78,7 +78,7 @@ class FileTestSuite(unittest.TestCase):
 
     def test_equal_unequal_elements(self):
         data_map = MapMock({})
-        other_data_map = MapMock({File.FILE_PATH_KEY: InfoMock('test')})
+        other_data_map = MapMock({File.FILE_PATH_KEY: StructureMock('test')})
         comp = File(data_map)
         other_comp = File(other_data_map)
         self.assertFalse(
@@ -97,7 +97,7 @@ class FileTestSuite(unittest.TestCase):
 
     def test_not_equal_unequal_elements(self):
         data_map = MapMock({})
-        other_data_map = MapMock({File.FILE_PATH_KEY: InfoMock('test')})
+        other_data_map = MapMock({File.FILE_PATH_KEY: StructureMock('test')})
         comp = File(data_map)
         other_comp = File(other_data_map)
         self.assertTrue(

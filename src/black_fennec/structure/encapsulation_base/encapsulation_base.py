@@ -1,4 +1,4 @@
-from src.black_fennec.structure.info import Info
+from src.black_fennec.structure.structure import Structure
 
 
 class EncapsulationBase:
@@ -7,13 +7,13 @@ class EncapsulationBase:
         has the super class EncapsulationBase or a specialisation.
 
     """
-    def __init__(self, visitor: 'BaseFactoryVisitor', subject: Info):
+    def __init__(self, visitor: 'BaseFactoryVisitor', subject: Structure):
         """Constructor for EncapsulationBase
 
         Args:
             visitor (BaseFactoryVisitor): visitor/abstract visitor used
                 to encapsulate parent/root/children
-            subject (Info): subject that gets encapsulated
+            subject (Structure): subject that gets encapsulated
         """
         self._visitor = visitor
         self._subject = subject
@@ -22,25 +22,25 @@ class EncapsulationBase:
     @property
     def subject(self):
         """Property for access on encapsulated
-            info in this EncapsulationBase."""
+            structure in this EncapsulationBase."""
         return self._subject
 
     @property
     def parent(self):
-        """Property for parent of this info
+        """Property for parent of this structure
             encapsulated in a EncapsulationBase."""
         if self.subject.parent:
             return self.subject.parent.accept(self._visitor)
 
     @parent.setter
-    def parent(self, parent: Info):
+    def parent(self, parent: Structure):
         """Setter for parent of EncapsulationBase
 
         Decapsulates the passed new parent and sets
             it on the subjects parent
 
         Args:
-            parent (Info): new value for subjects parent
+            parent (Structure): new value for subjects parent
         """
         decapsulated_parent = self._remove_template_class(parent)
         self.subject.parent = decapsulated_parent
@@ -65,7 +65,7 @@ class EncapsulationBase:
 
     @property
     def root(self):
-        """Property for root of this info encapsulated in an FactoryBase.
+        """Property for root of this structure encapsulated in an FactoryBase.
 
         Returns:
             EncapsulationBase: encapsulates root of subject in FactoryBase class
@@ -73,14 +73,14 @@ class EncapsulationBase:
         return self.subject.root.accept(self._visitor)
 
     @staticmethod
-    def _remove_template_class(item: Info):
-        """Decapsulates a Info Class if it is encapsulated by an instance
+    def _remove_template_class(item: Structure):
+        """Decapsulates a Structure Class if it is encapsulated by an instance
             of EncapsulationBase
 
         Args:
-            item (Info): to decapsulate.
+            item (Structure): to decapsulate.
         Returns:
-            Info: subject of passed item, if item
+            Structure: subject of passed item, if item
                 is encapsulated.
         """
         decapsulated_value = item

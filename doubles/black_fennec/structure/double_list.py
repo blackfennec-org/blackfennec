@@ -1,13 +1,13 @@
 from collections import UserList
 
-from doubles.black_fennec.structure.double_info import InfoMock
+from doubles.black_fennec.structure.double_structure import StructureMock
 from src.black_fennec.structure.list import List
 
 
-class ListMock(UserList, InfoMock):
+class ListMock(UserList, StructureMock):
     def __init__(self, value=None, children: list = None, parent=None, root=None):
         UserList.__init__(self, children)
-        InfoMock.__init__(self, value, children, parent, root)
+        StructureMock.__init__(self, value, children, parent, root)
 
     def accept(self, visitor):
         return visitor.visit_list(self)

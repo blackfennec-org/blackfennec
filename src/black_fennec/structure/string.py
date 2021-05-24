@@ -1,8 +1,8 @@
 from collections import UserString
-from src.black_fennec.structure.info import Info
+from src.black_fennec.structure.structure import Structure
 
 
-class String(Info, UserString):
+class String(Structure, UserString):
     """Core Type String, represents strings in the domain model."""
 
     def __init__(self, value: str = ""):
@@ -12,7 +12,7 @@ class String(Info, UserString):
             value (:obj:`str`, optional): The item of the `String`.
                 By default "" (empty string)
         """
-        Info.__init__(self)
+        Structure.__init__(self)
         UserString.__init__(self, value)
 
     @property

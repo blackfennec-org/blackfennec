@@ -2,7 +2,7 @@
 from collections import UserDict
 
 from src.black_fennec.structure.encapsulation_base.encapsulation_base import EncapsulationBase
-from src.black_fennec.structure.info import Info
+from src.black_fennec.structure.structure import Structure
 from src.black_fennec.structure.map import Map
 
 
@@ -39,10 +39,10 @@ class MapEncapsulationBase(EncapsulationBase, Map):
         }
 
     def __getitem__(self, key):
-        item: Info = self.subject[key]
+        item: Structure = self.subject[key]
         return item.accept(self._visitor)
 
-    def __setitem__(self, key, value: Info):
+    def __setitem__(self, key, value: Structure):
         decapsulated_value = self._remove_template_class(value)
         self.subject[key] = decapsulated_value
         decapsulated_value.parent = self.subject

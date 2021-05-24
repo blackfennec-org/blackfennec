@@ -3,7 +3,7 @@ import logging
 from collections import UserList
 
 from src.black_fennec.structure.encapsulation_base.encapsulation_base import EncapsulationBase
-from src.black_fennec.structure.info import Info
+from src.black_fennec.structure.structure import Structure
 from src.black_fennec.structure.list import List
 
 logger = logging.getLogger(__name__)
@@ -13,7 +13,7 @@ class ListEncapsulationBase(EncapsulationBase, List):
     """Base Class for ecapsulations of a List.
 
     Contains List specific overrides of certain functions
-        to ensure the encapsulation of any Info returned
+        to ensure the encapsulation of any Structure returned
         in order to stay in the encapsulation layer.
     """
     def __init__(
@@ -42,20 +42,20 @@ class ListEncapsulationBase(EncapsulationBase, List):
             self._remove_template_class(item) for item in value
         ]
 
-    def append(self, item: Info):
+    def append(self, item: Structure):
         """Append item to list template.
 
         Args:
-            item (Info): Item to append.
+            item (Structure): Item to append.
         """
         decapsulated_item = self._remove_template_class(item)
         self.subject.append(decapsulated_item)
 
-    def remove(self, item: Info):
+    def remove(self, item: Structure):
         """Remove item from List.
 
         Args:
-            item (Info): Item to remove.
+            item (Structure): Item to remove.
 
         Raises:
             KeyError: If the item passed is not in
@@ -69,15 +69,15 @@ class ListEncapsulationBase(EncapsulationBase, List):
         self.subject.remove(decapsulated_value)
 
     def __getitem__(self, index):
-        item: Info = self.subject[index]
+        item: Structure = self.subject[index]
         return item.accept(self._visitor)
 
-    def __setitem__(self, index, value: Info):
+    def __setitem__(self, index, value: Structure):
         decapsulated_value = self._remove_template_class(value)
         self.subject[index] = decapsulated_value
         decapsulated_value.parent = self.subject
 
-    def __contains__(self, item: Info):
+    def __contains__(self, item: Structure):
         decapsulated_value = self._remove_template_class(item)
         return decapsulated_value in self.subject
 

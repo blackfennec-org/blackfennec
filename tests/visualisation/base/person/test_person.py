@@ -1,6 +1,6 @@
 import unittest
 
-from doubles.black_fennec.structure.double_info import InfoMock
+from doubles.black_fennec.structure.double_structure import StructureMock
 from doubles.black_fennec.structure.double_map import MapMock
 from doubles.black_fennec.structure.double_string import StringMock
 from src.visualisation.base.person.person import Person
@@ -113,14 +113,14 @@ class PersonTestSuite(unittest.TestCase):
 
     def test_personal_photo_getter(self):
         data = dict()
-        data[Person.PERSONAL_PHOTO_KEY] = InfoMock(Person.PERSONAL_PHOTO_KEY)
+        data[Person.PERSONAL_PHOTO_KEY] = StructureMock(Person.PERSONAL_PHOTO_KEY)
 
         data_map = MapMock(data)
         person = Person(data_map)
         self.assertEqual(person.personal_photo, data[Person.PERSONAL_PHOTO_KEY])
 
     def test_personal_photo_setter(self):
-        personal_photo = InfoMock(Person.PERSONAL_PHOTO_KEY)
+        personal_photo = StructureMock(Person.PERSONAL_PHOTO_KEY)
         person = Person()
         person.personal_photo = personal_photo
         personal_photo.parent = person
@@ -128,14 +128,14 @@ class PersonTestSuite(unittest.TestCase):
 
     def test_home_address_getter(self):
         data = dict()
-        data[Person.HOME_ADDRESS_KEY] = InfoMock(Person.HOME_ADDRESS_KEY)
+        data[Person.HOME_ADDRESS_KEY] = StructureMock(Person.HOME_ADDRESS_KEY)
 
         data_map = MapMock(data)
         person = Person(data_map)
         self.assertEqual(person.home_address, data[Person.HOME_ADDRESS_KEY])
 
     def test_home_address_setter(self):
-        home_address = InfoMock(Person.HOME_ADDRESS_KEY)
+        home_address = StructureMock(Person.HOME_ADDRESS_KEY)
         person = Person()
         person.home_address = home_address
         home_address.parent = person
@@ -212,7 +212,7 @@ class PersonTestSuite(unittest.TestCase):
 
     def test_equal_unequal_elements(self):
         data_map = MapMock({})
-        other_data_map = MapMock({'first_name': InfoMock('test')})
+        other_data_map = MapMock({'first_name': StructureMock('test')})
         comp = Person(data_map)
         other_comp = Person(other_data_map)
         self.assertFalse(
@@ -231,7 +231,7 @@ class PersonTestSuite(unittest.TestCase):
 
     def test_not_equal_unequal_elements(self):
         data_map = MapMock({})
-        other_data_map = MapMock({'first_name': InfoMock('test')})
+        other_data_map = MapMock({'first_name': StructureMock('test')})
         comp = Person(data_map)
         other_comp = Person(other_data_map)
         self.assertTrue(

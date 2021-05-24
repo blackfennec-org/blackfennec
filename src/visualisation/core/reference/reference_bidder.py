@@ -1,5 +1,5 @@
 from doubles.double_dummy import Dummy
-from src.black_fennec.structure.info import Info
+from src.black_fennec.structure.structure import Structure
 from src.black_fennec.structure.reference import Reference
 from src.black_fennec.structure.template.template_factory_visitor import TemplateFactoryVisitor
 from src.visualisation.core.reference.reference_view_factory import ReferenceViewFactory
@@ -24,11 +24,11 @@ class ReferenceBidder:
         """Construct reference bidder."""
         self._factory = ReferenceViewFactory()
 
-    def bid(self, subject: Info):
+    def bid(self, subject: Structure):
         """"Produces an offer for a given object.
 
         Args:
-            subject (Info): The Info for which an offer should be produced.
+            subject (Structure): The Structure for which an offer should be produced.
 
         Returns:
             Offer: that this bidder made on the subject passed.

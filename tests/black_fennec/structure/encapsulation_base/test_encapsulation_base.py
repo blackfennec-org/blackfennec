@@ -2,7 +2,7 @@
 import unittest
 from typing import Optional
 
-from doubles.black_fennec.structure.double_info import InfoMock
+from doubles.black_fennec.structure.double_structure import StructureMock
 from doubles.black_fennec.structure.encapsulation_base.double_factory_base_visitor import FactoryBaseVisitorMock
 from src.black_fennec.structure.encapsulation_base.encapsulation_base import EncapsulationBase
 
@@ -10,9 +10,9 @@ from src.black_fennec.structure.encapsulation_base.encapsulation_base import Enc
 class EncapsulationBaseTestSuite(unittest.TestCase):
     def setUp(self):
         self.visitor = FactoryBaseVisitorMock()
-        self.parent = InfoMock()
-        self.root = InfoMock()
-        self.subject = InfoMock(parent=self.parent, root=self.root)
+        self.parent = StructureMock()
+        self.root = StructureMock()
+        self.subject = StructureMock(parent=self.parent, root=self.root)
         self.encapsulation_base: Optional[EncapsulationBase] = EncapsulationBase(self.visitor, self.subject)
 
     def tearDown(self) -> None:
@@ -25,20 +25,20 @@ class EncapsulationBaseTestSuite(unittest.TestCase):
 
     def test_parent_getter(self):
         parent = self.encapsulation_base.parent
-        self.assertEqual(self.visitor.info, self.parent)
-        self.assertEqual(self.visitor.visit_info_count, 1)
+        self.assertEqual(self.visitor.structure, self.parent)
+        self.assertEqual(self.visitor.visit_structure_count, 1)
 
     def test_parent_setter(self):
-        new_parent = InfoMock('new_parent')
+        new_parent = StructureMock('new_parent')
         self.encapsulation_base.parent = new_parent
         parent = self.encapsulation_base.parent
-        self.assertEqual(self.visitor.info, new_parent)
-        self.assertEqual(self.visitor.visit_info_count, 1)
+        self.assertEqual(self.visitor.structure, new_parent)
+        self.assertEqual(self.visitor.visit_structure_count, 1)
 
     def test_root_getter(self):
         self.encapsulation_base.root
-        self.assertEqual(self.visitor.info, self.root)
-        self.assertEqual(self.visitor.visit_info_count, 1)
+        self.assertEqual(self.visitor.structure, self.root)
+        self.assertEqual(self.visitor.visit_structure_count, 1)
 
     def test_can_get_repr(self):
         representation: str = self.encapsulation_base.__repr__()

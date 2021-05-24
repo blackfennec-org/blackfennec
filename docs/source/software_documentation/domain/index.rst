@@ -17,7 +17,7 @@ Structure
     :ref:`Structure <definition_overlay>` is the generic term for the data in our object model, since structure is the only universally available property of all data and is as such the only common denominator.
 
 Types
-    A :ref:`type <definition_type>` is a description of a structure. A type is always associated with exactly one specialised user interface called an info view.
+    A :ref:`type <definition_type>` is a description of a structure. A type is always associated with exactly one specialised user interface called an structure view.
 
 Interpretation
     The :ref:`interpretation <definition_interpretation>` is the visualisation of a given structure. It is the result of the selection process and limited by the available types.

@@ -1,9 +1,9 @@
-from doubles.black_fennec.structure.double_info import InfoMock
+from doubles.black_fennec.structure.double_structure import StructureMock
 
 
-class RootMock(InfoMock):
+class RootMock(StructureMock):
     def __init__(self, value=None, children=None):
-        InfoMock.__init__(self, value, children, self, self)
+        StructureMock.__init__(self, value, children, self, self)
 
     def accept(self, visitor):
         return visitor.visit_root(self)

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-class InfoViewFactoryMock:
+class StructureViewFactoryMock:
     def __init__(self, view=None):
         self.creation_count = 0
         self.interpretation = None

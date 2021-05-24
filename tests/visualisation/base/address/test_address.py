@@ -1,5 +1,5 @@
 import unittest
-from doubles.black_fennec.structure.double_info import InfoMock
+from doubles.black_fennec.structure.double_structure import StructureMock
 from doubles.black_fennec.structure.double_map import MapMock
 from doubles.black_fennec.structure.double_string import StringMock
 from src.visualisation.base.address.address import Address
@@ -141,7 +141,7 @@ class AddressTestSuite(unittest.TestCase):
 
     def test_equal_unequal_elements(self):
         data_map = MapMock({})
-        other_data_map = MapMock({Address.FIRST_NAME_KEY: InfoMock('test')})
+        other_data_map = MapMock({Address.FIRST_NAME_KEY: StructureMock('test')})
         comp = Address(data_map)
         other_comp = Address(other_data_map)
         self.assertFalse(
@@ -160,7 +160,7 @@ class AddressTestSuite(unittest.TestCase):
 
     def test_not_equal_unequal_elements(self):
         data_map = MapMock({})
-        other_data_map = MapMock({Address.FIRST_NAME_KEY: InfoMock('test')})
+        other_data_map = MapMock({Address.FIRST_NAME_KEY: StructureMock('test')})
         comp = Address(data_map)
         other_comp = Address(other_data_map)
         self.assertTrue(

@@ -1,21 +1,21 @@
-from collections import UserList
 import logging
-from src.black_fennec.structure.info import Info
+from collections import UserList
+from src.black_fennec.structure.structure import Structure
 
 logger = logging.getLogger(__name__)
 
 
-class List(Info, UserList):
-    """Core type List, a list of :obj:`Info`s"""
+class List(Structure, UserList):
+    """Core type List, a list of Structures"""
 
     def __init__(self, data: list= None):
         """Constructor for List.
 
         Args:
-            data (list[Info], optional): Infos with which to initialise
+            data (list[Structure], optional): Structures with which to initialise
                 the List.
         """
-        Info.__init__(self)
+        Structure.__init__(self)
         UserList.__init__(self)
         if data:
             for item in data:
@@ -31,14 +31,14 @@ class List(Info, UserList):
 
     @property
     def children(self):
-        """Readonly property for child infos"""
+        """Readonly property for child structures"""
         return list(self.data)
 
     def _set_parent(self, item):
         """Helper method to set parent of item
 
         Args
-            item (Info): Item on which to set parent to `self`.
+            item (Structure): Item on which to set parent to `self`.
         """
         if item.parent is not None:
             message = "item already has a parent {}; {}".format(
@@ -51,20 +51,20 @@ class List(Info, UserList):
         assert item.parent is self
         item.parent = None
 
-    def append(self, item: Info):
+    def append(self, item: Structure):
         """Append item to list.
 
         Args:
-            item (Info): Item to append.
+            item (Structure): Item to append.
         """
         super().append(item)
         self._set_parent(item)
 
-    def remove(self, item: Info):
+    def remove(self, item: Structure):
         """Remove item from List.
 
         Args:
-            item (Info): Item to remove.
+            item (Structure): Item to remove.
 
         Raises:
             KeyError: If the item passed is not in
@@ -78,7 +78,7 @@ class List(Info, UserList):
         self._unset_parent(item)
 
     def __delitem__(self, index):
-        """Custom delete hook, resets parent for removed info."""
+        """Custom delete hook, resets parent for removed structure."""
         if index not in range(len(self)):
             message = "index not in bounds of list"
             logger.error(message)
@@ -86,12 +86,12 @@ class List(Info, UserList):
         item = self.data.pop(index)
         self._unset_parent(item)
 
-    def __setitem__(self, key, item: Info):
+    def __setitem__(self, key, item: Structure):
         """Custom set item hook, adds self as parent or raises error.
 
         Args:
             key: The key for the inserted item.
-            item (:obj:`Info`): The item which will be inserted.
+            item (Structure): The item which will be inserted.
         """
         self._set_parent(item)
         self._unset_parent(self.data[key])

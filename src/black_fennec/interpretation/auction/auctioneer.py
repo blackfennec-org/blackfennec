@@ -1,5 +1,5 @@
 import logging
-from src.black_fennec.structure.info import Info
+from src.black_fennec.structure.structure import Structure
 from src.black_fennec.interpretation.specification import Specification
 from src.black_fennec.interpretation.auction.offer import Offer
 
@@ -25,15 +25,15 @@ class Auctioneer:
         self._type_registry = type_registry
 
     def _select_offers(self,
-                       subject: Info,
+                       subject: Structure,
                        bidders,
                        specification: Specification
     ) -> [Offer]:
         """Select the best offers.
 
         Args:
-            subject (Info): The subject to be auctioned off.
-            bidders (InfoBidder): The bidders participating in the auction.
+            subject (Structure): The subject to be auctioned off.
+            bidders (StructureBidder): The bidders participating in the auction.
             specification (Specification): The specification which describes
                 acceptable offers.
 
@@ -63,7 +63,7 @@ class Auctioneer:
             raise KeyError(message)
         return [best_offer]
 
-    def auction(self, subject: Info, specification: Specification) -> list:
+    def auction(self, subject: Structure, specification: Specification) -> list:
         """Auction off a subject, using the specification when selecting offers.
 
         Auctions subject to all known types which can follow the specification.
@@ -71,7 +71,7 @@ class Auctioneer:
             for handling the subject. The auctioneer selects the best offer.
 
         Args:
-            subject (Info): The subject (a.k.a structure) to be auctioned off.
+            subject (Structure): The subject (a.k.a structure) to be auctioned off.
             specification (Specification): The specification which must be
                 upheld by bidders participating in the bidding.
 

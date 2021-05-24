@@ -161,7 +161,9 @@ class ExtensionSourceTestSuite(unittest.TestCase):
         extension = ExtensionMock(self.extension_map)
         extension_source.extensions = [extension]
         extension_source.load_extensions(extension_api)
-        self.assertLogs(None, logging.INFO)
+
+        with self.assertLogs(None, logging.WARNING):
+            extension_source.load_extensions(extension_api)
         self.assertEqual(self.extension_loading_service.load_count, 1)
         self.assertEqual(extension_source.extensions[0].status[0], ExtensionStatus.LOADED)
 
@@ -184,7 +186,7 @@ class ExtensionSourceTestSuite(unittest.TestCase):
         extension_api = Dummy('ExtensionApi')
         extension = ExtensionMock(self.extension_map)
         extension_source.extensions = [extension]
-        extension_source.unload_extensions(extension_api)
 
-        self.assertLogs(None, logging.INFO)
+        with self.assertLogs(None, logging.WARNING):
+            extension_source.unload_extensions(extension_api)
         self.assertEqual(extension_source.extensions[0].status[0], ExtensionStatus.NOT_LOADED)

@@ -3,7 +3,7 @@ from typing import Optional
 
 from uri import URI
 
-from doubles.black_fennec.structure.double_info import InfoMock
+from doubles.black_fennec.structure.double_structure import StructureMock
 from doubles.black_fennec.structure.encapsulation_base.double_factory_base_visitor import FactoryBaseVisitorMock
 from doubles.black_fennec.util.json.double_json_reference_resolving_service import JsonReferenceResolvingServiceMock
 from src.black_fennec.structure.list import List
@@ -28,7 +28,7 @@ class ListOverlayTestSuite(unittest.TestCase):
         pass
 
     def test_get_item_with_reference(self):
-        value = InfoMock('test_value')
+        value = StructureMock('test_value')
         resolving_service = JsonReferenceResolvingServiceMock(resolve_return=value)
         ref = Reference(resolving_service, URI('0'))
         subject = List([ref])
@@ -38,11 +38,11 @@ class ListOverlayTestSuite(unittest.TestCase):
         )
         get = list_overlay[0]
         self.assertEqual(get, value)
-        self.assertEqual(self.visitor.info, value)
-        self.assertEqual(self.visitor.visit_info_count, 1)
+        self.assertEqual(self.visitor.structure, value)
+        self.assertEqual(self.visitor.visit_structure_count, 1)
 
     def test_get_item(self):
-        value = InfoMock('test_value')
+        value = StructureMock('test_value')
         subject = List([value])
         list_overlay: Optional[ListOverlay] = ListOverlay(
             self.visitor,
@@ -50,8 +50,8 @@ class ListOverlayTestSuite(unittest.TestCase):
         )
         get = list_overlay[0]
         self.assertEqual(get, value)
-        self.assertEqual(self.visitor.info, value)
-        self.assertEqual(self.visitor.visit_info_count, 1)
+        self.assertEqual(self.visitor.structure, value)
+        self.assertEqual(self.visitor.visit_structure_count, 1)
 
     def test_can_get_repr(self):
         representation: str = self.list_overlay.__repr__()

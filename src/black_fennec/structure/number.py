@@ -1,8 +1,8 @@
 import numbers
-from src.black_fennec.structure.info import Info
+from src.black_fennec.structure.structure import Structure
 
 
-class Number(Info):
+class Number(Structure):
     """Core Type Number, represents numbers in the domain model."""
 
     def __init__(self, value: numbers.Number = 0):
@@ -12,7 +12,7 @@ class Number(Info):
             value (:obj:`numbers.Number`, optional): The item of the `Number`.
                 By default "" (empty number)
         """
-        Info.__init__(self)
+        Structure.__init__(self)
         self._value = value
 
     @property

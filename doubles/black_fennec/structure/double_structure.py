@@ -1,7 +1,7 @@
-from src.black_fennec.structure.info import Info
+from src.black_fennec.structure.structure import Structure
 
 
-class InfoMock:
+class StructureMock:
     def __init__(self, value=None, children=None, parent=None, root=None):
         self._value = value
         self._root = root
@@ -41,10 +41,10 @@ class InfoMock:
         self._root = value
 
     def accept(self, visitor):
-        return visitor.visit_info(self)
+        return visitor.visit_structure(self)
 
 
-class InfoInstanceMock(Info, InfoMock):
+class StructureInstanceMock(Structure, StructureMock):
     def __init__(self, value=None, children=None, parent=None, root=None):
-        Info.__init__(self)
-        InfoMock.__init__(self, value, children, parent, root)
+        Structure.__init__(self)
+        StructureMock.__init__(self, value, children, parent, root)

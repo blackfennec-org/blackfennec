@@ -1,21 +1,21 @@
 from collections import UserDict
 import logging
-from src.black_fennec.structure.info import Info
+from src.black_fennec.structure.structure import Structure
 
 logger = logging.getLogger(__name__)
 
 
-class Map(Info, UserDict):
+class Map(Structure, UserDict):
     """Core type Map, a set of keys with values"""
 
     def __init__(self, data: dict = None):
         """Constructor for List.
 
         Args:
-            data (dict[any, Info], optional): Infos with which to initialise
+            data (dict[any, Structure], optional): Structures with which to initialise
                 the Map.
         """
-        Info.__init__(self)
+        Structure.__init__(self)
         UserDict.__init__(self, data)
 
     @property
@@ -28,11 +28,11 @@ class Map(Info, UserDict):
 
     @property
     def children(self):
-        """Readonly property for child infos"""
+        """Readonly property for child structures"""
         return list(self.data.values())
 
     def __delitem__(self, key):
-        """Custom delete hook, resets parent for removed info.
+        """Custom delete hook, resets parent for removed structure.
 
         Args:
             key (any): The key of the item to delete.
@@ -48,12 +48,12 @@ class Map(Info, UserDict):
             logger.error(key_error)
             raise key_error
 
-    def __setitem__(self, key, value: Info):
+    def __setitem__(self, key, value: Structure):
         """Custom set item hook, adds self as parent or raises error.
 
         Args:
             key: The key for the inserted item.
-            value (:obj:`Info`): The item which will be inserted.
+            value (:obj:`Structure`): The item which will be inserted.
 
         Raises:
             ValueError: If the item already has a parent.

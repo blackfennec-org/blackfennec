@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 from uri import URI
 
-from src.black_fennec.structure.info import Info
+from src.black_fennec.structure.structure import Structure
 
 
-class Root(Info):
-    """Info that is the Root of a structure."""
+class Root(Structure):
+    """Structure that is the Root of a structure."""
 
-    def __init__(self, child: Info = None, uri: str = '', mime_type: str = ''):
+    def __init__(self, child: Structure = None, uri: str = '', mime_type: str = ''):
         super().__init__(self)
         self.uri = URI(uri)
         self.mime_type = mime_type
@@ -49,11 +49,11 @@ class Root(Info):
         return self
 
     @property
-    def value(self) -> Info:
+    def value(self) -> Structure:
         return self._value
 
     @value.setter
-    def value(self, child: Info):
+    def value(self, child: Structure):
         self._value = child
 
     @property

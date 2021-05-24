@@ -46,9 +46,9 @@ class LocalExtensionService:
                 method
         """
         extensions = dict()
-        for module_info in self._iter_namespace(name, location):
-            module_name = module_info.name
-            module_spec = module_info.module_finder.find_spec(module_name)
+        for module_structure in self._iter_namespace(name, location):
+            module_name = module_structure.name
+            module_spec = module_structure.module_finder.find_spec(module_name)
             module_path = module_spec.submodule_search_locations
             extension = Extension(
                 self,

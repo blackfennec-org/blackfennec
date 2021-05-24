@@ -3,7 +3,7 @@ from numbers import Number
 from src.black_fennec.interpretation.auction.coverage import Coverage
 from src.black_fennec.structure.boolean import Boolean
 from src.black_fennec.structure.encapsulation_base.encapsulation_base import EncapsulationBase
-from src.black_fennec.structure.info import Info
+from src.black_fennec.structure.structure import Structure
 from src.black_fennec.structure.list import List
 from src.black_fennec.structure.map import Map
 from src.black_fennec.structure.reference import Reference
@@ -12,7 +12,7 @@ from src.black_fennec.structure.string import String
 
 
 class TemplateBase(EncapsulationBase):
-    """Base Class for Template of a any Info.
+    """Base Class for Template of a any Structure.
 
     Contains decorating additional property optional,
         that can be set on a Template to indicate optionality
@@ -35,8 +35,8 @@ class TemplateBase(EncapsulationBase):
     def optional(self, value: bool):
         self._visitor.metadata_storage[self.subject] = value
 
-    def visit_info(self, subject_info: Info) -> Coverage:
-        return self._instance_equality_coverage(subject_info)
+    def visit_structure(self, subject_structure: Structure) -> Coverage:
+        return self._instance_equality_coverage(subject_structure)
 
     def visit_root(self, subject_root: Root) -> Coverage:
         return self._instance_equality_coverage(subject_root)

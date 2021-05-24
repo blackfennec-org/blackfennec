@@ -1,11 +1,11 @@
 import unittest
 from typing import Optional
 
-from doubles.black_fennec.structure.double_info import InfoMock
+from doubles.black_fennec.structure.double_structure import StructureMock
 from doubles.black_fennec.structure.encapsulation_base.double_factory_base_visitor import FactoryBaseVisitorMock
 from src.black_fennec.structure.encapsulation_base.encapsulation_base import EncapsulationBase
 from src.black_fennec.structure.encapsulation_base.base_factory_visitor import _create_generic_class
-from src.black_fennec.structure.info import Info
+from src.black_fennec.structure.structure import Structure
 from src.black_fennec.structure.list import List
 from src.black_fennec.structure.root import Root
 from src.black_fennec.structure.encapsulation_base.list_encapsulation_base import ListEncapsulationBase
@@ -30,7 +30,7 @@ class ListEncapsulationBaseTestSuite(unittest.TestCase):
         self.assertEqual(self.list_encapsulation_base.subject, self.subject)
 
     def test_get_item(self):
-        value = InfoMock('test_value')
+        value = StructureMock('test_value')
         subject = List([value])
         list_template: Optional[ListEncapsulationBase] = ListEncapsulationBase(
             self.visitor,
@@ -38,35 +38,35 @@ class ListEncapsulationBaseTestSuite(unittest.TestCase):
         )
         get = list_template[0]
         self. assertEqual(get, value)
-        self.assertEqual(self.visitor.info, value)
-        self.assertEqual(self.visitor.visit_info_count, 1)
+        self.assertEqual(self.visitor.structure, value)
+        self.assertEqual(self.visitor.visit_structure_count, 1)
 
     def test_set_item(self):
-        value = InfoMock('test_value')
+        value = StructureMock('test_value')
         subject = List([value])
         list_template: Optional[ListEncapsulationBase] = ListEncapsulationBase(
             self.visitor,
             subject
         )
-        new_value = InfoMock('new_value')
+        new_value = StructureMock('new_value')
         list_template[0] = new_value
         self.assertNotIn(value, list_template.subject)
         self.assertIn(new_value, list_template.subject)
 
     def test_append_item(self):
-        value = InfoMock('test_value')
+        value = StructureMock('test_value')
         self.list_encapsulation_base.append(value)
         self.assertIn(value, self.list_encapsulation_base.subject.children)
 
     def test_append_item_already_encapsulated(self):
-        value = InfoMock('test_value')
-        template_class = _create_generic_class(EncapsulationBase, Info)
+        value = StructureMock('test_value')
+        template_class = _create_generic_class(EncapsulationBase, Structure)
         encapsulated = template_class(self.visitor, value)
         self.list_encapsulation_base.append(encapsulated)
         self.assertIn(value, self.list_encapsulation_base.subject.children)
 
     def test_get_children(self):
-        value = InfoMock('test_value')
+        value = StructureMock('test_value')
         subject = List([value])
         list_template: Optional[ListEncapsulationBase] = ListEncapsulationBase(
             self.visitor,
@@ -74,16 +74,16 @@ class ListEncapsulationBaseTestSuite(unittest.TestCase):
         )
         children = list_template.children
         self.assertEqual(len(children), 1)
-        self.assertEqual(self.visitor.info, value)
-        self.assertEqual(self.visitor.visit_info_count, 1)
+        self.assertEqual(self.visitor.structure, value)
+        self.assertEqual(self.visitor.visit_structure_count, 1)
 
     def test_get_empty_children(self):
         children = self.list_encapsulation_base.children
         self.assertEqual(len(children), 0)
-        self.assertEqual(self.visitor.visit_info_count, 0)
+        self.assertEqual(self.visitor.visit_structure_count, 0)
 
     def test_get_value(self):
-        subject_content = InfoMock('test')
+        subject_content = StructureMock('test')
         subject = List([subject_content])
         subject.parent = Root(subject)
         list_encapsulation_base = ListEncapsulationBase(
@@ -98,12 +98,12 @@ class ListEncapsulationBaseTestSuite(unittest.TestCase):
         self.assertIsInstance(value, list)
 
     def test_set_value(self):
-        value = InfoMock('test')
+        value = StructureMock('test')
         self.list_encapsulation_base.value = [value]
         self.assertIn(value, self.list_encapsulation_base.subject.value)
 
     def test_remove_item(self):
-        value = InfoMock('test_value')
+        value = StructureMock('test_value')
         subject = List([value])
         list_template: Optional[ListEncapsulationBase] = ListEncapsulationBase(
             self.visitor,
@@ -113,19 +113,19 @@ class ListEncapsulationBaseTestSuite(unittest.TestCase):
         self.assertEqual(len(self.subject), 0)
 
     def test_remove_encapsulated_item(self):
-        value = InfoMock('test_value')
+        value = StructureMock('test_value')
         subject = List([value])
         list_template: Optional[ListEncapsulationBase] = ListEncapsulationBase(
             self.visitor,
             subject
         )
-        template_class = _create_generic_class(EncapsulationBase, Info)
+        template_class = _create_generic_class(EncapsulationBase, Structure)
         encapsulated = template_class(self.visitor, value)
         list_template.remove(encapsulated)
         self.assertEqual(len(self.subject), 0)
 
     def test_remove_item_not_in_list(self):
-        value = InfoMock('test_value')
+        value = StructureMock('test_value')
         subject = List([value])
         with self.assertRaises(KeyError):
             self.list_encapsulation_base.remove(value)
