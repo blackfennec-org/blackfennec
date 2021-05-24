@@ -34,7 +34,7 @@ class MapEncapsulationBase(EncapsulationBase, Map):
     @value.setter
     def value(self, value):
         self.subject.value = {
-            key: self._remove_template_class(item)
+            key: self._remove_encapsulation(item)
             for key, item in value.items()
         }
 
@@ -43,7 +43,7 @@ class MapEncapsulationBase(EncapsulationBase, Map):
         return item.accept(self._visitor)
 
     def __setitem__(self, key, value: Info):
-        decapsulated_value = self._remove_template_class(value)
+        decapsulated_value = self._remove_encapsulation(value)
         self.subject[key] = decapsulated_value
         decapsulated_value.parent = self.subject
 

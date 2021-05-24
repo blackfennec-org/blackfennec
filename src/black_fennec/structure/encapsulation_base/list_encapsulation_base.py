@@ -39,7 +39,7 @@ class ListEncapsulationBase(EncapsulationBase, List):
     @value.setter
     def value(self, value):
         self.subject.value = [
-            self._remove_template_class(item) for item in value
+            self._remove_encapsulation(item) for item in value
         ]
 
     def append(self, item: Info):
@@ -48,7 +48,7 @@ class ListEncapsulationBase(EncapsulationBase, List):
         Args:
             item (Info): Item to append.
         """
-        decapsulated_item = self._remove_template_class(item)
+        decapsulated_item = self._remove_encapsulation(item)
         self.subject.append(decapsulated_item)
 
     def remove(self, item: Info):
@@ -61,7 +61,7 @@ class ListEncapsulationBase(EncapsulationBase, List):
             KeyError: If the item passed is not in
                 list and hence cannot be removed.
         """
-        decapsulated_value = self._remove_template_class(item)
+        decapsulated_value = self._remove_encapsulation(item)
         if decapsulated_value not in self:
             message = 'item not in list'
             logger.error(message)
@@ -73,12 +73,12 @@ class ListEncapsulationBase(EncapsulationBase, List):
         return item.accept(self._visitor)
 
     def __setitem__(self, index, value: Info):
-        decapsulated_value = self._remove_template_class(value)
+        decapsulated_value = self._remove_encapsulation(value)
         self.subject[index] = decapsulated_value
         decapsulated_value.parent = self.subject
 
     def __contains__(self, item: Info):
-        decapsulated_value = self._remove_template_class(item)
+        decapsulated_value = self._remove_encapsulation(item)
         return decapsulated_value in self.subject
 
     def __repr__(self):

@@ -42,7 +42,7 @@ class EncapsulationBase:
         Args:
             parent (Info): new value for subjects parent
         """
-        decapsulated_parent = self._remove_template_class(parent)
+        decapsulated_parent = self._remove_encapsulation(parent)
         self.subject.parent = decapsulated_parent
 
     @property
@@ -73,7 +73,7 @@ class EncapsulationBase:
         return self.subject.root.accept(self._visitor)
 
     @staticmethod
-    def _remove_template_class(item: Info):
+    def _remove_encapsulation(item: Info):
         """Decapsulates a Info Class if it is encapsulated by an instance
             of EncapsulationBase
 
