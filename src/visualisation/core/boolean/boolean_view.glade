@@ -10,6 +10,7 @@
         <property name="visible">True</property>
         <property name="can-focus">True</property>
         <signal name="activate" handler="_click_handler" swapped="no"/>
+        <signal name="state-set" handler="_on_state_change" swapped="no"/>
         <style>
           <class name="boolean"/>
         </style>

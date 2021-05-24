@@ -11,7 +11,7 @@
         <property name="visible">True</property>
         <property name="can-focus">True</property>
         <property name="vexpand">True</property>
-        <property name="position">300</property>
+        <property name="position">400</property>
         <property name="position-set">True</property>
         <property name="wide-handle">True</property>
         <child>

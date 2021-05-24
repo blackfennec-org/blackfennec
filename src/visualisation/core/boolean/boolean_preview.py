@@ -20,7 +20,8 @@ class BooleanPreview(Gtk.Bin):
         super().__init__()
         self._view_model = view_model
         self._value.set_state(self._view_model.value)
-        self._value.connect('notify::active', self.on_switch_toggled)
+        self._initiate_state_style()
+        self._value.connect('notify::active', self._on_switch_toggled)
 
         logger.info(
             'BooleanView with text: "%s" created', self._view_model.value)
@@ -33,7 +34,7 @@ class BooleanPreview(Gtk.Bin):
         else:
             self.add_style_class('boolean-false')
 
-    def on_switch_toggled(self, unused_switch, unused_state):
+    def _on_switch_toggled(self, unused_switch, unused_state):
         if self._value.get_state():
             self.remove_style_class('boolean-false')
             self.add_style_class('boolean-true')
@@ -51,3 +52,9 @@ class BooleanPreview(Gtk.Bin):
         object_context = my_object.get_style_context()
         object_context.remove_class(class_name)
 
+    def _initiate_state_style(self):
+        state = self._value.get_active()
+        if state:
+            self.add_style_class('boolean-true')
+        else:
+            self.add_style_class('boolean-false')

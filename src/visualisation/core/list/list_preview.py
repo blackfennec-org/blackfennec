@@ -28,12 +28,12 @@ class ListPreview(Gtk.Bin):
         self.add_style_class('is-active')
 
     def add_style_class(self, class_name):
-        my_object = self.get_parent().get_parent()
+        my_object = self.get_parent().get_parent().get_parent()
         object_context = my_object.get_style_context()
         object_context.add_class(class_name)
 
     def remove_style_class(self, class_name):
-        my_object = self.get_parent().get_parent().get_parent().get_parent()
+        my_object = self.get_parent().get_parent().get_parent().get_parent().get_parent()
         children = my_object.get_children()
         for child in children:
             object_context = child.get_child().get_style_context()
