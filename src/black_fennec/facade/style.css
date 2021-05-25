@@ -1,5 +1,6 @@
 @define-color blue #4d77fd;
 @define-color jet #2b2b2b;
+@define-color white #ffffff;
 
 @define-color rocky #454545;
 @define-color rocky-d #343434;
@@ -10,7 +11,7 @@
 @define-color iron-l #626262;
 
 @define-color silver #e4e4e4;
-@define-color silver-d #d3d3d3;
+@define-color silver-d #c2c2c2;
 @define-color silver-l #f5f5f5;
 
 @define-color red #e53855;
@@ -113,32 +114,32 @@ color: @blue;
 padding: 0px;
 }
 
-.main-header-bar .titlebutton.close {
+.main-header-bar .titlebutton.close, .store-window .titlebutton.close{
 border:1px solid @red;
 color: @red;
 }
 
-.main-header-bar .titlebutton.maximize {
+.main-header-bar .titlebutton.maximize, .store-window .titlebutton.maximize {
 border:1px solid @yellow;
 color: @yellow;
 }
 
-.main-header-bar .titlebutton.minimize {
+.main-header-bar .titlebutton.minimize, .store-window .titlebutton.minimize {
 border:1px solid @green;
 color: @green;
 }
 
-.main-header-bar .titlebutton.close:hover {
+.main-header-bar .titlebutton.close:hover, .store-window .titlebutton.close:hover {
 background-color: @red;
 color: @jet;
 }
 
-.main-header-bar .titlebutton.maximize:hover {
+.main-header-bar .titlebutton.maximize:hover, .store-window .titlebutton.maximize:hover {
 background-color: @yellow;
 color: @jet;
 }
 
-.main-header-bar .titlebutton.minimize:hover {
+.main-header-bar .titlebutton.minimize:hover, .store-window .titlebutton.minimize:hover {
 background-color: @green;
 color: @jet;
 }
@@ -650,3 +651,143 @@ border-image: none;
 margin: 0px;
 padding: 0px;
 }
+
+/* STore UI */
+.store-window * {
+border: none;
+background-image: none;
+border-image: none;
+box-shadow: none;
+}
+
+.store-window .store-box {
+background-color: @white;
+}
+
+.store-window headerbar {
+background-color: @blue;
+}
+
+.store-window .search-box-1 {
+background-color: @blue;
+}
+
+.store-window .search-box-2 {
+background-color: @jet;
+margin: 50px;
+border-radius: 50px;
+padding: 50px 30px;
+}
+
+.store-window .search-bar box{
+background-color: @jet;
+border-radius: 25px;
+}
+
+.store-window .search-bar .search-entry{
+background-color: @jet;
+border-radius: 25px;
+color: @white;
+caret-color: @white;
+border: 1px solid @white;
+box-shadow: none;
+}
+
+.store-window .search-bar .search-entry:focus{
+background-color: @jet;
+border: 1px solid @blue;
+box-shadow: none;
+}
+
+.store-window .search-entry * {
+color: @white;
+}
+
+.store-window .title{
+color: @white;
+font-size: 30px;
+margin-bottom: 20px;
+}
+
+
+.store-window scrollbar {
+border: none;
+background-color: @white;
+padding: 1px;
+}
+
+.store-window scrollbar slider {
+border-radius: 10px;
+background-color: @white;
+border: none;
+padding: 1px;
+margin: 2px;
+}
+
+.store-window scrollbar slider:hover {
+background-color: @blue;
+}
+
+.extension-container {
+margin: 50px;
+}
+
+/*extension Template */
+.extension-template {
+border: 1px solid @silver;
+}
+
+.extension-template label {
+color: @iron;
+}
+
+.extension-template .title {
+font-size: 25px;
+font-weight: 700;
+color: @iron;
+margin: 0px;
+}
+
+.extension-template * {
+background-color: @white;
+background-image: none;
+border-image: none;
+box-shadow: none;
+}
+
+.extension-template > * {
+border: 1px solid @silver;
+}
+
+.extension-template > box {
+padding: 10px;
+}
+
+.extension-template button * {
+color: @blue;
+background-color: Transparent;
+}
+
+.extension-template button {
+border-radius: 25px;
+border: 1px solid @blue;
+}
+
+.extension-template button:hover * {
+color: @white;
+background-color: Transparent;
+}
+
+.extension-template button:hover {
+background-color: @blue;
+}
+
+.extension-template text {
+color: @rocky;
+background-color: @white;
+}
+
+.extension-template .description {
+padding: 20px;
+}
+
