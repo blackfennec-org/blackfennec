@@ -1,9 +1,11 @@
-Usability Test Template
-=======================
+Usability Test Templates
+========================
 
+This template can be used to conduct usability tests of the black-fennec application. It contains multiple tasks that can be used to the the systems usability. These tasks are dedicated to personas that have little to none experience with the application, in order to be representative of users that use our application for the first time.
 
 Tasks
 -----
+The tasks are to be read to the user that is testing the application. The tester is encouraged to think aloud by the test supervisor, by asking them to whenever necessary.
 
 Open a Project
 """"""""""""""
@@ -19,6 +21,14 @@ Goals
 ~~~~~
 The project is loaded and the associated files are accessible through the `Project File Tree`.
 
+Observation
+~~~~~~~~~~~
+
+==============  =================
+ Tester          Observation
+==============  =================
+<Name>          <Observation>
+==============  =================
 
 Open a File
 """""""""""
@@ -35,6 +45,14 @@ Goals
 ~~~~~
 The presenter displays the file.
 
+Observation
+~~~~~~~~~~~
+
+==============  =================
+ Tester          Observation
+==============  =================
+<Name>          <Observation>
+==============  =================
 
 Open two Files
 """"""""""""""
@@ -51,6 +69,14 @@ Goals
 ~~~~~
 The main ui opened two tabs, each with a presenter displaying one file.
 
+Observation
+~~~~~~~~~~~
+
+==============  =================
+ Tester          Observation
+==============  =================
+<Name>          <Observation>
+==============  =================
 
 Switch Tabs
 """""""""""
@@ -68,6 +94,14 @@ Goals
 ~~~~~
 The content of the two files can be displayed at will.
 
+Observation
+~~~~~~~~~~~
+
+==============  =================
+ Tester          Observation
+==============  =================
+<Name>          <Observation>
+==============  =================
 
 Edit Text
 """""""""
@@ -85,6 +119,14 @@ Goals
 ~~~~~
 The text in any text field has changed.
 
+Observation
+~~~~~~~~~~~
+
+==============  =================
+ Tester          Observation
+==============  =================
+<Name>          <Observation>
+==============  =================
 
 Edit Truth Value
 """"""""""""""""
@@ -102,6 +144,14 @@ Goals
 ~~~~~
 The truth value in any switch has changed.
 
+Observation
+~~~~~~~~~~~
+
+==============  =================
+ Tester          Observation
+==============  =================
+<Name>          <Observation>
+==============  =================
 
 Edit Field Name
 """""""""""""""
@@ -120,6 +170,14 @@ Goals
 ~~~~~
 The key in a map item has changed.
 
+Observation
+~~~~~~~~~~~
+
+==============  =================
+ Tester          Observation
+==============  =================
+<Name>          <Observation>
+==============  =================
 
 Remove Field
 """""""""""""""
@@ -139,6 +197,14 @@ Goals
 ~~~~~
 The row in a map/list item is removed.
 
+Observation
+~~~~~~~~~~~
+
+==============  =================
+ Tester          Observation
+==============  =================
+<Name>          <Observation>
+==============  =================
 
 Add Field to List
 """""""""""""""""
@@ -157,6 +223,14 @@ Goals
 ~~~~~
 A row in a list item of type `String` was added.
 
+Observation
+~~~~~~~~~~~
+
+==============  =================
+ Tester          Observation
+==============  =================
+<Name>          <Observation>
+==============  =================
 
 Add Field to Map
 """"""""""""""""
@@ -175,13 +249,22 @@ Goals
 ~~~~~
 A row in a map item of type `String` was added.
 
+Observation
+~~~~~~~~~~~
+
+==============  =================
+ Tester          Observation
+==============  =================
+<Name>          <Observation>
+==============  =================
+
 Save File
 ---------
 
 Save changes made to a file.
 
 Preconditions
-~~~~~~~~~~~~~-
+~~~~~~~~~~~~~
 
 Black Fennec is started.
 - The main UI is loaded.
@@ -193,3 +276,12 @@ Black Fennec is started.
 Goals
 ~~~~~
 Changes made to file are persisted.
+
+Observation
+~~~~~~~~~~~
+
+==============  =================
+ Tester          Observation
+==============  =================
+<Name>          <Observation>
+==============  =================

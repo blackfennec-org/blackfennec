@@ -73,7 +73,7 @@ Welcome to Black Fennec's documentation!
 
    testing/system_test.rst
    testing/system_test_templates.rst
-   testing/ux_test.rst
+   testing/ux_test_templates.rst
 
 
 Indices and tables
