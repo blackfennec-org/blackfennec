@@ -43,7 +43,11 @@ Performance Scenario
 ====================
 This isn't much a concern for us as Black Fennec is a single user desktop application. Our project is never used by more than one user. Anyone who wants to use black fennec can install the application locally on the machine and work with it. The performance bottlenecks that we see are mainly related to file size and the amount of installed extensions.
 
-Which is why we have a dedicated system test that ensures that large files (1 MB/ 100'000 lines) can be opened in under 1 second.
+System Test
+"""""""""""
+Which is why we have a dedicated system test that ensures that large files (1 MB/ 100'000 lines) can be opened in under one second. This is tested each release cycle, to ensure nothing has broken this requirement.
+
+To ensure that the second bottleneck that we have identified, namely the installation of many type plugins, each bidding on every viewed structure. For this a special extension, loading the same bidder a thousand times while opening a large files (1 MB/ 100'000 lines) was created.
 
 Technologies Used
 =================
