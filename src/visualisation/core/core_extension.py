@@ -38,8 +38,9 @@ def create_extension(extension_api: ExtensionApi):
     extension_api.template_registry.register_template(ListTemplate())
 
     extension_api.type_registry.register_type(
-        MapBidder(extension_api.interpretation_service)
-    )
+        MapBidder(
+            extension_api.interpretation_service,
+            extension_api.template_registry ))
     extension_api.template_registry.register_template(MapTemplate())
 
     extension_api.type_registry.register_type(ReferenceBidder())

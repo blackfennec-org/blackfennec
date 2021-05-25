@@ -22,20 +22,44 @@ class MapView(Gtk.Bin):
         """
         super().__init__()
         self._view_model = view_model
-        self._populate_items()
+
+        self._view_model.bind(value=self._update_value)
+        self._value_set: set = set()
+        self._items: dict = dict()
+
+        self._update_value(self, self._view_model.value)
         logger.info('MapView created')
 
-    def _populate_items(self) -> None:
-        """Populates the list that displays the map items"""
-        for key, substructure in self._view_model.value.items():
-            preview = self._view_model.create_preview(substructure)
-            item = MapItemView(
-                key, preview,
-                self._delete_request_handler,
-                self._rename_request_handler,
-                self._add_request_handler,
-                self._preview_click_handler)
-            self._item_container.add(item)
+
+    def _add_item(self, key, structure):
+        preview = self._view_model.create_preview(structure)
+        item = MapItemView(
+            key, preview,
+            self._view_model)
+        self._items[key] = item
+        self._item_container.add(item)
+
+    def _remove_item(self, key):
+        item = self._items.pop(key)
+        self._item_container.remove(item)
+
+    def _update_value(self, unused_sender, new_value):
+        """Observable handler for value
+
+        Args:
+            unused_sender: view model
+            new_value: set by view model
+        """
+        value_set = set(new_value)
+        intersection = self._value_set.intersection(value_set)
+        to_be_added = value_set.difference(intersection)
+        for key in to_be_added:
+            self._add_item(key, new_value[key])
+        to_be_deleted = self._value_set.difference(intersection)
+        for key in to_be_deleted:
+            self._remove_item(key)
+
+        self._value_set = value_set
 
     def _preview_click_handler(self, unused_sender, route_target) -> None:
         """Handles clicks on map items, triggers navigation"""
@@ -44,18 +68,6 @@ class MapView(Gtk.Bin):
     def _delete_request_handler(self, sender):
         self._item_container.remove(sender)
         self._view_model.delete_item(sender.key)
-
-    def _add_request_handler(self, key, template_id):
-        substructure = String('')
-        self._view_model.add_item(key, substructure)
-        preview = self._view_model.create_preview(substructure)
-        item = MapItemView(
-            key, preview,
-            self._delete_request_handler,
-            self._rename_request_handler,
-            self._add_request_handler,
-            self._preview_click_handler)
-        self._item_container.add(item)
 
     def _rename_request_handler(self, sender, new_key):
         sender.set_key(new_key)

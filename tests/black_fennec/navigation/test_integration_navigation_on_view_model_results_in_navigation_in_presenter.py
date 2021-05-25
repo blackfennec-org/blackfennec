@@ -22,21 +22,19 @@ class NavigationOnViewModelResultsInNavigationInPresenterTestSuite(
         unittest.TestCase):
 
     def setUp(self):
-        registry = TypeRegistry()
+        type_registry = TypeRegistry()
         interpretation_service = InterpretationServiceMock([])
         template_registry = TemplateRegistryMock()
-        registry.register_type(BooleanBidder())
-        registry.register_type(NumberBidder())
-        registry.register_type(StringBidder())
-        registry.register_type(ListBidder(interpretation_service, template_registry))
-        registry.register_type(MapBidder(interpretation_service))
+        type_registry.register_type(BooleanBidder())
+        type_registry.register_type(NumberBidder())
+        type_registry.register_type(StringBidder())
+        type_registry.register_type(
+            ListBidder(interpretation_service, template_registry))
+        type_registry.register_type(
+            MapBidder(interpretation_service, template_registry))
         self.presenter = InfoPresenterMock()
         self.navigation_service = NavigationService()
         self.navigation_service.set_presenter(self.presenter)
-
-    def tearDown(self) -> None:
-        self.registry = None
-        self.auctioneer = None
 
     def test_map_can_navigate(self):
         info = Map()
@@ -44,7 +42,11 @@ class NavigationOnViewModelResultsInNavigationInPresenterTestSuite(
             info, Dummy('Specification'), Dummy('Factories'))
         interpretation.set_navigation_service(self.navigation_service)
         interpretation_service = Dummy('InterpretationService')
-        map_view_model = MapViewModel(interpretation, interpretation_service)
+        template_registry = TemplateRegistryMock()
+        map_view_model = MapViewModel(
+            interpretation,
+            interpretation_service,
+            template_registry)
         map_view_model.navigate_to(Map())
         self.assertEqual(self.presenter.show_count, 1)
 
