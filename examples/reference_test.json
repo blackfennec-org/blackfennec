@@ -1,0 +1,39 @@
+{
+  "REST dict": {
+    "$ref": "http://echo.jsontest.com/key/value/one/two"
+  },
+  "REST with Pointer": {
+    "$ref": "http://echo.jsontest.com/key/value/one/two#key"
+  },
+  "Relative Path": {
+    "$ref": "address_test.json"
+  },
+  "Relative Path with Pointer": {
+    "$ref": "address_test.json#1"
+  },
+  "Relative Path with two-level Pointer": {
+    "$ref": "address_test.json#1/first_name"
+  },
+  "Absolute Path": {
+    "$ref": "/home/leonie/PycharmProjects/black-fennec/examples/address_test.json"
+  },
+  "Absolute Path with backslashes": {
+    "$ref": "home\\leonie\\PycharmProjects\\black-fennec\\examples\\address_test.json"
+  },
+  "Absolute Path with Pointer": {
+    "$ref": "/home/leonie/PycharmProjects/black-fennec/examples/address_test.json#1"
+  },
+  "Absolute Path with two-level Pointer": {
+    "$ref": "/home/leonie/PycharmProjects/black-fennec/examples/address_test.json#1/first_name"
+  },
+  "Current File Relative Json Pointer": {
+    "$ref": "1/Project Member"
+  },
+  "Current File Absolute Json Pointer": {
+    "$ref": "#/Project Member"
+  },
+  "Project Member": {
+        "first_name": "Hans",
+        "last_name": "Wurst"
+    }
+}

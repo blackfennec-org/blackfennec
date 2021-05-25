@@ -6,7 +6,7 @@ variables:
 # Build Docs Building Docker Image
 ###############################################################################
 build docs image:
-  stage: prebuild
+  stage: imagebuild
   image: docker:latest
   script:
     - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
@@ -29,6 +29,17 @@ build docs image:
 ###############################################################################
 # Build Latest Documentation
 ###############################################################################
+
+build latest code docs:
+  image: $DOCS_BUILD_IMAGE
+  stage: prebuild
+  script:
+    - sphinx-apidoc -f -o docs/source/software_documentation/code/ .
+  artifacts:
+    paths:
+      - docs/source/software_documentation/code
+  only:
+      - tags
 
 build latest html:
   image: $DOCS_BUILD_IMAGE
@@ -67,46 +78,6 @@ build latest epub:
     - tags
 
 ###############################################################################
-# Build Documentation for All Tags
-###############################################################################
-
-build tags html:
-  image: $DOCS_BUILD_IMAGE
-  stage: build_tags
-  script:
-    - cd docs
-    - make MODE=html versions
-  artifacts:
-    paths:
-      - docs/_versions/*/html
-  only:
-    - tags
-
-build tags pdf:
-  image: $DOCS_BUILD_IMAGE
-  stage: build_tags
-  script:
-    - cd docs
-    - make MODE=latexpdf versions
-  artifacts:
-    paths:
-      - docs/_versions/*/latex/*.pdf
-  only:
-    - tags
-
-build tags epub:
-  image: $DOCS_BUILD_IMAGE
-  stage: build_tags
-  script:
-    - cd docs
-    - make MODE=epub versions
-  artifacts:
-    paths:
-      - docs/_versions/*/epub/*.epub
-  only:
-    - tags
-
-###############################################################################
 # Publish Gitlab Pages
 ###############################################################################
 
@@ -118,16 +89,6 @@ pages:
     - mv _build/html/ ../public
     - mv _build/epub/*.epub ../public/_static/
     - mv _build/latex/*.pdf ../public/_static/
-    - |
-      shopt -s dotglob
-      for tag in $(git tag); do
-      mkdir -p _versions/$tag/html/_static/
-      mv _versions/$tag/epub/*.epub _versions/$tag/html/_static/
-      mv _versions/$tag/latex/*.pdf _versions/$tag/html/_static/
-      mv _versions/$tag/html/* _versions/$tag/
-      rmdir _versions/$tag/html
-      done
-    - mv _versions ../public/
   artifacts:
     paths:
       - public

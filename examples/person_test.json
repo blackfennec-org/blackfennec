@@ -1,0 +1,24 @@
+[
+    {
+        "courtesy_title": "Mr.",
+        "first_name": "Rupaul",
+        "middle_name": "Andre",
+        "last_name": "Charls",
+        "suffix": "I",
+        "gender": "male",
+        "sex": "male",
+        "marital_status": "married",
+        "nationality": "USA"
+    },
+    {
+        "courtesy_title": "Dr.",
+        "first_name": "Mia",
+        "middle_name": "Anna",
+        "last_name": "Hendrix",
+        "suffix": "PhD",
+        "gender": "female",
+        "sex": "female",
+        "marital_status": "widowed",
+        "nationality": "Switzerland"
+    }
+]

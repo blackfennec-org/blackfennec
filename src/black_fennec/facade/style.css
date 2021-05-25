@@ -1,0 +1,654 @@
+@define-color blue #4d77fd;
+@define-color jet #2b2b2b;
+
+@define-color rocky #454545;
+@define-color rocky-d #343434;
+@define-color rocky-l #565656;
+
+@define-color iron #515151;
+@define-color iron-d #404040;
+@define-color iron-l #626262;
+
+@define-color silver #e4e4e4;
+@define-color silver-d #d3d3d3;
+@define-color silver-l #f5f5f5;
+
+@define-color red #e53855;
+@define-color yellow #ffb017;
+@define-color green #44ab96;
+
+/*splash screen */
+.splash-screen label {
+color: @silver
+}
+
+.splash-screen trough, .splash-screen progress{
+padding: 5px 0px 5px 0px;
+border: none;
+border-radius: 10px;
+}
+
+.splash-screen progressbar > trough > progress {
+    background-color: @blue;
+}
+.splash-screen progressbar > trough  {
+background-color: @silver;
+}
+
+/*General */
+* {
+font-family: Ubuntu, Verdana;
+}
+
+.main-window, .splash-screen {
+ background-color: @iron;
+}
+
+.main-window * {
+border-image: none;
+background-image: none;
+box-shadow: none;
+}
+
+.main-window selection{
+color: @jet;
+background-color: @blue;
+margin: 10px;
+}
+
+.main-window paned separator.wide {
+border-image: none;
+background-image: none;
+background-color: @rocky;
+}
+
+.main-window paned separator.wide:hover{
+border-image: none;
+background-image: none;
+background-color: @iron-l;
+}
+
+.main-window scrollbar {
+border: none;
+background-color: @iron-l;
+padding: 1px;
+}
+
+.main-window scrollbar slider {
+border-radius: 10px;
+background-color: @rocky;
+border: none;
+padding: 1px;
+margin: 2px;
+}
+
+.main-window scrollbar slider:hover {
+background-color: @silver;
+}
+
+decoration, decoration:backdrop{
+box-shadow: none;
+}
+
+
+/*Header*/
+.window-icon {
+margin-left: 5px;
+}
+
+.search-entry{
+background-color: @rocky-d;
+border-style: solid;
+border-color: @rocky-d;
+border-radius: 25px;
+}
+
+.main-header-bar {
+border: 1px solid @rocky;
+border-width: 1px 1px 0px 1px;
+background-image: none;
+background-color: @jet;
+color: @blue;
+}
+
+.main-header-bar .titlebutton {
+padding: 0px;
+}
+
+.main-header-bar .titlebutton.close {
+border:1px solid @red;
+color: @red;
+}
+
+.main-header-bar .titlebutton.maximize {
+border:1px solid @yellow;
+color: @yellow;
+}
+
+.main-header-bar .titlebutton.minimize {
+border:1px solid @green;
+color: @green;
+}
+
+.main-header-bar .titlebutton.close:hover {
+background-color: @red;
+color: @jet;
+}
+
+.main-header-bar .titlebutton.maximize:hover {
+background-color: @yellow;
+color: @jet;
+}
+
+.main-header-bar .titlebutton.minimize:hover {
+background-color: @green;
+color: @jet;
+}
+
+.main-header-bar > label {
+color: @silver;
+font-weight:700;
+}
+
+.main-header-bar > box {
+background-color: @jet;
+border: none;
+border-style: solid;
+border-color: @blue;
+}
+
+.main-header-bar menuitem > * > *{
+background-color: @jet;
+border-radius: 0px 0px 10px 10px;
+}
+
+.main-header-bar menuitem menu{
+background-color: @jet;
+border-radius: 0px 0px 10px 10px;
+}
+
+.main-header-bar menuitem menu menuitem {
+border: none;
+color: @silver;
+padding: 0px;
+margin: 0px;
+}
+
+.main-header-bar menuitem menu .menu-item:hover {
+border: none;
+color: @silver;
+background-color: @rocky;
+padding: 0px;
+margin: 0px;
+}
+
+.main-header-bar menuitem menu .last-item:hover {
+border: none;
+border-radius: 0px 0px 10px 10px;
+color: @jet;
+padding: 0px;
+margin: 0px;
+}
+
+.main-header-bar menuitem menu .close:hover {
+background-color: @red;
+}
+
+
+/*status-bar*/
+.main-status-bar * {
+background-color: @iron-d;
+border-image: none;
+border-style: solid;
+border-color: @iron;
+border-width: 10px;
+color: @blue;
+}
+
+/*presenter container */
+.main-presenter-container{
+background-color: @rocky;
+border-image: none;
+border-style: solid;
+border-color: @rocky;
+border-width: 2px;
+}
+
+.presenter-container > stack{
+background-color: @rocky;
+}
+
+.container {
+background-color: @iron;
+}
+
+.empty-list-pattern {
+margin: 100px;
+background-image: none;
+font-family: Courier;
+box-shadow: none;
+border: none;
+}
+
+.empty-list-pattern > * {
+margin: 5px;
+}
+
+.empty-list-pattern button{
+font-family: Ubuntu, Verdana;
+border-style: solid;
+border-color: @rocky-l;
+border-width: 2px;
+border-radius: 30px;
+padding: 5px 20px;
+}
+
+.empty-list-pattern button:hover{
+background-color: @rocky-l;
+}
+
+.column-based-presenter button{
+border: none;
+border-radius: 0px;
+padding: 10px 40px;
+background-image: none;
+background-color: @iron;
+border-style: solid;
+border-color: @iron;
+border-width: 2px;
+margin: 0px 1px;
+outline: none;
+box-shadow: none;
+text-decoration: none;
+}
+
+.column-based-presenter > * > box {
+border-style: solid;
+border-color: @rocky;
+border-width: 0px 2px 0px 0px;
+}
+
+.main-main-grid label{
+color: @silver;
+text-shadow: none;
+text-decoration: none;
+outline: none;
+}
+
+.main-main-grid > * {
+border-image: none;
+border-style: solid;
+border-color: @rocky;
+border-width: 2px;
+}
+
+menubar > menuitem:hover {
+background: none;
+box-shadow: inset 0px -3px @blue;
+}
+
+/*tree directory*/
+.main-window treeview.view header button{
+background: none;
+background-color: @iron;
+box-shadow: none;
+padding: 10px 20px;
+font-weight: 400;
+text-shadow: none;
+text-decoration: none;
+}
+
+.main-window treeview.view header button * {
+color: @blue;
+font-weight: 500;
+}
+
+.main-file-tree{
+background-color: @iron;
+color: @silver;
+}
+
+.main-file-tree *:hover {
+background: none;
+background-color: @iron-l;
+box-shadow: 3px 0px 0px @blue inset;
+}
+
+/*data Types*/
+
+.image {
+padding: 20px;
+}
+
+.preview-item{
+margin: 2px 3px;
+}
+
+.preview-item > * > * {
+background-color: @iron;
+}
+.map-view label{
+padding: 10px 20px;
+background-image: none;
+}
+
+.map-preview, .list-preview{
+border: none;
+border-radius: 0px;
+background-image: none;
+outline: none;
+box-shadow: none;
+text-decoration: none;
+}
+
+.map-view button, .list-view button {
+margin: 0px;
+padding: 0px;
+box-shadow: none;
+}
+
+.map-preview image, .list-preview image {
+margin: 0px 10px 0px 10px;
+box-shadow: none;
+}
+
+.map-preview:hover image {
+margin: 0px 5px 0px 15px;
+box-shadow: none;
+}
+
+.map-item-view > * {
+border-style: solid;
+border-color: @rocky;
+border-width: 0px 0px 1px 0px;
+}
+
+.is-active{
+border: 1px solid @blue;
+}
+
+.boolean {
+background-image: none;
+border-image: none;
+border: none;
+margin: 4px 0px;
+border-radius: 25px;
+}
+
+.boolean slider{
+background-image: none;
+border-image: none;
+border: none;
+background-color: @iron;
+margin: 3px;
+}
+
+.boolean-true {
+background-color: @blue;
+}
+
+.boolean-false {
+background-color: @silver;
+}
+
+.number {
+background-image: none;
+border-image: none;
+border: 1px solid @rocky-d;
+border-radius: 25px;
+font-style: italic;
+font-weight: 300;
+background-color: @rocky-d;
+color: @silver;
+margin: 3px 0px;
+}
+
+.number:focus {
+border: 1px solid @blue;
+}
+
+.presenter-container textview text {
+border-radius: 10px;
+}
+
+.string *:focus{
+border: 1px solid @blue;
+}
+
+.string.view {
+background-image: none;
+border-image: none;
+border: none;
+font-style: italic;
+font-weight: 300;
+}
+
+.string.view text {
+background-image: none;
+border-image: none;
+text-decoration: none;
+background-color: @rocky-d;
+color: @silver;
+}
+
+.base-key, .base-value {
+margin: 2px 0px;
+}
+
+.base-box {
+padding: 0px 20px;
+}
+
+.base-title {
+padding: 10px 0px;
+border-style: solid;
+border-color: @rocky;
+border-width: 0px 0px 1px 0px;
+font-weight:500;
+}
+
+.base-title image {
+margin: 0px 5px;
+}
+
+.base-box button{
+background-image: none;
+border-image: none;
+border: 1px solid @silver;
+background-color: @iron;
+padding: 0px;
+border-radius: 5px;
+margin: 5px 5px 5px 10px;
+}
+
+.base-box button:hover {
+background-color: @blue;
+border-color:@blue;
+
+}
+
+.base-box button image {
+padding: 5px;
+}
+
+/*popup */
+
+.main-window .popup {
+background-color: @rocky;
+border-radius: 10px;
+border: none;
+color: @silver;
+padding: 0px;
+margin: 0px;
+}
+
+.main-window .popup * {
+color: @silver;
+}
+
+.main-window .popup > box {
+margin: 0px;
+border-radius: 0px;
+}
+
+.main-window .popup label{
+padding: 10px;
+margin: 0px;
+border-radius: 0px;
+}
+
+.main-window .popup .title {
+font-size: 20px;
+font-weight: 700;
+border-radius: 0px;
+box-shadow: 0px -1px 0px @silver inset;
+margin-bottom: 5px;
+}
+
+.main-window .popup button {
+border-style: solid;
+border-color: @rocky-l;
+border-width: 2px;
+border-radius: 30px;
+margin: 5px;
+}
+
+.main-window .popup .confirm {
+border-color: @blue;
+color: @blue;
+}
+
+.main-window .popup *:hover {
+border-radius: 0px;
+background-color: @rocky-l;
+}
+
+.main-window .popup button:hover {
+background-color: @rocky-l;
+border-style: solid;
+border-color: @rocky-l;
+border-width: 2px;
+border-radius: 30px;
+}
+
+.main-window .popup .confirm:hover {
+background-color: @blue;
+border-color: @blue;
+}
+
+.main-window .popup entry{
+border: 1px solid @rocky-d;
+background-image: none;
+border-image: none;
+text-decoration: none;
+background-color: @rocky-d;
+border-radius: 30px;
+}
+
+.main-window .popup entry:focus {
+border: 1px solid @blue;
+}
+
+/* Presenter Container Tab system*/
+.presenter-container * {
+border-image: none;
+background-image: none;
+}
+
+.presenter-container {
+border: none;
+}
+
+.presenter-container header {
+background-color: @rocky-d;
+border-color: @rocky;
+}
+
+.presenter-container tab {
+background-color: @rocky-d;
+padding: 5px 15px 2px 15px;
+margin: 2px 0px 0px 0px;
+border-width: 0px 1px 0px 0px;
+border-color: @iron;
+}
+
+.presenter-container tab:checked {
+margin: 2px 0px 0px 0px;
+background-color: @iron;
+border-radius: 7px 7px 0px 0px;
+border: none;
+}
+
+.presenter-container tab:hover {
+margin: 2px 0px 0px 0px;
+background-color: @iron-d;
+border-radius: 7px 7px 0px 0px;
+border: none;
+}
+
+.presenter-container tab button{
+border: none;
+padding:0px 7px;
+margin-left: 5px;
+border-radius: 50px;
+}
+
+.presenter-container tab button label{
+padding: 0px;
+margin: 0px;
+color: @silver;
+}
+
+.presenter-container tab button:hover{
+border-radius: 50px;
+background-color: @red;
+}
+
+.presenter-container tab button:hover label{
+color: @jet;
+}
+
+.presenter-container menu {
+background-image: none;
+background-color: @iron-l;
+border-image: none;
+}
+
+.presenter-container menu > *{
+padding: 4px 0px 4px 0px;
+}
+
+.presenter-container menu *:hover{
+background-image: none;
+box-shadow: 4px 0px 0px @blue inset;
+}
+
+.hide-tab header {
+border-radius: 0px;
+background-color: @rocky;
+background-image: none;
+border: none;
+border-image: none;
+margin: 0px;
+padding:0px;
+}
+
+.hide-tab tab:checked {
+border-radius: 0px;
+background-color: @rocky;
+background-image: none;
+border: none;
+border-image: none;
+margin: 0px;
+padding:0px;
+}
+
+.hide-tab tab:hover {
+border-radius: 0px;
+background-color: @rocky;
+background-image: none;
+border: none;
+border-image: none;
+margin: 0px;
+padding: 0px;
+}

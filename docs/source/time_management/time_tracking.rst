@@ -9,3 +9,10 @@ Time spent per Team-Member
 .. image:: charts/hours_per_member.png
    :width: 400
    :alt: Time spent per Team-Member
+
+Comparison of estimate to time spent
+************************************
+
+.. image:: charts/estimate_spend_comparison.png
+   :width: 400
+   :alt: Comparison of estimate to time spent

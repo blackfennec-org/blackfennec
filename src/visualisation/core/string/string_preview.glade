@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with glade 3.38.2 -->
+<interface>
+  <requires lib="gtk+" version="3.24"/>
+  <template class="StringPreview" parent="GtkBin">
+    <property name="visible">True</property>
+    <property name="can-focus">False</property>
+    <property name="valign">center</property>
+    <child>
+      <object class="GtkTextView" id="_value">
+        <property name="width-request">169</property>
+        <property name="height-request">35</property>
+        <property name="visible">True</property>
+        <property name="can-focus">True</property>
+        <property name="margin-top">3</property>
+        <property name="margin-bottom">3</property>
+        <property name="pixels-above-lines">5</property>
+        <property name="pixels-below-lines">5</property>
+        <property name="wrap-mode">word</property>
+        <property name="left-margin">5</property>
+        <property name="right-margin">5</property>
+        <property name="top-margin">5</property>
+        <property name="bottom-margin">5</property>
+        <style>
+          <class name="string"/>
+        </style>
+      </object>
+    </child>
+    <style>
+      <class name="test"/>
+    </style>
+  </template>
+</interface>

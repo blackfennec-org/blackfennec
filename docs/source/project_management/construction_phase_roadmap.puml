@@ -1,0 +1,130 @@
+@startgantt
+printscale daily
+scale 1
+Project starts the 2nd of april 2021
+
+'========== Iteration 2 ===============
+[Iteration 2] as [it2] lasts 2 weeks
+[it2] starts 2nd of april 2021
+
+'========== Iteration 3 ===============
+[Iteration 3] as [it3] lasts 2 weeks
+[it3] starts 16th of april 2021
+[it3] displays on same row as [it2]
+
+'========== Iteration 4 ===============
+[Iteration 4] as [it4] lasts 2 weeks
+[it4] starts 30th of april 2021
+[it4] displays on same row as [it2]
+
+'========== Iteration 5 ===============
+[Iteration 5] as [it5] lasts 2 weeks
+[it5] starts 14th of may 2021
+[it5] displays on same row as [it2]
+
+'========== Reviews ===============
+[Review 3] happens on 0 week after [it2]'s end
+[Review 4] happens on 0 weeks after [it4]'s end
+[Review 5] happens on 1 weeks after [it5]'s start
+
+'========== Hand-ins ===============
+[Project hand-in] happens on 2021/05/26
+[Presentation hand-in] happens on 2021/05/28
+
+'========== Core Concepts ===============
+[NavigationService] as [nav] lasts 1 week
+[nav] starts at [it2]'s start
+
+[Auctioneer] as [auct] lasts 1 week
+[auct] starts at [it2]'s start
+
+[ColBasedPresenter] as [colPres] lasts 1 week
+[colPres] starts at [it2]'s start
+
+[Action] lasts 2 weeks
+[Action] starts at [it4]'s start
+
+[Collaboration] lasts 2 weeks
+[Action]->[Collaboration]
+
+[Templating] lasts 2 weeks
+[Templating] starts at [it3]'s start
+
+[Search] lasts 2 weeks
+[Search] starts at [it4]'s start
+[Templating]->[Search]
+
+
+
+[Specification] as [spec] lasts 1 week
+[spec] starts at [it3]'s start
+[Preview] as [prev] lasts 1 week
+[prev] starts at [it3]'s start
+[spec]->[prev]
+
+[ExtensionManager] as [ExtMan] lasts 2 week
+[ExtMan] starts at [it3]'s start
+[ExtensionStore] as [ExtStore] lasts 2 week
+[ExtStore] starts at [it3]'s start
+
+'========== CoreTypes ===============
+[CoreTypes] is colored in Lavender
+[CoreTypes] lasts 2 weeks
+[CoreTypes] pauses from 2021/04/9 to 2021/04/16
+
+[Info] lasts 1 week
+[Info] starts at [CoreTypes]'s start
+[String] lasts 1 week
+[String] starts at [CoreTypes]'s start
+[Number] lasts 1 week
+[Number] starts at [CoreTypes]'s start
+[Boolean] lasts 1 week
+[Boolean] starts at [CoreTypes]'s start
+[List] lasts 1 week
+[List] starts at [CoreTypes]'s start
+[Reference] lasts 1 week
+[Reference] starts 2 week after [CoreTypes]'s start
+[Map] lasts 1 week
+[Map] starts at [CoreTypes]'s start
+'========== BaseTypes ===============
+[BaseTypes] is colored in Lavender
+[BaseTypes] lasts 3 weeks
+[BaseTypes] starts 1 week after [CoreTypes]'s start
+
+[DateTime] lasts 1 week
+[Map]->[DateTime]
+
+[DateTimeRange] lasts 1 week
+[Map]->[DateTimeRange]
+
+[File] lasts 1 week
+[Map]->[File]
+
+[Image] lasts 1 week
+[File]->[Image]
+
+[Address] lasts 1 week
+[Map]->[Address]
+
+[Person] lasts 1 week
+[Map]->[Person]
+
+'========== ExtensionTypes ===============
+[ExtTypes] is colored in Lavender
+[ExtTypes] lasts 3 weeks
+[BaseTypes]->[ExtTypes]
+[CoreTypes]->[ExtTypes]
+[ExtMan]->[ExtTypes]
+
+note bottom
+if time permits:
+- Profile
+- GeoJson
+
+end note
+
+2021-04-05 to 2021-04-11 are colored in pink
+2021-04-12 to 2021-05-14 are colored in LightBlue
+2021-05-15 to 2021-05-26 are colored in yellow
+
+@endgantt

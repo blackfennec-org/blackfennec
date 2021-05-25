@@ -1,6 +1,7 @@
 docs/_build/
 docs/_versions
 docs/source/_build/
+docs/source/software_documentation/code/*
 .vscode/
 .idea/
 .coverage
@@ -10,3 +11,4 @@ __pycache__/
 pylint/
 venv/
 .venv/
+extensions.json
