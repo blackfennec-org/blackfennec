@@ -5,7 +5,8 @@ This usability test was conducted for the release of version 0.6.0. It contains 
 
 Personas
 --------
-In this study three persons participated. We mapped each tester to a :ref:`persona <personas>`, which fits their background and potential usage best.
+In this study four persons participated. We mapped three of the testers to a :ref:`persona <personas>`, which fits their background and potential usage best.
+The last tester was not in the target group and had a non technical background.
 
 ========  =========
  Tester    Persona
@@ -13,6 +14,7 @@ In this study three persons participated. We mapped each tester to a :ref:`perso
  CC         :ref:`Matthew`
  YH         :ref:`Sun`
  MB         :ref:`Alan`
+ CH         Not in target group
 ========  =========
 
 Tasks
@@ -42,6 +44,7 @@ Observation
 CC               Intuitively Correct
 YH               Intuitively Correct
 MB               Intuitively Correct
+CH               Double clicked folders, and was unsure how to open project, because in folder with only files nothing could be selected.
 ==============  =================
 
 Open a File
@@ -68,6 +71,7 @@ Observation
 CC               Intuitively Correct
 YH               Intuitively Correct
 MB               Intuitively Correct
+CH               Single click tried first, then double click
 ==============  =================
 
 
@@ -96,6 +100,7 @@ Observation
 CC               N/A
 YH               N/A
 MB               Intuitively Correct; List is not immediately obvious.
+CH               Intuitively Correct; Thinks whole list item should be clickable
 ==============  =================
 
 
@@ -122,7 +127,8 @@ Observation
 ==============  =================
 CC               Intuitively Correct; Did not expect file to open in background.
 YH               Intuitively Correct; Did not expect file to open in background.
-MB               Intuitively almost Correctly; Did not immediately see newly opened file and reopened file; Did not expect file to open in background.
+MB               Intuitively almost Correct; Did not immediately see newly opened file and reopened file; Did not expect file to open in background.
+CH               Intuitively Correct; Did not expect file to open in background.
 ==============  =================
 
 Switch Tabs
@@ -150,6 +156,7 @@ Observation
 CC               Intuitively Correct
 YH               Intuitively Correct
 MB               Intuitively Correct
+CH               Intuitively Correct
 ==============  =================
 
 Edit Text
@@ -177,6 +184,7 @@ Observation
 CC               Intuitively Correct
 YH               Intuitively Correct
 MB               Intuitively Correct
+CH               Intuitively Correct; Noticed that language differed when right clicking text field
 ==============  =================
 
 Edit Truth Value
@@ -204,6 +212,7 @@ Observation
 CC               Intuitively Correct
 YH               Intuitively Correct
 MB               Intuitively Correct
+CH               Intuitively Correct; Not immediately clear what was meant with truth value
 ==============  =================
 
 Edit Field Name
@@ -232,6 +241,7 @@ Observation
 CC               Intuitively almost Correct; first tried Double Click, then Right Click; Expected current key value in the text field
 YH               Intuitively almost Correct; first tried Singe Click, then Double Click then Right Click; Did not know which row he is editing; Expected row to be highlighted
 MB               Intuitively almost Correct; Did not intuitively expect key to be editable; First tried Double Click, then Right Click; No further comments
+CH               Intuitively Correct
 ==============  =================
 
 Remove Field
@@ -261,6 +271,7 @@ Observation
 CC               Intuitively Correct
 YH               Intuitively Correct
 MB               Intuitively Correct
+CH               Intuitively Correct
 ==============  =================
 
 Add Field to List
@@ -289,6 +300,7 @@ Observation
 CC               Intuitively almost Correct; Expected Right Click in empty Space; Expected Add Button;
 YH               Intuitively almost Correct; Expected Right Click in empty Space; Expected Add Button; First entered random text, then inspects dropdown menu; Expected behaviour not clearly communicated.
 MB               Intuitively almost Correct; Purpose of Template Text Filed not intuitively clear
+CH               Intuitively almost Correct; Expected Right Click in empty Space; Expected Add Button;
 ==============  =================
 
 Add Field to Map
@@ -317,6 +329,7 @@ Observation
 CC               Intuitively Correct; Same issues as with `Add Field to List`
 YH               Intuitively Correct; Same issues as with `Add Field to List`
 MB               Intuitively Correct; Same issues as with `Add Field to List`
+CH               Intuitively Correct; Same issues as with `Add Field to List`
 ==============  =================
 
 Save File
@@ -347,4 +360,5 @@ Observation
 CC               Intuitively Correct; Expected Auto Save; No Feedback on Action; Unexpected behaviour: saves all files => Rename button to "save all"?
 YH               Intuitively Correct
 MB               Intuitively Correct; Expected entire project to be saved (which is what happens); Expected Feedback on Action
+CH               Intuitively Correct
 ==============  =================
