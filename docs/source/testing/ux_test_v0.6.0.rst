@@ -1,7 +1,19 @@
-Usability Test Templates
-========================
+Usability Test V0.6.0
+=====================
 
-This template can be used to conduct usability tests of the black-fennec application. It contains multiple tasks that can be used to the the systems usability. These tasks are dedicated to personas that have little to none experience with the application, in order to be representative of users that use our application for the first time.
+This usability test was conducted for the release of version 0.6.0. It contains multiple tasks that can be used to the the systems usability. These tasks are dedicated to personas that have little to none experience with the application, in order to be representative of users that use our application for the first time.
+
+Personas
+--------
+In this study three persons participated. We mapped each tester to a :ref:`persona <personas>`, which fits their background and potential usage best.
+
+========  =========
+ Tester    Persona
+========  =========
+ CC         :ref:`Matthew`
+ YH         :ref:`Sun`
+ MB         :ref:`Alan`
+========  =========
 
 Tasks
 -----
@@ -27,7 +39,9 @@ Observation
 ==============  =================
  Tester          Observation
 ==============  =================
-<Name>          <Observation>
+CC               Intuitively Correct
+YH               Intuitively Correct
+MB               Intuitively Correct
 ==============  =================
 
 Open a File
@@ -51,7 +65,9 @@ Observation
 ==============  =================
  Tester          Observation
 ==============  =================
-<Name>          <Observation>
+CC               Intuitively Correct
+YH               Intuitively Correct
+MB               Intuitively Correct
 ==============  =================
 
 
@@ -77,7 +93,9 @@ Observation
 ==============  =================
  Tester          Observation
 ==============  =================
-<Name>          <Observation>
+CC               N/A
+YH               N/A
+MB               Intuitively Correct; List is not immediately obvious.
 ==============  =================
 
 
@@ -102,9 +120,10 @@ Observation
 ==============  =================
  Tester          Observation
 ==============  =================
-<Name>          <Observation>
+CC               Intuitively Correct; Did not expect file to open in background.
+YH               Intuitively Correct; Did not expect file to open in background.
+MB               Intuitively almost Correctly; Did not immediately see newly opened file and reopened file; Did not expect file to open in background.
 ==============  =================
-
 
 Switch Tabs
 """""""""""
@@ -128,9 +147,10 @@ Observation
 ==============  =================
  Tester          Observation
 ==============  =================
-<Name>          <Observation>
+CC               Intuitively Correct
+YH               Intuitively Correct
+MB               Intuitively Correct
 ==============  =================
-
 
 Edit Text
 """""""""
@@ -154,9 +174,10 @@ Observation
 ==============  =================
  Tester          Observation
 ==============  =================
-<Name>          <Observation>
+CC               Intuitively Correct
+YH               Intuitively Correct
+MB               Intuitively Correct
 ==============  =================
-
 
 Edit Truth Value
 """"""""""""""""
@@ -180,9 +201,10 @@ Observation
 ==============  =================
  Tester          Observation
 ==============  =================
-<Name>          <Observation>
+CC               Intuitively Correct
+YH               Intuitively Correct
+MB               Intuitively Correct
 ==============  =================
-
 
 Edit Field Name
 """""""""""""""
@@ -203,16 +225,19 @@ The key in a map item has changed.
 
 Observation
 ~~~~~~~~~~~
+
 ==============  =================
  Tester          Observation
 ==============  =================
-<Name>          <Observation>
+CC               Intuitively almost Correct; first tried Double Click, then Right Click; Expected current key value in the text field
+YH               Intuitively almost Correct; first tried Singe Click, then Double Click then Right Click; Did not know which row he is editing; Expected row to be highlighted
+MB               Intuitively almost Correct; Did not intuitively expect key to be editable; First tried Double Click, then Right Click; No further comments
 ==============  =================
-
 
 Remove Field
 """""""""""""""
 Remove a filed/row.
+
 
 Preconditions
 ~~~~~~~~~~~~~
@@ -229,12 +254,14 @@ The row in a map/list item is removed.
 
 Observation
 ~~~~~~~~~~~
+
 ==============  =================
  Tester          Observation
 ==============  =================
-<Name>          <Observation>
+CC               Intuitively Correct
+YH               Intuitively Correct
+MB               Intuitively Correct
 ==============  =================
-
 
 Add Field to List
 """""""""""""""""
@@ -255,12 +282,14 @@ A row in a list item of type `String` was added.
 
 Observation
 ~~~~~~~~~~~
+
 ==============  =================
  Tester          Observation
 ==============  =================
-<Name>          <Observation>
+CC               Intuitively almost Correct; Expected Right Click in empty Space; Expected Add Button;
+YH               Intuitively almost Correct; Expected Right Click in empty Space; Expected Add Button; First entered random text, then inspects dropdown menu; Expected behaviour not clearly communicated.
+MB               Intuitively almost Correct; Purpose of Template Text Filed not intuitively clear
 ==============  =================
-
 
 Add Field to Map
 """"""""""""""""
@@ -281,19 +310,23 @@ A row in a map item of type `String` was added.
 
 Observation
 ~~~~~~~~~~~
+
 ==============  =================
  Tester          Observation
 ==============  =================
-<Name>          <Observation>
+CC               Intuitively Correct; Same issues as with `Add Field to List`
+YH               Intuitively Correct; Same issues as with `Add Field to List`
+MB               Intuitively Correct; Same issues as with `Add Field to List`
 ==============  =================
-
 
 Save File
 """""""""
+
 Save changes made to a file.
 
 Preconditions
 ~~~~~~~~~~~~~
+
 Black Fennec is started.
 - The main UI is loaded.
 - Presenter is configured.
@@ -311,5 +344,7 @@ Observation
 ==============  =================
  Tester          Observation
 ==============  =================
-<Name>          <Observation>
+CC               Intuitively Correct; Expected Auto Save; No Feedback on Action; Unexpected behaviour: saves all files => Rename button to "save all"?
+YH               Intuitively Correct
+MB               Intuitively Correct; Expected entire project to be saved (which is what happens); Expected Feedback on Action
 ==============  =================
