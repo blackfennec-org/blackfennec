@@ -181,7 +181,4 @@
       <class name="store-window"/>
     </style>
   </template>
-  <object class="GtkTextBuffer" id="textbuffer1">
-    <property name="text" translatable="yes">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt </property>
-  </object>
 </interface>

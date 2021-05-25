@@ -17,7 +17,7 @@
             <property name="visible">True</property>
             <property name="can-focus">False</property>
             <child>
-              <object class="GtkLabel">
+              <object class="GtkLabel" id="_name">
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
                 <property name="valign">center</property>
@@ -33,7 +33,7 @@
               </packing>
             </child>
             <child>
-              <object class="GtkButton">
+              <object class="GtkButton" id="_button">
                 <property name="label" translatable="yes">Enable</property>
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
@@ -78,4 +78,7 @@
       </object>
     </child>
   </template>
+  <object class="GtkTextBuffer" id="_description">
+    <property name="text" translatable="yes">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt </property>
+  </object>
 </interface>
