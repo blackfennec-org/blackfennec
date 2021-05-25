@@ -9,7 +9,6 @@ class ExtensionStoreView(Gtk.ApplicationWindow):
     """Black Fennec Extension Store UI view"""
     __gtype_name__ = 'ExtensionStoreView'
 
-    def __init__(self, app, view_model):
+    def __init__(self, app=None):
         super().__init__(application=app)
         logger.info('ExtensionStoreView __init__')
-        self._view_model = view_model

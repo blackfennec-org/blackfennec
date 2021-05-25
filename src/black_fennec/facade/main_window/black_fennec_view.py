@@ -4,6 +4,8 @@ import os
 
 from uri import URI
 
+from src.black_fennec.facade.extension_store.extension_store_view import ExtensionStoreView
+
 logger = logging.getLogger(__name__)
 
 
@@ -107,7 +109,9 @@ class BlackFennecView(Gtk.ApplicationWindow):
     @Gtk.Template.Callback()
     def on_go_to_store_clicked(self, unused_sender) -> None:
         """Callback for the button click event"""
-        self._view_model.go_to_store()
+        store = ExtensionStoreView()
+        store.show()
+        #self._view_model.go_to_store()
         logger.debug('go to store clicked')
 
     @Gtk.Template.Callback()
