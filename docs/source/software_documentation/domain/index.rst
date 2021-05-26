@@ -28,6 +28,8 @@ Presenter
 Navigation Service
     The :ref:`navigation service <definition_navigation_service>` loosely binds interpretations to presenters and therefore breaks the dependency cycle we see in the simplified domain model.
 
+.. _dynamic_system_views:
+
 Open File Sequence
 ------------------
 A typical workflow starts by opening a file. The following sequence diagram illustrates the involved modules and their interactions.
