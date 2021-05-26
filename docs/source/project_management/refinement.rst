@@ -33,6 +33,22 @@ The time needed to respond to a risk is included in the project timeline.
 
 Requirements Engineering & Domainanalysis
 =========================================
+- FA mit schönen UI Skizzen unterstützt
+
+ - Gedanke #1: wenn möglich immer mit realen Daten arbeiten zwecks einfacherer Kommunikation mit Stakeholdern
+ - Gedanke #2: für Schlusspräsentation mit konkretem Beispiel beginnen - Abstraktionen sind tendenziell schwieriger verständlich
+
+- NFA sehr systematisch und umfangreich erfasst
+
+ - Gedanke: Aufgrund der Vielzahl an Kriterien (riecht etwas nach Over Engineering) Priorisierung vornehmen
+
+- Domäne aufgrund komplexer Problemstellung in alternativem Format auf verschiedenen Stufen / Ansichten beschrieben - Top!
+
+ - Gedanke #1: ggf. Umfang kritisch hinterfragen ("Könnte dieselbe Information mit weniger Text / Diagrammen erklärt werden?")
+ - Gedanke #2: Warum haben die "Klassen" im Domain Model keine Attribute / Eigenschaften? Hätte dies einen Mehrwert?
+
+- Das Domänen Modell soll das Verständnis der Anforderungen des Auftraggebers in "visueller Form" abbilden. Es dient als gemeinsame Diskussionsgrundlage und längerfristig als Ausgangslage für den "Kern unserer Software". ==> Das Domänen Modell beschreibt, was unsere Software macht.
+- Während der Architektur entsteht meist ein Design Modell. In dieser Phase geht es darum, die Erkenntnisse aus dem Domänen Modell in einer lauffähigen Software zu verpacken. Oft endet das Domänen Modell als eine Komponente innerhalb des Design Modells. Das Design Modell umfasst aber noch ganz viel mehr (Persistenz, UI, Kommunikation, etc.). Bei der Clean Architecture bildet die Domäne beispielsweise den technologie-neutralen Kern der Architektur. ==> Das Design Modell beschreibt, wie unsere Software das macht, was sie macht.
 
 Improvements
 ------------
@@ -50,6 +66,12 @@ We did this by relating the user stories to specific personas. An example of thi
 
 Architecture Prototype & End of Elaboration
 ===========================================
+- Architektur-Dokumentation in aktueller Form hilft noch nicht besonders, sich im Code der Applikation zurecht zu finden
+
+ - Abweichung von Diagrammen zu Code
+ - Fehlende Kommentare zu logischer Strukturierung (Wieso wurde so strukturiert? Was finde ich in diesen «Hauptelementen»? Etc.)
+
+- Feedbacks aus Review #2 bzgl. RE wurden – zumindest soweit ich das erkennen konnte – nur «zögerlich» umgesetzt
 
 Improvements
 ------------
@@ -66,6 +88,9 @@ Improvements
 
 Software Architecture
 =====================
+- Das prüfen von Performance-Szenario könnte ggf. technische Risiken mit Einfluss auf die Architektur hervorbringen
+- Einige Texte in der Doku sind für meinen Geschmack etwas «ausführlich» formuliert
+- Eine dynamische Sicht auf das System fehlt in der Dokumentation völlig (wichtige Use Cases à Interaktion zwischen Komponenten, bzw. Klassen)
 
 Improvements
 ------------
@@ -77,6 +102,7 @@ Improvements
 
 Quality Ensurance Measurements & Code Quality
 =============================================
+- Ein Usability Test könnte nützliche Verbesserungen für die Applikation ergeben. Eine informelle Durchführung benötigt auch nicht viel Zeit, die Erkenntnisse sind aber oft vergleichsweise wertvoll.
 
 Improvements
 ------------
