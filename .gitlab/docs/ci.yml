@@ -1,29 +1,29 @@
 variables:
-  DOCS_BUILD_IMAGE: $CI_REGISTRY_IMAGE/sphinx-build:$CI_COMMIT_REF_SLUG
+  DOCS_BUILD_IMAGE: $CI_REGISTRY_IMAGE/sphinx-build:dev
   GIT_DEPTH: 0
 
 ###############################################################################
 # Build Docs Building Docker Image
 ###############################################################################
-build docs image:
-  stage: imagebuild
-  image: docker:latest
-  script:
-    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
-    - docker build --tag $DOCS_BUILD_IMAGE -f  .gitlab/docs/Dockerfile.build .
-    - docker push $DOCS_BUILD_IMAGE
-  only:
-    changes:
-      - .gitlab/docs/Dockerfile.build
-      - .gitlab/docs/.dockerignore
-      - .gitlab/docs/ci.yml
-      - docs/requirements.txt
-      - docs/source/conf.py
-  except:
-    refs:
-      - /^(?!feature).+$
-      - /^(?!hotfix).+$
-      - /^(?!issue).+$
+# build docs image:
+#   stage: imagebuild
+#   image: docker:latest
+#   script:
+#     - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
+#     - docker build --tag $DOCS_BUILD_IMAGE -f  .gitlab/docs/Dockerfile.build .
+#     - docker push $DOCS_BUILD_IMAGE
+#   only:
+#     changes:
+#       - .gitlab/docs/Dockerfile.build
+#       - .gitlab/docs/.dockerignore
+#       - .gitlab/docs/ci.yml
+#       - docs/requirements.txt
+#       - docs/source/conf.py
+#   except:
+#     refs:
+#       - /^(?!feature).+$
+#       - /^(?!hotfix).+$
+#       - /^(?!issue).+$
 
 
 ###############################################################################
@@ -38,8 +38,8 @@ build latest code docs:
   artifacts:
     paths:
       - docs/source/software_documentation/code
-  only:
-      - tags
+#   only:
+#       - tags
 
 build latest html:
   image: $DOCS_BUILD_IMAGE
@@ -50,8 +50,8 @@ build latest html:
   artifacts:
     paths:
       - docs/_build/html
-  only:
-    - tags
+#   only:
+#     - tags
 
 build latest pdf:
   image: $DOCS_BUILD_IMAGE
@@ -62,8 +62,8 @@ build latest pdf:
   artifacts:
     paths:
       - docs/_build/latex/*.pdf
-  only:
-    - tags
+#   only:
+#     - tags
 
 build latest epub:
   image: $DOCS_BUILD_IMAGE
@@ -74,8 +74,8 @@ build latest epub:
   artifacts:
     paths:
       - docs/_build/epub/*.epub
-  only:
-    - tags
+#   only:
+#     - tags
 
 ###############################################################################
 # Publish Gitlab Pages
@@ -92,5 +92,5 @@ pages:
   artifacts:
     paths:
       - public
-  only:
-    - tags
+#   only:
+#     - tags
