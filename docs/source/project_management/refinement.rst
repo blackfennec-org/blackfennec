@@ -25,9 +25,6 @@ Requirements Engineering & Domainanalysis
 
 Improvements
 ------------
-**Explain the rhombus sign in the domain model with pseudocode**
-The rhombus sign is included in standard UML and is representative for aggregations, an thus does not require a special explanation.
-
 **Use the personas in the use-cases**
 We did this by relating the user stories to specific personas. An example of this can be found :ref:`here <https://gitlab.ost.ch/epj/2021-FS/g01_blackfennec/black-fennec/-/issues/131>`_.
 
