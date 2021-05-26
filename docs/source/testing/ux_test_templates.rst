@@ -1,3 +1,5 @@
+.. _usability_test_template:
+
 Usability Test Templates
 ========================
 

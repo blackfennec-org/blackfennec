@@ -1,3 +1,5 @@
+.. _usability_study:
+
 Usability Tests
 ===============
 
