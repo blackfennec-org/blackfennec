@@ -64,12 +64,6 @@ These sketches were added in the form of wireframes to the domain model document
 
 Architecture Prototype & End of Elaboration
 ===========================================
-- Architektur-Dokumentation in aktueller Form hilft noch nicht besonders, sich im Code der Applikation zurecht zu finden
-
- - Abweichung von Diagrammen zu Code
- - Fehlende Kommentare zu logischer Strukturierung (Wieso wurde so strukturiert? Was finde ich in diesen «Hauptelementen»? Etc.)
-
-- Feedbacks aus Review #2 bzgl. RE wurden – zumindest soweit ich das erkennen konnte – nur «zögerlich» umgesetzt
 
 Improvements
 ------------
@@ -78,24 +72,20 @@ With a major refactoring of the structure we ensured that the architecture docum
 
 Software Architecture
 =====================
-- Das prüfen von Performance-Szenario könnte ggf. technische Risiken mit Einfluss auf die Architektur hervorbringen
-- Einige Texte in der Doku sind für meinen Geschmack etwas «ausführlich» formuliert
-- Eine dynamische Sicht auf das System fehlt in der Dokumentation völlig (wichtige Use Cases à Interaktion zwischen Komponenten, bzw. Klassen)
 
 Improvements
 ------------
 **Consider adding a performance test. E.g. insertion of large files**
-Performance tests were added at the two identified bottlenecks that our application has and are now included in the system tests performed before each release. For more information look at the :ref:`performance scenario <performance_scenario>`.
+Performance tests were added at the two identified bottlenecks that our application has and are now included in the system tests performed before each release. For more information look at the :ref:`performance scenario <performance_scenario>` chapter.
 
 **The document contains only static views of the system. Consider adding a dynamic view of the system**
-
+Multiple dynamic views in the form of three sequential diagrams were added to the documentation. These can be found under :ref:`this link <dynamic_system_views>`.
 
 Quality Ensurance Measurements & Code Quality
 =============================================
-- Ein Usability Test könnte nützliche Verbesserungen für die Applikation ergeben. Eine informelle Durchführung benötigt auch nicht viel Zeit, die Erkenntnisse sind aber oft vergleichsweise wertvoll.
 
 Improvements
 ------------
 
 **Consider adding usability tests**
-A usability study was conducted with the participation of four completely uninvolved people, which we selected on the basis of the :ref:`personas <personas>` we created.
+A :ref:`usability study <usability_study>` was conducted with the participation of four completely uninvolved people, which we selected on the basis of the :ref:`personas <personas>` we created.

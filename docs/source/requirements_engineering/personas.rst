@@ -1,5 +1,4 @@
 .. _personas:
-.. _Personas:
 
 ========
 Personas
