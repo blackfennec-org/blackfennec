@@ -1,6 +1,7 @@
 **********
 Refinement
 **********
+
 After each sprint, a review meeting was held to discuss the current status of the project. The checklist of the individual milestones was discussed and it was ensured that all items on the list were fulfilled. During the meetings, we received some suggestions for improvement from our supervisor, which we implemented during the course of the project.
 
 This document provides an overview of all these improvement suggestions and how they were implemented in our project.
@@ -25,6 +26,7 @@ Requirements Engineering & Domainanalysis
 
 Improvements
 ------------
+
 **Use the personas in the use-cases**
 We did this by relating the user stories to specific personas. An example of this can be found :ref:`here <https://gitlab.ost.ch/epj/2021-FS/g01_blackfennec/black-fennec/-/issues/131>`_.
 
@@ -37,6 +39,7 @@ Architecture Prototype & End of Elaboration
 
 Improvements
 ------------
+
 **It is hard to make a connection between the architecture documentation and our structure in the code. We should therefore consider either adapting the documentation or the folder structure**
 With a major refactoring of the structure we ensured that the architecture documentation matches the structure of the code. For more details on this refactoring one can look at following :ref:`merge request <https://gitlab.ost.ch/epj/2021-FS/g01_blackfennec/black-fennec/-/merge_requests/90>`_
 
@@ -45,6 +48,7 @@ Software Architecture
 
 Improvements
 ------------
+
 **Consider adding a performance test. E.g. insertion of large files**
 Performance tests were added at the two identified bottlenecks that our application has and are now included in the system tests performed before each release. For more information look at the :ref:`performance scenario <performance_scenario>` chapter.
 
