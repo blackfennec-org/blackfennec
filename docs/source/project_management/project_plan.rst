@@ -97,6 +97,7 @@ Leonie Däullary   Development Team, User Experience
 Caspar Martens    Development Team, Quality Assurance
 ================  ===================================
 
+.. _project_manager:
 Project Manager
 ^^^^^^^^^^^^^^^
 The management of the project which includes the scheduling of meeting with stakeholders, and the organisation of development-team internal meetings is in this project done by the role of the Scrum Master which is Lara Gubler.
@@ -140,6 +141,7 @@ Iterations
 ^^^^^^^^^^
 The iterations during this project are represented by Scrum Sprints. They endure 2 Weeks and are lead by our Product Owner (Simon Kindhauser) and the Scrum Master (Lara Gubler). A more detailed elaboration of our Scrum processes can be found in the chapter Meetings_.
 
+.. _project_timeline:
 Project Timeline
 ^^^^^^^^^^^^^^^^
 .. uml:: project_timeline.puml
