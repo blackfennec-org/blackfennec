@@ -7,6 +7,17 @@ This document provides an overview of all these improvement suggestions and how 
 
 Project Plan
 ============
+- Projektorganisation: PL explizit als Rolle aufführen
+- Phasen, Iterationen und Meilensteine: Grobplanung fehlt
+
+ - --> Wie lange dauern die 4 RUP-Phasen?
+ - --> Wann starten, bzw. Enden die 2-wöchigen Iterationen?
+ - --> Wann finden die Milestones, bzw. zugehörigen Reviews statt?
+ - --> All das kann mit wenig Aufwand mit einem groben (!) Plan beantwortet werden.
+ - Dieser Plan kann und soll dann iterativ verfeinert werden.
+
+- Risk Management: Tipp - Berechnung von Zeitreserven aufgrund von Risikoanalyse (Gewichteter Schaden; siehe Vorlage) --> Zeitreserve in Grobplan berücksichtigen (verteilt auf Iterationen oder als Puffer am Projektende)
+- Ausgewogene Beiträge der Teammitgliedern: Range etwas gross, für R1 aber gerade noch okay --> Für R2 sollte eine Tendenz zum Ausgleich erkennbar sein
 
 Improvements
 ------------
