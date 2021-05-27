@@ -1,4 +1,5 @@
 import logging
+import sys
 
 from uri import URI
 
@@ -69,9 +70,6 @@ class BlackFennecViewModel(Observable):
 
         self._notify(self.tabs, 'tabs')
 
-    def quit(self):
-        """Future implementation of quit()"""
-        logger.warning('quit() not yet implemented')
 
     def save(self):
         """Future implementation of save()"""
