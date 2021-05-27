@@ -62,7 +62,7 @@
         <property name="margin-top">8</property>
         <property name="margin-bottom">8</property>
         <property name="orientation">vertical</property>
-        <property name="spacing">8</property>
+        <property name="spacing">12</property>
         <child>
           <object class="GtkBox">
             <property name="visible">True</property>
@@ -159,7 +159,6 @@
     </child>
     <style>
       <class name="item-view-popup"/>
-      <class name="popup"/>
     </style>
   </object>
   <object class="GtkPopover" id="_popover">
@@ -234,7 +233,6 @@
     </child>
     <style>
       <class name="item-view-popup"/>
-      <class name="popup"/>
     </style>
   </object>
 </interface>

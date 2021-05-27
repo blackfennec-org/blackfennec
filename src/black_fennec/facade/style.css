@@ -99,6 +99,7 @@ background-color: @rocky-d;
 border-style: solid;
 border-color: @rocky-d;
 border-radius: 25px;
+color: @silver;
 }
 
 .main-header-bar {
@@ -108,6 +109,11 @@ background-image: none;
 background-color: @jet;
 color: @blue;
 }
+
+.main-header-bar menubar {
+background-color: @jet;
+}
+
 
 .main-header-bar .titlebutton {
 padding: 0px;
@@ -165,30 +171,25 @@ background-color: @jet;
 border-radius: 0px 0px 10px 10px;
 }
 
-.main-header-bar menuitem menu menuitem {
+.main-header-bar .menu-item {
 border: none;
 color: @silver;
-padding: 0px;
+padding: 10px;
 margin: 0px;
 }
 
-.main-header-bar menuitem menu .menu-item:hover {
+.main-header-bar .menu-item:hover {
 border: none;
 color: @silver;
 background-color: @rocky;
-padding: 0px;
-margin: 0px;
 }
 
-.main-header-bar menuitem menu .last-item:hover {
+.main-header-bar .last-item:hover {
 border: none;
 border-radius: 0px 0px 10px 10px;
-color: @jet;
-padding: 0px;
-margin: 0px;
 }
 
-.main-header-bar menuitem menu .close:hover {
+.main-header-bar .close:hover {
 background-color: @red;
 }
 
@@ -314,10 +315,6 @@ box-shadow: 3px 0px 0px @blue inset;
 
 /*data Types*/
 
-.image {
-padding: 20px;
-}
-
 .preview-item{
 margin: 2px 3px;
 }
@@ -361,7 +358,11 @@ border-color: @rocky;
 border-width: 0px 0px 1px 0px;
 }
 
-.is-active{
+.image {
+padding: 20px;
+}
+
+.is-active /*boolean*/{
 border: 1px solid @blue;
 }
 
@@ -405,7 +406,11 @@ margin: 3px 0px;
 border: 1px solid @blue;
 }
 
-.presenter-container textview text {
+.string text {
+border-radius: 10px;
+}
+
+.string {
 border-radius: 10px;
 }
 
@@ -469,9 +474,9 @@ border-color:@blue;
 padding: 5px;
 }
 
-/*popup */
+/*Option popups*/
 
-.main-window .popup {
+.item-view-popup {
 background-color: @rocky;
 border-radius: 10px;
 border: none;
@@ -480,22 +485,24 @@ padding: 0px;
 margin: 0px;
 }
 
-.main-window .popup * {
-color: @silver;
+.item-view-popup * {
+background-image: none;
+border-image: none;
+text-decoration: none;
 }
 
-.main-window .popup > box {
+.item-view-popup > box {
 margin: 0px;
 border-radius: 0px;
 }
 
-.main-window .popup label{
+.item-view-popup label{
 padding: 10px;
 margin: 0px;
 border-radius: 0px;
 }
 
-.main-window .popup .title {
+.item-view-popup .title {
 font-size: 20px;
 font-weight: 700;
 border-radius: 0px;
@@ -503,7 +510,7 @@ box-shadow: 0px -1px 0px @silver inset;
 margin-bottom: 5px;
 }
 
-.main-window .popup button {
+.item-view-popup button {
 border-style: solid;
 border-color: @rocky-l;
 border-width: 2px;
@@ -511,17 +518,17 @@ border-radius: 30px;
 margin: 5px;
 }
 
-.main-window .popup .confirm {
+.item-view-popup .confirm {
 border-color: @blue;
 color: @blue;
 }
 
-.main-window .popup *:hover {
+.item-view-popup *:hover {
 border-radius: 0px;
 background-color: @rocky-l;
 }
 
-.main-window .popup button:hover {
+.item-view-popup button:hover {
 background-color: @rocky-l;
 border-style: solid;
 border-color: @rocky-l;
@@ -529,22 +536,36 @@ border-width: 2px;
 border-radius: 30px;
 }
 
-.main-window .popup .confirm:hover {
+.item-view-popup .confirm:hover {
 background-color: @blue;
 border-color: @blue;
+color: @silver;
 }
 
-.main-window .popup entry{
+.item-view-popup entry{
 border: 1px solid @rocky-d;
-background-image: none;
-border-image: none;
-text-decoration: none;
 background-color: @rocky-d;
 border-radius: 30px;
 }
 
-.main-window .popup entry:focus {
+.item-view-popup entry:focus {
 border: 1px solid @blue;
+}
+
+.item-view-popup menu {
+background-color: @silver-d;
+padding: 0px;
+border-radius: 0px;
+}
+
+.item-view-popup menu menuitem {
+color: @rocky;
+padding: 10px;
+}
+
+.item-view-popup menu menuitem:hover {
+background-color: @silver-l;
+color: @blue;
 }
 
 /* Presenter Container Tab system*/
