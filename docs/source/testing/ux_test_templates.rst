@@ -1,3 +1,5 @@
+.. _usability_test_template:
+
 Usability Test Templates
 ========================
 
@@ -54,6 +56,33 @@ Observation
 <Name>          <Observation>
 ==============  =================
 
+
+Navigate Structure
+""""""""""""""""""
+In the file `black_fennec.json`, find and navigate to the `Person` called `Lara`.
+
+Preconditions
+~~~~~~~~~~~~~
+- Black Fennec is started.
+- The main UI is loaded.
+- Presenter is configured.
+- The project `examples` is open.
+- The file `black_fennec.json` is open.
+
+Goals
+~~~~~
+The user recognises the correct location.
+
+Observation
+~~~~~~~~~~~
+
+==============  =================
+ Tester          Observation
+==============  =================
+<Name>          <Observation>
+==============  =================
+
+
 Open two Files
 """"""""""""""
 Open the files named `black_fennec.json` and `user_db.json`.
@@ -77,6 +106,7 @@ Observation
 ==============  =================
 <Name>          <Observation>
 ==============  =================
+
 
 Switch Tabs
 """""""""""
@@ -103,6 +133,7 @@ Observation
 <Name>          <Observation>
 ==============  =================
 
+
 Edit Text
 """""""""
 Edit the text in a text field.
@@ -127,6 +158,7 @@ Observation
 ==============  =================
 <Name>          <Observation>
 ==============  =================
+
 
 Edit Truth Value
 """"""""""""""""
@@ -153,6 +185,7 @@ Observation
 <Name>          <Observation>
 ==============  =================
 
+
 Edit Field Name
 """""""""""""""
 Edit the name of a filed/row.
@@ -172,17 +205,16 @@ The key in a map item has changed.
 
 Observation
 ~~~~~~~~~~~
-
 ==============  =================
  Tester          Observation
 ==============  =================
 <Name>          <Observation>
 ==============  =================
 
+
 Remove Field
 """""""""""""""
 Remove a filed/row.
-
 
 Preconditions
 ~~~~~~~~~~~~~
@@ -199,12 +231,12 @@ The row in a map/list item is removed.
 
 Observation
 ~~~~~~~~~~~
-
 ==============  =================
  Tester          Observation
 ==============  =================
 <Name>          <Observation>
 ==============  =================
+
 
 Add Field to List
 """""""""""""""""
@@ -225,12 +257,12 @@ A row in a list item of type `String` was added.
 
 Observation
 ~~~~~~~~~~~
-
 ==============  =================
  Tester          Observation
 ==============  =================
 <Name>          <Observation>
 ==============  =================
+
 
 Add Field to Map
 """"""""""""""""
@@ -251,21 +283,19 @@ A row in a map item of type `String` was added.
 
 Observation
 ~~~~~~~~~~~
-
 ==============  =================
  Tester          Observation
 ==============  =================
 <Name>          <Observation>
 ==============  =================
 
-Save File
----------
 
+Save File
+"""""""""
 Save changes made to a file.
 
 Preconditions
 ~~~~~~~~~~~~~
-
 Black Fennec is started.
 - The main UI is loaded.
 - Presenter is configured.
