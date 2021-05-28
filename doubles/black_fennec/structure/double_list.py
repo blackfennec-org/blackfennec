@@ -5,7 +5,9 @@ from src.black_fennec.structure.list import List
 
 
 class ListMock(UserList, InfoMock):
-    def __init__(self, value=None, children: list = None, parent=None, root=None):
+    def __init__(self,
+            value=None, children: list = None,
+            parent=None, root=None):
         UserList.__init__(self, children)
         InfoMock.__init__(self, value, children, parent, root)
 

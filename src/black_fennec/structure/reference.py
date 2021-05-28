@@ -22,30 +22,19 @@ class Reference(Info):
         """Reference Constructor.
 
         Args:
-            reference (str): string containing a json reference
+            reference (URI): uri containing a json reference
         """
         Info.__init__(self, reference)
         self._json_reference_resolve_service = json_reference_resolve_service
 
     @property
     def value(self) -> URI:
-        """Reference getter.
-
-        JsonReference object is cached, and reset
-            if item in underlying dictionary is changed.
-
-        Returns:
-            JsonReference: which is contained in reference
+        """Property for the value of the reference
         """
         return self._value
 
     @value.setter
     def value(self, value: URI):
-        """Reference setter.
-
-        Args:
-            value (str): which is contained in reference
-        """
         self._value = value
 
     @property

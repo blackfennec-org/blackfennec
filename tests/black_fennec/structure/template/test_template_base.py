@@ -48,6 +48,10 @@ class TemplateBaseTestSuite(unittest.TestCase):
         coverage = root.accept(self.template_base)
         self.assertEqual(coverage, Coverage.NOT_COVERED)
 
+    def test_has_create_structure_interface(self):
+        func = self.template_base.create_structure
+        self.assertIsNotNone(func)
+
     def test_can_get_repr(self):
         representation: str = self.template_base.__repr__()
         self.assertTrue(representation.startswith('TemplateBase('))

@@ -55,6 +55,10 @@ class ListTemplateTestSuite(unittest.TestCase):
             Coverage.NOT_COVERED
         )
 
+    def test_can_create_structure(self):
+        list_structure = self.list_template.create_structure()
+        self.assertIsInstance(list_structure, List)
+
     def test_can_get_repr(self):
         representation: str = self.list_template.__repr__()
         self.assertTrue(representation.startswith('ListTemplate('))

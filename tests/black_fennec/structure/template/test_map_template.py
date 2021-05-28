@@ -130,6 +130,10 @@ class MapTemplateTestSuite(unittest.TestCase):
             Coverage.NOT_COVERED
         )
 
+    def test_can_create_structure(self):
+        map_structure = self.map_template.create_structure()
+        self.assertIsInstance(map_structure, Map)
+
     def test_can_get_repr(self):
         representation: str = self.map_template.__repr__()
         self.assertTrue(representation.startswith('MapTemplate('))
