@@ -24,29 +24,6 @@ class Number(Structure):
     def value(self, value: numbers.Number):
         self._value = value
 
-    def __add__(self, value) -> 'Number':
-        """Add two numbers together"""
-        if isinstance(value, Number):
-            value = value.value
-        return Number(self._value + value)
-
-    def __iadd__(self, value) -> 'Number':
-        """Add a number to this number"""
-        if isinstance(value, Number):
-            value = value.value
-        self._value += value
-        return self
-
-    def __eq__(self, other) -> bool:
-        """Test for equality"""
-        if isinstance(other, Number):
-            other = other.value
-        return self._value == other
-
-    def __str__(self) -> str:
-        """Convert to string"""
-        return str(self._value)
-
     def __repr__(self) -> str:
         """Create representation for pretty printing"""
         return 'Number(%s)' % self._value

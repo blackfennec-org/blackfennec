@@ -1,10 +1,9 @@
 # -*- coding: utf-8 -*-
 import logging
-from collections import UserList
 
 from src.black_fennec.structure.encapsulation_base.encapsulation_base import EncapsulationBase
-from src.black_fennec.structure.structure import Structure
 from src.black_fennec.structure.list import List
+from src.black_fennec.structure.structure import Structure
 
 logger = logging.getLogger(__name__)
 
@@ -21,7 +20,6 @@ class ListEncapsulationBase(EncapsulationBase, List):
             visitor: 'BaseFactoryVisitor',
             subject: List,
     ):
-        UserList.__init__(self)
         EncapsulationBase.__init__(
             self,
             visitor,
@@ -42,16 +40,16 @@ class ListEncapsulationBase(EncapsulationBase, List):
             self._remove_template_class(item) for item in value
         ]
 
-    def append(self, item: Structure):
+    def add_item(self, item: Structure):
         """Append item to list template.
 
         Args:
             item (Structure): Item to append.
         """
         decapsulated_item = self._remove_template_class(item)
-        self.subject.append(decapsulated_item)
+        self.subject.add_item(decapsulated_item)
 
-    def remove(self, item: Structure):
+    def remove_item(self, item: Structure):
         """Remove item from List.
 
         Args:
@@ -62,24 +60,11 @@ class ListEncapsulationBase(EncapsulationBase, List):
                 list and hence cannot be removed.
         """
         decapsulated_value = self._remove_template_class(item)
-        if decapsulated_value not in self:
+        if decapsulated_value not in self.subject.value:
             message = 'item not in list'
             logger.error(message)
             raise KeyError(message)
-        self.subject.remove(decapsulated_value)
-
-    def __getitem__(self, index):
-        item: Structure = self.subject[index]
-        return item.accept(self._visitor)
-
-    def __setitem__(self, index, value: Structure):
-        decapsulated_value = self._remove_template_class(value)
-        self.subject[index] = decapsulated_value
-        decapsulated_value.parent = self.subject
-
-    def __contains__(self, item: Structure):
-        decapsulated_value = self._remove_template_class(item)
-        return decapsulated_value in self.subject
+        self.subject.remove_item(decapsulated_value)
 
     def __repr__(self):
         return f'ListEncapsulationBase({self.subject.__repr__()})'

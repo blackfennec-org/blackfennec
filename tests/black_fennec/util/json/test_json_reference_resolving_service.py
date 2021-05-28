@@ -18,71 +18,71 @@ class JsonReferenceResolvingServiceTestSuite(unittest.TestCase):
         data = {
             'key': String('value')
         }
-        map = Map(data)
-        map.parent = Root(map)
+        structure_map = Map(data)
+        structure_map.parent = Root(structure_map)
 
-        uri_import_service = UriImportServiceMock(map)
+        uri_import_service = UriImportServiceMock(structure_map)
         resolving_service = JsonReferenceResolvingService(uri_import_service)
-        result = resolving_service.resolve(URI('https://test.test'), map)
-        self.assertEqual(result, map)
+        result = resolving_service.resolve(URI('https://test.test'), structure_map)
+        self.assertEqual(result.value, structure_map.value)
 
     def test_resolve_absolute_uri(self):
         data = {
             'key': String('value')
         }
-        map = Map(data)
-        map.parent = Root(map)
+        structure_map = Map(data)
+        structure_map.parent = Root(structure_map)
 
-        uri_import_service = UriImportServiceMock(map)
+        uri_import_service = UriImportServiceMock(structure_map)
         resolving_service = JsonReferenceResolvingService(uri_import_service)
-        result = resolving_service.resolve(URI('C:/test.json'), map)
-        self.assertEqual(result, map)
+        result = resolving_service.resolve(URI('C:/test.json'), structure_map)
+        self.assertEqual(result.value, structure_map.value)
 
     def test_resolve_relative_uri(self):
         data = {
             'key': String('value')
         }
-        map = Map(data)
-        map.parent = Root(map)
+        structure_map = Map(data)
+        structure_map.parent = Root(structure_map)
 
-        uri_import_service = UriImportServiceMock(map)
+        uri_import_service = UriImportServiceMock(structure_map)
         resolving_service = JsonReferenceResolvingService(uri_import_service)
-        result = resolving_service.resolve(URI('./test.json'), map)
-        self.assertEqual(result, map)
+        result = resolving_service.resolve(URI('./test.json'), structure_map)
+        self.assertEqual(result.value, structure_map.value)
 
     def test_resolve_relative_json_pointer(self):
         data = {
             'key': String('value')
         }
-        map = Map(data)
-        map.parent = Root(map)
+        structure_map = Map(data)
+        structure_map.parent = Root(structure_map)
 
-        uri_import_service = UriImportServiceMock(map)
+        uri_import_service = UriImportServiceMock(structure_map)
         resolving_service = JsonReferenceResolvingService(uri_import_service)
-        result = resolving_service.resolve(URI('1'), map['key'])
-        self.assertEqual(result, map)
+        result = resolving_service.resolve(URI('1'), structure_map.value['key'])
+        self.assertEqual(result.value, structure_map.value)
 
     def test_resolve_current_location_uri(self):
         data = {
             'key': String('value')
         }
-        map = Map(data)
-        map.parent = Root(map)
+        structure_map = Map(data)
+        structure_map.parent = Root(structure_map)
 
-        uri_import_service = UriImportServiceMock(map)
+        uri_import_service = UriImportServiceMock(structure_map)
         resolving_service = JsonReferenceResolvingService(uri_import_service)
-        result = resolving_service.resolve(URI('#key'), map)
-        self.assertEqual(result, map['key'])
+        result = resolving_service.resolve(URI('#key'), structure_map)
+        self.assertEqual(result.value, structure_map.value['key'].value)
 
     def test_resolve_caching(self):
         data = {
             'key': String('value')
         }
-        map = Map(data)
-        map.parent = Root(map)
+        structure_map = Map(data)
+        structure_map.parent = Root(structure_map)
 
-        uri_import_service = UriImportServiceMock(map)
+        uri_import_service = UriImportServiceMock(structure_map)
         resolving_service = JsonReferenceResolvingService(uri_import_service)
-        resolving_service.resolve(URI('https://test.test'), map)
+        resolving_service.resolve(URI('https://test.test'), structure_map)
         result = resolving_service.resolve(URI('https://test.test'), None)
-        self.assertEqual(result, map)
+        self.assertEqual(result.value, structure_map.value)

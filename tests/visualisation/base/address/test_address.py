@@ -23,17 +23,16 @@ class AddressTestSuite(unittest.TestCase):
         data[Address.CITY_KEY] = StringMock('city')
 
         data_map = MapMock(data)
-        Address(data_map)
+        address = Address(data_map)
+
+        self.assertIsNotNone(address)
 
     def test_can_construct_with_empty_map(self):
         data = dict()
         data_map = MapMock(data)
-        Address(data_map)
-        self.assertIn(Address.FIRST_NAME_KEY, data)
-        self.assertIn(Address.LAST_NAME_KEY, data)
-        self.assertIn(Address.STREET_KEY, data)
-        self.assertIn(Address.STREET_NUMBER_KEY, data)
-        self.assertIn(Address.CITY_KEY, data)
+        address = Address(data_map)
+
+        self.assertIsNotNone(address)
 
     def test_deletion_of_key_after_construction(self):
         data = dict()

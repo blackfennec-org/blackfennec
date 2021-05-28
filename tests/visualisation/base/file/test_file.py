@@ -17,14 +17,16 @@ class FileTestSuite(unittest.TestCase):
         data[File.FILE_TYPE_KEY] = StringMock('file_type')
 
         data_map = MapMock(data)
-        File(data_map)
+        file = File(data_map)
+
+        self.assertIsNotNone(file)
 
     def test_can_construct_with_empty_map(self):
         data = dict()
         data_map = MapMock(data)
-        File(data_map)
-        self.assertIn(File.FILE_PATH_KEY, data)
-        self.assertIn(File.FILE_TYPE_KEY, data)
+        file = File(data_map)
+
+        self.assertIsNotNone(file)
 
     def test_deletion_of_key_after_construction(self):
         data = dict()

@@ -20,7 +20,7 @@ class ListViewModelTestSuite(unittest.TestCase):
         interpretation = InterpretationMock(ListMock())
         interpretation_service = Dummy('interpretation service')
         view_model = ListViewModel(interpretation, interpretation_service)
-        self.assertEqual(view_model.value, [])
+        self.assertEqual(view_model.value.value, [])
 
     def test_can_add_item(self):
         interpretation_service = InterpretationServiceMock([])
@@ -28,7 +28,7 @@ class ListViewModelTestSuite(unittest.TestCase):
                                         interpretation_service)
         item = StructureMock()
         list_view_model.add_item(item)
-        self.assertIn(item, list_view_model.value)
+        self.assertIn(item, list_view_model.value.value)
 
     def test_can_delete_item(self):
         interpretation_service = InterpretationServiceMock([])
@@ -37,7 +37,7 @@ class ListViewModelTestSuite(unittest.TestCase):
         item = StructureMock()
         list_view_model.add_item(item)
         list_view_model.delete_item(item)
-        self.assertNotIn(item, list_view_model.value)
+        self.assertNotIn(item, list_view_model.value.value)
 
     def test_can_forward_navigation_request(self):
         interpretation = InterpretationMock(ListMock())

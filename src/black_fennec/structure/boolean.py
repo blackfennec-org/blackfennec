@@ -23,16 +23,6 @@ class Boolean(Structure):
     def value(self, value: bool):
         self._value = value
 
-    def __eq__(self, other) -> bool:
-        return self._value == bool(other)
-
-    def __ne__(self, other) -> bool:
-        return not self == other
-
-    def __bool__(self) -> bool:
-        """Truth item of Boolean"""
-        return self._value
-
     def __str__(self) -> str:
         """Convert to string"""
         return str(self._value)

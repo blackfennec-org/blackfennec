@@ -46,7 +46,7 @@ class ListViewModel:
         Args:
             value (:obj:`Structure`): The `Structure` representing the item.
         """
-        self._list.append(value)
+        self._list.add_item(value)
 
     def delete_item(self, item: Structure):
         """Delete an item from the list.
@@ -54,7 +54,7 @@ class ListViewModel:
         Args:
             item: The item which should be deleted
         """
-        self._list.remove(item)
+        self._list.remove_item(item)
 
     def navigate_to(self, route_target: Structure):
         self._interpretation.navigate(route_target)

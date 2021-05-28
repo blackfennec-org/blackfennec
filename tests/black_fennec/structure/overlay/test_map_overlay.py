@@ -37,7 +37,7 @@ class MapOverlayTestSuite(unittest.TestCase):
             self.visitor,
             subject
         )
-        get = map_overlay[key]
+        get = map_overlay.value[key]
         self.assertEqual(get, value)
         self.assertEqual(self.visitor.structure, value)
         self.assertEqual(self.visitor.visit_structure_count, 1)
@@ -50,7 +50,7 @@ class MapOverlayTestSuite(unittest.TestCase):
             self.visitor,
             subject
         )
-        get = map_overlay[key]
+        get = map_overlay.value[key]
         self.assertEqual(get, value)
         self.assertEqual(self.visitor.structure, value)
         self.assertEqual(self.visitor.visit_structure_count, 1)

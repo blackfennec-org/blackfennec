@@ -27,7 +27,7 @@ class MapView(Gtk.Bin):
 
     def _populate_items(self) -> None:
         """Populates the list that displays the map items"""
-        for key, substructure in self._view_model.value.items():
+        for key, substructure in self._view_model.value.value.items():
             preview = self._view_model.create_preview(substructure)
             item = MapItemView(
                 key, preview,

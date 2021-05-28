@@ -32,9 +32,9 @@ class MapEncapsulationBaseTestSuite(unittest.TestCase):
     def test_get_item(self):
         key = 'test'
         value = StructureMock('test_value')
-        self.subject[key] = value
+        self.subject.add_item(key, value)
         map_encapsulation: Optional[MapEncapsulationBase] = MapEncapsulationBase(self.visitor, self.subject)
-        get = map_encapsulation[key]
+        get = map_encapsulation.value[key]
         self.assertEqual(get, value)
         self.assertEqual(self.visitor.structure, value)
         self.assertEqual(self.visitor.visit_structure_count, 1)
@@ -42,16 +42,16 @@ class MapEncapsulationBaseTestSuite(unittest.TestCase):
     def test_set_item(self):
         key = 'test'
         value = StructureMock('test_value')
-        self.map_encapsulation_base[key] = value
-        self.assertEqual(value, self.map_encapsulation_base[key])
+        self.map_encapsulation_base.add_item(key, value)
+        self.assertEqual(value, self.map_encapsulation_base.value[key])
 
     def test_set_item_already_encapsulated(self):
         key = 'test'
         value = StructureMock('test_value')
         template_class = _create_generic_class(EncapsulationBase, Structure)
         encapsulated = template_class(self.visitor, value)
-        self.map_encapsulation_base[key] = encapsulated
-        self.assertEqual(value, self.map_encapsulation_base[key])
+        self.map_encapsulation_base.add_item(key, encapsulated)
+        self.assertEqual(value, self.map_encapsulation_base.value[key])
 
     def test_get_value(self):
         key = 'test'
@@ -73,7 +73,7 @@ class MapEncapsulationBaseTestSuite(unittest.TestCase):
         key = 'test'
         value = StructureMock('test')
         self.map_encapsulation_base.value = {key: value}
-        self.assertEqual(value, self.map_encapsulation_base[key])
+        self.assertEqual(value, self.map_encapsulation_base.value[key])
 
     def test_can_get_repr(self):
         representation: str = self.map_encapsulation_base.__repr__()

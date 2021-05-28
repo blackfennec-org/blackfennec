@@ -7,139 +7,63 @@ from src.black_fennec.structure.list import List
 
 class ListTestSuite(unittest.TestCase):
     def test_can_construct(self):
-        l = List()
-        self.assertEqual(l, [])
+        test_list = List()
+        self.assertEqual(test_list.value, [])
 
     def test_can_construct_from_list(self):
-        l = List([StructureMock()])
-        self.assertEqual(len(l), 1)
-        self.assertEqual(l[0].parent, l)
+        test_list = List([StructureMock()])
+        self.assertEqual(len(test_list.value), 1)
+        self.assertEqual(test_list.value[0].parent, test_list)
 
-    def test_can_append_item(self):
-        l = List()
+    def test_can_add_item_item(self):
+        test_list = List()
         value = StructureMock()
-        l.append(value)
-        self.assertIn(value, l)
+        test_list.add_item(value)
+        self.assertIn(value, test_list.value)
 
-    def test_append_does_set_parent(self):
-        l = List()
+    def test_add_item_does_set_parent(self):
+        test_list = List()
         value = StructureMock()
-        l.append(value)
-        self.assertEqual(value.parent, l)
+        test_list.add_item(value)
+        self.assertEqual(value.parent, test_list)
 
-    def test_append_throws_on_parent_not_none(self):
-        l = List()
+    def test_add_item_throws_on_parent_not_none(self):
+        test_list = List()
         value = RootMock()
 
         with self.assertRaises(ValueError):
-            l.append(value)
+            test_list.add_item(value)
 
-    def test_append_logs_on_parent_not_none(self):
-        l = List()
+    def test_add_item_logs_on_parent_not_none(self):
+        test_list = List()
         value = RootMock()
 
         with self.assertLogs(None, logging.ERROR):
             try:
-                l.append(value)
+                test_list.add_item(value)
             except ValueError:
                 pass
 
-    def test_can_set_item(self):
-        l = List()
-        l.append(StructureMock())
+    def test_can_remove_item_item(self):
+        test_list = List()
         value = StructureMock()
-        l[0] = value
-        self.assertIn(value, l)
+        test_list.add_item(value)
+        test_list.remove_item(value)
+        self.assertNotIn(value, test_list.value)
 
-    def test_set_does_set_parent(self):
-        l = List()
-        l.append(StructureMock())
+    def test_remove_item_does_unset_parent(self):
+        test_list = List()
         value = StructureMock()
-        l[0] = value
-        self.assertEqual(value.parent, l)
-
-    def test_set_does_unset_parent(self):
-        l = List()
-        value = StructureMock()
-        l.append(value)
-        l[0] = StructureMock()
+        test_list.add_item(value)
+        test_list.remove_item(value)
         self.assertEqual(value.parent, None)
 
-    def test_set_throws_on_parent_not_none(self):
-        l = List()
-        l.append(StructureMock())
-        value = RootMock()
+    def test_remove_item_throws_on_delete_of_not_existing_item(self):
+        test_list = List()
+        not_value = StructureMock()
+
         with self.assertRaises(ValueError):
-            l[0] = value
-
-    def test_set_logs_on_parent_not_none(self):
-        l = List()
-        l.append(StructureMock())
-        value = RootMock()
-        with self.assertLogs(None, logging.ERROR):
-            try:
-                l[0] = value
-            except ValueError:
-                pass
-
-    def test_can_remove_item(self):
-        l = List()
-        value = StructureMock()
-        l.append(value)
-        l.remove(value)
-        self.assertNotIn(value, l)
-
-    def test_remove_does_unset_parent(self):
-        l = List()
-        value = StructureMock()
-        l.append(value)
-        l.remove(value)
-        self.assertEqual(value.parent, None)
-
-    def test_remove_throws_on_delete_of_not_existing_item(self):
-        l = List()
-        not_value = StructureMock()
-
-        with self.assertRaises(KeyError):
-            l.remove(not_value)
-
-    def test_remove_logs_on_delete_of_not_existing_item(self):
-        l = List()
-        not_value = StructureMock()
-
-        with self.assertLogs(None, logging.ERROR):
-            try:
-                l.remove(not_value)
-            except KeyError:
-                pass
-
-    def test_can_delete_item(self):
-        l = List()
-        value = StructureMock()
-        l.append(value)
-        del l[0]
-        self.assertNotIn(value, l)
-
-    def test_delete_does_unset_parent(self):
-        l = List()
-        value = StructureMock()
-        l.append(value)
-        del l[0]
-        self.assertEqual(value.parent, None)
-
-    def test_delete_throws_on_delete_of_not_existing_item(self):
-        l = List()
-        with self.assertRaises(KeyError):
-            del l[0]
-
-    def test_delete_logs_on_delete_of_not_existing_item(self):
-        l = List()
-
-        with self.assertLogs(None, logging.ERROR):
-            try:
-                del l[0]
-            except KeyError:
-                pass
+            test_list.remove_item(not_value)
 
     def test_can_get_value(self):
         value = StructureMock('value')

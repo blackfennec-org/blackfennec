@@ -7,6 +7,7 @@ class StructureMock:
         self._root = root
         self._parent = parent
         self._value_property_access_count = 0
+        self.subject = value
 
     @property
     def value(self):

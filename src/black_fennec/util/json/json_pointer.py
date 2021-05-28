@@ -104,10 +104,10 @@ class JsonPointer:
         if navigator.isdecimal():
             list_index: int = int(navigator)
             if list_index < len(source_list.value):
-                return source_list[list_index]
+                return source_list.value[list_index]
             else:
                 message = f'Tried to access source_list(' \
-                          f'len={len(source_list)}) ' \
+                          f'len={len(source_list.value)}) ' \
                           f'with index({list_index}) which is out of bounds'
                 logger.error(message)
                 raise IndexError(message)
@@ -134,12 +134,12 @@ class JsonPointer:
         Raises:
             KeyError: if the navigator(key) does not exist in Map
         """
-        if navigator in source_map:
-            return source_map[navigator]
+        if navigator in source_map.value:
+            return source_map.value[navigator]
         else:
             message = 'Key({}) could be found in map({})'.format(
                 navigator,
-                source_map
+                source_map.value
             )
             logger.error(message)
             raise KeyError(message)
@@ -266,8 +266,8 @@ class JsonPointer:
             logger.error(message)
             raise TypeError(message)
         parent_map: Map = parent_structure
-        key_list = list(parent_map.keys())
-        val_list = list(parent_map.values())
+        key_list = list(parent_map.value.keys())
+        val_list = list(parent_map.value.values())
 
         position = val_list.index(child)
         return key_list[position]
@@ -293,9 +293,9 @@ class JsonPointer:
             logger.error(message)
             raise TypeError(message)
         parent_list: List = parent_structure
-        index = parent_list.index(child)
+        index = parent_list.value.index(child)
         index += n
-        return parent_list[index]
+        return parent_list.value[index]
 
     def resolve_from(self, source: Structure):
         """Resolves JsonPointer from certain point.

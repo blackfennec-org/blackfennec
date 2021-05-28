@@ -63,16 +63,6 @@ class Reference(Structure):
                 self
             )
 
-    def __eq__(self, other) -> bool:
-        return (
-                   self.value
-               ) == (
-                   other.value
-               )
-
-    def __ne__(self, other) -> bool:
-        return not self == other
-
     def __str__(self) -> str:
         """Convert to string"""
         return str(self.value)

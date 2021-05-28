@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from typing import Optional
 
+from src.black_fennec.structure.list import List
 from src.extension.extension_status import ExtensionStatus
 from src.black_fennec.structure.boolean import Boolean
 from src.black_fennec.structure.map import Map
@@ -32,41 +33,45 @@ class Extension:
         self._status = (ExtensionStatus.NOT_LOADED, None)
         self._module = None
 
-        self._data = extension_map if extension_map is not None else Map()
-        if self.NAME_KEY not in self._data:
-            self._data[self.NAME_KEY] = String()
-        if self.LOCATION_KEY not in self._data:
-            self._data[self.LOCATION_KEY] = String()
-        if self.ENABLED_KEY not in self._data:
-            self._data[self.ENABLED_KEY] = Boolean()
+        self._subject = extension_map if extension_map is not None else Map()
+        if self.NAME_KEY not in self._subject.value:
+            self._subject.add_item(self.NAME_KEY, String())
+        if self.LOCATION_KEY not in self._subject.value:
+            self._subject.add_item(self.LOCATION_KEY, List())
+        if self.ENABLED_KEY not in self._subject.value:
+            self._subject.add_item(self.ENABLED_KEY, Boolean())
 
         self.name: str = name if name else self.name
-        self.location: list = location if location else self.location
+        if location:
+            self.location: list = location
         self.enabled: bool = enabled if enabled is not None else self.enabled
 
     @property
     def name(self):
-        return self._data[self.NAME_KEY].value
+        return self._subject.value[self.NAME_KEY].value
 
     @name.setter
     def name(self, value: str):
-        self._data[self.NAME_KEY].value = value
+        self._subject.value[self.NAME_KEY].value = value
 
     @property
-    def location(self):
-        return self._data[self.LOCATION_KEY].value
+    def location(self) -> list:
+        return [
+            child.value for child in self._subject.value[self.LOCATION_KEY].value
+        ]
 
     @location.setter
-    def location(self, value: str):
-        self._data[self.LOCATION_KEY].value = value
+    def location(self, value: list):
+        self._subject.value[self.LOCATION_KEY].value = \
+            [String(child) for child in value]
 
     @property
     def enabled(self):
-        return self._data[self.ENABLED_KEY].value
+        return self._subject.value[self.ENABLED_KEY].value
 
     @enabled.setter
     def enabled(self, value: bool):
-        self._data[self.ENABLED_KEY].value = value
+        self._subject.value[self.ENABLED_KEY].value = value
 
     @property
     def source(self):
@@ -86,7 +91,7 @@ class Extension:
 
     @property
     def underlay(self):
-        return self._data
+        return self._subject
 
     def load(self, extension_api):
         module = self._extension_loading_service.load(self)

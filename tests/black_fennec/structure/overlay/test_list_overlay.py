@@ -36,7 +36,7 @@ class ListOverlayTestSuite(unittest.TestCase):
             self.visitor,
             subject
         )
-        get = list_overlay[0]
+        get = list_overlay.value[0]
         self.assertEqual(get, value)
         self.assertEqual(self.visitor.structure, value)
         self.assertEqual(self.visitor.visit_structure_count, 1)
@@ -48,7 +48,7 @@ class ListOverlayTestSuite(unittest.TestCase):
             self.visitor,
             subject
         )
-        get = list_overlay[0]
+        get = list_overlay.value[0]
         self.assertEqual(get, value)
         self.assertEqual(self.visitor.structure, value)
         self.assertEqual(self.visitor.visit_structure_count, 1)

@@ -110,7 +110,7 @@ def load_extensions_from_file(
     )
     extension_sources = list()
     for extension_source_structure in extension_source_list.value:
-        source_type = extension_source_structure['type'].value
+        source_type = extension_source_structure.value['type'].value
         extension_source = ExtensionSource(
             extension_services[source_type],
             extension_source_structure

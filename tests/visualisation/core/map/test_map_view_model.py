@@ -19,7 +19,7 @@ class MapViewModelTestSuite(unittest.TestCase):
         interpretation = InterpretationMock(MapMock())
         interpretation_service = Dummy('interpretation service')
         view_model = MapViewModel(interpretation, interpretation_service)
-        self.assertEqual(view_model.value, {})
+        self.assertEqual(view_model.value.value, {})
 
     def test_can_add_item(self):
         interpretation = InterpretationMock(MapMock())
@@ -28,7 +28,7 @@ class MapViewModelTestSuite(unittest.TestCase):
         key = 'Key'
         value = StructureMock()
         view_model.add_item(key, value)
-        self.assertIn(key, view_model.value)
+        self.assertIn(key, view_model.value.value)
 
     def test_can_delete_item(self):
         interpretation = InterpretationMock(MapMock())
@@ -38,7 +38,7 @@ class MapViewModelTestSuite(unittest.TestCase):
         value = StructureMock()
         view_model.add_item(key, value)
         view_model.delete_item(key)
-        self.assertNotIn(key, view_model.value)
+        self.assertNotIn(key, view_model.value.value)
 
     def test_can_forward_navigation_request(self):
         interpretation = InterpretationMock(MapMock())

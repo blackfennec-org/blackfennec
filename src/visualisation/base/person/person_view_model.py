@@ -31,7 +31,7 @@ class PersonViewModel:
         return self._model.courtesy_title
 
     @courtesy_title.setter
-    def courtesy_title(self, value: String):
+    def courtesy_title(self, value: str):
         self._model.courtesy_title = value
 
     @property
@@ -40,7 +40,7 @@ class PersonViewModel:
         return self._model.first_name
 
     @first_name.setter
-    def first_name(self, value: String):
+    def first_name(self, value: str):
         self._model.first_name = value
 
     @property
@@ -49,7 +49,7 @@ class PersonViewModel:
         return self._model.middle_name
 
     @middle_name.setter
-    def middle_name(self, value: String):
+    def middle_name(self, value: str):
         self._model.middle_name = value
 
     @property
@@ -58,7 +58,7 @@ class PersonViewModel:
         return self._model.last_name
 
     @last_name.setter
-    def last_name(self, value: String):
+    def last_name(self, value: str):
         self._model.last_name = value
 
     @property
@@ -67,7 +67,7 @@ class PersonViewModel:
         return self._model.suffix
 
     @suffix.setter
-    def suffix(self, value: String):
+    def suffix(self, value: str):
         self._model.suffix = value
 
     @property
@@ -76,7 +76,7 @@ class PersonViewModel:
         return self._model.gender
 
     @gender.setter
-    def gender(self, value: String):
+    def gender(self, value: str):
         self._model.gender = value
 
     @property
@@ -85,7 +85,7 @@ class PersonViewModel:
         return self._model.sex
 
     @sex.setter
-    def sex(self, value: String):
+    def sex(self, value: str):
         self._model.sex = value
 
     @property
@@ -94,7 +94,7 @@ class PersonViewModel:
         return self._model.marital_status
 
     @marital_status.setter
-    def marital_status(self, value: String):
+    def marital_status(self, value: str):
         self._model.marital_status = value
 
     @property
@@ -103,5 +103,5 @@ class PersonViewModel:
         return self._model.nationality
 
     @nationality.setter
-    def nationality(self, value: String):
+    def nationality(self, value: str):
         self._model.nationality = value

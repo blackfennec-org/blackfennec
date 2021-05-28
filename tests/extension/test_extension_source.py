@@ -74,7 +74,10 @@ class ExtensionSourceTestSuite(unittest.TestCase):
         )
         new_identification = 'new identification'
         extension_source.identification = 'new identification'
-        self.assertEqual(self.extension_source_map[ExtensionSource.SOURCE_IDENTIFICATION].value, new_identification)
+        self.assertEqual(
+            self.extension_source_map.value[ExtensionSource.SOURCE_IDENTIFICATION].value,
+            new_identification
+        )
 
     def test_can_get_type(self):
         extension_source = ExtensionSource(
@@ -90,7 +93,8 @@ class ExtensionSourceTestSuite(unittest.TestCase):
         )
         new_identification = 'new source_type'
         extension_source.identification = 'new source_type'
-        self.assertEqual(self.extension_source_map[ExtensionSource.SOURCE_IDENTIFICATION].value, new_identification)
+        self.assertEqual(self.extension_source_map.value[ExtensionSource.SOURCE_IDENTIFICATION].value,
+                         new_identification)
 
     def test_can_get_location(self):
         extension_source = ExtensionSource(
@@ -106,7 +110,12 @@ class ExtensionSourceTestSuite(unittest.TestCase):
         )
         new_location = ['new location']
         extension_source.location = new_location
-        self.assertEqual(self.extension_source_map[ExtensionSource.SOURCE_LOCATION].value, new_location)
+        self.assertEqual(
+            self.extension_source_map
+                .value[ExtensionSource.SOURCE_LOCATION]
+                .value[0].value,
+            new_location[0]
+        )
 
     def test_can_get_underlay(self):
         extension_source = ExtensionSource(
@@ -176,6 +185,17 @@ class ExtensionSourceTestSuite(unittest.TestCase):
         extension_source.extensions = [extension]
         extension_source.load_extensions(extension_api)
         self.extension_loading_service.installed_extensions = {self.extension_name: extension}
+
+        new_extension_map = MapMock({
+            Extension.NAME_KEY: StringMock(self.extension_name),
+            Extension.LOCATION_KEY: StringMock(self.extension_location),
+            Extension.ENABLED_KEY: BooleanMock(self.enabled)
+        })
+        extension = ExtensionMock(new_extension_map)
+        self.extension_loading_service.installed_extensions = {
+            'key_does_not_mather': extension
+        }
+
         extension_source.refresh_extensions()
         self.assertEqual(extension_source.extensions[0].status[0], ExtensionStatus.LOADED)
 

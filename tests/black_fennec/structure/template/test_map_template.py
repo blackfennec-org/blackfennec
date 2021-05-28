@@ -2,7 +2,6 @@ import unittest
 
 from doubles.black_fennec.structure.double_structure import StructureMock
 from doubles.black_fennec.structure.template.double_template_factory_visitor import TemplateFactoryVisitorMock
-from doubles.double_dummy import Dummy
 from src.black_fennec.interpretation.auction.coverage import Coverage
 from src.black_fennec.structure.encapsulation_base.base_factory_visitor import _create_generic_class
 from src.black_fennec.structure.structure import Structure
@@ -33,23 +32,23 @@ class MapTemplateTestSuite(unittest.TestCase):
         value = StructureMock('test_value')
         template_class = _create_generic_class(TemplateBase, Structure)
         encapsulated = template_class(self.visitor, value)
-        self.map_template[key] = encapsulated
-        self.assertEqual(value, self.map_template[key].subject)
+        self.map_template.add_item(key, encapsulated)
+        self.assertEqual(value, self.map_template.value[key].subject)
 
     def test_set_item_map_already_encapsulated(self):
         key = 'test'
         value = Map()
         encapsulated = MapTemplate(self.visitor, value)
-        self.map_template[key] = encapsulated
-        self.assertEqual(value, self.map_template[key].subject)
+        self.map_template.add_item(key, encapsulated)
+        self.assertEqual(value, self.map_template.value[key].subject)
 
     def test_set_item_other_template(self):
         key = 'test'
         encapsulated = DateTimeRange.TEMPLATE
         value = encapsulated.subject
-        self.map_template[key] = encapsulated
-        self.assertEqual(value, self.map_template[key].subject)
-        self.assertEqual(self.map_template[key].subject.__class__, Map)
+        self.map_template.add_item(key, encapsulated)
+        self.assertEqual(value, self.map_template.value[key].subject)
+        self.assertEqual(self.map_template.value[key].subject.__class__, Map)
 
     def test_calculate_coverage_map_full_coverage(self):
         subject = Map({'structure1': StructureMock('Structure'), 'structure2': StructureMock('Structure')})
@@ -66,7 +65,6 @@ class MapTemplateTestSuite(unittest.TestCase):
 
     def test_calculate_coverage_map_half_coverage(self):
         subject = Map({'structure1': StructureMock('Structure'), 'structure2': StructureMock('Structure')})
-        specificity = 1
         template = Map(
             {'structure1': StructureMock('Structure')}
         )
