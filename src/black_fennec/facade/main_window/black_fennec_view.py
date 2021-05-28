@@ -36,6 +36,7 @@ class BlackFennecView(Gtk.ApplicationWindow):
     _empty_list_pattern = Gtk.Template.Child()
 
     def __init__(self, app, view_model):
+        self._application = app
         super().__init__(application=app)
         logger.info('BlackFennecView __init__')
         self._view_model = view_model
@@ -109,9 +110,9 @@ class BlackFennecView(Gtk.ApplicationWindow):
     @Gtk.Template.Callback()
     def on_go_to_store_clicked(self, unused_sender) -> None:
         """Callback for the button click event"""
-        store = ExtensionStoreView()
+        store_view_model = self._view_model.create_extension_store()
+        store = ExtensionStoreView(self._application, store_view_model)
         store.show()
-        #self._view_model.go_to_store()
         logger.debug('go to store clicked')
 
     @Gtk.Template.Callback()

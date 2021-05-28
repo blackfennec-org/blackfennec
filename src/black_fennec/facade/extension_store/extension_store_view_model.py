@@ -1,27 +1,36 @@
 from typing import List
 
-from src.extension.extension_source import ExtensionSource
+from src.black_fennec.util.observable import Observable
+from src.extension.extension_api import ExtensionApi
+from src.extension.extension_source_registry import ExtensionSourceRegistry
 
 
-class ExtensionStoreViewModel:
-    def __init__(self, extension_sources: List[ExtensionSource]):
-        self._extension_sources = extension_sources
+class ExtensionStoreViewModel(Observable):
+    def __init__(
+            self,
+            extension_source_registry: ExtensionSourceRegistry,
+            extension_api: ExtensionApi
+    ):
+        Observable.__init__(self)
+        self._extension_source_registry = extension_source_registry
+        self._extension_api = extension_api
+        self._extensions: set = set()
+        self.reload_extensions()
+
+    def reload_extensions(self):
+        self._extensions = set()
+        for source in self._extension_source_registry.extension_sources:
+            self._extensions.update(source.extensions)
+        self._notify(self._extensions, 'extensions')
 
     @property
-    def extensions(self):
-        result = list()
-        for source in self._extension_sources:
-            result += source.extensions
-        return result
+    def extension_api(self) -> ExtensionApi:
+        return self._extension_api
 
-    def toggle(self, extension):
-        if extension.enabled:
-            extension.unload()
-            extension.enabled = False
-        else:
-            extension.load()
-            extension.enabled = True
+    @property
+    def extensions(self) -> set:
+        return self._extensions
 
-    def refresh(self):
-        for source in self._extension_sources:
+    def reload_extension_from_source(self):
+        for source in self._extension_source_registry.extension_sources:
             source.refresh_extensions()
