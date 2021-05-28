@@ -178,7 +178,7 @@ Heavy Lifter
 **Stimulus**      A large file is loaded by the user.
 **Expectation**   The file opens and the data is displayed in the first meaningful view.
 **Measure**       Large operations done after showing the first meaningful view. A loading screen also counts as meaningful view.
-**Criteria**      With a large sized file (1 GB) it should be possible to open it in 5000ms if the reference implementation of the presenter is used.
+**Criteria**      With a large sized file (1 MB) it should be possible to open it in 1000ms if the reference implementation of the presenter is used.
 ================  ==================
 
 Compatibility

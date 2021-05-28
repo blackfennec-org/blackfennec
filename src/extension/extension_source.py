@@ -92,7 +92,8 @@ class ExtensionSource:
         Returns:
              [Extension]: list of extensions in source
         """
-        source_extension_list = self._subject.value[self.EXTENSION_LIST_KEY].value
+        source_extension_list =\
+            self._subject.value[self.EXTENSION_LIST_KEY].value
         result = dict()
         if source_extension_list:
             for extension in source_extension_list:

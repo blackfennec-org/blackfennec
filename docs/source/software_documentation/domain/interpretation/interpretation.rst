@@ -46,6 +46,9 @@ The :ref:`selection process <definition_selection_process>` produces an interpre
 
 Interpretation services hold references to :ref:`structure view factories <structure_view_factory>` and know how to produce :ref:`structure views <structure_view>` from them. In GRASP terminology the interpretation service is the Creator for interpretations.
 
+.. uml:: interpretation_sequence.puml
+
+
 .. _advanced_interpretation:
 
 Advanced Interpretation Algorithm

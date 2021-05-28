@@ -61,7 +61,8 @@ class MapViewModel:
         """Rename the key of an item.
 
                 Args:
-                    old_key: The key of the key value pair which should be renamed
+                    old_key: The key of the key value
+                        pair which should be renamed
                     new_key: The new key name of the key value pair
                 """
         old_value = self._map.value[old_key]

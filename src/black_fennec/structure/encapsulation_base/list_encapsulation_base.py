@@ -20,6 +20,7 @@ class ListEncapsulationBase(EncapsulationBase, List):
             visitor: 'BaseFactoryVisitor',
             subject: List,
     ):
+        List.__init__(self)
         EncapsulationBase.__init__(
             self,
             visitor,

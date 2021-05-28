@@ -53,7 +53,7 @@ class Reference(Structure):
         """Getter for destination
 
         Automatically resolves underlying reference
-        
+
         Returns:
             Structure: destination to which the reference points
         """

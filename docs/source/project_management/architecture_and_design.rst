@@ -26,7 +26,8 @@ We deploy a great many design patterns to manage the complexity of this project;
 
 User Experience
 ===============
-To ensure the user experience, we created a special role in the team. We started early on with design concepts and integrated UX requirements with the help of :ref:`Matthew`. Design decisions have been documented in :ref:`UX/UI Design Decisions <Design Decisions>` 
+To ensure the user experience, we created a special role in the team. We started early on with design concepts and integrated UX requirements with the help of :ref:`Matthew`. Design decisions have been documented in :ref:`UX/UI Design Decisions <Design Decisions>`
+Additionally we created a usability study which is to be done for new feature included in a release. The template can be found :ref:`here <usability_test_template>`.
 
 Architecture Highlights
 =======================
@@ -39,9 +40,17 @@ Although Black Fennec is a very viable product, we have yet to deliver some of t
 
 Furthermore, Black Fennec is designed to be extended by :ref:`extensions <definition_extension>`. This allows users as well as developers to implement new functionality as they see fit. The possibilities are quite literally endless.
 
+.. _performance_scenario:
+
 Performance Scenario
 ====================
-This isn't much a concern for us as Black Fennec is a single user desktop application. Our project is never used by more than one user. Anyone who wants to use black fennec can install the application locally on the machine and work with it. The performance bottlenecks that we see are mainly related to file size and the amount of installed extensions. However, in all our tests we never experienced any performance issues.
+This isn't much a concern for us as Black Fennec is a single user desktop application. Our project is never used by more than one user. Anyone who wants to use black fennec can install the application locally on the machine and work with it. The performance bottlenecks that we see are mainly related to file size and the amount of installed extensions.
+
+System Test
+"""""""""""
+Which is why we have a dedicated system test that ensures that large files (1 MB/ 100'000 lines) can be opened in under one second. This is tested each release cycle, to ensure nothing has broken this requirement.
+
+To ensure that the second bottleneck that we have identified, namely the installation of many type plugins, each bidding on every viewed structure. For this a special extension, loading the same bidder a thousand times while opening a large files (1 MB/ 100'000 lines) was created.
 
 Technologies Used
 =================

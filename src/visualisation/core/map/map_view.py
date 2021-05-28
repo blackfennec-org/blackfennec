@@ -46,7 +46,7 @@ class MapView(Gtk.Bin):
         self._view_model.delete_item(sender.key)
 
     def _add_request_handler(self, key, template_id):
-        substructure = String("")
+        substructure = String('')
         self._view_model.add_item(key, substructure)
         preview = self._view_model.create_preview(substructure)
         item = MapItemView(

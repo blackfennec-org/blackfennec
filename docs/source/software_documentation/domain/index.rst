@@ -28,6 +28,26 @@ Presenter
 Navigation Service
     The :ref:`navigation service <definition_navigation_service>` loosely binds interpretations to presenters and therefore breaks the dependency cycle we see in the simplified domain model.
 
+.. _dynamic_system_views:
+
+Open File Sequence
+------------------
+A typical workflow starts by opening a file. The following sequence diagram illustrates the involved modules and their interactions.
+
+.. uml:: open_file.puml
+
+Navigation Sequence
+-------------------
+User defined data is usually - depending on presenter - not shown in full to the user at once. The default presenter for example, starts by only showing the top most level of the structure. Navigation within the structure is common to access deeper level. The following sequence diagram illustrates this process.
+
+.. uml:: navigation/navigation_sequence.puml
+
+Interpretation Sequence
+-----------------------
+In the earlier diagrams the shorthand "magic" was used to describe the process of interpreting a structure. The following sequence diagram describes this process in more detail.
+
+.. uml:: interpretation/interpretation_sequence.puml
+
 The Domain Model
 """"""""""""""""
 

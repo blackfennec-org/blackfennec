@@ -28,7 +28,8 @@ class ReferenceBidder:
         """"Produces an offer for a given object.
 
         Args:
-            subject (Structure): The Structure for which an offer should be produced.
+            subject (Structure): The Structure for
+                which an offer should be produced.
 
         Returns:
             Offer: that this bidder made on the subject passed.

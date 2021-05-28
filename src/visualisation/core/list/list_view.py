@@ -29,7 +29,7 @@ class ListView(Gtk.Bin):
 
         for substructure in self._view_model.value.value:
             self._add_item(substructure)
-            
+
     def _add_item(self, structure):
         preview = self._view_model.create_preview(structure)
         item = ListItemView(

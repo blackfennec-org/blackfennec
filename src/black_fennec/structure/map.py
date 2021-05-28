@@ -17,7 +17,8 @@ class Map(Structure):
         """
         Structure.__init__(self)
         self._value = dict()
-        self.value = value
+        if value:
+            self.value = value
 
     @property
     def value(self) -> dict:
@@ -28,8 +29,8 @@ class Map(Structure):
         for key in dict(self._value):
             self.remove_item(key)
         if value:
-            for key, value in value.items():
-                self.add_item(key, value)
+            for key, item in value.items():
+                self.add_item(key, item)
 
     def remove_item(self, key):
         """Custom delete hook, resets parent for removed structure.
@@ -48,23 +49,23 @@ class Map(Structure):
             logger.error(key_error)
             raise key_error
 
-    def add_item(self, key, value: Structure):
+    def add_item(self, key: str, value: Structure):
         """Custom set item hook, adds self as parent or raises error.
 
         Args:
-            key: The key for the inserted item.
-            value (:obj:`Structure`): The item which will be inserted.
+            key (str): The key for the inserted item.
+            value (Structure): The item which will be inserted.
 
         Raises:
             ValueError: If the item already has a parent.
         """
         if value.parent is not None:
-            message = f"item already has a parent {value.parent}; {self}"
+            message = f'item already has a parent {value.parent}; {self}'
             logger.error(message)
             raise ValueError(message)
         value.parent = self
         if key in self._value:
-            message = f"item already exists {self._value[key]}"
+            message = f'item already exists {self._value[key]}'
             logger.error(message)
             raise ValueError(message)
         self._value[key] = value

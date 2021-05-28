@@ -50,13 +50,13 @@ class TemplateBase(EncapsulationBase):
     def visit_reference(self, subject_reference: Reference) -> Coverage:
         return self._instance_equality_coverage(subject_reference)
 
-    def visit_string(self, subject_string: String) -> Coverage:
+    def visit_string(self, unused: String) -> Coverage:
         return Coverage.NOT_COVERED
 
-    def visit_list(self, subject_list: List) -> Coverage:
+    def visit_list(self, unused: List) -> Coverage:
         return Coverage.NOT_COVERED
 
-    def visit_map(self, subject_map: Map) -> Coverage:
+    def visit_map(self, unused: Map) -> Coverage:
         return Coverage.NOT_COVERED
 
     def _instance_equality_coverage(self, subject) -> Coverage:

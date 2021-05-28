@@ -12,12 +12,13 @@ class List(Structure):
         """Constructor for List.
 
         Args:
-            data (list[Structure], optional): Structures with which to initialise
-                the List.
+            data (list[Structure], optional): Structures
+                with which to initialise the List.
         """
         Structure.__init__(self)
         self._value = list()
-        self.value = value
+        if value:
+            self.value = value
 
     @property
     def value(self):

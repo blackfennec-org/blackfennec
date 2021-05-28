@@ -56,7 +56,8 @@ class ColumnBasedPresenterViewModel(Observable):
 
         Args:
             sender (Interpretation): interpretation calling navigation
-            structure (Structure): structure corresponding with interpretation_service
+            structure (Structure): structure corresponding
+                with interpretation_service
         """
         logger.debug('show structure (%s) for sender (%s)', structure, sender)
         self._try_cut_interpretations_at(sender)

@@ -1,10 +1,9 @@
 # -*- coding: utf-8 -*-
 import logging
 
-from src.visualisation.base.person.person import Person
 from src.black_fennec.interpretation.interpretation import Interpretation
 from src.black_fennec.structure.map import Map
-from src.black_fennec.structure.string import String
+from src.visualisation.base.person.person import Person
 
 logger = logging.getLogger(__name__)
 

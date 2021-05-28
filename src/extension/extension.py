@@ -57,7 +57,8 @@ class Extension:
     @property
     def location(self) -> list:
         return [
-            child.value for child in self._subject.value[self.LOCATION_KEY].value
+            child.value
+            for child in self._subject.value[self.LOCATION_KEY].value
         ]
 
     @location.setter

@@ -39,7 +39,7 @@ build latest code docs:
     paths:
       - docs/source/software_documentation/code
   only:
-      - tags
+    - tags
 
 build latest html:
   image: $DOCS_BUILD_IMAGE

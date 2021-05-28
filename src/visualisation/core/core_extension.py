@@ -9,7 +9,7 @@ from src.visualisation.core.string.string_bidder import StringBidder
 
 def create_extension(extension_api: ExtensionApi):
     """Registers all core types in type registry.
-    
+
     Args:
         extension_api (ExtensionApi): contains constructor injection
             parameters.

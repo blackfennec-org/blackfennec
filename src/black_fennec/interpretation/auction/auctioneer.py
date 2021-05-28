@@ -71,7 +71,8 @@ class Auctioneer:
             for handling the subject. The auctioneer selects the best offer.
 
         Args:
-            subject (Structure): The subject (a.k.a structure) to be auctioned off.
+            subject (Structure): The subject (a.k.a structure)
+                to be auctioned off.
             specification (Specification): The specification which must be
                 upheld by bidders participating in the bidding.
 

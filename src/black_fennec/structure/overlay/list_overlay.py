@@ -28,7 +28,10 @@ class ListOverlay(ListEncapsulationBase, OverlayBase):
 
     @property
     def value(self):
-        return [self._encapsulate_and_dereference(item) for item in self.subject.value]
+        return [
+            self._encapsulate_and_dereference(item)
+            for item in self.subject.value
+        ]
 
     def __repr__(self):
         return f'ListOverlay({self.subject.__repr__()})'

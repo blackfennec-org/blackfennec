@@ -31,7 +31,8 @@ class MapBidder:
         """"Produces an offer for a given object.
 
         Args:
-            subject (Structure): The Structure for which an offer should be produced.
+            subject (Structure): The Structure for
+                which an offer should be produced.
 
         Returns:
             Offer: Offer that this type offers for

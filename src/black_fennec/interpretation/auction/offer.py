@@ -100,7 +100,8 @@ class Offer(Comparable):
         """view_factory getter
 
         Returns:
-             StructureViewFactory: structure_view factory property set by constructor
+             StructureViewFactory: structure_view factory
+                property set by constructor
         """
         return self._view_factory
 
