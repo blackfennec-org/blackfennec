@@ -18,11 +18,11 @@ class FileViewModel:
             interpretation (Interpretation): The overarching
                 interpretation
         """
-        if not isinstance(interpretation.info, Map):
+        if not isinstance(interpretation.structure, Map):
             message = 'interpretation received should be of' \
                       ' super type Map, but is of type %s'
-            logger.warning(message, type(interpretation.info))
-        self._model: File = File(interpretation.info)
+            logger.warning(message, type(interpretation.structure))
+        self._model: File = File(interpretation.structure)
 
     @property
     def file_path(self):

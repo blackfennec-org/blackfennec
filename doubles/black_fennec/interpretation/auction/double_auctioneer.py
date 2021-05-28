@@ -4,7 +4,7 @@ from doubles.double_dummy import Dummy
 
 class AuctioneerMock:
     def __init__(self, factories=None):
-        self._factories = [Dummy('InfoFactory')] if not factories else factories
+        self._factories = [Dummy('StructureFactory')] if not factories else factories
         self.auction_count = 0
         self.auction_last_subject = None
         self.auction_last_specification = None

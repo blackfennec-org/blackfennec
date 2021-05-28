@@ -3,7 +3,7 @@ import logging
 
 from uri import URI
 
-from src.black_fennec.structure.info import Info
+from src.black_fennec.structure.structure import Structure
 from src.black_fennec.structure.root import Root
 from src.black_fennec.util.json.json_pointer import JsonPointer, JsonPointerType, is_relative_json_pointer
 from src.black_fennec.util.uri.uri_type import UriType
@@ -18,16 +18,16 @@ class JsonReferenceResolvingService:
         self._cached_structure = dict()
         self._uri_import_service = uri_import_service
 
-    def resolve(self, uri: URI, source: Info = None) -> Info:
+    def resolve(self, uri: URI, source: Structure = None) -> Structure:
         """Resolves JsonReference in the form of an URI
-            to a Info.
+            to a Structure.
 
         Args:
             uri (URI): uri containing JsonReference
-            source (Optional[Info]): Source is required for some
+            source (Optional[Structure]): Source is required for some
                 types of JsonReference to be able to navigate from.
         Returns:
-            Info: Destination of JsonReference
+            Structure: Destination of JsonReference
         """
         if str(uri) in self._cached_structure:
             return self._cached_structure[str(uri)]
@@ -65,8 +65,8 @@ class JsonReferenceResolvingService:
     def _load_structure_from_uri(
             self,
             uri: URI,
-            source: Info = None
-    ) -> (Info, str):
+            source: Structure = None
+    ) -> (Structure, str):
         root: Root = source.root
         current_path = root.uri
         structure = self._uri_import_service.load(uri, current_path)

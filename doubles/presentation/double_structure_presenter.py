@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-class InfoPresenterMock:
+class StructurePresenterMock:
     def __init__(self):
         self.show_count = 0
         self.show_last_sender = None

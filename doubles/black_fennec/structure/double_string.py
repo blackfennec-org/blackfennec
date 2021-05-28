@@ -1,10 +1,10 @@
-from doubles.black_fennec.structure.double_info import InfoMock
+from doubles.black_fennec.structure.double_structure import StructureMock
 
 
-class StringMock(InfoMock):
-    def __init__(self, value=None, children=None, parent=None, root=None):
+class StringMock(StructureMock):
+    def __init__(self, value=None, parent=None, root=None):
         value = '' if value is None else value
-        InfoMock.__init__(self, value, children, parent, root)
+        StructureMock.__init__(self, value, parent, root)
 
     def accept(self, visitor):
         return visitor.visit_string(self)

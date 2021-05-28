@@ -1,6 +1,6 @@
 import unittest
 from doubles.black_fennec.interpretation.double_interpretation import InterpretationMock
-from doubles.black_fennec.structure.double_info import InfoMock
+from doubles.black_fennec.structure.double_structure import StructureMock
 from doubles.black_fennec.structure.double_reference import ReferenceMock, ReferenceInstanceMock
 from src.visualisation.core.reference.reference_view_model import ReferenceViewModel
 
@@ -25,7 +25,7 @@ class ReferenceViewModelTestSuite(unittest.TestCase):
     def test_can_forward_navigation_request(self):
         interpretation = InterpretationMock(ReferenceInstanceMock())
         view_model = ReferenceViewModel(interpretation)
-        route_target = InfoMock()
+        route_target = StructureMock()
         view_model.navigate_to(route_target)
         self.assertListEqual(
             interpretation.navigation_requests,

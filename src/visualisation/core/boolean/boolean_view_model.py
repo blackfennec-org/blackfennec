@@ -13,7 +13,7 @@ class BooleanViewModel:
             interpretation (:obj:`Interpretation`): The overarching
                 interpretation
         """
-        self._model = interpretation.info
+        self._model = interpretation.structure
 
     @property
     def value(self):
