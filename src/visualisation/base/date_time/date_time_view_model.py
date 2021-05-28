@@ -2,6 +2,8 @@
 import logging
 from datetime import datetime
 
+from src.black_fennec.structure.info import Info
+
 from src.visualisation.base.date_time.date_time import DateTime
 from src.black_fennec.interpretation.interpretation import Interpretation
 
@@ -19,6 +21,7 @@ class DateTimeViewModel:
                 interpretation
         """
         self._model: DateTime = DateTime(interpretation.info)
+        self._interpretation = interpretation
 
     @property
     def date_time(self) -> datetime:
@@ -28,3 +31,6 @@ class DateTimeViewModel:
     @date_time.setter
     def date_time(self, value: datetime):
         self._model.date_time = value
+
+    def navigate(self):
+        self._interpretation.navigate(self._interpretation.info)
