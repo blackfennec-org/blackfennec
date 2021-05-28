@@ -24,6 +24,7 @@ class PersonViewModel:
                       ' super type Map, but is of type %s'
             logger.warning(message, type(interpretation.info))
         self._model: Person = Person(interpretation.info)
+        self._interpretation = interpretation
 
     @property
     def courtesy_title(self):
@@ -105,3 +106,6 @@ class PersonViewModel:
     @nationality.setter
     def nationality(self, value: String):
         self._model.nationality = value
+
+    def navigate(self):
+        self._interpretation.navigate(self._interpretation.info)
