@@ -52,6 +52,7 @@ Three conceptual types of extensions are currently planned. Any given extension 
     @enduml
 
 
+.. _extension_wireframe:
 
 .. uml::
 

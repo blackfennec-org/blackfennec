@@ -18,6 +18,7 @@ Welcome to Black Fennec's documentation!
    project_management/elaboration.rst
    project_management/quality_control.rst
    project_management/architecture_and_design.rst
+   project_management/refinement.rst
 
 .. toctree::
    :maxdepth: 2
@@ -73,6 +74,7 @@ Welcome to Black Fennec's documentation!
 
    testing/system_test.rst
    testing/system_test_templates.rst
+   testing/ux_test.rst
    testing/ux_test_templates.rst
 
 

@@ -4,7 +4,7 @@
 
 Presenter Extension
 ===================
-The presenter extension (a.k.a Info Presenter Extension) is responsible for displaying and positioning all Info Views as described in :doc:`type_extension` as well as making Actions as described in :doc:`action_extension` available to the user. Presenters have few restrictions and will be given a rectangular area for rendering.
+The presenter extension (a.k.a Structure Presenter Extension) is responsible for displaying and positioning all Structure Views as described in :doc:`type_extension` as well as making Actions as described in :doc:`action_extension` available to the user. Presenters have few restrictions and will be given a rectangular area for rendering.
 
 .. uml::
 
@@ -98,9 +98,9 @@ The presenter extension (a.k.a Info Presenter Extension) is responsible for disp
     @endsalt
 
 
-Displaying Info Views
-"""""""""""""""""""""
-Info Views are placed and positioned by the presenter. They ought to expect a rectangular region in which they are allowed to render information. The presenter has full control over size and position of these regions and is free to arrange and decorate them. It is not the responsibility of the presenter to ensure the usability of the Info View. However, we might define a soft limit to the minimum width or height that a Info View ought to get.
+Displaying Structure Views
+""""""""""""""""""""""""""
+Structure Views are placed and positioned by the presenter. They ought to expect a rectangular region in which they are allowed to render information. The presenter has full control over size and position of these regions and is free to arrange and decorate them. It is not the responsibility of the presenter to ensure the usability of the Structure View. However, we might define a soft limit to the minimum width or height that a Structure View ought to get.
 
 Disclaimer
 """"""""""

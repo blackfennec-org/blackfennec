@@ -1,5 +1,5 @@
 import unittest
-from doubles.black_fennec.structure.double_info import InfoMock
+from doubles.black_fennec.structure.double_structure import StructureMock
 from doubles.black_fennec.structure.double_map import MapMock
 from doubles.black_fennec.structure.double_string import StringMock
 from src.visualisation.base.image.image import Image
@@ -17,15 +17,16 @@ class ImageTestSuite(unittest.TestCase):
         data[Image.FILE_TYPE_KEY] = StringMock('file_type')
 
         data_map = MapMock(data)
-        Image(data_map)
+        image = Image(data_map)
+
+        self.assertIsNotNone(image)
 
     def test_can_construct_with_empty_map(self):
         data = dict()
         data_map = MapMock(data)
-        Image(data_map)
-        self.assertIn(Image.FILE_PATH_KEY, data)
-        self.assertIn(Image.FILE_TYPE_KEY, data)
-        self.assertTrue(data[Image.FILE_TYPE_KEY].startswith('image/'))
+        image = Image(data_map)
+
+        self.assertIsNotNone(image)
 
     def test_deletion_of_key_after_construction(self):
         data = dict()
@@ -79,7 +80,7 @@ class ImageTestSuite(unittest.TestCase):
 
     def test_equal_unequal_elements(self):
         data_map = MapMock({})
-        other_data_map = MapMock({Image.FILE_PATH_KEY: InfoMock('test')})
+        other_data_map = MapMock({Image.FILE_PATH_KEY: StructureMock('test')})
         comp = Image(data_map)
         other_comp = Image(other_data_map)
         self.assertFalse(
@@ -98,7 +99,7 @@ class ImageTestSuite(unittest.TestCase):
 
     def test_not_equal_unequal_elements(self):
         data_map = MapMock({})
-        other_data_map = MapMock({Image.FILE_PATH_KEY: InfoMock('test')})
+        other_data_map = MapMock({Image.FILE_PATH_KEY: StructureMock('test')})
         comp = Image(data_map)
         other_comp = Image(other_data_map)
         self.assertTrue(

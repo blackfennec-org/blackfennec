@@ -1,38 +1,39 @@
-from collections import UserDict
 import logging
-from src.black_fennec.structure.info import Info
+
+from src.black_fennec.structure.structure import Structure
 
 logger = logging.getLogger(__name__)
 
 
-class Map(Info, UserDict):
+class Map(Structure):
     """Core type Map, a set of keys with values"""
 
-    def __init__(self, data: dict = None):
+    def __init__(self, value: dict = None):
         """Constructor for List.
 
         Args:
-            data (dict[any, Info], optional): Infos with which to initialise
-                the Map.
+            value (dict[any, Structure], optional):
+                Structures with which to initialise the Map.
         """
-        Info.__init__(self)
-        UserDict.__init__(self, data)
+        Structure.__init__(self)
+        self._value = dict()
+        if value:
+            self.value = value
 
     @property
     def value(self) -> dict:
-        return dict(self.data)
+        return dict(self._value)
 
     @value.setter
     def value(self, value: dict):
-        self.data = value
+        for key in dict(self._value):
+            self.remove_item(key)
+        if value:
+            for key, item in value.items():
+                self.add_item(key, item)
 
-    @property
-    def children(self):
-        """Readonly property for child infos"""
-        return list(self.data.values())
-
-    def __delitem__(self, key):
-        """Custom delete hook, resets parent for removed info.
+    def remove_item(self, key):
+        """Custom delete hook, resets parent for removed structure.
 
         Args:
             key (any): The key of the item to delete.
@@ -42,29 +43,32 @@ class Map(Info, UserDict):
                 is not contained in map.
         """
         try:
-            value = self.data.pop(key)
+            value = self._value.pop(key)
             value.parent = None
         except KeyError as key_error:
             logger.error(key_error)
             raise key_error
 
-    def __setitem__(self, key, value: Info):
+    def add_item(self, key: str, value: Structure):
         """Custom set item hook, adds self as parent or raises error.
 
         Args:
-            key: The key for the inserted item.
-            value (:obj:`Info`): The item which will be inserted.
+            key (str): The key for the inserted item.
+            value (Structure): The item which will be inserted.
 
         Raises:
             ValueError: If the item already has a parent.
         """
         if value.parent is not None:
-            message = "item already has a parent {}; {}".format(
-                value.parent, self)
+            message = f'item already has a parent {value.parent}; {self}'
             logger.error(message)
             raise ValueError(message)
         value.parent = self
-        self.data[key] = value
+        if key in self._value:
+            message = f'item already exists {self._value[key]}'
+            logger.error(message)
+            raise ValueError(message)
+        self._value[key] = value
 
     def accept(self, visitor):
         return visitor.visit_map(self)

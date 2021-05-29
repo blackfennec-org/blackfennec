@@ -27,7 +27,7 @@ class TypeRegistry:
         """Function to register a new type
 
             Args:
-                type_bidder (InfoBidder): future element of the type list
+                type_bidder (StructureBidder): future element of the type list
         """
         self._types.append(type_bidder)
 

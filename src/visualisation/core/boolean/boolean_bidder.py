@@ -1,4 +1,4 @@
-from src.black_fennec.structure.info import Info
+from src.black_fennec.structure.structure import Structure
 from src.black_fennec.structure.boolean import Boolean
 from src.black_fennec.structure.template.template_factory_visitor import TemplateFactoryVisitor
 from src.visualisation.core.boolean.boolean_view_factory import BooleanViewFactory
@@ -19,11 +19,11 @@ class BooleanBidder:
     """The bidding service for the core type `Boolean`.
     """
 
-    def bid(self, subject: Info):
+    def bid(self, subject: Structure):
         """"Produces an offer for a given object.
 
         Args:
-            subject (:obj:`Info`): The Info for which an
+            subject (:obj:`Structure`): The Structure for which an
                 offer should be produced.
 
         Returns:

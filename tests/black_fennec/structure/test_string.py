@@ -7,7 +7,7 @@ from src.black_fennec.structure.string import String
 class StringTestSuite(unittest.TestCase):
     def test_can_construct(self):
         string = String("Black Fennec")
-        self.assertEqual(string, "Black Fennec")
+        self.assertEqual(string.value, "Black Fennec")
 
     def test_can_get_value(self):
         string = String("Black Fennec")
@@ -16,7 +16,7 @@ class StringTestSuite(unittest.TestCase):
     def test_can_set_value(self):
         string = String("Tiny Fennec")
         string.value = "Black Fennec"
-        self.assertEqual(string, "Black Fennec")
+        self.assertEqual(string.value, "Black Fennec")
 
     def test_can_change_parent(self):
         new_parent = RootMock()

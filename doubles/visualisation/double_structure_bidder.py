@@ -2,7 +2,7 @@
 from doubles.black_fennec.interpretation.auction.double_offer import OfferFake
 
 
-class InfoBidderMock:
+class StructureBidderMock:
     def __init__(self, **kwargs):
         self._offer = OfferFake(**kwargs)
         self.bid_count = 0

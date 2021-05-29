@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import logging
 
-from src.black_fennec.structure.info import Info
+from src.black_fennec.structure.structure import Structure
 from src.black_fennec.interpretation.auction.auctioneer import Auctioneer
 from src.black_fennec.interpretation.interpretation import Interpretation
 from src.black_fennec.interpretation.specification import Specification
@@ -29,12 +29,12 @@ class InterpretationService:
         """
         self._auctioneer = auctioneer
 
-    def interpret(self, structure: Info,
+    def interpret(self, structure: Structure,
             specification: Specification= None) -> Interpretation:
         """Interpret the given structure follwing the a specification
 
         Args:
-            structure (Info): The structure to be interpreted
+            structure (Structure): The structure to be interpreted
             specification (Specification, optional): The specification
                 to be followed. Defaults to default constructed Specification.
 

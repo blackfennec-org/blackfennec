@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import unittest
 
+from doubles.black_fennec.structure.double_list import ListMock
 from doubles.double_dummy import Dummy
 from doubles.extension.double_extension_loading_service import ExtensionLoadingServiceMock
 from doubles.extension.double_extensions.create_failing_extension.double_create_failing_extension import \
@@ -21,6 +22,8 @@ class ExtensionTestSuite(unittest.TestCase):
             Dummy('ExtensionSource')
         )
 
+        self.assertIsNotNone(extension)
+
     def test_can_construct_with_map(self):
         data = dict()
         data[Extension.NAME_KEY] = StringMock('name')
@@ -28,23 +31,24 @@ class ExtensionTestSuite(unittest.TestCase):
         data[Extension.ENABLED_KEY] = BooleanMock(True)
 
         data_map = MapMock(data)
-        Extension(
+        extension = Extension(
             Dummy('ExtensionLoadingService'),
             Dummy('ExtensionSource'),
             data_map
         )
 
+        self.assertIsNotNone(extension)
+
     def test_can_construct_with_empty_map(self):
         data = dict()
         data_map = MapMock(data)
-        Extension(
+        extension = Extension(
             Dummy('ExtensionLoadingService'),
             Dummy('ExtensionSource'),
             data_map
         )
-        self.assertIn(Extension.NAME_KEY, data)
-        self.assertIn(Extension.LOCATION_KEY, data)
-        self.assertIn(Extension.ENABLED_KEY, data)
+
+        self.assertIsNotNone(extension)
 
     def test_name_getter(self):
         data = dict()
@@ -71,7 +75,9 @@ class ExtensionTestSuite(unittest.TestCase):
 
     def test_location_getter(self):
         data = dict()
-        data[Extension.LOCATION_KEY] = StringMock('location')
+        data[Extension.LOCATION_KEY] = ListMock([
+            StringMock('location')
+        ])
 
         data_map = MapMock(data)
         extension = Extension(
@@ -79,16 +85,15 @@ class ExtensionTestSuite(unittest.TestCase):
             Dummy('ExtensionSource'),
             data_map
         )
-        self.assertEqual(extension.location, data[Extension.LOCATION_KEY].value)
+        self.assertEqual(extension.location, ['location'])
 
     def test_location_setter(self):
-        location = StringMock('location')
+        location = ['location']
         extension = Extension(
             Dummy('ExtensionLoadingService'),
             Dummy('ExtensionSource')
         )
         extension.location = location
-        location.parent = extension
         self.assertEqual(extension.location, location)
 
     def test_enabled_getter(self):
