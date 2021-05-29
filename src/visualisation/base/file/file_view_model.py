@@ -23,6 +23,7 @@ class FileViewModel:
                       ' super type Map, but is of type %s'
             logger.warning(message, type(interpretation.info))
         self._model: File = File(interpretation.info)
+        self._interpretation = interpretation
 
     @property
     def file_path(self):
@@ -42,3 +43,6 @@ class FileViewModel:
     @file_type.setter
     def file_type(self, value: str):
         self._model.file_type = value
+
+    def navigate(self):
+        self._interpretation.navigate(self._interpretation.info)
