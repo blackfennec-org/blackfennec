@@ -12,3 +12,9 @@ class NumberTemplate(TemplateBase):
     def __init__(self):
         visitor = TemplateFactoryVisitor()
         TemplateBase.__init__(self, visitor, Number())
+
+        self._name = 'Number'
+
+    @property
+    def name(self):
+        return self._name

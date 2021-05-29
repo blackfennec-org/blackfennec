@@ -12,3 +12,10 @@ class MapTemplate(Template):
     def __init__(self):
         visitor = TemplateFactoryVisitor()
         Template.__init__(self, visitor, Map())
+        
+        self._name = 'Map'
+
+    @property
+    def name(self):
+        return self._name
+

@@ -68,7 +68,7 @@ class ListItemView(Gtk.Bin):
             templates = self._view_model.get_templates()
             if templates:
                 for template in self._view_model.get_templates():
-                    template_store.append((template.__str__(),))
+                    template_store.append((template.name,))
             else:
                 template_store = self._template_store
             self._template_box.set_model(template_store)
@@ -91,7 +91,7 @@ class ListItemView(Gtk.Bin):
 
     def _get_template_by_string(self, template_string: str):
         for template in self._view_model.get_templates():
-            if template.__str__() == template_string:
+            if template.name == template_string:
                 return template
         message = f'Template({template_string}) could not be found ' \
                   f'in template registry'

@@ -12,3 +12,10 @@ class ListTemplate(Template):
     def __init__(self):
         visitor = TemplateFactoryVisitor()
         Template.__init__(self, visitor, List())
+        
+        self._name = 'List'
+
+    @property
+    def name(self):
+        return self._name
+

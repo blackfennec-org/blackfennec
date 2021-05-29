@@ -12,3 +12,8 @@ class StringTemplate(Template):
     def __init__(self):
         visitor = TemplateFactoryVisitor()
         Template.__init__(self, visitor, String())
+        self._name = 'String'
+
+    @property
+    def name(self):
+        return self._name

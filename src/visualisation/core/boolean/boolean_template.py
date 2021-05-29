@@ -12,3 +12,9 @@ class BooleanTemplate(TemplateBase):
     def __init__(self):
         visitor = TemplateFactoryVisitor()
         TemplateBase.__init__(self, visitor, Boolean())
+
+        self._name = "Boolean"
+
+    @property
+    def name(self):
+        return self._name
