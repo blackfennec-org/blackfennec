@@ -72,10 +72,10 @@ class StructureParsingServiceTestSuite(unittest.TestCase):
         }
         result = self.structure_parsing_service.from_json(data)
         self.assertIsInstance(result, Map)
-        self.assertIsInstance(result['Tim'], Map)
-        self.assertIsInstance(result['Tim']['firstname'], String)
-        self.assertIsInstance(result['Tim']['age'], Number)
-        self.assertIsInstance(result['Tim']['hobbies'], List)
+        self.assertIsInstance(result.value['Tim'], Map)
+        self.assertIsInstance(result.value['Tim'].value['firstname'], String)
+        self.assertIsInstance(result.value['Tim'].value['age'], Number)
+        self.assertIsInstance(result.value['Tim'].value['hobbies'], List)
 
     def test_can_parse_nested_list(self):
         data = {
@@ -89,11 +89,11 @@ class StructureParsingServiceTestSuite(unittest.TestCase):
             ]
         }
         result = self.structure_parsing_service.from_json(data)
-        self.assertIsInstance(result['continents'], List)
-        self.assertIsInstance(result['continents'][0]['identification'], String)
-        self.assertIsInstance(result['continents'][0]['countries'], List)
-        self.assertIsInstance(result['continents'][2]['identification'], String)
-        self.assertIsInstance(result['continents'][2]['countries'], List)
+        self.assertIsInstance(result.value['continents'], List)
+        self.assertIsInstance(result.value['continents'].value[0].value['identification'], String)
+        self.assertIsInstance(result.value['continents'].value[0].value['countries'], List)
+        self.assertIsInstance(result.value['continents'].value[2].value['identification'], String)
+        self.assertIsInstance(result.value['continents'].value[2].value['countries'], List)
 
     def test_throws_error_on_unknown_type(self):
         o = object()

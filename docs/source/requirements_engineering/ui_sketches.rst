@@ -13,7 +13,7 @@ Under the menu bar the user can see an overview of the imported data.
 
 .. image:: ../images/ui_sketches/blackfennec_gui3.png
 
-*Black Fennec Main UI and info presenter:Object detail view containing sample key-value pairs*
+*Black Fennec Main UI and structure presenter:Object detail view containing sample key-value pairs*
 
 Extension Marketplace
 *********************

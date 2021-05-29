@@ -12,9 +12,10 @@ def create_file_template():
     """File Template
     Defines the format of the file
     """
-    template_map = Map()
-    template_map[File.FILE_PATH_KEY] = String()
-    template_map[File.FILE_TYPE_KEY] = String()
+    template_map = Map({
+        File.FILE_PATH_KEY: String(),
+        File.FILE_TYPE_KEY: String()
+    })
 
     template_factory = TemplateFactoryVisitor()
     template = template_map.accept(template_factory)
@@ -33,50 +34,47 @@ class File:
     FILE_PATH_KEY = 'file_path'
     FILE_TYPE_KEY = 'file_type'
 
-    def __init__(self, map_interpretation: Map = Map()):
+    def __init__(self, subject: Map = Map()):
         """File Constructor
 
         Args:
-            map_interpretation (Map): underlying map interpretation to
+            subject (Map): underlying map interpretation to
                 which property calls are dispatched
         """
-        self._data: Map = map_interpretation
-        if File.FILE_PATH_KEY not in self._data:
-            self._data[File.FILE_PATH_KEY] = String()
-        if File.FILE_TYPE_KEY not in self._data:
-            self._data[File.FILE_TYPE_KEY] = String()
+        self._subject: Map = subject
+        if File.FILE_PATH_KEY not in self._subject.value:
+            self._subject.add_item(File.FILE_PATH_KEY, String())
+        if File.FILE_TYPE_KEY not in self._subject.value:
+            self._subject.add_item(File.FILE_TYPE_KEY, String())
 
-    def _get_from_map(self, key) -> str:
-        """Wrapper for map access
+    @property
+    def subject(self):
+        return self._subject
 
-        Checks whether key is in map and if yes, it
-        returns its value. Otherwise None is returned.
-
-        Args:
-            key (str): Key of value to check
-
-        Returns:
-            : Value at key in map
-        """
-        if key not in self._data:
+    def _get_value(self, key):
+        if key not in self.subject.value:
             return None
-        return self._data[key].value
+        return self.subject.value[key].value
+
+    def _set_value(self, key, value):
+        assert key in self.subject.value
+        self.subject.value[key].value = value
 
     @property
     def file_path(self) -> str:
-        return self._get_from_map(File.FILE_PATH_KEY)
+        return self._get_value(File.FILE_PATH_KEY)
 
     @file_path.setter
     def file_path(self, value: str):
-        self._data[File.FILE_PATH_KEY].value = value
+        self._set_value(File.FILE_PATH_KEY, value)
 
     @property
     def file_type(self) -> str:
-        return self._get_from_map(File.FILE_TYPE_KEY)
+        return self._get_value(File.FILE_TYPE_KEY)
 
     @file_type.setter
     def file_type(self, value: str):
-        self._data[File.FILE_TYPE_KEY].value = value
+        self._set_value(File.FILE_TYPE_KEY, value)
 
     def __eq__(self, other) -> bool:
         return (

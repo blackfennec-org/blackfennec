@@ -1,5 +1,5 @@
 from src.black_fennec.structure.encapsulation_base.encapsulation_base import EncapsulationBase
-from src.black_fennec.structure.info import Info
+from src.black_fennec.structure.structure import Structure
 
 
 class FilterBase(EncapsulationBase):
@@ -30,14 +30,14 @@ class FilterBase(EncapsulationBase):
         return f'FilterBase({self.subject.__repr__()})'
 
     @staticmethod
-    def _remove_encapsulation(item: Info):
-        """Decapsulates a Info Class if it is encapsulated by an instance
+    def _remove_encapsulation(item: Structure):
+        """Decapsulates a Structure Class if it is encapsulated by an instance
             of FilterBase
 
         Args:
-            item (Info): to decapsulate.
+            item (Structure): to decapsulate.
         Returns:
-            Info: subject of passed item, if item
+            Structure: subject of passed item, if item
                 is encapsulated.
         """
         decapsulated_value = item

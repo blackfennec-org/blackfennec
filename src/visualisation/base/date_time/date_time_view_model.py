@@ -18,7 +18,7 @@ class DateTimeViewModel:
             interpretation (Interpretation): The overarching
                 interpretation
         """
-        self._model: DateTime = DateTime(interpretation.info)
+        self._model: DateTime = DateTime(interpretation.structure)
 
     @property
     def date_time(self) -> datetime:

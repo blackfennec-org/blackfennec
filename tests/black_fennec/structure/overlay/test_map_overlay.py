@@ -3,16 +3,16 @@ from typing import Optional
 
 from uri import URI
 
-from doubles.black_fennec.structure.double_info import InfoMock
+from doubles.black_fennec.structure.double_structure import StructureMock
 from doubles.black_fennec.util.json.double_json_reference_resolving_service import JsonReferenceResolvingServiceMock
 from src.black_fennec.structure.encapsulation_base import _create_generic_class
-from src.black_fennec.structure.info import Info
 from src.black_fennec.structure.map import Map
 from src.black_fennec.structure.overlay.map_overlay import MapOverlay
 from src.black_fennec.structure.overlay.overlay_base import OverlayBase
 from src.black_fennec.structure.overlay.overlay_factory_visitor import OverlayFactoryVisitor
 from src.black_fennec.structure.reference import Reference
 from src.black_fennec.structure.root import Root
+from src.black_fennec.structure.structure import Structure
 
 
 class MapOverlayTestSuite(unittest.TestCase):
@@ -32,7 +32,7 @@ class MapOverlayTestSuite(unittest.TestCase):
 
     def test_get_item_with_reference(self):
         key = 'test'
-        value = InfoMock('test_value')
+        value = StructureMock('test_value')
         resolving_service = JsonReferenceResolvingServiceMock(resolve_return=value)
         ref = Reference(resolving_service, URI('0'))
         subject = Map({key: ref})
@@ -40,34 +40,34 @@ class MapOverlayTestSuite(unittest.TestCase):
             self.visitor,
             subject
         )
-        get = map_overlay[key].subject
-        self.assertEqual(get, value)
+        get = map_overlay.value[key]
+        self.assertEqual(get.subject, value)
 
     def test_get_item(self):
         key = 'test'
-        value = InfoMock('test_value')
+        value = StructureMock('test_value')
         subject = Map({key: value})
         map_overlay: Optional[MapOverlay] = MapOverlay(
             self.visitor,
             subject
         )
-        get = map_overlay[key].subject
-        self.assertEqual(get, value)
+        get = map_overlay.value[key]
+        self.assertEqual(get.subject, value)
 
     def test_set_item_already_encapsulated(self):
         key = 'test'
-        value = InfoMock('test_value')
-        template_class = _create_generic_class(OverlayBase, Info)
+        value = StructureMock('test_value')
+        template_class = _create_generic_class(OverlayBase, Structure)
         encapsulated = template_class(self.visitor, value)
-        self.map_overlay[key] = encapsulated
-        self.assertEqual(value, self.map_overlay[key].subject)
+        self.map_overlay.add_item(key, encapsulated)
+        self.assertEqual(value, self.map_overlay.value[key].subject)
 
     def test_set_item_map_already_encapsulated(self):
         key = 'test'
         value = Map()
         encapsulated = MapOverlay(self.visitor, value)
-        self.map_overlay[key] = encapsulated
-        self.assertEqual(value, self.map_overlay[key].subject)
+        self.map_overlay.add_item(key, encapsulated)
+        self.assertEqual(value, self.map_overlay.value[key].subject)
 
     def test_can_get_repr(self):
         representation: str = self.map_overlay.__repr__()

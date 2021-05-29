@@ -1,7 +1,7 @@
 class FactoryBaseVisitorMock:
     def __init__(self):
-        self.visit_info_count = 0
-        self.info = None
+        self.visit_structure_count = 0
+        self.structure = None
         self.visit_root_count = 0
         self.root = None
         self.visit_string_count = 0
@@ -18,10 +18,10 @@ class FactoryBaseVisitorMock:
         self.map = None
         self._metadata_storage = dict()
         
-    def visit_info(self, subject_info):
-        self.visit_info_count += 1
-        self.info = subject_info
-        return subject_info
+    def visit_structure(self, subject_structure):
+        self.visit_structure_count += 1
+        self.structure = subject_structure
+        return subject_structure
 
     def visit_root(self, subject_root):
         self.visit_root_count += 1

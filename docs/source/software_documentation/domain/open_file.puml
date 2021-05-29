@@ -1,0 +1,26 @@
+@startuml
+skinparam sequence {
+    ParticipantBorderColor Black
+    ParticipantBackgroundColor #EEE
+    ParticipantBorderColor Black
+    ArrowColor Black
+    ActorBorderColor Black
+    ActorBackgroundColor #EEE
+    LifeLineBorderColor Black
+}
+title Open File
+
+User -> Facade  : "open file"
+Facade -> Parser    : "parse file"
+Parser -> Facade    : structure
+Facade -> Presenter : new()
+Presenter -> Facade : presenter
+Facade -> Presenter : set_structure(structure)
+Facade -> Facade    : add_tab(presenter)
+Presenter -> InterpretationService  : interpret(structure)
+InterpretationService -> InterpretationService  : "magic"
+InterpretationService -> Presenter  :interpretation
+Presenter -> Presenter  : display(interpretation)
+Presenter -> User   : "file opened"
+
+@enduml

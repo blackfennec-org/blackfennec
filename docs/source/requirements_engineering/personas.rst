@@ -1,3 +1,6 @@
+.. _personas:
+
+========
 Personas
 ========
 
@@ -28,6 +31,9 @@ Frustrations:
 -------------
 - New Tools are often hard to understand for him, especially if they lack in UI/UX design
 
+
+.. _Sun:
+
 **********
 Sun Chuang
 **********
@@ -52,6 +58,9 @@ Frustrations:
 -------------
 - Commonly used OSINT tools don't fit her needs
 - Additional work needed to compensate for missing features of available tools
+
+
+.. _Alan:
 
 ***********
 Alan Nordin

@@ -5,6 +5,7 @@ from doubles.black_fennec.structure.double_map import MapMock
 from doubles.black_fennec.structure.double_string import StringMock
 from src.visualisation.base.date_time.date_time import DateTime
 
+
 class DateTimeTestSuite(unittest.TestCase):
     def test_can_default_construct(self):
         date_time = DateTime()
@@ -16,7 +17,7 @@ class DateTimeTestSuite(unittest.TestCase):
 
         data_map = MapMock(data)
         DateTime(data_map)
-        self.assertIn(DateTime.DATE_TIME_KEY, data_map)
+        self.assertIn(DateTime.DATE_TIME_KEY, data_map.value)
 
     def test_date_time_getter(self):
         data = dict()
