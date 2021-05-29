@@ -26,7 +26,7 @@ MOCK_MODULES = ['gi.repository']
 sys.modules.update((mod_name, Mock()) for mod_name in MOCK_MODULES)
 
 
-# -- Project information -----------------------------------------------------
+# -- Project Information -----------------------------------------------------
 
 project = 'Black Fennec'
 copyright = '2021, Simon Kindhauser, Caspar Martens, ' \

@@ -1,8 +1,8 @@
 import numbers
-from src.black_fennec.structure.info import Info
+from src.black_fennec.structure.structure import Structure
 
 
-class Number(Info):
+class Number(Structure):
     """Core Type Number, represents numbers in the domain model."""
 
     def __init__(self, value: numbers.Number = 0):
@@ -12,7 +12,7 @@ class Number(Info):
             value (:obj:`numbers.Number`, optional): The item of the `Number`.
                 By default "" (empty number)
         """
-        Info.__init__(self)
+        Structure.__init__(self)
         self._value = value
 
     @property
@@ -23,32 +23,6 @@ class Number(Info):
     @value.setter
     def value(self, value: numbers.Number):
         self._value = value
-
-    def __add__(self, value) -> 'Number':
-        """Add two numbers together"""
-        if isinstance(value, Number):
-            value = value.value
-        return Number(self._value + value)
-
-    def __iadd__(self, value) -> 'Number':
-        """Add a number to this number"""
-        if isinstance(value, Number):
-            value = value.value
-        self._value += value
-        return self
-
-    def __eq__(self, other) -> bool:
-        """Test for equality"""
-        if isinstance(other, Number):
-            other = other.value
-        return self._value == other
-
-    def __hash__(self):
-        return hash(id(self))
-
-    def __str__(self) -> str:
-        """Convert to string"""
-        return str(self._value)
 
     def __repr__(self) -> str:
         """Create representation for pretty printing"""

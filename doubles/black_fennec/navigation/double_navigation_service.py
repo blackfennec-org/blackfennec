@@ -18,11 +18,11 @@ class NavigationServiceMock:
         self.navigation_count = 0
 
     def navigate(self, sender, destination):
-        """InfoViewFactory.create method mock.
+        """StructureViewFactory.create method mock.
 
         Args:
             sender (Any): sender interpretation which initiated navigation
-            destination (Any): info to navigate to
+            destination (Any): structure to navigate to
 
         Saves passed argument on class to enable user to see passed arguments.
         Counts amount of times navigate has been called."""

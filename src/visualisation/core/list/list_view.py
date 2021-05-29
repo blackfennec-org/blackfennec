@@ -30,10 +30,10 @@ class ListView(Gtk.Bin):
     def _populate_items(self) -> None:
         """Populates the list that displays the list items"""
 
-        for substructure in self._view_model.value:
+        for substructure in self._view_model.value.value:
             self._add_item(substructure)
 
-        self._value = set(self._view_model.value)
+        self._value = set(self._view_model.value.value)
 
     def _add_item(self, structure):
         preview = self._view_model.create_preview(structure)

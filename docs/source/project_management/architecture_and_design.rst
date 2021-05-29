@@ -26,7 +26,8 @@ We deploy a great many design patterns to manage the complexity of this project;
 
 User Experience
 ===============
-To ensure the user experience, we created a special role in the team. We started early on with design concepts and integrated UX requirements with the help of :ref:`Matthew`. Design decisions have been documented in :ref:`UX/UI Design Decisions <Design Decisions>` 
+To ensure the user experience, we created a special role in the team. We started early on with design concepts and integrated UX requirements with the help of :ref:`Matthew`. Design decisions have been documented in :ref:`UX/UI Design Decisions <Design Decisions>`
+Additionally we created a usability study which is to be done for new feature included in a release. The template can be found :ref:`here <usability_test_template>`.
 
 Architecture Highlights
 =======================
@@ -38,6 +39,8 @@ Possible Extensions
 Although Black Fennec is a very viable product, we have yet to deliver some of the features teased in the project proposal. The most prominent of them are `actions`. We recently decided that this feature could not be implemented within the time constraints of the engineering project. However, it is perfectly feasible to add `actions` in the future. As a matter of fact, we plan to do so.
 
 Furthermore, Black Fennec is designed to be extended by :ref:`extensions <definition_extension>`. This allows users as well as developers to implement new functionality as they see fit. The possibilities are quite literally endless.
+
+.. _performance_scenario:
 
 Performance Scenario
 ====================

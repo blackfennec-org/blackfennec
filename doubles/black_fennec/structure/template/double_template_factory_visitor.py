@@ -11,10 +11,10 @@ class TemplateFactoryVisitorMock(FactoryBaseVisitorMock):
     def __init__(self):
         FactoryBaseVisitorMock.__init__(self)
 
-    def visit_info(self, subject_info):
-        subject_info = super().visit_info(subject_info)
-        Encapsulation = _create_generic_class(TemplateBase, subject_info.__class__)
-        return Encapsulation(self, subject_info)
+    def visit_structure(self, subject_structure):
+        subject_structure = super().visit_structure(subject_structure)
+        Encapsulation = _create_generic_class(TemplateBase, subject_structure.__class__)
+        return Encapsulation(self, subject_structure)
 
     def visit_root(self, subject_root):
         subject_root = super().visit_root(subject_root)

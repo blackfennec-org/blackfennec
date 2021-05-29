@@ -1,3 +1,4 @@
+import numbers
 import unittest
 from doubles.black_fennec.structure.double_root import RootMock
 from doubles.black_fennec.structure.encapsulation_base.double_factory_base_visitor import FactoryBaseVisitorMock
@@ -7,11 +8,11 @@ from src.black_fennec.structure.number import Number
 class NumberTestSuite(unittest.TestCase):
     def test_can_construct(self):
         number = Number(3.141)
-        self.assertAlmostEqual(number, 3.141)
+        self.assertAlmostEqual(number.value, 3.141)
 
     def test_can_default_construct(self):
         number = Number()
-        self.assertAlmostEqual(number, 0)
+        self.assertAlmostEqual(number.value, 0)
 
     def test_can_get_value(self):
         number = Number(3.141)
@@ -20,7 +21,8 @@ class NumberTestSuite(unittest.TestCase):
     def test_can_set_value(self):
         number = Number()
         number.value = 2.718
-        self.assertAlmostEqual(number, 2.718)
+        self.assertAlmostEqual(number.value, 2.718)
+
 
     def test_can_change_parent(self):
         new_parent = RootMock()
@@ -33,49 +35,6 @@ class NumberTestSuite(unittest.TestCase):
         number = Number()
         number.parent = root
         self.assertEqual(number.root, root)
-
-    def test_can_add(self):
-        number = Number(3.141)
-        result = number + Number(2.718)
-        self.assertAlmostEqual(result, 3.141 + 2.718)
-
-    def test_returns_core_type_number_on_add(self):
-        number = Number(3.141)
-        result = number + Number(2.718)
-        self.assertIsInstance(result, Number)
-
-    def test_can_add_float(self):
-        number = Number(3.141)
-        result = number + 2.718
-        self.assertAlmostEqual(result, 3.141 + 2.718)
-
-    def test_can_increment(self):
-        number = Number(3.141)
-        number += Number(2.718)
-        self.assertAlmostEqual(number, 3.141 + 2.718)
-
-    def test_return_core_type_number_on_increment(self):
-        number = Number(3.141)
-        number += Number(2.718)
-        self.assertIsInstance(number, Number)
-
-    def test_can_test_equality(self):
-        self.assertEqual(Number(3.141), Number(3.141))
-
-    def test_can_test_equality_to_float(self):
-        self.assertEqual(Number(3.141), 3.141)
-
-    def test_can_hash_equal(self):
-        number = Number(3.141)
-        self.assertEqual(hash(number), hash(number))
-
-    def test_can_hash_unequal(self):
-        number = Number(3.141)
-        other_number = Number(3.141)
-        self.assertNotEqual(hash(number), hash(other_number))
-
-    def test_can_convert_to_string(self):
-        self.assertEqual(str(Number(3.141)), '3.141')
 
     def test_representation(self):
         actual = Number(3.141)

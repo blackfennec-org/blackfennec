@@ -1,5 +1,5 @@
 from src.black_fennec.structure.boolean import Boolean
-from src.black_fennec.structure.info import Info
+from src.black_fennec.structure.structure import Structure
 from src.black_fennec.structure.list import List
 from src.black_fennec.structure.map import Map
 from src.black_fennec.structure.number import Number
@@ -11,7 +11,7 @@ from src.black_fennec.structure.string import String
 class DeepCopyVisitor:
     """Creates a deep copy of a structure
     """
-    def visit_info(self, subject_info: Info):
+    def visit_structure(self, subject_structure: Structure):
         raise NotImplementedError()
 
     def visit_root(self, subject_root: Root):
@@ -35,12 +35,12 @@ class DeepCopyVisitor:
         structure = List()
         for element in subject.value:
             substructure = element.accept(self)
-            structure.append(substructure)
+            structure.add_item(substructure)
         return structure
 
     def visit_map(self, subject_map: Map):
         structure = Map()
         for key, value in subject_map.value.items():
             substructure = value.accept(self)
-            structure[key] = substructure
+            structure.add_item(key, substructure)
         return structure

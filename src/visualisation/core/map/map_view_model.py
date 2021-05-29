@@ -1,13 +1,13 @@
-from src.black_fennec.util.observable import Observable
-from src.black_fennec.structure.info import Info
-from src.black_fennec.structure.map import Map
-from src.black_fennec.navigation.navigation_proxy import NavigationProxy
-from src.black_fennec.interpretation.specification import Specification
 from src.black_fennec.interpretation.interpretation import Interpretation
-from src.black_fennec.interpretation.interpretation_service import InterpretationService
+from src.black_fennec.interpretation.interpretation_service import \
+    InterpretationService
+from src.black_fennec.interpretation.specification import Specification
+from src.black_fennec.navigation.navigation_proxy import NavigationProxy
+from src.black_fennec.structure.map import Map
+from src.black_fennec.structure.structure import Structure
 from src.black_fennec.structure.template.template_base import TemplateBase
 from src.black_fennec.type_system.template_registry import TemplateRegistry
-
+from src.black_fennec.util.observable import Observable
 
 
 class MapViewModel(Observable):
@@ -31,19 +31,18 @@ class MapViewModel(Observable):
         self._interpretation = interpretation
         self._interpretation_service = interpretation_service
         self._template_registry = template_registry
-        assert isinstance(self._interpretation.info, Map)
-        self._map = self._interpretation.info
+        self._map: Map = self._interpretation.structure
 
     @property
     def value(self):
         """Readonly property for value."""
         return self._map
 
-    def create_preview(self, substructure: Info) -> Interpretation:
+    def create_preview(self, substructure: Structure) -> Interpretation:
         """create preview for substructure
 
         Args:
-            substructure (Info): will be interpreted as a preview
+            substructure (Structure): will be interpreted as a preview
 
         Returns:
             Interpretation: represents the substructure as preview
@@ -54,14 +53,14 @@ class MapViewModel(Observable):
         preview.set_navigation_service(navigation_proxy)
         return preview
 
-    def add_item(self, key, value: Info):
+    def add_item(self, key, value: Structure):
         """Add item (key, value) to the map.
 
         Args:
             key: The key under which to store the value.
-            value (:obj:`Info`): The `Info` behind the key.
+            value (:obj:`Structure`): The `Structure` behind the key.
         """
-        self._map[key] = value
+        self._map.add_item(key, value)
         self._notify(self.value, 'value')
 
     def delete_item(self, key):
@@ -70,19 +69,20 @@ class MapViewModel(Observable):
         Args:
             key: The key of the key value pair which should be deleted
         """
-        self._map.pop(key)
+        self._map.remove_item(key)
         self._notify(self.value, 'value')
 
-    def rename_key(self, old_key, new_key):
+    def rename_key(self, old_key: str, new_key: str):
         """Rename the key of an item.
 
-                Args:
-                    old_key: The key of the key value pair
-                        which should be renamed
-                    new_key: The new key name of the key value pair
-                """
-        self._map[new_key] = self._map.pop(old_key)
-        self._notify(self.value, 'value')
+        Args:
+            old_key (str): The key of the key value pair
+                which should be renamed
+            new_key (str): The new key name of the key value pair
+        """
+        old_value = self._map.value[old_key]
+        self._map.remove_item(old_key)
+        self._map.add_item(new_key, old_value)
 
     def add_by_template(self, key, template: TemplateBase):
         self.add_item(key, template.create_structure())
@@ -90,5 +90,5 @@ class MapViewModel(Observable):
     def get_templates(self):
         return self._template_registry.templates
 
-    def navigate_to(self, route_target: Info):
+    def navigate_to(self, route_target: Structure):
         self._interpretation.navigate(route_target)

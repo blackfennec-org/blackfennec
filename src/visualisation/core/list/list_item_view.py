@@ -1,8 +1,8 @@
 import logging
 
-from gi.repository import Gtk, GObject
+from gi.repository import GObject, Gtk
 from src.black_fennec.interpretation.interpretation import Interpretation
-from src.black_fennec.structure.info import Info
+from src.black_fennec.structure.structure import Structure
 from src.visualisation.core.list.list_view_model import ListViewModel
 
 logger = logging.getLogger(__name__)
@@ -35,13 +35,13 @@ class ListItemView(Gtk.Bin):
         self._preview_container.add(self._preview.view)
 
     @property
-    def item(self) -> Info:
+    def item(self) -> Structure:
         """Readonly property for the item"""
-        return self._preview.info
+        return self._preview.structure
 
     def on_preview_clicked(self, unused_sender) -> None:
         """Callback for the button click event"""
-        self._view_model.navigate_to(self._preview.info)
+        self._view_model.navigate_to(self._preview.structure)
 
     @Gtk.Template.Callback()
     def _on_button_click(self, sender, event):

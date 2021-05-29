@@ -1,9 +1,9 @@
 from src.black_fennec.interpretation.interpretation import Interpretation
-from src.black_fennec.interpretation.interpretation_service import InterpretationService
+from src.black_fennec.interpretation.interpretation_service import \
+    InterpretationService
 from src.black_fennec.interpretation.specification import Specification
 from src.black_fennec.navigation.navigation_proxy import NavigationProxy
-from src.black_fennec.structure.info import Info
-from src.black_fennec.structure.list import List
+from src.black_fennec.structure.structure import Structure
 from src.black_fennec.structure.template.template_base import TemplateBase
 from src.black_fennec.type_system.template_registry import TemplateRegistry
 from src.black_fennec.util.observable import Observable
@@ -32,19 +32,18 @@ class ListViewModel(Observable):
         self._interpretation = interpretation
         self._interpretation_service = interpretation_service
         self._template_registry = template_registry
-        assert isinstance(self._interpretation.info, List)
-        self._list: List = self._interpretation.info
+        self._list = self._interpretation.structure
 
     @property
     def value(self):
         """Readonly property for value."""
         return self._list
 
-    def create_preview(self, substructure: Info) -> Interpretation:
+    def create_preview(self, substructure: Structure) -> Interpretation:
         """create preview for substructure
 
         Args:
-            substructure (Info): will be interpreted as a preview
+            substructure (Structure): will be interpreted as a preview
 
         Returns:
             Interpretation: represents the substructure as preview
@@ -55,22 +54,22 @@ class ListViewModel(Observable):
         preview.set_navigation_service(navigation_proxy)
         return preview
 
-    def add_item(self, value: Info):
+    def add_item(self, value: Structure):
         """Add item to the list.
 
         Args:
-            value (:obj:`Info`): The `Info` representing the item.
+            value (:obj:`Structure`): The `Structure` representing the item.
         """
-        self._list.append(value)
+        self._list.add_item(value)
         self._notify(self.value, 'value')
 
-    def delete_item(self, item: Info):
+    def delete_item(self, item: Structure):
         """Delete an item from the list.
 
         Args:
             item: The item which should be deleted
         """
-        self._list.remove(item)
+        self._list.remove_item(item)
         self._notify(self.value, 'value')
 
     def add_by_template(self, template: TemplateBase):
@@ -79,5 +78,5 @@ class ListViewModel(Observable):
     def get_templates(self):
         return self._template_registry.templates
 
-    def navigate_to(self, route_target: Info):
+    def navigate_to(self, route_target: Structure):
         self._interpretation.navigate(route_target)

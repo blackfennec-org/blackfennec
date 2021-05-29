@@ -3,19 +3,9 @@ from src.black_fennec.structure.reference import Reference
 
 
 class OverlayBase(EncapsulationBase):
-    """Base Class for Overlay of any Info."""
+    """Base Class for Overlay of any Structure."""
     def __init__(self, visitor, subject):
         EncapsulationBase.__init__(self, visitor, subject)
-
-    @property
-    def children(self) -> ['OverlayBase']:
-        if self.subject.children:
-            return [
-                self._encapsulate_and_dereference(child)
-                for child in self.subject.children
-            ]
-        else:
-            return list()
 
     def _encapsulate_and_dereference(self, item):
         if isinstance(item, Reference):

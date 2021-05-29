@@ -18,7 +18,7 @@ def create_extension(extension_api: ExtensionApi):
     Registers all core types in black-fennec
     Args:
         extension_api (ExtensionApi): contains constructor injection
-            parameters
+            parameters.
     """
     extension_api.type_registry.register_type(BooleanBidder())
     extension_api.template_registry.register_template(BooleanTemplate())

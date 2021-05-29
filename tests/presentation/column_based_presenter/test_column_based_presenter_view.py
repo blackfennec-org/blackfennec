@@ -3,7 +3,7 @@ import unittest
 
 from doubles.black_fennec.interpretation.double_interpretation import InterpretationMock
 from doubles.presentation.column_based_presenter.double_column_based_presenter_view_model import ColumnBasedPresenterViewModelMock
-from doubles.visualisation.double_info_view import InfoViewDummy
+from doubles.visualisation.double_structure_view import StructureViewDummy
 from src.presentation.column_based_presenter.column_based_presenter_view import ColumnBasedPresenterView
 
 
@@ -13,10 +13,10 @@ class ColumnBasedPresenterViewTestSuite(unittest.TestCase):
 
     def test_view_model_update(self):
         interpretations = list()
-        first_info_view = InfoViewDummy()
-        first_interpretation = InterpretationMock(first_info_view)
-        second_info_view = InfoViewDummy()
-        second_interpretation = InterpretationMock(second_info_view)
+        first_structure_view = StructureViewDummy()
+        first_interpretation = InterpretationMock(first_structure_view)
+        second_structure_view = StructureViewDummy()
+        second_interpretation = InterpretationMock(second_structure_view)
         view_model = ColumnBasedPresenterViewModelMock(interpretations)
         ColumnBasedPresenterView(view_model)
 

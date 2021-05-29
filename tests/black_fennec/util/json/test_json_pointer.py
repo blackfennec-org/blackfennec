@@ -125,7 +125,7 @@ class JsonPointerTestSuite(unittest.TestCase):
         Map(data)
         pointer = JsonPointer('0#', JsonPointerType.RELATIVE_JSON_POINTER)
         result = pointer.resolve_from(data['key'])
-        self.assertEqual('key', result)
+        self.assertEqual('key', result.value)
 
     def test_resolve_relative_pointer_key_in_list_instead_of_map(self):
         data = [

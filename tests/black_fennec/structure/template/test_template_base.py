@@ -2,7 +2,7 @@
 import unittest
 from typing import Optional
 
-from doubles.black_fennec.structure.double_info import InfoMock, InfoInstanceMock
+from doubles.black_fennec.structure.double_structure import StructureMock, StructureInstanceMock
 from doubles.black_fennec.structure.double_root import RootMock
 from doubles.black_fennec.structure.encapsulation_base.double_factory_base_visitor import FactoryBaseVisitorMock
 from src.black_fennec.interpretation.auction.coverage import Coverage
@@ -13,9 +13,9 @@ from src.black_fennec.structure.template.template_base import TemplateBase
 class TemplateBaseTestSuite(unittest.TestCase):
     def setUp(self):
         self.visitor = FactoryBaseVisitorMock()
-        self.parent = InfoMock()
-        self.root = InfoMock()
-        self.subject = InfoMock(parent=self.parent, root=self.root)
+        self.parent = StructureMock()
+        self.root = StructureMock()
+        self.subject = StructureMock(parent=self.parent, root=self.root)
         self.template_base: Optional[TemplateBase] = TemplateBase(self.visitor, self.subject)
 
     def tearDown(self) -> None:
@@ -33,14 +33,14 @@ class TemplateBaseTestSuite(unittest.TestCase):
         self.template_base.optional = True
         self.assertEqual(self.template_base.optional, True)
 
-    def test_can_calculate_coverage_of_info(self):
-        info = InfoInstanceMock('Info')
-        coverage = self.template_base.calculate_coverage(info)
+    def test_can_calculate_coverage_of_structure(self):
+        structure = StructureInstanceMock('Structure')
+        coverage = self.template_base.calculate_coverage(structure)
         self.assertEqual(coverage, Coverage.COVERED)
 
-    def test_can_visit_info(self):
-        info = InfoInstanceMock('Info')
-        coverage = info.accept(self.template_base)
+    def test_can_visit_structure(self):
+        structure = StructureInstanceMock('Structure')
+        coverage = structure.accept(self.template_base)
         self.assertEqual(coverage, Coverage.COVERED)
 
     def test_can_visit_root(self):

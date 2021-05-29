@@ -27,10 +27,9 @@ class AddressViewModelTestSuite(unittest.TestCase):
         )
 
     def test_first_name_setter(self):
-        first_name = StringMock('first_name')
+        first_name = Address.FIRST_NAME_KEY
         view_model = AddressViewModel(InterpretationMock(MapMock()))
         view_model.first_name = first_name
-        first_name.parent = view_model
         self.assertEqual(view_model.first_name, first_name)
 
     def test_can_get_last_name(self):
@@ -49,10 +48,9 @@ class AddressViewModelTestSuite(unittest.TestCase):
         )
 
     def test_last_name_setter(self):
-        last_name = StringMock('last_name')
+        last_name = Address.LAST_NAME_KEY
         view_model = AddressViewModel(InterpretationMock(MapMock()))
         view_model.last_name = last_name
-        last_name.parent = view_model
         self.assertEqual(view_model.last_name, last_name)
 
     def test_can_get_street(self):
@@ -68,10 +66,9 @@ class AddressViewModelTestSuite(unittest.TestCase):
         self.assertEqual(view_model.street, data[Address.STREET_KEY].value)
 
     def test_street_setter(self):
-        street = StringMock('street')
+        street = Address.STREET_KEY
         view_model = AddressViewModel(InterpretationMock(MapMock()))
         view_model.street = street
-        street.parent = view_model
         self.assertEqual(view_model.street, street)
 
     def test_can_get_street_number(self):
@@ -90,10 +87,9 @@ class AddressViewModelTestSuite(unittest.TestCase):
         )
 
     def test_street_number_setter(self):
-        street_number = StringMock('street_nr')
+        street_number = Address.STREET_NUMBER_KEY
         view_model = AddressViewModel(InterpretationMock(MapMock()))
         view_model.street_number = street_number
-        street_number.parent = view_model
         self.assertEqual(view_model.street_number, street_number)
 
     def test_can_get_city(self):
@@ -109,8 +105,7 @@ class AddressViewModelTestSuite(unittest.TestCase):
         self.assertEqual(view_model.city, data[Address.CITY_KEY].value)
 
     def test_city_setter(self):
-        city = StringMock('city')
+        city = Address.CITY_KEY
         view_model = AddressViewModel(InterpretationMock(MapMock()))
         view_model.city = city
-        city.parent = view_model
         self.assertEqual(view_model.city, city)

@@ -1,22 +1,25 @@
 from collections import UserList
 
-from doubles.black_fennec.structure.double_info import InfoMock
+from doubles.black_fennec.structure.double_structure import StructureMock
 from src.black_fennec.structure.list import List
 
 
-class ListMock(UserList, InfoMock):
-    def __init__(self,
-            value=None, children: list = None,
-            parent=None, root=None):
-        UserList.__init__(self, children)
-        InfoMock.__init__(self, value, children, parent, root)
+class ListMock(StructureMock):
+    def __init__(self, value=None, parent=None, root=None):
+        value = value if value else list()
+        StructureMock.__init__(self, value, parent, root)
 
     def accept(self, visitor):
         return visitor.visit_list(self)
 
+    def add_item(self, item):
+        self._value.append(item)
+
+    def remove_item(self, item):
+        self._value.remove(item)
+
 
 class ListInstanceMock(List, ListMock):
-    def __init__(self, value=None, children: list = None, parent=None, root=None):
-        List.__init__(self)
-        List.data = children
-        ListMock.__init__(self, value, children, parent, root)
+    def __init__(self, value=None, parent=None, root=None):
+        List.__init__(self, value)
+        ListMock.__init__(self, value, parent, root)

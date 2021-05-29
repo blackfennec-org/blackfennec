@@ -55,7 +55,7 @@ class MapItemView(Gtk.Bin):
     def on_preview_clicked(self, unused_sender) -> None:
         """Callback for the button click event"""
 
-        self._view_model.navigate_to(self._preview.info)
+        self._view_model.navigate_to(self._preview.structure)
 
     @Gtk.Template.Callback()
     def _on_button_click(self, sender, event):

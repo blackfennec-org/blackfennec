@@ -1,11 +1,12 @@
-from src.black_fennec.structure.info import Info
+import logging
+
+from src.black_fennec.interpretation.auction.offer import Offer
+from src.black_fennec.interpretation.interpretation_service import \
+    InterpretationService
+from src.black_fennec.structure.structure import Structure
 from src.black_fennec.type_system.template_registry import TemplateRegistry
-from src.black_fennec.interpretation.interpretation_service import InterpretationService
 from src.visualisation.core.map.map_template import MapTemplate
 from src.visualisation.core.map.map_view_factory import MapViewFactory
-from src.black_fennec.interpretation.auction.offer import Offer
-
-import logging
 
 logger = logging.getLogger(__name__)
 
@@ -31,11 +32,12 @@ class MapBidder:
             template_registry )
 
 
-    def bid(self, subject: Info):
+    def bid(self, subject: Structure):
         """"Produces an offer for a given object.
 
         Args:
-            subject (Info): The Info for which an offer should be produced.
+            subject (Structure): The Structure for
+                which an offer should be produced.
 
         Returns:
             Offer: Offer that this type offers for

@@ -1,5 +1,5 @@
 import unittest
-from doubles.black_fennec.structure.double_info import InfoMock
+from doubles.black_fennec.structure.double_structure import StructureMock
 from doubles.black_fennec.structure.double_map import MapMock
 from doubles.black_fennec.structure.double_string import StringMock
 from src.visualisation.base.address.address import Address
@@ -23,17 +23,16 @@ class AddressTestSuite(unittest.TestCase):
         data[Address.CITY_KEY] = StringMock('city')
 
         data_map = MapMock(data)
-        Address(data_map)
+        address = Address(data_map)
+
+        self.assertIsNotNone(address)
 
     def test_can_construct_with_empty_map(self):
         data = dict()
         data_map = MapMock(data)
-        Address(data_map)
-        self.assertIn(Address.FIRST_NAME_KEY, data)
-        self.assertIn(Address.LAST_NAME_KEY, data)
-        self.assertIn(Address.STREET_KEY, data)
-        self.assertIn(Address.STREET_NUMBER_KEY, data)
-        self.assertIn(Address.CITY_KEY, data)
+        address = Address(data_map)
+
+        self.assertIsNotNone(address)
 
     def test_deletion_of_key_after_construction(self):
         data = dict()
@@ -141,7 +140,7 @@ class AddressTestSuite(unittest.TestCase):
 
     def test_equal_unequal_elements(self):
         data_map = MapMock({})
-        other_data_map = MapMock({Address.FIRST_NAME_KEY: InfoMock('test')})
+        other_data_map = MapMock({Address.FIRST_NAME_KEY: StructureMock('test')})
         comp = Address(data_map)
         other_comp = Address(other_data_map)
         self.assertFalse(
@@ -160,7 +159,7 @@ class AddressTestSuite(unittest.TestCase):
 
     def test_not_equal_unequal_elements(self):
         data_map = MapMock({})
-        other_data_map = MapMock({Address.FIRST_NAME_KEY: InfoMock('test')})
+        other_data_map = MapMock({Address.FIRST_NAME_KEY: StructureMock('test')})
         comp = Address(data_map)
         other_comp = Address(other_data_map)
         self.assertTrue(

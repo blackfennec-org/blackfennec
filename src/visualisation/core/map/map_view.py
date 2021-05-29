@@ -50,7 +50,7 @@ class MapView(Gtk.Bin):
             unused_sender: view model
             new_value: set by view model
         """
-        value_set = set(new_value)
+        value_set = set(new_value.value)
         intersection = self._value_set.intersection(value_set)
         to_be_added = value_set.difference(intersection)
         for key in to_be_added:
