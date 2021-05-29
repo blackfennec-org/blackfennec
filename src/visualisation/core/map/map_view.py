@@ -1,7 +1,6 @@
 from gi.repository import Gtk
 import logging
 
-from src.black_fennec.structure.string import String
 from src.visualisation.core.map.map_item_view import MapItemView
 
 logger = logging.getLogger(__name__)
@@ -54,7 +53,7 @@ class MapView(Gtk.Bin):
         intersection = self._value_set.intersection(value_set)
         to_be_added = value_set.difference(intersection)
         for key in to_be_added:
-            self._add_item(key, new_value[key])
+            self._add_item(key, new_value.value[key])
         to_be_deleted = self._value_set.difference(intersection)
         for key in to_be_deleted:
             self._remove_item(key)
