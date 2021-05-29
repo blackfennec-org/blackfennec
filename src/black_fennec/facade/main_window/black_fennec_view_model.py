@@ -4,6 +4,7 @@ from uri import URI
 
 from src.black_fennec.navigation.navigation_service import NavigationService
 from src.black_fennec.util.observable import Observable
+from src.black_fennec.util.uri.structure_encoding_service import StructureEncodingService
 from src.black_fennec.structure.info import Info
 from src.black_fennec.facade.main_window.tab import Tab
 
@@ -54,7 +55,8 @@ class BlackFennecViewModel(Observable):
         presenter_view = self._presenter_factory.create(navigation_service)
         presenter = presenter_view._view_model
         navigation_service.set_presenter(presenter)
-        self.tabs.add(Tab(presenter_view, uri))
+        tab = Tab(presenter_view, uri, structure)
+        self.tabs.add(tab)
         navigation_service.navigate(None, structure)
         self._notify(self.tabs, 'tabs')
 
@@ -73,7 +75,12 @@ class BlackFennecViewModel(Observable):
 
     def save(self):
         """Future implementation of save()"""
-        logger.warning('save() not yet implemented')
+        encoding_service = StructureEncodingService(indent=2)
+
+        for tab in self.tabs:
+            raw = encoding_service.encode(tab.structure)
+            with open(tab.uri.path, 'w') as file:
+                file.write(raw)
 
     def save_as(self):
         """Future implementation of save_as()"""
