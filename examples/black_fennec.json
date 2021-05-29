@@ -51,5 +51,9 @@
         "courtesy_title": "Sir",
         "first_name": "Caspar",
         "last_name": "Martens"
+    },
+    "Project Duration": {
+        "date_time_start": "2021-02-16T15:50:00",
+        "date_time_end": "2021-05-25T15:50:00"
     }
 }
