@@ -1,55 +1,52 @@
 {
-    "Project Name": "Black Fennec",
-    "Is Active": true,
-    "FAQ" : [
-        {
-            "Question": "Answer to everything",
-            "Answer": 42,
-            "Is this true?": false
-        }
-    ],
-    "Hours per sprint": 16,
     "Logo": {
-        "file_path": "logo.jpg",
+        "file_path": "examples/logo.jpg",
         "file_type": "image/jpg"
     },
-    "Address": {
-        "file_path": "address_test.json",
-        "file_type": "application/json"
-    },
+    "Project Name": "Black Fennec",
+    "Is Active": true,
     "Members": [
         {
-            "First Name": "Caspar"
+            "First Name": "Caspar",
+            "Last Name": "Martens"
         },
         {
-            "First Name": "Lara"
+            "First Name": "Lara",
+            "Last Name": "Gubler"
         },
         {
-            "First Name": "Leonie"
+            "First Name": "Leonie",
+            "Last Name": "Däullary"
         },
         {
-            "First Name": "Simon"
+            "First Name": "Simon",
+            "Last Name": "Kindhauser"
         }
     ],
     "Roles": {
         "Quality Control": {
-            "is": {
-                "$ref": "3/Project Member"
-            }
+            "$ref": "#/Members/0"
         },
         "Scrum Master": {
-            "First Name": "Lara"
+            "$ref": "#/Members/1"
         },
         "User Experience": {
-            "First Name": "Leonie"
+            "$ref": "#/Members/2"
         },
         "Product Owner": {
-            "First Name": "Simon"
+            "$ref": "#/Members/3"
         }
     },
-    "Project Member": {
-        "courtesy_title": "Sir",
-        "first_name": "Caspar",
-        "last_name": "Martens"
-    }
+    "FAQ" : [
+        {
+            "Question": "Answer to everything?",
+            "Answer": 42,
+            "Is this true?": false
+        },
+        {
+            "Question": "How many hours per sprint?",
+            "Answer": 16,
+            "Is this true?": true
+       }
+    ]
 }
