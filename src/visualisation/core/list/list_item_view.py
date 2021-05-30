@@ -14,9 +14,6 @@ class ListItemView(Gtk.Bin):
     __gtype_name__ = 'ListItemView'
     _preview_container: Gtk.Bin = Gtk.Template.Child()
     _popover = Gtk.Template.Child()
-    _add_popover = Gtk.Template.Child()
-    _template_store = Gtk.Template.Child()
-    _template_box = Gtk.Template.Child()
 
     def __init__(self,
             preview: Interpretation,
@@ -60,45 +57,9 @@ class ListItemView(Gtk.Bin):
         button = sender.props.text
         if button == 'Delete':
             self._delete_request_handler(self)
-        elif button == 'Add':
-            self._popover.popdown()
-            self._add_popover.set_relative_to(self)
-
-            template_store = Gtk.ListStore(GObject.TYPE_STRING)
-            templates = self._view_model.get_templates()
-            if templates:
-                for template in self._view_model.get_templates():
-                    template_store.append((template.name,))
-            else:
-                template_store = self._template_store
-            self._template_box.set_model(template_store)
-
-            self._add_popover.popup()
         else:
             message = f'Unknown button({button}) clicked by {sender}'
             logger.warning(message)
 
     def _delete_request_handler(self, sender):
         self._view_model.delete_item(sender.item)
-
-    @Gtk.Template.Callback()
-    def on_add_clicked(self, sender):
-        self._add_popover.popdown()
-        template = self._get_template_by_string(
-            self._template_box.get_active_text()
-        )
-        self._view_model.add_by_template(template)
-
-    def _get_template_by_string(self, template_string: str):
-        for template in self._view_model.get_templates():
-            if template.name == template_string:
-                return template
-        message = f'Template({template_string}) could not be found ' \
-                  f'in template registry'
-        logger.error(message)
-        raise KeyError(message)
-
-    @Gtk.Template.Callback()
-    def on_cancel_clicked(self, unused_sender):
-        self._add_popover.popdown()
-
