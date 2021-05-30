@@ -83,6 +83,7 @@ class MapViewModel(Observable):
         old_value = self._map.value[old_key]
         self._map.remove_item(old_key)
         self._map.add_item(new_key, old_value)
+        self._notify(self.value, 'value')
 
     def add_by_template(self, key, template: TemplateBase):
         self.add_item(key, template.create_structure())
