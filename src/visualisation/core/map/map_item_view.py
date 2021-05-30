@@ -16,7 +16,7 @@ class MapItemView(Gtk.Bin):
     _edit_popover = Gtk.Template.Child()
     _add_popover = Gtk.Template.Child()
     _rename_entry = Gtk.Template.Child()
-    _add_entry = Gtk.Template.Child()    
+    _add_entry = Gtk.Template.Child()
     _template_store = Gtk.Template.Child()
     _template_box = Gtk.Template.Child()
 
