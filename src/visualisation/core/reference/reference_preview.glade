@@ -30,7 +30,6 @@
             <property name="can-focus">True</property>
             <property name="receives-default">True</property>
             <property name="halign">end</property>
-            <signal name="clicked" handler="_click_handler" swapped="no"/>
             <child>
               <object class="GtkImage">
                 <property name="visible">True</property>
