@@ -732,6 +732,26 @@ background-color: @blue;
 margin: 50px;
 }
 
+/*extension container */
+
+.main-extension-container {
+padding: 50px;
+}
+
+.main-extension-container > .title {
+font-size: 30px;
+font-weight: 700;
+color: @jet;
+font-family: Ubuntu;
+margin: 0px 0px 20px 0px;
+}
+
+.extension-container{
+margin: 0px;
+padding: 0px;
+}
+
+
 /*extension Template */
 .extension-template {
 border: 1px solid @silver;
@@ -742,10 +762,10 @@ color: @iron;
 }
 
 .extension-template .title {
-font-size: 25px;
+font-size: 22px;
 font-weight: 700;
 color: @iron;
-margin: 0px;
+margin: 0px 0px 10px 0px;
 }
 
 .extension-template * {
@@ -760,7 +780,10 @@ border: 1px solid @silver;
 }
 
 .extension-template > box {
-padding: 10px;
+padding: 20px;
+}
+.extension-template > box > box {
+margin-left: 20px;
 }
 
 .extension-template button * {
@@ -769,8 +792,10 @@ background-color: Transparent;
 }
 
 .extension-template button {
+margin-right: 5px;
 border-radius: 25px;
 border: 1px solid @blue;
+padding: 5px 10px;
 }
 
 .extension-template button:hover * {
