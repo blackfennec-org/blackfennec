@@ -1,6 +1,7 @@
 import unittest
 
 from doubles.black_fennec.interpretation.double_interpretation_service import InterpretationServiceMock
+from doubles.black_fennec.type_system.double_template_registry import TemplateRegistryMock
 from src.black_fennec.interpretation.auction.auctioneer import Auctioneer
 from src.black_fennec.structure.boolean import Boolean
 from src.black_fennec.structure.list import List
@@ -26,11 +27,14 @@ class IntegrationFromInterpretationServiceToViewTestSuite(unittest.TestCase):
     def setUp(self):
         registry = TypeRegistry()
         interpretation_service = InterpretationServiceMock([])
+        template_registry = TemplateRegistryMock()
         registry.register_type(BooleanBidder())
         registry.register_type(NumberBidder())
         registry.register_type(StringBidder())
-        registry.register_type(ListBidder(InterpretationServiceMock([])))
-        registry.register_type(MapBidder(InterpretationServiceMock([])))
+        registry.register_type(
+            ListBidder(interpretation_service, template_registry))
+        registry.register_type(
+            MapBidder(interpretation_service, template_registry))
         auctioneer = Auctioneer(registry)
         self.interpreter = InterpretationService(auctioneer)
 

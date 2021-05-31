@@ -1,6 +1,7 @@
 import unittest
 from datetime import datetime
 
+from doubles.black_fennec.type_system.double_template_registry import TemplateRegistryMock
 from doubles.black_fennec.structure.double_map import MapMock
 from doubles.double_dummy import Dummy
 from doubles.black_fennec.interpretation.double_interpretation_service import InterpretationServiceMock
@@ -24,7 +25,9 @@ class DateTimeBidderTestSuite(unittest.TestCase):
         self.assertEqual(offer, expected_offer)
 
     def test_offer_date_time_like_structure(self):
-        map_bidder = MapBidder(InterpretationServiceMock([]))
+        map_bidder = MapBidder(
+            InterpretationServiceMock([]),
+            TemplateRegistryMock())
         date_time_bidder = DateTimeBidder()
         subject = Map({
             DateTime.DATE_TIME_KEY: String(datetime.now().isoformat())

@@ -2,6 +2,7 @@
 import unittest
 import doubles.extension.double_extensions
 import doubles.extension.double_extensions.valid_extension
+from src.black_fennec.type_system.template_registry import TemplateRegistry
 from src.extension.extension_api import ExtensionApi
 from src.extension.extension_source import ExtensionSource
 from src.extension.extension_status import ExtensionStatus
@@ -33,9 +34,11 @@ class ExtensionSourceTestSuite(unittest.TestCase):
         self.extension_source.refresh_extensions()
 
         type_registry = TypeRegistry()
+        template_registry = TemplateRegistry()
         self.extension_api = ExtensionApi(
             PresenterRegistry(),
             type_registry,
+            template_registry,
             InterpretationService(Auctioneer(type_registry))
         )
 

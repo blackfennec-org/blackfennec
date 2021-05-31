@@ -9,7 +9,7 @@ class Observable:
     def __init__(self):
         self._bindings = dict()
 
-    def _notify(self, changed_property, name):
+    def _notify(self, changed_property, name: str):
         if name in self._bindings:
             for listener in self._bindings[name]:
                 listener(self, changed_property)
