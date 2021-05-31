@@ -145,6 +145,7 @@ class BlackFennecView(Gtk.ApplicationWindow):
                 tab.presenter, tab_box)
             notebook.set_tab_reorderable(
                 self._presenter_container.get_nth_page(page_index), True)
+            notebook.set_current_page(page_index)
 
         to_be_deleted = self._tabs.difference(intersection)
         for tab in to_be_deleted:
