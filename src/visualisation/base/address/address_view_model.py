@@ -19,11 +19,11 @@ class AddressViewModel:
             interpretation (Interpretation): The overarching
                 interpretation
         """
-        if not isinstance(interpretation.info, Map):
+        if not isinstance(interpretation.structure, Map):
             message = 'interpretation received should be of' \
                       ' super type Map, but is of type %s'
-            logger.warning(message, type(interpretation.info))
-        self._model: Address = Address(interpretation.info)
+            logger.warning(message, type(interpretation.structure))
+        self._model: Address = Address(interpretation.structure)
 
     @property
     def first_name(self):

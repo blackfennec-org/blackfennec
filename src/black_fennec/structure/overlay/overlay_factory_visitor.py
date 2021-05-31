@@ -10,9 +10,9 @@ class OverlayFactoryVisitor(BaseFactoryVisitor):
     """Overlay Factory Visitor
 
     Class is a concrete factory which produces Overlay based
-        info encapsulations. Only few methods are overwritten
+        structure encapsulations. Only few methods are overwritten
         which require specialised functionality. For all other
-        info types the abstract factory implementation suffices.
+        structure types the abstract factory implementation suffices.
     """
     def __init__(self):
         BaseFactoryVisitor.__init__(self, OverlayBase)

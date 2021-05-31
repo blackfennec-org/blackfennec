@@ -1,4 +1,4 @@
-from src.black_fennec.structure.info import Info
+from src.black_fennec.structure.structure import Structure
 from src.black_fennec.structure.string import String
 from src.black_fennec.structure.template.template_factory_visitor import TemplateFactoryVisitor
 from src.visualisation.core.string.string_view_factory import StringViewFactory
@@ -17,11 +17,12 @@ def create_string_template():
 class StringBidder:
     """The bidding service for the core type `String`."""
 
-    def bid(self, subject: Info):
+    def bid(self, subject: Structure):
         """"Produces an offer for a given object.
 
         Args:
-            subject (Info): The Info for which an offer should be produced.
+            subject (Structure): The Structure for
+                which an offer should be produced.
 
         Returns:
             Offer: Offer that this type offers for

@@ -22,9 +22,12 @@ class MapOverlay(MapEncapsulationBase, OverlayBase):
             subject
         )
 
-    def __getitem__(self, key):
-        item = self.subject[key]
-        return self._encapsulate_and_dereference(item)
+    @property
+    def value(self):
+        return {
+            key: self._encapsulate_and_dereference(item)
+            for key, item in self.subject.value.items()
+        }
 
     def __repr__(self):
         return f'MapOverlay({self.subject.__repr__()})'

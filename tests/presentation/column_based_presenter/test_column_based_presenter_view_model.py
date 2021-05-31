@@ -6,7 +6,7 @@ from collections import deque
 from doubles.double_dummy import Dummy
 from doubles.black_fennec.interpretation.double_interpretation import InterpretationMock
 from doubles.black_fennec.interpretation.double_interpretation_service import InterpretationServiceMock
-from doubles.black_fennec.structure.double_info import InfoMock
+from doubles.black_fennec.structure.double_structure import StructureMock
 from src.presentation.column_based_presenter.column_based_presenter_view_model import ColumnBasedPresenterViewModel
 
 
@@ -17,21 +17,21 @@ class ColumnBasedPresenterViewModelTestSuite(unittest.TestCase):
             Dummy('navigation_service'))
 
     def test_show(self):
-        info = InfoMock()
-        interpretation = InterpretationMock(info)
+        structure = StructureMock()
+        interpretation = InterpretationMock(structure)
         interpreter = InterpretationServiceMock(deque([interpretation]))
         navigator = Dummy('navigation_service')
         presenter = ColumnBasedPresenterViewModel(interpreter, navigator)
 
-        presenter.show(None, info)
+        presenter.show(None, structure)
         self.assertIn(interpretation, presenter.interpretations)
         self.assertEqual(1, interpreter.interpret_count)
-        self.assertEqual(interpreter.last_interpreted_info, info)
+        self.assertEqual(interpreter.last_interpreted_structure, structure)
 
     def test_show_multiple(self):
-        info = InfoMock()
-        root_interpretation = InterpretationMock(info)
-        parent_interpretation = InterpretationMock(info)
+        structure = StructureMock()
+        root_interpretation = InterpretationMock(structure)
+        parent_interpretation = InterpretationMock(structure)
         interpretations_queue = deque([
             root_interpretation,
             parent_interpretation])
@@ -39,16 +39,16 @@ class ColumnBasedPresenterViewModelTestSuite(unittest.TestCase):
         navigator = Dummy('navigation_service')
         presenter = ColumnBasedPresenterViewModel(interpreter, navigator)
 
-        presenter.show(None, info)
-        presenter.show(root_interpretation, info)
+        presenter.show(None, structure)
+        presenter.show(root_interpretation, structure)
         self.assertEqual(2, len(presenter.interpretations))
         self.assertIn(parent_interpretation, presenter.interpretations)
 
     def test_show_with_cut_at(self):
-        info = InfoMock()
-        root_interpretation = InterpretationMock(info)
-        parent_interpretation = InterpretationMock(info)
-        child_interpretation = InterpretationMock(info)
+        structure = StructureMock()
+        root_interpretation = InterpretationMock(structure)
+        parent_interpretation = InterpretationMock(structure)
+        child_interpretation = InterpretationMock(structure)
         interpretations_queue = deque([
             root_interpretation,
             parent_interpretation,
@@ -58,20 +58,20 @@ class ColumnBasedPresenterViewModelTestSuite(unittest.TestCase):
         navigator = Dummy('navigation_service')
         presenter = ColumnBasedPresenterViewModel(interpreter, navigator)
 
-        presenter.show(None, info)
-        presenter.show(root_interpretation, info)
-        presenter.show(parent_interpretation, info)
-        presenter.show(root_interpretation, info)
+        presenter.show(None, structure)
+        presenter.show(root_interpretation, structure)
+        presenter.show(parent_interpretation, structure)
+        presenter.show(root_interpretation, structure)
         self.assertEqual(2, len(presenter.interpretations))
         self.assertNotIn(child_interpretation, presenter.interpretations)
         self.assertIn(parent_interpretation, presenter.interpretations)
 
     def test_show_sibling(self):
-        info = InfoMock()
-        root_interpretation = InterpretationMock(info)
-        parent_interpretation = InterpretationMock(info)
-        child_interpretation = InterpretationMock(info)
-        sibling_interpretation = InterpretationMock(info)
+        structure = StructureMock()
+        root_interpretation = InterpretationMock(structure)
+        parent_interpretation = InterpretationMock(structure)
+        child_interpretation = InterpretationMock(structure)
+        sibling_interpretation = InterpretationMock(structure)
         interpretations_queue = deque([
             root_interpretation,
             parent_interpretation,
@@ -81,10 +81,10 @@ class ColumnBasedPresenterViewModelTestSuite(unittest.TestCase):
         navigator = Dummy('navigation_service')
         presenter = ColumnBasedPresenterViewModel(interpreter, navigator)
 
-        presenter.show(None, info)
-        presenter.show(root_interpretation, info)
-        presenter.show(parent_interpretation, info)
-        presenter.show(parent_interpretation, info)
+        presenter.show(None, structure)
+        presenter.show(root_interpretation, structure)
+        presenter.show(parent_interpretation, structure)
+        presenter.show(parent_interpretation, structure)
         self.assertIn(parent_interpretation, presenter.interpretations)
         self.assertIn(sibling_interpretation, presenter.interpretations)
         self.assertNotIn(child_interpretation, presenter.interpretations)

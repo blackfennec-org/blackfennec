@@ -19,7 +19,7 @@ class DateTimeRangeViewModel:
             interpretation (Interpretation): The overarching
                 interpretation
         """
-        self._model: DateTimeRange = DateTimeRange(interpretation.info)
+        self._model: DateTimeRange = DateTimeRange(interpretation.structure)
         self._interpretation = interpretation
 
     @property
@@ -41,4 +41,4 @@ class DateTimeRangeViewModel:
         self._model.date_time_end = value
 
     def navigate(self):
-        self._interpretation.navigate(self._interpretation.info)
+        self._interpretation.navigate(self._interpretation.structure)

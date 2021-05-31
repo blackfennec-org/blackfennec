@@ -6,6 +6,7 @@ from urllib import request as req
 
 from uri import URI
 
+from src.black_fennec.util.deep_compare.deep_compare import DeepCompare
 from src.black_fennec.util.uri.structure_parsing_service import StructureParsingService
 from src.black_fennec.util.uri.uri_import_service import UriImportService
 from src.black_fennec.util.uri.uri_import_strategy_factory import UriImportStrategyFactory
@@ -14,6 +15,7 @@ from src.black_fennec.util.uri.uri_loading_strategy_factory import UriLoadingStr
 
 class UriImportServiceIntegrationTestSuite(unittest.TestCase):
     def setUp(self) -> None:
+        self.maxDiff = None
         self.host_uri_str = "https://jsonplaceholder.typicode.com/posts/1"
         self.host_uri = URI(self.host_uri_str)
         self.tmp_file = tempfile.mktemp()
@@ -33,13 +35,13 @@ class UriImportServiceIntegrationTestSuite(unittest.TestCase):
         current_path = os.path.dirname(self.tmp_file)
         uri = URI(os.path.relpath(self.tmp_file, current_path))
         structure = self.import_service.load(uri, self.tmp_file, UriImportStrategyFactory.JSON_MIME_TYPE)
-        self.assertEqual(self.black_fennec_obj, structure)
+        self.assertTrue(DeepCompare.compare(self.black_fennec_obj, structure))
 
     def test_load_file_from_absolute_uri(self):
         uri = URI(os.path.abspath(self.tmp_file))
         structure = self.import_service.load(uri, None, UriImportStrategyFactory.JSON_MIME_TYPE)
-        self.assertEqual(self.black_fennec_obj, structure)
+        self.assertTrue(DeepCompare.compare(self.black_fennec_obj, structure))
 
     def test_load_file_from_host_uri(self):
         structure = self.import_service.load(self.host_uri)
-        self.assertEqual(self.black_fennec_obj, structure)
+        self.assertTrue(DeepCompare.compare(self.black_fennec_obj, structure))

@@ -18,12 +18,12 @@ class ImageViewModel:
             interpretation (Interpretation): The overarching
                 interpretation
         """
-        if not isinstance(interpretation.info, Map):
+        if not isinstance(interpretation.structure, Map):
             message = 'interpretation received should be of' \
                       ' super type Map, but is of type %s'
-            logger.warning(message, type(interpretation.info))
-        self._model: Image = Image(interpretation.info)
+            logger.warning(message, type(interpretation.structure))
         self._interpretation = interpretation
+        self._model: Image = Image(interpretation.structure)
 
     @property
     def file_path(self):
@@ -45,4 +45,4 @@ class ImageViewModel:
         self._model.file_type = value
 
     def navigate(self):
-        self._interpretation.navigate(self._interpretation.info)
+        self._interpretation.navigate(self._interpretation.structure)

@@ -14,12 +14,12 @@ class StructureEncodingService(json.JSONEncoder):
     def default(self, obj):
         """Checks if obj is instance of specific type and returns obj"""
         if isinstance(obj, Map):
-            return obj.data
+            return obj.value
         if isinstance(obj, List):
-            return obj.data
+            return obj.value
         if isinstance(obj, Number):
             return obj.value
         if isinstance(obj, String):
-            return obj.data
+            return obj.value
         if isinstance(obj, Boolean):
             return obj.value
