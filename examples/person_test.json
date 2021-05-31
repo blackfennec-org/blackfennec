@@ -5,6 +5,17 @@
         "middle_name": "Andre",
         "last_name": "Charls",
         "suffix": "I",
+        "personal_photo": {
+            "file_path": "examples/logo.jpg",
+            "file_type": "image/jpg"
+        },
+        "home_address":{
+            "first_name": "Rupaul",
+            "last_name": "Charls",
+            "street": "Bahnhofstrasse",
+            "street_nr": "666",
+            "city": "Zürich"
+        },
         "gender": "male",
         "sex": "male",
         "marital_status": "married",

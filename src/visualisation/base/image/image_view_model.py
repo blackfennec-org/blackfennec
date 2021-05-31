@@ -22,6 +22,7 @@ class ImageViewModel:
             message = 'interpretation received should be of' \
                       ' super type Map, but is of type %s'
             logger.warning(message, type(interpretation.structure))
+        self._interpretation = interpretation
         self._model: Image = Image(interpretation.structure)
 
     @property
@@ -42,3 +43,6 @@ class ImageViewModel:
     @file_type.setter
     def file_type(self, value: str):
         self._model.file_type = value
+
+    def navigate(self):
+        self._interpretation.navigate(self._interpretation.structure)

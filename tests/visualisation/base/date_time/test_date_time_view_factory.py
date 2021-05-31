@@ -23,4 +23,4 @@ class DateTimeViewFactoryTestSuite(unittest.TestCase):
     def test_does_not_satisfy_preview(self):
         factory = DateTimeViewFactory()
         satisfies = factory.satisfies(Specification(request_preview=True))
-        self.assertFalse(satisfies)
+        self.assertTrue(satisfies)

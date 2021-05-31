@@ -24,4 +24,4 @@ class FileViewFactoryTestSuite(unittest.TestCase):
     def test_does_not_satisfy_preview(self):
         factory = FileViewFactory()
         satisfies = factory.satisfies(Specification(request_preview=True))
-        self.assertFalse(satisfies)
+        self.assertTrue(satisfies)
