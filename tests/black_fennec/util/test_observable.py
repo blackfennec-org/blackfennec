@@ -16,9 +16,3 @@ class ObservableTestSuite(unittest.TestCase):
         observable.bind(i_notify_observers=callback)
         observable.i_notify_observers = None
         self.assertTrue(called)
-
-    def test_bind_to_no_existing_property(self):
-        observable = ObservableMock()
-        self.assertRaises(
-            KeyError,
-            lambda: observable.bind(i_do_not_exist=None))
