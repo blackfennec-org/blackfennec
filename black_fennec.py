@@ -2,7 +2,6 @@ import os
 
 import gi
 
-from src.black_fennec.type_system.template_registry import TemplateRegistry
 
 gi.require_version('Gtk', '3.0')
 
@@ -30,9 +29,11 @@ from src.black_fennec.util.uri.uri_loading_strategy_factory import UriLoadingStr
 from src.black_fennec.facade.main_window.black_fennec_view_model import BlackFennecViewModel
 from src.black_fennec.facade.main_window.black_fennec_view import BlackFennecView
 from src.black_fennec.facade.splash_screen.splash_screen_view import SplashScreenView
+from src.black_fennec.type_system.template_registry import TemplateRegistry
+from src.extension.extension_source_registry import ExtensionSourceRegistry
 # pylint: enable=wrong-import-position
 
-logging.basicConfig(level=logging.WARNING)
+logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
 
 EXTENSIONS = 'extensions.json'
@@ -82,6 +83,7 @@ def default_initialise_extensions(
 
 
 def load_extensions_from_file(
+        extension_source_registry,
         uri_import_service,
         encoding_service,
         extension_api,
@@ -110,7 +112,6 @@ def load_extensions_from_file(
         uri,
         os.path.realpath(__file__)
     )
-    extension_sources = list()
     for extension_source_structure in extension_source_list.value:
         source_type = extension_source_structure.value['type'].value
         extension_source = ExtensionSource(
@@ -118,10 +119,9 @@ def load_extensions_from_file(
             extension_source_structure
         )
         extension_source.load_extensions(extension_api)
-        extension_sources.append(
+        extension_source_registry.register_extension_source(
             extension_source
         )
-
 
 class BlackFennec(Gtk.Application):
     """BlackFennec Main Window GTK Application"""
@@ -176,7 +176,9 @@ class BlackFennec(Gtk.Application):
             template_registry,
             interpretation_service
         )
+        extension_source_registry = ExtensionSourceRegistry()
         load_extensions_from_file(
+            extension_source_registry,
             uri_import_service,
             structure_encoding_service,
             extension_api,
@@ -186,7 +188,9 @@ class BlackFennec(Gtk.Application):
         view_model = BlackFennecViewModel(
             presenter_registry.presenters[0],
             interpretation_service,
-            uri_import_service
+            uri_import_service,
+            extension_api,
+            extension_source_registry
         )
         black_fennec_view = BlackFennecView(self, view_model)
         logger.debug('show_main_ui')
