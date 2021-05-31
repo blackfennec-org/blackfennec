@@ -1,11 +1,15 @@
 from src.black_fennec.structure.map import Map
 from src.black_fennec.structure.structure import Structure
+from src.black_fennec.util.observable import Observable
 from src.black_fennec.navigation.navigation_proxy import NavigationProxy
 from src.black_fennec.interpretation.specification import Specification
 from src.black_fennec.interpretation.interpretation import Interpretation
+import logging
+
+logger = logging.getLogger(__name__)
 
 
-class MapViewModel:
+class MapViewModel(Observable):
     """View model for core type Map."""
 
     def __init__(self, interpretation, interpretation_service):
@@ -16,6 +20,7 @@ class MapViewModel:
             interpretation_service (InterpretationService): service to
                 interpret substructures and create previews
         """
+        Observable.__init__(self)
         self._interpretation = interpretation
         self._interpretation_service = interpretation_service
         self._map: Map = self._interpretation.structure
@@ -24,6 +29,15 @@ class MapViewModel:
     def value(self):
         """Readonly property for value."""
         return self._map
+
+    @property
+    def selected(self) -> Interpretation:
+        return self._selected
+
+    @selected.setter
+    def selected(self, new_selected):
+        self._notify(new_selected, 'selected')
+        self._selected = new_selected
 
     def create_preview(self, substructure: Structure) -> Interpretation:
         """create preview for substructure
@@ -36,7 +50,8 @@ class MapViewModel:
         """
         preview = self._interpretation_service.interpret(
             substructure, Specification(request_preview=True))
-        navigation_proxy = NavigationProxy(self._interpretation)
+        navigation_proxy = NavigationProxy()
+        navigation_proxy.bind(navigation_request=self.navigate)
         preview.set_navigation_service(navigation_proxy)
         return preview
 
@@ -60,14 +75,18 @@ class MapViewModel:
     def rename_key(self, old_key, new_key):
         """Rename the key of an item.
 
-                Args:
-                    old_key: The key of the key value
-                        pair which should be renamed
-                    new_key: The new key name of the key value pair
-                """
+        Args:
+            old_key: The key of the key value
+                pair which should be renamed
+            new_key: The new key name of the key value pair
+        """
         old_value = self._map.value[old_key]
         self._map.remove_item(old_key)
         self._map.add_item(new_key, old_value)
+
+    def navigate(self, sender, target: Structure):
+        self.selected = sender
+        self.navigate_to(target)
 
     def navigate_to(self, route_target: Structure):
         self._interpretation.navigate(route_target)

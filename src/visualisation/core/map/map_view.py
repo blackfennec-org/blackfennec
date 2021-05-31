@@ -5,6 +5,7 @@ from src.black_fennec.structure.string import String
 from src.visualisation.core.map.map_item_view import MapItemView
 
 logger = logging.getLogger(__name__)
+logger.setLevel(logging.DEBUG)
 
 
 @Gtk.Template(filename='src/visualisation/core/map/map_view.glade')
@@ -22,6 +23,9 @@ class MapView(Gtk.Bin):
         """
         super().__init__()
         self._view_model = view_model
+        self._view_model.bind(selected=self._on_selection_changed)
+        self._item_interpretation_mapping = dict()
+        self._currently_selected = None
         self._populate_items()
         logger.info('MapView created')
 
@@ -36,10 +40,22 @@ class MapView(Gtk.Bin):
                 self._add_request_handler,
                 self._preview_click_handler)
             self._item_container.add(item)
+            self._item_interpretation_mapping[preview] = item
 
-    def _preview_click_handler(self, unused_sender, route_target) -> None:
-        """Handles clicks on map items, triggers navigation"""
-        self._view_model.navigate_to(route_target)
+    def _preview_click_handler(self):
+        logger.warning('preview clicked handler is deprecated')
+
+    def _on_selection_changed(self, unused_sender, new_value):
+        if self._currently_selected:
+            self._currently_selected.selected = False
+        self._currently_selected = self._find_by_interpretation(new_value)
+        if self._currently_selected:
+            self._currently_selected.selected = True
+
+    def _find_by_interpretation(self, structure):
+        if structure in self._item_interpretation_mapping:
+            return self._item_interpretation_mapping[structure]
+        return None
 
     def _delete_request_handler(self, sender):
         self._item_container.remove(sender)

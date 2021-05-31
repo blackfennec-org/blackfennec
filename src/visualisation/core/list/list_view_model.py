@@ -1,10 +1,11 @@
 from src.black_fennec.interpretation.interpretation import Interpretation
+from src.black_fennec.util.observable import Observable
 from src.black_fennec.interpretation.specification import Specification
 from src.black_fennec.navigation.navigation_proxy import NavigationProxy
 from src.black_fennec.structure.structure import Structure
 
 
-class ListViewModel:
+class ListViewModel(Observable):
     """View model for core type List."""
 
     def __init__(self, interpretation, interpretation_service):
@@ -16,6 +17,7 @@ class ListViewModel:
             interpretation_service (InterpretationService): service to
                 interpret substructures and create previews
         """
+        Observable.__init__(self)
         self._interpretation = interpretation
         self._interpretation_service = interpretation_service
         self._list = self._interpretation.structure
@@ -24,6 +26,15 @@ class ListViewModel:
     def value(self):
         """Readonly property for value."""
         return self._list
+    
+    @property
+    def selected(self) -> Interpretation:
+        return self._selected
+
+    @selected.setter
+    def selected(self, new_selected):
+        self._notify(new_selected, 'selected')
+        self._selected = new_selected
 
     def create_preview(self, substructure: Structure) -> Interpretation:
         """create preview for substructure
@@ -36,7 +47,8 @@ class ListViewModel:
         """
         preview = self._interpretation_service.interpret(
             substructure, Specification(request_preview=True))
-        navigation_proxy = NavigationProxy(self._interpretation)
+        navigation_proxy = NavigationProxy()
+        navigation_proxy.bind(navigation_request=self.navigate)
         preview.set_navigation_service(navigation_proxy)
         return preview
 
@@ -55,6 +67,10 @@ class ListViewModel:
             item: The item which should be deleted
         """
         self._list.remove_item(item)
+
+    def navigate(self, sender, destination: Structure):
+        self.selected = sender
+        self.navigate_to(destination)
 
     def navigate_to(self, route_target: Structure):
         self._interpretation.navigate(route_target)

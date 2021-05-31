@@ -1,11 +1,15 @@
+import logging
 from gi.repository import Gtk
 from src.black_fennec.interpretation.interpretation import Interpretation
+
+logger = logging.getLogger(__name__)
 
 
 @Gtk.Template(filename='src/visualisation/core/map/map_item_view.glade')
 class MapItemView(Gtk.Bin):
     """View for a key value pair of a map."""
     __gtype_name__ = 'MapItemView'
+    _item_row: Gtk.Box = Gtk.Template.Child()
     _key_label: Gtk.Label = Gtk.Template.Child()
     _preview_container: Gtk.Bin = Gtk.Template.Child()
     _popover = Gtk.Template.Child()
@@ -15,8 +19,8 @@ class MapItemView(Gtk.Bin):
     _add_entry = Gtk.Template.Child()
     _liststore = Gtk.Template.Child()
 
-    def __init__(self, key, preview: Interpretation, delete_handler, rename_handler, add_handler,
-                 preview_click_handler):
+    def __init__(self, key, preview: Interpretation, delete_handler,
+                rename_handler, add_handler, preview_click_handler):
         """Create map item view
 
         Args:
@@ -45,11 +49,22 @@ class MapItemView(Gtk.Bin):
     def set_key(self, key):
         self._key_label.set_text(key)
 
+    @property
+    def selected(self):
+        return self._selected
+
+    @selected.setter
+    def selected(self, value):
+        self._selected = value
+        style = self._item_row.get_style_context()
+        if self.selected:
+            style.add_class('is-active')
+        else:
+            style.remove_class('is-active')
+
     @Gtk.Template.Callback()
     def on_preview_clicked(self, unused_sender) -> None:
-        """Callback for the button click event"""
-
-        self._preview_click_handler(self, self._preview.structure)
+        logger.warning('on_preview_clicked is deprecated.')
 
     @Gtk.Template.Callback()
     def _on_button_click(self, sender, event):

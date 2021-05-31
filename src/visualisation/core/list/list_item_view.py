@@ -7,6 +7,7 @@ from src.black_fennec.structure.structure import Structure
 class ListItemView(Gtk.Bin):
     """View for a single list item."""
     __gtype_name__ = 'ListItemView'
+    _item_row: Gtk.Box = Gtk.Template.Child()
     _preview_container: Gtk.Bin = Gtk.Template.Child()
     _popover = Gtk.Template.Child()
     _add_popover = Gtk.Template.Child()
@@ -36,6 +37,20 @@ class ListItemView(Gtk.Bin):
     def item(self) -> Structure:
         """Readonly property for the item"""
         return self._preview.structure
+    
+    @property
+    def selected(self):
+        return self._selected
+
+    @selected.setter
+    def selected(self, value):
+        self._selected = value
+        style = self._item_row.get_style_context()
+        if self.selected:
+            style.add_class('is-active')
+        else:
+            style.remove_class('is-active')
+
 
     def on_preview_clicked(self, unused_sender) -> None:
         """Callback for the button click event"""

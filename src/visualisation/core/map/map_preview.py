@@ -23,19 +23,4 @@ class MapPreview(Gtk.Bin):
     @Gtk.Template.Callback()
     def _click_handler(self, unused_sender, unused_argument) -> None:
         """Handles clicks on map items, triggers navigation"""
-        self.remove_style_class('is-active')
-        self.add_style_class('is-active')
         self._view_model.navigate_to(self._view_model.value)
-
-    def add_style_class(self, class_name):
-        my_object = self.get_parent().get_parent().get_parent()
-        object_context = my_object.get_style_context()
-        object_context.add_class(class_name)
-
-    def remove_style_class(self, class_name):
-        my_object = self.get_parent().get_parent()\
-            .get_parent().get_parent().get_parent()
-        children = my_object.get_children()
-        for child in children:
-            object_context = child.get_child().get_style_context()
-            object_context.remove_class(class_name)

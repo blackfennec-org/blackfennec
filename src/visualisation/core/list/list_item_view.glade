@@ -12,7 +12,7 @@
         <property name="visible">True</property>
         <property name="can-focus">False</property>
         <child>
-          <object class="GtkBox">
+          <object class="GtkBox" id="_item_row">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
             <signal name="key-release-event" handler="on_preview_clicked" swapped="no"/>
