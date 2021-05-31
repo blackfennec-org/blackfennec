@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import logging
-from src.black_fennec.structure.info import Info
+from src.black_fennec.structure.structure import Structure
 from src.black_fennec.interpretation.interpretation import Interpretation
 
 logger = logging.getLogger(__name__)
@@ -20,7 +20,7 @@ class NavigationProxy:
         """
         self._interpretation = interpretation
 
-    def navigate(self, unused_sender: Interpretation, destination: Info):
+    def navigate(self, unused_sender: Interpretation, destination: Structure):
         """Navigate to destination, sender is ignored.
 
         This function dispatches the navigation request to the configured
@@ -28,6 +28,6 @@ class NavigationProxy:
 
         Args:
             unused_sender (Interpretation): Ignored
-            destination (Info): destination which will be passed on
+            destination (Structure): destination which will be passed on
         """
         self._interpretation.navigate(destination)

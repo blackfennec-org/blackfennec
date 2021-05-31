@@ -1,5 +1,5 @@
 import logging
-from gi.repository import Gtk, Gdk
+from gi.repository import Gtk
 import os
 
 from uri import URI
@@ -92,7 +92,7 @@ class BlackFennecView(Gtk.ApplicationWindow):
     @Gtk.Template.Callback()
     def on_quit_clicked(self, unused_sender) -> None:
         """Callback for the button click event"""
-        self._view_model.quit()
+        self.close()
         logger.debug('quit clicked')
 
     @Gtk.Template.Callback()

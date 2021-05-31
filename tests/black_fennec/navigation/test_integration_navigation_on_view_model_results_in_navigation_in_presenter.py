@@ -1,7 +1,7 @@
 import unittest
 
 from doubles.double_dummy import Dummy
-from doubles.presentation.double_info_presenter import InfoPresenterMock
+from doubles.presentation.double_structure_presenter import StructurePresenterMock
 from doubles.black_fennec.interpretation.double_interpretation_service import InterpretationServiceMock
 from src.black_fennec.interpretation.interpretation import Interpretation
 from src.black_fennec.navigation.navigation_service import NavigationService
@@ -28,7 +28,7 @@ class NavigationOnViewModelResultsInNavigationInPresenterTestSuite(
         registry.register_type(StringBidder())
         registry.register_type(ListBidder(interpretation_service))
         registry.register_type(MapBidder(interpretation_service))
-        self.presenter = InfoPresenterMock()
+        self.presenter = StructurePresenterMock()
         self.navigation_service = NavigationService()
         self.navigation_service.set_presenter(self.presenter)
 
@@ -37,9 +37,9 @@ class NavigationOnViewModelResultsInNavigationInPresenterTestSuite(
         self.auctioneer = None
 
     def test_map_can_navigate(self):
-        info = Map()
+        structure = Map()
         interpretation = Interpretation(
-            info, Dummy('specification'), Dummy('factoires'))
+            structure, Dummy('specification'), Dummy('factoires'))
         interpretation.set_navigation_service(self.navigation_service)
         interpretation_service = Dummy('interpretation service')
         map_view_model = MapViewModel(interpretation, interpretation_service)
@@ -47,9 +47,9 @@ class NavigationOnViewModelResultsInNavigationInPresenterTestSuite(
         self.assertEqual(self.presenter.show_count, 1)
 
     def test_list_can_navigate(self):
-        info = List()
+        structure = List()
         interpretation = Interpretation(
-            info, Dummy('specification'), Dummy('factoires'))
+            structure, Dummy('specification'), Dummy('factoires'))
         interpretation.set_navigation_service(self.navigation_service)
         interpretation_service = Dummy('interpretation service')
         list_view_model = ListViewModel(interpretation, interpretation_service)

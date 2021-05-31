@@ -1,6 +1,6 @@
 import unittest
 
-from doubles.black_fennec.structure.double_info import InfoMock
+from doubles.black_fennec.structure.double_structure import StructureMock
 from doubles.black_fennec.structure.encapsulation_base.double_factory_base_visitor import FactoryBaseVisitorMock
 from src.black_fennec.interpretation.auction.coverage import Coverage
 from src.black_fennec.structure.root import Root
@@ -62,7 +62,7 @@ class ListTemplateTestSuite(unittest.TestCase):
         )
 
     def test_calculate_coverage_wrong_type(self):
-        subject = InfoMock()
+        subject = StructureMock()
 
         coverage = self.string_template.calculate_coverage(subject)
         self.assertEqual(

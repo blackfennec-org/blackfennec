@@ -3,7 +3,7 @@ from functools import lru_cache
 from src.black_fennec.structure.boolean import Boolean
 from src.black_fennec.structure.encapsulation_base.list_encapsulation_base import ListEncapsulationBase
 from src.black_fennec.structure.encapsulation_base.map_encapsulation_base import MapEncapsulationBase
-from src.black_fennec.structure.info import Info
+from src.black_fennec.structure.structure import Structure
 from src.black_fennec.structure.list import List
 from src.black_fennec.structure.map import Map
 from src.black_fennec.structure.number import Number
@@ -34,8 +34,8 @@ class BaseFactoryVisitor:
         """
         self.factory_base_class = encapsulation_base_class
 
-    def visit_info(self, subject_info: Info):
-        return self._create_generic_instance(subject_info)
+    def visit_structure(self, subject_structure: Structure):
+        return self._create_generic_instance(subject_structure)
 
     def visit_root(self, subject_root: Root):
         return self._create_generic_instance(subject_root)
@@ -58,7 +58,7 @@ class BaseFactoryVisitor:
     def visit_map(self, subject_map: Map):
         return MapEncapsulationBase(self, subject_map)
 
-    def _create_generic_instance(self, subject: Info):
+    def _create_generic_instance(self, subject: Structure):
         GenericClass = _create_generic_class(
             self.factory_base_class,
             subject.__class__

@@ -2,7 +2,7 @@
 import logging
 
 from src.black_fennec.interpretation.auction.offer import Offer
-from src.black_fennec.structure.info import Info
+from src.black_fennec.structure.structure import Structure
 from src.visualisation.base.address.address import Address
 from src.visualisation.base.address.address_view_factory import AddressViewFactory
 
@@ -13,11 +13,11 @@ class AddressBidder:
     """The bidding service for the base type `Address`.
     """
 
-    def bid(self, subject: Info):
+    def bid(self, subject: Structure):
         """"Produces an offer for a given object.
 
         Args:
-            subject (Info): The Info for which an
+            subject (Structure): The Structure for which an
                 offer should be produced.
 
         Returns:

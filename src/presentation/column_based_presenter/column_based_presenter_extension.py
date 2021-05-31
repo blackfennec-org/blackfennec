@@ -9,4 +9,6 @@ def create_extension(extension_api: ExtensionApi):
 
 
 def destroy_extension(extension_api: ExtensionApi):
-    extension_api.presenter_registry.deregister_presenter(ColumnBasedPresenterViewFactory)
+    extension_api.presenter_registry.deregister_presenter(
+        ColumnBasedPresenterViewFactory
+    )

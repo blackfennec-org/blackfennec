@@ -1,6 +1,6 @@
 from gi.repository import Gtk
 from src.black_fennec.interpretation.interpretation import Interpretation
-from src.black_fennec.structure.info import Info
+from src.black_fennec.structure.structure import Structure
 
 
 @Gtk.Template(filename='src/visualisation/core/list/list_item_view.glade')
@@ -33,13 +33,13 @@ class ListItemView(Gtk.Bin):
         self._preview_container.add(self._preview.view)
 
     @property
-    def item(self) -> Info:
+    def item(self) -> Structure:
         """Readonly property for the item"""
-        return self._preview.info
+        return self._preview.structure
 
     def on_preview_clicked(self, unused_sender) -> None:
         """Callback for the button click event"""
-        self._preview_click_handler(self, self._preview.info)
+        self._preview_click_handler(self, self._preview.structure)
 
     @Gtk.Template.Callback()
     def _on_button_click(self, sender, event):

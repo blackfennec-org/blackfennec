@@ -1,9 +1,9 @@
-from doubles.black_fennec.structure.double_info import InfoMock
+from doubles.black_fennec.structure.double_structure import StructureMock
 
 
-class BooleanMock(InfoMock):
-    def __init__(self, value=None, children=None, parent=None, root=None):
-        InfoMock.__init__(self, value, children, parent, root)
+class BooleanMock(StructureMock):
+    def __init__(self, value=None, parent=None, root=None):
+        StructureMock.__init__(self, value, parent, root)
 
     def accept(self, visitor):
         return visitor.visit_number(self)

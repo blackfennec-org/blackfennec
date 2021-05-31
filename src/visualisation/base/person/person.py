@@ -15,32 +15,32 @@ def create_person_template():
     """Person Template
     Defines the format of the person
     """
-    template_map = Map()
-    template_map[Person.COURTESY_TITLE_KEY] = String()
-    template_map[Person.FIRST_NAME_KEY] = String()
-    template_map[Person.MIDDLE_NAME_KEY] = String()
-    template_map[Person.LAST_NAME_KEY] = String()
-    template_map[Person.LAST_NAME_KEY] = String()
-    template_map[Person.SUFFIX_KEY] = String()
-    template_map[Person.GENDER_KEY] = String()
-    template_map[Person.SEX_KEY] = String()
-    template_map[Person.MARITAL_STATUS_KEY] = String()
-    template_map[Person.NATIONALITY_KEY] = String()
+    template_map = Map({
+        Person.COURTESY_TITLE_KEY: String(),
+        Person.FIRST_NAME_KEY: String(),
+        Person.MIDDLE_NAME_KEY: String(),
+        Person.LAST_NAME_KEY: String(),
+        Person.PERSONAL_PHOTO_KEY: create_image_template().subject,
+        Person.HOME_ADDRESS_KEY: create_address_template().subject,
+        Person.SUFFIX_KEY: String(),
+        Person.GENDER_KEY: String(),
+        Person.SEX_KEY: String(),
+        Person.MARITAL_STATUS_KEY: String(),
+        Person.NATIONALITY_KEY: String()
+    })
 
     template_factory = TemplateFactoryVisitor()
     template = template_map.accept(template_factory)
 
-    template[Person.COURTESY_TITLE_KEY].optional = True
-    template[Person.MIDDLE_NAME_KEY].optional = True
-    template[Person.SUFFIX_KEY].optional = True
-    template[Person.PERSONAL_PHOTO_KEY] = create_image_template()
-    template[Person.PERSONAL_PHOTO_KEY].optional = True
-    template[Person.HOME_ADDRESS_KEY] = create_address_template()
-    template[Person.HOME_ADDRESS_KEY].optional = True
-    template[Person.GENDER_KEY].optional = True
-    template[Person.SEX_KEY].optional = True
-    template[Person.MARITAL_STATUS_KEY].optional = True
-    template[Person.NATIONALITY_KEY].optional = True
+    template.value[Person.COURTESY_TITLE_KEY].optional = True
+    template.value[Person.MIDDLE_NAME_KEY].optional = True
+    template.value[Person.SUFFIX_KEY].optional = True
+    template.value[Person.PERSONAL_PHOTO_KEY].optional = True
+    template.value[Person.HOME_ADDRESS_KEY].optional = True
+    template.value[Person.GENDER_KEY].optional = True
+    template.value[Person.SEX_KEY].optional = True
+    template.value[Person.MARITAL_STATUS_KEY].optional = True
+    template.value[Person.NATIONALITY_KEY].optional = True
     return template
 
 
@@ -65,70 +65,78 @@ class Person:
     MARITAL_STATUS_KEY = 'marital_status'
     NATIONALITY_KEY = 'nationality'
 
-    def __init__(self, map_interpretation: Map = Map()):
+    def __init__(self, subject: Map = Map()):
         """Person Constructor
 
         Args:
-            map_interpretation (Map): underlying map interpretation to
+            subject (Map): underlying map to
                 which property calls are dispatched
         """
-        self._data: Map = map_interpretation
-
-    def _get_from_map(self, key):
-        """Wrapper for map access
-
-        Checks whether key is in map and if yes, it
-        returns its value. Otherwise None is returned.
-
-        Args:
-            key (str): Key of value to check
-
-        Returns:
-            Info: Value at key in map
-        """
-        if key not in self._data:
-            return None
-        return self._data[key]
+        self._subject: Map = subject
+        if Person.FIRST_NAME_KEY not in self._subject.value:
+            self._subject.add_item(Person.FIRST_NAME_KEY, String())
+        if Person.LAST_NAME_KEY not in self._subject.value:
+            self._subject.add_item(Person.LAST_NAME_KEY, String())
 
     @property
-    def courtesy_title(self) -> String:
-        return self._get_from_map(self.COURTESY_TITLE_KEY)
+    def subject(self):
+        return self._subject
+
+    def _get_reference(self, key):
+        if key not in self.subject.value:
+            return None
+        return self.subject.value[key]
+
+    def _get_value(self, key):
+        if key not in self.subject.value:
+            return None
+        return self.subject.value[key].value
+
+    def _set_value(self, key, value):
+        if key not in self.subject.value:
+            value_type = self.TEMPLATE.subject.value[key].__class__
+            self.subject.add_item(key, value_type())
+        self.subject.value[key].value = value
+
+    @property
+    def courtesy_title(self) -> str:
+        return self._get_value(self.COURTESY_TITLE_KEY)
 
     @courtesy_title.setter
-    def courtesy_title(self, value: String):
+    def courtesy_title(self, value: str):
         """An abbreviation of a person’s title, honorific, or salutation
             (such as Mr., Miss., Dr.,...).
 
         """
-        self._data[self.COURTESY_TITLE_KEY] = value
+        self._set_value(Person.COURTESY_TITLE_KEY, value)
 
     @property
-    def first_name(self) -> String:
-        return self._get_from_map(self.FIRST_NAME_KEY)
+    def first_name(self) -> str:
+        return self._get_value(self.FIRST_NAME_KEY)
 
     @first_name.setter
-    def first_name(self, value: String):
-        self._data[self.FIRST_NAME_KEY] = value
+    def first_name(self, value: str):
+        self._set_value(self.FIRST_NAME_KEY, value)
 
     @property
-    def middle_name(self) -> String:
-        return self._get_from_map(self.MIDDLE_NAME_KEY)
+    def middle_name(self) -> str:
+        return self._get_value(self.MIDDLE_NAME_KEY)
 
     @middle_name.setter
-    def middle_name(self, value: String):
-        self._data[self.MIDDLE_NAME_KEY] = value
+    def middle_name(self, value: str):
+        self._set_value(self.MIDDLE_NAME_KEY, value)
 
     @property
-    def last_name(self) -> String:
-        return self._get_from_map(self.LAST_NAME_KEY)
+    def last_name(self) -> str:
+        return self._get_value(self.LAST_NAME_KEY)
 
     @last_name.setter
-    def last_name(self, value: String):
-        self._data[self.LAST_NAME_KEY] = value
+    def last_name(self, value: str):
+        self._set_value(self.LAST_NAME_KEY, value)
 
     @property
     def suffix(self) -> String:
-        return self._get_from_map(self.SUFFIX_KEY)
+        return self._get_value(self.SUFFIX_KEY)
 
     @suffix.setter
     def suffix(self, value: String):
@@ -137,23 +145,23 @@ class Person:
         (such as Jr., Sr., M.D., PhD, I, II, III,...).
 
         """
-        self._data[self.SUFFIX_KEY] = value
+        self._set_value(self.SUFFIX_KEY, value)
 
     @property
     def personal_photo(self) -> Image:
-        return self._get_from_map(self.PERSONAL_PHOTO_KEY)
+        return self._get_value(self.PERSONAL_PHOTO_KEY)
 
     @personal_photo.setter
-    def personal_photo(self, value: Image):
-        self._data[self.PERSONAL_PHOTO_KEY] = value
+    def personal_photo(self, image: Image):
+        self._set_value(self.PERSONAL_PHOTO_KEY, image.subject)
 
     @property
     def home_address(self) -> Address:
-        return self._get_from_map(self.HOME_ADDRESS_KEY)
+        return self._get_value(self.HOME_ADDRESS_KEY)
 
     @home_address.setter
-    def home_address(self, value: Address):
-        self._data[self.HOME_ADDRESS_KEY] = value
+    def home_address(self, address: Address):
+        self._set_value(self.HOME_ADDRESS_KEY, address.subject)
 
     # @property
     # def birth_date(self) -> Date:
@@ -161,12 +169,12 @@ class Person:
     #
     # @birth_date.setter
     # def birth_date(self, value: Date):
-    #     self._data['birth_date'] = value
+    #     self._set_value('birth_date', value)
     # TODO: Add Base Type Date to implement birth_date property
 
     @property
     def gender(self) -> String:
-        return self._get_from_map(self.GENDER_KEY)
+        return self._get_value(self.GENDER_KEY)
 
     @gender.setter
     def gender(self, value: String):
@@ -179,11 +187,11 @@ class Person:
                 - non_specific
             The default for this value is not_specified.
         """
-        self._data[self.GENDER_KEY] = value
+        self._set_value(self.GENDER_KEY, value)
 
     @property
     def sex(self) -> String:
-        return self._get_from_map(self.SEX_KEY)
+        return self._get_value(self.SEX_KEY)
 
     @sex.setter
     def sex(self, value: String):
@@ -196,11 +204,11 @@ class Person:
                         - non_specific
                 The default for this value is not_specified.
          """
-        self._data[self.SEX_KEY] = value
+        self._set_value(self.SEX_KEY, value)
 
     @property
     def marital_status(self) -> String:
-        return self._get_from_map(self.MARITAL_STATUS_KEY)
+        return self._get_value(self.MARITAL_STATUS_KEY)
 
     @marital_status.setter
     def marital_status(self, value: String):
@@ -214,11 +222,11 @@ class Person:
                 - not_specified
             The default for this value is not_specified.
         """
-        self._data[self.MARITAL_STATUS_KEY] = value
+        self._set_value(self.MARITAL_STATUS_KEY, value)
 
     @property
     def nationality(self) -> String:
-        return self._get_from_map(self.NATIONALITY_KEY)
+        return self._get_value(self.NATIONALITY_KEY)
 
     @nationality.setter
     def nationality(self, value: String):
@@ -227,7 +235,7 @@ class Person:
         The format of this property must conform to this
          regular expression ^[A-Z]{2}$.
         """
-        self._data[self.NATIONALITY_KEY] = value
+        self._set_value(self.NATIONALITY_KEY, value)
 
     def __eq__(self, other) -> bool:
         return (

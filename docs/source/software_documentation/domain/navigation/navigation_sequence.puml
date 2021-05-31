@@ -9,9 +9,15 @@ skinparam sequence {
     LifeLineBorderColor Black
 }
 
-actor User
-User -> View                    : click \non "link"
-View -> Interpretation          : navigation request \nto substructure
-Interpretation -> NavigationService : navigation request \nfrom interpretation \nto substructure
-NavigationService -> Presenter         : presentation request \nwith caller and substructure
+title Navigate Structure
+
+User -> Interpretation  : "click on element"
+Interpretation -> NavigationService : request_navigation
+NavigationService -> Presenter : notify_observers
+Presenter -> InterpretationService : interpret(structure)
+InterpretationService -> InterpretationService : "magic"
+InterpretationService -> Presenter  : interpretation
+Presenter -> Presenter  :   display(interpretation)
+Presenter -> User : "navigation complete"
+
 @enduml

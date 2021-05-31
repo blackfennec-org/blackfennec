@@ -19,7 +19,7 @@ class DateTimeRangeViewModel:
             interpretation (Interpretation): The overarching
                 interpretation
         """
-        self._model: DateTimeRange = DateTimeRange(interpretation.info)
+        self._model: DateTimeRange = DateTimeRange(interpretation.structure)
 
     @property
     def date_time_start(self) -> datetime:

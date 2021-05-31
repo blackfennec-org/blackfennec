@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import logging
-from src.black_fennec.structure.info import Info
+from src.black_fennec.structure.structure import Structure
 from src.black_fennec.interpretation.interpretation import Interpretation
 
 logger = logging.getLogger(__name__)
@@ -11,11 +11,11 @@ class NavigationService:
 
     Can be called by an interpretation for navigational purposes.
     Class resolves route through auctioneer and dispatches navigation
-    request to info presenter.
+    request to structure presenter.
 
     Attributes:
-        _presenter (InfoPresenter): stores injected
-            info presenter
+        _presenter (StructurePresenter): stores injected
+            structure presenter
     """
     def __init__(self):
         """Navigation Service constructor."""
@@ -29,7 +29,7 @@ class NavigationService:
         """
         self._presenter = presenter
 
-    def navigate(self, sender: Interpretation, destination: Info):
+    def navigate(self, sender: Interpretation, destination: Structure):
         """Navigation request dispatch
 
         Dispatches navigation request received by Interpretation
@@ -38,7 +38,7 @@ class NavigationService:
 
         Args:
             sender (Interpretation): Interpretation which invoked navigation
-            destination (Info): Destination to which shall be navigated
+            destination (Structure): Destination to which shall be navigated
 
         Raises:
             AssertionError: if no presenter is set for navigation_service.

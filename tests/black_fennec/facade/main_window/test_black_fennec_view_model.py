@@ -39,8 +39,7 @@ class BlackFennecViewModelTestSuite(unittest.TestCase):
             self.view_model.quit()
 
     def test_can_save_file(self):
-        with self.assertLogs(None, logging.WARNING):
-            self.view_model.save()
+        self.view_model.save()
 
     def test_can_save_as_file(self):
         with self.assertLogs(None, logging.WARNING):

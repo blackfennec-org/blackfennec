@@ -115,7 +115,7 @@ The bidder is the component of your type extension that is asked for an offer on
             """"Produces an offer for a given object.
 
             Args:
-                subject (Info): The Info for which an
+                subject (Info): The Structure for which an
                     offer should be produced.
 
             Returns:

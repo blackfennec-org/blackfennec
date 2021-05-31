@@ -6,7 +6,7 @@ This module contains the unit-tests of the InterpretationService class."""
 import unittest
 
 from doubles.black_fennec.interpretation.auction.double_auctioneer import AuctioneerMock
-from doubles.visualisation.double_info_view_factory import InfoViewFactoryMock
+from doubles.visualisation.double_structure_view_factory import StructureViewFactoryMock
 from doubles.double_dummy import Dummy
 from src.black_fennec.interpretation.interpretation import Interpretation
 from src.black_fennec.interpretation.interpretation_service import InterpretationService
@@ -35,17 +35,17 @@ class InterpretationServiceTestSuite(unittest.TestCase):
         """InterpretationService.interpret function test.
 
         This unit-test tests whether the member function
-        interpret of the InterpretationService creates the info_view
+        interpret of the InterpretationService creates the structure_view
         as expected, and whether an interpretation is returned
         """
-        info = Dummy("info")
+        structure = Dummy("structure")
 
-        factories = [InfoViewFactoryMock()]
+        factories = [StructureViewFactoryMock()]
 
         auctioneer = AuctioneerMock(factories)
         interpreter = InterpretationService(auctioneer)
-        interpretation = interpreter.interpret(info)
+        interpretation = interpreter.interpret(structure)
         self.assertIsInstance(interpretation, Interpretation)
         self.assertIn(factories[0], interpretation._factories)
         self.assertEqual(1, auctioneer.auction_count)
-        self.assertEqual(info, auctioneer.auction_last_subject)
+        self.assertEqual(structure, auctioneer.auction_last_subject)
