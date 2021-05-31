@@ -33,7 +33,7 @@ from src.black_fennec.type_system.template_registry import TemplateRegistry
 from src.extension.extension_source_registry import ExtensionSourceRegistry
 # pylint: enable=wrong-import-position
 
-logging.basicConfig(level=logging.DEBUG)
+logging.basicConfig(level=logging.WARNING)
 logger = logging.getLogger(__name__)
 
 EXTENSIONS = 'extensions.json'

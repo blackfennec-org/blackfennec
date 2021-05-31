@@ -25,11 +25,15 @@ class MapView(Gtk.Bin):
             view_model (:obj:`MapViewModel`): The view_model.
         """
         super().__init__()
-        self._view_model = view_model
-
-        self._view_model.bind(value=self._update_value)
         self._value_set: set = set()
         self._items: dict = dict()
+        self._item_interpretation_mapping = dict()
+        self._currently_selected = None
+        
+        self._view_model = view_model
+        self._view_model.bind(
+            value=self._update_value,
+            selected=self._on_selection_changed)
 
         self._update_value(self, self._view_model.value)
         logger.info('MapView created')
@@ -42,6 +46,7 @@ class MapView(Gtk.Bin):
             self._view_model)
         self._items[key] = item
         self._item_container.add(item)
+        self._item_interpretation_mapping[preview] = item
 
     def _remove_item(self, key):
         item = self._items.pop(key)
@@ -62,12 +67,22 @@ class MapView(Gtk.Bin):
         to_be_deleted = self._value_set.difference(intersection)
         for key in to_be_deleted:
             self._remove_item(key)
-
         self._value_set = value_set
 
-    def _preview_click_handler(self, unused_sender, route_target) -> None:
-        """Handles clicks on map items, triggers navigation"""
-        self._view_model.navigate_to(route_target)
+    def _preview_click_handler(self):
+        logger.warning('preview clicked handler is deprecated')
+
+    def _on_selection_changed(self, unused_sender, new_value):
+        if self._currently_selected:
+            self._currently_selected.selected = False
+        self._currently_selected = self._find_by_interpretation(new_value)
+        if self._currently_selected:
+            self._currently_selected.selected = True
+
+    def _find_by_interpretation(self, structure):
+        if structure in self._item_interpretation_mapping:
+            return self._item_interpretation_mapping[structure]
+        return None
 
     def _delete_request_handler(self, sender):
         self._item_container.remove(sender)

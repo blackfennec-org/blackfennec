@@ -24,10 +24,14 @@ class ListView(Gtk.Bin):
         """
         super().__init__()
         self._view_model = view_model
-        self._view_model.bind(value=self._update_value)
+        self._view_model.bind(
+            value=self._update_value,
+            selected=self._on_selection_changed)
         self._value: set = set()
         self._items: dict = dict()
 
+        self._item_interpretation_mapping = dict()
+        self._currently_selected = None
         self._populate_items()
         logger.info('ListView created')
 
@@ -44,6 +48,7 @@ class ListView(Gtk.Bin):
         item = ListItemView( preview, self._view_model)
         self._items[structure] = item
         self._item_container.add(item)
+        self._item_interpretation_mapping[preview] = item
 
     def _remove_item(self, structure):
         item = self._items[structure]
@@ -87,6 +92,20 @@ class ListView(Gtk.Bin):
                   f'in template registry'
         logger.error(message)
         raise KeyError(message)
+    def _preview_click_handler(self, unused_sender, route_target) -> None:
+        logger.warning('preview clicked handler is deprecated')
+
+    def _on_selection_changed(self, unused_sender, new_value):
+        if self._currently_selected:
+            self._currently_selected.selected = False
+        self._currently_selected = self._find_by_interpretation(new_value)
+        if self._currently_selected:
+            self._currently_selected.selected = True
+
+    def _find_by_interpretation(self, structure):
+        if structure in self._item_interpretation_mapping:
+            return self._item_interpretation_mapping[structure]
+        return None
 
     @Gtk.Template.Callback()
     def _add_item_clicked(self, unused_sender, unused_event):

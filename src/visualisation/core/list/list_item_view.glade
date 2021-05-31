@@ -12,7 +12,7 @@
         <property name="visible">True</property>
         <property name="can-focus">False</property>
         <child>
-          <object class="GtkBox">
+          <object class="GtkBox" id="_item_row">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
             <property name="halign">end</property>
