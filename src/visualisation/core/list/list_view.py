@@ -23,25 +23,17 @@ class ListView(Gtk.Bin):
             view_model (ListViewModel): The view_model.
         """
         super().__init__()
+        self._value: list = list()
+        self._items: dict = dict()
+        self._item_interpretation_mapping = dict()
+        self._currently_selected = None
         self._view_model = view_model
         self._view_model.bind(
             value=self._update_value,
             selected=self._on_selection_changed)
-        self._value: set = set()
-        self._items: dict = dict()
 
-        self._item_interpretation_mapping = dict()
-        self._currently_selected = None
-        self._populate_items()
+        self._update_value(self, self._view_model.value)
         logger.info('ListView created')
-
-    def _populate_items(self) -> None:
-        """Populates the list that displays the list items"""
-
-        for substructure in self._view_model.value.value:
-            self._add_item(substructure)
-
-        self._value = set(self._view_model.value.value)
 
     def _add_item(self, structure):
         preview = self._view_model.create_preview(structure)
@@ -55,6 +47,10 @@ class ListView(Gtk.Bin):
         self._items.pop(structure)
         self._item_container.remove(item)
 
+    def _set_item_position(self, key, position):
+        item = self._items[key]
+        self._item_container.reorder_child(item, position)
+
     def _update_value(self, unused_sender, new_value):
         """Observable handler for value
 
@@ -62,18 +58,16 @@ class ListView(Gtk.Bin):
             unused_sender: view model
             new_value: set by view model
         """
-        value_set = set(new_value.value)
-        intersection = self._value.intersection(value_set)
-        to_be_added = value_set.difference(intersection)
-        for item in to_be_added:
-            self._add_item(item)
+        for item in self._value:
+            if not item in new_value.value:
+                self._remove_item(item)
 
-        to_be_deleted = self._value.difference(intersection)
-        for item in to_be_deleted:
-            self._remove_item(item)
-
-        self._value = value_set
-
+        for i, item in enumerate(new_value.value):
+            if not item in self._value:
+                self._add_item(item)
+            self._set_item_position(item, i)
+        self._value = new_value.value
+    
     def _setup_template_store(self):
         template_store = Gtk.ListStore(GObject.TYPE_STRING)
         templates = self._view_model.get_templates()
