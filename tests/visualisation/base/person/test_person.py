@@ -3,6 +3,9 @@ import unittest
 from doubles.black_fennec.structure.double_structure import StructureMock
 from doubles.black_fennec.structure.double_map import MapMock
 from doubles.black_fennec.structure.double_string import StringMock
+from doubles.visualisation.double_base_type import BaseTypeMock
+from src.visualisation.base.address.address import Address
+from src.visualisation.base.image.image import Image
 from src.visualisation.base.person.person import Person
 
 
@@ -109,31 +112,40 @@ class PersonTestSuite(unittest.TestCase):
 
     def test_personal_photo_getter(self):
         data = dict()
-        data[Person.PERSONAL_PHOTO_KEY] = StructureMock(Person.PERSONAL_PHOTO_KEY)
+        data[Person.PERSONAL_PHOTO_KEY] = MapMock({})
 
         data_map = MapMock(data)
         person = Person(data_map)
-        self.assertEqual(person.personal_photo, data[Person.PERSONAL_PHOTO_KEY].value)
+        self.assertEqual(person.personal_photo.subject, data[Person.PERSONAL_PHOTO_KEY])
 
     def test_personal_photo_setter(self):
-        personal_photo = MapMock({})
+        personal_photo = BaseTypeMock(MapMock({
+            Image.FILE_PATH_KEY: StringMock('Test'),
+            Image.FILE_TYPE_KEY: StringMock('Test')
+        }))
         person = Person()
         person.personal_photo = personal_photo
-        self.assertEqual(person.personal_photo, personal_photo.value)
+        self.assertEqual(person.personal_photo.subject.value, personal_photo.subject.value)
 
     def test_home_address_getter(self):
         data = dict()
-        data[Person.HOME_ADDRESS_KEY] = StructureMock(Person.HOME_ADDRESS_KEY)
+        data[Person.HOME_ADDRESS_KEY] = MapMock({})
 
         data_map = MapMock(data)
         person = Person(data_map)
-        self.assertEqual(person.home_address, data[Person.HOME_ADDRESS_KEY].value)
+        self.assertEqual(person.home_address.subject, data[Person.HOME_ADDRESS_KEY])
 
     def test_home_address_setter(self):
-        home_address = MapMock({})
+        home_address = BaseTypeMock(MapMock({
+            Address.FIRST_NAME_KEY: StringMock('Test'),
+            Address.LAST_NAME_KEY: StringMock('Test'),
+            Address.STREET_KEY: StringMock('Test'),
+            Address.STREET_NUMBER_KEY: StringMock('Test'),
+            Address.CITY_KEY: StringMock('Test')
+        }))
         person = Person()
         person.home_address = home_address
-        self.assertEqual(person.home_address, home_address.value)
+        self.assertEqual(person.home_address.subject.value, home_address.subject.value)
 
     def test_gender_getter(self):
         data = dict()

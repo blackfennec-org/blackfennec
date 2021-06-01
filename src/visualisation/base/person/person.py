@@ -135,11 +135,11 @@ class Person:
         self._set_value(self.LAST_NAME_KEY, value)
 
     @property
-    def suffix(self) -> String:
+    def suffix(self) -> str:
         return self._get_value(self.SUFFIX_KEY)
 
     @suffix.setter
-    def suffix(self, value: String):
+    def suffix(self, value: str):
         """A group of letters provided after a person’s
         name to provide additional information
         (such as Jr., Sr., M.D., PhD, I, II, III,...).
@@ -149,19 +149,19 @@ class Person:
 
     @property
     def personal_photo(self) -> Image:
-        return self._get_value(self.PERSONAL_PHOTO_KEY)
+        return Image(self._get_reference(self.PERSONAL_PHOTO_KEY))
 
     @personal_photo.setter
     def personal_photo(self, image: Image):
-        self._set_value(self.PERSONAL_PHOTO_KEY, image.subject)
+        self._set_value(self.PERSONAL_PHOTO_KEY, image.subject.value)
 
     @property
     def home_address(self) -> Address:
-        return self._get_value(self.HOME_ADDRESS_KEY)
+        return Address(self._get_reference(self.HOME_ADDRESS_KEY))
 
     @home_address.setter
     def home_address(self, address: Address):
-        self._set_value(self.HOME_ADDRESS_KEY, address.subject)
+        self._set_value(self.HOME_ADDRESS_KEY, address.subject.value)
 
     # @property
     # def birth_date(self) -> Date:

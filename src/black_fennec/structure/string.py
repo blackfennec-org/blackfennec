@@ -12,7 +12,7 @@ class String(Structure):
                 By default "" (empty string)
         """
         Structure.__init__(self)
-        self.value = value
+        self._value = value
 
     @property
     def value(self):

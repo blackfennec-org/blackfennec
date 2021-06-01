@@ -83,3 +83,20 @@ class TemplateBase(EncapsulationBase):
 
     def __repr__(self):
         return f'TemplateBase({self.subject.__repr__()})'
+
+    @staticmethod
+    def _remove_encapsulation(item: Structure):
+        """Decapsulates a Structure Class if it is encapsulated by an instance
+            of TemplateBase
+
+        Args:
+            item (Structure): to decapsulate.
+        Returns:
+            Structure: subject of passed item, if item
+                is encapsulated.
+        """
+        decapsulated_value = item
+        if isinstance(item, TemplateBase):
+            factory_base: TemplateBase = item
+            decapsulated_value = factory_base.subject
+        return decapsulated_value

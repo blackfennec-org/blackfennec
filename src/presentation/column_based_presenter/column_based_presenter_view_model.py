@@ -5,6 +5,8 @@ from src.black_fennec.structure.structure import Structure
 from src.black_fennec.interpretation.interpretation import Interpretation
 from src.black_fennec.interpretation.interpretation_service import InterpretationService
 from src.black_fennec.navigation.navigation_service import NavigationService
+from src.black_fennec.structure.overlay.overlay_factory_visitor import OverlayFactoryVisitor
+from src.black_fennec.structure.root import Root
 from src.black_fennec.util.observable import Observable
 
 logger = logging.getLogger(__name__)
@@ -44,6 +46,14 @@ class ColumnBasedPresenterViewModel(Observable):
         self.interpretations = list()
         self._interpretation_service = interpretation_service
         self._navigation_service = navigation_service
+
+    def set_structure(
+            self,
+            structure: Structure
+    ):
+        visitor = OverlayFactoryVisitor()
+        overlay = structure.accept(visitor)
+        self.show(None, overlay)
 
     def show(
             self,

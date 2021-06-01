@@ -33,12 +33,6 @@ class ReferenceTestSuite(unittest.TestCase):
         self.assertEqual(reference_resolving_service.reference, reference_uri)
         self.assertEqual(reference_resolving_service.source, reference)
 
-    def test_to_string(self):
-        reference_uri = URI('ref')
-        reference = Reference(Dummy(), reference_uri)
-        expected = reference_uri
-        self.assertEqual(str(reference), expected)
-
     def test_representation(self):
         reference_uri = URI('ref')
         reference = Reference(Dummy(), reference_uri)
