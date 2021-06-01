@@ -3,6 +3,7 @@ import unittest
 from doubles.black_fennec.structure.double_map import MapMock
 from doubles.double_dummy import Dummy
 from doubles.black_fennec.interpretation.double_interpretation_service import InterpretationServiceMock
+from doubles.black_fennec.type_system.double_template_registry import TemplateRegistryMock
 from src.black_fennec.interpretation.auction.offer import Offer
 from src.black_fennec.structure.map import Map
 from src.black_fennec.structure.string import String
@@ -23,7 +24,9 @@ class FileBidderTestSuite(unittest.TestCase):
         self.assertEqual(offer, expected_offer)
 
     def test_offer_file_like_structure(self):
-        map_bidder = MapBidder(InterpretationServiceMock([]))
+        map_bidder = MapBidder(
+            InterpretationServiceMock([]),
+            TemplateRegistryMock())
         file_bidder = FileBidder()
         subject = Map({
             File.FILE_PATH_KEY: String('file_path'),

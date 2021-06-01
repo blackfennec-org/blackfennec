@@ -10,6 +10,9 @@ class ExtensionMock:
         self.load_count = 0
         self.unload_count = 0
         self.extension_api = None
+        self.name = None
+        self.location = None
+        self.enabled = None
 
     def load(self, extension_api):
         self.load_count += 1

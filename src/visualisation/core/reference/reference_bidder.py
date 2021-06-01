@@ -1,21 +1,13 @@
-from doubles.double_dummy import Dummy
-from src.black_fennec.structure.structure import Structure
-from src.black_fennec.structure.reference import Reference
-from src.black_fennec.structure.template.template_factory_visitor import TemplateFactoryVisitor
-from src.visualisation.core.reference.reference_view_factory import ReferenceViewFactory
-from src.black_fennec.interpretation.auction.offer import Offer
-
 import logging
 
+from src.black_fennec.interpretation.auction.offer import Offer
+from src.black_fennec.structure.structure import Structure
+from src.visualisation.core.reference.reference_template import \
+    ReferenceTemplate
+from src.visualisation.core.reference.reference_view_factory import \
+    ReferenceViewFactory
+
 logger = logging.getLogger(__name__)
-
-
-def create_reference_template():
-    template_factory = TemplateFactoryVisitor()
-    template = Reference(
-        Dummy('ReferenceResolvingService')
-    ).accept(template_factory)
-    return template
 
 
 class ReferenceBidder:
@@ -35,4 +27,4 @@ class ReferenceBidder:
             Offer: that this bidder made on the subject passed.
         """
         logger.info('bidding on object')
-        return Offer(subject, 0, create_reference_template(), self._factory)
+        return Offer(subject, 0, ReferenceTemplate(), self._factory)
