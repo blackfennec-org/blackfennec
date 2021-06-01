@@ -2,7 +2,7 @@
 import unittest
 from typing import Optional
 
-from doubles.black_fennec.structure.double_info import InfoMock
+from doubles.black_fennec.structure.double_structure import StructureMock
 from doubles.black_fennec.structure.encapsulation_base.double_factory_base_visitor import FactoryBaseVisitorMock
 from src.black_fennec.structure.filter.filter_base import FilterBase
 
@@ -10,9 +10,9 @@ from src.black_fennec.structure.filter.filter_base import FilterBase
 class FilterBaseTestSuite(unittest.TestCase):
     def setUp(self):
         self.visitor = FactoryBaseVisitorMock()
-        self.parent = InfoMock()
-        self.root = InfoMock()
-        self.subject = InfoMock(parent=self.parent, root=self.root)
+        self.parent = StructureMock()
+        self.root = StructureMock()
+        self.subject = StructureMock(parent=self.parent, root=self.root)
         self.filter_base: Optional[FilterBase] = FilterBase(self.visitor, self.subject)
 
     def tearDown(self) -> None:

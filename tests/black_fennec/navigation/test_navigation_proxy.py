@@ -8,14 +8,20 @@ from src.black_fennec.navigation.navigation_proxy import NavigationProxy
 
 class NavigationProxyTestSuite(unittest.TestCase):
     def test_create_navigation_proxy(self):
-        interpretation = Dummy('interpretation')
-        navigation_proxy = NavigationProxy(interpretation)
+        navigation_proxy = NavigationProxy()
         self.assertIsNotNone(navigation_proxy)
 
     def test_navigate(self):
+        class Observer:
+            def navigate(self, sender, destination):
+                self.sender = sender
+                self.destination = destination
         sender = Dummy('Interpretation')
-        destination = Dummy('Info')
+        destination = Dummy('Structure')
         interpretation = InterpretationMock()
-        navigation_proxy = NavigationProxy(interpretation)
+        observer = Observer()
+        navigation_proxy = NavigationProxy()
+        navigation_proxy.bind(navigation_request=observer.navigate)
         navigation_proxy.navigate(sender, destination)
-        self.assertListEqual([destination], interpretation.navigation_requests)
+        self.assertEqual(sender, observer.sender)
+        self.assertEqual(destination, observer.destination)

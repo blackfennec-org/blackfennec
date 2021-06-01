@@ -1,28 +1,27 @@
-from collections import UserString
-from src.black_fennec.structure.info import Info
+from src.black_fennec.structure.structure import Structure
 
 
-class String(Info, UserString):
+class String(Structure):
     """Core Type String, represents strings in the domain model."""
 
-    def __init__(self, value: str = ""):
+    def __init__(self, value: str = ''):
         """Construct String with item `item`.
 
         Args:
             value (:obj:`str`, optional): The item of the `String`.
                 By default "" (empty string)
         """
-        Info.__init__(self)
-        UserString.__init__(self, value)
+        Structure.__init__(self)
+        self._value = value
 
     @property
     def value(self):
         """"Property for the item of `String`"""
-        return self.data
+        return self._value
 
     @value.setter
     def value(self, value: str):
-        self.data = value
+        self._value = value
 
     def accept(self, visitor):
         return visitor.visit_string(self)

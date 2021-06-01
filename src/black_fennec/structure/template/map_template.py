@@ -40,9 +40,9 @@ class MapTemplate(MapEncapsulationBase, TemplateBase):
         coverage = Coverage.COVERED
 
         logger.debug(
-            'Calculating map coverage (children=%s, types in template=%s)',
-            len(subject.children),
-            len(subject.children)
+            'Calculating map coverage (value=%s, types in template=%s)',
+            len(subject.value),
+            len(subject.value)
         )
         for key, value in self.value.items():
             if key in subject.value:
@@ -57,7 +57,7 @@ class MapTemplate(MapEncapsulationBase, TemplateBase):
         coverage += Coverage(
             len(subject.value) - len(self.value),
             0
-        )  # workaround
+        )  # TODO workaround
         return coverage
 
     def __repr__(self):

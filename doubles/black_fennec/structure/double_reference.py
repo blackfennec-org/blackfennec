@@ -1,11 +1,12 @@
-from doubles.black_fennec.structure.double_info import InfoMock
+from doubles.black_fennec.structure.double_structure import StructureMock
 from doubles.black_fennec.util.json.double_json_reference_resolving_service import JsonReferenceResolvingServiceMock
 from src.black_fennec.structure.reference import Reference
 
 
-class ReferenceMock(InfoMock):
-    def __init__(self, value=None, children=None, parent=None, root=None, destination=None):
-        InfoMock.__init__(self, value, children, parent, root)
+class ReferenceMock(StructureMock):
+    def __init__(self, value=None, parent=None, root=None, destination=None):
+        StructureMock.__init__(self, value, parent, root)
+        self._json_reference_resolve_service = None
         self._destination = destination
         self.get_destination_count = 0
 

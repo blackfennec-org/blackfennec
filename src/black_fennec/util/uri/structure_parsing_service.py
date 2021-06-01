@@ -15,7 +15,7 @@ logger = logging.getLogger(__name__)
 
 
 class StructureParsingService:
-    """Service parses raw json structure into Info composition"""
+    """Service parses raw json structure into Structure composition"""
 
     JSON_REFERENCE_KEY = '$ref'
 
@@ -39,7 +39,7 @@ class StructureParsingService:
             raw (Any): preparsed JSON
 
         Returns:
-            Info: Subclass of Info
+            Structure: Subclass of Structure
 
         Raises:
             TypeError: If the type contained in the passed json

@@ -4,7 +4,7 @@ Type
 ====
 The domain concept of a type is the emerging property of the three components InfoView_ InfoViewFactory_ and InfoBidder_. Black Fennec never directly interacts with an actual object that is considered the type of a structure. However, in practice we often find type classes to be part of the implementation.
 
-.. attention:: Info might be a synonym for Type
+.. attention:: Structure might be a synonym for Type
 
 .. uml::
 
@@ -31,13 +31,13 @@ The domain concept of a type is the emerging property of the three components In
 
 
 
-.. _definition_info_view:
+.. _definition_structure_view:
 
 InfoView
 """"""""
 This component is the user interface of the "type". It provides the UI for the underlying structure and allows editing it. The InfoView will be entailed in a frame called the interpretation. The active presenter places the interpretation on the screen and defines its size. It is in the responsibility of the InfoView to utilise the given space responsively.
 
-.. caution:: It is highly discouraged to use scrollable views in Info Views. The recommended approach is to leave overflow handling up to the Presenter.
+.. caution:: It is highly discouraged to use scrollable views in Structure Views. The recommended approach is to leave overflow handling up to the Presenter.
 
 
 .. _definition_preview:
@@ -46,17 +46,17 @@ InfoPreview
 """""""""""
 Similar to the view, the preview provides the UI for the underlining structure. The difference between the two is the context in which they are used. The preview is used within lists and values of maps to tease the element.
 
-.. _definition_info_view_factory:
+.. _definition_structure_view_factory:
 
 InfoViewFactory
 """""""""""""""
-The construction of an InfoView might be complicated. The information is expected to be encapsulated in a Creator [#]_. The creator must be registered via the extension api and is used by Black Fennec to instantiate Info Views when needed. The document on interpretation provides more details on this process.
+The construction of an InfoView might be complicated. The information is expected to be encapsulated in a Creator [#]_. The creator must be registered via the extension api and is used by Black Fennec to instantiate Structure Views when needed. The document on interpretation provides more details on this process.
 
-.. _definition_info_bidder:
+.. _definition_structure_bidder:
 
 InfoBidder
 """"""""""
-The bidders job is to evaluate how good - if at all - the associated type is able to represent a given data structure. The result is forwarded to the auctioneer as the bid of this type. If the bid wins the auction the info view will be displayed by the active presenter.
+The bidders job is to evaluate how good - if at all - the associated type is able to represent a given data structure. The result is forwarded to the auctioneer as the bid of this type. If the bid wins the auction the structure view will be displayed by the active presenter.
 
 For an overview of the selection process click :ref:`here <definition_selection_process>`
 

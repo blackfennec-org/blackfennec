@@ -1,7 +1,7 @@
 import logging
 
 from src.black_fennec.interpretation.interpretation import Interpretation
-from src.black_fennec.structure.info import Info
+from src.black_fennec.structure.structure import Structure
 from src.black_fennec.structure.reference import Reference
 
 logger = logging.getLogger(__name__)
@@ -20,11 +20,11 @@ class ReferenceViewModel:
             TypeError: if passed Interpretation does not contain a Reference.
         """
         self._interpretation = interpretation
-        interpretation_info = interpretation.info
-        if isinstance(interpretation_info, Reference):
-            self._reference: Reference = interpretation_info
+        interpretation_structure = interpretation.structure
+        if isinstance(interpretation_structure, Reference):
+            self._reference: Reference = interpretation_structure
         else:
-            message = 'Info contained in Interpretation has to be' \
+            message = 'Structure contained in Interpretation has to be' \
                       ' of type Reference'
             logger.error(message)
             raise TypeError(message)
@@ -34,5 +34,5 @@ class ReferenceViewModel:
         """Readonly property for value."""
         return self._reference
 
-    def navigate_to(self, route_target: Info):
+    def navigate_to(self, route_target: Structure):
         self._interpretation.navigate(route_target)

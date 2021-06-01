@@ -10,9 +10,9 @@ class FilterFactoryVisitor(BaseFactoryVisitor):
     """Filter Factory Visitor
 
     Class is a concrete factory which produces Filter based
-        info encapsulations. Only few methods are overwritten
+        structure encapsulations. Only few methods are overwritten
         which require specialised functionality. For all other
-        info types the abstract factory implementation suffices.
+        structure types the abstract factory implementation suffices.
     """
     def __init__(self, metadata_storage: dict = None):
         BaseFactoryVisitor.__init__(self, FilterBase)
@@ -24,12 +24,12 @@ class FilterFactoryVisitor(BaseFactoryVisitor):
         """Metadata storage getter.
 
         Is used to keep track of the decoration attributes for
-            the respecting encapsulated info. The info functions
+            the respecting encapsulated structure. The structure functions
             as key in the dictionary.
 
         Returns:
              dict: dictionary containing values that belong to
-                a specific encapsulated info, which is used as
+                a specific encapsulated structure, which is used as
                 key in the dictionary.
         """
         return self._metadata_storage

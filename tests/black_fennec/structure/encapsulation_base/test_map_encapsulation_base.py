@@ -1,12 +1,12 @@
 import unittest
 from typing import Optional
 
-from doubles.black_fennec.structure.double_info import InfoMock
+from doubles.black_fennec.structure.double_structure import StructureMock
 from doubles.black_fennec.structure.encapsulation_base.double_factory_base_visitor import FactoryBaseVisitorMock
 from src.black_fennec.structure.encapsulation_base.encapsulation_base import EncapsulationBase
 from src.black_fennec.structure.encapsulation_base.map_encapsulation_base import MapEncapsulationBase
 from src.black_fennec.structure.encapsulation_base.base_factory_visitor import _create_generic_class
-from src.black_fennec.structure.info import Info
+from src.black_fennec.structure.structure import Structure
 from src.black_fennec.structure.map import Map
 from src.black_fennec.structure.root import Root
 
@@ -31,31 +31,31 @@ class MapEncapsulationBaseTestSuite(unittest.TestCase):
 
     def test_get_item(self):
         key = 'test'
-        value = InfoMock('test_value')
-        self.subject[key] = value
+        value = StructureMock('test_value')
+        self.subject.add_item(key, value)
         map_encapsulation: Optional[MapEncapsulationBase] = MapEncapsulationBase(self.visitor, self.subject)
-        get = map_encapsulation[key]
+        get = map_encapsulation.value[key]
         self.assertEqual(get, value)
-        self.assertEqual(self.visitor.info, value)
-        self.assertEqual(self.visitor.visit_info_count, 1)
+        self.assertEqual(self.visitor.structure, value)
+        self.assertEqual(self.visitor.visit_structure_count, 1)
 
     def test_set_item(self):
         key = 'test'
-        value = InfoMock('test_value')
-        self.map_encapsulation_base[key] = value
-        self.assertEqual(value, self.map_encapsulation_base[key])
+        value = StructureMock('test_value')
+        self.map_encapsulation_base.add_item(key, value)
+        self.assertEqual(value, self.map_encapsulation_base.value[key])
 
     def test_set_item_already_encapsulated(self):
         key = 'test'
-        value = InfoMock('test_value')
-        template_class = _create_generic_class(EncapsulationBase, Info)
+        value = StructureMock('test_value')
+        template_class = _create_generic_class(EncapsulationBase, Structure)
         encapsulated = template_class(self.visitor, value)
-        self.map_encapsulation_base[key] = encapsulated
-        self.assertEqual(value, self.map_encapsulation_base[key])
+        self.map_encapsulation_base.add_item(key, encapsulated)
+        self.assertEqual(value, self.map_encapsulation_base.value[key])
 
     def test_get_value(self):
         key = 'test'
-        subject_content = InfoMock('test')
+        subject_content = StructureMock('test')
         subject = Map({key: subject_content})
         subject.parent = Root(subject)
         map_encapsulation_base = MapEncapsulationBase(
@@ -71,24 +71,9 @@ class MapEncapsulationBaseTestSuite(unittest.TestCase):
 
     def test_set_value(self):
         key = 'test'
-        value = InfoMock('test')
+        value = StructureMock('test')
         self.map_encapsulation_base.value = {key: value}
-        self.assertEqual(value, self.map_encapsulation_base[key])
-
-    def test_get_children(self):
-        key = 'test'
-        value = InfoMock('test_value')
-        self.subject[key] = value
-        map_encapsulation: Optional[MapEncapsulationBase] = MapEncapsulationBase(self.visitor, self.subject)
-        children = map_encapsulation.children
-        self.assertEqual(len(children), 1)
-        self.assertEqual(self.visitor.info, value)
-        self.assertEqual(self.visitor.visit_info_count, 1)
-
-    def test_get_empty_children(self):
-        children = self.map_encapsulation_base.children
-        self.assertEqual(len(children), 0)
-        self.assertEqual(self.visitor.visit_info_count, 0)
+        self.assertEqual(value, self.map_encapsulation_base.value[key])
 
     def test_can_get_repr(self):
         representation: str = self.map_encapsulation_base.__repr__()

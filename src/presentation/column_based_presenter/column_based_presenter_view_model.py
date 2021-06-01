@@ -1,10 +1,12 @@
 # -*- coding: utf-8 -*-
 import logging
 
-from src.black_fennec.structure.info import Info
+from src.black_fennec.structure.structure import Structure
 from src.black_fennec.interpretation.interpretation import Interpretation
 from src.black_fennec.interpretation.interpretation_service import InterpretationService
 from src.black_fennec.navigation.navigation_service import NavigationService
+from src.black_fennec.structure.overlay.overlay_factory_visitor import OverlayFactoryVisitor
+from src.black_fennec.structure.root import Root
 from src.black_fennec.util.observable import Observable
 
 logger = logging.getLogger(__name__)
@@ -45,10 +47,18 @@ class ColumnBasedPresenterViewModel(Observable):
         self._interpretation_service = interpretation_service
         self._navigation_service = navigation_service
 
+    def set_structure(
+            self,
+            structure: Structure
+    ):
+        visitor = OverlayFactoryVisitor()
+        overlay = structure.accept(visitor)
+        self.show(None, overlay)
+
     def show(
             self,
             sender: Interpretation,
-            info: Info):
+            structure: Structure):
         """Show of interpretation.
 
         Procedure invoked by navigation service to navigate
@@ -56,11 +66,12 @@ class ColumnBasedPresenterViewModel(Observable):
 
         Args:
             sender (Interpretation): interpretation calling navigation
-            info (Info): info corresponding with interpretation_service
+            structure (Structure): structure corresponding
+                with interpretation_service
         """
-        logger.debug('show info (%s) for sender (%s)', info, sender)
+        logger.debug('show structure (%s) for sender (%s)', structure, sender)
         self._try_cut_interpretations_at(sender)
-        interpretation = self._interpretation_service.interpret(info)
+        interpretation = self._interpretation_service.interpret(structure)
         interpretation.set_navigation_service(self._navigation_service)
         self._add_interpretation(interpretation)
 

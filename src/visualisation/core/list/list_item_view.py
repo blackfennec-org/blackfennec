@@ -1,45 +1,59 @@
-from gi.repository import Gtk
+import logging
+
+from gi.repository import GObject, Gtk
 from src.black_fennec.interpretation.interpretation import Interpretation
-from src.black_fennec.structure.info import Info
+from src.black_fennec.structure.structure import Structure
+from src.visualisation.core.list.list_view_model import ListViewModel
+
+logger = logging.getLogger(__name__)
 
 
 @Gtk.Template(filename='src/visualisation/core/list/list_item_view.glade')
 class ListItemView(Gtk.Bin):
     """View for a single list item."""
     __gtype_name__ = 'ListItemView'
+    _item_row: Gtk.Box = Gtk.Template.Child()
     _preview_container: Gtk.Bin = Gtk.Template.Child()
     _popover = Gtk.Template.Child()
-    _add_popover = Gtk.Template.Child()
 
     def __init__(self,
             preview: Interpretation,
-            delete_handler,
-            add_handler,
-            preview_click_handler):
+            view_model: ListViewModel):
         """Create list item view
 
         Args:
-            preview (:obj:`Interpretation`): The preview
-            preview_click_handler: A handler that is called
-                when the list item is pressed
+            preview (Interpretation): The preview
+            view_model (ListViewModel): view model
         """
         super().__init__()
 
         self._preview = preview
-        self._delete_handler = delete_handler
-        self._add_handler = add_handler
-        self._preview_click_handler = preview_click_handler
+        self._view_model = view_model
 
         self._preview_container.add(self._preview.view)
 
     @property
-    def item(self) -> Info:
+    def item(self) -> Structure:
         """Readonly property for the item"""
-        return self._preview.info
+        return self._preview.structure
+    
+    @property
+    def selected(self):
+        return self._selected
+
+    @selected.setter
+    def selected(self, value):
+        self._selected = value
+        style = self._item_row.get_style_context()
+        if self.selected:
+            style.add_class('is-active')
+        else:
+            style.remove_class('is-active')
+
 
     def on_preview_clicked(self, unused_sender) -> None:
         """Callback for the button click event"""
-        self._preview_click_handler(self, self._preview.info)
+        self._view_model.navigate_to(self._preview.structure)
 
     @Gtk.Template.Callback()
     def _on_button_click(self, sender, event):
@@ -50,20 +64,17 @@ class ListItemView(Gtk.Bin):
 
     @Gtk.Template.Callback()
     def _on_option_clicked(self, sender):
+        """Handler for option clicked on popover
+
+        Args:
+            sender: popover
+        """
         button = sender.props.text
         if button == 'Delete':
-            self._delete_handler(self)
+            self._delete_request_handler(self)
         else:
-            self._popover.popdown()
-            self._add_popover.set_relative_to(self)
-            self._add_popover.popup()
+            message = f'Unknown button({button}) clicked by {sender}'
+            logger.warning(message)
 
-    @Gtk.Template.Callback()
-    def on_add_clicked(self, unused_sender):
-        self._add_popover.popdown()
-        self._add_handler(None)
-
-    @Gtk.Template.Callback()
-    def on_cancel_clicked(self, unused_sender):
-        self._add_popover.popdown()
-
+    def _delete_request_handler(self, sender):
+        self._view_model.delete_item(sender.item)
