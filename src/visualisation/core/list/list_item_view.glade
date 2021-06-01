@@ -97,7 +97,6 @@
     </child>
     <style>
       <class name="item-view-popup"/>
-      <class name="popup"/>
     </style>
   </object>
 </interface>
