@@ -38,7 +38,6 @@ class MapView(Gtk.Bin):
         self._update_value(self, self._view_model.value)
         logger.info('MapView created')
 
-
     def _add_item(self, key, structure):
         preview = self._view_model.create_preview(structure)
         item = MapItemView(

@@ -52,10 +52,6 @@ class Reference(Structure):
                 self
             )
 
-    def __str__(self) -> str:
-        """Convert to string"""
-        return str(self.value)
-
     def __repr__(self) -> str:
         """Create representation for pretty printing"""
         return f'Reference({self.value})'

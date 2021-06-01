@@ -4,7 +4,7 @@ from src.black_fennec.interpretation.specification import Specification
 from src.black_fennec.interpretation.auction.offer import Offer
 
 logger = logging.getLogger(__name__)
-
+logger.setLevel(logging.DEBUG)
 
 class Auctioneer:
     """A service to find the best offer, Auctioneer.

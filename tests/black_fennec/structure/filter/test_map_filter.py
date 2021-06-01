@@ -1,7 +1,7 @@
 import unittest
 
 from doubles.black_fennec.structure.double_structure import StructureMock
-from src.black_fennec.structure.encapsulation_base import _create_generic_class
+from src.black_fennec.structure.encapsulation_base.base_factory_visitor import _create_generic_class
 from src.black_fennec.structure.filter.filter_base import FilterBase
 from src.black_fennec.structure.filter.filter_factory_visitor import FilterFactoryVisitor
 from src.black_fennec.structure.map import Map

@@ -1,9 +1,6 @@
 from src.black_fennec.structure.encapsulation_base.base_factory_visitor import BaseFactoryVisitor
-from src.black_fennec.structure.list import List
-from src.black_fennec.structure.map import Map
-from src.black_fennec.structure.overlay.list_overlay import ListOverlay
-from src.black_fennec.structure.overlay.map_overlay import MapOverlay
 from src.black_fennec.structure.overlay.overlay_base import OverlayBase
+from src.black_fennec.structure.reference import Reference
 
 
 class OverlayFactoryVisitor(BaseFactoryVisitor):
@@ -17,8 +14,8 @@ class OverlayFactoryVisitor(BaseFactoryVisitor):
     def __init__(self):
         BaseFactoryVisitor.__init__(self, OverlayBase)
 
-    def visit_map(self, subject_map: Map):
-        return MapOverlay(self, subject_map)
-
-    def visit_list(self, subject_list: List):
-        return ListOverlay(self, subject_list)
+    def visit_reference(self, subject_reference: Reference):
+        try:
+            return subject_reference.destination.accept(self)
+        except Exception as e:
+            return subject_reference

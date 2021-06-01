@@ -17,10 +17,12 @@ logger = logging.getLogger(__name__)
 class MapViewModel(Observable):
     """View model for core type Map."""
 
-    def __init__(self,
-            interpretation: Interpretation,
-            interpretation_service: InterpretationService,
-            template_registry: TemplateRegistry ):
+    def __init__(
+        self,
+        interpretation: Interpretation,
+        interpretation_service: InterpretationService,
+        template_registry: TemplateRegistry
+    ):
         """Create with value empty map.
 
         Args:
@@ -36,6 +38,7 @@ class MapViewModel(Observable):
         self._interpretation_service = interpretation_service
         self._template_registry = template_registry
         self._map: Map = self._interpretation.structure
+        logger.debug('Showing view for ' + str(self._map))
 
     @property
     def value(self):

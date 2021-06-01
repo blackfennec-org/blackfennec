@@ -36,8 +36,8 @@ class BlackFennecViewModel(Observable):
         """BlackFennecViewModel constructor.
 
         Args:
-            presenter (StructurePresenter): presenter
-            presenter (navigation_service): navigation service
+            presenter_factory (StructurePresenterFactory): presenter
+            interpretation_service (InterpretationService): interpretation service
         """
         logger.info('BlackFennecViewModel __init__')
         super().__init__()
@@ -66,7 +66,7 @@ class BlackFennecViewModel(Observable):
         navigation_service.set_presenter(presenter)
         tab = Tab(presenter_view, uri, structure)
         self.tabs.add(tab)
-        navigation_service.navigate(None, structure)
+        presenter.set_structure(structure)
         self._notify(self.tabs, 'tabs')
 
     def close_tab(self, filename):
