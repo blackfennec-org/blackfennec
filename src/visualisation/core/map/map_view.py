@@ -25,11 +25,10 @@ class MapView(Gtk.Bin):
             view_model (:obj:`MapViewModel`): The view_model.
         """
         super().__init__()
-        self._value_set: set = set()
+        self._value: dict = dict()
         self._items: dict = dict()
         self._item_interpretation_mapping = dict()
         self._currently_selected = None
-        
         self._view_model = view_model
         self._view_model.bind(
             value=self._update_value,
@@ -44,12 +43,16 @@ class MapView(Gtk.Bin):
             key, preview,
             self._view_model)
         self._items[key] = item
-        self._item_container.add(item)
         self._item_interpretation_mapping[preview] = item
+        self._item_container.add(item)
 
     def _remove_item(self, key):
         item = self._items.pop(key)
         self._item_container.remove(item)
+
+    def _set_item_position(self, key, position):
+        item = self._items[key]
+        self._item_container.reorder_child(item, position)
 
     def _update_value(self, unused_sender, new_value):
         """Observable handler for value
@@ -58,15 +61,15 @@ class MapView(Gtk.Bin):
             unused_sender: view model
             new_value: set by view model
         """
-        value_set = set(new_value.value)
-        intersection = self._value_set.intersection(value_set)
-        to_be_added = value_set.difference(intersection)
-        for key in to_be_added:
-            self._add_item(key, new_value.value[key])
-        to_be_deleted = self._value_set.difference(intersection)
-        for key in to_be_deleted:
-            self._remove_item(key)
-        self._value_set = value_set
+        for key in self._value:
+            if not key in new_value.value:
+                self._remove_item(key)
+
+        for i, (key, value) in enumerate(new_value.value.items()):
+            if not key in self._value:
+                self._add_item(key, value)
+            self._set_item_position(key, i)
+        self._value = new_value.value
 
     def _preview_click_handler(self):
         logger.warning('preview clicked handler is deprecated')
@@ -123,7 +126,7 @@ class MapView(Gtk.Bin):
         template = self._get_template_by_string(
             self._template_box.get_active_text())
         self._view_model.add_by_template(key, template)
-    
+
     @Gtk.Template.Callback()
     def _cancel_clicked(self, unused_sender):
         self._add_popover.popdown()
