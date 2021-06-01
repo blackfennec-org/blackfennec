@@ -57,7 +57,7 @@ class MapTemplate(MapEncapsulationBase, TemplateBase):
         coverage += Coverage(
             len(subject.value) - len(self.value),
             0
-        )  # workaround
+        )  # TODO workaround
         return coverage
 
     def __repr__(self):
