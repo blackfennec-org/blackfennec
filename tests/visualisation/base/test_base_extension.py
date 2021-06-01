@@ -10,8 +10,9 @@ class BaseExtensionTestSuite(unittest.TestCase):
     def setUp(self) -> None:
         self.type_registry = TypeRegistryMock()
         self.extension_api = ExtensionApi(
-            type_registry=self.type_registry,
             presenter_registry=Dummy('PresenterRegistry'),
+            type_registry=self.type_registry,
+            template_registry=Dummy('TemplateRegistry'),
             interpretation_service=Dummy('InterpretationService'),
         )
 

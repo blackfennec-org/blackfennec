@@ -10,8 +10,9 @@ class Column_based_presenterExtensionTestSuite(unittest.TestCase):
     def setUp(self) -> None:
         self.presenter_registry = PresenterRegistryMock()
         self.extension_api = ExtensionApi(
-            type_registry=Dummy('typeRegistry'),
             presenter_registry=self.presenter_registry,
+            type_registry=Dummy('TypeRegistry'),
+            template_registry=Dummy('TemplateRegistry'),
             interpretation_service=Dummy('InterpretationService')
         )
 

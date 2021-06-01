@@ -2,11 +2,14 @@ import logging
 
 from uri import URI
 
+from src.black_fennec.facade.extension_store.extension_store_view_model import ExtensionStoreViewModel
 from src.black_fennec.navigation.navigation_service import NavigationService
 from src.black_fennec.util.observable import Observable
 from src.black_fennec.structure.structure import Structure
 from src.black_fennec.util.uri.structure_encoding_service import StructureEncodingService
 from src.black_fennec.facade.main_window.tab import Tab
+from src.extension.extension_api import ExtensionApi
+from src.extension.extension_source_registry import ExtensionSourceRegistry
 
 logger = logging.getLogger(__name__)
 
@@ -22,10 +25,14 @@ class BlackFennecViewModel(Observable):
         _navigation_service (NavigationService): stores injected
             navigation service
     """
-    def __init__(self,
+    def __init__(
+            self,
             presenter_factory,
             interpretation_service,
-            uri_import_service):
+            uri_import_service,
+            extension_api: ExtensionApi,
+            extension_source_registry: ExtensionSourceRegistry
+    ):
         """BlackFennecViewModel constructor.
 
         Args:
@@ -37,6 +44,8 @@ class BlackFennecViewModel(Observable):
         self._presenter_factory = presenter_factory
         self._interpretation_service = interpretation_service
         self._uri_import_service = uri_import_service
+        self._extension_api = extension_api
+        self._extension_source_registry = extension_source_registry
         self.tabs = set()
 
     def new(self):
@@ -86,9 +95,11 @@ class BlackFennecViewModel(Observable):
         """Future implementation of save_as()"""
         logger.warning('save_as() not yet implemented')
 
-    def go_to_store(self):
-        """Future implementation of go_to_store()"""
-        logger.warning('go_to_store() not yet implemented')
+    def create_extension_store(self) -> ExtensionStoreViewModel:
+        return ExtensionStoreViewModel(
+            self._extension_source_registry,
+            self._extension_api
+        )
 
     def about_and_help(self):
         """Future implementation of about_and_help()"""

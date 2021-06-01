@@ -2,13 +2,16 @@ from numbers import Number
 
 from src.black_fennec.interpretation.auction.coverage import Coverage
 from src.black_fennec.structure.boolean import Boolean
-from src.black_fennec.structure.encapsulation_base.encapsulation_base import EncapsulationBase
-from src.black_fennec.structure.structure import Structure
+from src.black_fennec.structure.encapsulation_base.encapsulation_base import \
+    EncapsulationBase
 from src.black_fennec.structure.list import List
 from src.black_fennec.structure.map import Map
 from src.black_fennec.structure.reference import Reference
 from src.black_fennec.structure.root import Root
 from src.black_fennec.structure.string import String
+from src.black_fennec.structure.structure import Structure
+from src.black_fennec.structure.visitors.deep_copy_visitor import \
+    DeepCopyVisitor
 
 
 class TemplateBase(EncapsulationBase):
@@ -65,7 +68,18 @@ class TemplateBase(EncapsulationBase):
         return Coverage.NOT_COVERED
 
     def calculate_coverage(self, subject):
+        """calculate the coverage of subject by this template
+
+        Args:
+            subject (Info): The subject which should be covered
+
+        Returns:
+            Coverage: The coverage report.
+        """
         return subject.accept(self)
+
+    def create_structure(self):
+        return self.subject.accept(DeepCopyVisitor())
 
     def __repr__(self):
         return f'TemplateBase({self.subject.__repr__()})'

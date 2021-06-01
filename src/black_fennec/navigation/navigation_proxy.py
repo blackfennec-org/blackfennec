@@ -1,16 +1,17 @@
 # -*- coding: utf-8 -*-
 import logging
+from src.black_fennec.util.observable import Observable
 from src.black_fennec.structure.structure import Structure
 from src.black_fennec.interpretation.interpretation import Interpretation
 
 logger = logging.getLogger(__name__)
 
-class NavigationProxy:
+class NavigationProxy(Observable):
     """A proxy for navigation requests.
 
     The navigation proxy dispatches requests to another interpretation.
     """
-    def __init__(self, interpretation: Interpretation):
+    def __init__(self):
         """Construct NavigationProxy.
 
         Args:
@@ -18,16 +19,16 @@ class NavigationProxy:
                 requests are dispatched. In the end, the navigation service
                 configured in the interpretation is used.
         """
-        self._interpretation = interpretation
+        Observable.__init__(self)
 
-    def navigate(self, unused_sender: Interpretation, destination: Structure):
+    def navigate(self, sender: Interpretation, destination: Structure):
         """Navigate to destination, sender is ignored.
 
         This function dispatches the navigation request to the configured
         interpretation, discarding the sender
 
         Args:
-            unused_sender (Interpretation): Ignored
+            sender (Interpretation): Ignored
             destination (Structure): destination which will be passed on
         """
-        self._interpretation.navigate(destination)
+        self._notify(destination, 'navigation_request', sender)

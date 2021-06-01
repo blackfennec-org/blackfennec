@@ -1,5 +1,6 @@
 import unittest
 
+from doubles.black_fennec.type_system.double_template_registry import TemplateRegistryMock
 from doubles.double_dummy import Dummy
 from doubles.presentation.double_structure_presenter import StructurePresenterMock
 from doubles.black_fennec.interpretation.double_interpretation_service import InterpretationServiceMock
@@ -21,28 +22,31 @@ class NavigationOnViewModelResultsInNavigationInPresenterTestSuite(
         unittest.TestCase):
 
     def setUp(self):
-        registry = TypeRegistry()
+        type_registry = TypeRegistry()
         interpretation_service = InterpretationServiceMock([])
-        registry.register_type(BooleanBidder())
-        registry.register_type(NumberBidder())
-        registry.register_type(StringBidder())
-        registry.register_type(ListBidder(interpretation_service))
-        registry.register_type(MapBidder(interpretation_service))
+        template_registry = TemplateRegistryMock()
+        type_registry.register_type(BooleanBidder())
+        type_registry.register_type(NumberBidder())
+        type_registry.register_type(StringBidder())
+        type_registry.register_type(
+            ListBidder(interpretation_service, template_registry))
+        type_registry.register_type(
+            MapBidder(interpretation_service, template_registry))
         self.presenter = StructurePresenterMock()
         self.navigation_service = NavigationService()
         self.navigation_service.set_presenter(self.presenter)
-
-    def tearDown(self) -> None:
-        self.registry = None
-        self.auctioneer = None
 
     def test_map_can_navigate(self):
         structure = Map()
         interpretation = Interpretation(
             structure, Dummy('specification'), Dummy('factoires'))
         interpretation.set_navigation_service(self.navigation_service)
-        interpretation_service = Dummy('interpretation service')
-        map_view_model = MapViewModel(interpretation, interpretation_service)
+        interpretation_service = Dummy('InterpretationService')
+        template_registry = TemplateRegistryMock()
+        map_view_model = MapViewModel(
+            interpretation,
+            interpretation_service,
+            template_registry)
         map_view_model.navigate_to(Map())
         self.assertEqual(self.presenter.show_count, 1)
 
@@ -51,7 +55,12 @@ class NavigationOnViewModelResultsInNavigationInPresenterTestSuite(
         interpretation = Interpretation(
             structure, Dummy('specification'), Dummy('factoires'))
         interpretation.set_navigation_service(self.navigation_service)
-        interpretation_service = Dummy('interpretation service')
-        list_view_model = ListViewModel(interpretation, interpretation_service)
+        interpretation_service = Dummy('InterpretationService')
+        template_registry = Dummy('TemplateRegistry')
+        list_view_model = ListViewModel(
+            interpretation,
+            interpretation_service,
+            template_registry
+        )
         list_view_model.navigate_to(List())
         self.assertEqual(self.presenter.show_count, 1)

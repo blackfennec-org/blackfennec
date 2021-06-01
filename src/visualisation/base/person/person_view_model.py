@@ -22,6 +22,7 @@ class PersonViewModel:
             message = 'interpretation received should be of' \
                       ' super type Map, but is of type %s'
             logger.warning(message, type(interpretation.structure))
+        self._interpretation = interpretation
         self._model: Person = Person(interpretation.structure)
 
     @property
@@ -104,3 +105,6 @@ class PersonViewModel:
     @nationality.setter
     def nationality(self, value: str):
         self._model.nationality = value
+
+    def navigate(self):
+        self._interpretation.navigate(self._interpretation.structure)

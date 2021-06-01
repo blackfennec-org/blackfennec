@@ -4,13 +4,15 @@ import tempfile
 import unittest
 from urllib import request as req
 
-from uri import URI
-
 from src.black_fennec.util.deep_compare.deep_compare import DeepCompare
-from src.black_fennec.util.uri.structure_parsing_service import StructureParsingService
+from src.black_fennec.util.uri.structure_parsing_service import \
+    StructureParsingService
 from src.black_fennec.util.uri.uri_import_service import UriImportService
-from src.black_fennec.util.uri.uri_import_strategy_factory import UriImportStrategyFactory
-from src.black_fennec.util.uri.uri_loading_strategy_factory import UriLoadingStrategyFactory
+from src.black_fennec.util.uri.uri_import_strategy_factory import \
+    UriImportStrategyFactory
+from src.black_fennec.util.uri.uri_loading_strategy_factory import \
+    UriLoadingStrategyFactory
+from uri import URI
 
 
 class UriImportServiceIntegrationTestSuite(unittest.TestCase):
