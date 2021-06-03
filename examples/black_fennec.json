@@ -1,56 +1,56 @@
 {
-    "Logo": {
-        "file_path": "examples/logo.jpg",
-        "file_type": "image/jpg"
+  "Logo": {
+    "file_path": "examples/logo.jpg",
+    "file_type": "image/jpg"
+  },
+  "Project Name": "Black Fennec",
+  "Is Active": true,
+  "Project Duration": {
+    "date_time_start": "2021-02-16T15:50:00",
+    "date_time_end": "2021-05-25T15:50:00"
+  },
+  "Members": [
+    {
+      "First Name": "Caspar",
+      "Last Name": "Martens"
     },
-    "Project Name": "Black Fennec",
-    "Is Active": true,
-    "Project Duration": {
-        "date_time_start": "2021-02-16T15:50:00",
-        "date_time_end": "2021-05-25T15:50:00"
+    {
+      "First Name": "Lara",
+      "Last Name": "Gubler"
     },
-    "Members": [
-        {
-            "First Name": "Caspar",
-            "Last Name": "Martens"
-        },
-        {
-            "First Name": "Lara",
-            "Last Name": "Gubler"
-        },
-        {
-            "First Name": "Leonie",
-            "Last Name": "Däullary"
-        },
-        {
-            "First Name": "Simon",
-            "Last Name": "Kindhauser"
-        }
-    ],
-    "Roles": {
-        "Quality Control": {
-            "$ref": "#/Members/0"
-        },
-        "Scrum Master": {
-            "$ref": "#/Members/1"
-        },
-        "User Experience": {
-            "$ref": "#/Members/2"
-        },
-        "Product Owner": {
-            "$ref": "#/Members/3"
-        }
+    {
+      "First Name": "Leonie",
+      "Last Name": "D\u00e4ullary"
     },
-    "FAQ" : [
-        {
-            "Question": "Answer to everything?",
-            "Answer": 42,
-            "Is this true?": false
-        },
-        {
-            "Question": "How many hours per sprint?",
-            "Answer": 16,
-            "Is this true?": true
-       }
-    ]
+    {
+      "First Name": "Simon",
+      "Last Name": "Kindhauser"
+    }
+  ],
+  "Roles": {
+    "Quality Control": {
+      "$ref": "#/Members/0"
+    },
+    "Scrum Master": {
+      "$ref": "#/Members/1"
+    },
+    "User Experience": {
+      "$ref": "#/Members/2"
+    },
+    "Product Owner": {
+      "$ref": "#/Members/3"
+    }
+  },
+  "FAQ": [
+    {
+      "Question": "Answer to everything?",
+      "Answer": 42,
+      "Is this true?": false
+    },
+    {
+      "Question": "How many hours per sprint?",
+      "Answer": 16,
+      "Is this true?": true
+    }
+  ]
 }

@@ -30,7 +30,7 @@ class ImagePreview(Gtk.Bin):
     def _set_image_from_path(self, file_path) -> None:
         try:
             pixbuf = self._get_pixbuf(file_path)
-            pixbuf = self._rescale_pixbuf(pixbuf, 200)
+            pixbuf = self._rescale_pixbuf(pixbuf, 100)
             self._set_image(pixbuf)
         except Exception as e:
             logger.warning(e)
@@ -67,7 +67,7 @@ class ImagePreview(Gtk.Bin):
         file_path = self._view_model.file_path
         pixbuf = self._get_pixbuf(file_path)
         width = self.get_allocation().width
-        scaled_pixbuf = self._rescale_pixbuf(pixbuf, width - 100)
+        scaled_pixbuf = self._rescale_pixbuf(pixbuf, width - 50)
         self._set_image(scaled_pixbuf)
 
     @Gtk.Template.Callback()
