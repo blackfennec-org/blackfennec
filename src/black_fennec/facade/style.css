@@ -46,6 +46,7 @@ background-color: @silver;
 border-image: none;
 background-image: none;
 box-shadow: none;
+text-shadow: none;
 font-family: Ubuntu;
 }
 
@@ -266,6 +267,30 @@ text-decoration: none;
 border-style: solid;
 border-color: @rocky;
 border-width: 0px 2px 0px 0px;
+}
+
+.add-item *{
+text-shadow: none;
+}
+
+.add-item button{
+background-color: @iron-l;
+}
+
+.add-item button:hover label{
+color: @silver;
+}
+
+.add-item button:hover{
+background-color: @green;
+}
+
+.add-item button:hover label{
+color: @jet;
+}
+
+.add-item label{
+
 }
 
 .main-main-grid label{

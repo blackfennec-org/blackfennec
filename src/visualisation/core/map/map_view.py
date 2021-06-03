@@ -114,7 +114,7 @@ class MapView(Gtk.Bin):
         raise KeyError(message)
 
     @Gtk.Template.Callback()
-    def _add_item_clicked(self, unused_sender, unused_event):
+    def _add_item_clicked(self, unused_sender):
         self._add_popover.set_relative_to(self._add_item_row)
         self._setup_template_store()
         self._add_popover.popup()
