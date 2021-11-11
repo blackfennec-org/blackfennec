@@ -32,7 +32,8 @@ class ExtensionSourceRegistry:
         """Function to register a new extension source
 
             Args:
-                extension_source (ExtensionSource): future element of the extension source list
+                extension_source (ExtensionSource): future
+                    element of the extension source list
         """
         self._extension_sources.add(extension_source)
 
@@ -40,7 +41,8 @@ class ExtensionSourceRegistry:
         """Function to deregister a extension_source from the registry
 
         Args:
-            extension_source (ExtensionSource): element in the extension source registry
+            extension_source (ExtensionSource): element in the
+                extension source registry
 
         """
         self._extension_sources.remove(extension_source)

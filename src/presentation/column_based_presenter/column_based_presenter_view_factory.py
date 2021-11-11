@@ -5,6 +5,7 @@ from src.presentation.column_based_presenter.column_based_presenter_view_model i
 
 class ColumnBasedPresenterViewFactory:
     """Creator or the ColumnBasedPresenterView"""
+
     def __init__(self, interpretation_service):
         self._interpretation_service = interpretation_service
 

@@ -2,7 +2,6 @@ import os
 
 import gi
 
-
 gi.require_version('Gtk', '3.0')
 
 # pylint: disable=wrong-import-position,ungrouped-imports
@@ -31,6 +30,7 @@ from src.black_fennec.facade.main_window.black_fennec_view import BlackFennecVie
 from src.black_fennec.facade.splash_screen.splash_screen_view import SplashScreenView
 from src.black_fennec.type_system.template_registry import TemplateRegistry
 from src.extension.extension_source_registry import ExtensionSourceRegistry
+
 # pylint: enable=wrong-import-position
 
 logging.basicConfig(level=logging.WARNING)
@@ -78,7 +78,7 @@ def default_initialise_extensions(
     ])
 
     raw = encoding_service.encode(source_list)
-    with open(path, 'w') as file:
+    with open(path, 'w', encoding='utf-8') as file:
         file.write(raw)
 
 
@@ -123,8 +123,10 @@ def load_extensions_from_file(
             extension_source
         )
 
+
 class BlackFennec(Gtk.Application):
     """BlackFennec Main Window GTK Application"""
+
     def __init__(self):
         super().__init__(
             application_id='org.darwin.blackfennec')

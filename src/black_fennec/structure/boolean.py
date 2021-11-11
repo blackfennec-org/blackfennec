@@ -25,7 +25,7 @@ class Boolean(Structure):
 
     def __repr__(self) -> str:
         """Create representation for pretty printing"""
-        return 'Boolean(%s)' % self._value
+        return f'Boolean({self._value})'
 
     def accept(self, visitor):
         return visitor.visit_boolean(self)

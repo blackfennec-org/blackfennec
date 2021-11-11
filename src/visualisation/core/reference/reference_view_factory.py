@@ -24,7 +24,7 @@ class ReferenceViewFactory:
         return specification.is_request_for_preview
 
     def create(self, interpretation: Interpretation,
-            specification: Specification) -> ReferencePreview:
+               specification: Specification) -> ReferencePreview:
         """creates a ReferenceView
 
         Args:

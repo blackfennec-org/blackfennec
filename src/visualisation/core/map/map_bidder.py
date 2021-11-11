@@ -13,11 +13,11 @@ logger = logging.getLogger(__name__)
 
 class MapBidder:
     """The bidding service for the core type Map."""
+
     def __init__(
             self,
             interpretation_service: InterpretationService,
             template_registry: TemplateRegistry):
-
         """Construct map bidder.
 
         Args:
@@ -29,8 +29,7 @@ class MapBidder:
         """
         self._factory = MapViewFactory(
             interpretation_service,
-            template_registry )
-
+            template_registry)
 
     def bid(self, subject: Structure):
         """"Produces an offer for a given object.

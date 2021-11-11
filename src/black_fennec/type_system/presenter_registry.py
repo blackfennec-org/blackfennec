@@ -13,7 +13,7 @@ class PresenterRegistry:
 
         Initializes the _presenters attribute with empty list
         """
-        self._presenters = list()
+        self._presenters = []
 
     @property
     def presenters(self):

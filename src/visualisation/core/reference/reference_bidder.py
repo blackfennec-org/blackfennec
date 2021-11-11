@@ -12,6 +12,7 @@ logger = logging.getLogger(__name__)
 
 class ReferenceBidder:
     """The bidding service for the core type Reference."""
+
     def __init__(self):
         """Construct reference bidder."""
         self._factory = ReferenceViewFactory()

@@ -7,7 +7,11 @@ from src.black_fennec.structure.structure import Structure
 class Root(Structure):
     """Structure that is the Root of a structure."""
 
-    def __init__(self, child: Structure = None, uri: str = '', mime_type: str = ''):
+    def __init__(
+            self,
+            child: Structure = None,
+            uri: str = '',
+            mime_type: str = ''):
         super().__init__(self)
         self.uri = URI(uri)
         self.mime_type = mime_type

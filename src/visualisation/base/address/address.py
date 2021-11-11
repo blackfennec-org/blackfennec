@@ -115,18 +115,18 @@ class Address:
 
     def __eq__(self, other) -> bool:
         return (
-                   self.first_name,
-                   self.last_name,
-                   self.street,
-                   self.street_number,
-                   self.city
-               ) == (
-                   other.first_name,
-                   other.last_name,
-                   other.street,
-                   other.street_number,
-                   other.city
-               )
+            self.first_name,
+            self.last_name,
+            self.street,
+            self.street_number,
+            self.city
+        ) == (
+            other.first_name,
+            other.last_name,
+            other.street,
+            other.street_number,
+            other.city
+        )
 
     def __ne__(self, other) -> bool:
         return not self == other
@@ -134,20 +134,15 @@ class Address:
     def __str__(self) -> str:
         """Convert to string"""
         return str(self.first_name) + ' ' + \
-               str(self.last_name) + '\n' + \
-               str(self.street) + ' ' + \
-               str(self.street_number) + '\n' + \
-               str(self.city)
+            str(self.last_name) + '\n' + \
+            str(self.street) + ' ' + \
+            str(self.street_number) + '\n' + \
+            str(self.city)
 
     def __repr__(self) -> str:
         """Create representation for pretty printing"""
-        return 'Address({} {}, {} {}, {})'.format(
-            self.first_name,
-            self.last_name,
-            self.street,
-            self.street_number,
-            self.city
-        )
+        return f'Address({self.first_name} {self.last_name},' \
+               f' {self.street} {self.street_number}, {self.city})'
 
 
 Address.TEMPLATE = create_address_template()

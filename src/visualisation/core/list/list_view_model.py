@@ -38,7 +38,7 @@ class ListViewModel(Observable):
     def value(self):
         """Readonly property for value."""
         return self._list
-    
+
     @property
     def selected(self) -> Interpretation:
         return self._selected
@@ -68,7 +68,7 @@ class ListViewModel(Observable):
         """Add item to the list.
 
         Args:
-            value (:obj:`Structure`): The `Structure` representing the item.
+            value (Structure): The `Structure` representing the item.
         """
         self._list.add_item(value)
         self._notify(self.value, 'value')

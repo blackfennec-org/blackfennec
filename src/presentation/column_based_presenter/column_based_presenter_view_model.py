@@ -6,7 +6,6 @@ from src.black_fennec.interpretation.interpretation import Interpretation
 from src.black_fennec.interpretation.interpretation_service import InterpretationService
 from src.black_fennec.navigation.navigation_service import NavigationService
 from src.black_fennec.structure.overlay.overlay_factory_visitor import OverlayFactoryVisitor
-from src.black_fennec.structure.root import Root
 from src.black_fennec.util.observable import Observable
 
 logger = logging.getLogger(__name__)
@@ -25,8 +24,8 @@ class ColumnBasedPresenterViewModel(Observable):
     """
 
     def __init__(self,
-            interpretation_service: InterpretationService,
-            navigation_service: NavigationService):
+                 interpretation_service: InterpretationService,
+                 navigation_service: NavigationService):
         """Constructor of Column-Based Presenter View Model
 
         A presenter that arranges interpretations in columns.
@@ -43,7 +42,7 @@ class ColumnBasedPresenterViewModel(Observable):
         super().__init__()
         assert interpretation_service, 'interpretation service must not be None'
         assert navigation_service, 'navigation_service must not be None'
-        self.interpretations = list()
+        self.interpretations = []
         self._interpretation_service = interpretation_service
         self._navigation_service = navigation_service
 

@@ -1,5 +1,5 @@
 import logging
-from gi.repository import Gtk, GObject
+from gi.repository import Gtk
 from src.black_fennec.interpretation.interpretation import Interpretation
 from src.visualisation.core.map.map_view_model import MapViewModel
 
@@ -21,7 +21,7 @@ class MapItemView(Gtk.Bin):
             self,
             key,
             preview: Interpretation,
-            view_model: MapViewModel ):
+            view_model: MapViewModel):
         """Create map item view.
 
         Args:
@@ -90,7 +90,7 @@ class MapItemView(Gtk.Bin):
             logger.warning(message)
 
     @Gtk.Template.Callback()
-    def on_rename_clicked(self, sender):
+    def on_rename_clicked(self, unused_sender):
         new_key = self._rename_entry.get_text()
         self._edit_popover.popdown()
         self._view_model.rename_key(self.key, new_key)

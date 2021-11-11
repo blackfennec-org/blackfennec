@@ -30,7 +30,7 @@ class ExtensionSource:
             source_type=None
     ):
         self._extension_loading_service = extension_loading_service
-        self._extensions = dict()
+        self._extensions = {}
         self._subject = source_map if source_map else Map()
 
         if self.SOURCE_IDENTIFICATION not in self._subject.value:
@@ -92,9 +92,9 @@ class ExtensionSource:
         Returns:
              [Extension]: list of extensions in source
         """
-        source_extension_list =\
+        source_extension_list = \
             self._subject.value[self.EXTENSION_LIST_KEY].value
-        result = dict()
+        result = {}
         if source_extension_list:
             for extension in source_extension_list:
                 extension_name = extension.value[Extension.NAME_KEY].value

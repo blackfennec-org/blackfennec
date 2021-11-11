@@ -16,7 +16,7 @@ class BooleanBidder:
         """"Produces an offer for a given object.
 
         Args:
-            subject (:obj:`Structure`): The Structure for which an
+            subject (Structure): The Structure for which an
                 offer should be produced.
 
         Returns:

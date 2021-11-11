@@ -8,6 +8,7 @@ logger = logging.getLogger(__name__)
 
 class OverlayBase(EncapsulationBase):
     """Base Class for Overlay of any Structure."""
+
     def __init__(self, visitor, subject):
         EncapsulationBase.__init__(self, visitor, subject)
 

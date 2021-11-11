@@ -17,6 +17,7 @@ class NavigationService:
         _presenter (StructurePresenter): stores injected
             structure presenter
     """
+
     def __init__(self):
         """Navigation Service constructor."""
         self._presenter = None

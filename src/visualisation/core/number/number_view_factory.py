@@ -25,13 +25,13 @@ class NumberViewFactory:
         """creates a NumberView
 
         Args:
-            interpretation (:obj:`Interpretation`): The overarching
+            interpretation (Interpretation): The overarching
                 interpretation.
             specification (Specification): The specification which can fine
                 tune the creation function.
 
         Returns:
-            :obj:`NumberView`
+            NumberView
         """
         view_model = NumberViewModel(interpretation)
         if specification.is_request_for_preview:

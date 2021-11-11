@@ -16,7 +16,7 @@ class List(Structure):
                 with which to initialise the List.
         """
         Structure.__init__(self)
-        self._value = list()
+        self._value = []
         if value:
             self.value = value
 
@@ -41,8 +41,7 @@ class List(Structure):
 
     def _set_parent(self, item):
         if item.parent is not None:
-            message = "item already has a parent {}; {}".format(
-                item.parent, self)
+            message = f'item already has a parent {item.parent}; {self}'
             logger.error(message)
             raise ValueError(message)
         item.parent = self

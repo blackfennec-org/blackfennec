@@ -78,27 +78,23 @@ class File:
 
     def __eq__(self, other) -> bool:
         return (
-                   self.file_path,
-                   self.file_type
-               ) == (
-                   other.file_path,
-                   other.file_type
-               )
+            self.file_path,
+            self.file_type
+        ) == (
+            other.file_path,
+            other.file_type
+        )
 
     def __ne__(self, other) -> bool:
         return not self == other
 
     def __str__(self) -> str:
         """Convert to string"""
-        return str(self.file_path) + ' (' + \
-               str(self.file_type) + ')'
+        return f'{str(self.file_path)} ({str(self.file_type)})'
 
     def __repr__(self) -> str:
         """Create representation for pretty printing"""
-        return 'File({}, {})'.format(
-            self.file_path,
-            self.file_type
-        )
+        return f'File({self.file_path}, {self.file_type})'
 
 
 File.TEMPLATE = create_file_template()

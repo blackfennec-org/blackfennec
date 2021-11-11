@@ -8,7 +8,7 @@ class Structure:
         """Create Structure with parent.
 
         Args:
-            parent (:obj:`Structure`): The parent of this Structure.
+            parent (Structure): The parent of this Structure.
         """
         self._parent: 'Structure' = parent
         self._value = value
@@ -33,7 +33,7 @@ class Structure:
 
     @property
     def root(self) -> 'Root':
-        """Readonly property for :obj:`Root` of this structure."""
+        """Readonly property for `Root` of this structure."""
         return self.parent.root
 
     def accept(self, visitor):

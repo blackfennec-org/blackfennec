@@ -22,12 +22,12 @@ class MapView(Gtk.Bin):
         """Construct with view_model.
 
         Args:
-            view_model (:obj:`MapViewModel`): The view_model.
+            view_model (MapViewModel): The view_model.
         """
         super().__init__()
-        self._value: dict = dict()
-        self._items: dict = dict()
-        self._item_interpretation_mapping = dict()
+        self._value: dict = {}
+        self._items: dict = {}
+        self._item_interpretation_mapping = {}
         self._currently_selected = None
         self._view_model = view_model
         self._view_model.bind(
@@ -62,11 +62,11 @@ class MapView(Gtk.Bin):
             new_value: set by view model
         """
         for key in self._value:
-            if not key in new_value.value:
+            if key not in new_value.value:
                 self._remove_item(key)
 
         for i, (key, value) in enumerate(new_value.value.items()):
-            if not key in self._value:
+            if key not in self._value:
                 self._add_item(key, value)
             self._set_item_position(key, i)
         self._value = new_value.value

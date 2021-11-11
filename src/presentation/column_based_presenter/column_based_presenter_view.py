@@ -9,7 +9,8 @@ from src.presentation.column_based_presenter.column_view import ColumnView
 logger = logging.getLogger(__name__)
 
 
-@Gtk.Template(filename="src/presentation/column_based_presenter/column_based_presenter.glade")  # pylint: disable=line-too-long
+@Gtk.Template(
+    filename="src/presentation/column_based_presenter/column_based_presenter.glade")  # pylint: disable=line-too-long
 class ColumnBasedPresenterView(Gtk.Box):
     """ColumnBasedPresenterView Code behind.
 
@@ -34,7 +35,7 @@ class ColumnBasedPresenterView(Gtk.Box):
         super().__init__()
         self._view_model = view_model
         self._view_model.bind(interpretations=self._update_interpretations)
-        self.interpretations = list()
+        self.interpretations = []
         self._root_column = None
 
     def _update_interpretations(self, unused_sender, interpretations):

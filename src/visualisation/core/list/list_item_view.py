@@ -1,6 +1,6 @@
 import logging
 
-from gi.repository import GObject, Gtk
+from gi.repository import Gtk
 from src.black_fennec.interpretation.interpretation import Interpretation
 from src.black_fennec.structure.structure import Structure
 from src.visualisation.core.list.list_view_model import ListViewModel
@@ -17,8 +17,8 @@ class ListItemView(Gtk.Bin):
     _popover = Gtk.Template.Child()
 
     def __init__(self,
-            preview: Interpretation,
-            view_model: ListViewModel):
+                 preview: Interpretation,
+                 view_model: ListViewModel):
         """Create list item view
 
         Args:
@@ -36,7 +36,7 @@ class ListItemView(Gtk.Bin):
     def item(self) -> Structure:
         """Readonly property for the item"""
         return self._preview.structure
-    
+
     @property
     def selected(self):
         return self._selected
@@ -49,7 +49,6 @@ class ListItemView(Gtk.Bin):
             style.add_class('is-active')
         else:
             style.remove_class('is-active')
-
 
     def on_preview_clicked(self, unused_sender) -> None:
         """Callback for the button click event"""

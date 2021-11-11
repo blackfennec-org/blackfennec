@@ -41,7 +41,7 @@ class UriImportService:
         self._parser = structure_parser
         self._loading_strategy_factory = uri_loading_strategy_factory
         self._import_strategy_factory = uri_import_strategy_factory
-        self._uri_cache = uri_cache if uri_cache else dict()
+        self._uri_cache = uri_cache if uri_cache else {}
 
     def load(
             self,

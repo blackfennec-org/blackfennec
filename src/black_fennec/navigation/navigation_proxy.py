@@ -6,11 +6,13 @@ from src.black_fennec.interpretation.interpretation import Interpretation
 
 logger = logging.getLogger(__name__)
 
+
 class NavigationProxy(Observable):
     """A proxy for navigation requests.
 
     The navigation proxy dispatches requests to another interpretation.
     """
+
     def __init__(self):
         """Construct NavigationProxy.
 

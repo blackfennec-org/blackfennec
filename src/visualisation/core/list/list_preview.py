@@ -14,7 +14,7 @@ class ListPreview(Gtk.Bin):
         """Construct with view_model.
 
         Args:
-            view_model (:obj:`ListViewModel`): The view_model.
+            view_model (ListViewModel): The view_model.
         """
         super().__init__()
         self._view_model = view_model

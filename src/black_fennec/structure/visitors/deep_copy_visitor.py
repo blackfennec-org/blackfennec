@@ -11,6 +11,7 @@ from src.black_fennec.structure.string import String
 class DeepCopyVisitor:
     """Creates a deep copy of a structure
     """
+
     def visit_structure(self, subject_structure: Structure):
         raise NotImplementedError()
 

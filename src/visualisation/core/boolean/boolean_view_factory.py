@@ -25,13 +25,13 @@ class BooleanViewFactory:
         """creates a BooleanView
 
         Args:
-            interpretation (:obj:`Interpretation`): The overarching
+            interpretation (Interpretation): The overarching
                 interpretation.
             specification (Specification): The specification which can fine
                 tune the creation function.
 
         Returns:
-            :obj:`BooleanView`
+            BooleanView
         """
         view_model = BooleanViewModel(interpretation)
         if specification.is_request_for_preview:

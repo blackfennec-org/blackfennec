@@ -2,7 +2,6 @@
 import logging
 from datetime import datetime
 
-
 from src.black_fennec.interpretation.interpretation import Interpretation
 from src.visualisation.base.date_time_range.date_time_range import DateTimeRange
 
