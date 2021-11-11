@@ -7,15 +7,21 @@ from src.black_fennec.structure.reference import Reference
 from src.black_fennec.structure.root import Root
 from src.black_fennec.structure.string import String
 
+import logging
+logger = logging.getLogger(__name__)
 
 class DeepCopyVisitor:
     """Creates a deep copy of a structure
     """
     def visit_structure(self, subject_structure: Structure):
-        raise NotImplementedError()
+        message = 'The function `visit_strucutre` on `DeepCopyVisitor` should never be called as this request has no meaning'
+        logger.error(message)
+        raise NotImplementedError(message)
 
     def visit_root(self, subject_root: Root):
-        raise NotImplementedError()
+        message = 'The function `visit_root` on `DeepCopyVisitor` should never be called as as this request has no meaning'
+        logger.error(message)
+        raise NotImplementedError(message)
 
     def visit_string(self, subject_string: String):
         return String(subject_string.value)
