@@ -17,7 +17,7 @@ class List(Structure):
         """
         Structure.__init__(self)
         self._value = []
-        if value:
+        if value is not None:
             self.value = value
 
     @property
@@ -26,9 +26,14 @@ class List(Structure):
 
     @value.setter
     def value(self, value: list):
-        if value:
-            for item in value:
-                self.add_item(item)
+        for item in (list(self._value) or []):
+            self.remove_item(item)
+        for item in (value or []):
+            self.add_item(item)
+
+    def _set_parent(self, item):
+        assert item.parent is None
+        item.parent = self
 
     def add_item(self, item: Structure):
         """Append item to list.
@@ -39,12 +44,10 @@ class List(Structure):
         self._value.append(item)
         self._set_parent(item)
 
-    def _set_parent(self, item):
-        if item.parent is not None:
-            message = f'item already has a parent {item.parent}; {self}'
-            logger.error(message)
-            raise ValueError(message)
-        item.parent = self
+    def _unset_parent(self, item):
+        assert item.parent is self
+        assert item not in self._value
+        item.parent = None
 
     def remove_item(self, item: Structure):
         """Remove item from List.
@@ -58,11 +61,6 @@ class List(Structure):
         """
         self._value.remove(item)
         self._unset_parent(item)
-
-    def _unset_parent(self, item):
-        assert item.parent is self
-        assert item not in self._value
-        item.parent = None
 
     def accept(self, visitor):
         return visitor.visit_list(self)
