@@ -3,6 +3,7 @@ import gi
 gi.require_version('Gtk', '3.0')
 
 # pylint: disable=wrong-import-position,ungrouped-imports
+import os
 import logging
 from uri import URI
 from gi.repository import Gtk, Gdk, GLib
@@ -24,16 +25,18 @@ from src.black_fennec.type_system.template_registry import TemplateRegistry
 from src.extension.extension_api import ExtensionApi
 from src.extension.extension_initialisation_service import ExtensionInitialisationService
 from src.extension.extension_source_registry import ExtensionSourceRegistry
+
 # pylint: enable=wrong-import-position
 
 logging.basicConfig(level=logging.WARNING)
 logger = logging.getLogger(__name__)
 
-EXTENSIONS = 'extensions.json'
+EXTENSIONS = os.path.realpath('extensions.json')
 
 
 class BlackFennec(Gtk.Application):
     """BlackFennec Main Window GTK Application"""
+
     def __init__(self):
         super().__init__(
             application_id='org.darwin.blackfennec')
