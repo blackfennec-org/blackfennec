@@ -39,13 +39,15 @@ class Root(Structure):
 
         The inherited setter for this property has been overridden
             to disallow changing the parent of the root.
-            If the operation is attempted a TypeError is raised.
+
+        Raises:
+            AssertionError: if the method is called
         """
         return self
 
     @parent.setter
     def parent(self, new_parent):
-        raise TypeError('cannot set parent on type Root')
+        raise AssertionError('cannot set parent on type Root')
 
     @property
     def root(self) -> 'Root':
