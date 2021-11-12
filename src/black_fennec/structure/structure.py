@@ -4,23 +4,13 @@
 class Structure:
     """Abstract base class for all types (Structures)."""
 
-    def __init__(self, value=None, parent: 'Structure' = None):
+    def __init__(self, parent: 'Structure' = None):
         """Create Structure with parent.
 
         Args:
             parent (Structure): The parent of this Structure.
         """
         self._parent: 'Structure' = parent
-        self._value = value
-
-    @property
-    def value(self):
-        """Property for value contained in this structure"""
-        return self._value
-
-    @value.setter
-    def value(self, value):
-        self._value = value
 
     @property
     def parent(self) -> 'Structure':
@@ -40,4 +30,6 @@ class Structure:
         return visitor.visit_structure(self)
 
     def __hash__(self):
+        """Hash function required for any structure
+            to act as a key in a dictionary"""
         return hash(id(self))
