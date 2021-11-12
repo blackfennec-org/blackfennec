@@ -3,6 +3,7 @@ import gi
 gi.require_version('Gtk', '3.0')
 
 # pylint: disable=wrong-import-position,ungrouped-imports
+import os
 import logging
 from uri import URI
 from gi.repository import Gtk, Gdk, GLib
@@ -30,7 +31,7 @@ from src.extension.extension_source_registry import ExtensionSourceRegistry
 logging.basicConfig(level=logging.WARNING)
 logger = logging.getLogger(__name__)
 
-EXTENSIONS = 'extensions.json'
+EXTENSIONS = os.path.realpath('extensions.json')
 
 
 class BlackFennec(Gtk.Application):
