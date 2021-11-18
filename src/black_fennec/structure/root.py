@@ -3,6 +3,8 @@ from uri import URI
 
 from src.black_fennec.structure.structure import Structure
 
+import logging
+logger = logging.getLogger(__name__)
 
 class Root(Structure):
     """Structure that is the Root of a structure."""
@@ -35,13 +37,17 @@ class Root(Structure):
 
         The inherited setter for this property has been overridden
             to disallow changing the parent of the root.
-            If the operation is attempted a TypeError is raised.
+
+        Raises:
+            TypeError: if the setter is called.
         """
         return self
 
     @parent.setter
     def parent(self, new_parent):
-        raise TypeError('cannot set parent on type Root')
+        message = 'cannot set readonly property `parent` on type `Root` '
+        logger.error(message)
+        raise TypeError(message)
 
     @property
     def root(self) -> 'Root':

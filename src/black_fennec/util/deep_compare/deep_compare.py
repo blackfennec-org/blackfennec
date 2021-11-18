@@ -23,7 +23,9 @@ class ComparatorFactory:
         return StructureComparator(subject)
 
     def visit_root(self, unused_subject: Root):
-        raise NotImplementedError()
+        message = 'The function `visit_root` on `ComparatorFactory` should never be called as its behaviour is not specified.'
+        logger.error(message)
+        raise NotImplementedError(message)
 
     def visit_string(self, subject: String):
         return StringComparator(subject)
