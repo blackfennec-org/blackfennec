@@ -39,7 +39,7 @@ class ListEncapsulationBase(EncapsulationBase, List):
     @value.setter
     def value(self, value):
         self.subject.value = [
-            self._remove_encapsulation(item) for item in value
+            self._remove_encapsulation(item) for item in (value or [])
         ]
 
     def add_item(self, item: Structure):

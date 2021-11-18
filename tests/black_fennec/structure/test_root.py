@@ -51,7 +51,7 @@ class RootTestSuite(unittest.TestCase):
         def set_parent(structure, new_parent):
             structure.parent = new_parent
 
-        self.assertRaises(TypeError,
+        self.assertRaises(AssertionError,
             lambda: set_parent(root, new_parent))
 
     def test_can_get_parent(self):

@@ -43,15 +43,13 @@ class Root(Structure):
             to disallow changing the parent of the root.
 
         Raises:
-            TypeError: if the setter is called.
+            AssertionError: if the method is called
         """
         return self
 
     @parent.setter
     def parent(self, new_parent):
-        message = 'cannot set readonly property `parent` on type `Root` '
-        logger.error(message)
-        raise TypeError(message)
+        raise AssertionError('cannot set parent on type Root')
 
     @property
     def root(self) -> 'Root':

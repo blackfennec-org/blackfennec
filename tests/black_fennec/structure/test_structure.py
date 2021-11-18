@@ -23,17 +23,6 @@ class StructureTestSuite(unittest.TestCase):
         structure = Structure(parent=root)
         self.assertEqual(structure.root, root)
 
-    def test_can_get_value(self):
-        value = 'value'
-        structure = Structure(value)
-        self.assertEqual(value, structure.value)
-
-    def test_can_set_value(self):
-        value = 'value'
-        structure = Structure()
-        structure.value = value
-        self.assertEqual(value, structure.value)
-
     def test_accept(self):
         visitor = FactoryBaseVisitorMock()
         structure = Structure()
