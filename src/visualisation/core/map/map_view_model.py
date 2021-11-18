@@ -18,10 +18,10 @@ class MapViewModel(Observable):
     """View model for core type Map."""
 
     def __init__(
-        self,
-        interpretation: Interpretation,
-        interpretation_service: InterpretationService,
-        template_registry: TemplateRegistry
+            self,
+            interpretation: Interpretation,
+            interpretation_service: InterpretationService,
+            template_registry: TemplateRegistry
     ):
         """Create with value empty map.
 
@@ -38,7 +38,7 @@ class MapViewModel(Observable):
         self._interpretation_service = interpretation_service
         self._template_registry = template_registry
         self._map: Map = self._interpretation.structure
-        logger.debug('Showing view for ' + str(self._map))
+        logger.debug('Showing view for %s', str(self._map))
 
     @property
     def value(self):
@@ -75,7 +75,7 @@ class MapViewModel(Observable):
 
         Args:
             key: The key under which to store the value.
-            value (:obj:`Structure`): The `Structure` behind the key.
+            value (Structure): The `Structure` behind the key.
         """
         self._map.add_item(key, value)
         self._notify(self.value, 'value')

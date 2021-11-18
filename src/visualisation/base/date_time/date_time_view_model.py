@@ -2,8 +2,6 @@
 import logging
 from datetime import datetime
 
-from src.black_fennec.structure.structure import Structure
-
 from src.visualisation.base.date_time.date_time import DateTime
 from src.black_fennec.interpretation.interpretation import Interpretation
 

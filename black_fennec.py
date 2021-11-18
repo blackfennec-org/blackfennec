@@ -34,6 +34,7 @@ logger = logging.getLogger(__name__)
 EXTENSIONS = os.path.realpath('extensions.json')
 
 
+
 class BlackFennec(Gtk.Application):
     """BlackFennec Main Window GTK Application"""
 

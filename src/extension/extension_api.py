@@ -10,6 +10,7 @@ class ExtensionApi:
     Enables extensions to load types, actions or presenters
     with services and registries contained within the this class.
     """
+
     def __init__(
             self,
             presenter_registry: PresenterRegistry,

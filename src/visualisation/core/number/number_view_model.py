@@ -8,7 +8,7 @@ class NumberViewModel:
         """Create with value empty number
 
         Args:
-            interpretation (:obj:`Interpretation`): The overarching
+            interpretation (Interpretation): The overarching
                 interpretation
         """
         self._model = interpretation.structure

@@ -11,12 +11,10 @@ class MapViewFactory:
     """Creator of the MapView"""
 
     def __init__(self,
-            interpretation_service: InterpretationService,
-            template_registry: TemplateRegistry ):
+                 interpretation_service: InterpretationService,
+                 template_registry: TemplateRegistry):
         self._interpretation_service = interpretation_service
         self._template_registry = template_registry
-
-
 
     def satisfies(self, unused_specification: Specification) -> bool:
         """Test if this view factory can satisfy the specification

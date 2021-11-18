@@ -77,7 +77,10 @@ class BaseFactoryVisitor:
 
 
 @lru_cache(maxsize=8, typed=True)
-def _create_generic_collection_class(encapsulation_base_class, layer_base_class):
+def _create_generic_collection_class(
+        encapsulation_base_class,
+        layer_base_class
+):
     class GenericCollectionClass(encapsulation_base_class, layer_base_class):
         def __init__(self, visitor, subject):
             encapsulation_base_class.__init__(self, visitor, subject)

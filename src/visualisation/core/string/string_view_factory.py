@@ -25,13 +25,13 @@ class StringViewFactory:
         """creates a StringView
 
         Args:
-            interpretation (:obj:`Interpretation`): The overarching
+            interpretation (Interpretation): The overarching
                 interpretation.
             specification (Specification): The specification which can fine
                 tune the creation function.
 
         Returns:
-            :obj:`StringView`
+            StringView
         """
         view_model = StringViewModel(interpretation)
         if specification.is_request_for_preview:

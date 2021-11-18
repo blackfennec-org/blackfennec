@@ -6,7 +6,8 @@ class Specification:
         For example, the callee of the interpretation service can request
         previews.
     """
-    def __init__(self, request_preview: bool= False):
+
+    def __init__(self, request_preview: bool = False):
         """Specification constructor
 
         Args:
@@ -25,5 +26,4 @@ class Specification:
         return self._is_request_for_preview
 
     def __repr__(self):
-        return 'Specification(request_preview=%s)' % \
-            self._is_request_for_preview
+        return f'Specification(request_preview={self._is_request_for_preview})'

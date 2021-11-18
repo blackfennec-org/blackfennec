@@ -14,6 +14,7 @@ class OverlayFactoryVisitor(BaseFactoryVisitor):
         which require specialised functionality. For all other
         structure types the abstract factory implementation suffices.
     """
+
     def __init__(self):
         BaseFactoryVisitor.__init__(self, OverlayBase)
 

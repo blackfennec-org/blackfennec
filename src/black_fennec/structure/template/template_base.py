@@ -20,6 +20,7 @@ class TemplateBase(EncapsulationBase):
     Contains decorating additional property optional,
         that can be set on a Template to indicate optionality
     """
+
     def __init__(
             self,
             visitor: 'TemplateFactoryVisitor',
@@ -53,13 +54,13 @@ class TemplateBase(EncapsulationBase):
     def visit_reference(self, subject_reference: Reference) -> Coverage:
         return self._instance_equality_coverage(subject_reference)
 
-    def visit_string(self, unused: String) -> Coverage:
+    def visit_string(self, unused_arg: String) -> Coverage:
         return Coverage.NOT_COVERED
 
-    def visit_list(self, unused: List) -> Coverage:
+    def visit_list(self, unused_arg: List) -> Coverage:
         return Coverage.NOT_COVERED
 
-    def visit_map(self, unused: Map) -> Coverage:
+    def visit_map(self, unused_arg: Map) -> Coverage:
         return Coverage.NOT_COVERED
 
     def _instance_equality_coverage(self, subject) -> Coverage:

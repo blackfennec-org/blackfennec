@@ -52,7 +52,7 @@ class ImageView(Gtk.Bin):
 
     def _calculate_new_image_size_factor(self, width, pixbuf) -> float:
         old_width = pixbuf.get_width()
-        factor = width/old_width
+        factor = width / old_width
         return factor
 
     def _set_image(self, pixbuf) -> None:

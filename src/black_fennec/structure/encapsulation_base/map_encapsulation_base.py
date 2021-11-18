@@ -7,6 +7,7 @@ from src.black_fennec.structure.structure import Structure
 
 class MapEncapsulationBase(EncapsulationBase, Map):
     """Base Class for Encapsulation of a Map."""
+
     def __init__(
             self,
             visitor: 'BaseFactoryVisitor',

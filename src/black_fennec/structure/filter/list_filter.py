@@ -10,6 +10,7 @@ logger = logging.getLogger(__name__)
 
 class ListFilter(ListEncapsulationBase, FilterBase):
     """Base Class for Filters of a List."""
+
     def __init__(
             self,
             visitor: 'FilterFactoryVisitor',

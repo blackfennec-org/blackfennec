@@ -36,7 +36,7 @@ class Coverage(Comparable):
 
     def __lt__(self, other: 'Coverage'):
         return self != other and\
-               self._calculate_ratio() < other._calculate_ratio()
+            self._calculate_ratio() < other._calculate_ratio()
 
     def __repr__(self):
         return f'Coverage(' \

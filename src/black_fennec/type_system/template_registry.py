@@ -49,7 +49,9 @@ class TemplateRegistry:
         """
         to_delete = None
         for template in self._templates:
-            if type(template) == template_type:  # pylint: disable=unidiomatic-typecheck
+            if isinstance(
+                    template,
+                    template_type):  # pylint: disable=unidiomatic-typecheck
                 to_delete = template
         if to_delete:
             self._templates.remove(to_delete)

@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*-
 import logging
 from src.black_fennec.structure.structure import Structure
-#from src.navigation.navigation_service import NavigationService
+
+# from src.navigation.navigation_service import NavigationService
 
 logger = logging.getLogger(__name__)
+
 
 class Interpretation:
     """Interpretation Class.
@@ -11,6 +13,7 @@ class Interpretation:
     Is produced by the InterpretationService. Contains the relevant structure
     and can create a view. Dispatches navigation requests to navigation_service.
     """
+
     def __init__(self, structure: Structure, specification, factories):
         """Interpretation constructor.
 
@@ -24,7 +27,7 @@ class Interpretation:
         self._navigation_service = None
         self._specification = specification
         self._factories = factories
-        self._structure_views = list()
+        self._structure_views = []
         self._structure = structure
         self._view = None
 
@@ -37,7 +40,6 @@ class Interpretation:
         """
         assert navigation_service, 'navigation service must not be None'
         self._navigation_service = navigation_service
-
 
     @property
     def structure(self) -> Structure:

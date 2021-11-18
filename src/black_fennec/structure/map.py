@@ -16,7 +16,7 @@ class Map(Structure):
                 Structures with which to initialise the Map.
         """
         Structure.__init__(self)
-        self._value = dict()
+        self._value = {}
         if value:
             self.value = value
 

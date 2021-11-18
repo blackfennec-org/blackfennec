@@ -13,6 +13,7 @@ logger = logging.getLogger(__name__)
 class DeepCopyVisitor:
     """Creates a deep copy of a structure
     """
+
     def visit_structure(self, subject_structure: Structure):
         message = 'The function `visit_strucutre` on `DeepCopyVisitor` ' \
                   'should never be called as this request has no meaning'
