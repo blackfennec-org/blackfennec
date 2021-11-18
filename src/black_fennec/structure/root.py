@@ -3,6 +3,8 @@ from uri import URI
 
 from src.black_fennec.structure.structure import Structure
 
+import logging
+logger = logging.getLogger(__name__)
 
 class Root(Structure):
     """Structure that is the Root of a structure."""
