@@ -14,12 +14,14 @@ class DeepCopyVisitor:
     """Creates a deep copy of a structure
     """
     def visit_structure(self, subject_structure: Structure):
-        message = 'The function `visit_strucutre` on `DeepCopyVisitor` should never be called as this request has no meaning'
+        message = 'The function `visit_strucutre` on `DeepCopyVisitor` ' \
+                  'should never be called as this request has no meaning'
         logger.error(message)
         raise NotImplementedError(message)
 
     def visit_root(self, subject_root: Root):
-        message = 'The function `visit_root` on `DeepCopyVisitor` should never be called as as this request has no meaning'
+        message = 'The function `visit_root` on `DeepCopyVisitor` ' \
+                  'should never be called as as this request has no meaning'
         logger.error(message)
         raise NotImplementedError(message)
 
