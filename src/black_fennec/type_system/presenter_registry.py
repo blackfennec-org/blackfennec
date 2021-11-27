@@ -41,6 +41,6 @@ class PresenterRegistry:
 
         """
 
-        for current_type in self._presenters:
-            if current_type.__class__ == presenter_type:
-                self._presenters.remove(current_type)
+        for current_presenter in self._presenters:
+            if current_presenter.__class__ == presenter_type:
+                self._presenters.remove(current_presenter)
