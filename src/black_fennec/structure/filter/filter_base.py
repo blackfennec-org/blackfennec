@@ -18,7 +18,7 @@ class FilterBase(EncapsulationBase):
 
     @property
     def filtered(self):
-        return self._visitor.metadata_storage.get(self.subject, default=False)
+        return self._visitor.metadata_storage.get(self.subject, False)
 
     @filtered.setter
     def filtered(self, value: bool):

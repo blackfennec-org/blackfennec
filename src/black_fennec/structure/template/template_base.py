@@ -30,7 +30,7 @@ class TemplateBase(EncapsulationBase):
 
     @property
     def optional(self):
-        return self._visitor.metadata_storage.get(self.subject, default=False)
+        return self._visitor.metadata_storage.get(self.subject, False)
 
     @optional.setter
     def optional(self, value: bool):
