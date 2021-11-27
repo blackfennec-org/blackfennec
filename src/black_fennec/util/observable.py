@@ -11,7 +11,7 @@ class Observable:
         self._bindings = {}
 
     def _notify(self, changed_property, name, sender=None):
-        sender = sender if sender else self
+        sender = sender or self
         if name in self._bindings:
             for listener in self._bindings[name]:
                 listener(sender, changed_property)

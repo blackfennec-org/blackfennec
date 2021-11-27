@@ -30,10 +30,7 @@ class TemplateBase(EncapsulationBase):
 
     @property
     def optional(self):
-        if self.subject in self._visitor.metadata_storage:
-            return self._visitor.metadata_storage[self.subject]
-        else:
-            return False
+        return self._visitor.metadata_storage.get(self.subject, default=False)
 
     @optional.setter
     def optional(self, value: bool):

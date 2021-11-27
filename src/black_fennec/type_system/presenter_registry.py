@@ -22,7 +22,7 @@ class PresenterRegistry:
             Returns:
                 list: of presenter
         """
-        return self._presenters
+        return list(self._presenters)
 
     def register_presenter(self, presenter):
         """Function to register a new presenter

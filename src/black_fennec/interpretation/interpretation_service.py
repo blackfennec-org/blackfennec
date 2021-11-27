@@ -43,8 +43,7 @@ class InterpretationService:
             Interpretation: Represents what black fennec believes to be
                 the meaning of the structure.
         """
-        if specification is None:
-            specification = Specification()
+        specification = specification or Specification()
 
         factories = self._auctioneer.auction(structure, specification)
         assert len(factories) == 1, 'cannot currently handle multiple factores'

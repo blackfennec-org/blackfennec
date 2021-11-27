@@ -18,10 +18,7 @@ class FilterBase(EncapsulationBase):
 
     @property
     def filtered(self):
-        if self.subject in self._visitor.metadata_storage:
-            return self._visitor.metadata_storage[self.subject]
-        else:
-            return False
+        return self._visitor.metadata_storage.get(self.subject, default=False)
 
     @filtered.setter
     def filtered(self, value: bool):
