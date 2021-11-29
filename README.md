@@ -99,7 +99,7 @@ python black_fennec.py
 
 ## Roadmap
 
-See the [open issues](https://github.com/othneildrew/Best-README-Template/issues) for a list of proposed features (and
+See the [open issues](https://git.yodabyte.ch/black-fennec/black-fennec/issues) for a list of proposed features (and
 known issues).
 
 <!-- CONTRIBUTING -->
