@@ -45,7 +45,6 @@ class Offer(Comparable):
         self._specificity = specificity
         self._view_factory = type_view_factory
         self._template = template
-        self._coverage = None
 
     def satisfies(self, specification: Specification):
         """Evaluates this offers capability to satisfy a given specification.
