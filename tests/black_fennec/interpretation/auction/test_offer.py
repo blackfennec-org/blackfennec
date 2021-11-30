@@ -218,40 +218,7 @@ class OfferTestSuite(unittest.TestCase):
                 msg='Comparison of offers with different subject does ' +
                     'not throw ValueError'
         ):
-            offer < other_offer # pylint: disable=pointless-statement
-
-    def test_hash_unequal_values(self):
-        subject = StructureMock('Structure')
-        template = subject.accept(self.template_factory)
-        other_subject = StructureMock('Structure2')
-        offer = Offer(
-            subject,
-            specificity=1,
-            template=template,
-            type_view_factory=Dummy('StructureFactory')
-        )
-        other_offer = Offer(
-            other_subject,
-            specificity=2,
-            template=template,
-            type_view_factory=Dummy('StructureFactory')
-        )
-        self.assertNotEqual(hash(offer), hash(other_offer))
-
-    def test_hash_equal_values(self):
-        subject = StructureMock('Structure')
-        template = subject.accept(self.template_factory)
-        offer = Offer(
-            subject,
-            specificity=1,
-            template=template,
-            type_view_factory=Dummy('StructureFactory'))
-        other_offer = Offer(
-            subject,
-            specificity=1,
-            template=template,
-            type_view_factory=Dummy('StructureFactory'))
-        self.assertEqual(hash(offer), hash(other_offer))
+            offer < other_offer  # pylint: disable=pointless-statement
 
     def test_representation(self):
         factory = Dummy('StructureFactory')
