@@ -40,11 +40,6 @@ class MapTemplate(MapEncapsulationBase, TemplateBase):
 
         coverage = Coverage.COVERED
 
-        logger.debug(
-            'Calculating map coverage (value=%s, types in template=%s)',
-            len(subject.value),
-            len(subject.value)
-        )
         for key, value in self.value.items():
             if key in subject.value:
                 sub_coverage = value.calculate_coverage(subject.value[key])
