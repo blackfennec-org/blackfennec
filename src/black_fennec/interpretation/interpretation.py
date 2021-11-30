@@ -31,7 +31,6 @@ class Interpretation:
         self._factories = factories
         self._structure_views = []
         self._structure = structure
-        self._view = None
 
     def set_navigation_service(self, navigation_service) -> None:
         """Set navigation service to be used.
@@ -55,7 +54,7 @@ class Interpretation:
     @cached_property
     def view(self):
         view = self._factories[0].create(self, self._specification)
-        logger.debug('creating view from %s', self._view)
+        logger.debug('creating view from %s', view)
         return view
 
     def navigate(self, destination: Structure):
