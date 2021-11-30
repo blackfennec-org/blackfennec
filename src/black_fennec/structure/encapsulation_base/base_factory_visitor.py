@@ -17,7 +17,7 @@ class BaseFactoryVisitor:
 
     This class implements the base visitor behaviour
         and returns the input wrapped in an adapter/decorator
-        like manner while to save the generically generated
+        like manner while caching the generated generic
         adapter/decorator classes.
 
     Python does not support overloading by Type, thus the visit
