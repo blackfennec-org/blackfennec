@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 import logging
+from functools import cached_property
+
 from src.black_fennec.structure.structure import Structure
 
 # from src.navigation.navigation_service import NavigationService
@@ -50,12 +52,11 @@ class Interpretation:
         """
         return self._structure
 
-    @property
+    @cached_property
     def view(self):
-        if not self._view:
-            self._view = self._factories[0].create(self, self._specification)
-            logger.debug('creating view from %s', self._view)
-        return self._view
+        view = self._factories[0].create(self, self._specification)
+        logger.debug('creating view from %s', self._view)
+        return view
 
     def navigate(self, destination: Structure):
         """Navigation dispatch.
