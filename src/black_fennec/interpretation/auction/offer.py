@@ -116,14 +116,14 @@ class Offer(Comparable):
             bool: comparison of subject, specificity and coverage with other
         """
         return (
-            self.subject,
-            self.coverage,
-            self.specificity
-        ) == (
-            other.subject,
-            other.coverage,
-            other.specificity
-        )
+                   self.subject,
+                   self.coverage,
+                   self.specificity
+               ) == (
+                   other.subject,
+                   other.coverage,
+                   other.specificity
+               )
 
     def __lt__(self, other: 'Offer') -> bool:
         """Lower-than operator
@@ -152,15 +152,12 @@ class Offer(Comparable):
             return self.specificity > other.specificity
 
         return (
-            self.coverage,
-            self.specificity
-        ) < (
-            other.coverage,
-            other.specificity
-        )
-
-    def __hash__(self):
-        return hash((self.coverage, self.specificity, self.subject))
+                   self.coverage,
+                   self.specificity
+               ) < (
+                   other.coverage,
+                   other.specificity
+               )
 
     def __repr__(self):
         return f'Offer({self._view_factory})'
