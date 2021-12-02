@@ -45,10 +45,7 @@ class Image(File):
 
     def __repr__(self) -> str:
         """Create representation for pretty printing"""
-        return 'Image({}, {})'.format(
-            self.file_path,
-            self.file_type
-        )
+        return f'Image({self.file_path}, {self.file_type})'
 
 
 Image.TEMPLATE = create_image_template()

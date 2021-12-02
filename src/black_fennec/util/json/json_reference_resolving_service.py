@@ -15,7 +15,7 @@ class JsonReferenceResolvingService:
     """Service resolves a JsonReference"""
 
     def __init__(self, uri_import_service):
-        self._cached_structure = dict()
+        self._cached_structure = {}
         self._uri_import_service = uri_import_service
 
     def resolve(self, uri: URI, source: Structure = None) -> Structure:
@@ -47,8 +47,8 @@ class JsonReferenceResolvingService:
             )
 
         if (
-            uri_type == UriType.CURRENT_LOCATION or
-            relative_json_pointer
+                uri_type == UriType.CURRENT_LOCATION or
+                relative_json_pointer
         ):
             structure = source
         else:

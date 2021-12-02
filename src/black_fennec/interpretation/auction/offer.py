@@ -45,7 +45,6 @@ class Offer(Comparable):
         self._specificity = specificity
         self._view_factory = type_view_factory
         self._template = template
-        self._coverage = None
 
     def satisfies(self, specification: Specification):
         """Evaluates this offers capability to satisfy a given specification.
@@ -147,7 +146,7 @@ class Offer(Comparable):
             raise ValueError(message)
 
         if self.coverage == other.coverage \
-                and 0 in (self.specificity, other.specificity)\
+                and 0 in (self.specificity, other.specificity) \
                 and (0, 0) != (self.specificity, other.specificity):
             return self.specificity > other.specificity
 
@@ -159,8 +158,5 @@ class Offer(Comparable):
                    other.specificity
                )
 
-    def __hash__(self):
-        return hash((self.coverage, self.specificity, self.subject))
-
     def __repr__(self):
-        return 'Offer(%s)' % self._view_factory
+        return f'Offer({self._view_factory})'

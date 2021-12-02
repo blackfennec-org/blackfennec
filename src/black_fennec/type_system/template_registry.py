@@ -19,7 +19,7 @@ class TemplateRegistry:
 
         Initializes the _templates attribute with empty list
         """
-        self._templates = set()
+        self._templates = []
 
     @property
     def templates(self):
@@ -36,7 +36,7 @@ class TemplateRegistry:
         Args:
             template (TemplateBase): future element of the template registry
         """
-        self._templates.add(template)
+        self._templates.append(template)
 
     def deregister_template(self, template_type: type):
         """Function to deregister a template from the dictionary
@@ -47,13 +47,8 @@ class TemplateRegistry:
         Raises:
             KeyError: if template type not found in registry
         """
-        to_delete = None
-        for template in self._templates:
-            if type(template) == template_type:  # pylint: disable=unidiomatic-typecheck
-                to_delete = template
-        if to_delete:
-            self._templates.remove(to_delete)
-        else:
-            message = f'Could not find Template by type({template_type})'
-            logger.error(message)
-            raise KeyError(message)
+
+
+        for current_template in self._templates:
+            if current_template.__class__ == template_type:
+                self._templates.remove(current_template)

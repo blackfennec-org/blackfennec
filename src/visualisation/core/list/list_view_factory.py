@@ -9,6 +9,7 @@ from src.black_fennec.interpretation.specification import Specification
 
 class ListViewFactory:
     """Creator of the ListView"""
+
     def __init__(
             self,
             interpretation_service: InterpretationService,

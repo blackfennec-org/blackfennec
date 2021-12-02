@@ -13,6 +13,7 @@ logger = logging.getLogger(__name__)
 
 class ListBidder:
     """The bidding service for the core type `List`."""
+
     def __init__(
             self,
             interpretation_service: InterpretationService,

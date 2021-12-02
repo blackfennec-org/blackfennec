@@ -6,7 +6,7 @@ from src.black_fennec.facade.extension_store.extension_view_model import Extensi
 logger = logging.getLogger(__name__)
 
 
-@Gtk.Template(filename='src/black_fennec/facade/extension_store/extension.glade')
+@Gtk.Template(filename='src/black_fennec/facade/extension_store/extension.glade')  # pylint:disable=line-too-long
 class ExtensionView(Gtk.Bin):
     """Black Fennec Extension view"""
     __gtype_name__ = 'ExtensionView'
@@ -22,7 +22,10 @@ class ExtensionView(Gtk.Bin):
         name = view_model.name
         description = view_model.description
         self._name.set_text(name)
-        self._description.set_text(description, len(description.encode('utf-8')))
+        self._description.set_text(
+            description,
+            len(description.encode('utf-8'))
+        )
 
         self._update_button_text()
 

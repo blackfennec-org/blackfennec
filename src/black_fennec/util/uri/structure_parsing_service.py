@@ -20,6 +20,7 @@ class StructureParsingService:
     JSON_REFERENCE_KEY = '$ref'
 
     """StructureParsingService, creates python objects from json"""
+
     def __init__(self):
         self._reference_resolving_service = None
 

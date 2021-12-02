@@ -20,6 +20,7 @@ class InterpretationService:
             navigation service
         _auctioneer (Auctioneer): stores injected auctioneer
     """
+
     def __init__(self, auctioneer: Auctioneer):
         """Constructor of interpretation service
 
@@ -30,7 +31,7 @@ class InterpretationService:
         self._auctioneer = auctioneer
 
     def interpret(self, structure: Structure,
-            specification: Specification= None) -> Interpretation:
+                  specification: Specification = None) -> Interpretation:
         """Interpret the given structure follwing the a specification
 
         Args:
@@ -42,8 +43,7 @@ class InterpretationService:
             Interpretation: Represents what black fennec believes to be
                 the meaning of the structure.
         """
-        if specification is None:
-            specification = Specification()
+        specification = specification or Specification()
 
         factories = self._auctioneer.auction(structure, specification)
         assert len(factories) == 1, 'cannot currently handle multiple factores'

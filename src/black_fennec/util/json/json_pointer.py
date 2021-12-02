@@ -57,7 +57,7 @@ class JsonPointer:
         pointer, pointer_type = value
         self._type = pointer_type
         hierarchy = pointer.split('/')
-        self._hierarchy: [str] = list()
+        self._hierarchy: [str] = []
         for navigator in hierarchy:
             self._hierarchy.append(
                 self._remove_escaping_from_navigator(navigator)

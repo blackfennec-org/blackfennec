@@ -8,7 +8,7 @@ class String(Structure):
         """Construct String with item `item`.
 
         Args:
-            value (:obj:`str`, optional): The item of the `String`.
+            value (str, optional): The item of the `String`.
                 By default "" (empty string)
         """
         Structure.__init__(self)

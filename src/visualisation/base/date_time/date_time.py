@@ -82,11 +82,11 @@ class DateTime:
 
     """
     # no easy conversion found.
-    
+
     @property
     def accuracy(self):
         accuracy_string: String = self._data[DateTime.ACCURACY_KEY]
-        return 
+        return
 
     @accuracy.setter
     def accuracy(self, value: timedelta):

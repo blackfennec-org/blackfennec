@@ -239,26 +239,26 @@ class Person:
 
     def __eq__(self, other) -> bool:
         return (
-                   self.courtesy_title,
-                   self.first_name,
-                   self.middle_name,
-                   self.last_name,
-                   self.suffix,
-                   self.gender,
-                   self.sex,
-                   self.marital_status,
-                   self.nationality
-               ) == (
-                   other.courtesy_title,
-                   other.first_name,
-                   other.middle_name,
-                   other.last_name,
-                   other.suffix,
-                   other.gender,
-                   other.sex,
-                   other.marital_status,
-                   other.nationality
-               )
+            self.courtesy_title,
+            self.first_name,
+            self.middle_name,
+            self.last_name,
+            self.suffix,
+            self.gender,
+            self.sex,
+            self.marital_status,
+            self.nationality
+        ) == (
+            other.courtesy_title,
+            other.first_name,
+            other.middle_name,
+            other.last_name,
+            other.suffix,
+            other.gender,
+            other.sex,
+            other.marital_status,
+            other.nationality
+        )
 
     def __ne__(self, other) -> bool:
         return not self == other
@@ -266,14 +266,14 @@ class Person:
     def __str__(self) -> str:
         """Convert to string"""
         return str(self.courtesy_title) + ' ' + \
-               str(self.first_name) + ' ' + \
-               str(self.middle_name) + ' ' + \
-               str(self.last_name) + ' ' + \
-               str(self.suffix) + '\n' + \
-               str(self.gender) + '\n' + \
-               str(self.sex) + '\n' + \
-               str(self.marital_status) + '\n' + \
-               str(self.nationality)
+            str(self.first_name) + ' ' + \
+            str(self.middle_name) + ' ' + \
+            str(self.last_name) + ' ' + \
+            str(self.suffix) + '\n' + \
+            str(self.gender) + '\n' + \
+            str(self.sex) + '\n' + \
+            str(self.marital_status) + '\n' + \
+            str(self.nationality)
 
     def __repr__(self) -> str:
         """Create representation for pretty printing"""

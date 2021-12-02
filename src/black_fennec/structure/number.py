@@ -9,7 +9,7 @@ class Number(Structure):
         """Construct Number with item `item`.
 
         Args:
-            value (:obj:`numbers.Number`, optional): The item of the `Number`.
+            value (numbers.Number, optional): The item of the `Number`.
                 By default "" (empty number)
         """
         Structure.__init__(self)
@@ -26,7 +26,7 @@ class Number(Structure):
 
     def __repr__(self) -> str:
         """Create representation for pretty printing"""
-        return 'Number(%s)' % self._value
+        return f'Number({self._value})'
 
     def accept(self, visitor):
         return visitor.visit_number(self)

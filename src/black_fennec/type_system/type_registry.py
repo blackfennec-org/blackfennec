@@ -12,7 +12,7 @@ class TypeRegistry:
 
         Initializes the _types attribute with empty list
         """
-        self._types = list()
+        self._types = []
 
     @property
     def types(self):

@@ -23,9 +23,9 @@ class ListView(Gtk.Bin):
             view_model (ListViewModel): The view_model.
         """
         super().__init__()
-        self._value: list = list()
-        self._items: dict = dict()
-        self._item_interpretation_mapping = dict()
+        self._value: list = []
+        self._items: dict = {}
+        self._item_interpretation_mapping = {}
         self._currently_selected = None
         self._view_model = view_model
         self._view_model.bind(
@@ -37,7 +37,7 @@ class ListView(Gtk.Bin):
 
     def _add_item(self, structure):
         preview = self._view_model.create_preview(structure)
-        item = ListItemView( preview, self._view_model)
+        item = ListItemView(preview, self._view_model)
         self._items[structure] = item
         self._item_container.add(item)
         self._item_interpretation_mapping[preview] = item
@@ -59,15 +59,15 @@ class ListView(Gtk.Bin):
             new_value: set by view model
         """
         for item in self._value:
-            if not item in new_value.value:
+            if item not in new_value.value:
                 self._remove_item(item)
 
         for i, item in enumerate(new_value.value):
-            if not item in self._value:
+            if item not in self._value:
                 self._add_item(item)
             self._set_item_position(item, i)
         self._value = new_value.value
-    
+
     def _setup_template_store(self):
         template_store = Gtk.ListStore(GObject.TYPE_STRING)
         templates = self._view_model.get_templates()
@@ -86,7 +86,11 @@ class ListView(Gtk.Bin):
                   f'in template registry'
         logger.error(message)
         raise KeyError(message)
-    def _preview_click_handler(self, unused_sender, route_target) -> None:
+
+    def _preview_click_handler(
+            self,
+            unused_sender,
+            unused_route_target) -> None:
         logger.warning('preview clicked handler is deprecated')
 
     def _on_selection_changed(self, unused_sender, new_value):

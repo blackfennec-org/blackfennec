@@ -1,5 +1,3 @@
-from typing import List
-
 from src.black_fennec.util.observable import Observable
 from src.extension.extension_api import ExtensionApi
 from src.extension.extension_source_registry import ExtensionSourceRegistry

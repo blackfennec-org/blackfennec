@@ -5,10 +5,10 @@ class Boolean(Structure):
     """Core Type Boolean, represents booleans in the domain model."""
 
     def __init__(self, value: bool = False):
-        """Construct Boolean with item `item`.
+        """Construct Boolean with value `value`.
 
         Args:
-            value (:obj:`bool`, optional): The item of the `Boolean`.
+            value (bool, optional): The value of the `Boolean`.
                 Default item is `False`
         """
         Structure.__init__(self)
@@ -23,13 +23,9 @@ class Boolean(Structure):
     def value(self, value: bool):
         self._value = value
 
-    def __str__(self) -> str:
-        """Convert to string"""
-        return str(self._value)
-
     def __repr__(self) -> str:
         """Create representation for pretty printing"""
-        return 'Boolean(%s)' % self._value
+        return f'Boolean({self._value})'
 
     def accept(self, visitor):
         return visitor.visit_boolean(self)

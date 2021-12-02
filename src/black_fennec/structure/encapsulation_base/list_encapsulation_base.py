@@ -15,6 +15,7 @@ class ListEncapsulationBase(EncapsulationBase, List):
         to ensure the encapsulation of any Structure returned
         in order to stay in the encapsulation layer.
     """
+
     def __init__(
             self,
             visitor: 'BaseFactoryVisitor',
@@ -38,7 +39,7 @@ class ListEncapsulationBase(EncapsulationBase, List):
     @value.setter
     def value(self, value):
         self.subject.value = [
-            self._remove_encapsulation(item) for item in value
+            self._remove_encapsulation(item) for item in (value or [])
         ]
 
     def add_item(self, item: Structure):

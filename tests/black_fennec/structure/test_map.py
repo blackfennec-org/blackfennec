@@ -6,6 +6,7 @@ from doubles.black_fennec.structure.double_root import RootMock
 from doubles.black_fennec.structure.encapsulation_base.double_factory_base_visitor import FactoryBaseVisitorMock
 from src.black_fennec.structure.map import Map
 
+
 class MapTestSuite(unittest.TestCase):
     def test_can_construct(self):
         m = Map()
@@ -53,19 +54,16 @@ class MapTestSuite(unittest.TestCase):
         key = 'Key'
         value = RootMock()
 
-        with self.assertRaises(ValueError):
+        with self.assertRaises(AssertionError):
             m.add_item(key, value)
 
-    def test_add_item_logs_on_parent_not_none(self):
+    def test_add_item_raises_assertion_error(self):
         m = Map()
         key = 'Key'
         value = RootMock()
 
-        with self.assertLogs(None, logging.ERROR):
-            try:
-                m.add_item(key, value)
-            except ValueError:
-                pass
+        with self.assertRaises(AssertionError):
+            m.add_item(key, value)
 
     def test_can_remove_item(self):
         key = 'key'

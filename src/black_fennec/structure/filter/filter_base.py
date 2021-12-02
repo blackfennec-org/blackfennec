@@ -8,6 +8,7 @@ class FilterBase(EncapsulationBase):
     This class contains specialised functionality
         that any Filter should be able to do.
     """
+
     def __init__(
             self,
             visitor: 'FilterFactoryVisitor',
@@ -17,10 +18,7 @@ class FilterBase(EncapsulationBase):
 
     @property
     def filtered(self):
-        if self.subject in self._visitor.metadata_storage:
-            return self._visitor.metadata_storage[self.subject]
-        else:
-            return False
+        return self._visitor.metadata_storage.get(self.subject, False)
 
     @filtered.setter
     def filtered(self, value: bool):

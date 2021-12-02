@@ -36,9 +36,6 @@ class BooleanTestSuite(unittest.TestCase):
         boolean.parent = root
         self.assertEqual(boolean.root, root)
 
-    def test_can_convert_to_string(self):
-        self.assertEqual(str(Boolean(3.141)), '3.141')
-
     def test_representation(self):
         actual = Boolean(True)
         expected = 'Boolean(%s)' % actual.value

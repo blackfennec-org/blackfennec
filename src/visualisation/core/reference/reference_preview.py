@@ -5,7 +5,7 @@ from uri import URI
 logger = logging.getLogger(__name__)
 
 
-@Gtk.Template(filename='src/visualisation/core/reference/reference_preview.glade')
+@Gtk.Template(filename='src/visualisation/core/reference/reference_preview.glade')  # pylint:disable=line-too-long
 class ReferencePreview(Gtk.Bin):
     """Preview for the core type Reference."""
 

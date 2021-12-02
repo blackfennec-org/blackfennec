@@ -7,6 +7,7 @@ class EncapsulationBase:
         has the super class EncapsulationBase or a specialisation.
 
     """
+
     def __init__(self, visitor: 'BaseFactoryVisitor', subject: Structure):
         """Constructor for EncapsulationBase
 

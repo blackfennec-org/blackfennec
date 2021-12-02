@@ -5,6 +5,7 @@ from doubles.black_fennec.structure.double_root import RootMock
 from doubles.black_fennec.structure.encapsulation_base.double_factory_base_visitor import FactoryBaseVisitorMock
 from src.black_fennec.structure.list import List
 
+
 class ListTestSuite(unittest.TestCase):
     def test_can_construct(self):
         test_list = List()
@@ -31,18 +32,15 @@ class ListTestSuite(unittest.TestCase):
         test_list = List()
         value = RootMock()
 
-        with self.assertRaises(ValueError):
+        with self.assertRaises(AssertionError):
             test_list.add_item(value)
 
     def test_add_item_logs_on_parent_not_none(self):
         test_list = List()
         value = RootMock()
 
-        with self.assertLogs(None, logging.ERROR):
-            try:
-                test_list.add_item(value)
-            except ValueError:
-                pass
+        with self.assertRaises(AssertionError):
+            test_list.add_item(value)
 
     def test_can_remove_item_item(self):
         test_list = List()

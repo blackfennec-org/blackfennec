@@ -15,7 +15,7 @@ class StringView(Gtk.Bin):
         """Construct with view_model.
 
         Args:
-            view_model (:obj:`StringViewModel`): The view_model.
+            view_model (StringViewModel): The view_model.
         """
         super().__init__()
         self._view_model = view_model

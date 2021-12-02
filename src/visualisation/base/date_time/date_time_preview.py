@@ -8,7 +8,7 @@ from src.visualisation.base.date_time.date_time_view_model import DateTimeViewMo
 logger = logging.getLogger(__name__)
 
 
-@Gtk.Template(filename='src/visualisation/base/date_time/date_time_preview.glade')
+@Gtk.Template(filename='src/visualisation/base/date_time/date_time_preview.glade')  # pylint:disable=line-too-long
 class DateTimePreview(Gtk.Bin):
     """View for the core type DateTime."""
 

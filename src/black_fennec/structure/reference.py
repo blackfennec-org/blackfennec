@@ -24,7 +24,8 @@ class Reference(Structure):
         Args:
             reference (URI): uri containing a json reference
         """
-        Structure.__init__(self, reference)
+        Structure.__init__(self)
+        self._value = reference
         self._json_reference_resolve_service = json_reference_resolve_service
 
     @property

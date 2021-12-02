@@ -27,16 +27,3 @@ class TemplateRegistryTestSuite(unittest.TestCase):
         template_registry.deregister_template(Dummy)
 
         self.assertNotIn(template, template_registry.templates)
-
-    def test_deregister_inexistent_throws(self):
-        template_registry = TemplateRegistry()
-        with self.assertRaises(KeyError):
-            template_registry.deregister_template(Dummy)
-
-    def test_deregister_inexistent_logs(self):
-        template_registry = TemplateRegistry()
-        with self.assertLogs(None, logging.ERROR):
-            try:
-                template_registry.deregister_template(Dummy)
-            except KeyError:
-                pass

@@ -1,9 +1,13 @@
 # -*- coding: utf-8 -*-
 import logging
+from functools import cached_property
+
 from src.black_fennec.structure.structure import Structure
-#from src.navigation.navigation_service import NavigationService
+
+# from src.navigation.navigation_service import NavigationService
 
 logger = logging.getLogger(__name__)
+
 
 class Interpretation:
     """Interpretation Class.
@@ -11,6 +15,7 @@ class Interpretation:
     Is produced by the InterpretationService. Contains the relevant structure
     and can create a view. Dispatches navigation requests to navigation_service.
     """
+
     def __init__(self, structure: Structure, specification, factories):
         """Interpretation constructor.
 
@@ -24,9 +29,8 @@ class Interpretation:
         self._navigation_service = None
         self._specification = specification
         self._factories = factories
-        self._structure_views = list()
+        self._structure_views = []
         self._structure = structure
-        self._view = None
 
     def set_navigation_service(self, navigation_service) -> None:
         """Set navigation service to be used.
@@ -38,7 +42,6 @@ class Interpretation:
         assert navigation_service, 'navigation service must not be None'
         self._navigation_service = navigation_service
 
-
     @property
     def structure(self) -> Structure:
         """structure getter
@@ -48,12 +51,11 @@ class Interpretation:
         """
         return self._structure
 
-    @property
+    @cached_property
     def view(self):
-        if not self._view:
-            self._view = self._factories[0].create(self, self._specification)
-            logger.debug('creating view from %s', self._view)
-        return self._view
+        view = self._factories[0].create(self, self._specification)
+        logger.debug('creating view from %s', view)
+        return view
 
     def navigate(self, destination: Structure):
         """Navigation dispatch.

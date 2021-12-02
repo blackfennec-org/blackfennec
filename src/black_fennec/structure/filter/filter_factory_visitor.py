@@ -14,10 +14,11 @@ class FilterFactoryVisitor(BaseFactoryVisitor):
         which require specialised functionality. For all other
         structure types the abstract factory implementation suffices.
     """
+
     def __init__(self, metadata_storage: dict = None):
         BaseFactoryVisitor.__init__(self, FilterBase)
-        self._metadata_storage = metadata_storage if metadata_storage\
-            else dict()
+        self._metadata_storage = metadata_storage if metadata_storage \
+            else {}
 
     @property
     def metadata_storage(self):
