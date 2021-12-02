@@ -37,8 +37,11 @@ background-color: @silver;
 }
 
 /*General */
-.main-window {
- font-family: Ubuntu;
+* {
+font-family: Ubuntu, Verdana;
+}
+
+.main-window, .splash-screen {
  background-color: @iron;
 }
 
@@ -46,7 +49,6 @@ background-color: @silver;
 border-image: none;
 background-image: none;
 box-shadow: none;
-font-family: Ubuntu;
 }
 
 .main-window selection{
@@ -235,7 +237,7 @@ margin: 5px;
 }
 
 .empty-list-pattern button{
-font-family: Ubuntu;
+font-family: Ubuntu, Verdana;
 border-style: solid;
 border-color: @rocky-l;
 border-width: 2px;
