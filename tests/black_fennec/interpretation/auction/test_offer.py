@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import unittest
 
-from doubles.black_fennec.structure.double_info import InfoMock
+from doubles.black_fennec.structure.double_structure import StructureMock
 from doubles.double_dummy import Dummy
 from src.black_fennec.interpretation.auction.coverage import Coverage
 from src.black_fennec.interpretation.auction.offer import Offer
@@ -16,9 +16,9 @@ class OfferTestSuite(unittest.TestCase):
         self.template_factory = None
 
     def test_can_create_offer(self):
-        subject = InfoMock('Info')
+        subject = StructureMock('Structure')
         specificity = 1
-        template = InfoMock('Info').accept(self.template_factory)
+        template = StructureMock('Structure').accept(self.template_factory)
         view_factory = Dummy('ViewFactory')
         offer = Offer(subject, specificity, template, view_factory)
         self.assertEqual(
@@ -47,9 +47,9 @@ class OfferTestSuite(unittest.TestCase):
         )
 
     def test_subject_getter(self):
-        subject = InfoMock('Info')
+        subject = StructureMock('Structure')
         specificity = 1
-        template = InfoMock('Info').accept(self.template_factory)
+        template = StructureMock('Structure').accept(self.template_factory)
         view_factory = Dummy('ViewFactory')
         offer = Offer(subject, specificity, template, view_factory)
         self.assertEqual(
@@ -60,9 +60,9 @@ class OfferTestSuite(unittest.TestCase):
         )
 
     def test_specificity_getter(self):
-        subject = InfoMock('Info')
+        subject = StructureMock('Structure')
         specificity = 1
-        template = InfoMock('Info').accept(self.template_factory)
+        template = StructureMock('Structure').accept(self.template_factory)
         view_factory = Dummy('ViewFactory')
         offer = Offer(subject, specificity, template, view_factory)
         self.assertEqual(
@@ -73,9 +73,9 @@ class OfferTestSuite(unittest.TestCase):
         )
 
     def test_template_getter(self):
-        subject = InfoMock('Info')
+        subject = StructureMock('Structure')
         specificity = 1
-        template = InfoMock('Info').accept(self.template_factory)
+        template = StructureMock('Structure').accept(self.template_factory)
         view_factory = Dummy('ViewFactory')
         offer = Offer(subject, specificity, template, view_factory)
         self.assertEqual(
@@ -86,9 +86,9 @@ class OfferTestSuite(unittest.TestCase):
         )
 
     def test_view_factory_getter(self):
-        subject = InfoMock('Info')
+        subject = StructureMock('Structure')
         specificity = 1
-        template = InfoMock('Info').accept(self.template_factory)
+        template = StructureMock('Structure').accept(self.template_factory)
         view_factory = Dummy('ViewFactory')
         offer = Offer(subject, specificity, template, view_factory)
         self.assertEqual(
@@ -99,9 +99,9 @@ class OfferTestSuite(unittest.TestCase):
         )
 
     def test_coverage_getter_simple(self):
-        subject = InfoMock('Info')
+        subject = StructureMock('Structure')
         specificity = 1
-        template = InfoMock('Info').accept(self.template_factory)
+        template = StructureMock('Structure').accept(self.template_factory)
         view_factory = Dummy('ViewFactory')
         offer = Offer(subject, specificity, template, view_factory)
         self.assertEqual(
@@ -110,19 +110,19 @@ class OfferTestSuite(unittest.TestCase):
         )
 
     def test_equal_offers_equality(self):
-        subject = InfoMock('Info')
+        subject = StructureMock('Structure')
         template = subject.accept(self.template_factory)
         offer = Offer(
             subject,
             specificity=1,
             template=template,
-            type_view_factory=Dummy('InfoFactory')
+            type_view_factory=Dummy('StructureFactory')
         )
         other_offer = Offer(
             subject,
             specificity=1,
             template=template,
-            type_view_factory=Dummy('InfoFactory')
+            type_view_factory=Dummy('StructureFactory')
         )
         self.assertTrue(
             offer == other_offer,
@@ -130,19 +130,19 @@ class OfferTestSuite(unittest.TestCase):
         )
 
     def test_not_equal_offers_equality(self):
-        subject = InfoMock('Info')
+        subject = StructureMock('Structure')
         template = subject.accept(self.template_factory)
         offer = Offer(
             subject,
             specificity=1,
             template=template,
-            type_view_factory=Dummy('InfoFactory')
+            type_view_factory=Dummy('StructureFactory')
         )
         other_offer = Offer(
             subject,
             specificity=2,
             template=template,
-            type_view_factory=Dummy('InfoFactory')
+            type_view_factory=Dummy('StructureFactory')
         )
         self.assertFalse(
             offer == other_offer,
@@ -150,19 +150,19 @@ class OfferTestSuite(unittest.TestCase):
         )
 
     def test_lower_than_equal(self):
-        subject = InfoMock('Info')
+        subject = StructureMock('Structure')
         template = subject.accept(self.template_factory)
         offer = Offer(
             subject,
             specificity=0,
             template=template,
-            type_view_factory=Dummy('InfoFactory')
+            type_view_factory=Dummy('StructureFactory')
         )
         other_offer = Offer(
             subject,
             specificity=0,
             template=template,
-            type_view_factory=Dummy('InfoFactory')
+            type_view_factory=Dummy('StructureFactory')
         )
         self.assertFalse(
             offer < other_offer,
@@ -174,19 +174,19 @@ class OfferTestSuite(unittest.TestCase):
         )
 
     def test_lower_than_lower_and_greater(self):
-        subject = InfoMock('Info')
+        subject = StructureMock('Structure')
         template = subject.accept(self.template_factory)
         greater_offer = Offer(
             subject,
             specificity=0,
             template=template,
-            type_view_factory=Dummy('InfoFactory')
+            type_view_factory=Dummy('StructureFactory')
         )
         lower_offer = Offer(
             subject,
             specificity=1,
             template=template,
-            type_view_factory=Dummy('InfoFactory')
+            type_view_factory=Dummy('StructureFactory')
         )
         self.assertFalse(
             greater_offer < lower_offer,
@@ -198,64 +198,31 @@ class OfferTestSuite(unittest.TestCase):
         )
 
     def test_lower_than_with_different_subject(self):
-        subject = InfoMock('Info')
+        subject = StructureMock('Structure')
         template = subject.accept(self.template_factory)
-        other_subject = InfoMock('Info2')
+        other_subject = StructureMock('Structure2')
         offer = Offer(
             subject,
             specificity=1,
             template=template,
-            type_view_factory=Dummy('InfoFactory')
+            type_view_factory=Dummy('StructureFactory')
         )
         other_offer = Offer(
             other_subject,
             specificity=1,
             template=template,
-            type_view_factory=Dummy('InfoFactory')
+            type_view_factory=Dummy('StructureFactory')
         )
         with self.assertRaises(
                 ValueError,
                 msg='Comparison of offers with different subject does ' +
                     'not throw ValueError'
         ):
-            offer < other_offer # pylint: disable=pointless-statement
-
-    def test_hash_unequal_values(self):
-        subject = InfoMock('Info')
-        template = subject.accept(self.template_factory)
-        other_subject = InfoMock('Info2')
-        offer = Offer(
-            subject,
-            specificity=1,
-            template=template,
-            type_view_factory=Dummy('InfoFactory')
-        )
-        other_offer = Offer(
-            other_subject,
-            specificity=2,
-            template=template,
-            type_view_factory=Dummy('InfoFactory')
-        )
-        self.assertNotEqual(hash(offer), hash(other_offer))
-
-    def test_hash_equal_values(self):
-        subject = InfoMock('Info')
-        template = subject.accept(self.template_factory)
-        offer = Offer(
-            subject,
-            specificity=1,
-            template=template,
-            type_view_factory=Dummy('InfoFactory'))
-        other_offer = Offer(
-            subject,
-            specificity=1,
-            template=template,
-            type_view_factory=Dummy('InfoFactory'))
-        self.assertEqual(hash(offer), hash(other_offer))
+            offer < other_offer  # pylint: disable=pointless-statement
 
     def test_representation(self):
-        factory = Dummy('InfoFactory')
-        subject = InfoMock('Info')
+        factory = Dummy('StructureFactory')
+        subject = StructureMock('Structure')
         template = subject.accept(self.template_factory)
         offer = Offer(
             subject,

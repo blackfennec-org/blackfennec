@@ -1,24 +1,7 @@
 # Version: 0.2.1
 
 variables:
-  PROJECT_BUILD_IMAGE: $CI_REGISTRY_IMAGE/project-build:latest
-  GIT_DEPTH: 0
-
-###############################################################################
-# Build Project Building Docker Image
-###############################################################################
-build project image:
-  stage: imagebuild
-  image: docker:latest
-  script:
-    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
-    - docker build --tag $PROJECT_BUILD_IMAGE -f  .gitlab/project/Dockerfile.build .
-    - docker push $PROJECT_BUILD_IMAGE
-  only:
-    changes:
-      - .gitlab/project/Dockerfile.build
-      - .gitlab/project/.dockerignore
-      - .gitlab/project/ci.yml
+  PROJECT_BUILD_IMAGE: ceem/black-fennec:latest
 
 ###############################################################################
 # Test Black-Fennec
@@ -66,4 +49,4 @@ publish package:
   script:
     - pip install twine
     - python setup.py sdist
-    - TWINE_PASSWORD=${CI_JOB_TOKEN} TWINE_USERNAME=gitlab-ci-token python -m twine upload --repository-url https://gitlab.ost.ch/api/v4/projects/${CI_PROJECT_ID}/packages/pypi dist/*
+    - TWINE_PASSWORD=${CI_JOB_TOKEN} TWINE_USERNAME=gitlab-ci-token python -m twine upload --repository-url ${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/pypi dist/*

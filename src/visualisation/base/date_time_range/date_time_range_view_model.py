@@ -2,7 +2,6 @@
 import logging
 from datetime import datetime
 
-
 from src.black_fennec.interpretation.interpretation import Interpretation
 from src.visualisation.base.date_time_range.date_time_range import DateTimeRange
 
@@ -19,7 +18,8 @@ class DateTimeRangeViewModel:
             interpretation (Interpretation): The overarching
                 interpretation
         """
-        self._model: DateTimeRange = DateTimeRange(interpretation.info)
+        self._model: DateTimeRange = DateTimeRange(interpretation.structure)
+        self._interpretation = interpretation
 
     @property
     def date_time_start(self) -> datetime:
@@ -39,3 +39,5 @@ class DateTimeRangeViewModel:
     def date_time_end(self, value: datetime):
         self._model.date_time_end = value
 
+    def navigate(self):
+        self._interpretation.navigate(self._interpretation.structure)

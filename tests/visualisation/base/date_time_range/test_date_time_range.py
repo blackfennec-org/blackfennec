@@ -19,8 +19,8 @@ class DateTimeRangeTestSuite(unittest.TestCase):
 
         data_map = MapMock(data)
         DateTimeRange(data_map)
-        self.assertIn(DateTimeRange.START_KEY, data_map)
-        self.assertIn(DateTimeRange.END_KEY, data_map)
+        self.assertIn(DateTimeRange.START_KEY, data_map.value)
+        self.assertIn(DateTimeRange.END_KEY, data_map.value)
 
     def test_date_time_start_getter(self):
         data = dict()

@@ -1,28 +1,28 @@
-from doubles.black_fennec.structure.double_info import InfoMock
-from doubles.visualisation.double_info_view import InfoViewDummy
+from doubles.black_fennec.structure.double_structure import StructureMock
+from doubles.visualisation.double_structure_view import StructureViewDummy
 
 
 class InterpretationMock:
-    def __init__(self, info = None, info_view = None):
+    def __init__(self, structure = None, structure_view = None):
         self.navigation_requests = list()
         self.view_property_access_count = 0
-        self.info_property_access_count = 0
-        self._info = InfoMock() if info is None else info
-        self.info_view = InfoViewDummy() if info_view is None else info_view
+        self.structure_property_access_count = 0
+        self._structure = StructureMock() if structure is None else structure
+        self.structure_view = StructureViewDummy() if structure_view is None else structure_view
         self.navigation_service = None
 
     def set_navigation_service(self, navigation_service):
         self.navigation_service = navigation_service
 
-    def navigate(self, info):
-        self.navigation_requests.append(info)
+    def navigate(self, structure):
+        self.navigation_requests.append(structure)
 
     @property
     def view(self):
         self.view_property_access_count += 1
-        return self.info_view
+        return self.structure_view
 
     @property
-    def info(self):
-        self.info_property_access_count += 1
-        return self._info
+    def structure(self):
+        self.structure_property_access_count += 1
+        return self._structure

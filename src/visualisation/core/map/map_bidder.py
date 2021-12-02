@@ -1,41 +1,46 @@
-from src.black_fennec.structure.info import Info
-from src.black_fennec.structure.map import Map
-from src.black_fennec.interpretation.interpretation_service import InterpretationService
-from src.black_fennec.structure.template.template_factory_visitor import TemplateFactoryVisitor
-from src.visualisation.core.map.map_view_factory import MapViewFactory
-from src.black_fennec.interpretation.auction.offer import Offer
-
 import logging
+
+from src.black_fennec.interpretation.auction.offer import Offer
+from src.black_fennec.interpretation.interpretation_service import \
+    InterpretationService
+from src.black_fennec.structure.structure import Structure
+from src.black_fennec.type_system.template_registry import TemplateRegistry
+from src.visualisation.core.map.map_template import MapTemplate
+from src.visualisation.core.map.map_view_factory import MapViewFactory
 
 logger = logging.getLogger(__name__)
 
 
-def create_map_template():
-    template_factory = TemplateFactoryVisitor()
-    template = Map().accept(template_factory)
-    return template
-
-
 class MapBidder:
     """The bidding service for the core type Map."""
-    def __init__(self, interpretation_service: InterpretationService):
+
+    def __init__(
+            self,
+            interpretation_service: InterpretationService,
+            template_registry: TemplateRegistry):
         """Construct map bidder.
 
         Args:
-            interpretation_service (InterpretationService): dependency of
-                map view factory
-        """
-        self._factory = MapViewFactory(interpretation_service)
+            interpretation_service (InterpretationService): used in map view
+                model to create children previews
+            template_registry (TemplateRegistry): used in map view model to
+                add new items.
 
-    def bid(self, subject: Info):
+        """
+        self._factory = MapViewFactory(
+            interpretation_service,
+            template_registry)
+
+    def bid(self, subject: Structure):
         """"Produces an offer for a given object.
 
         Args:
-            subject (Info): The Info for which an offer should be produced.
+            subject (Structure): The Structure for
+                which an offer should be produced.
 
         Returns:
             Offer: Offer that this type offers for
                 the received subject.
         """
         logger.info('bidding on object')
-        return Offer(subject, 0, create_map_template(), self._factory)
+        return Offer(subject, 0, MapTemplate(), self._factory)

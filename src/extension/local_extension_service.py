@@ -15,6 +15,7 @@ class LocalExtensionService:
     Can import and list modules present in a local
         python namespace.
     """
+
     @staticmethod
     def _iter_namespace(name, location):
         return pkgutil.iter_modules(
@@ -45,10 +46,10 @@ class LocalExtensionService:
                 and have a create_extension and destroy_extension
                 method
         """
-        extensions = dict()
-        for module_info in self._iter_namespace(name, location):
-            module_name = module_info.name
-            module_spec = module_info.module_finder.find_spec(module_name)
+        extensions = {}
+        for module_structure in self._iter_namespace(name, location):
+            module_name = module_structure.name
+            module_spec = module_structure.module_finder.find_spec(module_name)
             module_path = module_spec.submodule_search_locations
             extension = Extension(
                 self,
@@ -57,8 +58,9 @@ class LocalExtensionService:
                 location=module_path
             )
             module = importlib.import_module(module_name)
-            if self._check_if_function_exists(module, 'create_extension') and\
-               self._check_if_function_exists(module, 'destroy_extension'):
+            if self._check_if_function_exists(
+                    module, 'create_extension') and self._check_if_function_exists(
+                    module, 'destroy_extension'):
                 extensions[module_name] = extension
             else:
                 message = f'module({module_name}, {module_path}) does ' \

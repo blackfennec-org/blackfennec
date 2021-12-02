@@ -56,7 +56,7 @@ class PyPIExtensionService:
         Returns:
             [Extension]: list of extensions at location
         """
-        extensions = dict()
+        extensions = {}
         for extension_name in self._list_extensions(location):
             extension = Extension(
                 self,
@@ -68,7 +68,10 @@ class PyPIExtensionService:
         return extensions
 
     @staticmethod
-    def _install_extension(identifier: str, location: str, extension_name: str):
+    def _install_extension(
+            identifier: str,
+            location: str,
+            extension_name: str):
         """
         Installs extension via pip command
         Args:

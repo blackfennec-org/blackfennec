@@ -1,10 +1,9 @@
 # -*- coding: utf-8 -*-
 import logging
-from collections import UserList
 
 from src.black_fennec.structure.encapsulation_base.encapsulation_base import EncapsulationBase
-from src.black_fennec.structure.info import Info
 from src.black_fennec.structure.list import List
+from src.black_fennec.structure.structure import Structure
 
 logger = logging.getLogger(__name__)
 
@@ -13,15 +12,16 @@ class ListEncapsulationBase(EncapsulationBase, List):
     """Base Class for ecapsulations of a List.
 
     Contains List specific overrides of certain functions
-        to ensure the encapsulation of any Info returned
+        to ensure the encapsulation of any Structure returned
         in order to stay in the encapsulation layer.
     """
+
     def __init__(
             self,
             visitor: 'BaseFactoryVisitor',
             subject: List,
     ):
-        UserList.__init__(self)
+        List.__init__(self)
         EncapsulationBase.__init__(
             self,
             visitor,
@@ -39,47 +39,34 @@ class ListEncapsulationBase(EncapsulationBase, List):
     @value.setter
     def value(self, value):
         self.subject.value = [
-            self._remove_template_class(item) for item in value
+            self._remove_encapsulation(item) for item in (value or [])
         ]
 
-    def append(self, item: Info):
+    def add_item(self, item: Structure):
         """Append item to list template.
 
         Args:
-            item (Info): Item to append.
+            item (Structure): Item to append.
         """
-        decapsulated_item = self._remove_template_class(item)
-        self.subject.append(decapsulated_item)
+        decapsulated_item = self._remove_encapsulation(item)
+        self.subject.add_item(decapsulated_item)
 
-    def remove(self, item: Info):
+    def remove_item(self, item: Structure):
         """Remove item from List.
 
         Args:
-            item (Info): Item to remove.
+            item (Structure): Item to remove.
 
         Raises:
             KeyError: If the item passed is not in
                 list and hence cannot be removed.
         """
-        decapsulated_value = self._remove_template_class(item)
-        if decapsulated_value not in self:
+        decapsulated_value = self._remove_encapsulation(item)
+        if decapsulated_value not in self.subject.value:
             message = 'item not in list'
             logger.error(message)
             raise KeyError(message)
-        self.subject.remove(decapsulated_value)
-
-    def __getitem__(self, index):
-        item: Info = self.subject[index]
-        return item.accept(self._visitor)
-
-    def __setitem__(self, index, value: Info):
-        decapsulated_value = self._remove_template_class(value)
-        self.subject[index] = decapsulated_value
-        decapsulated_value.parent = self.subject
-
-    def __contains__(self, item: Info):
-        decapsulated_value = self._remove_template_class(item)
-        return decapsulated_value in self.subject
+        self.subject.remove_item(decapsulated_value)
 
     def __repr__(self):
         return f'ListEncapsulationBase({self.subject.__repr__()})'

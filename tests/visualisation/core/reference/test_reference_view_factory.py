@@ -1,5 +1,5 @@
 import unittest
-
+from uri import URI
 from doubles.black_fennec.interpretation.double_interpretation import InterpretationMock
 from doubles.black_fennec.structure.double_map import MapMock
 from doubles.black_fennec.structure.double_reference import ReferenceInstanceMock
@@ -20,7 +20,8 @@ class ReferenceViewFactoryTestSuite(unittest.TestCase):
     def test_can_create_reference_preview(self):
         factory = ReferenceViewFactory()
         view = factory.create(
-            InterpretationMock(ReferenceInstanceMock()),
+            InterpretationMock(
+                ReferenceInstanceMock(reference=URI('reference'))),
             Specification(request_preview=True)
         )
         self.assertIsInstance(view, ReferencePreview)

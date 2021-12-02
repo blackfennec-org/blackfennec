@@ -52,4 +52,3 @@ class AddressView(Gtk.Bin):
     def _set_city(self):
         city = self._view_model.city
         self._city_value.set_text(str(city))
-

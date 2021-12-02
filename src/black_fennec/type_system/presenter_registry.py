@@ -13,7 +13,7 @@ class PresenterRegistry:
 
         Initializes the _presenters attribute with empty list
         """
-        self._presenters = list()
+        self._presenters = []
 
     @property
     def presenters(self):
@@ -22,7 +22,7 @@ class PresenterRegistry:
             Returns:
                 list: of presenter
         """
-        return self._presenters
+        return list(self._presenters)
 
     def register_presenter(self, presenter):
         """Function to register a new presenter
@@ -41,6 +41,6 @@ class PresenterRegistry:
 
         """
 
-        for current_type in self._presenters:
-            if current_type.__class__ == presenter_type:
-                self._presenters.remove(current_type)
+        for current_presenter in self._presenters:
+            if current_presenter.__class__ == presenter_type:
+                self._presenters.remove(current_presenter)

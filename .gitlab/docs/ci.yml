@@ -1,30 +1,5 @@
 variables:
-  DOCS_BUILD_IMAGE: $CI_REGISTRY_IMAGE/sphinx-build:$CI_COMMIT_REF_SLUG
-  GIT_DEPTH: 0
-
-###############################################################################
-# Build Docs Building Docker Image
-###############################################################################
-build docs image:
-  stage: imagebuild
-  image: docker:latest
-  script:
-    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
-    - docker build --tag $DOCS_BUILD_IMAGE -f  .gitlab/docs/Dockerfile.build .
-    - docker push $DOCS_BUILD_IMAGE
-  only:
-    changes:
-      - .gitlab/docs/Dockerfile.build
-      - .gitlab/docs/.dockerignore
-      - .gitlab/docs/ci.yml
-      - docs/requirements.txt
-      - docs/source/conf.py
-  except:
-    refs:
-      - /^(?!feature).+$
-      - /^(?!hotfix).+$
-      - /^(?!issue).+$
-
+  DOCS_BUILD_IMAGE: sphinxdoc/sphinx
 
 ###############################################################################
 # Build Latest Documentation
@@ -39,41 +14,19 @@ build latest code docs:
     paths:
       - docs/source/software_documentation/code
   only:
-      - tags
+    - tags
 
 build latest html:
   image: $DOCS_BUILD_IMAGE
   stage: build
+  before_script:
+    - pip install -r docs/requirements.txt
   script:
     - cd docs
     - make html
   artifacts:
     paths:
       - docs/_build/html
-  only:
-    - tags
-
-build latest pdf:
-  image: $DOCS_BUILD_IMAGE
-  stage: build
-  script:
-    - cd docs
-    - make latexpdf
-  artifacts:
-    paths:
-      - docs/_build/latex/*.pdf
-  only:
-    - tags
-
-build latest epub:
-  image: $DOCS_BUILD_IMAGE
-  stage: build
-  script:
-    - cd docs
-    - make epub
-  artifacts:
-    paths:
-      - docs/_build/epub/*.epub
   only:
     - tags
 
@@ -87,8 +40,6 @@ pages:
   script:
     - cd docs
     - mv _build/html/ ../public
-    - mv _build/epub/*.epub ../public/_static/
-    - mv _build/latex/*.pdf ../public/_static/
   artifacts:
     paths:
       - public

@@ -11,6 +11,7 @@ logger = logging.getLogger(__name__)
 
 class ListTemplate(ListEncapsulationBase, TemplateBase):
     """Base Class for Template of a List."""
+
     def __init__(
             self,
             visitor: 'TemplateFactoryVisitor',
@@ -43,12 +44,12 @@ class ListTemplate(ListEncapsulationBase, TemplateBase):
         coverage = Coverage.COVERED
 
         logger.debug(
-            'Calculating list coverage (children=%s, types in template=%s)',
-            len(subject.children),
-            len(subject.children)
+            'Calculating list coverage (value=%s, types in template=%s)',
+            len(subject.value),
+            len(subject.value)
         )
-        for template_node in self.children:
-            for subject_node in subject.children:
+        for template_node in self.value:
+            for subject_node in subject.value:
                 coverage += template_node.calculate_coverage(subject_node)
         return coverage
 

@@ -5,7 +5,7 @@ import urllib.request as req
 
 from uri import URI
 
-from src.black_fennec.structure.info import Info
+from src.black_fennec.structure.structure import Structure
 from src.black_fennec.structure.root import Root
 from src.black_fennec.util.uri.structure_parsing_service import StructureParsingService
 from src.black_fennec.util.uri.uri_type import UriType
@@ -16,7 +16,7 @@ logger = logging.getLogger(__name__)
 
 
 class UriImportService:
-    """Service to Import Uri into Info composition"""
+    """Service to Import Uri into Structure composition"""
 
     def __init__(
             self,
@@ -29,19 +29,19 @@ class UriImportService:
 
         Args:
             structure_parser (StructureParsingService): Service to
-                parse raw json structure to Info composition.
+                parse raw json structure to Structure composition.
             uri_loading_strategy_factory (UriLoadingStrategyFactory):
                 Service to load uri and return FilePointer of loaded URI.
             uri_import_strategy_factory (UriImportStrategyFactory):
                 Service to import FilePointer into raw json structure.
             uri_cache (dict):
                 Cache of already resolved URI's containing complete
-                    Info compositions to directly return.
+                    Structure compositions to directly return.
         """
         self._parser = structure_parser
         self._loading_strategy_factory = uri_loading_strategy_factory
         self._import_strategy_factory = uri_import_strategy_factory
-        self._uri_cache = uri_cache if uri_cache else dict()
+        self._uri_cache = uri_cache if uri_cache else {}
 
     def load(
             self,
@@ -49,7 +49,7 @@ class UriImportService:
             current_path: str = None,
             mime_type: str = None
     ):
-        """Loads data from URI into Info composition
+        """Loads data from URI into Structure composition
             with the help of strategies provided to
             UriImportService.
 
@@ -64,7 +64,7 @@ class UriImportService:
                 the mime_type was not possible.
 
         Returns:
-            Info: composition of Infos that were retrieved from uri.
+            Structure: composition of Structures that were retrieved from uri.
         """
         uri_type: UriType = UriType.from_uri(uri)
         mime_type = self._get_mime_type(uri, uri_type, mime_type)
@@ -78,7 +78,7 @@ class UriImportService:
             import_function = self._import_strategy_factory.create(mime_type)
             raw = import_function(file)
 
-            structure: Info = self._parser.from_json(raw)
+            structure: Structure = self._parser.from_json(raw)
             self._uri_cache[uri_id] = structure
             uri_id_without_mime_type, _ = uri_id
             structure.parent = Root(
@@ -132,8 +132,8 @@ class UriImportService:
             return mime_type
         if uri_type.HOST_URI:
             with req.urlopen(str(uri)) as response:
-                info = response.info()
-                mime_type = info.get_content_type()
+                structure = response.info()
+                mime_type = structure.get_content_type()
             if mime_type:
                 return mime_type
         message = 'Please provide mime_type as parameter ' \

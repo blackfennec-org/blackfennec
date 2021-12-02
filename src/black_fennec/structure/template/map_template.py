@@ -11,6 +11,7 @@ logger = logging.getLogger(__name__)
 
 class MapTemplate(MapEncapsulationBase, TemplateBase):
     """Base Class for Template of a Map."""
+
     def __init__(
             self,
             visitor: 'TemplateFactoryVisitor',
@@ -39,11 +40,6 @@ class MapTemplate(MapEncapsulationBase, TemplateBase):
 
         coverage = Coverage.COVERED
 
-        logger.debug(
-            'Calculating map coverage (children=%s, types in template=%s)',
-            len(subject.children),
-            len(subject.children)
-        )
         for key, value in self.value.items():
             if key in subject.value:
                 sub_coverage = value.calculate_coverage(subject.value[key])
@@ -57,7 +53,7 @@ class MapTemplate(MapEncapsulationBase, TemplateBase):
         coverage += Coverage(
             len(subject.value) - len(self.value),
             0
-        )  # workaround
+        )  # TODO workaround
         return coverage
 
     def __repr__(self):

@@ -4,13 +4,17 @@ from src.visualisation.core.map.map_preview import MapPreview
 from src.black_fennec.interpretation.interpretation import Interpretation
 from src.black_fennec.interpretation.interpretation_service import InterpretationService
 from src.black_fennec.interpretation.specification import Specification
+from src.black_fennec.type_system.template_registry import TemplateRegistry
 
 
 class MapViewFactory:
     """Creator of the MapView"""
 
-    def __init__(self, interpretation_service: InterpretationService):
+    def __init__(self,
+                 interpretation_service: InterpretationService,
+                 template_registry: TemplateRegistry):
         self._interpretation_service = interpretation_service
+        self._template_registry = template_registry
 
     def satisfies(self, unused_specification: Specification) -> bool:
         """Test if this view factory can satisfy the specification
@@ -29,15 +33,18 @@ class MapViewFactory:
         """creates a MapView
 
         Args:
-            interpretation (:obj:`Interpretation`): The overarching
+            interpretation (Interpretation): The overarching
                 interpretation.
             specification (Specification): The specification which can fine
                 tune the creation function.
 
         Returns:
-            :obj:`MapView`
+            MapView: with created view model contained.
         """
-        view_model = MapViewModel(interpretation, self._interpretation_service)
+        view_model = MapViewModel(
+            interpretation,
+            self._interpretation_service,
+            self._template_registry)
         if specification.is_request_for_preview:
             return MapPreview(view_model)
         return MapView(view_model)

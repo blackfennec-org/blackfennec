@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with glade 3.38.2 -->
+<interface>
+  <requires lib="gtk+" version="3.24"/>
+  <template class="DateTimePreview" parent="GtkBin">
+    <property name="visible">True</property>
+    <property name="can-focus">False</property>
+    <property name="tooltip-text" translatable="yes">Date-Time</property>
+    <child>
+      <object class="GtkEventBox">
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
+        <signal name="button-press-event" handler="_preview_clicked" swapped="no"/>
+        <child>
+          <object class="GtkBox">
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="spacing">7</property>
+            <child>
+              <object class="GtkImage">
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="pixbuf">src/visualisation/base/date_time_range/date.png</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="_date_time_value">
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="label" translatable="yes">&lt;value-here&gt;</property>
+                <property name="selectable">True</property>
+                <property name="ellipsize">start</property>
+                <property name="xalign">0</property>
+                <style>
+                  <class name="base-value"/>
+                </style>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">1</property>
+              </packing>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+  </template>
+</interface>

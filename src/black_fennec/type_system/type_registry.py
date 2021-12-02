@@ -12,7 +12,7 @@ class TypeRegistry:
 
         Initializes the _types attribute with empty list
         """
-        self._types = list()
+        self._types = []
 
     @property
     def types(self):
@@ -27,7 +27,7 @@ class TypeRegistry:
         """Function to register a new type
 
             Args:
-                type_bidder (InfoBidder): future element of the type list
+                type_bidder (StructureBidder): future element of the type list
         """
         self._types.append(type_bidder)
 

@@ -24,4 +24,4 @@ class PersonViewFactoryTestSuite(unittest.TestCase):
     def test_does_not_satisfy_preview(self):
         factory = PersonViewFactory()
         satisfies = factory.satisfies(Specification(request_preview=True))
-        self.assertFalse(satisfies)
+        self.assertTrue(satisfies)

@@ -1,13 +1,19 @@
 # -*- coding: utf-8 -*-
 from uri import URI
 
-from src.black_fennec.structure.info import Info
+from src.black_fennec.structure.structure import Structure
 
+import logging
+logger = logging.getLogger(__name__)
 
-class Root(Info):
-    """Info that is the Root of a structure."""
+class Root(Structure):
+    """Structure that is the Root of a structure."""
 
-    def __init__(self, child: Info = None, uri: str = '', mime_type: str = ''):
+    def __init__(
+            self,
+            child: Structure = None,
+            uri: str = '',
+            mime_type: str = ''):
         super().__init__(self)
         self.uri = URI(uri)
         self.mime_type = mime_type
@@ -35,13 +41,15 @@ class Root(Info):
 
         The inherited setter for this property has been overridden
             to disallow changing the parent of the root.
-            If the operation is attempted a TypeError is raised.
+
+        Raises:
+            AssertionError: if the method is called
         """
         return self
 
     @parent.setter
     def parent(self, new_parent):
-        raise TypeError('cannot set parent on type Root')
+        raise AssertionError('cannot set parent on type Root')
 
     @property
     def root(self) -> 'Root':
@@ -49,16 +57,12 @@ class Root(Info):
         return self
 
     @property
-    def value(self) -> Info:
+    def value(self) -> Structure:
         return self._value
 
     @value.setter
-    def value(self, child: Info):
+    def value(self, child: Structure):
         self._value = child
-
-    @property
-    def children(self) -> list:
-        return [self.value]
 
     def accept(self, visitor):
         return visitor.visit_root(self)

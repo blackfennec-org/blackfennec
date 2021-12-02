@@ -1,6 +1,6 @@
 from doubles.black_fennec.interpretation.auction.double_coverage import CoverageMock
-from doubles.visualisation.double_info_bidder import InfoBidderMock
-from doubles.visualisation.double_info_view_factory import InfoViewFactoryMock
+from doubles.visualisation.double_structure_bidder import StructureBidderMock
+from doubles.visualisation.double_structure_view_factory import StructureViewFactoryMock
 
 
 class TypeRegistryMock:
@@ -8,8 +8,8 @@ class TypeRegistryMock:
     def __init__(self, types=None):
         if type is None:
             self._types = dict()
-            self._types[InfoBidderMock(coverage=CoverageMock(1))] = InfoViewFactoryMock()
-            self._types[InfoBidderMock(coverage=CoverageMock(2))] = InfoViewFactoryMock()
+            self._types[StructureBidderMock(coverage=CoverageMock(1))] = StructureViewFactoryMock()
+            self._types[StructureBidderMock(coverage=CoverageMock(2))] = StructureViewFactoryMock()
         self._types = types
         self.types_getter_count = 0
 

@@ -4,7 +4,7 @@ import re
 import logging
 from enum import Enum
 
-from src.black_fennec.structure.info import Info
+from src.black_fennec.structure.structure import Structure
 from src.black_fennec.structure.list import List
 from src.black_fennec.structure.map import Map
 from src.black_fennec.structure.string import String
@@ -57,7 +57,7 @@ class JsonPointer:
         pointer, pointer_type = value
         self._type = pointer_type
         hierarchy = pointer.split('/')
-        self._hierarchy: [str] = list()
+        self._hierarchy: [str] = []
         for navigator in hierarchy:
             self._hierarchy.append(
                 self._remove_escaping_from_navigator(navigator)
@@ -85,16 +85,16 @@ class JsonPointer:
         return navigator
 
     @staticmethod
-    def _navigate_in_list(source_list: List, navigator: str) -> Info:
+    def _navigate_in_list(source_list: List, navigator: str) -> Structure:
         """Navigation in list(source_list) to index(navigator).
 
         Args:
-            source_list (List): List of Infos
+            source_list (List): List of Structures
             navigator (str): Navigator to navigate in list. Expected to
                 be the index that belongs to the item in the list
 
         Returns:
-            Info: which is identified through the index in the list
+            Structure: which is identified through the index in the list
                 that was passed as navigator
 
         Raises:
@@ -103,11 +103,11 @@ class JsonPointer:
         """
         if navigator.isdecimal():
             list_index: int = int(navigator)
-            if list_index < len(source_list.children):
-                return source_list[list_index]
+            if list_index < len(source_list.value):
+                return source_list.value[list_index]
             else:
                 message = f'Tried to access source_list(' \
-                          f'len={len(source_list)}) ' \
+                          f'len={len(source_list.value)}) ' \
                           f'with index({list_index}) which is out of bounds'
                 logger.error(message)
                 raise IndexError(message)
@@ -119,48 +119,48 @@ class JsonPointer:
             raise ValueError(message)
 
     @staticmethod
-    def _navigate_in_map(source_map: Map, navigator: str) -> Info:
+    def _navigate_in_map(source_map: Map, navigator: str) -> Structure:
         """Navigation in Map(source_map) to key(navigator).
 
         Args:
-            source_map (Map): Map of Infos
+            source_map (Map): Map of Structures
             navigator (str): Navigator to navigate in list. Expected to
                 be the key that identifies the item in the Map
 
         Returns:
-            Info: which is identified through the key in the Map
+            Structure: which is identified through the key in the Map
                 that was passed as navigator
 
         Raises:
             KeyError: if the navigator(key) does not exist in Map
         """
-        if navigator in source_map:
-            return source_map[navigator]
+        if navigator in source_map.value:
+            return source_map.value[navigator]
         else:
             message = 'Key({}) could be found in map({})'.format(
                 navigator,
-                source_map
+                source_map.value
             )
             logger.error(message)
             raise KeyError(message)
 
-    def _resolve_absolute_pointer(self, source: Info):
+    def _resolve_absolute_pointer(self, source: Structure):
         """Resolve absolute JsonPointer.
 
         Args:
-            source (Info): Info from which to navigate
+            source (Structure): Structure from which to navigate
 
         Returns:
-            Info: to which was navigated with the JsonPointer
+            Structure: to which was navigated with the JsonPointer
                 according to its path
 
         Raises:
             TypeError: if the JsonPointer could not be resolved
                 properly, because the path did not correspond with
-                the graph from the passed Info
+                the graph from the passed Structure
         """
         hierarchy_index: int = 0 if self._hierarchy[0] else 1
-        current_location: Info = source
+        current_location: Structure = source
         while hierarchy_index < len(self._hierarchy):
             navigator: str = self._hierarchy[hierarchy_index]
             if isinstance(current_location, Map):
@@ -182,22 +182,22 @@ class JsonPointer:
         assert hierarchy_index == len(self._hierarchy)
         return current_location
 
-    def _resolve_relative_pointer(self, source: Info):
+    def _resolve_relative_pointer(self, source: Structure):
         """Resolve relative JsonPointer.
 
         Resolves first navigator to find the starting point
             for the later resolving of the absolute pointer
 
         Args:
-            source (Info): Location from where to resolve pointer
+            source (Structure): Location from where to resolve pointer
         Returns:
-            Info: Destination to which pointer points
+            Structure: Destination to which pointer points
 
         Raises:
             ValueError: if the first navigator in path did not match
                 the expected format. [0-9]+([+-][0-9]+)?
         """
-        current_location: Info = source
+        current_location: Structure = source
 
         get_key_of_value = False
         if str(self._hierarchy[-1]).endswith('#'):
@@ -246,62 +246,62 @@ class JsonPointer:
         return resolved
 
     @staticmethod
-    def _get_key_of_self(child: Info) -> str:
+    def _get_key_of_self(child: Structure) -> str:
         """Helper function to get Key of Map Item
 
         Args:
-            child (Info): for which the key should
+            child (Structure): for which the key should
                 be searched
 
         Returns:
             str: Key of child that was passed
 
         Raises:
-            TypeError: if the parent of the passed Info is
+            TypeError: if the parent of the passed Structure is
                 not of type Map
         """
-        parent_info = child.parent
-        if not isinstance(parent_info, Map):
+        parent_structure = child.parent
+        if not isinstance(parent_structure, Map):
             message = 'Cannot get key because parent is no Map'
             logger.error(message)
             raise TypeError(message)
-        parent_map: Map = parent_info
-        key_list = list(parent_map.keys())
-        val_list = list(parent_map.values())
+        parent_map: Map = parent_structure
+        key_list = list(parent_map.value.keys())
+        val_list = list(parent_map.value.values())
 
         position = val_list.index(child)
         return key_list[position]
 
     @staticmethod
-    def _get_nth_next_sibling(child: Info, n: int):
+    def _get_nth_next_sibling(child: Structure, n: int):
         """
         Precondition: List shall not contain child multiple times
 
         Args:
-            child (Info): child
+            child (Structure): child
             n (int): Index shift
         Returns:
-            Info: sibling
+            Structure: sibling
 
         Raises:
-            TypeError: if the parent of the passed Info is
+            TypeError: if the parent of the passed Structure is
                 not of type List
         """
-        parent_info = child.parent
-        if not isinstance(parent_info, List):
+        parent_structure = child.parent
+        if not isinstance(parent_structure, List):
             message = 'Cannot navigate because child is not in List'
             logger.error(message)
             raise TypeError(message)
-        parent_list: List = parent_info
-        index = parent_list.index(child)
+        parent_list: List = parent_structure
+        index = parent_list.value.index(child)
         index += n
-        return parent_list[index]
+        return parent_list.value[index]
 
-    def resolve_from(self, source: Info):
+    def resolve_from(self, source: Structure):
         """Resolves JsonPointer from certain point.
 
         Returns:
-            Info: destination of JsonPointer.
+            Structure: destination of JsonPointer.
 
         Raises:
             ValueError: if no source is passed to the function.

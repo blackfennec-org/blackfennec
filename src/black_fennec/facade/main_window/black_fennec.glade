@@ -302,6 +302,7 @@
                             <style>
                               <class name="close"/>
                               <class name="last-item"/>
+                              <class name="menu-item"/>
                             </style>
                           </object>
                         </child>

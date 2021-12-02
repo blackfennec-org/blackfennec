@@ -15,7 +15,7 @@ class NumberPreview(Gtk.Bin):
         """Construct with view_model.
 
         Args:
-            view_model (:obj:`NumberViewModel`): The view_model.
+            view_model (NumberViewModel): The view_model.
         """
         super().__init__()
         self._view_model = view_model
@@ -28,4 +28,4 @@ class NumberPreview(Gtk.Bin):
         text = self._value.get_text()
         digits_string = ''.join([i for i in text if i in '0123456789'])
         self._value.set_text(digits_string)
-        self._view_model.value = int(digits_string)
+        self._view_model.value = int('0' + digits_string)

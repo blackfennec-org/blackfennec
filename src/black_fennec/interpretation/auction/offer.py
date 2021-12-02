@@ -4,7 +4,7 @@ from functools import cached_property
 
 from src.black_fennec.interpretation.auction.coverage import Coverage
 from src.black_fennec.interpretation.specification import Specification
-from src.black_fennec.structure.info import Info
+from src.black_fennec.structure.structure import Structure
 from src.black_fennec.structure.template.template_base import TemplateBase
 from src.black_fennec.util.comparable import Comparable
 
@@ -12,13 +12,13 @@ logger = logging.getLogger(__name__)
 
 
 class Offer(Comparable):
-    """Offer that is sent to Auctioneer by InfoViewBidder.
+    """Offer that is sent to Auctioneer by StructureViewBidder.
 
     Only two comparison operators are implemented(eq,lt)
     the rest is included via inheritance/mixin.
 
     Attributes:
-        _subject (Info): Info that is auctioned
+        _subject (Structure): Structure that is auctioned
         _specificity (Int): Describes inheritance hierarchy level
         _view_factory: View Factory for corresponding type
         _template: structure that type can handle
@@ -27,7 +27,7 @@ class Offer(Comparable):
 
     def __init__(
             self,
-            subject: Info,
+            subject: Structure,
             specificity: int,
             template: TemplateBase,
             type_view_factory
@@ -35,17 +35,16 @@ class Offer(Comparable):
         """Offer constructor.
 
         Args:
-            subject (Info):
+            subject (Structure):
             specificity (int):
             template (TemplateBase): Template that describes type
-            type_view_factory (InfoViewFactory): factory used
+            type_view_factory (StructureViewFactory): factory used
                 to create interpretation_service
         """
         self._subject = subject
         self._specificity = specificity
         self._view_factory = type_view_factory
         self._template = template
-        self._coverage = None
 
     def satisfies(self, specification: Specification):
         """Evaluates this offers capability to satisfy a given specification.
@@ -60,11 +59,11 @@ class Offer(Comparable):
         return self._view_factory.satisfies(specification)
 
     @property
-    def subject(self) -> Info:
+    def subject(self) -> Structure:
         """subject getter
 
         Returns:
-            Info: subject property set by constructor
+            Structure: subject property set by constructor
         """
         return self._subject
 
@@ -82,7 +81,7 @@ class Offer(Comparable):
         """template getter
 
         Returns:
-            Info: Template property set by constructor
+            Structure: Template property set by constructor
         """
         return self._template
 
@@ -100,7 +99,8 @@ class Offer(Comparable):
         """view_factory getter
 
         Returns:
-             InfoViewFactory: info_view factory property set by constructor
+             StructureViewFactory: structure_view factory
+                property set by constructor
         """
         return self._view_factory
 
@@ -146,7 +146,7 @@ class Offer(Comparable):
             raise ValueError(message)
 
         if self.coverage == other.coverage \
-                and 0 in (self.specificity, other.specificity)\
+                and 0 in (self.specificity, other.specificity) \
                 and (0, 0) != (self.specificity, other.specificity):
             return self.specificity > other.specificity
 
@@ -158,8 +158,5 @@ class Offer(Comparable):
                    other.specificity
                )
 
-    def __hash__(self):
-        return hash((self.coverage, self.specificity, self.subject))
-
     def __repr__(self):
-        return 'Offer(%s)' % self._view_factory
+        return f'Offer({self._view_factory})'
