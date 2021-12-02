@@ -49,6 +49,8 @@ font-family: Ubuntu, Verdana;
 border-image: none;
 background-image: none;
 box-shadow: none;
+text-shadow: none;
+font-family: Ubuntu;
 }
 
 .main-window selection{
@@ -268,6 +270,30 @@ text-decoration: none;
 border-style: solid;
 border-color: @rocky;
 border-width: 0px 2px 0px 0px;
+}
+
+.add-item *{
+text-shadow: none;
+}
+
+.add-item button{
+background-color: @rocky;
+}
+
+.add-item button:hover label{
+color: @silver;
+}
+
+.add-item button:hover{
+background-color: @iron-l;
+}
+
+.add-item button:hover label{
+color: @white;
+}
+
+.add-item label{
+
 }
 
 .main-main-grid label{
