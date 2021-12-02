@@ -274,7 +274,7 @@ text-shadow: none;
 }
 
 .add-item button{
-background-color: @iron-l;
+background-color: @rocky;
 }
 
 .add-item button:hover label{
@@ -282,11 +282,11 @@ color: @silver;
 }
 
 .add-item button:hover{
-background-color: @green;
+background-color: @iron-l;
 }
 
 .add-item button:hover label{
-color: @jet;
+color: @white;
 }
 
 .add-item label{
