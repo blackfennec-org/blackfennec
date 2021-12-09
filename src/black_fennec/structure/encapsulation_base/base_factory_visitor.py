@@ -8,7 +8,6 @@ from src.black_fennec.structure.list import List
 from src.black_fennec.structure.map import Map
 from src.black_fennec.structure.number import Number
 from src.black_fennec.structure.reference import Reference
-from src.black_fennec.structure.root import Root
 from src.black_fennec.structure.string import String
 
 
@@ -36,9 +35,6 @@ class BaseFactoryVisitor:
 
     def visit_structure(self, subject_structure: Structure):
         return self._create_generic_instance(subject_structure)
-
-    def visit_root(self, subject_root: Root):
-        return self._create_generic_instance(subject_root)
 
     def visit_string(self, subject_string: String):
         return self._create_generic_instance(subject_string)

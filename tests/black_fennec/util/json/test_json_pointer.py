@@ -3,9 +3,10 @@ from enum import Enum
 
 from src.black_fennec.structure.list import List
 from src.black_fennec.structure.map import Map
-from src.black_fennec.structure.root import Root
+from src.black_fennec.structure.root_factory import RootFactory
 from src.black_fennec.structure.string import String
-from src.black_fennec.util.json.json_pointer import JsonPointer, JsonPointerType, is_relative_json_pointer, is_absolute_json_pointer
+from src.black_fennec.util.json.json_pointer import JsonPointer, JsonPointerType, is_relative_json_pointer, \
+    is_absolute_json_pointer
 
 
 class JsonPointerTestSuite(unittest.TestCase):
@@ -54,7 +55,7 @@ class JsonPointerTestSuite(unittest.TestCase):
         data = {
             'key': String('value')
         }
-        map = Map(data)
+        Map(data)
         pointer = JsonPointer('1/key', JsonPointerType.RELATIVE_JSON_POINTER)
         result = pointer.resolve_from(data['key'])
         self.assertEqual(data['key'], result)
@@ -103,7 +104,7 @@ class JsonPointerTestSuite(unittest.TestCase):
         data = {
             'key': String('value')
         }
-        map = Map(data)
+        Map(data)
         pointer = JsonPointer('0-1', JsonPointerType.RELATIVE_JSON_POINTER)
         with self.assertRaises(TypeError):
             pointer.resolve_from(data['key'])
@@ -133,18 +134,17 @@ class JsonPointerTestSuite(unittest.TestCase):
             String('value2')
         ]
         list = List(data)
-        list.parent = Root(child=list)
+        RootFactory.make_root(list)
         pointer = JsonPointer('0#', JsonPointerType.RELATIVE_JSON_POINTER)
         with self.assertRaises(TypeError):
             pointer.resolve_from(data[0])
-
 
     def test_resolve_absolute_pointer_map_navigation(self):
         data = {
             'key': String('value')
         }
         map = Map(data)
-        map.parent = Root(child=map)
+        RootFactory.make_root(map)
         pointer = JsonPointer('key', JsonPointerType.ABSOLUTE_JSON_POINTER)
         result = pointer.resolve_from(map)
         self.assertEqual(data['key'], result)
@@ -154,7 +154,7 @@ class JsonPointerTestSuite(unittest.TestCase):
             'key': String('value')
         }
         map = Map(data)
-        map.parent = Root(child=map)
+        RootFactory.make_root(map)
         pointer = JsonPointer('non-existent-key', JsonPointerType.ABSOLUTE_JSON_POINTER)
         with self.assertRaises(KeyError):
             pointer.resolve_from(map)
@@ -165,7 +165,7 @@ class JsonPointerTestSuite(unittest.TestCase):
             String('value2')
         ]
         list = List(data)
-        list.parent = Root(child=list)
+        RootFactory.make_root(list)
         pointer = JsonPointer('1', JsonPointerType.ABSOLUTE_JSON_POINTER)
         result = pointer.resolve_from(data[0])
         self.assertEqual(data[1], result)
@@ -176,7 +176,7 @@ class JsonPointerTestSuite(unittest.TestCase):
             String('value2')
         ]
         list = List(data)
-        list.parent = Root(child=list)
+        RootFactory.make_root(list)
         pointer = JsonPointer('key', JsonPointerType.ABSOLUTE_JSON_POINTER)
         with self.assertRaises(ValueError):
             pointer.resolve_from(data[0])
@@ -187,14 +187,14 @@ class JsonPointerTestSuite(unittest.TestCase):
             String('value2')
         ]
         list = List(data)
-        list.parent = Root(child=list)
+        RootFactory.make_root(list)
         pointer = JsonPointer('2', JsonPointerType.ABSOLUTE_JSON_POINTER)
         with self.assertRaises(IndexError):
             pointer.resolve_from(data[0])
 
     def test_resolve_absolute_pointer_string_navigation(self):
         string = String('value1')
-        string.parent = Root(child=string)
+        RootFactory.make_root(string)
         pointer = JsonPointer('1', JsonPointerType.ABSOLUTE_JSON_POINTER)
         with self.assertRaises(TypeError):
             pointer.resolve_from(string)

@@ -8,14 +8,12 @@ from src.black_fennec.structure.encapsulation_base.map_encapsulation_base import
 from src.black_fennec.structure.encapsulation_base.base_factory_visitor import _create_generic_class
 from src.black_fennec.structure.structure import Structure
 from src.black_fennec.structure.map import Map
-from src.black_fennec.structure.root import Root
 
 
 class MapEncapsulationBaseTestSuite(unittest.TestCase):
     def setUp(self):
         self.visitor = FactoryBaseVisitorMock()
         self.subject = Map()
-        self.subject.parent = Root(self.subject)
         self.map_encapsulation_base: Optional[MapEncapsulationBase] = MapEncapsulationBase(self.visitor, self.subject)
 
     def tearDown(self) -> None:
@@ -57,7 +55,6 @@ class MapEncapsulationBaseTestSuite(unittest.TestCase):
         key = 'test'
         subject_content = StructureMock('test')
         subject = Map({key: subject_content})
-        subject.parent = Root(subject)
         map_encapsulation_base = MapEncapsulationBase(
             self.visitor,
             subject

@@ -6,7 +6,6 @@ from src.black_fennec.interpretation.auction.coverage import Coverage
 from src.black_fennec.structure.encapsulation_base.base_factory_visitor import _create_generic_class
 from src.black_fennec.structure.structure import Structure
 from src.black_fennec.structure.map import Map
-from src.black_fennec.structure.root import Root
 from src.black_fennec.structure.template.map_template import MapTemplate
 from src.black_fennec.structure.template.template_base import TemplateBase
 from src.visualisation.base.date_time_range.date_time_range import DateTimeRange
@@ -16,7 +15,6 @@ class MapTemplateTestSuite(unittest.TestCase):
     def setUp(self):
         self.visitor = TemplateFactoryVisitorMock()
         self.subject = Map()
-        self.subject.parent = Root(self.subject)
         self.map_template = MapTemplate(self.visitor, self.subject)
 
     def tearDown(self) -> None:

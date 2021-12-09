@@ -5,7 +5,6 @@ from src.black_fennec.structure.encapsulation_base.base_factory_visitor import _
 from src.black_fennec.structure.filter.filter_base import FilterBase
 from src.black_fennec.structure.filter.filter_factory_visitor import FilterFactoryVisitor
 from src.black_fennec.structure.map import Map
-from src.black_fennec.structure.root import Root
 from src.black_fennec.structure.filter.map_filter import MapFilter
 from src.black_fennec.structure.structure import Structure
 
@@ -14,7 +13,6 @@ class MapFilterTestSuite(unittest.TestCase):
     def setUp(self):
         self.visitor = FilterFactoryVisitor()
         self.subject = Map()
-        self.subject.parent = Root(self.subject)
         self.map_filter = MapFilter(self.visitor, self.subject)
 
     def tearDown(self) -> None:

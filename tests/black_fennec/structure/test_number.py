@@ -23,18 +23,11 @@ class NumberTestSuite(unittest.TestCase):
         number.value = 2.718
         self.assertAlmostEqual(number.value, 2.718)
 
-
     def test_can_change_parent(self):
         new_parent = RootMock()
         number = Number()
         number.parent = new_parent
         self.assertEqual(number.parent, new_parent)
-
-    def test_can_get_root(self):
-        root = RootMock()
-        number = Number()
-        number.parent = root
-        self.assertEqual(number.root, root)
 
     def test_representation(self):
         actual = Number(3.141)

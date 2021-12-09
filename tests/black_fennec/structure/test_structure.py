@@ -18,11 +18,6 @@ class StructureTestSuite(unittest.TestCase):
 
         self.assertEqual(structure.parent, new_parent)
 
-    def test_can_get_root(self):
-        root = RootMock()
-        structure = Structure(parent=root)
-        self.assertEqual(structure.root, root)
-
     def test_accept(self):
         visitor = FactoryBaseVisitorMock()
         structure = Structure()

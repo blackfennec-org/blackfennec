@@ -7,7 +7,6 @@ from src.black_fennec.structure.encapsulation_base.encapsulation_base import \
 from src.black_fennec.structure.list import List
 from src.black_fennec.structure.map import Map
 from src.black_fennec.structure.reference import Reference
-from src.black_fennec.structure.root import Root
 from src.black_fennec.structure.string import String
 from src.black_fennec.structure.structure import Structure
 from src.black_fennec.structure.visitors.deep_copy_visitor import \
@@ -38,9 +37,6 @@ class TemplateBase(EncapsulationBase):
 
     def visit_structure(self, subject_structure: Structure) -> Coverage:
         return self._instance_equality_coverage(subject_structure)
-
-    def visit_root(self, subject_root: Root) -> Coverage:
-        return self._instance_equality_coverage(subject_root)
 
     def visit_number(self, subject_number: Number) -> Coverage:
         return self._instance_equality_coverage(subject_number)

@@ -21,10 +21,9 @@ class Structure:
     def parent(self, parent: 'Structure'):
         self._parent = parent
 
-    @property
-    def root(self) -> 'Root':
+    def get_root(self) -> 'Root':
         """Readonly property for `Root` of this structure."""
-        return self.parent.root
+        return self.parent.get_root()
 
     def accept(self, visitor):
         return visitor.visit_structure(self)

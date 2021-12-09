@@ -5,8 +5,8 @@ import urllib.request as req
 
 from uri import URI
 
+from src.black_fennec.structure.root_factory import RootFactory
 from src.black_fennec.structure.structure import Structure
-from src.black_fennec.structure.root import Root
 from src.black_fennec.util.uri.structure_parsing_service import StructureParsingService
 from src.black_fennec.util.uri.uri_type import UriType
 from src.black_fennec.util.uri.uri_import_strategy_factory import UriImportStrategyFactory
@@ -81,11 +81,7 @@ class UriImportService:
             structure: Structure = self._parser.from_json(raw)
             self._uri_cache[uri_id] = structure
             uri_id_without_mime_type, _ = uri_id
-            structure.parent = Root(
-                structure,
-                uri_id_without_mime_type,
-                mime_type
-            )
+            RootFactory.make_root(structure, uri_id_without_mime_type, mime_type)
             return structure
 
     @staticmethod

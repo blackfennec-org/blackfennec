@@ -4,7 +4,6 @@ import logging
 from uri import URI
 
 from src.black_fennec.structure.structure import Structure
-from src.black_fennec.structure.root import Root
 from src.black_fennec.util.json.json_pointer import JsonPointer, JsonPointerType, is_relative_json_pointer
 from src.black_fennec.util.uri.uri_type import UriType
 
@@ -67,7 +66,7 @@ class JsonReferenceResolvingService:
             uri: URI,
             source: Structure = None
     ) -> (Structure, str):
-        root: Root = source.root
-        current_path = root.uri
+        root = source.get_root()
+        current_path = root.get_uri()
         structure = self._uri_import_service.load(uri, current_path)
         return structure
