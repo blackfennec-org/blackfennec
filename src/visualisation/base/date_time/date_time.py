@@ -46,7 +46,7 @@ class DateTime:
                 which property calls are dispatched
         """
         self._subject: Map = subject or Map()
-        if DateTime.DATE_TIME_KEY not in subject.value:
+        if DateTime.DATE_TIME_KEY not in self.subject.value:
             default_time: datetime = datetime.min
             self.subject.add_item(
                 DateTime.DATE_TIME_KEY,

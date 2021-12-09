@@ -42,14 +42,14 @@ class DateTimeRange:
                 which property calls are dispatched
         """
         self._subject: Map = subject or Map()
-        if DateTimeRange.START_KEY not in subject.value:
+        if DateTimeRange.START_KEY not in self.subject.value:
             default_start_time: datetime = datetime.min
             self.subject.add_item(
                 DateTimeRange.START_KEY,
                 String(default_start_time.isoformat())
             )
 
-        if DateTimeRange.END_KEY not in subject.value:
+        if DateTimeRange.END_KEY not in self.subject.value:
             default_end_time: datetime = datetime.max
             self.subject.add_item(
                 DateTimeRange.END_KEY,
