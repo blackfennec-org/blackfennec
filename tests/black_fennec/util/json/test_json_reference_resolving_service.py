@@ -4,7 +4,7 @@ from uri import URI
 
 from doubles.black_fennec.util.uri.double_uri_import_service import UriImportServiceMock
 from src.black_fennec.structure.map import Map
-from src.black_fennec.structure.root import Root
+from src.black_fennec.structure.root_factory import RootFactory
 from src.black_fennec.structure.string import String
 from src.black_fennec.util.json.json_reference_resolving_service import JsonReferenceResolvingService
 
@@ -19,7 +19,7 @@ class JsonReferenceResolvingServiceTestSuite(unittest.TestCase):
             'key': String('value')
         }
         structure_map = Map(data)
-        structure_map.parent = Root(structure_map)
+        RootFactory.make_root(structure_map)
 
         uri_import_service = UriImportServiceMock(structure_map)
         resolving_service = JsonReferenceResolvingService(uri_import_service)
@@ -31,7 +31,7 @@ class JsonReferenceResolvingServiceTestSuite(unittest.TestCase):
             'key': String('value')
         }
         structure_map = Map(data)
-        structure_map.parent = Root(structure_map)
+        RootFactory.make_root(structure_map)
 
         uri_import_service = UriImportServiceMock(structure_map)
         resolving_service = JsonReferenceResolvingService(uri_import_service)
@@ -43,7 +43,7 @@ class JsonReferenceResolvingServiceTestSuite(unittest.TestCase):
             'key': String('value')
         }
         structure_map = Map(data)
-        structure_map.parent = Root(structure_map)
+        RootFactory.make_root(structure_map)
 
         uri_import_service = UriImportServiceMock(structure_map)
         resolving_service = JsonReferenceResolvingService(uri_import_service)
@@ -55,7 +55,7 @@ class JsonReferenceResolvingServiceTestSuite(unittest.TestCase):
             'key': String('value')
         }
         structure_map = Map(data)
-        structure_map.parent = Root(structure_map)
+        RootFactory.make_root(structure_map)
 
         uri_import_service = UriImportServiceMock(structure_map)
         resolving_service = JsonReferenceResolvingService(uri_import_service)
@@ -67,7 +67,7 @@ class JsonReferenceResolvingServiceTestSuite(unittest.TestCase):
             'key': String('value')
         }
         structure_map = Map(data)
-        structure_map.parent = Root(structure_map)
+        RootFactory.make_root(structure_map)
 
         uri_import_service = UriImportServiceMock(structure_map)
         resolving_service = JsonReferenceResolvingService(uri_import_service)
@@ -79,7 +79,7 @@ class JsonReferenceResolvingServiceTestSuite(unittest.TestCase):
             'key': String('value')
         }
         structure_map = Map(data)
-        structure_map.parent = Root(structure_map)
+        RootFactory.make_root(structure_map)
 
         uri_import_service = UriImportServiceMock(structure_map)
         resolving_service = JsonReferenceResolvingService(uri_import_service)

@@ -2,7 +2,6 @@ import unittest
 
 from doubles.black_fennec.structure.encapsulation_base.double_factory_base_visitor import FactoryBaseVisitorMock
 from src.black_fennec.structure.list import List
-from src.black_fennec.structure.root import Root
 from src.black_fennec.structure.filter.list_filter import ListFilter
 
 
@@ -10,7 +9,6 @@ class ListFilterTestSuite(unittest.TestCase):
     def setUp(self):
         self.visitor = FactoryBaseVisitorMock()
         self.subject = List()
-        self.subject.parent = Root(self.subject)
         self.list_filter = ListFilter(self.visitor, self.subject)
 
     def tearDown(self) -> None:

@@ -24,12 +24,6 @@ class StringTestSuite(unittest.TestCase):
         string.parent = new_parent
         self.assertEqual(string.parent, new_parent)
 
-    def test_can_get_root(self):
-        root = RootMock()
-        string = String("Black Fennec")
-        string.parent = root
-        self.assertEqual(string.root, root)
-
     def test_accept(self):
         visitor = FactoryBaseVisitorMock()
         string = String()

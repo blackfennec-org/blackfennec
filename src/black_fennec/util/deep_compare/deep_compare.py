@@ -4,7 +4,6 @@ from src.black_fennec.structure.list import List
 from src.black_fennec.structure.map import Map
 from src.black_fennec.structure.number import Number
 from src.black_fennec.structure.reference import Reference
-from src.black_fennec.structure.root import Root
 from src.black_fennec.structure.string import String
 
 
@@ -21,11 +20,6 @@ class ComparatorFactory:
 
     def visit_structure(self, subject: Structure):
         return StructureComparator(subject)
-
-    def visit_root(self, unused_subject: Root):
-        message = 'The function `visit_root` on `ComparatorFactory` should never be called as its behaviour is not specified.'
-        logger.error(message)
-        raise NotImplementedError(message)
 
     def visit_string(self, subject: String):
         return StringComparator(subject)
@@ -51,9 +45,6 @@ class ComparatorTemplate:
     """
 
     def visit_structure(self, unused_other: Structure):
-        return False
-
-    def visit_root(self, unused_other: Root):
         return False
 
     def visit_string(self, unused_other: String):

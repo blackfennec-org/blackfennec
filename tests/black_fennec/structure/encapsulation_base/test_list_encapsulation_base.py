@@ -7,7 +7,6 @@ from src.black_fennec.structure.encapsulation_base.encapsulation_base import Enc
 from src.black_fennec.structure.encapsulation_base.base_factory_visitor import _create_generic_class
 from src.black_fennec.structure.structure import Structure
 from src.black_fennec.structure.list import List
-from src.black_fennec.structure.root import Root
 from src.black_fennec.structure.encapsulation_base.list_encapsulation_base import ListEncapsulationBase
 
 
@@ -15,8 +14,8 @@ class ListEncapsulationBaseTestSuite(unittest.TestCase):
     def setUp(self):
         self.visitor = FactoryBaseVisitorMock()
         self.subject = List()
-        self.subject.parent = Root(self.subject)
-        self.list_encapsulation_base: Optional[ListEncapsulationBase] = ListEncapsulationBase(self.visitor, self.subject)
+        self.list_encapsulation_base: Optional[ListEncapsulationBase] = ListEncapsulationBase(self.visitor,
+                                                                                              self.subject)
 
     def tearDown(self) -> None:
         self.visitor = None
@@ -44,7 +43,6 @@ class ListEncapsulationBaseTestSuite(unittest.TestCase):
     def test_get_value(self):
         subject_content = StructureMock('test')
         subject = List([subject_content])
-        subject.parent = Root(subject)
         list_encapsulation_base = ListEncapsulationBase(
             self.visitor,
             subject

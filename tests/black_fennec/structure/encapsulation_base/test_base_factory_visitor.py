@@ -29,27 +29,22 @@ class BaseFactoryVisitorTestSuite(unittest.TestCase):
         structure = StructureMock()
         structure_filter = self.visitor.visit_structure(structure)
         self.assertIsInstance(structure_filter, EncapsulationBase)
-        
+
     def test_can_visit_string(self):
         string = StringMock()
         string_filter = self.visitor.visit_string(string)
         self.assertIsInstance(string_filter, EncapsulationBase)
-        
+
     def test_can_visit_number(self):
         number = NumberMock()
         number_filter = self.visitor.visit_number(number)
         self.assertIsInstance(number_filter, EncapsulationBase)
-        
+
     def test_can_visit_boolean(self):
         boolean = BooleanMock()
         boolean_filter = self.visitor.visit_boolean(boolean)
         self.assertIsInstance(boolean_filter, EncapsulationBase)
-        
-    def test_can_visit_root(self):
-        root = RootMock()
-        root_filter = self.visitor.visit_root(root)
-        self.assertIsInstance(root_filter, EncapsulationBase)
-        
+
     def test_can_visit_reference(self):
         reference = ReferenceMock()
         reference_filter = self.visitor.visit_reference(reference)

@@ -30,12 +30,6 @@ class BooleanTestSuite(unittest.TestCase):
         boolean.parent = new_parent
         self.assertEqual(boolean.parent, new_parent)
 
-    def test_can_get_root(self):
-        root = RootMock()
-        boolean = Boolean()
-        boolean.parent = root
-        self.assertEqual(boolean.root, root)
-
     def test_representation(self):
         actual = Boolean(True)
         expected = 'Boolean(%s)' % actual.value

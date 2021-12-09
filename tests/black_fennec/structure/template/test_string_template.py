@@ -3,7 +3,6 @@ import unittest
 from doubles.black_fennec.structure.double_structure import StructureMock
 from doubles.black_fennec.structure.encapsulation_base.double_factory_base_visitor import FactoryBaseVisitorMock
 from src.black_fennec.interpretation.auction.coverage import Coverage
-from src.black_fennec.structure.root import Root
 from src.black_fennec.structure.string import String
 from src.black_fennec.structure.template.string_template import StringTemplate
 from src.black_fennec.structure.template.template_base import TemplateBase
@@ -13,7 +12,6 @@ class ListTemplateTestSuite(unittest.TestCase):
     def setUp(self):
         self.visitor = FactoryBaseVisitorMock()
         self.subject = String()
-        self.subject.parent = Root(self.subject)
         self.string_template = StringTemplate(self.visitor, self.subject)
 
     def tearDown(self) -> None:

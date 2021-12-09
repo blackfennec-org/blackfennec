@@ -163,6 +163,7 @@ class JsonPointer:
         current_location: Structure = source
         while hierarchy_index < len(self._hierarchy):
             navigator: str = self._hierarchy[hierarchy_index]
+            print(current_location.__class__)
             if isinstance(current_location, Map):
                 current_location = self._navigate_in_map(
                     current_location,
@@ -314,7 +315,7 @@ class JsonPointer:
             logger.error(message)
             raise ValueError(message)
         if self.type == JsonPointerType.ABSOLUTE_JSON_POINTER:
-            return self._resolve_absolute_pointer(source.root.value)
+            return self._resolve_absolute_pointer(source.get_root())
         elif self.type == JsonPointerType.RELATIVE_JSON_POINTER:
             return self._resolve_relative_pointer(source)
         message = f'Json Pointer type({self.type.name}) not handled'

@@ -3,10 +3,8 @@ import unittest
 from typing import Optional
 
 from doubles.black_fennec.structure.double_structure import StructureMock, StructureInstanceMock
-from doubles.black_fennec.structure.double_root import RootMock
 from doubles.black_fennec.structure.encapsulation_base.double_factory_base_visitor import FactoryBaseVisitorMock
 from src.black_fennec.interpretation.auction.coverage import Coverage
-from src.black_fennec.structure.root import Root
 from src.black_fennec.structure.template.template_base import TemplateBase
 
 
@@ -14,8 +12,7 @@ class TemplateBaseTestSuite(unittest.TestCase):
     def setUp(self):
         self.visitor = FactoryBaseVisitorMock()
         self.parent = StructureMock()
-        self.root = StructureMock()
-        self.subject = StructureMock(parent=self.parent, root=self.root)
+        self.subject = StructureMock(parent=self.parent)
         self.template_base: Optional[TemplateBase] = TemplateBase(self.visitor, self.subject)
 
     def tearDown(self) -> None:
@@ -42,11 +39,6 @@ class TemplateBaseTestSuite(unittest.TestCase):
         structure = StructureInstanceMock('Structure')
         coverage = structure.accept(self.template_base)
         self.assertEqual(coverage, Coverage.COVERED)
-
-    def test_can_visit_root(self):
-        root = Root()
-        coverage = root.accept(self.template_base)
-        self.assertEqual(coverage, Coverage.NOT_COVERED)
 
     def test_has_create_structure_interface(self):
         func = self.template_base.create_structure
