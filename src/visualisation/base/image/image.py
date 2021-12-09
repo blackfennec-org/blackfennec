@@ -32,13 +32,14 @@ class Image(File):
     include images in a overlaying datatype.
     """
 
-    def __init__(self, subject: Map = Map()):
+    def __init__(self, subject: Map = None):
         """Image Constructor
 
         Args:
             subject (Map): underlying map interpretation to
                 which property calls are dispatched
         """
+        subject = subject or Map()
         if File.FILE_TYPE_KEY not in subject.value:
             subject.add_item(File.FILE_TYPE_KEY, String('image/unknown'))
         File.__init__(self, subject)

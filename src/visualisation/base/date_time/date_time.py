@@ -38,14 +38,14 @@ class DateTime:
     DATE_TIME_KEY = 'date_time'
     ACCURACY_KEY = 'accuracy'
 
-    def __init__(self, subject: Map = Map()):
+    def __init__(self, subject: Map = None):
         """DateTime Constructor
 
         Args:
             subject (Map): underlying map interpretation to
                 which property calls are dispatched
         """
-        self._subject: Map = subject
+        self._subject: Map = subject or Map()
         if DateTime.DATE_TIME_KEY not in subject.value:
             default_time: datetime = datetime.min
             self.subject.add_item(

@@ -34,14 +34,14 @@ class File:
     FILE_PATH_KEY = 'file_path'
     FILE_TYPE_KEY = 'file_type'
 
-    def __init__(self, subject: Map = Map()):
+    def __init__(self, subject: Map = None):
         """File Constructor
 
         Args:
             subject (Map): underlying map interpretation to
                 which property calls are dispatched
         """
-        self._subject: Map = subject
+        self._subject: Map = subject or Map()
         if File.FILE_PATH_KEY not in self._subject.value:
             self._subject.add_item(File.FILE_PATH_KEY, String())
         if File.FILE_TYPE_KEY not in self._subject.value:

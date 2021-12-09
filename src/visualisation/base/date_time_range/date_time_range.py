@@ -34,14 +34,14 @@ class DateTimeRange:
     START_KEY = 'date_time_start'
     END_KEY = 'date_time_end'
 
-    def __init__(self, subject: Map = Map()):
+    def __init__(self, subject: Map = None):
         """DateTimeRange Constructor
 
         Args:
             subject (Map): underlying map interpretation to
                 which property calls are dispatched
         """
-        self._subject: Map = subject
+        self._subject: Map = subject or Map()
         if DateTimeRange.START_KEY not in subject.value:
             default_start_time: datetime = datetime.min
             self.subject.add_item(
