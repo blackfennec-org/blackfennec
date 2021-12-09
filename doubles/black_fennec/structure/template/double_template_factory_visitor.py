@@ -13,32 +13,32 @@ class TemplateFactoryVisitorMock(FactoryBaseVisitorMock):
 
     def visit_structure(self, subject_structure):
         subject_structure = super().visit_structure(subject_structure)
-        Encapsulation = _create_generic_class(TemplateBase, subject_structure.__class__)
+        Encapsulation = _create_generic_class(TemplateBase)
         return Encapsulation(self, subject_structure)
 
     def visit_root(self, subject_root):
         subject_root = super().visit_root(subject_root)
-        Encapsulation = _create_generic_class(TemplateBase, subject_root.__class__)
+        Encapsulation = _create_generic_class(TemplateBase)
         return Encapsulation(self, subject_root)
 
     def visit_string(self, subject_string):
         subject_string = super().visit_string(subject_string)
-        Encapsulation = _create_generic_class(TemplateBase, subject_string.__class__)
+        Encapsulation = _create_generic_class(TemplateBase)
         return Encapsulation(self, subject_string)
 
     def visit_number(self, subject_number):
         subject_number = super().visit_number(subject_number)
-        Encapsulation = _create_generic_class(TemplateBase, subject_number.__class__)
+        Encapsulation = _create_generic_class(TemplateBase)
         return Encapsulation(self, subject_number)
 
     def visit_boolean(self, subject_boolean):
         subject_boolean = super().visit_boolean(subject_boolean)
-        Encapsulation = _create_generic_class(TemplateBase, subject_boolean.__class__)
+        Encapsulation = _create_generic_class(TemplateBase)
         return Encapsulation(self, subject_boolean)
 
     def visit_reference(self, subject_reference):
         subject_reference = super().visit_reference(subject_reference)
-        Encapsulation = _create_generic_class(TemplateBase, subject_reference.__class__)
+        Encapsulation = _create_generic_class(TemplateBase)
         return Encapsulation(self, subject_reference)
 
     def visit_list(self, subject_list):

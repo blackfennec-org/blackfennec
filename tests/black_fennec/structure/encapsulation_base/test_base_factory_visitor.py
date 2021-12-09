@@ -1,6 +1,8 @@
 import unittest
+from ddt import ddt, data
 from typing import Optional
 
+from tests.test_utils.what_the_farmer_does_not_eat_visitor_factory import WhatTheFarmerDoesNotEatVisitorFactory
 from doubles.black_fennec.structure.double_boolean import BooleanMock
 from doubles.black_fennec.structure.double_structure import StructureInstanceMock, StructureMock
 from doubles.black_fennec.structure.double_list import ListMock
@@ -15,6 +17,12 @@ from src.black_fennec.structure.encapsulation_base.list_encapsulation_base impor
 from src.black_fennec.structure.encapsulation_base.map_encapsulation_base import MapEncapsulationBase
 
 
+MOCK_CORE_TYPES = [
+    StructureMock(), MapMock(), ListMock(), 
+    StringMock(), NumberMock(), BooleanMock(), 
+    ReferenceMock()]
+
+@ddt
 class BaseFactoryVisitorTestSuite(unittest.TestCase):
     def setUp(self):
         self.visitor: Optional[BaseFactoryVisitor] = BaseFactoryVisitor(EncapsulationBase)
@@ -69,3 +77,16 @@ class BaseFactoryVisitorTestSuite(unittest.TestCase):
         structure = StructureInstanceMock()
         structure_encapsulation_type = type(self.visitor.visit_structure(structure))
         self.assertIsInstance(self.visitor.visit_structure(structure), structure_encapsulation_type)
+
+    @data(*MOCK_CORE_TYPES)
+    def test_double_encapsulation(self, core_object):
+        string = StringMock()
+        encapsulated = core_object.accept(self.visitor)
+        double_encapsulation = encapsulated.accept(self.visitor)
+        self.assertIsInstance(double_encapsulation, EncapsulationBase)
+
+    @data(*MOCK_CORE_TYPES)
+    def test_encapsulated_can_visit(self, core_object):
+        mock_visitor = core_object.accept(WhatTheFarmerDoesNotEatVisitorFactory())
+        encapsulated = core_object.accept(self.visitor)
+        self.assertTrue(encapsulated.accept(mock_visitor))

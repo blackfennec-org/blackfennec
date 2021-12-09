@@ -30,7 +30,7 @@ class MapTemplateTestSuite(unittest.TestCase):
     def test_set_item_already_encapsulated(self):
         key = 'test'
         value = StructureMock('test_value')
-        template_class = _create_generic_class(TemplateBase, Structure)
+        template_class = _create_generic_class(TemplateBase)
         encapsulated = template_class(self.visitor, value)
         self.map_template.add_item(key, encapsulated)
         self.assertEqual(value, self.map_template.value[key].subject)
