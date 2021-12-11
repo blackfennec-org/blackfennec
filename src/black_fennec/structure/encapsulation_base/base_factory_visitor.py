@@ -65,10 +65,7 @@ class BaseFactoryVisitor:
         return MapEncapsulationClass(self, subject_map)
 
     def _create_generic_instance(self, subject: Structure):
-        GenericClass = _create_generic_class(
-            self.layer_base_class,
-            subject.__class__
-        )
+        GenericClass = _create_generic_class(self.layer_base_class)
         return GenericClass(self, subject)
 
 
@@ -86,14 +83,13 @@ def _create_generic_collection_class(
 
 
 @lru_cache(maxsize=32, typed=True)
-def _create_generic_class(layer_base_class, subject_class):
+def _create_generic_class(layer_base_class):
     """Is a static method because the lru_cache would not
         work properly with a class_method."""
 
-    class GenericClass(layer_base_class, subject_class):
+    class GenericClass(layer_base_class):
         def __init__(self, visitor, subject):
             layer_base_class.__init__(self, visitor, subject)
-            subject_class.__init__(self)
             self.value = subject.value
 
     return GenericClass

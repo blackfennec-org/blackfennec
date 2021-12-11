@@ -54,6 +54,9 @@ class EncapsulationBase:
     def value(self, value):
         self.subject.value = value
 
+    def accept(self, visitor):
+        return self._subject.accept(visitor)
+
     @property
     def root(self):
         """Property for root of this structure encapsulated in an FactoryBase.
