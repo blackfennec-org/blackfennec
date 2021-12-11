@@ -41,14 +41,14 @@ class Address:
     STREET_NUMBER_KEY = 'street_nr'
     CITY_KEY = 'city'
 
-    def __init__(self, map_interpretation: Map = Map()):
+    def __init__(self, map_interpretation: Map = None):
         """Address Constructor
 
         Args:
             map_interpretation (Map): underlying map interpretation to
                 which property calls are dispatched
         """
-        self._subject: Map = map_interpretation
+        self._subject: Map = map_interpretation or Map()
         if Address.FIRST_NAME_KEY not in self._subject.value:
             self.subject.add_item(Address.FIRST_NAME_KEY, String())
         if Address.LAST_NAME_KEY not in self._subject.value:

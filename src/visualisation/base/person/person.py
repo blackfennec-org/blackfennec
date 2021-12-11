@@ -65,14 +65,14 @@ class Person:
     MARITAL_STATUS_KEY = 'marital_status'
     NATIONALITY_KEY = 'nationality'
 
-    def __init__(self, subject: Map = Map()):
+    def __init__(self, subject: Map = None):
         """Person Constructor
 
         Args:
             subject (Map): underlying map to
                 which property calls are dispatched
         """
-        self._subject: Map = subject
+        self._subject: Map = subject or Map()
         if Person.FIRST_NAME_KEY not in self._subject.value:
             self._subject.add_item(Person.FIRST_NAME_KEY, String())
         if Person.LAST_NAME_KEY not in self._subject.value:
