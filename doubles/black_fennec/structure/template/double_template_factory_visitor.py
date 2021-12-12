@@ -2,6 +2,7 @@ from doubles.black_fennec.structure.encapsulation_base.double_factory_base_visit
 from src.black_fennec.structure.encapsulation_base.base_factory_visitor import _create_generic_class
 from src.black_fennec.structure.encapsulation_base.list_encapsulation_base import ListEncapsulationBase
 from src.black_fennec.structure.encapsulation_base.map_encapsulation_base import MapEncapsulationBase
+from src.black_fennec.structure.template.string_template import StringTemplate
 from src.black_fennec.structure.template.list_template import ListTemplate
 from src.black_fennec.structure.template.map_template import MapTemplate
 from src.black_fennec.structure.template.template_base import TemplateBase
@@ -21,11 +22,6 @@ class TemplateFactoryVisitorMock(FactoryBaseVisitorMock):
         Encapsulation = _create_generic_class(TemplateBase)
         return Encapsulation(self, subject_root)
 
-    def visit_string(self, subject_string):
-        subject_string = super().visit_string(subject_string)
-        Encapsulation = _create_generic_class(TemplateBase)
-        return Encapsulation(self, subject_string)
-
     def visit_number(self, subject_number):
         subject_number = super().visit_number(subject_number)
         Encapsulation = _create_generic_class(TemplateBase)
@@ -40,6 +36,10 @@ class TemplateFactoryVisitorMock(FactoryBaseVisitorMock):
         subject_reference = super().visit_reference(subject_reference)
         Encapsulation = _create_generic_class(TemplateBase)
         return Encapsulation(self, subject_reference)
+
+    def visit_string(self, subject_string):
+        subject_string = super().visit_string(subject_string)
+        return StringTemplate(self, subject_string)
 
     def visit_list(self, subject_list):
         subject_list = super().visit_list(subject_list)

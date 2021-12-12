@@ -33,11 +33,24 @@ class StructureMock:
     def root(self, value):
         self._root = value
 
-    def accept(self, visitor):
-        return visitor.visit_structure(self)
-
-
 class StructureInstanceMock(Structure, StructureMock):
     def __init__(self, value=None, parent=None, root=None):
-        Structure.__init__(self)
+        Structure.__init__(self, value)
         StructureMock.__init__(self, value, parent, root)
+    
+    def accept(self, visitor):
+        ...
+
+    def __repr__(self) -> str:
+        ...
+
+class StructureTemplateMock:
+    def __init__(self, name, coverage=None):
+        self._name = name
+        self._coverage = coverage
+
+    def calculate_coverage(self, subject):
+        return self._coverage
+
+    def __repr__(self):
+        return self._name

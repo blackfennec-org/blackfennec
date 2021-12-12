@@ -1,6 +1,7 @@
 import unittest
 
 from doubles.black_fennec.structure.double_structure import StructureMock
+from doubles.black_fennec.structure.double_string import StringMock
 from src.black_fennec.interpretation.auction.coverage import Coverage
 from src.black_fennec.structure.list import List
 from src.black_fennec.structure.string import String
@@ -23,8 +24,8 @@ class ListTemplateTestSuite(unittest.TestCase):
         pass
 
     def test_coverage_getter_list_full_coverage(self):
-        subject = List([StructureMock('Structure1'), StructureMock('Structure2')])
-        template = List([StructureMock('Structure')])
+        subject = List([StringMock('Structure1'), StringMock('Structure2')])
+        template = List([StringMock('Structure')])
         list_template = ListTemplate(self.visitor, template)
 
         coverage = list_template.calculate_coverage(subject)
@@ -34,8 +35,8 @@ class ListTemplateTestSuite(unittest.TestCase):
         )
 
     def test_coverage_getter_list_half_coverage(self):
-        subject = List([StructureMock('Structure1'), String('Structure2')])
-        template = List([StructureMock('Structure')])
+        subject = List([StringMock('Structure1'), List([StringMock('List Item 1')])])
+        template = List([StringMock('Structure')])
         list_template = ListTemplate(self.visitor, template)
 
         coverage = list_template.calculate_coverage(subject)
@@ -45,7 +46,7 @@ class ListTemplateTestSuite(unittest.TestCase):
         )
 
     def test_calculate_coverage_wrong_type(self):
-        subject = StructureMock()
+        subject = StringMock()
 
         coverage = self.list_template.calculate_coverage(subject)
         self.assertEqual(

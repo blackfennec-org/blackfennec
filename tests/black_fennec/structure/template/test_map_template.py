@@ -1,6 +1,7 @@
 import unittest
 
 from doubles.black_fennec.structure.double_structure import StructureMock
+from doubles.black_fennec.structure.double_string import StringMock
 from doubles.black_fennec.structure.template.double_template_factory_visitor import TemplateFactoryVisitorMock
 from src.black_fennec.interpretation.auction.coverage import Coverage
 from src.black_fennec.structure.encapsulation_base.base_factory_visitor import _create_generic_class
@@ -27,7 +28,7 @@ class MapTemplateTestSuite(unittest.TestCase):
 
     def test_set_item_already_encapsulated(self):
         key = 'test'
-        value = StructureMock('test_value')
+        value = StringMock('test_value')
         template_class = _create_generic_class(TemplateBase)
         encapsulated = template_class(self.visitor, value)
         self.map_template.add_item(key, encapsulated)
@@ -49,9 +50,9 @@ class MapTemplateTestSuite(unittest.TestCase):
         self.assertEqual(self.map_template.value[key].subject.__class__, Map)
 
     def test_calculate_coverage_map_full_coverage(self):
-        subject = Map({'structure1': StructureMock('Structure'), 'structure2': StructureMock('Structure')})
+        subject = Map({'structure1': StringMock('Structure'), 'structure2': StringMock('Structure')})
         template = Map(
-            {'structure1': StructureMock('Structure'), 'structure2': StructureMock('Structure')}
+            {'structure1': StringMock('Structure'), 'structure2': StringMock('Structure')}
         )
         map_template = MapTemplate(self.visitor, template)
 
@@ -62,9 +63,9 @@ class MapTemplateTestSuite(unittest.TestCase):
         )
 
     def test_calculate_coverage_map_half_coverage(self):
-        subject = Map({'structure1': StructureMock('Structure'), 'structure2': StructureMock('Structure')})
+        subject = Map({'structure1': StringMock('Structure'), 'structure2': StringMock('Structure')})
         template = Map(
-            {'structure1': StructureMock('Structure')}
+            {'structure1': StringMock('Structure')}
         )
         map_template = MapTemplate(self.visitor, template)
 
@@ -77,13 +78,13 @@ class MapTemplateTestSuite(unittest.TestCase):
     def test_calculate_coverage_map_third_coverage(self):
         subject = Map(
             {
-                'structure1': StructureMock('Structure'),
-                'structure2': StructureMock('Structure'),
-                'structure3': StructureMock('Structure')
+                'structure1': StringMock('Structure'),
+                'structure2': StringMock('Structure'),
+                'structure3': StringMock('Structure')
             }
         )
         template = Map(
-            {'structure1': StructureMock('Structure')}
+            {'structure1': StringMock('Structure')}
         )
         map_template = MapTemplate(self.visitor, template)
 
@@ -96,13 +97,13 @@ class MapTemplateTestSuite(unittest.TestCase):
     def test_calculate_coverage_map_unhandleable(self):
         subject = Map(
             {
-                'structure1': StructureMock('Structure')
+                'structure1': StringMock('Structure')
             }
         )
         template = Map(
             {
-                'structure1': StructureMock('Structure'),
-                'structure2': StructureMock('Structure'),
+                'structure1': StringMock('Structure'),
+                'structure2': StringMock('Structure'),
             }
         )
         map_template = MapTemplate(self.visitor, template)
@@ -114,9 +115,9 @@ class MapTemplateTestSuite(unittest.TestCase):
         )
 
     def test_calculate_coverage_wrong_type(self):
-        subject = StructureMock()
+        subject = StringMock()
         template = Map(
-            {'structure1': StructureMock('Structure'), 'structure2': StructureMock('Structure')}
+            {'structure1': StringMock('Structure'), 'structure2': StringMock('Structure')}
         )
         map_template = MapTemplate(self.visitor, template)
 

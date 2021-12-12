@@ -2,6 +2,7 @@ import unittest
 from ddt import ddt, data
 from typing import Optional
 
+from tests.test_utils.parameterize import MOCK_CORE_TYPES
 from tests.test_utils.what_the_farmer_does_not_eat_visitor_factory import WhatTheFarmerDoesNotEatVisitorFactory
 from doubles.black_fennec.structure.double_boolean import BooleanMock
 from doubles.black_fennec.structure.double_structure import StructureInstanceMock, StructureMock
@@ -16,11 +17,6 @@ from src.black_fennec.structure.encapsulation_base.encapsulation_base import Enc
 from src.black_fennec.structure.encapsulation_base.list_encapsulation_base import ListEncapsulationBase
 from src.black_fennec.structure.encapsulation_base.map_encapsulation_base import MapEncapsulationBase
 
-
-MOCK_CORE_TYPES = [
-    StructureMock(), MapMock(), ListMock(), 
-    StringMock(), NumberMock(), BooleanMock(), 
-    ReferenceMock()]
 
 @ddt
 class BaseFactoryVisitorTestSuite(unittest.TestCase):

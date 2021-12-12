@@ -5,6 +5,7 @@ class StringMock(StructureMock):
     def __init__(self, value=None, parent=None, root=None):
         value = '' if value is None else value
         StructureMock.__init__(self, value, parent, root)
+        self.type_name = 'String'
 
     def accept(self, visitor):
         return visitor.visit_string(self)

@@ -1,4 +1,9 @@
+# -*- coding: utf-8 -*-
+from typing import TypeVar
 from src.black_fennec.structure.structure import Structure
+from src.black_fennec.structure.visitor import Visitor
+
+TVisitor = TypeVar('TVisitor')
 
 
 class String(Structure):
@@ -11,17 +16,11 @@ class String(Structure):
             value (str, optional): The item of the `String`.
                 By default "" (empty string)
         """
-        Structure.__init__(self)
-        self._value = value
+        Structure.__init__(self, value)
 
-    @property
-    def value(self):
-        """"Property for the item of `String`"""
-        return self._value
-
-    @value.setter
-    def value(self, value: str):
-        self._value = value
-
-    def accept(self, visitor):
+    def accept(self, visitor: Visitor[TVisitor]) -> TVisitor:
         return visitor.visit_string(self)
+
+    def __repr__(self) -> str:
+        """Create representation for pretty printing"""
+        return f'String({self.value})'

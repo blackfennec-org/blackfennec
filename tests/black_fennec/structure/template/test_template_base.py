@@ -1,13 +1,14 @@
 # -*- coding: utf-8 -*-
 import unittest
 from typing import Optional
-
+from ddt import ddt, data, unpack
+from tests.test_utils.parameterize import MOCK_CORE_TYPES
 from doubles.black_fennec.structure.double_structure import StructureMock, StructureInstanceMock
 from doubles.black_fennec.structure.encapsulation_base.double_factory_base_visitor import FactoryBaseVisitorMock
 from src.black_fennec.interpretation.auction.coverage import Coverage
 from src.black_fennec.structure.template.template_base import TemplateBase
 
-
+@ddt
 class TemplateBaseTestSuite(unittest.TestCase):
     def setUp(self):
         self.visitor = FactoryBaseVisitorMock()
@@ -30,13 +31,13 @@ class TemplateBaseTestSuite(unittest.TestCase):
         self.template_base.optional = True
         self.assertEqual(self.template_base.optional, True)
 
-    def test_can_calculate_coverage_of_structure(self):
-        structure = StructureInstanceMock('Structure')
+    @data(*MOCK_CORE_TYPES[3:])
+    def test_can_calculate_coverage_of_structure(self, structure):
         coverage = self.template_base.calculate_coverage(structure)
         self.assertEqual(coverage, Coverage.COVERED)
 
-    def test_can_visit_structure(self):
-        structure = StructureInstanceMock('Structure')
+    @data(*MOCK_CORE_TYPES[3:])
+    def test_can_visit_structure(self, structure):
         coverage = structure.accept(self.template_base)
         self.assertEqual(coverage, Coverage.COVERED)
 
