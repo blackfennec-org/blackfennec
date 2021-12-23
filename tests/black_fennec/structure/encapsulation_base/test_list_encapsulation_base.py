@@ -2,6 +2,7 @@ import unittest
 from typing import Optional
 
 from doubles.black_fennec.structure.double_structure import StructureMock
+from doubles.black_fennec.structure.double_string import StringMock
 from doubles.black_fennec.structure.encapsulation_base.double_factory_base_visitor import FactoryBaseVisitorMock
 from src.black_fennec.structure.encapsulation_base.encapsulation_base import EncapsulationBase
 from src.black_fennec.structure.encapsulation_base.base_factory_visitor import _create_generic_class
@@ -41,7 +42,7 @@ class ListEncapsulationBaseTestSuite(unittest.TestCase):
         self.assertIn(value, self.list_encapsulation_base.subject.value)
 
     def test_get_value(self):
-        subject_content = StructureMock('test')
+        subject_content = StringMock('test')
         subject = List([subject_content])
         list_encapsulation_base = ListEncapsulationBase(
             self.visitor,

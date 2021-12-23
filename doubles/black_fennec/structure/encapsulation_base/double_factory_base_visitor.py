@@ -1,5 +1,6 @@
 class FactoryBaseVisitorMock:
     def __init__(self):
+        self._visited = {}
         self.visit_structure_count = 0
         self.structure = None
         self.visit_root_count = 0
@@ -18,44 +19,43 @@ class FactoryBaseVisitorMock:
         self.map = None
         self._metadata_storage = dict()
         
-    def visit_structure(self, subject_structure):
-        self.visit_structure_count += 1
-        self.structure = subject_structure
-        return subject_structure
-
-    def visit_root(self, subject_root):
-        self.visit_root_count += 1
-        self.root = subject_root
-        return subject_root
+    def get_stats(self, subject_type_name):
+        return self._visited.get(subject_type_name, (0, None))
 
     def visit_string(self, subject_string):
         self.visit_string_count += 1
         self.string = subject_string
+        self._visited['String'] = (self.visit_string_count, self.string)
         return subject_string
 
     def visit_number(self, subject_number):
         self.visit_number_count += 1
         self.number = subject_number
+        self._visited['Number'] = (self.visit_number_count, self.number)
         return subject_number
 
     def visit_boolean(self, subject_boolean):
         self.visit_boolean_count += 1
         self.boolean = subject_boolean
+        self._visited['Boolean'] = (self.visit_boolean_count, self.boolean)
         return subject_boolean
 
     def visit_reference(self, subject_reference):
         self.visit_reference_count += 1
         self.reference = subject_reference
+        self._visited['Reference'] = (self.visit_reference_count, self.reference)
         return subject_reference
 
     def visit_list(self, subject_list):
         self.visit_list_count += 1
         self.list = subject_list
+        self._visited['List'] = (self.visit_list_count, self.list)
         return subject_list
 
     def visit_map(self, subject_map):
         self.visit_map_count += 1 
         self.map = subject_map
+        self._visited['Map'] = (self.visit_map_count, self.map)
         return subject_map
 
     @property

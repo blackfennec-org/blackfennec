@@ -1,3 +1,6 @@
+# -*- coding: utf-8 -*-
+
+from src.black_fennec.structure.visitor import Visitor
 from src.black_fennec.structure.encapsulation_base.base_factory_visitor import BaseFactoryVisitor
 from src.black_fennec.structure.list import List
 from src.black_fennec.structure.map import Map
@@ -35,8 +38,8 @@ class FilterFactoryVisitor(BaseFactoryVisitor):
         """
         return self._metadata_storage
 
-    def visit_map(self, subject_map: Map):
+    def visit_map(self, subject_map: Map) -> MapFilter:
         return MapFilter(self, subject_map)
 
-    def visit_list(self, subject_list: List):
+    def visit_list(self, subject_list: List) -> ListFilter:
         return ListFilter(self, subject_list)

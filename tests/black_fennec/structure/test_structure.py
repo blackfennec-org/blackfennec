@@ -1,26 +1,44 @@
 import unittest
+from abc import ABCMeta, abstractmethod
 from doubles.black_fennec.structure.double_root import RootMock
 from doubles.black_fennec.structure.encapsulation_base.double_factory_base_visitor import FactoryBaseVisitorMock
 from src.black_fennec.structure.structure import Structure
 
 
-class StructureTestSuite(unittest.TestCase):
-    def test_can_construct(self):
-        parent = RootMock()
-        structure = Structure(parent=parent)
-        self.assertEqual(structure.parent, parent)
-
-    def test_can_change_parent(self):
-        original_parent = RootMock()
+class StructureTestMixin(metaclass=ABCMeta):
+    def test_can_set_parent(self):
+        structure = self.create_structure(self.default_value)
         new_parent = RootMock()
-        structure = Structure(parent=original_parent)
         structure.parent = new_parent
 
         self.assertEqual(structure.parent, new_parent)
 
-    def test_accept(self):
+    @abstractmethod
+    def create_structure(self, value):
+        ...
+
+    def test_can_get_value(self):
+        structure = self.create_structure(self.default_value)
+
+        self.assertEqual(self.default_value, structure.value)
+
+    def test_can_set_value(self):
+        structure = self.create_structure(self.default_value)
+        structure.value = self.alternative_value
+
+        self.assertEqual(self.alternative_value, structure.value)
+
+    def test_can_accept(self):
+        structure = self.create_structure(self.default_value)
         visitor = FactoryBaseVisitorMock()
-        structure = Structure()
+
         structure.accept(visitor)
-        self.assertEqual(visitor.structure, structure)
-        self.assertEqual(visitor.visit_structure_count, 1)
+
+        count, subject = visitor.get_stats(self.structure_type_name)
+        self.assertEqual(subject, structure)
+        self.assertEqual(count, 1)
+
+    def test_can_get_repr(self):
+        structure = self.create_structure(self.default_value)
+        representation = str(structure)
+        self.assertIn(self.structure_type_name, representation)

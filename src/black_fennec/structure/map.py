@@ -1,11 +1,14 @@
 import logging
+from typing import TypeVar, Any
 
 from src.black_fennec.structure.structure import Structure
+from src.black_fennec.structure.visitor import Visitor
 
 logger = logging.getLogger(__name__)
+TVisitor = TypeVar('TVisitor')
 
 
-class Map(Structure):
+class Map(Structure[dict]):
     """Core type Map, a set of keys with values"""
 
     def __init__(self, value: dict = None):
@@ -15,7 +18,7 @@ class Map(Structure):
             value (dict[any, Structure], optional):
                 Structures with which to initialise the Map.
         """
-        Structure.__init__(self)
+        Structure.__init__(self, {})
         self._value = {}
         if value is not None:
             self.value = value
@@ -25,17 +28,17 @@ class Map(Structure):
         return dict(self._value)
 
     @value.setter
-    def value(self, value: dict):
+    def value(self, value: dict) -> None:
         for key in (dict(self._value) or {}):
             self.remove_item(key)
         for key, item in (value or {}).items():
             self.add_item(key, item)
 
-    def _set_parent(self, item):
+    def _set_parent(self, item: Structure) -> None:
         assert item.parent is None
         item.parent = self
 
-    def add_item(self, key: str, value: Structure):
+    def add_item(self, key: str, value: Structure) -> None:
         """Custom set item hook, adds self as parent or raises error.
 
         Args:
@@ -52,12 +55,12 @@ class Map(Structure):
         self._set_parent(value)
         self._value[key] = value
 
-    def _unset_parent(self, item):
+    def _unset_parent(self, item: Structure) -> None:
         assert item.parent is self
         assert item not in self._value
         item.parent = None
 
-    def remove_item(self, key):
+    def remove_item(self, key: Any) -> None:
         """Custom delete hook, resets parent for removed structure.
 
         Args:
@@ -76,5 +79,9 @@ class Map(Structure):
             logger.error(message)
             raise KeyError(message)
 
-    def accept(self, visitor):
+    def accept(self, visitor: Visitor[TVisitor]) -> TVisitor:
         return visitor.visit_map(self)
+
+    def __repr__(self) -> str:
+        """Create representation for pretty printing"""
+        return f'Map({self.value})'

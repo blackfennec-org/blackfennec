@@ -6,6 +6,7 @@ from src.black_fennec.structure.list import List
 
 class ListMock(StructureMock):
     def __init__(self, value=None, parent=None, root=None):
+        self.type_name = 'List'
         value = value if value else list()
         StructureMock.__init__(self, value, parent, root)
 

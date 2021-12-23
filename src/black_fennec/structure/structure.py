@@ -1,16 +1,31 @@
 # -*- coding: utf-8 -*-
+from abc import ABCMeta, abstractmethod
+from typing import Generic, TypeVar
+from src.black_fennec.structure.visitor import Visitor
+
+T = TypeVar('T')
+TVisitor = TypeVar('TVisitor')
 
 
-class Structure:
+class Structure(Generic[T], metaclass=ABCMeta):
     """Abstract base class for all types (Structures)."""
 
-    def __init__(self, parent: 'Structure' = None):
+    def __init__(self, value: T):
         """Create Structure with parent.
 
         Args:
-            parent (Structure): The parent of this Structure.
+            value (T): The value of this structure.
         """
-        self._parent: 'Structure' = parent
+        self._value: T = value
+        self._parent: 'Structure' = None
+
+    @property
+    def value(self) -> T:
+        return self._value
+
+    @value.setter
+    def value(self, value: T):
+        self._value = value
 
     @property
     def parent(self) -> 'Structure':
@@ -25,8 +40,13 @@ class Structure:
         """Readonly property for `Root` of this structure."""
         return self.parent.get_root()
 
-    def accept(self, visitor):
-        return visitor.visit_structure(self)
+    @abstractmethod
+    def accept(self, visitor: Visitor[TVisitor]) -> TVisitor:
+        ...
+
+    @abstractmethod
+    def __repr__(self) -> str:
+        ...
 
     def __hash__(self):
         """Hash function required for any structure

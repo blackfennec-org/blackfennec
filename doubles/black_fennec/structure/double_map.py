@@ -6,6 +6,7 @@ from src.black_fennec.structure.map import Map
 
 class MapMock(StructureMock):
     def __init__(self, value: dict = None, parent=None, root=None):
+        self.type_name = 'Map'
         value = value if value else dict()
         StructureMock.__init__(self, value, parent, root)
 

@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from src.black_fennec.structure.encapsulation_base.base_factory_visitor import BaseFactoryVisitor
 from src.black_fennec.structure.list import List
 from src.black_fennec.structure.map import Map
@@ -37,11 +39,11 @@ class TemplateFactoryVisitor(BaseFactoryVisitor):
         """
         return self._metadata_storage
 
-    def visit_string(self, subject_string: String):
+    def visit_string(self, subject_string: String) -> StringTemplate:
         return StringTemplate(self, subject_string)
 
-    def visit_map(self, subject_map: Map):
+    def visit_map(self, subject_map: Map) -> MapTemplate:
         return MapTemplate(self, subject_map)
 
-    def visit_list(self, subject_list: List):
+    def visit_list(self, subject_list: List) -> ListTemplate:
         return ListTemplate(self, subject_list)

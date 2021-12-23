@@ -1,3 +1,6 @@
+# -*- coding: utf-8 -*-
+
+from src.black_fennec.structure.visitor import Visitor
 from src.black_fennec.structure.boolean import Boolean
 from src.black_fennec.structure.structure import Structure
 from src.black_fennec.structure.list import List
@@ -11,7 +14,7 @@ import logging
 logger = logging.getLogger(__name__)
 
 
-class DeepCopyVisitor:
+class DeepCopyVisitor(Visitor[Structure]):
     """Creates a deep copy of a structure
     """
 
@@ -21,28 +24,28 @@ class DeepCopyVisitor:
         logger.error(message)
         raise NotImplementedError(message)
 
-    def visit_string(self, subject_string: String):
+    def visit_string(self, subject_string: String) -> String:
         return String(subject_string.value)
 
-    def visit_number(self, subject_number: Number):
+    def visit_number(self, subject_number: Number) -> Number:
         return Number(subject_number.value)
 
-    def visit_boolean(self, subject_boolean: Boolean):
+    def visit_boolean(self, subject_boolean: Boolean) -> Boolean:
         return Boolean(subject_boolean.value)
 
-    def visit_reference(self, subject: Reference):
+    def visit_reference(self, subject: Reference) -> Reference:
         return Reference(
             subject._json_reference_resolve_service,
             subject.value)
 
-    def visit_list(self, subject: List):
+    def visit_list(self, subject: List) -> List:
         structure = List()
         for element in subject.value:
             substructure = element.accept(self)
             structure.add_item(substructure)
         return structure
 
-    def visit_map(self, subject_map: Map):
+    def visit_map(self, subject_map: Map) -> Map:
         structure = Map()
         for key, value in subject_map.value.items():
             substructure = value.accept(self)

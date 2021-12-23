@@ -1,6 +1,7 @@
 import unittest
 
 from doubles.black_fennec.structure.double_structure import StructureMock
+from doubles.black_fennec.structure.double_string import StringMock
 from src.black_fennec.structure.encapsulation_base.base_factory_visitor import _create_generic_class
 from src.black_fennec.structure.filter.filter_base import FilterBase
 from src.black_fennec.structure.filter.filter_factory_visitor import FilterFactoryVisitor
@@ -25,7 +26,7 @@ class MapFilterTestSuite(unittest.TestCase):
 
     def test_set_item_already_encapsulated(self):
         key = 'test'
-        value = StructureMock('test_value')
+        value = StringMock('test_value')
         template_class = _create_generic_class(FilterBase)
         encapsulated = template_class(self.visitor, value)
         self.map_filter.add_item(key, encapsulated)

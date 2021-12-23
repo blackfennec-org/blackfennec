@@ -2,6 +2,7 @@ import unittest
 from typing import Optional
 
 from doubles.black_fennec.structure.double_structure import StructureMock
+from doubles.black_fennec.structure.double_string import StringMock
 from doubles.black_fennec.structure.encapsulation_base.double_factory_base_visitor import FactoryBaseVisitorMock
 from src.black_fennec.structure.encapsulation_base.encapsulation_base import EncapsulationBase
 from src.black_fennec.structure.encapsulation_base.map_encapsulation_base import MapEncapsulationBase
@@ -29,23 +30,23 @@ class MapEncapsulationBaseTestSuite(unittest.TestCase):
 
     def test_get_item(self):
         key = 'test'
-        value = StructureMock('test_value')
+        value = StringMock('test_value')
         self.subject.add_item(key, value)
-        map_encapsulation: Optional[MapEncapsulationBase] = MapEncapsulationBase(self.visitor, self.subject)
+        map_encapsulation = MapEncapsulationBase(self.visitor, self.subject)
         get = map_encapsulation.value[key]
         self.assertEqual(get, value)
-        self.assertEqual(self.visitor.structure, value)
-        self.assertEqual(self.visitor.visit_structure_count, 1)
+        self.assertEqual(self.visitor.string, value)
+        self.assertEqual(self.visitor.visit_string_count, 1)
 
     def test_set_item(self):
         key = 'test'
-        value = StructureMock('test_value')
+        value = StringMock('test_value')
         self.map_encapsulation_base.add_item(key, value)
         self.assertEqual(value, self.map_encapsulation_base.value[key])
 
     def test_set_item_already_encapsulated(self):
         key = 'test'
-        value = StructureMock('test_value')
+        value = StringMock('test_value')
         template_class = _create_generic_class(EncapsulationBase)
         encapsulated = template_class(self.visitor, value)
         self.map_encapsulation_base.add_item(key, encapsulated)
@@ -53,7 +54,7 @@ class MapEncapsulationBaseTestSuite(unittest.TestCase):
 
     def test_get_value(self):
         key = 'test'
-        subject_content = StructureMock('test')
+        subject_content = StringMock('test')
         subject = Map({key: subject_content})
         map_encapsulation_base = MapEncapsulationBase(
             self.visitor,
@@ -68,7 +69,7 @@ class MapEncapsulationBaseTestSuite(unittest.TestCase):
 
     def test_set_value(self):
         key = 'test'
-        value = StructureMock('test')
+        value = StringMock('test')
         self.map_encapsulation_base.value = {key: value}
         self.assertEqual(value, self.map_encapsulation_base.value[key])
 

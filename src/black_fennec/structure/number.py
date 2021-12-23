@@ -1,8 +1,13 @@
+# -*- coding: utf-8 -*-
 import numbers
+from typing import TypeVar
 from src.black_fennec.structure.structure import Structure
+from src.black_fennec.structure.visitor import Visitor
+
+TVisitor = TypeVar('TVisitor')
 
 
-class Number(Structure):
+class Number(Structure[numbers.Number]):
     """Core Type Number, represents numbers in the domain model."""
 
     def __init__(self, value: numbers.Number = 0):
@@ -12,21 +17,11 @@ class Number(Structure):
             value (numbers.Number, optional): The item of the `Number`.
                 By default "" (empty number)
         """
-        Structure.__init__(self)
-        self._value = value
+        Structure.__init__(self, value)
 
-    @property
-    def value(self) -> numbers.Number:
-        """"Property for the item of `Number`"""
-        return self._value
-
-    @value.setter
-    def value(self, value: numbers.Number):
-        self._value = value
+    def accept(self, visitor: Visitor[TVisitor]) -> TVisitor:
+        return visitor.visit_number(self)
 
     def __repr__(self) -> str:
         """Create representation for pretty printing"""
-        return f'Number({self._value})'
-
-    def accept(self, visitor):
-        return visitor.visit_number(self)
+        return f'Number({self.value})'
