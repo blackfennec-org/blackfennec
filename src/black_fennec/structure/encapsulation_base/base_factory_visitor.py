@@ -1,5 +1,7 @@
+# -*- coding: utf-8 -*-
 from functools import lru_cache
 
+from src.black_fennec.structure.visitor import Visitor
 from src.black_fennec.structure.boolean import Boolean
 from src.black_fennec.structure.encapsulation_base.list_encapsulation_base import ListEncapsulationBase
 from src.black_fennec.structure.encapsulation_base.map_encapsulation_base import MapEncapsulationBase
@@ -11,7 +13,7 @@ from src.black_fennec.structure.reference import Reference
 from src.black_fennec.structure.string import String
 
 
-class BaseFactoryVisitor:
+class BaseFactoryVisitor(Visitor[Structure]):
     """Abstract Factory and Visitor
 
     This class implements the base visitor behaviour
