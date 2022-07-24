@@ -9,22 +9,21 @@ from src.black_fennec.structure.template.template_factory_visitor import Templat
 logger = logging.getLogger(__name__)
 
 
-def create_date_time_range_template():
+def create_date_time_range_template(is_optional=False):
     """DateTimeRange Template
     Defines the format of the date time range
     """
+    tf = TemplateFactoryVisitor()
     iso_regex = r'^(-?(?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-' \
                 r'(3[01]|0[1-9]|[12][0-9])T(2[0-3]|[01][0-9]):([0-5][0-9]):' \
                 r'([0-5][0-9])(\.[0-9]+)?(Z|[+-](?:2[0-3]|[01][0-9]):' \
                 r'[0-5][0-9])?$'
 
-    template_map = Map({
-        DateTimeRange.START_KEY: String(iso_regex),
-        DateTimeRange.END_KEY: String(iso_regex)
-    })
+    template = tf.create_map(properties={
+        DateTimeRange.START_KEY: tf.create_string(pattern=iso_regex),
+        DateTimeRange.END_KEY: tf.create_string(pattern=iso_regex)
+    }, is_optional=is_optional)
 
-    template_factory = TemplateFactoryVisitor()
-    template = template_map.accept(template_factory)
     return template
 
 

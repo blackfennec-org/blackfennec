@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*-
+
 import logging
 import re
 
 from src.black_fennec.interpretation.auction.coverage import Coverage
 from src.black_fennec.structure.string import String
+from src.black_fennec.structure.map import Map
 from src.black_fennec.structure.template.template_base import TemplateBase
 
 logger = logging.getLogger(__name__)
@@ -15,34 +17,50 @@ class StringTemplate(TemplateBase):
     def __init__(
             self,
             visitor: 'TemplateFactoryVisitor',
-            subject: String,
+            subject: Map,
+            is_optional: bool=False,
     ):
         TemplateBase.__init__(
             self,
             visitor,
-            subject
+            subject,
+            is_optional
         )
+
+    def create_instance(self):
+        return self.default
+
+    @property
+    def default(self):
+        if 'default' in self.subject.value:
+            return String(self.subject.value['default'].value)
+        return String('')
+
+    @property
+    def pattern(self) -> re.Pattern:
+        if 'pattern' in self.subject.value:
+            return re.compile(self.subject.value['pattern'].value)
+        return re.compile('.*')
 
     def visit_string(self, subject: String) -> Coverage:
         """Check value of String for regexp
 
-                Checks whether the value contained in the template
-                    if any can be matched with the strings value.
+        Checks whether the value contained in the template
+            if any can be matched with the strings value.
 
-                Args:
-                    subject (List): String whose value has to match template
-                Returns:
-                    Coverage: Coverage.COVERED if the match was successful
-                        or no regex was contained in the template value;
-                        Coverage.NOT_COVERED if the match failed.
-                """
+        Args:
+            subject (List): String whose value has to match template
+        Returns:
+            Coverage: Coverage.COVERED if the match was successful
+                or no regex was contained in the template value;
+                Coverage.NOT_COVERED if the match failed.
+        """
         coverage = Coverage.COVERED
-        if self.value and self.value != '':
-            if not re.match(self.value, subject.value):
-                message = f'Pattern mismatch of subject({subject})' \
-                          f' and pattern({self.value})'
-                logger.info(message)
-                return Coverage.NOT_COVERED
+        if not self.pattern.match(subject.value):
+            message = f'Pattern mismatch of subject({subject})' \
+                        f' and pattern({self.value})'
+            logger.info(message)
+            return Coverage.NOT_COVERED
         return coverage
 
     def __repr__(self):

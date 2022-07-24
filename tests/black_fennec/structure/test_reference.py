@@ -13,7 +13,7 @@ class ReferenceTestSuite(StructureTestMixin, unittest.TestCase):
         self.default_value = URI('ref')
         self.alternative_value = URI('alt_ref')
 
-    def create_structure(self, value):
+    def create_instance(self, value):
         return Reference(Dummy(), value)
 
     def test_can_construct(self):

@@ -25,11 +25,11 @@ class TemplateBaseTestSuite(unittest.TestCase):
         pass
 
     def test_optional_getter(self):
-        self.assertEqual(self.template_base.optional, False)
+        self.assertEqual(self.template_base.is_optional, False)
 
     def test_optional_setter(self):
-        self.template_base.optional = True
-        self.assertEqual(self.template_base.optional, True)
+        self.template_base.is_optional = True
+        self.assertEqual(self.template_base.is_optional, True)
 
     @data(*MOCK_CORE_TYPES[3:])
     def test_can_calculate_coverage_of_structure(self, structure):
@@ -41,8 +41,8 @@ class TemplateBaseTestSuite(unittest.TestCase):
         coverage = structure.accept(self.template_base)
         self.assertEqual(coverage, Coverage.COVERED)
 
-    def test_has_create_structure_interface(self):
-        func = self.template_base.create_structure
+    def test_has_create_instance_interface(self):
+        func = self.template_base.create_instance
         self.assertIsNotNone(func)
 
     def test_can_get_repr(self):

@@ -9,17 +9,16 @@ from src.visualisation.base.file.file import File
 logger = logging.getLogger(__name__)
 
 
-def create_image_template():
+def create_image_template(is_optional=False):
     """File Template
     Defines the format of the file
     """
-    template_map = Map({
-        File.FILE_PATH_KEY: String(),
-        File.FILE_TYPE_KEY: String('image/')
-    })
+    tf = TemplateFactoryVisitor()
+    template = tf.create_map(properties={
+        File.FILE_PATH_KEY: tf.create_string(),
+        File.FILE_TYPE_KEY: tf.create_string('^image/.*$')
+    }, is_optional=is_optional)
 
-    template_factory = TemplateFactoryVisitor()
-    template = template_map.accept(template_factory)
     return template
 
 

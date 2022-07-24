@@ -9,8 +9,6 @@ from src.black_fennec.structure.map import Map
 from src.black_fennec.structure.reference import Reference
 from src.black_fennec.structure.string import String
 from src.black_fennec.structure.structure import Structure
-from src.black_fennec.structure.visitors.deep_copy_visitor import \
-    DeepCopyVisitor
 
 
 class TemplateBase(EncapsulationBase):
@@ -23,17 +21,19 @@ class TemplateBase(EncapsulationBase):
     def __init__(
             self,
             visitor: 'TemplateFactoryVisitor',
-            subject
+            subject,
+            is_optional: bool=False
     ):
         EncapsulationBase.__init__(self, visitor, subject)
+        self.is_optional = is_optional
 
     @property
-    def optional(self):
-        return self._visitor.metadata_storage.get(self.subject, False)
+    def is_optional(self):
+        return self._is_optional
 
-    @optional.setter
-    def optional(self, value: bool):
-        self._visitor.metadata_storage[self.subject] = value
+    @is_optional.setter
+    def is_optional(self, value):
+        self._is_optional = value
 
     def visit_structure(self, subject_structure: Structure) -> Coverage:
         return self._instance_equality_coverage(subject_structure)
@@ -72,8 +72,8 @@ class TemplateBase(EncapsulationBase):
         """
         return subject.accept(self)
 
-    def create_structure(self):
-        return self.subject.accept(DeepCopyVisitor())
+    def create_instance(self):
+        raise NotImplementedError()
 
     def __repr__(self):
         return f'TemplateBase({self.subject.__repr__()})'

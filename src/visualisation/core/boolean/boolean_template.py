@@ -1,9 +1,9 @@
-from src.black_fennec.structure.boolean import Boolean
-from src.black_fennec.structure.template.template_base import TemplateBase
+from src.black_fennec.structure.map import Map
+from src.black_fennec.structure.template.boolean_template import BooleanTemplate as Template
 from src.black_fennec.structure.template.template_factory_visitor import TemplateFactoryVisitor
 
 
-class BooleanTemplate(TemplateBase):
+class BooleanTemplate(Template):
     """Template of boolean.
 
     Class creates Template structure for core type
@@ -11,7 +11,7 @@ class BooleanTemplate(TemplateBase):
 
     def __init__(self):
         visitor = TemplateFactoryVisitor()
-        TemplateBase.__init__(self, visitor, Boolean())
+        Template.__init__(self, visitor, Map())
 
         self._name = "Boolean"
 

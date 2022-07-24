@@ -18,7 +18,6 @@ class EncapsulationBase:
         """
         self._visitor = visitor
         self._subject = subject
-        self._value = None
 
     @property
     def subject(self):

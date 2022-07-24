@@ -103,7 +103,7 @@ class MapViewModel(Observable):
         self._notify(self.value, 'value')
 
     def add_by_template(self, key, template: TemplateBase):
-        self.add_item(key, template.create_structure())
+        self.add_item(key, template.create_instance())
 
     def get_templates(self):
         return self._template_registry.templates

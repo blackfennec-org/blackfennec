@@ -22,6 +22,7 @@ class PersonTestSuite(unittest.TestCase):
         self.assertIsNone(person.marital_status)
         self.assertIsNone(person.nationality)
 
+
     def test_can_construct_with_map(self):
         data = dict()
         data[Person.COURTESY_TITLE_KEY] = StringMock(Person.COURTESY_TITLE_KEY)

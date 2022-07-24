@@ -28,6 +28,14 @@ class ListTemplate(ListEncapsulationBase, TemplateBase):
             subject
         )
 
+    def create_instance(self):
+        return List([ template.create_instance() for template 
+            in self.properties ])
+
+    @property
+    def properties(self):
+        return self.value
+
     def visit_list(self, subject: List):
         """Coverage calculation for List Class
 
@@ -48,7 +56,7 @@ class ListTemplate(ListEncapsulationBase, TemplateBase):
             len(subject.value),
             len(subject.value)
         )
-        for template_node in self.value:
+        for template_node in self.properties:
             for subject_node in subject.value:
                 coverage += template_node.calculate_coverage(subject_node)
         return coverage

@@ -7,29 +7,29 @@ from src.black_fennec.structure.structure import Structure
 
 class StructureTestMixin(metaclass=ABCMeta):
     def test_can_set_parent(self):
-        structure = self.create_structure(self.default_value)
+        structure = self.create_instance(self.default_value)
         new_parent = RootMock()
         structure.parent = new_parent
 
         self.assertEqual(structure.parent, new_parent)
 
     @abstractmethod
-    def create_structure(self, value):
+    def create_instance(self, value):
         ...
 
     def test_can_get_value(self):
-        structure = self.create_structure(self.default_value)
+        structure = self.create_instance(self.default_value)
 
         self.assertEqual(self.default_value, structure.value)
 
     def test_can_set_value(self):
-        structure = self.create_structure(self.default_value)
+        structure = self.create_instance(self.default_value)
         structure.value = self.alternative_value
 
         self.assertEqual(self.alternative_value, structure.value)
 
     def test_can_accept(self):
-        structure = self.create_structure(self.default_value)
+        structure = self.create_instance(self.default_value)
         visitor = FactoryBaseVisitorMock()
 
         structure.accept(visitor)
@@ -39,6 +39,6 @@ class StructureTestMixin(metaclass=ABCMeta):
         self.assertEqual(count, 1)
 
     def test_can_get_repr(self):
-        structure = self.create_structure(self.default_value)
+        structure = self.create_instance(self.default_value)
         representation = str(structure)
         self.assertIn(self.structure_type_name, representation)

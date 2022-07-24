@@ -2,38 +2,41 @@
 import logging
 
 from src.black_fennec.structure.map import Map
+from src.black_fennec.structure.list import List
 from src.black_fennec.structure.string import String
 from src.black_fennec.structure.template.template_factory_visitor import TemplateFactoryVisitor
+from src.black_fennec.util.uri.structure_parsing_service import StructureParsingService
+
 
 logger = logging.getLogger(__name__)
 
 
-def create_address_template():
-    """Address Template
+def create_address_template(is_optional=False):
+    '''Address Template
     Defines the format of the address
-    """
-    template_map = Map({
-        Address.FIRST_NAME_KEY: String(),
-        Address.LAST_NAME_KEY: String(),
-        Address.STREET_KEY: String(),
-        Address.STREET_NUMBER_KEY: String(),
-        Address.CITY_KEY: String()
-    })
+    '''
 
-    template_factory = TemplateFactoryVisitor()
-    template = template_map.accept(template_factory)
+    tf = TemplateFactoryVisitor()
+
+    template = tf.create_map(properties={
+        Address.FIRST_NAME_KEY: tf.create_string(),
+        Address.LAST_NAME_KEY: tf.create_string(),
+        Address.STREET_KEY: tf.create_string(),
+        Address.STREET_NUMBER_KEY: tf.create_string(),
+        Address.CITY_KEY: tf.create_string(),
+    }, is_optional=is_optional)
 
     return template
 
 
 class Address:
-    """Address BaseType Class
+    '''Address BaseType Class
 
     Helper class used by the address view_model representing
     the actual type 'Address'.
     Can be used by other classes as a helper to be able to
     include addresses in a overlaying datatype.
-    """
+    '''
     TEMPLATE = None
     FIRST_NAME_KEY = 'first_name'
     LAST_NAME_KEY = 'last_name'
@@ -42,12 +45,12 @@ class Address:
     CITY_KEY = 'city'
 
     def __init__(self, map_interpretation: Map = None):
-        """Address Constructor
+        '''Address Constructor
 
         Args:
             map_interpretation (Map): underlying map interpretation to
                 which property calls are dispatched
-        """
+        '''
         self._subject: Map = map_interpretation or Map()
         if Address.FIRST_NAME_KEY not in self._subject.value:
             self.subject.add_item(Address.FIRST_NAME_KEY, String())
@@ -132,7 +135,7 @@ class Address:
         return not self == other
 
     def __str__(self) -> str:
-        """Convert to string"""
+        '''Convert to string'''
         return str(self.first_name) + ' ' + \
             str(self.last_name) + '\n' + \
             str(self.street) + ' ' + \
@@ -140,7 +143,7 @@ class Address:
             str(self.city)
 
     def __repr__(self) -> str:
-        """Create representation for pretty printing"""
+        '''Create representation for pretty printing'''
         return f'Address({self.first_name} {self.last_name},' \
                f' {self.street} {self.street_number}, {self.city})'
 

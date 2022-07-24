@@ -12,7 +12,7 @@ class BooleanTestSuite(StructureTestMixin, unittest.TestCase):
         self.default_value = False
         self.alternative_value = True
 
-    def create_structure(self, value):
+    def create_instance(self, value):
         return Boolean(value)
 
     def test_can_construct(self):

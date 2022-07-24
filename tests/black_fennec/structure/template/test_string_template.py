@@ -5,11 +5,12 @@ from doubles.black_fennec.structure.double_number import NumberMock
 from doubles.black_fennec.structure.encapsulation_base.double_factory_base_visitor import FactoryBaseVisitorMock
 from src.black_fennec.interpretation.auction.coverage import Coverage
 from src.black_fennec.structure.string import String
+from src.black_fennec.structure.map import Map
 from src.black_fennec.structure.template.string_template import StringTemplate
 from src.black_fennec.structure.template.template_base import TemplateBase
 
 
-class ListTemplateTestSuite(unittest.TestCase):
+class StringTemplateTestSuite(unittest.TestCase):
     def setUp(self):
         self.visitor = FactoryBaseVisitorMock()
         self.subject = String()
@@ -41,7 +42,7 @@ class ListTemplateTestSuite(unittest.TestCase):
         )
 
     def test_can_calculate_coverage_normal_string(self):
-        template = String('Test')
+        template = Map({'pattern': String('Test') })
         string_template = StringTemplate(self.visitor, template)
         subject = String('Test123')
         coverage = string_template.calculate_coverage(subject)
@@ -51,7 +52,7 @@ class ListTemplateTestSuite(unittest.TestCase):
         )
 
     def test_can_calculate_coverage_pattern_mismatch(self):
-        template = String('[a-z]')
+        template = Map({'pattern': String('[a-z]') })
         string_template = StringTemplate(self.visitor, template)
         subject = String('A')
         coverage = string_template.calculate_coverage(subject)
@@ -69,8 +70,8 @@ class ListTemplateTestSuite(unittest.TestCase):
             Coverage.NOT_COVERED
         )
 
-    def test_can_create_structure(self):
-        string_structure = self.string_template.create_structure()
+    def test_can_create_instance(self):
+        string_structure = self.string_template.create_instance()
         self.assertIsInstance(string_structure, String)
 
     def test_can_get_repr(self):

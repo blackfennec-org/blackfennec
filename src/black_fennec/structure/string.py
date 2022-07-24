@@ -24,3 +24,9 @@ class String(Structure):
     def __repr__(self) -> str:
         """Create representation for pretty printing"""
         return f'String({self.value})'
+
+    def __eq__(self, o):
+        return self.value == o.value
+    
+    def __hash__(self):
+        return hash(self.value)

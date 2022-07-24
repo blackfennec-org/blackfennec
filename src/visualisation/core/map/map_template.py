@@ -1,4 +1,6 @@
+# -*- coding: utf-8 -*-
 from src.black_fennec.structure.map import Map
+from src.black_fennec.structure.list import List
 from src.black_fennec.structure.template.map_template import MapTemplate as Template
 from src.black_fennec.structure.template.template_factory_visitor import TemplateFactoryVisitor
 
@@ -11,7 +13,8 @@ class MapTemplate(Template):
 
     def __init__(self):
         visitor = TemplateFactoryVisitor()
-        Template.__init__(self, visitor, Map())
+        Template.__init__(self, visitor, Map(
+            {'required': List(), 'properties': Map()}))
 
         self._name = 'Map'
 

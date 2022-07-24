@@ -83,7 +83,7 @@ class ListViewModel(Observable):
         self._notify(self.value, 'value')
 
     def add_by_template(self, template: TemplateBase):
-        self.add_item(template.create_structure())
+        self.add_item(template.create_instance())
 
     def get_templates(self):
         return self._template_registry.templates

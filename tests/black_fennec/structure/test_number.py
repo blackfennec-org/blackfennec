@@ -13,7 +13,7 @@ class NumberTestSuite(StructureTestMixin, unittest.TestCase):
         self.default_value = 3.141
         self.alternative_value = 2.718
 
-    def create_structure(self, value):
+    def create_instance(self, value):
         return Number(value)
 
     def test_can_construct(self):

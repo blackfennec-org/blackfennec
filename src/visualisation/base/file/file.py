@@ -8,17 +8,16 @@ from src.black_fennec.structure.template.template_factory_visitor import Templat
 logger = logging.getLogger(__name__)
 
 
-def create_file_template():
+def create_file_template(is_optional=False):
     """File Template
     Defines the format of the file
     """
-    template_map = Map({
-        File.FILE_PATH_KEY: String(),
-        File.FILE_TYPE_KEY: String()
-    })
+    tf = TemplateFactoryVisitor()
+    template = tf.create_map(properties={
+        File.FILE_PATH_KEY: tf.create_string(),
+        File.FILE_TYPE_KEY: tf.create_string()
+    }, is_optional=is_optional)
 
-    template_factory = TemplateFactoryVisitor()
-    template = template_map.accept(template_factory)
     return template
 
 

@@ -11,36 +11,25 @@ from src.visualisation.base.image.image import Image, create_image_template
 logger = logging.getLogger(__name__)
 
 
-def create_person_template():
+def create_person_template(is_optional=False):
     """Person Template
     Defines the format of the person
     """
-    template_map = Map({
-        Person.COURTESY_TITLE_KEY: String(),
-        Person.FIRST_NAME_KEY: String(),
-        Person.MIDDLE_NAME_KEY: String(),
-        Person.LAST_NAME_KEY: String(),
-        Person.PERSONAL_PHOTO_KEY: create_image_template().subject,
-        Person.HOME_ADDRESS_KEY: create_address_template().subject,
-        Person.SUFFIX_KEY: String(),
-        Person.GENDER_KEY: String(),
-        Person.SEX_KEY: String(),
-        Person.MARITAL_STATUS_KEY: String(),
-        Person.NATIONALITY_KEY: String()
-    })
+    tf = TemplateFactoryVisitor()
+    template = tf.create_map(properties={
+        Person.COURTESY_TITLE_KEY: tf.create_string(is_optional=True),
+        Person.FIRST_NAME_KEY: tf.create_string(),
+        Person.MIDDLE_NAME_KEY: tf.create_string(is_optional=True),
+        Person.LAST_NAME_KEY: tf.create_string(),
+        Person.PERSONAL_PHOTO_KEY: create_image_template(is_optional=True),
+        Person.HOME_ADDRESS_KEY: create_address_template(is_optional=True),
+        Person.SUFFIX_KEY: tf.create_string(is_optional=True),
+        Person.GENDER_KEY: tf.create_string(is_optional=True),
+        Person.SEX_KEY: tf.create_string(is_optional=True),
+        Person.MARITAL_STATUS_KEY: tf.create_string(is_optional=True),
+        Person.NATIONALITY_KEY: tf.create_string(is_optional=True),
+    }, is_optional=is_optional)
 
-    template_factory = TemplateFactoryVisitor()
-    template = template_map.accept(template_factory)
-
-    template.value[Person.COURTESY_TITLE_KEY].optional = True
-    template.value[Person.MIDDLE_NAME_KEY].optional = True
-    template.value[Person.SUFFIX_KEY].optional = True
-    template.value[Person.PERSONAL_PHOTO_KEY].optional = True
-    template.value[Person.HOME_ADDRESS_KEY].optional = True
-    template.value[Person.GENDER_KEY].optional = True
-    template.value[Person.SEX_KEY].optional = True
-    template.value[Person.MARITAL_STATUS_KEY].optional = True
-    template.value[Person.NATIONALITY_KEY].optional = True
     return template
 
 
@@ -94,8 +83,8 @@ class Person:
 
     def _set_value(self, key, value):
         if key not in self.subject.value:
-            value_type = self.TEMPLATE.subject.value[key].__class__
-            self.subject.add_item(key, value_type())
+            instance = self.TEMPLATE.properties[key].create_instance()
+            self.subject.add_item(key, instance)
         self.subject.value[key].value = value
 
     @property

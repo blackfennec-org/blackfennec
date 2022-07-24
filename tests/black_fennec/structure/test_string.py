@@ -11,7 +11,7 @@ class StringTestSuite(StructureTestMixin, unittest.TestCase):
         self.default_value = 'Black Fennec'
         self.alternative_value = 'Tiny Fennec'
     
-    def create_structure(self, value):
+    def create_instance(self, value):
         return String(value)
 
     def test_can_construct(self):

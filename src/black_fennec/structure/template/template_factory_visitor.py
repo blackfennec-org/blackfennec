@@ -4,40 +4,63 @@ from src.black_fennec.structure.encapsulation_base.base_factory_visitor import B
 from src.black_fennec.structure.list import List
 from src.black_fennec.structure.map import Map
 from src.black_fennec.structure.string import String
+from src.black_fennec.structure.number import Number
 from src.black_fennec.structure.template.list_template import ListTemplate
 from src.black_fennec.structure.template.map_template import MapTemplate
 from src.black_fennec.structure.template.string_template import StringTemplate
+from src.black_fennec.structure.template.number_template import NumberTemplate
 from src.black_fennec.structure.template.template_base import TemplateBase
 
 
 class TemplateFactoryVisitor(BaseFactoryVisitor):
-    """Template Factory Visitor
+    '''Template Factory Visitor
 
     Class is a concrete factory which produces Template based
         structure encapsulations. Only few methods are overwritten
         which require specialised functionality. For all other
         structure types the abstract factory implementation suffices.
-    """
+    '''
 
-    def __init__(self, metadata_storage: dict = None):
+    def __init__(self):
         BaseFactoryVisitor.__init__(self, TemplateBase)
-        self._metadata_storage = metadata_storage if metadata_storage \
-            else {}
 
-    @property
-    def metadata_storage(self):
-        """Metadata storage getter.
+    def create_template(
+            self, template_map: Map,
+            is_optional: bool = False) -> TemplateBase:
+        factory_map = {
+            'Map': MapTemplate,
+            'String': StringTemplate,
+            'Number': NumberTemplate
+        }
+        type_name = template_map.value['type'].value
+        create_template = factory_map[type_name]
+        return create_template(self, template_map, is_optional)
 
-        Is used to keep track of the decoration attributes for
-            the respecting encapsulated structure. The structure functions
-            as key in the dictionary.
+    def create_map(self, properties=None, is_optional=False):
+        template = MapTemplate(self, Map({
+            'type': String('Map'),
+            'required': List(),
+            'properties': Map()
+        }), is_optional)
 
-        Returns:
-             dict: dictionary containing values that belong to
-                a specific encapsulated structure, which is used as
-                key in the dictionary.
-        """
-        return self._metadata_storage
+        if properties:
+            for name, value in properties.items():
+                template.add_property(name, value)
+
+        return template
+
+    def create_string(self, pattern='.*', default='', is_optional=False):
+        return StringTemplate(self, Map({
+            'type': String('String'),
+            'pattern': String(pattern),
+            'default': String(default)
+        }), is_optional)
+
+    def create_number(self, min=None, max=None, default=0, is_optional=False):
+        return NumberTemplate(self, Map({
+            'type': String('Number'),
+            'default': Number(default)
+        }), is_optional)
 
     def visit_string(self, subject_string: String) -> StringTemplate:
         return StringTemplate(self, subject_string)

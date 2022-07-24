@@ -72,10 +72,12 @@ class BlackFennecView(Gtk.ApplicationWindow):
         response = dialog.run()
         if response == Gtk.ResponseType.OK:
             filename = dialog.get_filename()
+            dialog.destroy()
         elif response == Gtk.ResponseType.CANCEL:
             logger.debug('Directory selection canceled')
+            dialog.destroy()
+            return
 
-        dialog.destroy()
 
         store = create_folder_structure(filename)
         self._file_tree.set_model(store)

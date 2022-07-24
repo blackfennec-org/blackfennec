@@ -9,20 +9,19 @@ from src.black_fennec.structure.template.template_factory_visitor import Templat
 logger = logging.getLogger(__name__)
 
 
-def create_date_time_template():
+def create_date_time_template(is_optional=False):
     """DateTime Template
     Defines the format of the date time
     """
+    tf = TemplateFactoryVisitor()
     iso_regex = r'^(-?(?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-' \
                 r'(3[01]|0[1-9]|[12][0-9])T(2[0-3]|[01][0-9]):([0-5][0-9]):' \
                 r'([0-5][0-9])(\.[0-9]+)?(Z|[+-](?:2[0-3]|[01][0-9]):' \
                 r'[0-5][0-9])?$'
-    template_map = Map({
-        DateTime.DATE_TIME_KEY: String(iso_regex)
-    })
+    template = tf.create_map(properties={
+        DateTime.DATE_TIME_KEY: tf.create_string(pattern=iso_regex)
+    }, is_optional=is_optional)
 
-    template_factory = TemplateFactoryVisitor()
-    template = template_map.accept(template_factory)
     return template
 
 

@@ -3,10 +3,14 @@ import unittest
 from doubles.black_fennec.structure.double_structure import StructureMock
 from doubles.black_fennec.structure.double_string import StringMock
 from doubles.black_fennec.structure.template.double_template_factory_visitor import TemplateFactoryVisitorMock
+from doubles.black_fennec.structure.template.double_template import TemplateMock
 from src.black_fennec.interpretation.auction.coverage import Coverage
 from src.black_fennec.structure.encapsulation_base.base_factory_visitor import _create_generic_class
 from src.black_fennec.structure.structure import Structure
 from src.black_fennec.structure.map import Map
+from src.black_fennec.structure.list import List
+from src.black_fennec.structure.string import String
+from src.black_fennec.structure.template.template_factory_visitor import TemplateFactoryVisitor
 from src.black_fennec.structure.template.map_template import MapTemplate
 from src.black_fennec.structure.template.template_base import TemplateBase
 from src.visualisation.base.date_time_range.date_time_range import DateTimeRange
@@ -15,13 +19,9 @@ from src.visualisation.base.date_time_range.date_time_range import DateTimeRange
 class MapTemplateTestSuite(unittest.TestCase):
     def setUp(self):
         self.visitor = TemplateFactoryVisitorMock()
-        self.subject = Map()
+        self.subject = Map({'type': String('Map'), 'required': List(), 'properties': Map()})
         self.map_template = MapTemplate(self.visitor, self.subject)
 
-    def tearDown(self) -> None:
-        self.visitor = None
-        self.subject = None
-        self.map_template = None
 
     def test_can_construct(self):
         pass
@@ -51,12 +51,25 @@ class MapTemplateTestSuite(unittest.TestCase):
 
     def test_calculate_coverage_map_full_coverage(self):
         subject = Map({'structure1': StringMock('Structure'), 'structure2': StringMock('Structure')})
-        template = Map(
-            {'structure1': StringMock('Structure'), 'structure2': StringMock('Structure')}
+        '''
+        # we are not testing the factory, but this is how we would.
+        template_structure = Map(
+            {
+                'type': String('Map'),
+                'requires': List(),
+                'properties': Map({
+                    'structure1': TemplateMock('Structure'), 
+                    'structure2': TemplateMock('Structure')
+                })
+            }
         )
-        map_template = MapTemplate(self.visitor, template)
+        template = MapTemplate(self.visitor, template_structure)
+        '''
+        template = TemplateFactoryVisitor().create_map()
+        template.add_property('structure1', TemplateMock('Structure'))
+        template.add_property('structure2', TemplateMock('Structure'))
 
-        coverage = map_template.calculate_coverage(subject)
+        coverage = template.calculate_coverage(subject)
         self.assertEqual(
             coverage,
             Coverage(3, 3)
@@ -64,12 +77,11 @@ class MapTemplateTestSuite(unittest.TestCase):
 
     def test_calculate_coverage_map_half_coverage(self):
         subject = Map({'structure1': StringMock('Structure'), 'structure2': StringMock('Structure')})
-        template = Map(
-            {'structure1': StringMock('Structure')}
-        )
-        map_template = MapTemplate(self.visitor, template)
+        
+        template = TemplateFactoryVisitor().create_map()
+        template.add_property('structure1', TemplateMock('Structure'))
 
-        coverage = map_template.calculate_coverage(subject)
+        coverage = template.calculate_coverage(subject)
         self.assertEqual(
             coverage,
             Coverage(3, 2)
@@ -83,32 +95,28 @@ class MapTemplateTestSuite(unittest.TestCase):
                 'structure3': StringMock('Structure')
             }
         )
-        template = Map(
-            {'structure1': StringMock('Structure')}
-        )
-        map_template = MapTemplate(self.visitor, template)
+        
+        template = TemplateFactoryVisitor().create_map()
+        template.add_property('structure1', TemplateMock('Structure'))
 
-        coverage = map_template.calculate_coverage(subject)
+        coverage = template.calculate_coverage(subject)
         self.assertEqual(
             coverage,
             Coverage(4, 2)
         )
 
-    def test_calculate_coverage_map_unhandleable(self):
+    def test_calculate_coverage_map_incompatible(self):
         subject = Map(
             {
                 'structure1': StringMock('Structure')
             }
         )
-        template = Map(
-            {
-                'structure1': StringMock('Structure'),
-                'structure2': StringMock('Structure'),
-            }
-        )
-        map_template = MapTemplate(self.visitor, template)
+        
+        template = TemplateFactoryVisitor().create_map()
+        template.add_property('structure1', TemplateMock('Structure'))
+        template.add_property('structure2', TemplateMock('Structure'))
 
-        coverage = map_template.calculate_coverage(subject)
+        coverage = template.calculate_coverage(subject)
         self.assertEqual(
             coverage,
             Coverage(2, 0)
@@ -116,19 +124,19 @@ class MapTemplateTestSuite(unittest.TestCase):
 
     def test_calculate_coverage_wrong_type(self):
         subject = StringMock()
-        template = Map(
-            {'structure1': StringMock('Structure'), 'structure2': StringMock('Structure')}
-        )
-        map_template = MapTemplate(self.visitor, template)
+        
+        template = TemplateFactoryVisitor().create_map()
+        template.add_property('structure1', TemplateMock('Structure'))
+        template.add_property('structure2', TemplateMock('Structure'))
 
-        coverage = map_template.calculate_coverage(subject)
+        coverage = template.calculate_coverage(subject)
         self.assertEqual(
             coverage,
             Coverage.NOT_COVERED
         )
 
-    def test_can_create_structure(self):
-        map_structure = self.map_template.create_structure()
+    def test_can_create_instance(self):
+        map_structure = self.map_template.create_instance()
         self.assertIsInstance(map_structure, Map)
 
     def test_can_get_repr(self):
