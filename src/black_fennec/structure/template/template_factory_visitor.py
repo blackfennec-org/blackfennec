@@ -62,11 +62,11 @@ class TemplateFactoryVisitor(BaseFactoryVisitor):
             'default': Number(default)
         }), is_optional)
 
-    def visit_string(self, subject_string: String) -> StringTemplate:
-        return StringTemplate(self, subject_string)
+    def visit_string(self, subject: String) -> StringTemplate:
+        return StringTemplate(self, subject)
 
-    def visit_map(self, subject_map: Map) -> MapTemplate:
-        return MapTemplate(self, subject_map)
+    def visit_map(self, subject: Map) -> MapTemplate:
+        return MapTemplate(self, subject)
 
-    def visit_list(self, subject_list: List) -> ListTemplate:
-        return ListTemplate(self, subject_list)
+    def visit_list(self, subject: List) -> ListTemplate:
+        return ListTemplate(self, subject)

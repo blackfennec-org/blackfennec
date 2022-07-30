@@ -36,16 +36,16 @@ class TemplateBase(EncapsulationBase):
         self._is_optional = value
 
     def visit_structure(self, subject_structure: Structure) -> Coverage:
-        return self._instance_equality_coverage(subject_structure)
+        return self._type_equality_coverage(subject_structure)
 
     def visit_number(self, subject_number: Number) -> Coverage:
-        return self._instance_equality_coverage(subject_number)
+        return self._type_equality_coverage(subject_number)
 
     def visit_boolean(self, subject_boolean: Boolean) -> Coverage:
-        return self._instance_equality_coverage(subject_boolean)
+        return self._type_equality_coverage(subject_boolean)
 
     def visit_reference(self, subject_reference: Reference) -> Coverage:
-        return self._instance_equality_coverage(subject_reference)
+        return self._type_equality_coverage(subject_reference)
 
     def visit_string(self, unused_arg: String) -> Coverage:
         return Coverage.NOT_COVERED
@@ -56,7 +56,7 @@ class TemplateBase(EncapsulationBase):
     def visit_map(self, unused_arg: Map) -> Coverage:
         return Coverage.NOT_COVERED
 
-    def _instance_equality_coverage(self, subject) -> Coverage:
+    def _type_equality_coverage(self, subject) -> Coverage:
         if isinstance(subject, self.subject.__class__):
             return Coverage.COVERED
         return Coverage.NOT_COVERED

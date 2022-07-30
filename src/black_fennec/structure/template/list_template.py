@@ -29,7 +29,7 @@ class ListTemplate(ListEncapsulationBase, TemplateBase):
         )
 
     def create_instance(self):
-        return List([ template.create_instance() for template 
+        return List([ template.create_instance() for template
             in self.properties ])
 
     @property
