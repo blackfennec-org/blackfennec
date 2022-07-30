@@ -46,6 +46,7 @@ release = '0.5.0'
 extensions = [
     'plantweb.directive',
     'sphinxcontrib.rsvgconverter',
+    'sphinx.ext.napoleon',
     'sphinx_rtd_theme'
 ]
 
