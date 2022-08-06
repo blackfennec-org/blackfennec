@@ -9,6 +9,9 @@ import logging
 import traceback
 logger = logging.getLogger(__name__)
 
+import logging
+import traceback
+logger = logging.getLogger(__name__)
 
 class OverlayFactoryVisitor(BaseFactoryVisitor):
     """Overlay Factory Visitor

@@ -1,6 +1,5 @@
 from gi.repository import Gtk
 import logging
-from uri import URI
 
 logger = logging.getLogger(__name__)
 
@@ -24,7 +23,7 @@ class ReferencePreview(Gtk.Bin):
         logger.info('ReferencePreview created')
 
     def _update_reference_value(self):
-        value = self._view_model.reference.value.uri
+        value = self._view_model.reference.value
         self._reference_value.set_text(value)
 
     @Gtk.Template.Callback()
@@ -35,4 +34,4 @@ class ReferencePreview(Gtk.Bin):
     @Gtk.Template.Callback()
     def _on_text_changed(self, unused_sender):
         reference = self._reference_value.get_text()
-        self._view_model.reference.value = URI(reference)
+        self._view_model.reference.value = reference

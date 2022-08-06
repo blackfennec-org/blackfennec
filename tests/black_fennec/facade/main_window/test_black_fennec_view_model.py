@@ -1,12 +1,12 @@
 import unittest
 import logging
-from uri import URI
 
+from doubles.black_fennec.util.document.double_document import DocumentMock
+from doubles.black_fennec.util.document.double_document_factory import DocumentFactoryMock
 from doubles.double_dummy import Dummy
 from doubles.black_fennec.interpretation.double_interpretation_service import InterpretationServiceMock
 from doubles.extension.double_extension_source_registry import ExtensionSourceRegistryMock
 from doubles.presentation.double_presenter_factory import PresenterFactoryMock
-from doubles.black_fennec.util.uri.double_uri_import_service import UriImportServiceMock
 from src.black_fennec.facade.extension_store.extension_store_view_model import ExtensionStoreViewModel
 from src.black_fennec.facade.main_window.black_fennec_view_model import BlackFennecViewModel
 
@@ -15,20 +15,24 @@ class BlackFennecViewModelTestSuite(unittest.TestCase):
     def setUp(self) -> None:
         self.presenter_factory = PresenterFactoryMock()
         self.interpretation_service = InterpretationServiceMock(Dummy())
-        self.uri_import_service = UriImportServiceMock()
+
+        self.document = DocumentMock(content=Dummy())
+
+        self.document_factory = DocumentFactoryMock(create_return=self.document)
+
         self.extension_api = Dummy()
         self.extension_source_registry = ExtensionSourceRegistryMock()
         self.view_model = BlackFennecViewModel(
             self.presenter_factory,
             self.interpretation_service,
-            self.uri_import_service,
+            self.document_factory,
             self.extension_api,
             self.extension_source_registry)
 
     def test_can_open_file(self):
-        self.view_model.open(URI('/examples/black_fennec.json'))
-        self.assertEqual(1, self.presenter_factory.create_call_count)
-        self.assertEqual(1, self.uri_import_service.load_count)
+        self.view_model.open('/examples/black_fennec.json')
+        self.assertEqual(self.presenter_factory.create_call_count, 1)
+        self.assertEqual(self.document.load_content_count, 1)
 
     def test_can_create_new_file(self):
         with self.assertLogs(None, logging.WARNING):

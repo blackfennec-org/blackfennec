@@ -21,7 +21,7 @@ class ReferenceViewFactoryTestSuite(unittest.TestCase):
         factory = ReferenceViewFactory()
         view = factory.create(
             InterpretationMock(
-                ReferenceInstanceMock(reference=URI('reference'))),
+                ReferenceInstanceMock(reference='reference')),
             Specification(request_preview=True)
         )
         self.assertIsInstance(view, ReferencePreview)

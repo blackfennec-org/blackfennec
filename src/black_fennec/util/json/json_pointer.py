@@ -163,7 +163,6 @@ class JsonPointer:
         current_location: Structure = source
         while hierarchy_index < len(self._hierarchy):
             navigator: str = self._hierarchy[hierarchy_index]
-            print(current_location.__class__)
             if isinstance(current_location, Map):
                 current_location = self._navigate_in_map(
                     current_location,
