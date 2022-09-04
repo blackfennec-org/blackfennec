@@ -6,6 +6,7 @@ from uri import URI
 import urllib.request as req
 import mimetypes
 
+from src.black_fennec.structure.structure import Structure
 from src.black_fennec.util.document.resource_type.protocols.https_resource_type import HttpsResourceType
 from src.black_fennec.util.document.resource_type.resource_type import ResourceType
 
@@ -13,15 +14,21 @@ logger = logging.getLogger(__name__)
 
 
 class MimeType(metaclass=abc.ABCMeta):
-    @classmethod
-    def __subclasshook__(cls, subclass):
-        return (hasattr(subclass, 'MIME_TYPE_ID') and
-                hasattr(subclass, 'import_structure') and
-                callable(subclass.import_structure) or
-                NotImplemented)
+    @property
+    @abc.abstractmethod
+    def mime_type_id(self) -> str:
+        """Identification of mime type via ID
+
+        Returns:
+            str: mime type ID
+
+        Raises:
+            NotImplementedError: if subclass did not implement this property
+        """
+        raise NotImplementedError
 
     @abc.abstractmethod
-    def import_structure(self, data: IO):
+    def import_structure(self, data: IO) -> Structure:
         """Import the structure from IO data
 
         Returns:
@@ -33,7 +40,7 @@ class MimeType(metaclass=abc.ABCMeta):
         raise NotImplementedError
 
     @abc.abstractmethod
-    def export_structure(self, structure) -> IO:
+    def export_structure(self, structure: Structure) -> IO:
         """Export the structure to raw data
 
         Returns:

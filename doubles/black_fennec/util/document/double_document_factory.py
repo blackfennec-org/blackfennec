@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from doubles.black_fennec.util.document.mime_type.double_mime_type_registry import MimeTypeRegistryMock
-from doubles.black_fennec.util.document.resource_type.resource_type_registry import ResourceTypeRegistryMock
+from doubles.black_fennec.util.document.resource_type.double_resource_type_registry import ResourceTypeRegistryMock
 from doubles.double_dummy import Dummy
 
 

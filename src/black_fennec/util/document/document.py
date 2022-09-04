@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
-import typing
-
+from typing import Type, Optional
 from uri import URI
 
 from src.black_fennec.structure.root_factory import RootFactory
@@ -14,14 +13,16 @@ class Document:
             self,
             mime_type: MimeType,
             resource_type: ResourceType,
+            root_factory: Type[RootFactory] = RootFactory,
             uri: str = '',
             location: str = ''
     ):
         self.uri: URI = URI(uri)
         self.location: URI = URI(location)
         self.mime_type: MimeType = mime_type
+        self._root_factory: Type[RootFactory] = root_factory
         self.resource_type: ResourceType = resource_type
-        self.content: typing.Optional[Structure] = None
+        self.content: Optional[Structure] = None
 
     @property
     def mime_type(self) -> MimeType:
@@ -57,15 +58,16 @@ class Document:
 
     @property
     def content(self) -> Structure:
-        assert self._content is not None
+        if self._content is None:
+            self._load_content()
         return self._content
 
     @content.setter
     def content(self, content: Structure):
+        self._root_factory.make_root(content, document=self)
         self._content = content
 
-    def load_content(self):
+    def _load_content(self):
         with self.resource_type.load_resource(self) as raw:
             structure = self.mime_type.import_structure(raw)
-        RootFactory.make_root(structure, document=self)
         self.content = structure

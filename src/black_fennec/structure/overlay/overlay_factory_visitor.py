@@ -7,11 +7,9 @@ from src.black_fennec.structure.structure import Structure
 
 import logging
 import traceback
+
 logger = logging.getLogger(__name__)
 
-import logging
-import traceback
-logger = logging.getLogger(__name__)
 
 class OverlayFactoryVisitor(BaseFactoryVisitor):
     """Overlay Factory Visitor
@@ -29,6 +27,6 @@ class OverlayFactoryVisitor(BaseFactoryVisitor):
         try:
             return subject_reference.destination.accept(self)
         except Exception as e:
-            message = f'An unknown exception has been ignored:\n{ traceback.format_exc() }'
+            message = f'An unknown exception has been ignored:\n{traceback.format_exc()}'
             logger.warning(message)
             return subject_reference

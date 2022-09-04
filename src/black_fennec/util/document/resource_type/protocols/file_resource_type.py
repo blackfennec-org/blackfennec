@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import os
 import contextlib
-from typing import IO
+from typing import IO, List
 from uri import URI
 
 from src.black_fennec.util.document.document import Document
@@ -9,9 +9,11 @@ from src.black_fennec.util.document.resource_type.resource_type import ResourceT
 
 
 class FileResourceType(ResourceType):
-    PROTOCOLS = [
-        'file'
-    ]
+    @property
+    def protocols(self) -> List[str]:
+        return [
+            'file'
+        ]
 
     @contextlib.contextmanager
     def load_resource(self, document: Document) -> IO:

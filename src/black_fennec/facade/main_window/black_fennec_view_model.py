@@ -74,7 +74,6 @@ class BlackFennecViewModel(Observable):
             resource_type,
             MimeType.try_determine_mime_type(uri, resource_type)
         )
-        document.load_content()
         structure: Structure = document.content
 
         navigation_service = NavigationService()

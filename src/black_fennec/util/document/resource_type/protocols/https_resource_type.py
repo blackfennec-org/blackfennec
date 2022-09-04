@@ -1,16 +1,18 @@
 # -*- coding: utf-8 -*-
 import contextlib
-from typing import IO
+from typing import IO, List
 
 from src.black_fennec.util.document.resource_type.resource_type import ResourceType
 import urllib.request as req
 
 
 class HttpsResourceType(ResourceType):
-    PROTOCOLS = [
-        'http',
-        'https'
-    ]
+    @property
+    def protocols(self) -> List[str]:
+        return [
+            'http',
+            'https'
+        ]
 
     @contextlib.contextmanager
     def load_resource(self, document: 'Document') -> IO:

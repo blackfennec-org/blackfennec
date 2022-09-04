@@ -87,5 +87,4 @@ class JsonReferenceResolvingService:
             resource_type=resource_type, mime_type=mime_type,
             location=current_path
         )
-        document.load_content()
         return document.content

@@ -94,7 +94,6 @@ class ExtensionInitialisationService:
             FileResourceType.PROTOCOLS[0],
             JsonMimeType.MIME_TYPE_ID
         )
-        config.load_content()
 
         for extension_source_structure in config.content.value:
             source_type = extension_source_structure.value['type'].value

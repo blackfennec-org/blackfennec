@@ -2,18 +2,23 @@
 import abc
 import contextlib
 import logging
-from typing import IO
+from typing import IO, List
 from uri import URI
 
 
 class ResourceType(metaclass=abc.ABCMeta):
-    @classmethod
-    def __subclasshook__(cls, subclass):
-        return (hasattr(subclass, 'load_resource') and
-                callable(subclass.load_resource) and
-                hasattr(subclass, 'is_resource_type') and
-                callable(subclass.is_resource_type) or
-                NotImplemented)
+    @property
+    @abc.abstractmethod
+    def protocols(self) -> List[str]:
+        """List of protocols supported by Resource Type
+
+        Returns:
+            List[str]: protocols supported
+
+        Raises:
+            NotImplementedError: if subclass did not implement this property
+        """
+        raise NotImplementedError
 
     @contextlib.contextmanager
     @abc.abstractmethod

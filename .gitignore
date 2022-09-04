@@ -12,3 +12,5 @@ pylint/
 venv/
 .venv/
 extensions.json
+htmlcov/
+.pytest_cache/
