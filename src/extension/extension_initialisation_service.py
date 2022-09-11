@@ -5,16 +5,21 @@ import src.visualisation
 import src.presentation
 
 from src.black_fennec.structure.list import List
+from src.black_fennec.util.document.document_factory import DocumentFactory
+from src.black_fennec.util.document.mime_type.types.json.json_mime_type import JsonMimeType
+from src.black_fennec.util.document.resource_type.protocols.file_resource_type import FileResourceType
+from src.extension.extension_api import ExtensionApi
 from src.extension.extension_source import ExtensionSource
+from src.extension.extension_source_registry import ExtensionSourceRegistry
 from src.extension.local_extension_service import LocalExtensionService
 from src.extension.pypi_extension_service import PyPIExtensionService
-from src.black_fennec.util.uri.structure_encoding_service import StructureEncodingService
+from src.black_fennec.util.document.mime_type.types.structure_encoding_service import StructureEncodingService
 
 
 class ExtensionInitialisationService:
     def __init__(
-        self,
-        encoding_service: StructureEncodingService
+            self,
+            encoding_service: StructureEncodingService
     ):
         """
         encoding_service (StructureEncodingService): to convert
@@ -61,10 +66,10 @@ class ExtensionInitialisationService:
 
     def load_extensions_from_file(
             self,
-            extension_source_registry,
-            uri_import_service,
-            extension_api,
-            uri
+            extension_source_registry: ExtensionSourceRegistry,
+            document_factory: DocumentFactory,
+            extension_api: ExtensionApi,
+            uri: str
     ):
         """
         Function loads extensions from configuration file.
@@ -72,23 +77,25 @@ class ExtensionInitialisationService:
 
         Args:
             extension_source_registry (ExtensionSourceRegistry):
-            uri_import_service (UriImportService): used to import the config file
+            document_factory (DocumentFactory): used to import the config file
             extension_api (ExtensionApi): passed to loaded extensions
-            uri (URI): uri of file where extension config is located
+            uri (str): uri of file where extension config is located
         """
         extension_services = {
             'local': LocalExtensionService(),
             'pypi': PyPIExtensionService()
         }
-        absolute_path = os.path.abspath(str(uri))
+        absolute_path = os.path.abspath(uri)
         if not os.path.exists(absolute_path):
             self._default_initialise_extensions(absolute_path)
 
-        extension_source_list = uri_import_service.load(
+        config = document_factory.create(
             uri,
-            os.path.realpath(__file__)
+            FileResourceType.PROTOCOLS[0],
+            JsonMimeType.MIME_TYPE_ID
         )
-        for extension_source_structure in extension_source_list.value:
+
+        for extension_source_structure in config.content.value:
             source_type = extension_source_structure.value['type'].value
             extension_source = ExtensionSource(
                 extension_services[source_type],

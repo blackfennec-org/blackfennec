@@ -87,7 +87,7 @@ class BlackFennecView(Gtk.ApplicationWindow):
         model = self._file_tree.get_model()
         iterator = model.get_iter(path)
         if iterator:
-            uri = URI(model.get_value(iterator, 1))
+            uri = model.get_value(iterator, 1)
             self._view_model.open(uri)
 
     @Gtk.Template.Callback()
@@ -180,12 +180,12 @@ class BlackFennecView(Gtk.ApplicationWindow):
         button_image.set_from_icon_name('window-close', Gtk.IconSize.BUTTON)
 
         tab_button = Gtk.Button.new()
-        tab_button.set_name(str(tab.uri))
+        tab_button.set_name(tab.uri)
         tab_button.set_label('✕')
         tab_button.connect('clicked', self.on_close_tab_clicked)
 
         tab_box = Gtk.Box.new(0, 5)
-        tab_box.pack_start(Gtk.Label.new(tab.uri.path.name), False, False, 0)
+        tab_box.pack_start(Gtk.Label.new(tab.uri), False, False, 0)
         tab_box.pack_end(tab_button, True, True, 0)
         tab_box.show_all()
 

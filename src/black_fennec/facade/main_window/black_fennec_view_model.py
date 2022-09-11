@@ -3,10 +3,14 @@ import logging
 from uri import URI
 
 from src.black_fennec.facade.extension_store.extension_store_view_model import ExtensionStoreViewModel
+from src.black_fennec.interpretation.interpretation_service import InterpretationService
 from src.black_fennec.navigation.navigation_service import NavigationService
+from src.black_fennec.util.document.document_factory import DocumentFactory
+from src.black_fennec.util.document.mime_type.mime_type import MimeType
+from src.black_fennec.util.document.resource_type.resource_type import ResourceType
+from src.black_fennec.util.document.mime_type.types.structure_encoding_service import StructureEncodingService
 from src.black_fennec.util.observable import Observable
 from src.black_fennec.structure.structure import Structure
-from src.black_fennec.util.uri.structure_encoding_service import StructureEncodingService
 from src.black_fennec.facade.main_window.tab import Tab
 from src.extension.extension_api import ExtensionApi
 from src.extension.extension_source_registry import ExtensionSourceRegistry
@@ -29,8 +33,8 @@ class BlackFennecViewModel(Observable):
     def __init__(
             self,
             presenter_factory,
-            interpretation_service,
-            uri_import_service,
+            interpretation_service: InterpretationService,
+            document_factory: DocumentFactory,
             extension_api: ExtensionApi,
             extension_source_registry: ExtensionSourceRegistry
     ):
@@ -40,12 +44,15 @@ class BlackFennecViewModel(Observable):
             presenter_factory (StructurePresenterFactory): presenter
             interpretation_service (InterpretationService): interpretation
                 service
+            document_factory (DocumentFactory): document factory
+            extension_api (ExtensionApi): Extension API
+            extension_source_registry (ExtensionSourceRegistry): extension-source registry
         """
         logger.info('BlackFennecViewModel __init__')
         super().__init__()
         self._presenter_factory = presenter_factory
         self._interpretation_service = interpretation_service
-        self._uri_import_service = uri_import_service
+        self._document_factory = document_factory
         self._extension_api = extension_api
         self._extension_source_registry = extension_source_registry
         self.tabs = set()
@@ -54,14 +61,21 @@ class BlackFennecViewModel(Observable):
         """Future implementation of new()"""
         logger.warning('new() not yet implemented')
 
-    def open(self, uri: URI):
+    def open(self, uri: str):
         """Opens a file
         specified by the filename
 
         Args:
-            uri (URI): URI of the file to open
+            uri (str): URI of the file to open
         """
-        structure: Structure = self._uri_import_service.load(uri)
+        resource_type = ResourceType.try_determine_resource_type(uri)
+        document = self._document_factory.create(
+            uri,
+            resource_type,
+            MimeType.try_determine_mime_type(uri, resource_type)
+        )
+        structure: Structure = document.content
+
         navigation_service = NavigationService()
         presenter_view = self._presenter_factory.create(navigation_service)
         presenter = presenter_view._view_model

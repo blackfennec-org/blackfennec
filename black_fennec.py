@@ -5,18 +5,12 @@ gi.require_version('Gtk', '3.0')
 # pylint: disable=wrong-import-position,ungrouped-imports
 import os
 import logging
-from uri import URI
 from gi.repository import Gtk, Gdk, GLib
 from src.black_fennec.interpretation.auction.auctioneer import Auctioneer
 from src.black_fennec.interpretation.interpretation_service import InterpretationService
 from src.black_fennec.type_system.presenter_registry import PresenterRegistry
 from src.black_fennec.type_system.type_registry import TypeRegistry
-from src.black_fennec.util.uri.structure_encoding_service import StructureEncodingService
-from src.black_fennec.util.uri.uri_import_service import UriImportService
 from src.black_fennec.util.json.json_reference_resolving_service import JsonReferenceResolvingService
-from src.black_fennec.util.uri.structure_parsing_service import StructureParsingService
-from src.black_fennec.util.uri.uri_import_strategy_factory import UriImportStrategyFactory
-from src.black_fennec.util.uri.uri_loading_strategy_factory import UriLoadingStrategyFactory
 from src.black_fennec.facade.main_window.black_fennec_view_model import BlackFennecViewModel
 from src.black_fennec.facade.main_window.black_fennec_view import BlackFennecView
 from src.black_fennec.facade.splash_screen.splash_screen_view import SplashScreenView
@@ -25,6 +19,15 @@ from src.black_fennec.type_system.template_registry import TemplateRegistry
 from src.extension.extension_api import ExtensionApi
 from src.extension.extension_initialisation_service import ExtensionInitialisationService
 from src.extension.extension_source_registry import ExtensionSourceRegistry
+
+from src.black_fennec.util.document.mime_type.types.structure_parsing_service import StructureParsingService
+from src.black_fennec.util.document.mime_type.types.structure_encoding_service import StructureEncodingService
+from src.black_fennec.util.document.mime_type.mime_type_registry import MimeTypeRegistry
+from src.black_fennec.util.document.mime_type.types.json.json_mime_type import JsonMimeType
+from src.black_fennec.util.document.resource_type.protocols.file_resource_type import FileResourceType
+from src.black_fennec.util.document.resource_type.protocols.https_resource_type import HttpsResourceType
+from src.black_fennec.util.document.resource_type.resource_type_registry import ResourceTypeRegistry
+from src.black_fennec.util.document.document_factory import DocumentFactory
 
 # pylint: enable=wrong-import-position
 
@@ -66,15 +69,25 @@ class BlackFennec(Gtk.Application):
         structure_parsing_service = StructureParsingService()
         structure_encoding_service = StructureEncodingService(indent=2)
 
-        uri_import_strategy_factory = UriImportStrategyFactory()
-        uri_loading_strategy_factory = UriLoadingStrategyFactory()
-        uri_import_service = UriImportService(
-            structure_parsing_service,
-            uri_loading_strategy_factory,
-            uri_import_strategy_factory
+        resource_type_registry = ResourceTypeRegistry()
+        for protocol in HttpsResourceType.PROTOCOLS:
+            resource_type_registry.register_resource_type(protocol, HttpsResourceType())
+        for protocol in FileResourceType.PROTOCOLS:
+            resource_type_registry.register_resource_type(protocol, FileResourceType())
+
+        mime_type_registry = MimeTypeRegistry()
+        mime_type_registry.register_mime_type(
+            JsonMimeType.MIME_TYPE_ID,
+            JsonMimeType(
+                structure_encoding_service,
+                structure_parsing_service
+            )
         )
+
+        document_factory = DocumentFactory(resource_type_registry, mime_type_registry)
+
         reference_resolving_service = \
-            JsonReferenceResolvingService(uri_import_service)
+            JsonReferenceResolvingService(document_factory)
 
         structure_parsing_service.set_reference_resolving_service(
             reference_resolving_service
@@ -92,15 +105,15 @@ class BlackFennec(Gtk.Application):
         extension_initialisation_service = ExtensionInitialisationService(structure_encoding_service)
         extension_initialisation_service.load_extensions_from_file(
             extension_source_registry,
-            uri_import_service,
+            document_factory,
             extension_api,
-            URI(EXTENSIONS)
+            EXTENSIONS
         )
 
         view_model = BlackFennecViewModel(
             presenter_registry.presenters[0],
             interpretation_service,
-            uri_import_service,
+            document_factory,
             extension_api,
             extension_source_registry
         )

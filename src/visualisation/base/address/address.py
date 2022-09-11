@@ -5,7 +5,6 @@ from src.black_fennec.structure.map import Map
 from src.black_fennec.structure.list import List
 from src.black_fennec.structure.string import String
 from src.black_fennec.structure.template.template_factory_visitor import TemplateFactoryVisitor
-from src.black_fennec.util.uri.structure_parsing_service import StructureParsingService
 
 
 logger = logging.getLogger(__name__)

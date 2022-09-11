@@ -1,4 +1,4 @@
-Sphinx
+Sphinx>=5.1.1
 plantweb
 sphinxcontrib-svg2pdfconverter
 sphinx_rtd_theme

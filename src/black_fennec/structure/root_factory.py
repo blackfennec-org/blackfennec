@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import types
 
 from src.black_fennec.structure.structure import Structure
@@ -5,16 +6,12 @@ from src.black_fennec.structure.structure import Structure
 
 class RootFactory:
     @staticmethod
-    def make_root(structure: Structure, uri=None, mime_type=None):
-        def root(self):
+    def make_root(structure: Structure, document=None):
+        def root_getter(self):
             return structure
 
-        def uri(self):
-            return uri
+        def document_getter(self):
+            return document
 
-        def mime_type():
-            return mime_type
-
-        structure.get_root = types.MethodType(root, structure)
-        structure.get_uri = types.MethodType(uri, structure)
-        structure.get_mimetype = types.MethodType(mime_type, structure)
+        structure.get_root = types.MethodType(root_getter, structure)
+        structure.get_document = types.MethodType(document_getter, structure)

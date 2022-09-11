@@ -13,7 +13,7 @@ from src.black_fennec.structure.map import Map
 from src.black_fennec.structure.string import String
 from src.black_fennec.structure.number import Number
 
-from src.black_fennec.util.uri.structure_parsing_service import StructureParsingService
+from src.black_fennec.util.document.mime_type.types.structure_parsing_service import StructureParsingService
 import json
 
 class TemplateFactoryVisitorTestSuite(unittest.TestCase):

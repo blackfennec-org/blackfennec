@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 import logging
 from typing import TypeVar
-from uri import URI
 
 from doubles.double_dummy import Dummy
 from src.black_fennec.structure.structure import Structure
@@ -12,19 +11,19 @@ logger = logging.getLogger(__name__)
 TVisitor = TypeVar('TVisitor')
 
 
-class Reference(Structure[URI]):
+class Reference(Structure[str]):
     """Core Type Reference, represents references in the domain model."""
     TEMPLATE = None
 
     def __init__(
             self,
             json_reference_resolve_service: JsonReferenceResolvingService,
-            reference: URI = URI('')
+            reference: str = ''
     ):
         """Reference Constructor.
 
         Args:
-            reference (URI): uri containing a json reference
+            reference (str): uri containing a json reference
         """
         Structure.__init__(self, reference)
         self._json_reference_resolve_service = json_reference_resolve_service

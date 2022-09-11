@@ -1,4 +1,10 @@
-"""presenter-registry Tests.
+"""presenter-registrydef setUp(self):
+        self.structure_type_name = 'Boolean'
+        self.default_value = False
+        self.alternative_value = True
+
+    def create_structure(self, value):
+        return Boolean(value) Tests.
 
 This module contains the unit-tests of the presenter-registry."""
 

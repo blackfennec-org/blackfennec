@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import logging
+from typing import Dict
 
 from src.black_fennec.interpretation.auction.coverage import Coverage
 from src.black_fennec.structure.encapsulation_base.map_encapsulation_base import MapEncapsulationBase
@@ -42,7 +43,7 @@ class MapTemplate(MapEncapsulationBase, TemplateBase):
             self.subject.value['required'].add_item(String(name))
 
     @property
-    def properties(self) -> dict[str, TemplateBase]:
+    def properties(self) -> Dict[str, TemplateBase]:
         properties = {}
         required_properties = self.subject.value['required'].value
         raw_properties = self.subject.value['properties'].value
