@@ -5,36 +5,36 @@ from src.black_fennec.structure.encapsulation_base.map_encapsulation_base import
 from src.black_fennec.structure.template.string_template import StringTemplate
 from src.black_fennec.structure.template.list_template import ListTemplate
 from src.black_fennec.structure.template.map_template import MapTemplate
-from src.black_fennec.structure.template.template_base import TemplateBase
+from src.black_fennec.structure.template.template import Template
 
 
-class TemplateFactoryVisitorMock(FactoryBaseVisitorMock):
+class TemplateParserMock(FactoryBaseVisitorMock):
     def __init__(self):
         FactoryBaseVisitorMock.__init__(self)
 
     def visit_structure(self, subject_structure):
         subject_structure = super().visit_structure(subject_structure)
-        Encapsulation = _create_generic_class(TemplateBase)
+        Encapsulation = _create_generic_class(Template)
         return Encapsulation(self, subject_structure)
 
     def visit_root(self, subject_root):
         subject_root = super().visit_root(subject_root)
-        Encapsulation = _create_generic_class(TemplateBase)
+        Encapsulation = _create_generic_class(Template)
         return Encapsulation(self, subject_root)
 
     def visit_number(self, subject_number):
         subject_number = super().visit_number(subject_number)
-        Encapsulation = _create_generic_class(TemplateBase)
+        Encapsulation = _create_generic_class(Template)
         return Encapsulation(self, subject_number)
 
     def visit_boolean(self, subject_boolean):
         subject_boolean = super().visit_boolean(subject_boolean)
-        Encapsulation = _create_generic_class(TemplateBase)
+        Encapsulation = _create_generic_class(Template)
         return Encapsulation(self, subject_boolean)
 
     def visit_reference(self, subject_reference):
         subject_reference = super().visit_reference(subject_reference)
-        Encapsulation = _create_generic_class(TemplateBase)
+        Encapsulation = _create_generic_class(Template)
         return Encapsulation(self, subject_reference)
 
     def visit_string(self, subject_string):

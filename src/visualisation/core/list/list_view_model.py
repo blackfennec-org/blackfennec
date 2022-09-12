@@ -4,7 +4,7 @@ from src.black_fennec.interpretation.interpretation_service import \
 from src.black_fennec.interpretation.specification import Specification
 from src.black_fennec.navigation.navigation_proxy import NavigationProxy
 from src.black_fennec.structure.structure import Structure
-from src.black_fennec.structure.template.template_base import TemplateBase
+from src.black_fennec.structure.template.template import Template
 from src.black_fennec.type_system.template_registry import TemplateRegistry
 from src.black_fennec.util.observable import Observable
 
@@ -82,7 +82,7 @@ class ListViewModel(Observable):
         self._list.remove_item(item)
         self._notify(self.value, 'value')
 
-    def add_by_template(self, template: TemplateBase):
+    def add_by_template(self, template: Template):
         self.add_item(template.create_instance())
 
     def get_templates(self):

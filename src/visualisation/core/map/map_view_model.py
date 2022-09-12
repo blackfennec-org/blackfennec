@@ -7,7 +7,7 @@ from src.black_fennec.interpretation.specification import Specification
 from src.black_fennec.navigation.navigation_proxy import NavigationProxy
 from src.black_fennec.structure.map import Map
 from src.black_fennec.structure.structure import Structure
-from src.black_fennec.structure.template.template_base import TemplateBase
+from src.black_fennec.structure.template.template import Template
 from src.black_fennec.type_system.template_registry import TemplateRegistry
 from src.black_fennec.util.observable import Observable
 
@@ -102,7 +102,7 @@ class MapViewModel(Observable):
         self._map.add_item(new_key, old_value)
         self._notify(self.value, 'value')
 
-    def add_by_template(self, key, template: TemplateBase):
+    def add_by_template(self, key, template: Template):
         self.add_item(key, template.create_instance())
 
     def get_templates(self):

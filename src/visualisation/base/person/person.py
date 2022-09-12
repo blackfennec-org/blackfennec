@@ -4,31 +4,42 @@ import logging
 from src.black_fennec.structure.map import Map
 from src.black_fennec.structure.string import String
 # from src.base.types.date import Date
-from src.black_fennec.structure.template.template_factory_visitor import TemplateFactoryVisitor
+from src.black_fennec.structure.template.template_factory import TemplateFactory
 from src.visualisation.base.address.address import Address, create_address_template
 from src.visualisation.base.image.image import Image, create_image_template
 
 logger = logging.getLogger(__name__)
 
 
-def create_person_template(is_optional=False):
+def create_person_template():
     """Person Template
     Defines the format of the person
     """
-    tf = TemplateFactoryVisitor()
-    template = tf.create_map(properties={
-        Person.COURTESY_TITLE_KEY: tf.create_string(is_optional=True),
-        Person.FIRST_NAME_KEY: tf.create_string(),
-        Person.MIDDLE_NAME_KEY: tf.create_string(is_optional=True),
-        Person.LAST_NAME_KEY: tf.create_string(),
-        Person.PERSONAL_PHOTO_KEY: create_image_template(is_optional=True),
-        Person.HOME_ADDRESS_KEY: create_address_template(is_optional=True),
-        Person.SUFFIX_KEY: tf.create_string(is_optional=True),
-        Person.GENDER_KEY: tf.create_string(is_optional=True),
-        Person.SEX_KEY: tf.create_string(is_optional=True),
-        Person.MARITAL_STATUS_KEY: tf.create_string(is_optional=True),
-        Person.NATIONALITY_KEY: tf.create_string(is_optional=True),
-    }, is_optional=is_optional)
+    tf = TemplateFactory()
+    template = tf.create_map()
+
+    template.add_property(
+        Person.COURTESY_TITLE_KEY, tf.create_string(), is_required=False)
+    template.add_property(
+        Person.FIRST_NAME_KEY, tf.create_string())
+    template.add_property(
+        Person.MIDDLE_NAME_KEY, tf.create_string(), is_required=False)
+    template.add_property(
+        Person.LAST_NAME_KEY, tf.create_string())
+    template.add_property(
+        Person.PERSONAL_PHOTO_KEY, create_image_template(), is_required=False)
+    template.add_property(
+        Person.HOME_ADDRESS_KEY, create_address_template(), is_required=False)
+    template.add_property(
+        Person.SUFFIX_KEY, tf.create_string(), is_required=False)
+    template.add_property(
+        Person.GENDER_KEY, tf.create_string(), is_required=False)
+    template.add_property(
+        Person.SEX_KEY, tf.create_string(), is_required=False)
+    template.add_property(
+        Person.MARITAL_STATUS_KEY, tf.create_string(), is_required=False)
+    template.add_property(
+        Person.NATIONALITY_KEY, tf.create_string(), is_required=False)
 
     return template
 

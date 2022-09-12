@@ -3,20 +3,20 @@ import logging
 
 from src.black_fennec.structure.map import Map
 from src.black_fennec.structure.string import String
-from src.black_fennec.structure.template.template_factory_visitor import TemplateFactoryVisitor
+from src.black_fennec.structure.template.template_factory import TemplateFactory
 
 logger = logging.getLogger(__name__)
 
 
-def create_file_template(is_optional=False):
+def create_file_template():
     """File Template
     Defines the format of the file
     """
-    tf = TemplateFactoryVisitor()
+    tf = TemplateFactory()
     template = tf.create_map(properties={
         File.FILE_PATH_KEY: tf.create_string(),
         File.FILE_TYPE_KEY: tf.create_string()
-    }, is_optional=is_optional)
+    })
 
     return template
 

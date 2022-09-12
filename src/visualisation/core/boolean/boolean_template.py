@@ -1,6 +1,6 @@
 from src.black_fennec.structure.map import Map
 from src.black_fennec.structure.template.boolean_template import BooleanTemplate as Template
-from src.black_fennec.structure.template.template_factory_visitor import TemplateFactoryVisitor
+from src.black_fennec.structure.template.template_parser import TemplateParser
 
 
 class BooleanTemplate(Template):
@@ -10,7 +10,7 @@ class BooleanTemplate(Template):
         boolean."""
 
     def __init__(self):
-        visitor = TemplateFactoryVisitor()
+        visitor = TemplateParser()
         Template.__init__(self, visitor, Map())
 
         self._name = "Boolean"

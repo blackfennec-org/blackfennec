@@ -1,6 +1,6 @@
 import logging
 
-from src.black_fennec.structure.template.template_base import TemplateBase
+from src.black_fennec.structure.template.template import Template
 
 logger = logging.getLogger(__name__)
 
@@ -30,11 +30,11 @@ class TemplateRegistry:
         """
         return set(self._templates)
 
-    def register_template(self, template: TemplateBase):
+    def register_template(self, template: Template):
         """Function to register a new template
 
         Args:
-            template (TemplateBase): future element of the template registry
+            template (Template): future element of the template registry
         """
         self._templates.append(template)
 

@@ -4,18 +4,18 @@ import logging
 from src.black_fennec.structure.map import Map
 from src.black_fennec.structure.list import List
 from src.black_fennec.structure.string import String
-from src.black_fennec.structure.template.template_factory_visitor import TemplateFactoryVisitor
+from src.black_fennec.structure.template.template_factory import TemplateFactory
 
 
 logger = logging.getLogger(__name__)
 
 
-def create_address_template(is_optional=False):
+def create_address_template():
     '''Address Template
     Defines the format of the address
     '''
 
-    tf = TemplateFactoryVisitor()
+    tf = TemplateFactory()
 
     template = tf.create_map(properties={
         Address.FIRST_NAME_KEY: tf.create_string(),
@@ -23,7 +23,7 @@ def create_address_template(is_optional=False):
         Address.STREET_KEY: tf.create_string(),
         Address.STREET_NUMBER_KEY: tf.create_string(),
         Address.CITY_KEY: tf.create_string(),
-    }, is_optional=is_optional)
+    })
 
     return template
 

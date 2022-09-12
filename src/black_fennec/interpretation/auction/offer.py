@@ -5,7 +5,7 @@ from functools import cached_property
 from src.black_fennec.interpretation.auction.coverage import Coverage
 from src.black_fennec.interpretation.specification import Specification
 from src.black_fennec.structure.structure import Structure
-from src.black_fennec.structure.template.template_base import TemplateBase
+from src.black_fennec.structure.template.template import Template
 from src.black_fennec.util.comparable import Comparable
 
 logger = logging.getLogger(__name__)
@@ -29,7 +29,7 @@ class Offer(Comparable):
             self,
             subject: Structure,
             specificity: int,
-            template: TemplateBase,
+            template: Template,
             type_view_factory
     ):
         """Offer constructor.
@@ -37,7 +37,7 @@ class Offer(Comparable):
         Args:
             subject (Structure):
             specificity (int):
-            template (TemplateBase): Template that describes type
+            template (Template): Template that describes type
             type_view_factory (StructureViewFactory): factory used
                 to create interpretation_service
         """
@@ -51,7 +51,7 @@ class Offer(Comparable):
 
         Args:
             specification (Specification): The specification which must be
-                satisfyable for this function to return true.
+                satisfiable for this function to return true.
 
         Returns:
             bool: True iff specification can be satisfied. Otherwise False.
@@ -77,7 +77,7 @@ class Offer(Comparable):
         return self._specificity
 
     @property
-    def template(self) -> TemplateBase:
+    def template(self) -> Template:
         """template getter
 
         Returns:

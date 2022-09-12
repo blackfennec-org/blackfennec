@@ -46,7 +46,7 @@ This class is used by our base-extension as a helper class and represents the ty
         template_map[Address.FIRST_NAME_KEY] = String()
         # ...
 
-        template_factory = TemplateFactoryVisitor()
+        template_factory = TemplateParser()
         # with the appliance of the template factory your structure
         # that before was only core types.
         template = template_map.accept(template_factory)

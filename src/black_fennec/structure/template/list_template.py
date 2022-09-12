@@ -1,40 +1,42 @@
 # -*- coding: utf-8 -*-
 import logging
 
+from .template import Template
 from src.black_fennec.interpretation.auction.coverage import Coverage
 from src.black_fennec.structure.encapsulation_base.list_encapsulation_base import ListEncapsulationBase
 from src.black_fennec.structure.list import List
-from src.black_fennec.structure.template.template_base import TemplateBase
 
 logger = logging.getLogger(__name__)
 
 
-class ListTemplate(ListEncapsulationBase, TemplateBase):
+class ListTemplate(Template[List], ListEncapsulationBase):
     """Base Class for Template of a List."""
 
     def __init__(
-            self,
-            visitor: 'TemplateFactoryVisitor',
-            subject: List,
+        self,
+        visitor: "TemplateParser",
+        subject: List,
     ):
-        ListEncapsulationBase.__init__(
-            self,
-            visitor,
-            subject
-        )
-        TemplateBase.__init__(
-            self,
-            visitor,
-            subject
-        )
-
-    def create_instance(self):
-        return List([ template.create_instance() for template
-            in self.properties ])
+        Template.__init__(self, visitor, subject)
+        ListEncapsulationBase.__init__(self, visitor, subject)
 
     @property
-    def properties(self):
-        return self.value
+    def default(self):
+        return List([template.create_instance() for template in self.elements])
+
+    def add_element(self, template) -> None:
+        self.subject.value["elements"].add_item(template.subject)
+
+    @property
+    def elements(self):
+        raw_elements = self.subject.value["elements"].value
+
+        elements = []
+        for element in raw_elements:
+            template = element.accept(self._visitor)
+            elements.append(template)
+
+        return elements
 
     def visit_list(self, subject: List):
         """Coverage calculation for List Class
@@ -51,15 +53,10 @@ class ListTemplate(ListEncapsulationBase, TemplateBase):
         """
         coverage = Coverage.COVERED
 
-        logger.debug(
-            'Calculating list coverage (value=%s, types in template=%s)',
-            len(subject.value),
-            len(subject.value)
-        )
-        for template_node in self.properties:
+        for template_node in self.elements:
             for subject_node in subject.value:
                 coverage += template_node.calculate_coverage(subject_node)
         return coverage
 
     def __repr__(self):
-        return f'ListTemplate({self.subject.__repr__()})'
+        return f"ListTemplate({self.subject.__repr__()})"

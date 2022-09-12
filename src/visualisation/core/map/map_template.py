@@ -2,7 +2,7 @@
 from src.black_fennec.structure.map import Map
 from src.black_fennec.structure.list import List
 from src.black_fennec.structure.template.map_template import MapTemplate as Template
-from src.black_fennec.structure.template.template_factory_visitor import TemplateFactoryVisitor
+from src.black_fennec.structure.template.template_parser import TemplateParser
 
 
 class MapTemplate(Template):
@@ -12,7 +12,7 @@ class MapTemplate(Template):
         map."""
 
     def __init__(self):
-        visitor = TemplateFactoryVisitor()
+        visitor = TemplateParser()
         Template.__init__(self, visitor, Map(
             {'required': List(), 'properties': Map()}))
 

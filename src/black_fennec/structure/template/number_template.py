@@ -5,29 +5,21 @@ import logging
 from src.black_fennec.interpretation.auction.coverage import Coverage
 from src.black_fennec.structure.number import Number
 from src.black_fennec.structure.map import Map
-from src.black_fennec.structure.template.template_base import TemplateBase
+
+from .template import Template
 
 logger = logging.getLogger(__name__)
 
 
-class NumberTemplate(TemplateBase):
+class NumberTemplate(Template[Number]):
     """Base Class for Template of a Number."""
 
     def __init__(
             self,
-            visitor: 'TemplateFactoryVisitor',
-            subject: Map,
-            is_optional: bool = False,
+            visitor: "TemplateParser",
+            subject: Map
     ):
-        TemplateBase.__init__(
-            self,
-            visitor,
-            subject,
-            is_optional
-        )
-
-    def create_instance(self):
-        return self.default
+        Template.__init__(self, visitor, subject)
 
     @property
     def default(self):

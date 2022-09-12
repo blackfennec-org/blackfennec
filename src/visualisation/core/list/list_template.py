@@ -1,6 +1,7 @@
+from src.black_fennec.structure.map import Map
 from src.black_fennec.structure.list import List
 from src.black_fennec.structure.template.list_template import ListTemplate as Template
-from src.black_fennec.structure.template.template_factory_visitor import TemplateFactoryVisitor
+from src.black_fennec.structure.template.template_parser import TemplateParser
 
 
 class ListTemplate(Template):
@@ -10,8 +11,8 @@ class ListTemplate(Template):
         list."""
 
     def __init__(self):
-        visitor = TemplateFactoryVisitor()
-        Template.__init__(self, visitor, List())
+        visitor = TemplateParser()
+        Template.__init__(self, visitor, Map({"elements": List()}))
 
         self._name = 'List'
 

@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 from functools import lru_cache
 
+from typing import TypeVar
+
 from src.black_fennec.structure.visitor import Visitor
 from src.black_fennec.structure.boolean import Boolean
 from src.black_fennec.structure.encapsulation_base.list_encapsulation_base import ListEncapsulationBase
@@ -12,8 +14,9 @@ from src.black_fennec.structure.number import Number
 from src.black_fennec.structure.reference import Reference
 from src.black_fennec.structure.string import String
 
+T = TypeVar('T')
 
-class BaseFactoryVisitor(Visitor[Structure]):
+class BaseFactoryVisitor(Visitor[T]):
     """Abstract Factory and Visitor
 
     This class implements the base visitor behaviour
@@ -35,36 +38,36 @@ class BaseFactoryVisitor(Visitor[Structure]):
         """
         self.layer_base_class = layer_base_class
 
-    def visit_structure(self, subject_structure: Structure):
-        return self._create_generic_instance(subject_structure)
+    def visit_structure(self, subject: Structure) -> T:
+        return self._create_generic_instance(subject)
 
-    def visit_string(self, subject_string: String):
-        return self._create_generic_instance(subject_string)
+    def visit_string(self, subject: String) -> T:
+        return self._create_generic_instance(subject)
 
-    def visit_number(self, subject_number: Number):
-        return self._create_generic_instance(subject_number)
+    def visit_number(self, subject: Number) -> T:
+        return self._create_generic_instance(subject)
 
-    def visit_boolean(self, subject_boolean: Boolean):
-        return self._create_generic_instance(subject_boolean)
+    def visit_boolean(self, subject: Boolean) -> T:
+        return self._create_generic_instance(subject)
 
-    def visit_reference(self, subject_reference: Reference):
-        return self._create_generic_instance(subject_reference)
+    def visit_reference(self, subject: Reference) -> T:
+        return self._create_generic_instance(subject)
 
-    def visit_list(self, subject_list: List):
+    def visit_list(self, subject: List) -> T:
         ListEncapsulationClass = \
             _create_generic_collection_class(
                 ListEncapsulationBase,
                 self.layer_base_class
             )
-        return ListEncapsulationClass(self, subject_list)
+        return ListEncapsulationClass(self, subject)
 
-    def visit_map(self, subject_map: Map):
+    def visit_map(self, subject: Map) -> T:
         MapEncapsulationClass = \
             _create_generic_collection_class(
                 MapEncapsulationBase,
                 self.layer_base_class
             )
-        return MapEncapsulationClass(self, subject_map)
+        return MapEncapsulationClass(self, subject)
 
     def _create_generic_instance(self, subject: Structure):
         GenericClass = _create_generic_class(self.layer_base_class)

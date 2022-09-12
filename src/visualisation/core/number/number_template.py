@@ -1,6 +1,6 @@
 from src.black_fennec.structure.map import Map
 from src.black_fennec.structure.template.number_template import NumberTemplate as Template
-from src.black_fennec.structure.template.template_factory_visitor import TemplateFactoryVisitor
+from src.black_fennec.structure.template.template_parser import TemplateParser
 
 
 class NumberTemplate(Template):
@@ -10,7 +10,7 @@ class NumberTemplate(Template):
         number."""
 
     def __init__(self):
-        visitor = TemplateFactoryVisitor()
+        visitor = TemplateParser()
         Template.__init__(self, visitor, Map())
 
         self._name = 'Number'
