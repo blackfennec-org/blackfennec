@@ -11,8 +11,9 @@ from src.black_fennec.structure.structure import Structure
 from src.black_fennec.structure.list import List
 from src.black_fennec.structure.map import Map
 from src.black_fennec.structure.number import Number
-from src.black_fennec.structure.reference import Reference
 from src.black_fennec.structure.string import String
+from src.black_fennec.structure.reference import Reference
+from src.black_fennec.structure.null import Null
 
 T = TypeVar('T')
 
@@ -51,6 +52,9 @@ class BaseFactoryVisitor(Visitor[T]):
         return self._create_generic_instance(subject)
 
     def visit_reference(self, subject: Reference) -> T:
+        return self._create_generic_instance(subject)
+
+    def visit_null(self, subject: Null) -> T:
         return self._create_generic_instance(subject)
 
     def visit_list(self, subject: List) -> T:

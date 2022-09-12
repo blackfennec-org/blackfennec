@@ -48,6 +48,11 @@ class TemplateParserMock(FactoryBaseVisitorMock):
     def visit_map(self, subject_map):
         subject_map = super().visit_map(subject_map)
         return MapTemplate(self, subject_map)
+        
+    def visit_null(self, subject):
+        subject = super().visit_null(subject)
+        return NullTemplate(self, subject)
+
 
     @property
     def metadata_storage(self):

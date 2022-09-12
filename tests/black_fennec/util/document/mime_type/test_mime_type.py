@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import unittest
+import pytest
 
 from src.black_fennec.util.document.mime_type.mime_type import MimeType
 
@@ -9,6 +10,7 @@ class MimeTypeTestSuite(unittest.TestCase):
     def setUp(self):
         self.expected_mime_type = 'application/json'
 
+    @pytest.mark.skipif(True, reason="test requires internet")
     def test_determine_mimetype_online(self):
         uri = 'https://jsonplaceholder.typicode.com/posts/1'
         resource_type = 'https'

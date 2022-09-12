@@ -9,15 +9,13 @@ from src.black_fennec.structure.map import Map
 from src.black_fennec.structure.number import Number
 from src.black_fennec.structure.reference import Reference
 from src.black_fennec.structure.string import String
+from src.black_fennec.structure.null import Null
 from src.black_fennec.util.document.mime_type.types.structure_parsing_service import StructureParsingService
 
 
 class StructureParsingServiceTestSuite(unittest.TestCase):
     def setUp(self):
         self.structure_parsing_service = StructureParsingService()
-
-    def tearDown(self) -> None:
-        self.structure_parsing_service: StructureParsingService = None
 
     def test_can_set_reference_resolving_service(self):
         reference_resolving_service = Dummy()
@@ -61,6 +59,11 @@ class StructureParsingServiceTestSuite(unittest.TestCase):
         result = self.structure_parsing_service.from_json(data)
         self.assertIsInstance(result, Boolean)
 
+    def test_can_parse_json_null_to_null(self):
+        data = None
+        result = self.structure_parsing_service.from_json(data)
+        self.assertIsInstance(result, Null)
+
     def test_can_parse_person(self):
         data = {
             'Tim': {
@@ -94,6 +97,15 @@ class StructureParsingServiceTestSuite(unittest.TestCase):
         self.assertIsInstance(result.value['continents'].value[0].value['countries'], List)
         self.assertIsInstance(result.value['continents'].value[2].value['identification'], String)
         self.assertIsInstance(result.value['continents'].value[2].value['countries'], List)
+
+    def test_can_parse_object_with_nulls(self):
+        data = {
+            'key': 'value',
+            'null': None
+        }
+        result = self.structure_parsing_service.from_json(data)
+        self.assertIsInstance(result.value['null'], Null)
+
 
     def test_throws_error_on_unknown_type(self):
         o = object()

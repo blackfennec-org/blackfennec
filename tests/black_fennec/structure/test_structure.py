@@ -42,3 +42,9 @@ class StructureTestMixin(metaclass=ABCMeta):
         structure = self.create_instance(self.default_value)
         representation = str(structure)
         self.assertIn(self.structure_type_name, representation)
+
+    def test_can_change_parent(self):
+        new_parent = RootMock()
+        structure = self.create_structure(self.default_value)
+        structure.parent = new_parent
+        self.assertEqual(structure.parent, new_parent)

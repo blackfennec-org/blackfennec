@@ -4,6 +4,7 @@ from src.black_fennec.structure.list import List
 from src.black_fennec.structure.map import Map
 from src.black_fennec.structure.number import Number
 from src.black_fennec.structure.reference import Reference
+from src.black_fennec.structure.null import Null
 from src.black_fennec.structure.string import String
 from src.black_fennec.util.parameterized_visitor import ParameterizedVisitor
 
@@ -29,3 +30,6 @@ class WhatTheFarmerDoesNotEatVisitorFactory:
 
     def visit_map(self, unused_unused_subject: Map):
         return ParameterizedVisitor(map=lambda s: True)
+
+    def visit_null(self, unused_unused_subject: Null):
+        return ParameterizedVisitor(null=True)

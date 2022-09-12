@@ -17,6 +17,8 @@ class FactoryBaseVisitorMock:
         self.list = None
         self.visit_map_count = 0
         self.map = None
+        self.visit_null_count = 0
+        self.null = None
         self._metadata_storage = dict()
         
     def get_stats(self, subject_type_name):
@@ -57,6 +59,12 @@ class FactoryBaseVisitorMock:
         self.map = subject_map
         self._visited['Map'] = (self.visit_map_count, self.map)
         return subject_map
+
+    def visit_null(self, subject):
+        self.visit_null_count += 1
+        self.null = subject
+        self._visited['Null'] = (self.visit_null_count, self.null)
+        return subject
 
     @property
     def metadata_storage(self):

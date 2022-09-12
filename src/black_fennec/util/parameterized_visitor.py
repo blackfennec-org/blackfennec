@@ -4,6 +4,7 @@ from src.black_fennec.structure.list import List
 from src.black_fennec.structure.map import Map
 from src.black_fennec.structure.number import Number
 from src.black_fennec.structure.reference import Reference
+from src.black_fennec.structure.null import Null
 from src.black_fennec.structure.string import String
 
 
@@ -45,4 +46,9 @@ class ParameterizedVisitor:
     def visit_map(self, subject: Map):
         if "map" in self.__kwargs:
             return self.__kwargs["map"](subject)
+        return self._default(subject)
+
+    def visit_null(self, subject: Null):
+        if 'null' in self.__kwargs:
+            return self.__kwargs['null'](subject)
         return self._default(subject)
