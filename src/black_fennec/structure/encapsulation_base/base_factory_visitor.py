@@ -9,8 +9,9 @@ from src.black_fennec.structure.structure import Structure
 from src.black_fennec.structure.list import List
 from src.black_fennec.structure.map import Map
 from src.black_fennec.structure.number import Number
-from src.black_fennec.structure.reference import Reference
 from src.black_fennec.structure.string import String
+from src.black_fennec.structure.reference import Reference
+from src.black_fennec.structure.null import Null
 
 
 class BaseFactoryVisitor(Visitor[Structure]):
@@ -50,6 +51,9 @@ class BaseFactoryVisitor(Visitor[Structure]):
     def visit_reference(self, subject_reference: Reference):
         return self._create_generic_instance(subject_reference)
 
+    def visit_null(self, subject: Null):
+        return self._create_generic_instance(subject)
+
     def visit_list(self, subject_list: List):
         ListEncapsulationClass = \
             _create_generic_collection_class(
@@ -65,6 +69,7 @@ class BaseFactoryVisitor(Visitor[Structure]):
                 self.layer_base_class
             )
         return MapEncapsulationClass(self, subject_map)
+
 
     def _create_generic_instance(self, subject: Structure):
         GenericClass = _create_generic_class(self.layer_base_class)

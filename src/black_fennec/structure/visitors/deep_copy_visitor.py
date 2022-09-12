@@ -6,8 +6,9 @@ from src.black_fennec.structure.structure import Structure
 from src.black_fennec.structure.list import List
 from src.black_fennec.structure.map import Map
 from src.black_fennec.structure.number import Number
-from src.black_fennec.structure.reference import Reference
 from src.black_fennec.structure.string import String
+from src.black_fennec.structure.reference import Reference
+from src.black_fennec.structure.null import Null
 
 import logging
 
@@ -37,6 +38,9 @@ class DeepCopyVisitor(Visitor[Structure]):
         return Reference(
             subject._json_reference_resolve_service,
             subject.value)
+    
+    def visit_null(self, unused_subject):
+        return Null()
 
     def visit_list(self, subject: List) -> List:
         structure = List()

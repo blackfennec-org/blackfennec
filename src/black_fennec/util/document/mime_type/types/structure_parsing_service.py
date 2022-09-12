@@ -7,6 +7,7 @@ from uri import URI
 from src.black_fennec.structure.map import Map
 from src.black_fennec.structure.list import List
 from src.black_fennec.structure.reference import Reference
+from src.black_fennec.structure.null import Null
 from src.black_fennec.structure.string import String
 from src.black_fennec.structure.number import Number
 from src.black_fennec.structure.boolean import Boolean
@@ -46,6 +47,8 @@ class StructureParsingService:
             TypeError: If the type contained in the passed json
                 could not be recognised.
         """
+        if raw == None:
+            return self._parse_null(raw)
         if isinstance(raw, dict):
             if self.is_json_reference(raw):
                 return self._parse_reference(raw)
@@ -74,6 +77,9 @@ class StructureParsingService:
         """parse json reference to python reference"""
         parsed = raw[StructureParsingService.JSON_REFERENCE_KEY]
         return Reference(self._reference_resolving_service, parsed)
+
+    def _parse_null(self, raw):
+        return Null()
 
     def _parse_map(self, raw):
         """parse json dict to python map"""

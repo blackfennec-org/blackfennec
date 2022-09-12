@@ -32,3 +32,7 @@ class Visitor(Generic[T], metaclass=ABCMeta):
     @abstractmethod
     def visit_map(self, subject: 'Map') -> T:
         ...
+
+    @abstractmethod
+    def visit_null(self, subject: 'Null'):
+        ...

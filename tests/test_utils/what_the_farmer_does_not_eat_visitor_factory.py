@@ -4,6 +4,7 @@ from src.black_fennec.structure.list import List
 from src.black_fennec.structure.map import Map
 from src.black_fennec.structure.number import Number
 from src.black_fennec.structure.reference import Reference
+from src.black_fennec.structure.null import Null
 from src.black_fennec.structure.string import String
 
 class WhatTheFarmerDoesNotEatVisitorFactory:
@@ -27,6 +28,9 @@ class WhatTheFarmerDoesNotEatVisitorFactory:
 
     def visit_map(self, unused_unused_subject: Map):
         return ParameterizedVisitor(map=True)
+    
+    def visit_null(self, unused_unused_subject: Null):
+        return ParameterizedVisitor(null=True)
 
 class ParameterizedVisitor:
     def __init__(self, default=False, **kwargs):
@@ -66,4 +70,9 @@ class ParameterizedVisitor:
     def visit_map(self, unused_subject: Map):
         if 'map' in self.__kwargs:
             return self.__kwargs['map']
+        return self._default
+
+    def visit_null(self, unused_subjet: Null):
+        if 'null' in self.__kwargs:
+            return self.__kwargs['null']
         return self._default
