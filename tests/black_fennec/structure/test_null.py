@@ -12,11 +12,11 @@ class NullTestSuite(StructureTestMixin, unittest.TestCase):
         self.default_value = None
         self.alternative_value = None
 
-    def create_structure(self, value=None):
+    def create_instance(self, value=None):
         return Null()
 
     def test_can_construct(self):
-        null = self.create_structure()
+        null = self.create_instance()
         self.assertIsNotNone(null)
 
     def test_can_default_construct(self):

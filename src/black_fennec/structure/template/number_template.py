@@ -22,14 +22,43 @@ class NumberTemplate(Template[Number]):
         Template.__init__(self, visitor, subject)
 
     @property
-    def default(self):
+    def default(self) -> Number:
         if 'default' in self.subject.value:
             return Number(self.subject.value['default'].value)
-        return Number(0)
+        return Number()
 
-    def visit_number(self, subject_number: Number) -> Coverage:
-        coverage = Coverage.COVERED
-        return coverage
+    @property
+    def minimum(self):
+        if 'minimum' in self.subject.value:
+            return self.subject.value['minimum'].value
+        return None
 
+    @minimum.setter
+    def minimum(self, value):
+        if not self.minimum:
+            self.subject.remove_item('minimum')
+            self.subject.add_item('minimum', Number())
+        self.subject.value['minimum'].value = value
+    
+    @property
+    def maximum(self):        
+        if 'maximum' in self.subject.value:
+            return self.subject.value['maximum'].value
+        return None
+
+    @maximum.setter
+    def maximum(self, value):
+        if not self.minimum:
+            self.subject.remove_item('maximum')
+            self.subject.add_item('maximum', Number())
+        self.subject.value['maximum'].value = value
+
+    def visit_number(self, subject: Number) -> Coverage:
+        if self.minimum and subject.value < self.minimum:
+            return Coverage.NOT_COVERED
+        if self.maximum and subject.value > self.maximum:
+            return Coverage.NOT_COVERED
+        return Coverage.COVERED
+        
     def __repr__(self):
         return f'NumberTemplate({self.subject.__repr__()})'

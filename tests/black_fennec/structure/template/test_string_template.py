@@ -2,9 +2,7 @@ import unittest
 
 from doubles.black_fennec.structure.double_structure import StructureMock
 from doubles.black_fennec.structure.double_number import NumberMock
-from doubles.black_fennec.structure.encapsulation_base.double_factory_base_visitor import (
-    FactoryBaseVisitorMock,
-)
+from doubles.black_fennec.structure.encapsulation_base.double_factory_base_visitor import FactoryBaseVisitorMock
 from src.black_fennec.interpretation.auction.coverage import Coverage
 from src.black_fennec.structure.string import String
 from src.black_fennec.structure.map import Map
@@ -17,11 +15,6 @@ class StringTemplateTestSuite(unittest.TestCase):
         self.visitor = FactoryBaseVisitorMock()
         self.subject = String()
         self.string_template = StringTemplate(self.visitor, self.subject)
-
-    def tearDown(self) -> None:
-        self.visitor = None
-        self.subject = None
-        self.string_template = None
 
     def test_can_construct(self):
         pass

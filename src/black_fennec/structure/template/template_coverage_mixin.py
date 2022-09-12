@@ -8,6 +8,7 @@ from src.black_fennec.structure.reference import Reference
 from src.black_fennec.structure.string import String
 from src.black_fennec.structure.number import Number
 from src.black_fennec.structure.boolean import Boolean
+from src.black_fennec.structure.null import Null
 
 
 class TemplateCoverageMixin(Visitor[Coverage]):
@@ -32,6 +33,9 @@ class TemplateCoverageMixin(Visitor[Coverage]):
         return Coverage.NOT_COVERED
 
     def visit_map(self, unused_arg: Map) -> Coverage:
+        return Coverage.NOT_COVERED
+
+    def visit_null(self, unused_arg: Null) -> Coverage:
         return Coverage.NOT_COVERED
 
     def _type_equality_coverage(self, subject) -> Coverage:
