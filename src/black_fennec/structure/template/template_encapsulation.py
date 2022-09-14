@@ -20,8 +20,9 @@ class TemplateEncapsulation(EncapsulationBase):
     def parent(self):
         """Property for parent of this structure
             encapsulated in a EncapsulationBase."""
-        assert self.subject.parent
-        assert self.subject.parent.parent
+        if not self.subject.parent \
+                or not self.subject.parent.parent:
+            return None
 
         return self.subject.parent.parent.accept(self._visitor)
 

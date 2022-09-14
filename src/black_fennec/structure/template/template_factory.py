@@ -4,11 +4,13 @@ from src.black_fennec.structure.list import List
 from src.black_fennec.structure.map import Map
 from src.black_fennec.structure.string import String
 from src.black_fennec.structure.number import Number
+from src.black_fennec.structure.boolean import Boolean
 from src.black_fennec.structure.null import Null
 from src.black_fennec.structure.template.list_template import ListTemplate
 from src.black_fennec.structure.template.map_template import MapTemplate
 from src.black_fennec.structure.template.string_template import StringTemplate
 from src.black_fennec.structure.template.number_template import NumberTemplate
+from src.black_fennec.structure.template.boolean_template import BooleanTemplate
 from .template_parser import TemplateParser
 
 
@@ -56,4 +58,19 @@ class TemplateFactory:
                 "minimum": Null(),
                 "maximum": Null()
             }),
+        )
+
+    def create_boolean(self, expected=None, default=False):
+        if expected:
+            expected = Boolean(expected)
+        else:
+            expected = Null()
+        
+        return BooleanTemplate(
+            TemplateParser(),
+            Map({
+                "type": String("Boolean"), 
+                "default": Boolean(default),
+                "expected": expected
+            })
         )

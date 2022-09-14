@@ -7,7 +7,7 @@ from .list_template import ListTemplate
 from .map_template import MapTemplate
 from .string_template import StringTemplate
 from .number_template import NumberTemplate
-
+from .boolean_template import BooleanTemplate
 
 class TemplateParser(ParameterizedVisitor):
     """Template Parser
@@ -29,6 +29,7 @@ class TemplateParser(ParameterizedVisitor):
             "List": ListTemplate,
             "String": StringTemplate,
             "Number": NumberTemplate,
+            "Boolean": BooleanTemplate
         }
         type_name = template_map.value["type"].value
         create_template = factory_map[type_name]
