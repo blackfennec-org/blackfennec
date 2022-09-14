@@ -7,14 +7,10 @@ TVisitor = TypeVar('TVisitor')
 
 
 class Null(Structure[None]):
-    """Core Type Boolean, represents booleans in the domain model."""
+    """Core Type Null, represents null values in the domain model."""
 
     def __init__(self):
-        """Construct Boolean with value `value`.
-
-        Args:
-            value (bool, optional): The value of the `Boolean`.
-                Default item is `False`
+        """Construct Null.
         """
         Structure.__init__(self, None)
     
