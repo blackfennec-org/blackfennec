@@ -25,3 +25,6 @@ class Number(Structure[numbers.Number]):
     def __repr__(self) -> str:
         """Create representation for pretty printing"""
         return f'Number({self.value})'
+
+    def __eq__(self, o):
+        return self.value == o.value

@@ -13,16 +13,15 @@ from src.black_fennec.structure.string import String
 logger = logging.getLogger(__name__)
 
 
-class MapTemplate(Template[Map], MapEncapsulationBase):
+class MapTemplate(Template[Map]):
     """Base Class for Template of a Map."""
 
     def __init__(
         self,
-        visitor,
+        visitor: "TemplateParser",
         subject: Map,
     ):
         Template.__init__(self, visitor, subject)
-        MapEncapsulationBase.__init__(self, visitor, subject)
         self._parser = visitor
 
     @property
@@ -34,29 +33,53 @@ class MapTemplate(Template[Map], MapEncapsulationBase):
             }
         )
 
-    def add_property(self, name, template: Template, is_required=True) -> None:
-        self.subject.value["properties"].add_item(name, template.subject)
-        if is_required:
-            self.subject.value["required"].add_item(String(name))
 
-    def get_name(self, structure):
+    def is_child_optional(self, child) -> bool:
+        name = String(self._get_name(child))
+        is_optional = name not in self.required_properties
+        return is_optional
+
+    def set_is_child_optional(self, child, is_optional) -> None:
+        name = self._get_name(child)
+        self.set_required(name, not is_optional)
+
+    def _get_name(self, structure) -> str:
         for name, prop in self.properties.items():
             if prop == structure:
                 return name
-        assert False, "structure is not a property"
+        raise AssertionError(f"{structure} is not a property of this class")
+
+    def _is_property_guard(self, prop_name) -> None:
+        for name, prop in self.properties.items():
+            if name == prop_name:
+                return
+        raise AssertionError(f"{prop_name} is not a property of this class")
 
     @property
-    def required_properties(self) -> List:
+    def required_properties(self) -> list:
+        return self._required_properties.value
+
+    @property
+    def _required_properties(self) -> List:
         return self.subject.value["required"]
 
-    @property
-    def set_required(self, name, value):
-        required: List = self.subject.value["required"]
-        currently_required = name in required.list
+
+    def set_required(self, name, value) -> None:
+        self._is_property_guard(name)
+        name = String(name)
+        currently_required = name in self.required_properties
         if value and not currently_required:
-            required.add_item(name)
+            self._required_properties.add_item(name)
         elif not value and currently_required:
-            required.remove_item(name)
+            for item in self.required_properties:
+                if item == name:
+                    self._required_properties.remove_item(item)
+
+
+    def add_property(self, name, template: Template, is_required=True) -> None:
+        self.subject.value["properties"].add_item(name, template.subject)
+        if is_required:
+            self._required_properties.add_item(String(name))
 
     @property
     def properties(self) -> Dict[str, Template]:

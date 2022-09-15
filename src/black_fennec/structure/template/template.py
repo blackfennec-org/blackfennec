@@ -24,15 +24,13 @@ class Template(
         if not self.parent:
             return False
 
-        name = String(self.parent.get_name(self))
-        return name not in self.parent.required_properties.value
+        return self.parent.is_child_optional(self)
 
     @is_optional.setter
     def is_optional(self, value):
         assert self.parent
 
-        name = self.parent.get_name(self)
-        self.parent.set_required(name, value)
+        self.parent.set_is_child_optional(self, value)
 
     @property
     @abstractmethod

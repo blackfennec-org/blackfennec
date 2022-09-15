@@ -18,7 +18,10 @@ class TemplateFactory:
     def create_map(self, properties=None):
         template = MapTemplate(
             TemplateParser(),
-            Map({"type": String("Map"), "required": List(), "properties": Map()}),
+            Map({
+                "type": String("Map"), 
+                "required": List(), 
+                "properties": Map()}),
         )
 
         if properties:
@@ -31,7 +34,8 @@ class TemplateFactory:
         template = ListTemplate(
             TemplateParser(),
             Map({
-                "type": String("List"), 
+                "type": String("List"),
+                "required": List(),
                 "elements": List()
             })
         )

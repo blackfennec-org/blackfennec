@@ -1,4 +1,5 @@
 import unittest
+import pytest
 
 from doubles.black_fennec.structure.double_structure import StructureMock
 from doubles.black_fennec.structure.template.double_template import TemplateMock
@@ -44,6 +45,77 @@ class ListTemplateTestSuite(unittest.TestCase):
 
         coverage = self.list_template.calculate_coverage(subject)
         self.assertEqual(coverage, Coverage.NOT_COVERED)
+
+    def test_can_add_element(self):
+        template = TemplateFactory().create_list()
+        s1 = TemplateMock("Structure")
+        template.add_element(s1)
+
+        assert len(template.elements) == 1
+
+    def test_can_add_required_element(self):
+        template = TemplateFactory().create_list()
+        s1 = TemplateMock("Structure")
+        template.add_element(s1)
+
+        assert len(template.required_elements) == 1
+
+    def test_can_add_optional_element(self):
+        template = TemplateFactory().create_list()
+        s1 = TemplateMock("Structure")
+        template.add_element(s1, is_required=False)
+
+        assert len(template.required_elements) == 0
+
+    def test_can_make_index_required(self):
+        template = TemplateFactory().create_list()
+        s1 = TemplateMock("Structure")
+        template.add_element(s1)
+        template.set_required(0, False)
+
+        assert len(template.required_elements) == 0
+
+
+    def test_can_make_index_optional(self):
+        template = TemplateFactory().create_list()
+        s1 = TemplateMock("Structure")
+        template.add_element(s1, is_required=False)
+        template.set_required(0, True)
+
+        assert len(template.required_elements) == 1
+
+    def test_can_tell_that_child_is_optional(self):
+        template = TemplateFactory().create_list()
+        s1 = TemplateMock("Structure")
+        s2 = TemplateMock("Structure")
+        template.add_element(s1)
+        template.add_element(s2, is_required=False)
+
+        assert template.is_child_optional(s2)
+
+    def test_can_tell_that_child_is_required(self):
+        template = TemplateFactory().create_list()
+        s1 = TemplateMock("Structure")
+        s2 = TemplateMock("Structure")
+        template.add_element(s1)
+        template.add_element(s2, is_required=True)
+
+        assert not template.is_child_optional(s2)
+
+    def test_can_set_child_optional(self):
+        template = TemplateFactory().create_list()
+        s1 = TemplateMock("Structure")
+        template.add_element(s1, is_required=True)
+        template.set_is_child_optional(s1, False)
+
+        assert not template.is_child_optional(s1)
+
+    def test_cannot_set_none_child_optionality(self):
+        template = TemplateFactory().create_list()
+        name = "structure1"
+        s1 = TemplateMock("Structure")
+        with pytest.raises(AssertionError):
+            template.set_is_child_optional(s1, True)
 
     def test_can_create_instance(self):
         list_structure = self.list_template.create_instance()
