@@ -48,7 +48,7 @@ class NumberTemplate(Template[Number]):
 
     @maximum.setter
     def maximum(self, value):
-        if not self.minimum:
+        if not self.maximum:
             self.subject.remove_item('maximum')
             self.subject.add_item('maximum', Number())
         self.subject.value['maximum'].value = value
