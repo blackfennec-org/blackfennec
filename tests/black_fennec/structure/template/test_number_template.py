@@ -67,8 +67,7 @@ class TestNumberTemplate:
         template.maximum = 15
         coverage = template.visit_number(structure)
         assert coverage == Coverage.COVERED
-    
-    @pytest.mark.xfail
+
     def test_can_reset_limits(self, template: NumberTemplate):
         structure = Number(15)
         template.minimum = 0
@@ -76,7 +75,7 @@ class TestNumberTemplate:
         template.minimum = 15
         template.maximum = 15
         coverage = template.visit_number(structure)
-        assert coverage == Coverage.COVERE
+        assert coverage == Coverage.COVERED
 
     def test_can_get_repr(self, template):
         representation: str = str(template)

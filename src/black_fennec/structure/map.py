@@ -55,9 +55,15 @@ class Map(Structure[dict]):
         self._set_parent(value)
         self._value[key] = value
 
+    def _is_item(self, item):
+        for i in self._value.items():
+            if item is i:
+                return True
+        return False
+
     def _unset_parent(self, item: Structure) -> None:
         assert item.parent is self
-        assert item not in self._value
+        assert not self._is_item(item)
         item.parent = None
 
     def remove_item(self, key: Any) -> None:

@@ -46,9 +46,15 @@ class List(Structure[list]):
         self._value.append(item)
         self._set_parent(item)
 
+    def _is_item(self, item):
+        for i in self._value:
+            if item is i:
+                return True
+        return False
+
     def _unset_parent(self, item: Structure) -> None:
         assert item.parent is self
-        assert item not in self._value
+        assert not self._is_item(item)
         item.parent = None
 
     def remove_item(self, item: Structure) -> None:
