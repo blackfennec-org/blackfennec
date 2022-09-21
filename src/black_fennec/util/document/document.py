@@ -22,7 +22,7 @@ class Document:
         self.mime_type: MimeType = mime_type
         self._root_factory: Type[RootFactory] = root_factory
         self.resource_type: ResourceType = resource_type
-        self.content: Optional[Structure] = None
+        self._content = None
 
     @property
     def mime_type(self) -> MimeType:
