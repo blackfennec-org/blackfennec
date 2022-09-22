@@ -26,9 +26,9 @@ class TemplateRegistry:
         """templates getter
 
         Returns:
-            set: of templates
+            list of templates
         """
-        return set(self._templates)
+        return list(self._templates)
 
     def register_template(self, template: Type):
         """Function to register a new template
@@ -47,7 +47,6 @@ class TemplateRegistry:
         Raises:
             KeyError: if template type not found in registry
         """
-
 
         for current_template in self._templates:
             if current_template.__class__ == template_type:

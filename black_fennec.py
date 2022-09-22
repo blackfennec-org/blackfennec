@@ -14,7 +14,7 @@ from src.black_fennec.util.json.json_reference_resolving_service import JsonRefe
 from src.black_fennec.facade.main_window.black_fennec_view_model import BlackFennecViewModel
 from src.black_fennec.facade.main_window.black_fennec_view import BlackFennecView
 from src.black_fennec.facade.splash_screen.splash_screen_view import SplashScreenView
-from src.black_fennec.type_system.type_registry import TypeRegistry
+from src.black_fennec.type_system.template_registry import TemplateRegistry
 
 from src.extension.extension_api import ExtensionApi
 from src.extension.extension_initialisation_service import ExtensionInitialisationService
@@ -102,11 +102,11 @@ class BlackFennec(Gtk.Application):
         )
 
         presenter_registry = PresenterRegistry()
-        type_registry = TypeRegistry()
+        template_registry = TemplateRegistry()
         extension_api = ExtensionApi(
             presenter_registry,
             type_registry,
-            type_registry,
+            template_registry,
             interpretation_service
         )
         extension_source_registry = ExtensionSourceRegistry()
