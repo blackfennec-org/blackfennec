@@ -7,8 +7,9 @@ import urllib.request as req
 
 
 class HttpsResourceType(ResourceType):
+
     @property
-    def protocols(self) -> List[str]:
+    def protocols(cls) -> List[str]:
         return [
             'http',
             'https'

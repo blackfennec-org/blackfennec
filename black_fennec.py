@@ -70,19 +70,27 @@ class BlackFennec(Gtk.Application):
         structure_encoding_service = StructureEncodingService(indent=2)
 
         resource_type_registry = ResourceTypeRegistry()
-        for protocol in HttpsResourceType.PROTOCOLS:
-            resource_type_registry.register_resource_type(protocol, HttpsResourceType())
-        for protocol in FileResourceType.PROTOCOLS:
-            resource_type_registry.register_resource_type(protocol, FileResourceType())
+
+        resource_types = [
+            HttpsResourceType(),
+            FileResourceType()
+        ]
+        for resource_type in resource_types:
+            for protocol in resource_type.protocols:
+                resource_type_registry.register_resource_type(protocol, resource_type)
 
         mime_type_registry = MimeTypeRegistry()
-        mime_type_registry.register_mime_type(
-            JsonMimeType.MIME_TYPE_ID,
+        mime_types = [
             JsonMimeType(
                 structure_encoding_service,
                 structure_parsing_service
             )
-        )
+        ]
+        for mime_type in mime_types:
+            mime_type_registry.register_mime_type(
+                mime_type.mime_type_id,
+                mime_type
+            )
 
         document_factory = DocumentFactory(resource_type_registry, mime_type_registry)
 

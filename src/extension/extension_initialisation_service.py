@@ -89,10 +89,11 @@ class ExtensionInitialisationService:
         if not os.path.exists(absolute_path):
             self._default_initialise_extensions(absolute_path)
 
+        # TODO: https://gitlab.ost.ch/blackfennec/blackfennec/-/issues/1
         config = document_factory.create(
             uri,
-            FileResourceType.PROTOCOLS[0],
-            JsonMimeType.MIME_TYPE_ID
+            FileResourceType().protocols[0],
+            JsonMimeType().mime_type_id
         )
 
         for extension_source_structure in config.content.value:
