@@ -4,8 +4,8 @@ from src.black_fennec.interpretation.auction.offer import Offer
 from src.black_fennec.interpretation.interpretation_service import \
     InterpretationService
 from src.black_fennec.structure.structure import Structure
-from src.black_fennec.type_system.template_registry import TemplateRegistry
-from src.visualisation.core.list.list_template import ListTemplate
+from src.black_fennec.type_system.type_registry import TypeRegistry
+from src.black_fennec.structure.type.list_type import ListType
 from src.visualisation.core.list.list_view_factory import ListViewFactory
 
 logger = logging.getLogger(__name__)
@@ -17,19 +17,19 @@ class ListBidder:
     def __init__(
             self,
             interpretation_service: InterpretationService,
-            template_registry: TemplateRegistry
+            type_registry: TypeRegistry
     ):
         """Construct list bidder.
 
         Args:
             interpretation_service (InterpretationService): used in list view
                 model to create children previews
-            template_registry (TemplateRegistry): used in list view model to
+            type_registry (TypeRegistry): used in list view model to
                 add new items.
         """
         self._factory = ListViewFactory(
             interpretation_service,
-            template_registry
+            type_registry
         )
 
     def bid(self, subject: Structure):
@@ -44,4 +44,4 @@ class ListBidder:
                 the received subject.
         """
         logger.info('bidding on object')
-        return Offer(subject, 0, ListTemplate(), self._factory)
+        return Offer(subject, 0, ListType(), self._factory)

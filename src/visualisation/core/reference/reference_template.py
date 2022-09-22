@@ -1,21 +1,19 @@
 from doubles.double_dummy import Dummy
 from src.black_fennec.structure.reference import Reference
-from src.black_fennec.structure.template.template import Template
-from src.black_fennec.structure.template.template_parser import TemplateParser
+from src.black_fennec.structure.type.reference_type import ReferenceType
+from src.black_fennec.structure.type.type_parser import TypeParser
 
 
-class ReferenceTemplate(Template):
+class ReferenceTemplate(ReferenceType):
     """Template of reference.
 
     Class creates Template structure for core type
         reference."""
 
     def __init__(self):
-        visitor = TemplateParser()
         reference_resolving_service = Dummy(
             f'ReferenceResolvingService instantiated in {__name__}')
-        Template.__init__(
-            self, visitor,
+        ReferenceType.__init__(self,
             Reference(reference_resolving_service))
 
         self._name = 'Reference'

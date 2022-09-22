@@ -1,34 +1,42 @@
 # -*- coding: utf-8 -*-
 import logging
 
-from .template import Template
 from src.black_fennec.interpretation.auction.coverage import Coverage
-from src.black_fennec.structure.encapsulation_base.list_encapsulation_base import ListEncapsulationBase
 from src.black_fennec.structure.map import Map
 from src.black_fennec.structure.list import List
 from src.black_fennec.structure.number import Number
+from src.black_fennec.structure.string import String
+from .type import Type
+
 
 logger = logging.getLogger(__name__)
 
 
-class ListTemplate(Template[List]):
-    """Base Class for Template of a List."""
+class ListType(Type[List]):
+    """Base Class for Type of a List."""
 
-    def __init__(
-        self,
-        visitor: "TemplateParser",
-        subject: Map,
-    ):
-        Template.__init__(self, visitor, subject)
+    def __init__(self, subject: Map = None):
+        subject = subject or self._type_structure()
+        Type.__init__(self, subject)
+
+    @staticmethod
+    def _type_structure():
+        return Map({"type": String("List")})
 
     @property
     def default(self):
-        return List([template.create_instance() for template in self.elements])
+        return List([type.create_instance() for type in self.elements])
 
-    def add_element(self, template, is_required=True) -> None:
-        self.subject.value["elements"].add_item(template.subject)
+    @property
+    def _elements(self):
+        if "elements" not in self.subject.value:
+            self.subject.add_item("elements", List())
+        return self.subject.value["elements"]
+
+    def add_element(self, type, is_required=True) -> None:
+        self._elements.add_item(type.subject)
         if is_required:
-            self.set_is_child_optional(template, not is_required)
+            self.set_is_child_optional(type, not is_required)
 
     def _is_element_guard(self, index):
         if index < 0 or index >= len(self.elements):
@@ -36,19 +44,19 @@ class ListTemplate(Template[List]):
 
     @property
     def elements(self) -> list:
-        raw_elements = self.subject.value["elements"].value
+        raw_elements = self._elements.value
 
         elements = []
         for element in raw_elements:
-            template = element.accept(self._visitor)
-            elements.append(template)
+            from .type_parser import TypeParser
+            type = TypeParser.parse(element)
+            elements.append(type)
 
         return elements
 
     @property
     def required_elements(self) -> list:
         return self._required_elements.value
-
 
     @property
     def _required_elements(self) -> List:
@@ -84,20 +92,20 @@ class ListTemplate(Template[List]):
 
         Subject may contain a type multiple times, which
         will be then matched by a single child of the List
-        template multiple times.
+        type multiple times.
 
         Args:
             subject (List): List for which coverage is calculated
 
         Returns:
-            Coverage: of subject by self(Template)
+            Coverage: of subject by self(Type)
         """
         coverage = Coverage.COVERED
 
-        for template_node in self.elements:
+        for type_node in self.elements:
             for subject_node in subject.value:
-                coverage += template_node.calculate_coverage(subject_node)
+                coverage += type_node.calculate_coverage(subject_node)
         return coverage
 
     def __repr__(self):
-        return f"ListTemplate({self.subject.__repr__()})"
+        return f"ListType({self.subject.__repr__()})"

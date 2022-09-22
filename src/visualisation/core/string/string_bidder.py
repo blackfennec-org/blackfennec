@@ -2,7 +2,7 @@ import logging
 
 from src.black_fennec.interpretation.auction.offer import Offer
 from src.black_fennec.structure.structure import Structure
-from src.visualisation.core.string.string_template import StringTemplate
+from src.black_fennec.structure.type.string_type import StringType
 from src.visualisation.core.string.string_view_factory import StringViewFactory
 
 logger = logging.getLogger(__name__)
@@ -23,4 +23,4 @@ class StringBidder:
                 the received subject.
         """
         logger.info('bidding on object')
-        return Offer(subject, 0, StringTemplate(), StringViewFactory())
+        return Offer(subject, 0, StringType(), StringViewFactory())

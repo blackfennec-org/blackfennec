@@ -6,18 +6,17 @@ from src.black_fennec.structure.string import String
 from src.black_fennec.structure.number import Number
 from src.black_fennec.structure.boolean import Boolean
 from src.black_fennec.structure.null import Null
-from src.black_fennec.structure.template.list_template import ListTemplate
-from src.black_fennec.structure.template.map_template import MapTemplate
-from src.black_fennec.structure.template.string_template import StringTemplate
-from src.black_fennec.structure.template.number_template import NumberTemplate
-from src.black_fennec.structure.template.boolean_template import BooleanTemplate
-from .template_parser import TemplateParser
+from .list_type import ListType
+from .map_type import MapType
+from .string_type import StringType
+from .number_type import NumberType
+from .boolean_type import BooleanType
 
 
-class TemplateFactory:
-    def create_map(self, properties=None):
-        template = MapTemplate(
-            TemplateParser(),
+class TypeFactory:
+    @staticmethod
+    def create_map(properties=None):
+        type = MapType(
             Map({
                 "type": String("Map"), 
                 "required": List(), 
@@ -26,24 +25,24 @@ class TemplateFactory:
 
         if properties:
             for name, value in properties.items():
-                template.add_property(name, value)
+                type.add_property(name, value)
 
-        return template
+        return type
 
-    def create_list(self):
-        template = ListTemplate(
-            TemplateParser(),
+    @staticmethod
+    def create_list():
+        type = ListType(
             Map({
                 "type": String("List"),
                 "required": List(),
                 "elements": List()
             })
         )
-        return template
+        return type
 
-    def create_string(self, pattern=".*", default=""):
-        return StringTemplate(
-            TemplateParser(),
+    @staticmethod
+    def create_string(pattern=".*", default=""):
+        return StringType(
             Map(
                 {
                     "type": String("String"),
@@ -53,9 +52,9 @@ class TemplateFactory:
             ),
         )
 
-    def create_number(self, min=None, max=None, default=0):
-        return NumberTemplate(
-            TemplateParser(),
+    @staticmethod
+    def create_number(min=None, max=None, default=0):
+        return NumberType(
             Map({
                 "type": String("Number"), 
                 "default": Number(default),
@@ -64,14 +63,14 @@ class TemplateFactory:
             }),
         )
 
-    def create_boolean(self, expected=None, default=False):
+    @staticmethod
+    def create_boolean(expected=None, default=False):
         if expected:
             expected = Boolean(expected)
         else:
             expected = Null()
         
-        return BooleanTemplate(
-            TemplateParser(),
+        return BooleanType(
             Map({
                 "type": String("Boolean"), 
                 "default": Boolean(default),

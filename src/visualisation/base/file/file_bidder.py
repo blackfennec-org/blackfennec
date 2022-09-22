@@ -25,4 +25,4 @@ class FileBidder:
                 the received subject.
         """
         logger.info('bidding on object')
-        return Offer(subject, 1, File.TEMPLATE, FileViewFactory())
+        return Offer(subject, 1, File.TYPE, FileViewFactory())

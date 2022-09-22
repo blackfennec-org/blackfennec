@@ -4,32 +4,32 @@ from datetime import datetime
 
 from src.black_fennec.structure.map import Map
 from src.black_fennec.structure.string import String
-from src.black_fennec.structure.template.template_factory import TemplateFactory
+from src.black_fennec.structure.type.type_factory import TypeFactory
 
 logger = logging.getLogger(__name__)
 
 
-def create_date_time_range_template():
-    """DateTimeRange Template
+def create_date_time_range_type():
+    """DateTimeRange Type
     Defines the format of the date time range
     """
-    tf = TemplateFactory()
+    tf = TypeFactory()
     iso_regex = r'^(-?(?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-' \
                 r'(3[01]|0[1-9]|[12][0-9])T(2[0-3]|[01][0-9]):([0-5][0-9]):' \
                 r'([0-5][0-9])(\.[0-9]+)?(Z|[+-](?:2[0-3]|[01][0-9]):' \
                 r'[0-5][0-9])?$'
 
-    template = tf.create_map(properties={
+    type = tf.create_map(properties={
         DateTimeRange.START_KEY: tf.create_string(pattern=iso_regex),
         DateTimeRange.END_KEY: tf.create_string(pattern=iso_regex)
     })
 
-    return template
+    return type
 
 
 class DateTimeRange:
     """DateTimeRange Base Type"""
-    TEMPLATE = None
+    TYPE = None
     START_KEY = 'date_time_start'
     END_KEY = 'date_time_end'
 
@@ -104,4 +104,4 @@ class DateTimeRange:
         self._set_value(DateTimeRange.END_KEY, value.isoformat())
 
 
-DateTimeRange.TEMPLATE = create_date_time_range_template()
+DateTimeRange.TYPE = create_date_time_range_type()

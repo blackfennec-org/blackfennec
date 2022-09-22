@@ -2,8 +2,8 @@ import logging
 
 from src.black_fennec.interpretation.auction.offer import Offer
 from src.black_fennec.structure.structure import Structure
-from src.visualisation.core.reference.reference_template import \
-    ReferenceTemplate
+from src.black_fennec.structure.type.reference_type import \
+    ReferenceType
 from src.visualisation.core.reference.reference_view_factory import \
     ReferenceViewFactory
 
@@ -28,4 +28,4 @@ class ReferenceBidder:
             Offer: that this bidder made on the subject passed.
         """
         logger.info('bidding on object')
-        return Offer(subject, 0, ReferenceTemplate(), self._factory)
+        return Offer(subject, 0, ReferenceType(), self._factory)

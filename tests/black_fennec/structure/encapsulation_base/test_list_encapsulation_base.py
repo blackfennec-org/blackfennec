@@ -36,8 +36,8 @@ class ListEncapsulationBaseTestSuite(unittest.TestCase):
 
     def test_add_item_item_already_encapsulated(self):
         value = StructureMock('test_value')
-        template_class = _create_generic_class(EncapsulationBase)
-        encapsulated = template_class(self.visitor, value)
+        type_class = _create_generic_class(EncapsulationBase)
+        encapsulated = type_class(self.visitor, value)
         self.list_encapsulation_base.add_item(encapsulated)
         self.assertIn(value, self.list_encapsulation_base.subject.value)
 
@@ -63,23 +63,23 @@ class ListEncapsulationBaseTestSuite(unittest.TestCase):
     def test_remove_item(self):
         value = StructureMock('test_value')
         subject = List([value])
-        list_template: Optional[ListEncapsulationBase] = ListEncapsulationBase(
+        list_type: Optional[ListEncapsulationBase] = ListEncapsulationBase(
             self.visitor,
             subject
         )
-        list_template.remove_item(value)
+        list_type.remove_item(value)
         self.assertEqual(len(self.subject.value), 0)
 
     def test_remove_encapsulated_item(self):
         value = StructureMock('test_value')
         subject = List([value])
-        list_template: Optional[ListEncapsulationBase] = ListEncapsulationBase(
+        list_type: Optional[ListEncapsulationBase] = ListEncapsulationBase(
             self.visitor,
             subject
         )
-        template_class = _create_generic_class(EncapsulationBase)
-        encapsulated = template_class(self.visitor, value)
-        list_template.remove_item(encapsulated)
+        type_class = _create_generic_class(EncapsulationBase)
+        encapsulated = type_class(self.visitor, value)
+        list_type.remove_item(encapsulated)
         self.assertEqual(len(self.subject.value), 0)
 
     def test_remove_item_not_in_list(self):

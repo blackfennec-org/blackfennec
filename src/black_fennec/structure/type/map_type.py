@@ -2,37 +2,33 @@
 import logging
 from typing import Dict
 
-from .template import Template
+
 from src.black_fennec.interpretation.auction.coverage import Coverage
-from src.black_fennec.structure.encapsulation_base.map_encapsulation_base import MapEncapsulationBase
 from src.black_fennec.structure.structure import Structure
 from src.black_fennec.structure.map import Map
 from src.black_fennec.structure.list import List
 from src.black_fennec.structure.string import String
+from .type import Type
 
 logger = logging.getLogger(__name__)
 
 
-class MapTemplate(Template[Map]):
-    """Base Class for Template of a Map."""
+class MapType(Type[Map]):
+    """Base Class for Type of a Map."""
 
-    def __init__(
-        self,
-        visitor: "TemplateParser",
-        subject: Map,
-    ):
-        Template.__init__(self, visitor, subject)
-        self._parser = visitor
+    def __init__(self, subject: Map = None):
+        subject = subject or self._type_structure()
+        Type.__init__(self, subject)
+    
+    @staticmethod
+    def _type_structure():
+        return Map({"type": String("Map")})
 
     @property
     def default(self):
         return Map(
-            {
-                name: template.create_instance()
-                for name, template in self.properties.items()
-            }
+            {name: type.create_instance() for name, type in self.properties.items()}
         )
-
 
     def is_child_optional(self, child) -> bool:
         name = String(self._get_name(child))
@@ -61,8 +57,9 @@ class MapTemplate(Template[Map]):
 
     @property
     def _required_properties(self) -> List:
+        if "required" not in self.subject.value:
+            self.subject.add_item("required", List())
         return self.subject.value["required"]
-
 
     def set_required(self, name, value) -> None:
         self._is_property_guard(name)
@@ -75,20 +72,26 @@ class MapTemplate(Template[Map]):
                 if item == name:
                     self._required_properties.remove_item(item)
 
+    @property
+    def _properties(self):
+        if "properties" not in self.subject.value:
+            self.subject.add_item("properties", Map())
+        return self.subject.value["properties"]
 
-    def add_property(self, name, template: Template, is_required=True) -> None:
-        self.subject.value["properties"].add_item(name, template.subject)
+    def add_property(self, name, type: Type, is_required=True) -> None:
+        self._properties.add_item(name, type.subject)
         if is_required:
             self._required_properties.add_item(String(name))
 
     @property
-    def properties(self) -> Dict[str, Template]:
-        raw_properties: Dict[str, Structure] = self.subject.value["properties"].value
+    def properties(self) -> Dict[str, Type]:
+        raw_properties: Dict[str, Structure] = self._properties.value
 
         properties = {}
         for name, structure in raw_properties.items():
-            template: Template = structure.accept(self._parser)
-            properties[name] = template
+            from .type_parser import TypeParser
+            type = TypeParser.parse(structure)
+            properties[name] = type
         return properties
 
     def visit_map(self, subject: Map) -> Coverage:
@@ -98,18 +101,18 @@ class MapTemplate(Template[Map]):
             subject (Map): Map for which coverage is calculated
 
         Returns:
-            Coverage: of subject by self(Template)
+            Coverage: of subject by self(Type)
         """
 
         coverage = Coverage.COVERED
 
-        for name, template in self.properties.items():
+        for name, type in self.properties.items():
             if name in subject.value:
-                sub_coverage = template.calculate_coverage(subject.value[name])
+                sub_coverage = type.calculate_coverage(subject.value[name])
                 if not sub_coverage.is_covered():
                     return Coverage(1 + len(subject.value), 0)
                 coverage += sub_coverage
-            elif template.is_optional:
+            elif type.is_optional:
                 continue
             else:
                 message = f"key {name} not found in subject {subject}"
@@ -121,4 +124,4 @@ class MapTemplate(Template[Map]):
         return coverage
 
     def __repr__(self):
-        return f"MapTemplate({self.subject.__repr__()})"
+        return f"MapType({self.subject.__repr__()})"

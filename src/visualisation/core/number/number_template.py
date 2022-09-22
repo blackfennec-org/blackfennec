@@ -1,17 +1,16 @@
 from src.black_fennec.structure.map import Map
-from src.black_fennec.structure.template.number_template import NumberTemplate as Template
-from src.black_fennec.structure.template.template_parser import TemplateParser
+from src.black_fennec.structure.type.number_type import NumberType
+from src.black_fennec.structure.type.type_parser import TypeParser
 
 
-class NumberTemplate(Template):
+class NumberTemplate(NumberType):
     """Template of number.
 
     Class creates Template structure for core type
         number."""
 
     def __init__(self):
-        visitor = TemplateParser()
-        Template.__init__(self, visitor, Map())
+        NumberType.__init__(self)
 
         self._name = 'Number'
 

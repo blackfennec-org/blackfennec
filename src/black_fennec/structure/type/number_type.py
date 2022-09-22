@@ -5,21 +5,22 @@ import logging
 from src.black_fennec.interpretation.auction.coverage import Coverage
 from src.black_fennec.structure.number import Number
 from src.black_fennec.structure.map import Map
-
-from .template import Template
+from src.black_fennec.structure.string import String
+from .type import Type
 
 logger = logging.getLogger(__name__)
 
 
-class NumberTemplate(Template[Number]):
-    """Base Class for Template of a Number."""
+class NumberType(Type[Number]):
+    """Base Class for Type of a Number."""
 
-    def __init__(
-            self,
-            visitor: "TemplateParser",
-            subject: Map
-    ):
-        Template.__init__(self, visitor, subject)
+    def __init__(self, subject: Map = None):
+        subject = subject or self._type_structure()
+        Type.__init__(self, subject)
+
+    @staticmethod
+    def _type_structure():
+        return Map({"type": String("Number")})
 
     @property
     def default(self) -> Number:
@@ -61,4 +62,4 @@ class NumberTemplate(Template[Number]):
         return Coverage.COVERED
         
     def __repr__(self):
-        return f'NumberTemplate({self.subject.__repr__()})'
+        return f'NumberType({self.subject.__repr__()})'

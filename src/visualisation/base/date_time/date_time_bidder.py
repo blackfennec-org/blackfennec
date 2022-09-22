@@ -25,4 +25,4 @@ class DateTimeBidder:
                 the received subject.
         """
         logger.info('bidding on object')
-        return Offer(subject, 1, DateTime.TEMPLATE, DateTimeViewFactory())
+        return Offer(subject, 1, DateTime.TYPE, DateTimeViewFactory())

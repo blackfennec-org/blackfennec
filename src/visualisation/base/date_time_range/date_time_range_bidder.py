@@ -25,5 +25,5 @@ class DateTimeRangeBidder:
                 subject.
         """
         logger.info('bidding on object')
-        return Offer(subject, 1, DateTimeRange.TEMPLATE,
+        return Offer(subject, 1, DateTimeRange.TYPE,
                      DateTimeRangeViewFactory())

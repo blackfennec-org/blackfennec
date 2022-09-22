@@ -21,7 +21,7 @@ class Specification:
         """Property to query if this specification requests a preview.
 
         Returns:
-            bool: true iff a preview has been ruested.
+            bool: true iff a preview has been requested.
         """
         return self._is_request_for_preview
 

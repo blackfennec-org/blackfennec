@@ -1,17 +1,16 @@
 from src.black_fennec.structure.map import Map
-from src.black_fennec.structure.template.boolean_template import BooleanTemplate as Template
-from src.black_fennec.structure.template.template_parser import TemplateParser
+from src.black_fennec.structure.type.boolean_type import BooleanType
+from src.black_fennec.structure.type.type_parser import TypeParser
 
 
-class BooleanTemplate(Template):
+class BooleanTemplate(BooleanType):
     """Template of boolean.
 
     Class creates Template structure for core type
         boolean."""
 
     def __init__(self):
-        visitor = TemplateParser()
-        Template.__init__(self, visitor, Map())
+        BooleanType.__init__(self, Map())
 
         self._name = "Boolean"
 

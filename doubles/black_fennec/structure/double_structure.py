@@ -46,7 +46,7 @@ class StructureInstanceMock(Structure, StructureMock):
         ...
 
 
-class StructureTemplateMock:
+class StructureTypeMock:
     def __init__(self, name, coverage=None):
         self._name = name
         self._coverage = coverage

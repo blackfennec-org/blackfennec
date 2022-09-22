@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import unittest
 
-from doubles.black_fennec.structure.double_structure import StructureMock, StructureTemplateMock
+from doubles.black_fennec.structure.double_structure import StructureMock, StructureTypeMock
 from doubles.double_dummy import Dummy
 from src.black_fennec.interpretation.auction.coverage import Coverage
 from src.black_fennec.interpretation.auction.offer import Offer
@@ -10,14 +10,14 @@ from src.black_fennec.interpretation.auction.offer import Offer
 class OfferTestSuite(unittest.TestCase):
 
     def tearDown(self) -> None:
-        self.template_factory = None
+        self.type_factory = None
 
     def test_can_create_offer(self):
         subject = StructureMock('Structure')
         specificity = 1
-        template = StructureTemplateMock('StructureTemplate')
+        type = StructureTypeMock('StructureType')
         view_factory = Dummy('ViewFactory')
-        offer = Offer(subject, specificity, template, view_factory)
+        offer = Offer(subject, specificity, type, view_factory)
         self.assertEqual(
             offer.subject,
             subject,
@@ -31,8 +31,8 @@ class OfferTestSuite(unittest.TestCase):
                 'specificity correctly'
         )
         self.assertEqual(
-            offer.template,
-            template,
+            offer.type,
+            type,
             msg='Offer has not initialized ' +
                 'coverage correctly'
         )
@@ -46,9 +46,9 @@ class OfferTestSuite(unittest.TestCase):
     def test_subject_getter(self):
         subject = StructureMock('Structure')
         specificity = 1
-        template = StructureTemplateMock('StructureTemplate')
+        type = StructureTypeMock('StructureType')
         view_factory = Dummy('ViewFactory')
-        offer = Offer(subject, specificity, template, view_factory)
+        offer = Offer(subject, specificity, type, view_factory)
         self.assertEqual(
             offer.subject,
             subject,
@@ -59,9 +59,9 @@ class OfferTestSuite(unittest.TestCase):
     def test_specificity_getter(self):
         subject = StructureMock('Structure')
         specificity = 1
-        template = StructureTemplateMock('StructureTemplate')
+        type = StructureTypeMock('StructureType')
         view_factory = Dummy('ViewFactory')
-        offer = Offer(subject, specificity, template, view_factory)
+        offer = Offer(subject, specificity, type, view_factory)
         self.assertEqual(
             offer.specificity,
             specificity,
@@ -69,25 +69,25 @@ class OfferTestSuite(unittest.TestCase):
                 'specificity correctly'
         )
 
-    def test_template_getter(self):
+    def test_type_getter(self):
         subject = StructureMock('Structure')
         specificity = 1
-        template = StructureTemplateMock('StructureTemplate')
+        type = StructureTypeMock('StructureType')
         view_factory = Dummy('ViewFactory')
-        offer = Offer(subject, specificity, template, view_factory)
+        offer = Offer(subject, specificity, type, view_factory)
         self.assertEqual(
-            offer.template,
-            template,
+            offer.type,
+            type,
             msg='Offer has not initialized ' +
-                'template correctly'
+                'type correctly'
         )
 
     def test_view_factory_getter(self):
         subject = StructureMock('Structure')
         specificity = 1
-        template = StructureTemplateMock('StructureTemplate')
+        type = StructureTypeMock('StructureType')
         view_factory = Dummy('ViewFactory')
-        offer = Offer(subject, specificity, template, view_factory)
+        offer = Offer(subject, specificity, type, view_factory)
         self.assertEqual(
             offer.view_factory,
             view_factory,
@@ -98,9 +98,9 @@ class OfferTestSuite(unittest.TestCase):
     def test_coverage_getter_simple(self):
         subject = StructureMock('Structure')
         specificity = 1
-        template = StructureTemplateMock('StructureTemplate', Coverage.COVERED)
+        type = StructureTypeMock('StructureType', Coverage.COVERED)
         view_factory = Dummy('ViewFactory')
-        offer = Offer(subject, specificity, template, view_factory)
+        offer = Offer(subject, specificity, type, view_factory)
         self.assertEqual(
             offer.coverage,
             Coverage.COVERED
@@ -108,17 +108,17 @@ class OfferTestSuite(unittest.TestCase):
 
     def test_equal_offers_equality(self):
         subject = StructureMock('Structure')
-        template = StructureTemplateMock('StructureTemplate', Coverage.COVERED)
+        type = StructureTypeMock('StructureType', Coverage.COVERED)
         offer = Offer(
             subject,
             specificity=1,
-            template=template,
+            type=type,
             type_view_factory=Dummy('StructureFactory')
         )
         other_offer = Offer(
             subject,
             specificity=1,
-            template=template,
+            type=type,
             type_view_factory=Dummy('StructureFactory')
         )
         self.assertTrue(
@@ -128,17 +128,17 @@ class OfferTestSuite(unittest.TestCase):
 
     def test_not_equal_offers_equality(self):
         subject = StructureMock('Structure')
-        template = StructureTemplateMock('StructureTemplate', Coverage.COVERED)
+        type = StructureTypeMock('StructureType', Coverage.COVERED)
         offer = Offer(
             subject,
             specificity=1,
-            template=template,
+            type=type,
             type_view_factory=Dummy('StructureFactory')
         )
         other_offer = Offer(
             subject,
             specificity=2,
-            template=template,
+            type=type,
             type_view_factory=Dummy('StructureFactory')
         )
         self.assertFalse(
@@ -148,17 +148,17 @@ class OfferTestSuite(unittest.TestCase):
 
     def test_lower_than_equal(self):
         subject = StructureMock('Structure')
-        template = StructureTemplateMock('StructureTemplate')
+        type = StructureTypeMock('StructureType')
         offer = Offer(
             subject,
             specificity=0,
-            template=template,
+            type=type,
             type_view_factory=Dummy('StructureFactory')
         )
         other_offer = Offer(
             subject,
             specificity=0,
-            template=template,
+            type=type,
             type_view_factory=Dummy('StructureFactory')
         )
         self.assertFalse(
@@ -172,17 +172,17 @@ class OfferTestSuite(unittest.TestCase):
 
     def test_lower_than_lower_and_greater(self):
         subject = StructureMock('Structure')
-        template = StructureTemplateMock('StructureTemplate')
+        type = StructureTypeMock('StructureType')
         greater_offer = Offer(
             subject,
             specificity=0,
-            template=template,
+            type=type,
             type_view_factory=Dummy('StructureFactory')
         )
         lower_offer = Offer(
             subject,
             specificity=1,
-            template=template,
+            type=type,
             type_view_factory=Dummy('StructureFactory')
         )
         self.assertFalse(
@@ -196,18 +196,18 @@ class OfferTestSuite(unittest.TestCase):
 
     def test_lower_than_with_different_subject(self):
         subject = StructureMock('Structure')
-        template = StructureTemplateMock('StructureTemplate')
+        type = StructureTypeMock('StructureType')
         other_subject = StructureMock('Structure2')
         offer = Offer(
             subject,
             specificity=1,
-            template=template,
+            type=type,
             type_view_factory=Dummy('StructureFactory')
         )
         other_offer = Offer(
             other_subject,
             specificity=1,
-            template=template,
+            type=type,
             type_view_factory=Dummy('StructureFactory')
         )
         with self.assertRaises(
@@ -220,11 +220,11 @@ class OfferTestSuite(unittest.TestCase):
     def test_representation(self):
         factory = Dummy('StructureFactory')
         subject = StructureMock('Structure')
-        template = StructureTemplateMock('StructureTemplate')
+        type = StructureTypeMock('StructureType')
         offer = Offer(
             subject,
             specificity=1,
-            template=template,
+            type=type,
             type_view_factory=factory)
         representation = repr(offer)
         factory_representation = repr(factory)

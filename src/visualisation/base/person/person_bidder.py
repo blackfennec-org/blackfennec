@@ -25,4 +25,4 @@ class PersonBidder:
                 the received subject.
         """
         logger.info('bidding on object')
-        return Offer(subject, 1, Person.TEMPLATE, PersonViewFactory())
+        return Offer(subject, 1, Person.TYPE, PersonViewFactory())

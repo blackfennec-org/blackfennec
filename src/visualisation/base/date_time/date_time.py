@@ -4,25 +4,25 @@ from datetime import datetime
 
 from src.black_fennec.structure.map import Map
 from src.black_fennec.structure.string import String
-from src.black_fennec.structure.template.template_factory import TemplateFactory
+from src.black_fennec.structure.type.type_factory import TypeFactory
 
 logger = logging.getLogger(__name__)
 
 
-def create_date_time_template():
-    """DateTime Template
+def create_date_time_type():
+    """DateTime Type
     Defines the format of the date time
     """
-    tf = TemplateFactory()
+    tf = TypeFactory()
     iso_regex = r'^(-?(?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-' \
                 r'(3[01]|0[1-9]|[12][0-9])T(2[0-3]|[01][0-9]):([0-5][0-9]):' \
                 r'([0-5][0-9])(\.[0-9]+)?(Z|[+-](?:2[0-3]|[01][0-9]):' \
                 r'[0-5][0-9])?$'
-    template = tf.create_map(properties={
+    type = tf.create_map(properties={
         DateTime.DATE_TIME_KEY: tf.create_string(pattern=iso_regex)
     })
 
-    return template
+    return type
 
 
 class DateTime:
@@ -33,7 +33,7 @@ class DateTime:
     Can be used by other classes as a helper to be able to
     include date times in a overlaying datatype.
     """
-    TEMPLATE = None
+    TYPE = None
     DATE_TIME_KEY = 'date_time'
     ACCURACY_KEY = 'accuracy'
 
@@ -93,4 +93,4 @@ class DateTime:
     """
 
 
-DateTime.TEMPLATE = create_date_time_template()
+DateTime.TYPE = create_date_time_type()

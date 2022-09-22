@@ -1,6 +1,6 @@
 import logging
 
-from src.black_fennec.structure.template.template import Template
+from src.black_fennec.structure.type.type import Type
 
 logger = logging.getLogger(__name__)
 
@@ -30,7 +30,7 @@ class TemplateRegistry:
         """
         return set(self._templates)
 
-    def register_template(self, template: Template):
+    def register_template(self, template: Type):
         """Function to register a new template
 
         Args:

@@ -1,7 +1,7 @@
 import unittest
 from datetime import datetime
 
-from doubles.black_fennec.type_system.double_template_registry import TemplateRegistryMock
+from doubles.black_fennec.type_system.double_type_registry import TypeRegistryMock
 from doubles.black_fennec.structure.double_map import MapMock
 from doubles.double_dummy import Dummy
 from doubles.black_fennec.interpretation.double_interpretation_service import InterpretationServiceMock
@@ -20,14 +20,14 @@ class DateTimeRangeBidderTestSuite(unittest.TestCase):
     def test_offer_equal_map_offer(self):
         bidder = DateTimeRangeBidder()
         subject = MapMock({})
-        expected_offer = Offer(subject, 1, DateTimeRange.TEMPLATE, Dummy())
+        expected_offer = Offer(subject, 1, DateTimeRange.TYPE, Dummy())
         offer = bidder.bid(subject)
         self.assertEqual(offer, expected_offer)
 
     def test_offer_date_time_range_like_structure(self):
         map_bidder = MapBidder(
             InterpretationServiceMock([]),
-            TemplateRegistryMock())
+            TypeRegistryMock())
         date_time_range_bidder = DateTimeRangeBidder()
         subject = Map({
             DateTimeRange.START_KEY: String(datetime.now().isoformat()),
@@ -40,7 +40,7 @@ class DateTimeRangeBidderTestSuite(unittest.TestCase):
     def test_invalid_date_time_range_structure(self):
         map_bidder = MapBidder(
             InterpretationServiceMock([]),
-            TemplateRegistryMock())
+            TypeRegistryMock())
         date_time_range_bidder = DateTimeRangeBidder()
         subject = Map({
             DateTimeRange.START_KEY: String('9999-12-31T23:59:5'),

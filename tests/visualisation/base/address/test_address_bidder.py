@@ -1,6 +1,6 @@
 import unittest
 
-from doubles.black_fennec.type_system.double_template_registry import TemplateRegistryMock
+from doubles.black_fennec.type_system.double_type_registry import TypeRegistryMock
 from doubles.black_fennec.structure.double_map import MapMock
 from doubles.double_dummy import Dummy
 from doubles.black_fennec.interpretation.double_interpretation_service import InterpretationServiceMock
@@ -19,14 +19,14 @@ class AddressBidderTestSuite(unittest.TestCase):
     def test_offer_equal_address_offer(self):
         bidder = AddressBidder()
         subject = MapMock({})
-        expected_offer = Offer(subject, 1, Address.TEMPLATE, Dummy())
+        expected_offer = Offer(subject, 1, Address.TYPE, Dummy())
         offer = bidder.bid(subject)
         self.assertEqual(offer, expected_offer)
 
     def test_offer_address_like_structure(self):
         map_bidder = MapBidder(
             InterpretationServiceMock([]),
-            TemplateRegistryMock())
+            TypeRegistryMock())
         address_bidder = AddressBidder()
         subject = Map({
             Address.FIRST_NAME_KEY: String(Address.FIRST_NAME_KEY),

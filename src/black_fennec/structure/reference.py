@@ -13,7 +13,7 @@ TVisitor = TypeVar('TVisitor')
 
 class Reference(Structure[str]):
     """Core Type Reference, represents references in the domain model."""
-    TEMPLATE = None
+    TYPE = None
 
     def __init__(
             self,
@@ -51,4 +51,4 @@ class Reference(Structure[str]):
         return f'Reference({self.value})'
 
 
-Reference.TEMPLATE = Reference(Dummy('ReferenceResolvingService'))
+Reference.TYPE = Reference(Dummy('ReferenceResolvingService'))

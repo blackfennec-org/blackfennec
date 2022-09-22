@@ -25,4 +25,4 @@ class AddressBidder:
                 the received subject.
         """
         logger.info('bidding on object')
-        return Offer(subject, 1, Address.TEMPLATE, AddressViewFactory())
+        return Offer(subject, 1, Address.TYPE, AddressViewFactory())

@@ -1,18 +1,17 @@
 from src.black_fennec.structure.map import Map
 from src.black_fennec.structure.string import String
-from src.black_fennec.structure.template.string_template import StringTemplate as Template
-from src.black_fennec.structure.template.template_parser import TemplateParser
+from src.black_fennec.structure.type.string_type import StringType
+from src.black_fennec.structure.type.type_parser import TypeParser
 
 
-class StringTemplate(Template):
+class StringTemplate(StringType):
     """Template of string.
 
     Class creates Template structure for core type
         string."""
 
     def __init__(self):
-        visitor = TemplateParser()
-        Template.__init__(self, visitor, Map())
+        StringType.__init__(self)
         self._name = 'String'
 
     @property

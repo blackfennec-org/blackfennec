@@ -27,8 +27,8 @@ class MapFilterTestSuite(unittest.TestCase):
     def test_set_item_already_encapsulated(self):
         key = 'test'
         value = StringMock('test_value')
-        template_class = _create_generic_class(FilterBase)
-        encapsulated = template_class(self.visitor, value)
+        type_class = _create_generic_class(FilterBase)
+        encapsulated = type_class(self.visitor, value)
         self.map_filter.add_item(key, encapsulated)
         self.assertEqual(value, self.map_filter.value[key].subject)
 

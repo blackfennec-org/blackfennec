@@ -2,13 +2,13 @@ from doubles.double_dummy import Dummy
 from doubles.black_fennec.structure.double_map import MapMock
 from doubles.black_fennec.structure.double_string import StringMock
 
-from src.black_fennec.structure.template.template import Template
+from src.black_fennec.structure.type.type import Type
 
 
-class TemplateMock(Template):
+class TypeMock(Type):
     def __init__(self, type):
         super().__init__(
-            Dummy("Visitor"), MapMock({"type": StringMock("String")})
+            MapMock({"type": StringMock("String")})
         )
         self.type = type
 
@@ -17,4 +17,4 @@ class TemplateMock(Template):
         return StringMock("Default")
 
     def __repr__(self):
-        return f"TemplateMock({self.type})"
+        return f"TypeMock({self.type})"

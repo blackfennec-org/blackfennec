@@ -4,44 +4,44 @@ import logging
 from src.black_fennec.structure.map import Map
 from src.black_fennec.structure.string import String
 # from src.base.types.date import Date
-from src.black_fennec.structure.template.template_factory import TemplateFactory
-from src.visualisation.base.address.address import Address, create_address_template
-from src.visualisation.base.image.image import Image, create_image_template
+from src.black_fennec.structure.type.type_factory import TypeFactory
+from src.visualisation.base.address.address import Address, create_address_type
+from src.visualisation.base.image.image import Image, create_image_type
 
 logger = logging.getLogger(__name__)
 
 
-def create_person_template():
-    """Person Template
+def create_person_type():
+    """Person Type
     Defines the format of the person
     """
-    tf = TemplateFactory()
-    template = tf.create_map()
+    tf = TypeFactory()
+    type = tf.create_map()
 
-    template.add_property(
+    type.add_property(
         Person.COURTESY_TITLE_KEY, tf.create_string(), is_required=False)
-    template.add_property(
+    type.add_property(
         Person.FIRST_NAME_KEY, tf.create_string())
-    template.add_property(
+    type.add_property(
         Person.MIDDLE_NAME_KEY, tf.create_string(), is_required=False)
-    template.add_property(
+    type.add_property(
         Person.LAST_NAME_KEY, tf.create_string())
-    template.add_property(
-        Person.PERSONAL_PHOTO_KEY, create_image_template(), is_required=False)
-    template.add_property(
-        Person.HOME_ADDRESS_KEY, create_address_template(), is_required=False)
-    template.add_property(
+    type.add_property(
+        Person.PERSONAL_PHOTO_KEY, create_image_type(), is_required=False)
+    type.add_property(
+        Person.HOME_ADDRESS_KEY, create_address_type(), is_required=False)
+    type.add_property(
         Person.SUFFIX_KEY, tf.create_string(), is_required=False)
-    template.add_property(
+    type.add_property(
         Person.GENDER_KEY, tf.create_string(), is_required=False)
-    template.add_property(
+    type.add_property(
         Person.SEX_KEY, tf.create_string(), is_required=False)
-    template.add_property(
+    type.add_property(
         Person.MARITAL_STATUS_KEY, tf.create_string(), is_required=False)
-    template.add_property(
+    type.add_property(
         Person.NATIONALITY_KEY, tf.create_string(), is_required=False)
 
-    return template
+    return type
 
 
 class Person:
@@ -52,7 +52,7 @@ class Person:
     Can be used by other classes as a helper to be able to
     include persons in a overlaying datatype.
     """
-    TEMPLATE = None
+    TYPE = None
     COURTESY_TITLE_KEY = 'courtesy_title'
     FIRST_NAME_KEY = 'first_name'
     MIDDLE_NAME_KEY = 'middle_name'
@@ -94,7 +94,7 @@ class Person:
 
     def _set_value(self, key, value):
         if key not in self.subject.value:
-            instance = self.TEMPLATE.properties[key].create_instance()
+            instance = self.TYPE.properties[key].create_instance()
             self.subject.add_item(key, instance)
         self.subject.value[key].value = value
 
@@ -290,4 +290,4 @@ class Person:
         )
 
 
-Person.TEMPLATE = create_person_template()
+Person.TYPE = create_person_type()

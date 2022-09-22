@@ -6,54 +6,53 @@ from doubles.black_fennec.structure.encapsulation_base.double_factory_base_visit
 from src.black_fennec.interpretation.auction.coverage import Coverage
 from src.black_fennec.structure.string import String
 from src.black_fennec.structure.map import Map
-from src.black_fennec.structure.template.string_template import StringTemplate
-from src.black_fennec.structure.template.template import Template
+from src.black_fennec.structure.type.string_type import StringType
+from src.black_fennec.structure.type.type import Type
 
 
-class StringTemplateTestSuite(unittest.TestCase):
+class StringTypeTestSuite(unittest.TestCase):
     def setUp(self):
-        self.visitor = FactoryBaseVisitorMock()
         self.subject = String()
-        self.string_template = StringTemplate(self.visitor, self.subject)
+        self.string_type = StringType(self.subject)
 
     def test_can_construct(self):
         pass
 
     def test_can_calculate_coverage(self):
-        coverage = self.string_template.calculate_coverage(self.subject)
+        coverage = self.string_type.calculate_coverage(self.subject)
         self.assertEqual(coverage, Coverage.COVERED)
 
     def test_can_calculate_coverage_pattern_match(self):
-        template = Map({"pattern": String("[a-z]")})
-        string_template = StringTemplate(self.visitor, template)
+        type = Map({"pattern": String("[a-z]")})
+        string_type = StringType(type)
         subject = String("a")
-        coverage = string_template.calculate_coverage(subject)
+        coverage = string_type.calculate_coverage(subject)
         self.assertEqual(coverage, Coverage.COVERED)
 
     def test_can_calculate_coverage_normal_string(self):
-        template = Map({"pattern": String("Test")})
-        string_template = StringTemplate(self.visitor, template)
+        type = Map({"pattern": String("Test")})
+        string_type = StringType(type)
         subject = String("Test123")
-        coverage = string_template.calculate_coverage(subject)
+        coverage = string_type.calculate_coverage(subject)
         self.assertEqual(coverage, Coverage.COVERED)
 
     def test_can_calculate_coverage_pattern_mismatch(self):
-        template = Map({"pattern": String("[a-z]")})
-        string_template = StringTemplate(self.visitor, template)
+        type = Map({"pattern": String("[a-z]")})
+        string_type = StringType(type)
         subject = String("A")
-        coverage = string_template.calculate_coverage(subject)
+        coverage = string_type.calculate_coverage(subject)
         self.assertEqual(coverage, Coverage.NOT_COVERED)
 
     def test_calculate_coverage_wrong_type(self):
         subject = NumberMock()
 
-        coverage = self.string_template.calculate_coverage(subject)
+        coverage = self.string_type.calculate_coverage(subject)
         self.assertEqual(coverage, Coverage.NOT_COVERED)
 
     def test_can_create_instance(self):
-        string_structure = self.string_template.create_instance()
+        string_structure = self.string_type.create_instance()
         self.assertIsInstance(string_structure, String)
 
     def test_can_get_repr(self):
-        representation: str = self.string_template.__repr__()
-        self.assertTrue(representation.startswith("StringTemplate("))
+        representation: str = self.string_type.__repr__()
+        self.assertTrue(representation.startswith("StringType("))

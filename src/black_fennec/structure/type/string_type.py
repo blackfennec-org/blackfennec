@@ -7,17 +7,22 @@ from src.black_fennec.interpretation.auction.coverage import Coverage
 from src.black_fennec.structure.string import String
 from src.black_fennec.structure.map import Map
 
-from .template import Template
-from .template_coverage_mixin import TemplateCoverageMixin
+from .type import Type
+from .type_coverage_mixin import TypeCoverageMixin
 
 logger = logging.getLogger(__name__)
 
 
-class StringTemplate(Template[String]):
-    """Base Class for Template of a String."""
+class StringType(Type[String]):
+    """Base Class for Type of a String."""
 
-    def __init__(self, visitor: "TemplateParser", subject: Map):
-        Template.__init__(self, visitor, subject)
+    def __init__(self, subject: Map = None):
+        subject = subject or self._type_structure()
+        Type.__init__(self, subject)
+
+    @staticmethod
+    def _type_structure():
+        return Map({"type": String("String")})
 
     @property
     def pattern(self) -> re.Pattern:
@@ -37,25 +42,25 @@ class StringTemplate(Template[String]):
     def visit_string(self, subject: String) -> Coverage:
         """Check value of String for regexp
 
-        Checks whether the value contained in the template
+        Checks whether the value contained in the type
             if any can be matched with the strings value.
 
         Args:
-            subject (List): String whose value has to match template
+            subject (List): String whose value has to match type
         Returns:
             Coverage: Coverage.COVERED if the match was successful
-                or no regex was contained in the template value;
+                or no regex was contained in the type value;
                 Coverage.NOT_COVERED if the match failed.
         """
         coverage = Coverage.COVERED
         if not self.validate(subject):
             message = (
                 f"Pattern mismatch of subject({subject}) "
-                + f"and pattern({self.value})"
+                + f"and pattern({self.pattern})"
             )
             logger.info(message)
             return Coverage.NOT_COVERED
         return coverage
 
     def __repr__(self):
-        return f"StringTemplate({self.subject.__repr__()})"
+        return f"StringType({self.subject.__repr__()})"

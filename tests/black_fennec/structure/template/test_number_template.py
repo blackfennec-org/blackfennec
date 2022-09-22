@@ -2,81 +2,81 @@ import pytest
 
 from src.black_fennec.structure.number import Number
 from src.black_fennec.structure.map import Map
-from src.black_fennec.structure.template.number_template import NumberTemplate
-from src.black_fennec.structure.template.template_factory import TemplateFactory
+from src.black_fennec.structure.type.number_type import NumberType
+from src.black_fennec.structure.type.type_factory import TypeFactory
 from src.black_fennec.interpretation.auction.coverage import Coverage
 
 
-class TestNumberTemplate:
+class TestNumberType:
     @pytest.fixture
-    def template(self) -> NumberTemplate:
-        return TemplateFactory().create_number()
+    def type(self) -> NumberType:
+        return TypeFactory().create_number()
 
-    def test_can_be_created(self, template):
+    def test_can_be_created(self, type):
         ...
 
     def test_omitted_default(self):
-        template = NumberTemplate(None, Map())
-        assert template.default.value == Number().value
+        type = NumberType(Map())
+        assert type.default.value == Number().value
     
     def test_omitted_maximum(self):
-        template = NumberTemplate(None, Map())
-        assert template.maximum == None
+        type = NumberType(Map())
+        assert type.maximum == None
 
     def test_omitted_minimum(self):
-        template = NumberTemplate(None, Map())
-        assert template.minimum == None
+        type = NumberType(Map())
+        assert type.minimum == None
 
-    def test_default(self, template: NumberTemplate):
-        assert template.default.value == Number().value
+    def test_default(self, type: NumberType):
+        assert type.default.value == Number().value
 
-    def test_minimum_default(self, template: NumberTemplate):
-        assert template.minimum == None
+    def test_minimum_default(self, type: NumberType):
+        assert type.minimum == None
 
-    def test_set_minimum(self, template: NumberTemplate):
-        template.minimum = -1337
-        assert template.minimum == -1337
+    def test_set_minimum(self, type: NumberType):
+        type.minimum = -1337
+        assert type.minimum == -1337
     
-    def test_maximum_default(self, template: NumberTemplate):
-        assert template.maximum == None
+    def test_maximum_default(self, type: NumberType):
+        assert type.maximum == None
 
-    def test_set_maximum(self, template: NumberTemplate):
-        template.maximum = 1337
-        assert template.maximum == 1337
+    def test_set_maximum(self, type: NumberType):
+        type.maximum = 1337
+        assert type.maximum == 1337
 
-    def test_visitor(self, template: NumberTemplate):
+    def test_visitor(self, type: NumberType):
         structure = Number()
-        coverage = template.visit_number(structure)
+        coverage = type.visit_number(structure)
         assert coverage == Coverage.COVERED
 
-    def test_visitor_checks_minimum(self, template: NumberTemplate):
+    def test_visitor_checks_minimum(self, type: NumberType):
         structure = Number(10)
-        template.minimum = 15
-        coverage = template.visit_number(structure)
+        type.minimum = 15
+        coverage = type.visit_number(structure)
         assert coverage == Coverage.NOT_COVERED
 
-    def test_visitor_checks_maximum(self, template: NumberTemplate):
+    def test_visitor_checks_maximum(self, type: NumberType):
         structure = Number(20)
-        template.maximum = 15
-        coverage = template.visit_number(structure)
+        type.maximum = 15
+        coverage = type.visit_number(structure)
         assert coverage == Coverage.NOT_COVERED
 
-    def test_visitor_allows_exactly(self, template: NumberTemplate):
+    def test_visitor_allows_exactly(self, type: NumberType):
         structure = Number(15)
-        template.minimum = 15
-        template.maximum = 15
-        coverage = template.visit_number(structure)
+        type.minimum = 15
+        type.maximum = 15
+        coverage = type.visit_number(structure)
         assert coverage == Coverage.COVERED
 
-    def test_can_reset_limits(self, template: NumberTemplate):
+    def test_can_reset_limits(self, type: NumberType):
         structure = Number(15)
-        template.minimum = 0
-        template.maximum = 0
-        template.minimum = 15
-        template.maximum = 15
-        coverage = template.visit_number(structure)
+        type.minimum = 0
+        type.maximum = 0
+        type.minimum = 15
+        type.maximum = 15
+        coverage = type.visit_number(structure)
         assert coverage == Coverage.COVERED
 
-    def test_can_get_repr(self, template):
-        representation: str = str(template)
-        assert representation.startswith("NumberTemplate(")
+    def test_can_get_repr(self, type):
+        representation: str = str(type)
+        assert representation.startswith("NumberType(")

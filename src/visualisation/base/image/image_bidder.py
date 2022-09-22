@@ -25,4 +25,4 @@ class ImageBidder:
                 the received subject.
         """
         logger.info('bidding on object')
-        return Offer(subject, 2, Image.TEMPLATE, ImageViewFactory())
+        return Offer(subject, 2, Image.TYPE, ImageViewFactory())

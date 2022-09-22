@@ -1,20 +1,18 @@
 # -*- coding: utf-8 -*-
 from src.black_fennec.structure.map import Map
 from src.black_fennec.structure.list import List
-from src.black_fennec.structure.template.map_template import MapTemplate as Template
-from src.black_fennec.structure.template.template_parser import TemplateParser
+from src.black_fennec.structure.type.map_type import MapType
+from src.black_fennec.structure.type.type_parser import TypeParser
 
 
-class MapTemplate(Template):
+class MapTemplate(MapType):
     """Template of map.
 
     Class creates Template structure for core type
         map."""
 
     def __init__(self):
-        visitor = TemplateParser()
-        Template.__init__(self, visitor, Map(
-            {'required': List(), 'properties': Map()}))
+        MapType.__init__(self, None)
 
         self._name = 'Map'
 

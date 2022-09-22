@@ -43,7 +43,7 @@ class ListEncapsulationBase(EncapsulationBase, List):
         ]
 
     def add_item(self, item: Structure):
-        """Append item to list template.
+        """Append item to list type.
 
         Args:
             item (Structure): Item to append.

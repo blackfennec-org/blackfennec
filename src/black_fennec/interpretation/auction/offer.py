@@ -5,7 +5,7 @@ from functools import cached_property
 from src.black_fennec.interpretation.auction.coverage import Coverage
 from src.black_fennec.interpretation.specification import Specification
 from src.black_fennec.structure.structure import Structure
-from src.black_fennec.structure.template.template import Template
+from src.black_fennec.structure.type.type import Type
 from src.black_fennec.util.comparable import Comparable
 
 logger = logging.getLogger(__name__)
@@ -21,7 +21,7 @@ class Offer(Comparable):
         _subject (Structure): Structure that is auctioned
         _specificity (Int): Describes inheritance hierarchy level
         _view_factory: View Factory for corresponding type
-        _template: structure that type can handle
+        _type: structure that type can handle
         _coverage (Coverage): Describes coverage of nodes of subject
     """
 
@@ -29,7 +29,7 @@ class Offer(Comparable):
             self,
             subject: Structure,
             specificity: int,
-            template: Template,
+            type: Type,
             type_view_factory
     ):
         """Offer constructor.
@@ -37,14 +37,14 @@ class Offer(Comparable):
         Args:
             subject (Structure):
             specificity (int):
-            template (Template): Template that describes type
+            type (Type): Type that describes type
             type_view_factory (StructureViewFactory): factory used
                 to create interpretation_service
         """
         self._subject = subject
         self._specificity = specificity
         self._view_factory = type_view_factory
-        self._template = template
+        self._type = type
 
     def satisfies(self, specification: Specification):
         """Evaluates this offers capability to satisfy a given specification.
@@ -77,13 +77,13 @@ class Offer(Comparable):
         return self._specificity
 
     @property
-    def template(self) -> Template:
-        """template getter
+    def type(self) -> Type:
+        """type getter
 
         Returns:
-            Structure: Template property set by constructor
+            Structure: Type property set by constructor
         """
-        return self._template
+        return self._type
 
     @cached_property
     def coverage(self) -> Coverage:
@@ -92,7 +92,7 @@ class Offer(Comparable):
         Returns:
             float: coverage property set by constructor
         """
-        return self.template.calculate_coverage(self.subject)
+        return self.type.calculate_coverage(self.subject)
 
     @property
     def view_factory(self):

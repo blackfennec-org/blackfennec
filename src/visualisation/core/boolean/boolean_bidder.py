@@ -1,5 +1,5 @@
 from src.black_fennec.structure.structure import Structure
-from src.visualisation.core.boolean.boolean_template import BooleanTemplate
+from src.black_fennec.structure.type.boolean_type import BooleanType
 from src.visualisation.core.boolean.boolean_view_factory import BooleanViewFactory
 from src.black_fennec.interpretation.auction.offer import Offer
 
@@ -27,6 +27,6 @@ class BooleanBidder:
         return Offer(
             subject,
             0,
-            BooleanTemplate(),
+            BooleanType(),
             BooleanViewFactory()
         )
