@@ -1,4 +1,5 @@
 from src.black_fennec.structure.boolean import Boolean
+from src.black_fennec.structure.null import Null
 from src.black_fennec.structure.structure import Structure
 from src.black_fennec.structure.list import List
 from src.black_fennec.structure.map import Map
@@ -39,6 +40,9 @@ class ComparatorFactory:
     def visit_map(self, subject: Map):
         return MapComparator(subject)
 
+    def visit_null(self, unused_subject: Null):
+        return NullComparator()
+
 
 class ComparatorTemplate:
     """Base Comparator is a Template Pattern and always returns False.
@@ -63,6 +67,9 @@ class ComparatorTemplate:
         return False
 
     def visit_map(self, unused_other: Map):
+        return False
+
+    def visit_null(self, unused_other: Null):
         return False
 
 
@@ -157,3 +164,11 @@ class MapComparator(ComparatorTemplate):
                 if not DeepCompare.compare(value, other_value):
                     return False
         return True
+
+
+class NullComparator(ComparatorTemplate):
+    def __init__(self):
+        ComparatorTemplate.__init__(self)
+
+    def visit_null(self, other):
+        return isinstance(other, Null)

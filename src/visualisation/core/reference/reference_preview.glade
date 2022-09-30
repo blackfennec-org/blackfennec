@@ -14,7 +14,6 @@
           <object class="GtkEntry" id="_reference_value">
             <property name="visible">True</property>
             <property name="can-focus">True</property>
-            <signal name="changed" handler="_on_text_changed" swapped="no"/>
           </object>
           <packing>
             <property name="expand">False</property>

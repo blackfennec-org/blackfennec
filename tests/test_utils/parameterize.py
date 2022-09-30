@@ -1,3 +1,8 @@
+import contextlib
+from typing import Callable
+
+import pytest
+
 from src.black_fennec.structure.string import String
 from src.black_fennec.structure.reference import Reference
 from src.black_fennec.structure.number import Number
@@ -13,7 +18,6 @@ from doubles.black_fennec.structure.double_string import StringMock
 from doubles.black_fennec.structure.double_boolean import BooleanMock
 from doubles.double_dummy import Dummy
 
-
 MOCK_CORE_TYPES = [
     MapMock(), ListMock(),
     StringMock(), NumberMock(), BooleanMock(),
@@ -22,6 +26,6 @@ MOCK_CORE_TYPES = [
 
 CORE_TYPES = [
     Map(), List(),
-    Reference(Dummy()),
+    Reference([]),
     String(), Number(), Boolean()
 ]

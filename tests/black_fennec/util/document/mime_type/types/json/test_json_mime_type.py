@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
-import unittest
 from io import StringIO
+
+import pytest
 
 from doubles.black_fennec.util.document.mime_type.types.double_structure_encoding_service import \
     StructureEncodingServiceMock
@@ -10,38 +11,51 @@ from doubles.double_dummy import Dummy
 from src.black_fennec.util.document.mime_type.types.json.json_mime_type import JsonMimeType
 
 
-class JsonMimeTypeTestSuite(unittest.TestCase):
+@pytest.fixture()
+def json_string():
+    return '{"test": "test"}'
 
-    def setUp(self) -> None:
-        self.test_json_string = '{"test": "test"}'
-        self.test_json = {'test': 'test'}
-        self.test_json_file = StringIO(self.test_json_string)
 
-    def tearDown(self) -> None:
-        self.test_json_string = None
-        self.test_json = None
-        self.test_json_file = None
+@pytest.fixture()
+def raw_json():
+    return {'test': 'test'}
 
-    def test_can_construct(self):
-        JsonMimeType()
 
-    def test_import_structure(self):
-        structure_parsing_service = StructureParsingServiceMock()
+@pytest.fixture()
+def json_file(json_string):
+    return StringIO(json_string)
 
-        json_mime_type = JsonMimeType(
-            structure_parsing_service=structure_parsing_service
-        )
-        json_mime_type.import_structure(self.test_json_file)
 
-        self.assertEqual(structure_parsing_service.from_json_count, 1)
+@pytest.fixture()
+def structure_encoder(json_string):
+    return StructureEncodingServiceMock(encode_result=json_string)
 
-    def test_export_structure(self):
-        structure_encoding_service = StructureEncodingServiceMock()
 
-        json_mime_type = JsonMimeType(
-            structure_encoding_service
-        )
-        structure_dummy = Dummy()
-        json_mime_type.export_structure(structure_dummy)
+@pytest.fixture()
+def structure_decoder():
+    return StructureParsingServiceMock()
 
-        self.assertEqual(structure_encoding_service.encode_count, 1)
+
+@pytest.fixture()
+def json_mime_type(structure_encoder, structure_decoder):
+    return JsonMimeType(structure_encoder, structure_decoder)
+
+
+def test_can_construct(json_mime_type):
+    pass
+
+
+def test_import_structure(json_mime_type, structure_decoder, json_file):
+    json_mime_type.import_structure(json_file)
+
+    assert structure_decoder.from_json_count == 1
+
+
+def test_export_structure(json_mime_type, structure_encoder, json_string):
+    structure_dummy = Dummy()
+    tmp_json_file = StringIO()
+    json_mime_type.export_structure(tmp_json_file, structure_dummy)
+    assert structure_encoder.encode_count == 1
+
+    tmp_json_file.seek(0)
+    assert tmp_json_file.read() == json_string

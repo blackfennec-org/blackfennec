@@ -1,5 +1,7 @@
 import gi
 
+from src.black_fennec.util.document.mime_type.types.json.json_reference_parser import JsonReferenceParser
+
 gi.require_version('Gtk', '3.0')
 
 # pylint: disable=wrong-import-position,ungrouped-imports
@@ -10,7 +12,6 @@ from src.black_fennec.interpretation.auction.auctioneer import Auctioneer
 from src.black_fennec.interpretation.interpretation_service import InterpretationService
 from src.black_fennec.type_system.presenter_registry import PresenterRegistry
 from src.black_fennec.type_system.type_registry import TypeRegistry
-from src.black_fennec.util.json.json_reference_resolving_service import JsonReferenceResolvingService
 from src.black_fennec.facade.main_window.black_fennec_view_model import BlackFennecViewModel
 from src.black_fennec.facade.main_window.black_fennec_view import BlackFennecView
 from src.black_fennec.facade.splash_screen.splash_screen_view import SplashScreenView
@@ -20,8 +21,8 @@ from src.extension.extension_api import ExtensionApi
 from src.extension.extension_initialisation_service import ExtensionInitialisationService
 from src.extension.extension_source_registry import ExtensionSourceRegistry
 
-from src.black_fennec.util.document.mime_type.types.structure_parsing_service import StructureParsingService
-from src.black_fennec.util.document.mime_type.types.structure_encoding_service import StructureEncodingService
+from src.black_fennec.util.document.mime_type.types.json.structure_parsing_service import StructureParsingService
+from src.black_fennec.util.document.mime_type.types.json.structure_encoding_service import StructureEncodingService
 from src.black_fennec.util.document.mime_type.mime_type_registry import MimeTypeRegistry
 from src.black_fennec.util.document.mime_type.types.json.json_mime_type import JsonMimeType
 from src.black_fennec.util.document.resource_type.protocols.file_resource_type import FileResourceType
@@ -66,9 +67,6 @@ class BlackFennec(Gtk.Application):
         auctioneer = Auctioneer(type_registry)
         interpretation_service = InterpretationService(auctioneer)
 
-        structure_parsing_service = StructureParsingService()
-        structure_encoding_service = StructureEncodingService(indent=2)
-
         resource_type_registry = ResourceTypeRegistry()
 
         resource_types = [
@@ -80,6 +78,13 @@ class BlackFennec(Gtk.Application):
                 resource_type_registry.register_resource_type(protocol, resource_type)
 
         mime_type_registry = MimeTypeRegistry()
+        document_factory = DocumentFactory(resource_type_registry, mime_type_registry)
+
+        reference_parser = JsonReferenceParser(document_factory)
+
+        structure_parsing_service = StructureParsingService(reference_parser)
+        structure_encoding_service = StructureEncodingService(indent=2)
+
         mime_types = [
             JsonMimeType(
                 structure_encoding_service,
@@ -91,15 +96,6 @@ class BlackFennec(Gtk.Application):
                 mime_type.mime_type_id,
                 mime_type
             )
-
-        document_factory = DocumentFactory(resource_type_registry, mime_type_registry)
-
-        reference_resolving_service = \
-            JsonReferenceResolvingService(document_factory)
-
-        structure_parsing_service.set_reference_resolving_service(
-            reference_resolving_service
-        )
 
         presenter_registry = PresenterRegistry()
         template_registry = TemplateRegistry()

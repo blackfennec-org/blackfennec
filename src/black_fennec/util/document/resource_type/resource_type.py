@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 import abc
 import contextlib
-import logging
 from typing import IO, List
+from urllib.parse import urlparse
+
 from uri import URI
 
 
@@ -25,9 +26,10 @@ class ResourceType(metaclass=abc.ABCMeta):
     def load_resource(self, document: 'Document') -> IO:
         """Load the resource
 
+        Arguments:
+            document (Document): document to load
         Returns:
-            object: Raw data contained in the resource
-
+            IO: loaded resource
         Raises:
             NotImplementedError: if subclass did not implement this method
         """
@@ -35,5 +37,5 @@ class ResourceType(metaclass=abc.ABCMeta):
 
     @staticmethod
     def try_determine_resource_type(resource_uri: str) -> str:
-        uri: URI = URI(resource_uri)
-        return str(uri.scheme) if uri.scheme else 'file'
+        parsed_uri = urlparse(resource_uri)
+        return str(parsed_uri.scheme) if parsed_uri.scheme else 'file'

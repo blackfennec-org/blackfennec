@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
 import os
 from enum import Enum
-
-from uri import URI
+from urllib.parse import urlparse
 
 
 class UriType(Enum):
@@ -17,17 +16,18 @@ class UriType(Enum):
     UNKNOWN = 10
 
     @classmethod
-    def from_uri(cls, uri: URI):
+    def from_uri(cls, uri: str):
         """Defines Type of passed uri."""
-        if uri.host:
+        parsed_uri = urlparse(uri)
+        if parsed_uri.netloc:
             return cls.HOST_URI
-        elif uri.path and str(uri.path) != '.':
-            if os.path.isabs(uri.path):
+        elif parsed_uri.path and str(parsed_uri.path) != '.':
+            if os.path.isabs(parsed_uri.path):
                 return cls.ABSOLUTE_PATH
             else:
                 return cls.RELATIVE_PATH
-        elif str(uri.path) == '.':
+        elif str(parsed_uri.path) == '.':
             return cls.CURRENT_LOCATION
-        elif uri.fragment:
+        elif parsed_uri.fragment:
             return cls.CURRENT_LOCATION
         return cls.UNKNOWN

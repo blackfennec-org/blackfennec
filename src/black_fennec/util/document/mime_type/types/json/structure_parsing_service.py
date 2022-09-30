@@ -11,6 +11,7 @@ from src.black_fennec.structure.null import Null
 from src.black_fennec.structure.string import String
 from src.black_fennec.structure.number import Number
 from src.black_fennec.structure.boolean import Boolean
+from src.black_fennec.util.document.mime_type.types.json.json_reference_parser import JsonReferenceParser
 
 logger = logging.getLogger(__name__)
 
@@ -18,20 +19,8 @@ logger = logging.getLogger(__name__)
 class StructureParsingService:
     """Service parses raw json structure into Structure composition"""
 
-    JSON_REFERENCE_KEY = '$ref'
-
-    """StructureParsingService, creates python objects from json"""
-
-    def __init__(self):
-        self._reference_resolving_service = None
-
-    def set_reference_resolving_service(self, reference_resolving_service):
-        """
-        Args:
-            reference_resolving_service: The reference resolving service must
-                have the `resolve` method
-        """
-        self._reference_resolving_service = reference_resolving_service
+    def __init__(self, reference_parser: JsonReferenceParser):
+        self._reference_parser = reference_parser
 
     def _parse(self, raw):
         """Checks if object is an instance of a specific type and
@@ -47,8 +36,8 @@ class StructureParsingService:
             TypeError: If the type contained in the passed json
                 could not be recognised.
         """
-        if raw == None:
-            return self._parse_null(raw)
+        if raw is None:
+            return self._parse_null()
         if isinstance(raw, dict):
             if self.is_json_reference(raw):
                 return self._parse_reference(raw)
@@ -69,17 +58,14 @@ class StructureParsingService:
     @staticmethod
     def is_json_reference(dictionary: dict):
         if len(dictionary) == 1 and \
-                StructureParsingService.JSON_REFERENCE_KEY in dictionary:
+                JsonReferenceParser.JSON_REFERENCE_KEY in dictionary:
             return True
         return False
 
     def _parse_reference(self, raw):
-        """parse json reference to python reference"""
-        parsed = raw[StructureParsingService.JSON_REFERENCE_KEY]
-        return Reference(self._reference_resolving_service, parsed)
-
-    def _parse_null(self, raw):
-        return Null()
+        """parse json reference_navigation to python reference_navigation"""
+        parsed = self._reference_parser.parse(raw)
+        return Reference(parsed)
 
     def _parse_map(self, raw):
         """parse json dict to python map"""
@@ -105,6 +91,10 @@ class StructureParsingService:
     def _parse_boolean(raw):
         """parse python boolean to black fennec boolean"""
         return Boolean(raw)
+
+    @staticmethod
+    def _parse_null():
+        return Null()
 
     def from_json(self, raw):
         return self._parse(raw)

@@ -2,6 +2,8 @@
 import os
 import contextlib
 from typing import IO, List
+from urllib.parse import urlparse
+
 from uri import URI
 
 from src.black_fennec.util.document.document import Document
@@ -17,14 +19,24 @@ class FileResourceType(ResourceType):
 
     @contextlib.contextmanager
     def load_resource(self, document: Document) -> IO:
-        current_path = URI(document.location).path
-        document_path = URI(document.uri).path
+        """Load the resource
+
+        Arguments:
+            document (Document): document to load
+        Returns:
+            IO: loaded resource
+        """
+        parsed_uri = urlparse(document.uri)
+        document_path = parsed_uri.path
+
         if not os.path.isabs(document_path):
+            parsed_location = urlparse(document.location)
+            current_path = parsed_location.path
             document_path = os.path.join(current_path, URI(document.uri).path)
 
         file = None
         try:
-            file = open(document_path, 'r')
+            file = open(document_path, 'r+')
             yield file
         finally:
             if file is not None:

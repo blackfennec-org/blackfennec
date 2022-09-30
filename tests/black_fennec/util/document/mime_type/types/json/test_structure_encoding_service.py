@@ -2,7 +2,7 @@ import json
 import unittest
 
 from src.black_fennec.structure.boolean import Boolean
-from src.black_fennec.util.document.mime_type.types.structure_encoding_service import StructureEncodingService
+from src.black_fennec.util.document.mime_type.types.json.structure_encoding_service import StructureEncodingService
 from src.black_fennec.structure.list import List
 from src.black_fennec.structure.map import Map
 from src.black_fennec.structure.number import Number

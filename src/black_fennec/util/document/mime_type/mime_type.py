@@ -40,11 +40,8 @@ class MimeType(metaclass=abc.ABCMeta):
         raise NotImplementedError
 
     @abc.abstractmethod
-    def export_structure(self, structure: Structure) -> IO:
-        """Export the structure to raw data
-
-        Returns:
-            object: Raw data
+    def export_structure(self, output: IO, structure: Structure):
+        """Export the structure to output IO
 
         Raises:
             NotImplementedError: if subclass did not implement this method

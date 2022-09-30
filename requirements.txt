@@ -1,6 +1,7 @@
 pytest
 pytest-cov
 pytest-pylint
+pytest-lazy-fixture
 ddt
 PyGObject
 uri

@@ -35,10 +35,8 @@ class DeepCopyVisitor(Visitor[Structure]):
         return Boolean(subject_boolean.value)
 
     def visit_reference(self, subject: Reference) -> Reference:
-        return Reference(
-            subject._json_reference_resolve_service,
-            subject.value)
-    
+        return Reference(subject.value)
+
     def visit_null(self, unused_subject):
         return Null()
 

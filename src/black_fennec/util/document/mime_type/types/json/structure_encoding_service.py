@@ -7,7 +7,9 @@ from src.black_fennec.structure.map import Map
 from src.black_fennec.structure.number import Number
 from src.black_fennec.structure.reference import Reference
 from src.black_fennec.structure.string import String
-from src.black_fennec.util.document.mime_type.types.structure_parsing_service import StructureParsingService
+from src.black_fennec.util.document.mime_type.types.json.json_reference_parser import JsonReferenceParser
+from src.black_fennec.util.document.mime_type.types.json.json_reference_serializer import JsonReferenceSerializer
+from src.black_fennec.util.document.mime_type.types.json.structure_parsing_service import StructureParsingService
 
 
 class StructureEncodingService(json.JSONEncoder):
@@ -27,5 +29,5 @@ class StructureEncodingService(json.JSONEncoder):
             return obj.value
         if isinstance(obj, Reference):
             return {
-                StructureParsingService.JSON_REFERENCE_KEY: obj.value.uri
+                JsonReferenceParser.JSON_REFERENCE_KEY: JsonReferenceSerializer.serialize(obj.value)
             }

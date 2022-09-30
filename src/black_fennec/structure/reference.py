@@ -2,46 +2,42 @@
 import logging
 from typing import TypeVar
 
-from doubles.double_dummy import Dummy
+from src.black_fennec.structure.string import String
 from src.black_fennec.structure.structure import Structure
 from src.black_fennec.structure.visitor import Visitor
-from src.black_fennec.util.json.json_reference_resolving_service import JsonReferenceResolvingService
+from src.black_fennec.structure.reference_navigation.navigator import Navigator
 
 logger = logging.getLogger(__name__)
 TVisitor = TypeVar('TVisitor')
 
 
-class Reference(Structure[str]):
+class Reference(Structure[list[Navigator]]):
     """Core Type Reference, represents references in the domain model."""
     TEMPLATE = None
 
     def __init__(
             self,
-            json_reference_resolve_service: JsonReferenceResolvingService,
-            reference: str = ''
+            navigation: list[Navigator]
     ):
         """Reference Constructor.
 
         Args:
-            reference (str): uri containing a json reference
+            navigation (list[Navigator]): list of Navigators
         """
-        Structure.__init__(self, reference)
-        self._json_reference_resolve_service = json_reference_resolve_service
+        Structure.__init__(self, navigation)
 
-    @property
-    def destination(self) -> Structure:
-        """Getter for destination
-
-        Automatically resolves underlying reference
+    def resolve(self) -> Structure:
+        """Resolves Reference navigation
 
         Returns:
-            Structure: destination to which the reference points
+            Structure: destination to which the reference_navigation points
         """
-        if self.value:
-            return self._json_reference_resolve_service.resolve(
-                self.value,
-                self
-            )
+        current_structure = self
+        for navigator in self.value:
+            current_structure = navigator.navigate(current_structure)
+        if current_structure == self:
+            return String("Reference was not resolved correctly")
+        return current_structure
 
     def accept(self, visitor: Visitor[TVisitor]) -> TVisitor:
         return visitor.visit_reference(self)
@@ -51,4 +47,4 @@ class Reference(Structure[str]):
         return f'Reference({self.value})'
 
 
-Reference.TEMPLATE = Reference(Dummy('ReferenceResolvingService'))
+Reference.TEMPLATE = Reference([])

@@ -12,6 +12,12 @@ class DocumentFactoryMock:
 
         self.create_count = 0
 
-    def create(self, uri: str, resource_type: str, mime_type: str, location: str = None):
+    def create(
+            self,
+            uri: str,
+            resource_type: str = None,
+            mime_type: str = None,
+            location: str = None
+    ):
         self.create_count += 1
         return self._create_return

@@ -6,6 +6,7 @@ from doubles.black_fennec.util.document.double_document import DocumentMock
 from doubles.double_dummy import Dummy
 from src.black_fennec.util.document.document import Document
 from src.black_fennec.util.document.resource_type.protocols.https_resource_type import HttpsResourceType
+from tests.test_utils.connection import has_internet_connection
 
 
 class HttpsResourceTypeTestSuite(unittest.TestCase):
@@ -19,7 +20,7 @@ class HttpsResourceTypeTestSuite(unittest.TestCase):
   "body": "quia et suscipit\\nsuscipit recusandae consequuntur expedita et cum\\nreprehenderit molestiae ut ut quas totam\\nnostrum rerum est autem sunt rem eveniet architecto"
 }'''
 
-    @pytest.mark.skipif(True, reason="test requires internet")
+    @pytest.mark.skipif(not has_internet_connection(), reason="test requires internet")
     def test_load_resource(self):
         document = DocumentMock(uri=self.uri)
 

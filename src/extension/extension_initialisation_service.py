@@ -13,7 +13,7 @@ from src.extension.extension_source import ExtensionSource
 from src.extension.extension_source_registry import ExtensionSourceRegistry
 from src.extension.local_extension_service import LocalExtensionService
 from src.extension.pypi_extension_service import PyPIExtensionService
-from src.black_fennec.util.document.mime_type.types.structure_encoding_service import StructureEncodingService
+from src.black_fennec.util.document.mime_type.types.json.structure_encoding_service import StructureEncodingService
 
 
 class ExtensionInitialisationService:
@@ -92,8 +92,8 @@ class ExtensionInitialisationService:
         # TODO: https://gitlab.ost.ch/blackfennec/blackfennec/-/issues/1
         config = document_factory.create(
             uri,
-            FileResourceType().protocols[0],
-            JsonMimeType().mime_type_id
+            'file',
+            'application/json'
         )
 
         for extension_source_structure in config.content.value:
