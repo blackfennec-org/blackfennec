@@ -4,4 +4,3 @@ pytest-pylint
 pytest-lazy-fixture
 ddt
 PyGObject
-uri
