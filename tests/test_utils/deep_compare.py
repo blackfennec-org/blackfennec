@@ -113,7 +113,7 @@ class ReferenceComparator(ComparatorTemplate):
         ComparatorTemplate.__init__(self)
         self._subject = subject
 
-    def visit_boolean(self, other):
+    def visit_reference(self, other):
         return self._subject.value == other.value
 
 

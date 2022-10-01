@@ -1,27 +1,21 @@
 # -*- coding: utf-8 -*-
-import re
 import logging
-from enum import Enum
+import re
 
-from src.black_fennec.structure.reference_navigation.navigator import Navigator
 from src.black_fennec.structure.reference_navigation.child_navigator import ChildNavigator
-from src.black_fennec.structure.reference_navigation.parent_navigator import ParentNavigator
 from src.black_fennec.structure.reference_navigation.index_of_navigator import IndexOfNavigator
+from src.black_fennec.structure.reference_navigation.navigator import Navigator
+from src.black_fennec.structure.reference_navigation.parent_navigator import ParentNavigator
 from src.black_fennec.structure.reference_navigation.root_navigator import RootNavigator
 from src.black_fennec.structure.reference_navigation.sibling_offset_navigator import SiblingOffsetNavigator
 
 logger = logging.getLogger(__name__)
 
 
-class JsonPointerType(Enum):
-    ABSOLUTE_JSON_POINTER = 0
-    RELATIVE_JSON_POINTER = 1
-
-
-class JsonPointerParser:
+class JsonPointerSerializer:
     """ JsonPointer Implementation according to RFC6901
 
-        Class is able to parse JsonPointers in relative and
+        Class is able to serialize and deserialize JsonPointers in relative and
         absolute format.
     """
     ABSOLUTE_POINTER_PATTERN = \
@@ -29,8 +23,49 @@ class JsonPointerParser:
     RELATIVE_POINTER_PATTERN = \
         re.compile('^([0-9]+([+][0-9]+|[-][0-9]+)?)(/(([^/~])|(~[01]))*)*$')
 
+    @staticmethod
+    def serialize(navigator_list: list[Navigator]) -> str:
+        """Serializes a list of navigators into a Json Pointer String
+
+        Arguments:
+            navigator_list (list[Navigator]): A list of navigators
+        Returns:
+            str: A Json Pointer String
+        """
+        reference = ""
+        level_navigation = 0
+        for navigator in navigator_list:
+            if isinstance(navigator, ParentNavigator):
+                level_navigation += 1
+                navigator_list.remove(navigator)
+            else:
+                break
+
+        if level_navigation:
+            reference = str(level_navigation)
+
+        first_element = navigator_list[0]
+        if isinstance(first_element, SiblingOffsetNavigator):
+            sibling_offset = first_element.sibling_offset
+            if sibling_offset < 0:
+                reference += "-"
+            else:
+                reference += "+"
+            reference += str(sibling_offset)
+
+        if reference:
+            reference += "/"
+
+        for navigator in navigator_list:
+            if isinstance(navigator, ChildNavigator):
+                reference += str(navigator.subscript) + "/"
+            elif isinstance(navigator, IndexOfNavigator):
+                reference += "#"
+
+        return reference
+
     @classmethod
-    def parse_absolute_pointer(cls, json_pointer: str) -> list[Navigator]:
+    def deserialize_absolute_pointer(cls, json_pointer: str) -> list[Navigator]:
         """Parses absolute JsonPointer.
 
         Returns:
@@ -39,15 +74,15 @@ class JsonPointerParser:
         token_list = cls._parse_token_list(json_pointer)
 
         navigator_list = [RootNavigator()]
-        navigator_list += cls._parse_absolute_pointer(token_list)
+        navigator_list += cls._deserialize_absolute_pointer(token_list)
         return navigator_list
 
     @classmethod
-    def _parse_absolute_pointer(cls, token_list: [str]) -> list[Navigator]:
+    def _deserialize_absolute_pointer(cls, token_list: [str]) -> list[Navigator]:
         """ Internal absolute JsonPointer parsing function
             expecting a navigator list
 
-        Args:
+        Arguments:
              token_list ([str]): Navigator list
         Returns:
             list[Navigator]: parsed_pointer
@@ -60,10 +95,10 @@ class JsonPointerParser:
         return result_navigator_list
 
     @classmethod
-    def parse_relative_pointer(cls, json_pointer: str) -> list[Navigator]:
-        """ Parses relative JsonPointer.
+    def deserialize_relative_pointer(cls, json_pointer: str) -> list[Navigator]:
+        """ Deserialized relative JsonPointer.
 
-        Args:
+        Arguments:
             json_pointer (str): Json pointer in string form
         Returns:
             Navigator: Parsed json pointer
@@ -81,7 +116,7 @@ class JsonPointerParser:
         root_navigator: str = str(token_list[0])
         token_list[0] = None
 
-        level_navigator, sibling_offset = cls._parse_root_navigator(root_navigator)
+        level_navigator, sibling_offset = cls._deserialize_root_navigator(root_navigator)
 
         result_navigator_list: list[Navigator] = []
 
@@ -91,7 +126,7 @@ class JsonPointerParser:
         if sibling_offset:
             result_navigator_list.append(SiblingOffsetNavigator(sibling_offset))
 
-        result_navigator_list += cls._parse_absolute_pointer(token_list)
+        result_navigator_list += cls._deserialize_absolute_pointer(token_list)
 
         if get_key_of_value:
             result_navigator_list.append(IndexOfNavigator())
@@ -104,7 +139,7 @@ class JsonPointerParser:
         Note that the order of escape resolvation
         is crucial. See [RFC6901] Section 4.
 
-        Args:
+        Arguments:
             navigator (str): Represents on level of the JsonPointer
                 that is inbetween two slashes.
         Returns:
@@ -120,8 +155,8 @@ class JsonPointerParser:
             The function splits the received pointer by slashes and
             decodes the escapings '~0' -> '~' and '~1' -> '/'.
 
-        Args:
-            json_pointer (str): Json pointer string to parse
+        Arguments:
+            json_pointer (str): Json pointer string to deserialize
 
         Returns:
             [str]: Navigator list
@@ -136,7 +171,7 @@ class JsonPointerParser:
         return token_list
 
     @staticmethod
-    def _parse_root_navigator(root_navigator):
+    def _deserialize_root_navigator(root_navigator):
         """ Parses first navigator and extracts level navigator and sibling offset
 
         Arguments:
@@ -175,12 +210,26 @@ class JsonPointerParser:
 
     @staticmethod
     def is_relative_json_pointer(pointer: str):
-        if JsonPointerParser.RELATIVE_POINTER_PATTERN.match(pointer):
+        """ Checks if pointer is relative JsonPointer
+
+        Arguments:
+            pointer (str): JsonPointer string
+        Returns:
+            bool: True if pointer is relative JsonPointer
+        """
+        if JsonPointerSerializer.RELATIVE_POINTER_PATTERN.match(pointer):
             return True
         return False
 
     @staticmethod
     def is_absolute_json_pointer(pointer: str):
-        if JsonPointerParser.ABSOLUTE_POINTER_PATTERN.match(pointer):
+        """ Checks if pointer is absolute JsonPointer
+
+        Arguments:
+            pointer (str): JsonPointer string
+        Returns:
+            bool: True if pointer is absolute JsonPointer
+        """
+        if JsonPointerSerializer.ABSOLUTE_POINTER_PATTERN.match(pointer):
             return True
         return False

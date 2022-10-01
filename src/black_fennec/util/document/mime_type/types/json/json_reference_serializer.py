@@ -1,47 +1,63 @@
 # -*- coding: utf-8 -*-
-from src.black_fennec.structure.reference_navigation.child_navigator import ChildNavigator
-from src.black_fennec.structure.reference_navigation.index_of_navigator import IndexOfNavigator
+import logging
+import re
+from os import path
+from urllib.parse import urlparse
+
+from src.black_fennec.util.document.mime_type.types.json.json_pointer_serializer import JsonPointerSerializer
 from src.black_fennec.structure.reference_navigation.navigator import Navigator
-from src.black_fennec.structure.reference_navigation.parent_navigator import ParentNavigator
-from src.black_fennec.structure.reference_navigation.sibling_offset_navigator import SiblingOffsetNavigator
 from src.black_fennec.structure.reference_navigation.uri_navigator import UriNavigator
+
+logger = logging.getLogger(__name__)
 
 
 class JsonReferenceSerializer:
-    @staticmethod
-    def serialize(navigator_list: list[Navigator]):
+    """Parses Json References"""
+
+    REFERENCE_KEY = '$ref'
+    ABSOLUTE_POINTER_PATTERN = \
+        re.compile('^(/?(([^/~])|(~[01]))*)+$')
+    RELATIVE_POINTER_PATTERN = \
+        re.compile('^([0-9]+([+][0-9]+|[-][0-9]+)?)(/(([^/~])|(~[01]))*)*$')
+
+    def __init__(self, document_factory, pointer_serializer: JsonPointerSerializer):
+        self._document_factory = document_factory
+        self._pointer_serializer = pointer_serializer
+
+    def serialize(self, navigator_list: list[Navigator]):
+        """Serializes a list of navigators into a json reference string
+
+        Arguments:
+            navigator_list (list[Navigator]): A list of navigators
+        Returns:
+            str: A json reference string
+        """
         first_element = navigator_list[0]
         if isinstance(first_element, UriNavigator):
             return first_element.uri
 
-        reference = ""
-        level_navigation = 0
-        for navigator in navigator_list:
-            if isinstance(navigator, ParentNavigator):
-                level_navigation += 1
-                navigator_list.remove(navigator)
-            else:
-                break
+        return self._pointer_serializer.serialize(navigator_list)
 
-        if level_navigation:
-            reference = str(level_navigation)
+    def deserialize(self, raw: dict) -> list[Navigator]:
+        reference = raw[self.REFERENCE_KEY]
+        parsed_uri = urlparse(reference)
+        result_navigator_list: list[Navigator] = []
+        if parsed_uri.netloc:
+            result_navigator_list.append(UriNavigator(self._document_factory, reference))
+        elif parsed_uri.path:
+            result_navigator_list.append(UriNavigator(self._document_factory, reference))
+        if parsed_uri.fragment:
+            if not len(result_navigator_list) and self._pointer_serializer.is_relative_json_pointer(
+                    parsed_uri.fragment):
+                result_navigator_list += self._pointer_serializer.deserialize_relative_pointer(parsed_uri.fragment)
+            elif self._pointer_serializer.is_absolute_json_pointer(parsed_uri.fragment):
+                result_navigator_list += self._pointer_serializer.deserialize_absolute_pointer(parsed_uri.fragment)
 
-        first_element = navigator_list[0]
-        if isinstance(first_element, SiblingOffsetNavigator):
-            sibling_offset = first_element.sibling_offset
-            if sibling_offset < 0:
-                reference += "-"
-            else:
-                reference += "+"
-            reference += str(sibling_offset)
+        return result_navigator_list
 
-        if reference:
-            reference += "/"
-
-        for navigator in navigator_list:
-            if isinstance(navigator, ChildNavigator):
-                reference += str(navigator.subscript) + "/"
-            elif isinstance(navigator, IndexOfNavigator):
-                reference += "#"
-
-        return reference
+    @classmethod
+    def is_reference(cls, raw: dict):
+        if cls.REFERENCE_KEY in raw.keys() and len(raw.keys()) == 1:
+            return True
+        else:
+            return False

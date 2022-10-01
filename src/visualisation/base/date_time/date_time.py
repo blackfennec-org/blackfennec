@@ -72,7 +72,7 @@ class DateTime:
         try:
             value: datetime = datetime.fromisoformat(date_time_string)
         except ValueError:
-            logger.error('could not parse date time format')
+            logger.error('could not deserialize date time format')
             value: datetime = datetime.min
         return value
 

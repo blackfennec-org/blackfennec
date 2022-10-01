@@ -8,7 +8,7 @@ from src.black_fennec.structure.reference_navigation.navigator import Navigator
 from src.black_fennec.structure.reference_navigation.parent_navigator import ParentNavigator
 from src.black_fennec.structure.reference_navigation.root_navigator import RootNavigator
 from src.black_fennec.structure.reference_navigation.sibling_offset_navigator import SiblingOffsetNavigator
-from src.black_fennec.util.document.mime_type.types.json.json_pointer_parser import JsonPointerParser
+from src.black_fennec.util.document.mime_type.types.json.json_pointer_serializer import JsonPointerSerializer
 
 
 @pytest.mark.parametrize("relative_pointer_str, expected", [
@@ -37,9 +37,9 @@ from src.black_fennec.util.document.mime_type.types.json.json_pointer_parser imp
 def test_parse_relative_pointer(relative_pointer_str: str, expected: Union[list[Navigator], Type[Exception]]):
     if type(expected) == type and issubclass(expected, Exception):
         with pytest.raises(expected):
-            JsonPointerParser.parse_relative_pointer(relative_pointer_str)
+            JsonPointerSerializer.deserialize_relative_pointer(relative_pointer_str)
     else:
-        relative_pointer = JsonPointerParser.parse_relative_pointer(relative_pointer_str)
+        relative_pointer = JsonPointerSerializer.deserialize_relative_pointer(relative_pointer_str)
         assert relative_pointer == expected
 
 
@@ -58,10 +58,10 @@ def test_parse_relative_pointer(relative_pointer_str: str, expected: Union[list[
 def test_parse_absolute_pointer(absolute_pointer_str: str, expected: Union[list[Navigator], Type[Exception]]):
     if type(expected) == type and issubclass(expected, Exception):
         with pytest.raises(expected):
-            JsonPointerParser.parse_absolute_pointer(absolute_pointer_str)
+            JsonPointerSerializer.deserialize_absolute_pointer(absolute_pointer_str)
             return
     else:
-        relative_pointer = JsonPointerParser.parse_absolute_pointer(absolute_pointer_str)
+        relative_pointer = JsonPointerSerializer.deserialize_absolute_pointer(absolute_pointer_str)
         assert relative_pointer == expected
 
 
@@ -74,7 +74,7 @@ def test_parse_absolute_pointer(absolute_pointer_str: str, expected: Union[list[
     ('0-a', False)
 ])
 def test_is_relative_json_pointer(json_pointer: str, expected: bool):
-    assert JsonPointerParser.is_relative_json_pointer(json_pointer) is expected
+    assert JsonPointerSerializer.is_relative_json_pointer(json_pointer) is expected
 
 
 @pytest.mark.parametrize("json_pointer, expected", [
@@ -88,4 +88,4 @@ def test_is_relative_json_pointer(json_pointer: str, expected: bool):
     ('~2', False),
 ])
 def test_is_absolute_json_pointer(json_pointer: str, expected: bool):
-    assert JsonPointerParser.is_absolute_json_pointer(json_pointer) is expected
+    assert JsonPointerSerializer.is_absolute_json_pointer(json_pointer) is expected

@@ -82,7 +82,7 @@ class DateTimeRange:
             value: datetime = \
                 datetime.fromisoformat(date_time_start_string)
         except ValueError:
-            logger.error('could not parse start date time format')
+            logger.error('could not deserialize start date time format')
             value: datetime = datetime.min
         return value
 
@@ -96,7 +96,7 @@ class DateTimeRange:
         try:
             value: datetime = datetime.fromisoformat(date_time_end_string)
         except ValueError:
-            logger.error('could not parse end date time format')
+            logger.error('could not deserialize end date time format')
             value: datetime = datetime.max
         return value
 

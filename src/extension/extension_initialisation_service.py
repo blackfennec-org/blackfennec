@@ -13,16 +13,16 @@ from src.extension.extension_source import ExtensionSource
 from src.extension.extension_source_registry import ExtensionSourceRegistry
 from src.extension.local_extension_service import LocalExtensionService
 from src.extension.pypi_extension_service import PyPIExtensionService
-from src.black_fennec.util.document.mime_type.types.json.structure_encoding_service import StructureEncodingService
+from src.black_fennec.util.document.mime_type.types.json.structure_serializer import StructureSerializer
 
 
 class ExtensionInitialisationService:
     def __init__(
             self,
-            encoding_service: StructureEncodingService
+            encoding_service: StructureSerializer
     ):
         """
-        encoding_service (StructureEncodingService): to convert
+        encoding_service (StructureSerializer): to convert
                 structure to raw json
         """
         self._encoding_service = encoding_service
@@ -60,7 +60,7 @@ class ExtensionInitialisationService:
             presentation_source.underlay
         ])
 
-        raw = self._encoding_service.encode(source_list)
+        raw = self._encoding_service.serialize(source_list)
         with open(path, 'w') as file:
             file.write(raw)
 

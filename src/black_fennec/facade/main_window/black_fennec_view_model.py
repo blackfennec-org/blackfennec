@@ -5,7 +5,8 @@ from src.black_fennec.facade.extension_store.extension_store_view_model import E
 from src.black_fennec.interpretation.interpretation_service import InterpretationService
 from src.black_fennec.navigation.navigation_service import NavigationService
 from src.black_fennec.util.document.document_factory import DocumentFactory
-from src.black_fennec.util.document.mime_type.types.json.structure_encoding_service import StructureEncodingService
+from src.black_fennec.util.document.mime_type.types.json.json_reference_serializer import JsonReferenceSerializer
+from src.black_fennec.util.document.mime_type.types.json.structure_serializer import StructureSerializer
 from src.black_fennec.util.observable import Observable
 from src.black_fennec.structure.structure import Structure
 from src.black_fennec.facade.main_window.tab import Tab
@@ -91,19 +92,18 @@ class BlackFennecViewModel(Observable):
         logger.warning('quit() not yet implemented')
 
     def save(self):
-        """Future implementation of save()"""
-        encoding_service = StructureEncodingService(indent=2)
-
+        """Saves all open files"""
         for tab in self.tabs:
-            raw = encoding_service.encode(tab.structure)
-            with open(tab.uri.path, 'w') as file:
-                file.write(raw)
+            root = tab.structure.get_root()
+            document = root.get_document()
+            document.save()
 
     def save_as(self):
         """Future implementation of save_as()"""
         logger.warning('save_as() not yet implemented')
 
     def create_extension_store(self) -> ExtensionStoreViewModel:
+        """Creates an extension store view model"""
         return ExtensionStoreViewModel(
             self._extension_source_registry,
             self._extension_api
