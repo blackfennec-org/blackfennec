@@ -27,3 +27,6 @@ class Specification:
 
     def __repr__(self):
         return f'Specification(request_preview={self._is_request_for_preview})'
+
+    def __eq__(self, o):
+        return self.is_request_for_preview == o.is_request_for_preview

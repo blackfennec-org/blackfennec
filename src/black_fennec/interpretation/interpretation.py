@@ -3,7 +3,6 @@ import logging
 from functools import cached_property
 
 from src.black_fennec.structure.structure import Structure
-
 # from src.navigation.navigation_service import NavigationService
 
 logger = logging.getLogger(__name__)
@@ -16,19 +15,19 @@ class Interpretation:
     and can create a view. Dispatches navigation requests to navigation_service.
     """
 
-    def __init__(self, structure: Structure, specification, factories):
+    def __init__(self, structure: Structure, specification, types):
         """Interpretation constructor.
 
         Args:
             structure (Structure): structure lying behind interpretation
             specification (Specification): the requested specification for this
                 interpretation
-            factories ([ViewFactories]): the view factories from which the view
+            types ([ViewFactories]): the view types from which the view
                 will be constructed.
         """
         self._navigation_service = None
         self._specification = specification
-        self._factories = factories
+        self._types = types
         self._structure_views = []
         self._structure = structure
 
@@ -51,11 +50,13 @@ class Interpretation:
         """
         return self._structure
 
-    @cached_property
-    def view(self):
-        view = self._factories[0].create(self, self._specification)
-        logger.debug('creating view from %s', view)
-        return view
+    @property
+    def specification(self):
+        return self._specification
+
+    @property
+    def types(self):
+        return self._types
 
     def navigate(self, destination: Structure):
         """Navigation dispatch.

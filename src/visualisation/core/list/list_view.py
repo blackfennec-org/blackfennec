@@ -16,7 +16,7 @@ class ListView(Gtk.Bin):
     _template_store = Gtk.Template.Child()
     _template_box = Gtk.Template.Child()
 
-    def __init__(self, view_model):
+    def __init__(self, view_factory, view_model):
         """Construct with view_model.
 
         Args:
@@ -27,6 +27,7 @@ class ListView(Gtk.Bin):
         self._items: dict = {}
         self._item_interpretation_mapping = {}
         self._currently_selected = None
+        self._view_factory = view_factory
         self._view_model = view_model
         self._view_model.bind(
             value=self._update_value,
@@ -37,7 +38,10 @@ class ListView(Gtk.Bin):
 
     def _add_item(self, structure):
         preview = self._view_model.create_preview(structure)
-        item = ListItemView(preview, self._view_model)
+        item = ListItemView(
+            preview, 
+            self._view_factory, 
+            self._view_model)
         self._items[structure] = item
         self._item_container.add(item)
         self._item_interpretation_mapping[preview] = item

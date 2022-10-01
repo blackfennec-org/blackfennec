@@ -12,9 +12,11 @@ class MapViewFactory:
 
     def __init__(self,
                  interpretation_service: InterpretationService,
-                 template_registry: TemplateRegistry):
+                 template_registry: TemplateRegistry,
+                 view_factory):
         self._interpretation_service = interpretation_service
         self._template_registry = template_registry
+        self._view_factory = view_factory
 
     def satisfies(self, unused_specification: Specification) -> bool:
         """Test if this view factory can satisfy the specification
@@ -28,8 +30,7 @@ class MapViewFactory:
         """
         return True
 
-    def create(self, interpretation: Interpretation,
-               specification: Specification) -> MapView:
+    def create(self, interpretation: Interpretation) -> MapView:
         """creates a MapView
 
         Args:
@@ -45,6 +46,6 @@ class MapViewFactory:
             interpretation,
             self._interpretation_service,
             self._template_registry)
-        if specification.is_request_for_preview:
+        if interpretation.specification.is_request_for_preview:
             return MapPreview(view_model)
-        return MapView(view_model)
+        return MapView(self._view_factory, view_model)

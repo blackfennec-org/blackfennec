@@ -1,4 +1,4 @@
-import unittest
+import pytest
 
 from doubles.double_dummy import Dummy
 from doubles.presentation.double_presenter_registry import PresenterRegistryMock
@@ -6,28 +6,34 @@ from src.extension.extension_api import ExtensionApi
 from src.presentation.column_based_presenter import create_extension, destroy_extension
 
 
-class Column_based_presenterExtensionTestSuite(unittest.TestCase):
-    def setUp(self) -> None:
-        self.presenter_registry = PresenterRegistryMock()
-        self.extension_api = ExtensionApi(
-            presenter_registry=self.presenter_registry,
-            type_registry=Dummy('TypeRegistry'),
-            template_registry=Dummy('TemplateRegistry'),
-            interpretation_service=Dummy('InterpretationService')
-        )
+@pytest.fixture
+def registry() -> PresenterRegistryMock:
+    return PresenterRegistryMock()
 
-    def test_create_column_based_presenter_extension(self):
-        create_extension(self.extension_api)
-        self.assertGreater(self.presenter_registry.register_presenter_count, 0)
 
-    def test_destroy_column_based_presenter_extension(self):
-        destroy_extension(self.extension_api)
-        self.assertGreater(self.presenter_registry.deregister_presenter_count, 0)
+@pytest.fixture
+def api(registry) -> ExtensionApi:
+    return ExtensionApi(
+        presenter_registry=registry,
+        type_registry=Dummy("TypeRegistry"),
+        template_registry=Dummy("TemplateRegistry"),
+        interpretation_service=Dummy("InterpretationService"),
+        view_factory=Dummy("ViewFactory"),
+        view_factory_registry=Dummy("ViewFactoryRegistry"),
+    )
 
-    def test_everything_created_is_destroyed(self):
-        create_extension(self.extension_api)
-        destroy_extension(self.extension_api)
-        self.assertEqual(
-            self.presenter_registry.register_presenter_count,
-            self.presenter_registry.deregister_presenter_count
-        )
+
+def test_create_column_based_presenter_extension(api, registry):
+    create_extension(api)
+    assert registry.register_presenter_count == 1
+
+
+def test_destroy_column_based_presenter_extension(api, registry):
+    destroy_extension(api)
+    assert registry.deregister_presenter_count == 1
+
+
+def test_everything_created_is_destroyed(api, registry):
+    create_extension(api)
+    destroy_extension(api)
+    assert registry.register_presenter_count == registry.deregister_presenter_count

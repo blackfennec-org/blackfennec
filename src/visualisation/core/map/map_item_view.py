@@ -21,6 +21,7 @@ class MapItemView(Gtk.Bin):
             self,
             key,
             preview: Interpretation,
+            view_factory,
             view_model: MapViewModel):
         """Create map item view.
 
@@ -37,7 +38,8 @@ class MapItemView(Gtk.Bin):
         self._view_model = view_model
 
         self.set_key(self._key)
-        self._preview_container.add(self._preview.view)
+        view = view_factory.create(preview)
+        self._preview_container.add(view)
 
     @property
     def key(self) -> str:

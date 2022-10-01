@@ -9,11 +9,12 @@ class ColumnView(Gtk.Bin):
     _paned_right = Gtk.Template.Child()
     _container = Gtk.Template.Child()
 
-    def __init__(self, interpretation):
+    def __init__(self, interpretation, view_factory):
         super().__init__()
         self._column_right = None
         self._interpretation = interpretation
-        self._container.add(interpretation.view)
+        view = view_factory.create(interpretation)
+        self._container.add(view)
 
     def add_column(self, column: 'Column'):
         if self._column_right is None:

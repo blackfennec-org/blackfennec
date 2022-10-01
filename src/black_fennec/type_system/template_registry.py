@@ -28,7 +28,7 @@ class TemplateRegistry:
         Returns:
             list of templates
         """
-        return list(self._templates)
+        return set(self._templates)
 
     def register_template(self, template: Type):
         """Function to register a new template

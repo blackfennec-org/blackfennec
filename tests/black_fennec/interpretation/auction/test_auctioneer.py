@@ -1,52 +1,34 @@
 # -*- coding: utf-8 -*-
-import unittest
+import pytest
 
-from doubles.black_fennec.interpretation.auction.double_coverage import CoverageMock
 from doubles.double_dummy import Dummy
-from doubles.visualisation.double_structure_bidder import StructureBidderMock
-from doubles.black_fennec.interpretation.double_specification import SpecificationMock
-from doubles.black_fennec.type_system.double_type_registry import TypeRegistryMock
+from doubles.black_fennec.interpretation.auction.double_coverage import CoverageMock
+from doubles.black_fennec.structure.type.double_type import TypeMock
 from src.black_fennec.interpretation.auction.auctioneer import Auctioneer
 
 
-class AuctioneerTestSuite(unittest.TestCase):
-    def test_create_auctioneer(self):
-        type_registry = Dummy('type_registry')
-        Auctioneer(type_registry)
+def test_auction():
+    type1 = TypeMock(coverage=CoverageMock(0.5))
+    type2 = TypeMock(coverage=CoverageMock(1))
+    
+    types = [type1, type2]
+    subject = Dummy('Structure')
+    result = Auctioneer.auction(types, subject)
+    assert type1 not in result
+    assert type2 in result
 
-    def test_auction(self):
-        factory1 = Dummy('StructureViewFactory1')
-        bidder1 = StructureBidderMock(coverage=CoverageMock(0.5), view_factory=factory1)
-        factory2 = Dummy('StructureViewFactory2')
-        bidder2 = StructureBidderMock(coverage=CoverageMock(1), view_factory=factory2)
-        type_registry = TypeRegistryMock([bidder1, bidder2])
-        auctioneer = Auctioneer(type_registry)
-        subject = Dummy('Structure')
-        specification = SpecificationMock()
-        result = auctioneer.auction(subject, specification)
-        self.assertNotIn(factory1, result)
-        self.assertIn(factory2, result)
+def test_auction_with_no_fitting_offers():
+    types = []
+    subject = Dummy('Structure')
+    with pytest.raises(KeyError):
+        Auctioneer.auction(types, subject)
 
-    def test_auction_with_no_fitting_offers(self):
-        types = dict()
-        type_registry = TypeRegistryMock(types)
-        auctioneer = Auctioneer(type_registry)
-        subject = Dummy('Structure')
-        specification = SpecificationMock()
-        with self.assertRaises(
-                KeyError,
-                msg='Expected KeyError because no offers were provided'):
-            auctioneer.auction(subject, specification)
-
-    def test_only_satisfying_offers_are_considered(self):
-        factory1 = Dummy('StructureViewFactory1')
-        bidder1 = StructureBidderMock(satisfies=False, view_factory=factory1)
-        factory2 = Dummy('StructureViewFactory2')
-        bidder2 = StructureBidderMock(satisfies=True, view_factory=factory2)
-        type_registry = TypeRegistryMock({bidder1: factory1, bidder2: factory2})
-        auctioneer = Auctioneer(type_registry)
-        subject = Dummy('Structure')
-        specification = SpecificationMock()
-        result = auctioneer.auction(subject, specification)
-        self.assertIn(factory2, result)
-        self.assertNotIn(factory1, result)
+@pytest.mark.xfail(reason='functionality moved')
+def test_only_satisfying_offers_are_considered():
+    type1 = TypeMock(satisfies=False)
+    type2 = TypeMock(satisfies=True)
+    types = [type1, type2]
+    subject = Dummy('Structure')
+    result = auctioneer.auction(types, subject)
+    assert factory2 in result
+    assert factory1 not in result

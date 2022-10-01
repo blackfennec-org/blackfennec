@@ -1,10 +1,10 @@
 import logging
+from typing import List
 from src.black_fennec.structure.structure import Structure
-from src.black_fennec.interpretation.specification import Specification
+from src.black_fennec.structure.type.type import Type
 from src.black_fennec.interpretation.auction.offer import Offer
 
 logger = logging.getLogger(__name__)
-
 
 class Auctioneer:
     """A service to find the best offer, Auctioneer.
@@ -15,20 +15,8 @@ class Auctioneer:
     of the '>=' operator.
     """
 
-    def __init__(self, type_registry):
-        """Auctioneer constructor.
-
-        Args:
-            type_registry(TypeRegistry): source for known types. Only known
-                types can be asked for an offer.
-        """
-        self._type_registry = type_registry
-
-    def _select_offers(self,
-                       subject: Structure,
-                       bidders,
-                       specification: Specification
-                       ) -> [Offer]:
+    @classmethod
+    def _filter_offers(cls, subject: Structure, offers) -> [Offer]:
         """Select the best offers.
 
         Args:
@@ -45,26 +33,20 @@ class Auctioneer:
         """
         best_offer = None
 
-        for bidder in bidders:
-            offer = bidder.bid(subject)
-
-            if not offer.satisfies(specification):
-                logger.debug('%s does not satisfy %s', offer, specification)
-                continue
+        for offer in offers:
+            logger.debug("checking offer %s", offer)
 
             if best_offer is None or offer >= best_offer:
                 best_offer = offer
 
         if best_offer is None or not best_offer.coverage.is_covered():
-            message = f'No offer is the best offer for subject({str(subject)})'
+            message = f"No offer is the best offer for subject({str(subject)})"
             logger.error(message)
             raise KeyError(message)
         return [best_offer]
 
-    def auction(
-            self,
-            subject: Structure,
-            specification: Specification) -> list:
+    @classmethod
+    def auction(cls, types: List[Type], subject: Structure) -> list:
         """Auction off a subject, using the specification when selecting offers.
 
         Auctions subject to all known types which can follow the specification.
@@ -83,12 +65,11 @@ class Auctioneer:
         Returns:
             [ViewFactory]: The factories which create views of the best types.
         """
-        logger.debug('starting bidding on %s', subject)
-        bidders = self._type_registry.types
-        best_offers = self._select_offers(subject, bidders, specification)
-        factories = []
+        logger.debug("starting bidding on %s", subject)
+        offers = (Offer(subject, type) for type in types)
+        best_offers = cls._filter_offers(subject, offers)
+        types = []
         for offer in best_offers:
-            logger.debug(
-                'adding view_factory of offer %s to factory list', offer)
-            factories.append(offer.view_factory)
-        return factories
+            logger.debug("adding types of offer %s to factory list", offer)
+            types.append(offer.type)
+        return types

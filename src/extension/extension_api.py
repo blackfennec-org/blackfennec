@@ -16,12 +16,16 @@ class ExtensionApi:
             presenter_registry: PresenterRegistry,
             type_registry: TypeRegistry,
             template_registry: TemplateRegistry,
-            interpretation_service: InterpretationService
+            interpretation_service: InterpretationService,
+            view_factory,
+            view_factory_registry
     ):
         self._presenter_registry = presenter_registry
         self._type_registry = type_registry
         self._template_registry = template_registry
         self._interpretation_service = interpretation_service
+        self._view_factory = view_factory
+        self._view_factory_registry = view_factory_registry
 
     @property
     def presenter_registry(self) -> PresenterRegistry:
@@ -38,3 +42,11 @@ class ExtensionApi:
     @property
     def interpretation_service(self):
         return self._interpretation_service
+
+    @property
+    def view_factory(self):
+        return self._view_factory
+
+    @property
+    def view_factory_registry(self):
+        return self._view_factory_registry

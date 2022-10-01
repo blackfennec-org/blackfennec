@@ -20,8 +20,7 @@ class FileViewFactory:
         """
         return True
 
-    def create(self, interpretation: Interpretation,
-               specification: Specification) -> FileView:
+    def create(self, interpretation: Interpretation) -> FileView:
         """creates a FileView
 
         Args:
@@ -34,7 +33,7 @@ class FileViewFactory:
             FileView
         """
         view_model = FileViewModel(interpretation)
-        if specification.is_request_for_preview:
+        if interpretation.specification.is_request_for_preview:
             return FilePreview(view_model)
 
         return FileView(view_model)

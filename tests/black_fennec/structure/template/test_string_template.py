@@ -22,6 +22,11 @@ class StringTypeTestSuite(unittest.TestCase):
         coverage = self.string_type.calculate_coverage(self.subject)
         self.assertEqual(coverage, Coverage.COVERED)
 
+    def test_can_cover_string(self):
+        subject = String("Black Fennec")
+        coverage = self.string_type.calculate_coverage(subject)
+        self.assertEqual(coverage, Coverage.COVERED)
+
     def test_can_calculate_coverage_pattern_match(self):
         type = Map({"pattern": String("[a-z]")})
         string_type = StringType(type)

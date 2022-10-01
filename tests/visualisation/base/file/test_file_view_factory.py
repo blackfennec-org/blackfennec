@@ -13,7 +13,7 @@ class FileViewFactoryTestSuite(unittest.TestCase):
 
     def test_can_create_file_view(self):
         factory = FileViewFactory()
-        view = factory.create(InterpretationMock(MapMock()), Specification())
+        view = factory.create(InterpretationMock(MapMock()))
         self.assertIsInstance(view, FileView)
 
     def test_satisfies_default(self):

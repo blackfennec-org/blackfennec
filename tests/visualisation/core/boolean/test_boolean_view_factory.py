@@ -13,15 +13,16 @@ class BooleanViewFactoryTestSuite(unittest.TestCase):
 
     def test_can_create_boolean_view(self):
         factory = BooleanViewFactory()
-        specification = Specification()
         view = factory.create(
-            InterpretationMock(BooleanMock()), specification)
+            InterpretationMock(BooleanMock()))
         self.assertIsInstance(view, BooleanView)
 
     def test_can_create_boolean_preview(self):
         factory = BooleanViewFactory()
-        specification = Specification(request_preview=True)
-        view = factory.create(InterpretationMock(BooleanMock()), specification)
+        interpretation = InterpretationMock(
+            BooleanMock(), 
+            specification=Specification(request_preview=True))
+        view = factory.create(interpretation)
         self.assertIsInstance(view, BooleanPreview)
 
     def test_satisfies_default(self):

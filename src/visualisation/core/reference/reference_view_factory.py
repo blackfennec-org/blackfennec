@@ -23,8 +23,7 @@ class ReferenceViewFactory:
         """
         return specification.is_request_for_preview
 
-    def create(self, interpretation: Interpretation,
-               specification: Specification) -> ReferencePreview:
+    def create(self, interpretation: Interpretation) -> ReferencePreview:
         """creates a ReferenceView
 
         Args:
@@ -41,7 +40,7 @@ class ReferenceViewFactory:
             NotImplementedError: if the specification requires
                 a View instead of the Preview.
         """
-        if not specification.is_request_for_preview:
+        if not interpretation.specification.is_request_for_preview:
             message = 'View for References not implemented'
             logger.error(message)
             raise NotImplementedError(message)

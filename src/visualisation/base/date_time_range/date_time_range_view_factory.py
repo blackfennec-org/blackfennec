@@ -20,8 +20,7 @@ class DateTimeRangeViewFactory:
         """
         return True
 
-    def create(self, interpretation: Interpretation,
-               specification: Specification) -> DateTimeRangeView:
+    def create(self, interpretation: Interpretation) -> DateTimeRangeView:
         """creates a DateTimeRangeView
 
         Args:
@@ -35,7 +34,7 @@ class DateTimeRangeViewFactory:
         """
         view_model = DateTimeRangeViewModel(interpretation)
 
-        if specification.is_request_for_preview:
+        if interpretation.specification.is_request_for_preview:
             return DateTimeRangePreview(view_model)
 
         return DateTimeRangeView(view_model)

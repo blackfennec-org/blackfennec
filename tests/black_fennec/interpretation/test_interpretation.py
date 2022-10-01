@@ -27,13 +27,6 @@ class InterpretationTestSuite(unittest.TestCase):
         interpretation = Interpretation(structure, specification, factories)
         self.assertEqual(structure, interpretation.structure)
 
-    def test_view_getter(self):
-        structure = Dummy('structure')
-        view = Dummy('view')
-        specification = Dummy('specification')
-        factories = [StructureViewFactoryMock(view=view)]
-        interpretation = Interpretation(structure, specification, factories)
-        self.assertEqual(view, interpretation.view)
 
     def test_navigation_sender_is_interpretation(self):
         structure = Dummy('structure')

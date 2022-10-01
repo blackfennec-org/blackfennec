@@ -13,7 +13,7 @@ class ImageViewFactoryTestSuite(unittest.TestCase):
 
     def test_can_create_image_view(self):
         factory = ImageViewFactory()
-        view = factory.create(InterpretationMock(MapMock()), Specification())
+        view = factory.create(InterpretationMock(MapMock()))
         self.assertIsInstance(view, ImageView)
 
     def test_satisfies_default(self):

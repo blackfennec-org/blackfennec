@@ -20,8 +20,7 @@ class NumberViewFactory:
         """
         return True
 
-    def create(self, interpretation: Interpretation,
-               specification: Specification) -> NumberView:
+    def create(self, interpretation: Interpretation) -> NumberView:
         """creates a NumberView
 
         Args:
@@ -34,6 +33,6 @@ class NumberViewFactory:
             NumberView
         """
         view_model = NumberViewModel(interpretation)
-        if specification.is_request_for_preview:
+        if interpretation.specification.is_request_for_preview:
             return NumberPreview(view_model)
         return NumberView(view_model)

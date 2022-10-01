@@ -17,8 +17,9 @@ class ListItemView(Gtk.Bin):
     _popover = Gtk.Template.Child()
 
     def __init__(self,
-                 preview: Interpretation,
-                 view_model: ListViewModel):
+            preview: Interpretation,
+            view_factory,
+            view_model: ListViewModel):
         """Create list item view
 
         Args:
@@ -29,8 +30,8 @@ class ListItemView(Gtk.Bin):
 
         self._preview = preview
         self._view_model = view_model
-
-        self._preview_container.add(self._preview.view)
+        view = view_factory.create(preview)
+        self._preview_container.add(view)
 
     @property
     def item(self) -> Structure:

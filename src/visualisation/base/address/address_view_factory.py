@@ -20,8 +20,7 @@ class AddressViewFactory:
         """
         return not specification.is_request_for_preview
 
-    def create(self, interpretation: Interpretation,
-               _: Specification) -> AddressView:
+    def create(self, interpretation: Interpretation) -> AddressView:
         """creates an AddressView
 
         Args:

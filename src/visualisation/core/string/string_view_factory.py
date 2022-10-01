@@ -20,8 +20,7 @@ class StringViewFactory:
         """
         return True
 
-    def create(self, interpretation: Interpretation,
-               specification: Specification) -> StringView:
+    def create(self, interpretation: Interpretation) -> StringView:
         """creates a StringView
 
         Args:
@@ -34,6 +33,6 @@ class StringViewFactory:
             StringView
         """
         view_model = StringViewModel(interpretation)
-        if specification.is_request_for_preview:
+        if interpretation.specification.is_request_for_preview:
             return StringPreview(view_model)
         return StringView(view_model)

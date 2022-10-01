@@ -6,7 +6,6 @@ gi.require_version('Gtk', '3.0')
 import os
 import logging
 from gi.repository import Gtk, Gdk, GLib
-from src.black_fennec.interpretation.auction.auctioneer import Auctioneer
 from src.black_fennec.interpretation.interpretation_service import InterpretationService
 from src.black_fennec.type_system.presenter_registry import PresenterRegistry
 from src.black_fennec.type_system.type_registry import TypeRegistry
@@ -29,9 +28,12 @@ from src.black_fennec.util.document.resource_type.protocols.https_resource_type 
 from src.black_fennec.util.document.resource_type.resource_type_registry import ResourceTypeRegistry
 from src.black_fennec.util.document.document_factory import DocumentFactory
 
+from src.visualisation.view_factory import ViewFactory
+from src.visualisation.view_factory_registry import ViewFactoryRegistry
+
 # pylint: enable=wrong-import-position
 
-logging.basicConfig(level=logging.WARNING)
+logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
 
 EXTENSIONS = os.path.realpath('extensions.json')
@@ -63,8 +65,7 @@ class BlackFennec(Gtk.Application):
         """Setup BlackFennec application"""
         logger.debug('do_setup')
         type_registry = TypeRegistry()
-        auctioneer = Auctioneer(type_registry)
-        interpretation_service = InterpretationService(auctioneer)
+        interpretation_service = InterpretationService(type_registry)
 
         structure_parsing_service = StructureParsingService()
         structure_encoding_service = StructureEncodingService(indent=2)
@@ -101,13 +102,18 @@ class BlackFennec(Gtk.Application):
             reference_resolving_service
         )
 
+        view_registry = ViewFactoryRegistry()
+        view_factory = ViewFactory(view_registry)
+
         presenter_registry = PresenterRegistry()
         template_registry = TemplateRegistry()
         extension_api = ExtensionApi(
             presenter_registry,
             type_registry,
             template_registry,
-            interpretation_service
+            interpretation_service,
+            view_factory,
+            view_registry
         )
         extension_source_registry = ExtensionSourceRegistry()
         extension_initialisation_service = ExtensionInitialisationService(structure_encoding_service)

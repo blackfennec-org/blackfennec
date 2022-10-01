@@ -1,3 +1,5 @@
+from src.black_fennec.structure.type.type import Type
+
 class TypeRegistry:
     """Type Registry Class
 
@@ -21,24 +23,24 @@ class TypeRegistry:
             Returns:
                 list: of type_bidder
         """
-        return self._types
+        return list(self._types)
 
-    def register_type(self, type_bidder):
+    def register_type(self, type: Type):
         """Function to register a new type
 
             Args:
                 type_bidder (StructureBidder): future element of the type list
         """
-        self._types.append(type_bidder)
+        self._types.append(type)
 
-    def deregister_type(self, type_bidder_type: type):
+    def deregister_type(self, type: Type):
         """Function to deregister a type from the dictionary if its class
             matches the passed type
 
         Args:
-            type_bidder_type (type): element in the type list
+            type (Type): element in the type list
 
         """
-        for current_type in self._types:
-            if current_type.__class__ == type_bidder_type:
-                self._types.remove(current_type)
+        assert type in self._types
+
+        self._types.remove(type)

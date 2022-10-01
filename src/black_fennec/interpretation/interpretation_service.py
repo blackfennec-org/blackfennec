@@ -5,6 +5,7 @@ from src.black_fennec.structure.structure import Structure
 from src.black_fennec.interpretation.auction.auctioneer import Auctioneer
 from src.black_fennec.interpretation.interpretation import Interpretation
 from src.black_fennec.interpretation.specification import Specification
+from src.black_fennec.type_system.type_registry import TypeRegistry
 
 logger = logging.getLogger(__name__)
 
@@ -21,18 +22,18 @@ class InterpretationService:
         _auctioneer (Auctioneer): stores injected auctioneer
     """
 
-    def __init__(self, auctioneer: Auctioneer):
+    def __init__(self, type_registry: TypeRegistry):
         """Constructor of interpretation service
 
         Args:
             auctioneer (Auctioneer): selects the best offer based on the
                 registered types.
         """
-        self._auctioneer = auctioneer
+        self._type_registry = type_registry
 
     def interpret(self, structure: Structure,
                   specification: Specification = None) -> Interpretation:
-        """Interpret the given structure follwing the a specification
+        """Interpret the given structure following the a specification
 
         Args:
             structure (Structure): The structure to be interpreted
@@ -45,7 +46,9 @@ class InterpretationService:
         """
         specification = specification or Specification()
 
-        factories = self._auctioneer.auction(structure, specification)
-        assert len(factories) == 1, 'cannot currently handle multiple factores'
-        interpretation = Interpretation(structure, specification, factories)
+        all_types = self._type_registry.types
+
+        types = Auctioneer.auction(all_types, structure)
+        assert len(types) == 1, 'cannot currently handle multiple types'
+        interpretation = Interpretation(structure, specification, types)
         return interpretation

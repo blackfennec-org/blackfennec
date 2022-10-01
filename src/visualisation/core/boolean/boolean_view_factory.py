@@ -20,8 +20,7 @@ class BooleanViewFactory:
         """
         return True
 
-    def create(self, interpretation: Interpretation,
-               specification: Specification) -> BooleanView:
+    def create(self, interpretation: Interpretation) -> BooleanView:
         """creates a BooleanView
 
         Args:
@@ -34,6 +33,6 @@ class BooleanViewFactory:
             BooleanView
         """
         view_model = BooleanViewModel(interpretation)
-        if specification.is_request_for_preview:
+        if interpretation.specification.is_request_for_preview:
             return BooleanPreview(view_model)
         return BooleanView(view_model)

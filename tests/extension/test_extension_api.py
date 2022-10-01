@@ -11,18 +11,17 @@ class ExtensionApiTestSuite(unittest.TestCase):
         self.type_registry = Dummy('TypeRegistry')
         self.template_registry = Dummy('TemplateRegistry')
         self.interpretation_service = Dummy('InterpretationService')
+        self.view_factory = Dummy('ViewFactory')
+        self.view_factory_registry = Dummy('ViewFactoryRegistry')
 
         self.extension_api = ExtensionApi(
             self.presenter_registry,
             self.type_registry,
             self.template_registry,
-            self.interpretation_service
+            self.interpretation_service,
+            self.view_factory,
+            self.view_factory_registry
         )
-        
-    def tearDown(self) -> None:
-        self.presenter_registry = None
-        self.type_registry = None
-        self.interpretation_service = None
 
     def test_can_construct(self):
         self.assertIsNotNone(self.extension_api)

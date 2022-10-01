@@ -8,14 +8,17 @@ from src.black_fennec.interpretation.interpretation import Interpretation
 from src.black_fennec.navigation.navigation_service import NavigationService
 from src.black_fennec.structure.list import List
 from src.black_fennec.structure.map import Map
-from src.visualisation.core.boolean.boolean_bidder import BooleanBidder
-from src.visualisation.core.list.list_bidder import ListBidder
 from src.visualisation.core.list.list_view_model import ListViewModel
-from src.visualisation.core.map.map_bidder import MapBidder
 from src.visualisation.core.map.map_view_model import MapViewModel
-from src.visualisation.core.number.number_bidder import NumberBidder
-from src.visualisation.core.string.string_bidder import StringBidder
 from src.black_fennec.type_system.type_registry import TypeRegistry
+from src.black_fennec.structure.type.boolean_type import BooleanType
+from src.black_fennec.structure.type.list_type import ListType
+from src.black_fennec.structure.type.map_type import MapType
+from src.black_fennec.structure.type.number_type import NumberType
+from src.black_fennec.structure.type.reference_type import ReferenceType
+from src.black_fennec.structure.type.string_type import StringType
+
+
 
 
 class NavigationOnViewModelResultsInNavigationInPresenterTestSuite(
@@ -25,13 +28,11 @@ class NavigationOnViewModelResultsInNavigationInPresenterTestSuite(
         type_registry = TypeRegistry()
         interpretation_service = InterpretationServiceMock([])
         template_registry = TemplateRegistryMock()
-        type_registry.register_type(BooleanBidder())
-        type_registry.register_type(NumberBidder())
-        type_registry.register_type(StringBidder())
-        type_registry.register_type(
-            ListBidder(interpretation_service, template_registry))
-        type_registry.register_type(
-            MapBidder(interpretation_service, template_registry))
+        type_registry.register_type(BooleanType())
+        type_registry.register_type(NumberType())
+        type_registry.register_type(StringType())
+        type_registry.register_type(ListType())
+        type_registry.register_type(MapType())
         self.presenter = StructurePresenterMock()
         self.navigation_service = NavigationService()
         self.navigation_service.set_presenter(self.presenter)
@@ -39,7 +40,7 @@ class NavigationOnViewModelResultsInNavigationInPresenterTestSuite(
     def test_map_can_navigate(self):
         structure = Map()
         interpretation = Interpretation(
-            structure, Dummy('specification'), Dummy('factoires'))
+            structure, Dummy('specification'), Dummy('factories'))
         interpretation.set_navigation_service(self.navigation_service)
         interpretation_service = Dummy('InterpretationService')
         template_registry = TemplateRegistryMock()
@@ -53,7 +54,7 @@ class NavigationOnViewModelResultsInNavigationInPresenterTestSuite(
     def test_list_can_navigate(self):
         structure = List()
         interpretation = Interpretation(
-            structure, Dummy('specification'), Dummy('factoires'))
+            structure, Dummy('specification'), Dummy('factories'))
         interpretation.set_navigation_service(self.navigation_service)
         interpretation_service = Dummy('InterpretationService')
         template_registry = Dummy('TemplateRegistry')

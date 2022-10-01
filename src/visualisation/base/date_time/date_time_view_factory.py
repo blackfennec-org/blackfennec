@@ -21,8 +21,7 @@ class DateTimeViewFactory:
         """
         return True
 
-    def create(self, interpretation: Interpretation,
-               specification: Specification) -> DateTimeView:
+    def create(self, interpretation: Interpretation) -> DateTimeView:
         """creates a DateTimeView
 
         Args:
@@ -36,7 +35,7 @@ class DateTimeViewFactory:
         """
         view_model = DateTimeViewModel(interpretation)
 
-        if specification.is_request_for_preview:
+        if interpretation.specification.is_request_for_preview:
             return DateTimePreview(view_model)
 
         return DateTimeView(view_model)

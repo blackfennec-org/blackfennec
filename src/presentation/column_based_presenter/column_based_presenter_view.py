@@ -26,7 +26,7 @@ class ColumnBasedPresenterView(Gtk.Box):
     __gtype_name__ = "ColumnBasedPresenterView"
     _empty_list_pattern = Gtk.Template.Child()
 
-    def __init__(self, view_model: ColumnBasedPresenterViewModel):
+    def __init__(self, view_model: ColumnBasedPresenterViewModel, view_factory):
         """ColumnBasedPresenterView constructor.
 
         Args:
@@ -34,6 +34,7 @@ class ColumnBasedPresenterView(Gtk.Box):
         """
         super().__init__()
         self._view_model = view_model
+        self._view_factory = view_factory
         self._view_model.bind(interpretations=self._update_interpretations)
         self.interpretations = []
         self._root_column = None
@@ -92,7 +93,7 @@ class ColumnBasedPresenterView(Gtk.Box):
             interpretation (Interpretation): interpretation to add
         """
         logger.debug("add interpretation %s", interpretation)
-        column = ColumnView(interpretation)
+        column = ColumnView(interpretation, self._view_factory)
         self.interpretations.append(interpretation)
         if self._root_column is None:
             self.add(column)

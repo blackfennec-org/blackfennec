@@ -18,7 +18,7 @@ class MapView(Gtk.Bin):
     _template_store = Gtk.Template.Child()
     _template_box = Gtk.Template.Child()
 
-    def __init__(self, view_model):
+    def __init__(self, view_factory, view_model):
         """Construct with view_model.
 
         Args:
@@ -29,6 +29,7 @@ class MapView(Gtk.Bin):
         self._items: dict = {}
         self._item_interpretation_mapping = {}
         self._currently_selected = None
+        self._view_factory = view_factory
         self._view_model = view_model
         self._view_model.bind(
             value=self._update_value,
@@ -40,7 +41,7 @@ class MapView(Gtk.Bin):
     def _add_item(self, key, structure):
         preview = self._view_model.create_preview(structure)
         item = MapItemView(
-            key, preview,
+            key, preview, self._view_factory, 
             self._view_model)
         self._items[key] = item
         self._item_interpretation_mapping[preview] = item

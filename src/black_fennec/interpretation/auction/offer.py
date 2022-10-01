@@ -28,9 +28,7 @@ class Offer(Comparable):
     def __init__(
             self,
             subject: Structure,
-            specificity: int,
-            type: Type,
-            type_view_factory
+            type: Type
     ):
         """Offer constructor.
 
@@ -42,21 +40,7 @@ class Offer(Comparable):
                 to create interpretation_service
         """
         self._subject = subject
-        self._specificity = specificity
-        self._view_factory = type_view_factory
         self._type = type
-
-    def satisfies(self, specification: Specification):
-        """Evaluates this offers capability to satisfy a given specification.
-
-        Args:
-            specification (Specification): The specification which must be
-                satisfiable for this function to return true.
-
-        Returns:
-            bool: True iff specification can be satisfied. Otherwise False.
-        """
-        return self._view_factory.satisfies(specification)
 
     @property
     def subject(self) -> Structure:
@@ -74,7 +58,8 @@ class Offer(Comparable):
         Returns:
             int: specificity property set by constructor
         """
-        return self._specificity
+        logger.warning("specificity hardcoded to 0")
+        return 0
 
     @property
     def type(self) -> Type:
@@ -93,16 +78,6 @@ class Offer(Comparable):
             float: coverage property set by constructor
         """
         return self.type.calculate_coverage(self.subject)
-
-    @property
-    def view_factory(self):
-        """view_factory getter
-
-        Returns:
-             StructureViewFactory: structure_view factory
-                property set by constructor
-        """
-        return self._view_factory
 
     def __eq__(self, other: 'Offer') -> bool:
         """Equality operator
@@ -159,4 +134,4 @@ class Offer(Comparable):
                )
 
     def __repr__(self):
-        return f'Offer({self._view_factory})'
+        return f'Offer({self.type})'

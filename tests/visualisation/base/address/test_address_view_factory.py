@@ -13,7 +13,7 @@ class AddressViewFactoryTestSuite(unittest.TestCase):
 
     def test_can_create_map_view(self):
         factory = AddressViewFactory()
-        view = factory.create(InterpretationMock(MapMock()), Specification())
+        view = factory.create(InterpretationMock(MapMock()))
         self.assertIsInstance(view, AddressView)
 
     def test_satisfies_default(self):

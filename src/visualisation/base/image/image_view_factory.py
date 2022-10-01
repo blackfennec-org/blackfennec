@@ -20,8 +20,7 @@ class ImageViewFactory:
         """
         return True
 
-    def create(self, interpretation: Interpretation,
-               specification: Specification) -> ImageView:
+    def create(self, interpretation: Interpretation) -> ImageView:
         """creates a ImageView
 
         Args:
@@ -35,7 +34,7 @@ class ImageViewFactory:
         """
         view_model = ImageViewModel(interpretation)
 
-        if specification.is_request_for_preview:
+        if interpretation.specification.is_request_for_preview:
             return ImagePreview(view_model)
 
         return ImageView(view_model)

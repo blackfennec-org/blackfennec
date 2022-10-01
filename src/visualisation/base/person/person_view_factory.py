@@ -20,8 +20,7 @@ class PersonViewFactory:
         """
         return True
 
-    def create(self, interpretation: Interpretation,
-               specification: Specification) -> PersonView:
+    def create(self, interpretation: Interpretation) -> PersonView:
         """creates a PersonView
 
         Args:
@@ -35,7 +34,7 @@ class PersonViewFactory:
         """
         view_model = PersonViewModel(interpretation)
 
-        if specification.is_request_for_preview:
+        if interpretation.specification.is_request_for_preview:
             return PersonPreview(view_model)
 
         return PersonView(view_model)

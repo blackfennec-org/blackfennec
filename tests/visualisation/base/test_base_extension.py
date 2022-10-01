@@ -2,6 +2,7 @@ import unittest
 
 from doubles.double_dummy import Dummy
 from doubles.black_fennec.type_system.double_type_registry import TypeRegistryMock
+from doubles.visualisation.double_view_factory_registry import ViewFactoryRegistryMock
 from src.extension.extension_api import ExtensionApi
 from src.visualisation.base import create_extension, destroy_extension
 
@@ -9,11 +10,14 @@ from src.visualisation.base import create_extension, destroy_extension
 class BaseExtensionTestSuite(unittest.TestCase):
     def setUp(self) -> None:
         self.type_registry = TypeRegistryMock()
+        self.view_factory_registry = ViewFactoryRegistryMock()
         self.extension_api = ExtensionApi(
             presenter_registry=Dummy('PresenterRegistry'),
             type_registry=self.type_registry,
             template_registry=Dummy('TemplateRegistry'),
             interpretation_service=Dummy('InterpretationService'),
+            view_factory=Dummy('ViewFactory'),
+            view_factory_registry=self.view_factory_registry
         )
 
     def test_create_base_extension(self):

@@ -34,19 +34,17 @@ class ExtensionSourceTestSuite(unittest.TestCase):
         self.extension_source.refresh_extensions()
 
         type_registry = TypeRegistry()
+        view_factory = None
+        view_factory_registry = None
         template_registry = TemplateRegistry()
         self.extension_api = ExtensionApi(
             PresenterRegistry(),
             type_registry,
             template_registry,
-            InterpretationService(Auctioneer(type_registry))
+            InterpretationService(type_registry),
+            view_factory,
+            view_factory_registry
         )
-
-    def tearDown(self) -> None:
-        self.source_identification = None
-        self.source_location = None
-        self.extension_source_map = None
-        self.extension_loading_service = None
 
     def test_can_load_extension(self):
         for extension in self.extension_source.extensions:
