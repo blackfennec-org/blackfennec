@@ -24,7 +24,7 @@ class ExtensionView(Gtk.Bin):
         self._name.set_text(name)
         self._description.set_text(
             description,
-            len(description.serialize('utf-8'))
+            len(description.encode('utf-8'))
         )
 
         self._update_button_text()

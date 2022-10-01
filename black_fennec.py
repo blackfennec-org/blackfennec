@@ -1,5 +1,6 @@
 import gi
 
+from src.black_fennec.util.document.mime_type.types.json.json_pointer_serializer import JsonPointerSerializer
 from src.black_fennec.util.document.mime_type.types.json.json_reference_serializer import JsonReferenceSerializer
 
 gi.require_version('Gtk', '3.0')
@@ -21,7 +22,6 @@ from src.extension.extension_api import ExtensionApi
 from src.extension.extension_initialisation_service import ExtensionInitialisationService
 from src.extension.extension_source_registry import ExtensionSourceRegistry
 
-from src.black_fennec.util.document.mime_type.types.json.structure_serializer import StructureSerializer
 from src.black_fennec.util.document.mime_type.types.json.structure_serializer import StructureSerializer
 from src.black_fennec.util.document.mime_type.mime_type_registry import MimeTypeRegistry
 from src.black_fennec.util.document.mime_type.types.json.json_mime_type import JsonMimeType
@@ -80,15 +80,13 @@ class BlackFennec(Gtk.Application):
         mime_type_registry = MimeTypeRegistry()
         document_factory = DocumentFactory(resource_type_registry, mime_type_registry)
 
-        reference_parser = JsonReferenceSerializer(document_factory)
+        reference_parser = JsonReferenceSerializer(document_factory, JsonPointerSerializer)
 
-        structure_parsing_service = StructureSerializer(reference_parser)
-        structure_encoding_service = StructureSerializer(indent=2)
+        structure_serializer = StructureSerializer(reference_parser)
 
         mime_types = [
             JsonMimeType(
-                structure_encoding_service,
-                structure_parsing_service
+                structure_serializer
             )
         ]
         for mime_type in mime_types:
@@ -106,7 +104,7 @@ class BlackFennec(Gtk.Application):
             interpretation_service
         )
         extension_source_registry = ExtensionSourceRegistry()
-        extension_initialisation_service = ExtensionInitialisationService(structure_encoding_service)
+        extension_initialisation_service = ExtensionInitialisationService(structure_serializer)
         extension_initialisation_service.load_extensions_from_file(
             extension_source_registry,
             document_factory,

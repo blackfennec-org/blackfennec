@@ -2,6 +2,7 @@
 import logging
 import re
 from os import path
+from typing import Type
 from urllib.parse import urlparse
 
 from src.black_fennec.util.document.mime_type.types.json.json_pointer_serializer import JsonPointerSerializer
@@ -20,7 +21,7 @@ class JsonReferenceSerializer:
     RELATIVE_POINTER_PATTERN = \
         re.compile('^([0-9]+([+][0-9]+|[-][0-9]+)?)(/(([^/~])|(~[01]))*)*$')
 
-    def __init__(self, document_factory, pointer_serializer: JsonPointerSerializer):
+    def __init__(self, document_factory, pointer_serializer: Type[JsonPointerSerializer]):
         self._document_factory = document_factory
         self._pointer_serializer = pointer_serializer
 
