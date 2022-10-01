@@ -1,6 +1,6 @@
 import gi
 
-from src.black_fennec.util.document.mime_type.types.json.json_reference_parser import JsonReferenceParser
+from src.black_fennec.util.document.mime_type.types.json.json_reference_serializer import JsonReferenceSerializer
 
 gi.require_version('Gtk', '3.0')
 
@@ -21,8 +21,8 @@ from src.extension.extension_api import ExtensionApi
 from src.extension.extension_initialisation_service import ExtensionInitialisationService
 from src.extension.extension_source_registry import ExtensionSourceRegistry
 
-from src.black_fennec.util.document.mime_type.types.json.structure_parsing_service import StructureParsingService
-from src.black_fennec.util.document.mime_type.types.json.structure_encoding_service import StructureEncodingService
+from src.black_fennec.util.document.mime_type.types.json.structure_serializer import StructureSerializer
+from src.black_fennec.util.document.mime_type.types.json.structure_serializer import StructureSerializer
 from src.black_fennec.util.document.mime_type.mime_type_registry import MimeTypeRegistry
 from src.black_fennec.util.document.mime_type.types.json.json_mime_type import JsonMimeType
 from src.black_fennec.util.document.resource_type.protocols.file_resource_type import FileResourceType
@@ -80,10 +80,10 @@ class BlackFennec(Gtk.Application):
         mime_type_registry = MimeTypeRegistry()
         document_factory = DocumentFactory(resource_type_registry, mime_type_registry)
 
-        reference_parser = JsonReferenceParser(document_factory)
+        reference_parser = JsonReferenceSerializer(document_factory)
 
-        structure_parsing_service = StructureParsingService(reference_parser)
-        structure_encoding_service = StructureEncodingService(indent=2)
+        structure_parsing_service = StructureSerializer(reference_parser)
+        structure_encoding_service = StructureSerializer(indent=2)
 
         mime_types = [
             JsonMimeType(
