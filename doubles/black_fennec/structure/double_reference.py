@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 from doubles.black_fennec.structure.double_structure import StructureMock
-from doubles.black_fennec.util.json.double_json_reference_resolving_service import JsonReferenceResolvingServiceMock
 from src.black_fennec.structure.reference import Reference
 
 
