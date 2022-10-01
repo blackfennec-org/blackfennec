@@ -1,16 +1,14 @@
 # -*- coding: utf-8 -*-
-import numbers
 import logging
+import numbers
 
-from uri import URI
-
-from src.black_fennec.structure.map import Map
-from src.black_fennec.structure.list import List
-from src.black_fennec.structure.reference import Reference
-from src.black_fennec.structure.null import Null
-from src.black_fennec.structure.string import String
-from src.black_fennec.structure.number import Number
 from src.black_fennec.structure.boolean import Boolean
+from src.black_fennec.structure.list import List
+from src.black_fennec.structure.map import Map
+from src.black_fennec.structure.null import Null
+from src.black_fennec.structure.number import Number
+from src.black_fennec.structure.reference import Reference
+from src.black_fennec.structure.string import String
 from src.black_fennec.util.document.mime_type.types.json.json_reference_parser import JsonReferenceParser
 
 logger = logging.getLogger(__name__)

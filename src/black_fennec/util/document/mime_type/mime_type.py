@@ -1,13 +1,12 @@
 # -*- coding: utf-8 -*-
 import abc
 import logging
-from typing import IO
-from uri import URI
-import urllib.request as req
 import mimetypes
+import urllib.request as req
+from typing import IO
+from urllib.parse import urlparse
 
 from src.black_fennec.structure.structure import Structure
-from src.black_fennec.util.document.resource_type.protocols.https_resource_type import HttpsResourceType
 from src.black_fennec.util.document.resource_type.resource_type import ResourceType
 
 logger = logging.getLogger(__name__)
@@ -64,7 +63,8 @@ class MimeType(metaclass=abc.ABCMeta):
         Raises:
             ValueError: if no mime_type could have been guessed automatically.
         """
-        mime_type, _ = mimetypes.guess_type(URI(uri).path)
+        parsed_uri = urlparse(uri)
+        mime_type, _ = mimetypes.guess_type(parsed_uri.path)
         if mime_type:
             return mime_type
         if resource_type in ('http', 'https'):

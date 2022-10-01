@@ -1,10 +1,8 @@
 # -*- coding: utf-8 -*-
-import os
 import contextlib
+import os
 from typing import IO, List
 from urllib.parse import urlparse
-
-from uri import URI
 
 from src.black_fennec.util.document.document import Document
 from src.black_fennec.util.document.resource_type.resource_type import ResourceType
@@ -32,7 +30,7 @@ class FileResourceType(ResourceType):
         if not os.path.isabs(document_path):
             parsed_location = urlparse(document.location)
             current_path = parsed_location.path
-            document_path = os.path.join(current_path, URI(document.uri).path)
+            document_path = os.path.join(current_path, parsed_uri.path)
 
         file = None
         try:

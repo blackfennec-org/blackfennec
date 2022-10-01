@@ -4,8 +4,6 @@ import contextlib
 from typing import IO, List
 from urllib.parse import urlparse
 
-from uri import URI
-
 
 class ResourceType(metaclass=abc.ABCMeta):
     @property

@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
-from typing import Type, Optional
-from uri import URI
+from typing import Type
 
 from src.black_fennec.structure.root_factory import RootFactory
 from src.black_fennec.structure.structure import Structure
@@ -17,8 +16,8 @@ class Document:
             uri: str = '',
             location: str = ''
     ):
-        self.uri: URI = URI(uri)
-        self.location: URI = URI(location)
+        self.uri: str = uri
+        self.location: str = location
         self.mime_type: MimeType = mime_type
         self._root_factory: Type[RootFactory] = root_factory
         self.resource_type: ResourceType = resource_type
@@ -42,19 +41,19 @@ class Document:
 
     @property
     def uri(self) -> str:
-        return str(self._uri)
+        return self._uri
 
     @uri.setter
     def uri(self, value: str):
-        self._uri = URI(value)
+        self._uri = value
 
     @property
     def location(self) -> str:
-        return str(self._location)
+        return self._location
 
     @location.setter
     def location(self, value: str):
-        self._location = URI(value)
+        self._location = value
 
     @property
     def content(self) -> Structure:
