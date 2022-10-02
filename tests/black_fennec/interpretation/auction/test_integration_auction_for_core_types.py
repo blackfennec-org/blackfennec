@@ -14,6 +14,8 @@ from src.black_fennec.structure.string import String
 from src.black_fennec.structure.type.string_type import StringType
 from src.black_fennec.structure.reference import Reference
 from src.black_fennec.structure.type.reference_type import ReferenceType
+from src.black_fennec.structure.null import Null
+from src.black_fennec.structure.type.null_type import NullType
 
 @pytest.fixture
 def types():
@@ -23,7 +25,8 @@ def types():
         StringType(),
         ListType(),
         MapType(),
-        ReferenceType()
+        ReferenceType(),
+        NullType()
     ]
     return types
 
@@ -37,7 +40,7 @@ def types():
         (String(), StringType),
         (Number(), NumberType),
         (Boolean(), BooleanType),
-        #(Null(), NullType)
+        (Null(), NullType)
     ],
     ids=[
         "map",
@@ -46,7 +49,7 @@ def types():
         "string",
         "number",
         "boolean",
-        #"null"
+        "null"
     ])
 def test_auction(types, structure, type):
     result = Auctioneer.auction(types, structure)

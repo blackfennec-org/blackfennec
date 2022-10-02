@@ -8,6 +8,7 @@ from src.black_fennec.structure.boolean import Boolean
 from src.black_fennec.structure.null import Null
 from .list_type import ListType
 from .map_type import MapType
+from .null_type import NullType
 from .string_type import StringType
 from .number_type import NumberType
 from .boolean_type import BooleanType
@@ -29,6 +30,7 @@ class TypeFactory:
 
         return type
 
+
     @staticmethod
     def create_list():
         type = ListType(
@@ -39,6 +41,7 @@ class TypeFactory:
             })
         )
         return type
+
 
     @staticmethod
     def create_string(pattern=".*", default=""):
@@ -52,6 +55,7 @@ class TypeFactory:
             ),
         )
 
+
     @staticmethod
     def create_number(min=None, max=None, default=0):
         return NumberType(
@@ -62,6 +66,7 @@ class TypeFactory:
                 "maximum": Null()
             }),
         )
+
 
     @staticmethod
     def create_boolean(expected=None, default=False):
@@ -77,3 +82,13 @@ class TypeFactory:
                 "expected": expected
             })
         )
+
+
+    @staticmethod
+    def create_null():
+        return NullType(
+            Map({
+                "type": String("Null"), 
+            })
+        )
+
