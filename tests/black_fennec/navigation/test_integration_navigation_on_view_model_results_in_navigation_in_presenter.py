@@ -1,6 +1,6 @@
 import unittest
 
-from doubles.black_fennec.type_system.double_template_registry import TemplateRegistryMock
+from doubles.black_fennec.type_system.double_type_registry import TypeRegistryMock
 from doubles.double_dummy import Dummy
 from doubles.presentation.double_structure_presenter import StructurePresenterMock
 from doubles.black_fennec.interpretation.double_interpretation_service import InterpretationServiceMock
@@ -27,7 +27,6 @@ class NavigationOnViewModelResultsInNavigationInPresenterTestSuite(
     def setUp(self):
         type_registry = TypeRegistry()
         interpretation_service = InterpretationServiceMock([])
-        template_registry = TemplateRegistryMock()
         type_registry.register_type(BooleanType())
         type_registry.register_type(NumberType())
         type_registry.register_type(StringType())
@@ -43,11 +42,11 @@ class NavigationOnViewModelResultsInNavigationInPresenterTestSuite(
             structure, Dummy('specification'), Dummy('factories'))
         interpretation.set_navigation_service(self.navigation_service)
         interpretation_service = Dummy('InterpretationService')
-        template_registry = TemplateRegistryMock()
+        type_registry = TypeRegistryMock()
         map_view_model = MapViewModel(
             interpretation,
             interpretation_service,
-            template_registry)
+            type_registry)
         map_view_model.navigate_to(Map())
         self.assertEqual(self.presenter.show_count, 1)
 
@@ -57,11 +56,11 @@ class NavigationOnViewModelResultsInNavigationInPresenterTestSuite(
             structure, Dummy('specification'), Dummy('factories'))
         interpretation.set_navigation_service(self.navigation_service)
         interpretation_service = Dummy('InterpretationService')
-        template_registry = Dummy('TemplateRegistry')
+        type_registry = Dummy('TypeRegistry')
         list_view_model = ListViewModel(
             interpretation,
             interpretation_service,
-            template_registry
+            type_registry
         )
         list_view_model.navigate_to(List())
         self.assertEqual(self.presenter.show_count, 1)

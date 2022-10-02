@@ -4,7 +4,7 @@ from src.visualisation.core.map.map_preview import MapPreview
 from src.black_fennec.interpretation.interpretation import Interpretation
 from src.black_fennec.interpretation.interpretation_service import InterpretationService
 from src.black_fennec.interpretation.specification import Specification
-from src.black_fennec.type_system.template_registry import TemplateRegistry
+from src.black_fennec.type_system.type_registry import TypeRegistry
 
 
 class MapViewFactory:
@@ -12,10 +12,10 @@ class MapViewFactory:
 
     def __init__(self,
                  interpretation_service: InterpretationService,
-                 template_registry: TemplateRegistry,
+                 type_registry: TypeRegistry,
                  view_factory):
         self._interpretation_service = interpretation_service
-        self._template_registry = template_registry
+        self._type_registry = type_registry
         self._view_factory = view_factory
 
     def satisfies(self, unused_specification: Specification) -> bool:
@@ -45,7 +45,7 @@ class MapViewFactory:
         view_model = MapViewModel(
             interpretation,
             self._interpretation_service,
-            self._template_registry)
+            self._type_registry)
         if interpretation.specification.is_request_for_preview:
             return MapPreview(view_model)
         return MapView(self._view_factory, view_model)

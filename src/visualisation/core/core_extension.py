@@ -31,14 +31,14 @@ def create_extension(extension_api: ExtensionApi):
         (
             ListType(),
             ListViewFactory(
-                extension_api.interpretation_service, extension_api.template_registry,
+                extension_api.interpretation_service, extension_api.type_registry,
                 extension_api.view_factory
             )
         ),
         (
             MapType(),
             MapViewFactory(
-                extension_api.interpretation_service, extension_api.template_registry,
+                extension_api.interpretation_service, extension_api.type_registry,
                 extension_api.view_factory
             )
         ),

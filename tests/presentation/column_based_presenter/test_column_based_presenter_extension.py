@@ -16,7 +16,6 @@ def api(registry) -> ExtensionApi:
     return ExtensionApi(
         presenter_registry=registry,
         type_registry=Dummy("TypeRegistry"),
-        template_registry=Dummy("TemplateRegistry"),
         interpretation_service=Dummy("InterpretationService"),
         view_factory=Dummy("ViewFactory"),
         view_factory_registry=Dummy("ViewFactoryRegistry"),

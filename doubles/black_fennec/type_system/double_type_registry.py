@@ -4,8 +4,8 @@ from doubles.black_fennec.structure.type.double_type import TypeMock
 
 class TypeRegistryMock:
     def __init__(self, types=None):
-        if type is None:
-            self._types = [
+        if types is None:
+            types = [
                 TypeMock("Type1", CoverageMock(1)),
                 TypeMock("Type2", CoverageMock(2)),
             ]

@@ -9,9 +9,8 @@ from doubles.black_fennec.interpretation.double_interpretation_service import \
 from doubles.black_fennec.structure.double_list import (ListInstanceMock,
                                                         ListMock)
 from doubles.black_fennec.structure.double_structure import StructureMock
-from doubles.black_fennec.type_system.double_template_registry import \
-    TemplateRegistryMock
-from doubles.visualisation.double_structure_template import StructureTemplate
+from doubles.black_fennec.type_system.double_type_registry import TypeRegistryMock
+from doubles.black_fennec.structure.type.double_type import TypeMock
 from src.visualisation.core.list.list_view_model import ListViewModel
 
 
@@ -21,18 +20,12 @@ class ListViewModelTestSuite(unittest.TestCase):
         self.interpretation_service = InterpretationServiceMock(
             deque([InterpretationMock()])
         )
-        self.template_registry = TemplateRegistryMock()
+        self.type_registry = TypeRegistryMock()
         self.view_model: Optional[ListViewModel] = ListViewModel(
             self.interpretation,
             self.interpretation_service,
-            self.template_registry
+            self.type_registry
         )
-
-    def tearDown(self) -> None:
-        self.interpretation = None
-        self.interpretation_service = None
-        self.template_registry = None
-        self.view_model: Optional[ListViewModel] = None
 
     def test_can_construct(self):
         self.assertIsNotNone(self.view_model)
@@ -64,15 +57,15 @@ class ListViewModelTestSuite(unittest.TestCase):
             self.interpretation_service.last_specification.is_request_for_preview)
         self.assertIsNotNone(preview.navigation_service)
 
-    def test_can_add_by_tempate(self):
+    def test_can_add_by_template(self):
         subject = StructureMock()
-        template = StructureTemplate(subject)
+        template = TypeMock(default=subject)
         self.view_model.add_by_template(template)
         self.assertIn(subject, self.view_model.value.value)
 
     def test_can_get_templates(self):
         subject = StructureMock()
-        template = StructureTemplate(subject)
-        self.template_registry.templates.add(template)
+        template = TypeMock(subject)
+        self.type_registry.types.append(template)
         templates = self.view_model.get_templates()
         self.assertIn(template, templates)

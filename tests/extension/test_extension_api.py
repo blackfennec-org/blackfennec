@@ -9,7 +9,6 @@ class ExtensionApiTestSuite(unittest.TestCase):
     def setUp(self) -> None:
         self.presenter_registry = Dummy('PresenterRegistry')
         self.type_registry = Dummy('TypeRegistry')
-        self.template_registry = Dummy('TemplateRegistry')
         self.interpretation_service = Dummy('InterpretationService')
         self.view_factory = Dummy('ViewFactory')
         self.view_factory_registry = Dummy('ViewFactoryRegistry')
@@ -17,7 +16,6 @@ class ExtensionApiTestSuite(unittest.TestCase):
         self.extension_api = ExtensionApi(
             self.presenter_registry,
             self.type_registry,
-            self.template_registry,
             self.interpretation_service,
             self.view_factory,
             self.view_factory_registry

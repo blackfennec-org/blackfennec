@@ -14,7 +14,6 @@ class BaseExtensionTestSuite(unittest.TestCase):
         self.extension_api = ExtensionApi(
             presenter_registry=Dummy('PresenterRegistry'),
             type_registry=self.type_registry,
-            template_registry=Dummy('TemplateRegistry'),
             interpretation_service=Dummy('InterpretationService'),
             view_factory=Dummy('ViewFactory'),
             view_factory_registry=self.view_factory_registry

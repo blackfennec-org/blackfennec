@@ -8,11 +8,9 @@ from doubles.black_fennec.interpretation.double_interpretation_service import \
 from doubles.black_fennec.structure.double_structure import StructureMock
 from doubles.black_fennec.structure.double_map import MapInstanceMock, MapMock
 from doubles.black_fennec.structure.double_structure import StructureMock
-from doubles.black_fennec.type_system.double_template_registry import \
-    TemplateRegistryMock
+from doubles.black_fennec.type_system.double_type_registry import TypeRegistryMock
 from doubles.double_dummy import Dummy
-from doubles.visualisation.double_structure_template import \
-    StructureTemplate as StructureTemplateMock
+from doubles.black_fennec.structure.type.double_type import TypeMock
 from src.visualisation.core.map.map_view_model import MapViewModel
 
 
@@ -21,13 +19,13 @@ class MapViewModelTestSuite(unittest.TestCase):
         self.interpretation = InterpretationMock(MapInstanceMock())
         self.interpretation_service = InterpretationServiceMock(
             deque([self.interpretation]))
-        self.template_registry = TemplateRegistryMock([
-            StructureTemplateMock(Dummy('structure'))
+        self.type_registry = TypeRegistryMock([
+            TypeMock(Dummy('structure'))
         ])
         self.view_model = MapViewModel(
             self.interpretation,
             self.interpretation_service,
-            self.template_registry)
+            self.type_registry)
 
     def test_can_construct(self):
         self.assertIsNotNone(self.view_model)
@@ -70,10 +68,10 @@ class MapViewModelTestSuite(unittest.TestCase):
     def test_can_add_by_template(self):
         key = 'key'
         structure = StructureMock(value='structure')
-        template = StructureTemplateMock(structure)
+        template = TypeMock(default=structure)
         self.view_model.add_by_template(key, template)
         self.assertEqual(self.view_model.value.value[key], structure)
 
     def test_can_get_templates(self):
         templates = self.view_model.get_templates()
-        self.assertEqual(templates, self.template_registry.templates)
+        self.assertEqual(templates, self.type_registry.types)

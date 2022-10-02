@@ -5,7 +5,7 @@ from src.black_fennec.interpretation.specification import Specification
 from src.black_fennec.navigation.navigation_proxy import NavigationProxy
 from src.black_fennec.structure.structure import Structure
 from src.black_fennec.structure.type.type import Type
-from src.black_fennec.type_system.template_registry import TemplateRegistry
+from src.black_fennec.type_system.type_registry import TypeRegistry
 from src.black_fennec.util.observable import Observable
 
 
@@ -16,7 +16,7 @@ class ListViewModel(Observable):
             self,
             interpretation: Interpretation,
             interpretation_service: InterpretationService,
-            template_registry: TemplateRegistry
+            type_registry: TypeRegistry
     ):
         """Create with value empty list.
 
@@ -25,13 +25,13 @@ class ListViewModel(Observable):
                 interpretation
             interpretation_service (InterpretationService): service to
                 interpret substructures and create previews
-            template_registry (TemplateRegistry): registry used to
+            type_registry (TypeRegistry): registry used to
                 add children to List from template.
         """
         Observable.__init__(self)
         self._interpretation = interpretation
         self._interpretation_service = interpretation_service
-        self._template_registry = template_registry
+        self._type_registry = type_registry
         self._list = self._interpretation.structure
 
     @property
@@ -86,7 +86,7 @@ class ListViewModel(Observable):
         self.add_item(template.create_instance())
 
     def get_templates(self):
-        return self._template_registry.templates
+        return self._type_registry.types
 
     def navigate(self, sender, destination: Structure):
         self.selected = sender

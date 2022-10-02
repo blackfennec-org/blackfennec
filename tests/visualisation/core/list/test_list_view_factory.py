@@ -4,7 +4,7 @@ from doubles.double_dummy import Dummy
 from doubles.black_fennec.interpretation.double_interpretation import InterpretationMock
 from doubles.black_fennec.interpretation.double_interpretation_service import InterpretationServiceMock
 from doubles.black_fennec.structure.double_list import ListMock, ListInstanceMock
-from doubles.black_fennec.type_system.double_template_registry import TemplateRegistryMock
+from doubles.black_fennec.type_system.double_type_registry import TypeRegistryMock
 from src.black_fennec.interpretation.specification import Specification
 from src.visualisation.core.list.list_preview import ListPreview
 from src.visualisation.core.list.list_view import ListView
@@ -15,7 +15,7 @@ from src.visualisation.core.list.list_view_factory import ListViewFactory
 def factory():
     return ListViewFactory(
         InterpretationServiceMock([]),
-        TemplateRegistryMock(),
+        TypeRegistryMock(),
         Dummy('ViewFactory'))
 
 def test_can_construct(factory):

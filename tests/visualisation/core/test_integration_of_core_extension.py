@@ -49,7 +49,6 @@ def api(type_registry, interpreter, view_factory, view_factory_registry):
     return ExtensionApi(
         presenter_registry=Dummy("PresenterRegistry"),
         type_registry=type_registry,
-        template_registry=Dummy("TemplateRegistry"),
         interpretation_service=interpreter,
         view_factory=view_factory,
         view_factory_registry=view_factory_registry,

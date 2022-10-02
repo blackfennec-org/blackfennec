@@ -7,16 +7,17 @@ from src.black_fennec.structure.type.type import Type
 
 
 class TypeMock(Type):
-    def __init__(self, type=None, coverage=None):
+    def __init__(self, type=None, coverage=None, default=None):
         super().__init__(
             MapMock({"type": StringMock("String")})
         )
         self.type = type
         self._coverage = coverage or CoverageMock(1)
+        self._default = default or StringMock("Default")
 
     @property
     def default(self):
-        return StringMock("Default")
+        return self._default
 
     def calculate_coverage(self, subject):
         return self._coverage
