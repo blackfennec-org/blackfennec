@@ -12,7 +12,7 @@ class JsonMimeType(MimeType):
             self,
             structure_serializer: StructureSerializer,
     ):
-        self.structure_serializer = structure_serializer
+        self._structure_serializer = structure_serializer
 
     @property
     def mime_type_id(self) -> str:
@@ -28,7 +28,7 @@ class JsonMimeType(MimeType):
             Structure: The imported structure
         """
         raw = json.load(to_import)
-        return self.structure_serializer.deserialize(raw)
+        return self._structure_serializer.deserialize(raw)
 
     def export_structure(self, output: IO, structure: Structure):
         """Exports a structure to a IO Stream
@@ -37,5 +37,5 @@ class JsonMimeType(MimeType):
             output (IO): The IO Stream to export to
             structure (Structure): The structure to export
         """
-        raw = self.structure_serializer.serialize(structure)
+        raw = self._structure_serializer.serialize(structure)
         json.dump(raw, output)
