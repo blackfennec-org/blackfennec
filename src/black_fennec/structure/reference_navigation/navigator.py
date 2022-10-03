@@ -32,6 +32,8 @@ class Navigator(metaclass=abc.ABCMeta):
     def __eq__(self, other):
         if isinstance(other, self.__class__):
             return True
+        else:
+            return False
 
     def __hash__(self):
         return hash(self.__class__)

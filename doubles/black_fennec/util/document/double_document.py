@@ -2,7 +2,7 @@
 from doubles.double_dummy import Dummy
 
 
-class DocumentMock():
+class DocumentMock:
     def __init__(self, mime_type=None, resource_type=None, uri: str = None, location: str = None, content=None):
         self.uri = uri
         self.location = location
