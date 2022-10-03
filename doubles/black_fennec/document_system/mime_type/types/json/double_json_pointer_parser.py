@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
+from src.black_fennec.document_system.mime_type.types.json.json_pointer_serializer import JsonPointerSerializer
 from src.black_fennec.structure.reference_navigation.navigator import Navigator
 
 
-class JsonPointerSerializerMock:
+class JsonPointerSerializerMock(JsonPointerSerializer):
     def __init__(
             self,
             serialize_result=None,

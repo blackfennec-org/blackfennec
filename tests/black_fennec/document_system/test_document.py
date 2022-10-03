@@ -37,3 +37,7 @@ class TestDocument:
         assert content1 == content2
         assert resource_type.load_resource_count == 1
         assert mime_type.import_structure_count == 1
+
+    def test_save(self, document, mime_type, resource_type):
+        document.save()
+        assert mime_type.export_structure_count == 1

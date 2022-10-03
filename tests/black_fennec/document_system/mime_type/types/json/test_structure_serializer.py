@@ -2,7 +2,7 @@ import json
 
 import pytest
 
-from doubles.black_fennec.document_system.mime_type.types.double_json_reference_serializer import \
+from doubles.black_fennec.document_system.mime_type.types.json.double_json_reference_serializer import \
     JsonReferenceSerializerMock
 from src.black_fennec.structure.boolean import Boolean
 from src.black_fennec.structure.list import List

@@ -2,6 +2,8 @@
 import pytest
 
 from doubles.black_fennec.structure.double_list import ListInstanceMock
+from doubles.black_fennec.structure.double_map import MapInstanceMock
+from doubles.black_fennec.structure.double_string import StringMock
 from doubles.black_fennec.structure.double_structure import StructureMock
 from src.black_fennec.structure.reference_navigation.sibling_offset_navigator import SiblingOffsetNavigator
 
@@ -37,6 +39,15 @@ def test_get_representation():
 def test_navigate(structure, offset, child_index):
     navigator = SiblingOffsetNavigator(offset)
     assert navigator.navigate(structure.value[child_index]) == structure.value[child_index + offset]
+
+
+def test_failing_navigate_in_map():
+    structure = MapInstanceMock({
+        "key": StringMock("Test")
+    })
+    navigator = SiblingOffsetNavigator(0)
+    with pytest.raises(ValueError):
+        navigator.navigate(structure.value["key"])
 
 
 def test_navigators_with_same_offset_are_equal():

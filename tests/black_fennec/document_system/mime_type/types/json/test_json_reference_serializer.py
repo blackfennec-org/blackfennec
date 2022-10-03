@@ -2,7 +2,8 @@ import pytest
 
 from doubles.black_fennec.document_system.double_document import DocumentMock
 from doubles.black_fennec.document_system.double_document_factory import DocumentFactoryMock
-from doubles.black_fennec.document_system.mime_type.types.double_json_pointer_parser import JsonPointerSerializerMock
+from doubles.black_fennec.document_system.mime_type.types.json.double_json_pointer_parser import \
+    JsonPointerSerializerMock
 from src.black_fennec.document_system.mime_type.types.json.json_reference_serializer import JsonReferenceSerializer
 from src.black_fennec.structure.map import Map
 from src.black_fennec.structure.reference_navigation.root_navigator import RootNavigator
@@ -31,7 +32,11 @@ def document_factory(document):
 def json_reference_parser(document_factory):
     return JsonReferenceSerializer(
         document_factory,
-        JsonPointerSerializerMock(serialize_result='pointer')
+        JsonPointerSerializerMock(
+            serialize_result='pointer',
+            deserialize_relative_pointer_result=[],
+            deserialize_absolute_pointer_result=[RootNavigator()]
+        )
     )
 
 
@@ -83,7 +88,10 @@ def test_serialize_json_reference(json_reference_parser, reference, expected):
     ({JsonReferenceSerializer.REFERENCE_KEY: 'test.json'}, [
         UriNavigator(pytest.lazy_fixture("document_factory"), 'test.json')
     ]),
-    ({JsonReferenceSerializer.REFERENCE_KEY + "_make_invalid": "test"}, KeyError)
+    ({JsonReferenceSerializer.REFERENCE_KEY + "_make_invalid": "test"}, KeyError),
+    ({JsonReferenceSerializer.REFERENCE_KEY: None}, []),
+    ({JsonReferenceSerializer.REFERENCE_KEY: '#0-1/key'}, []),
+    ({JsonReferenceSerializer.REFERENCE_KEY: '#key/1'}, [RootNavigator()]),
 ])
 def test_parse_json_reference(json_reference_parser, reference, expected):
     if type(expected) == type and issubclass(expected, Exception):

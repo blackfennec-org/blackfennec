@@ -26,6 +26,6 @@ class MimeTypeMock(MimeType):
         self.import_structure_count += 1
         return self._imported_structure
 
-    def export_structure(self, structure) -> IO:
+    def export_structure(self, output: IO, structure):
         self.export_structure_count += 1
         return self._exported_structure

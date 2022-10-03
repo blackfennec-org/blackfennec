@@ -230,8 +230,8 @@ class JsonPointerSerializer:
             logger.error(message)
             raise ValueError(message)
 
-    @staticmethod
-    def is_relative_json_pointer(pointer: str):
+    @classmethod
+    def is_relative_json_pointer(cls, pointer: str):
         """ Checks if pointer is relative JsonPointer
 
         Arguments:
@@ -239,12 +239,10 @@ class JsonPointerSerializer:
         Returns:
             bool: True if pointer is relative JsonPointer
         """
-        if JsonPointerSerializer.RELATIVE_POINTER_PATTERN.match(pointer):
-            return True
-        return False
+        return bool(cls.RELATIVE_POINTER_PATTERN.match(pointer))
 
-    @staticmethod
-    def is_absolute_json_pointer(pointer: str):
+    @classmethod
+    def is_absolute_json_pointer(cls, pointer: str):
         """ Checks if pointer is absolute JsonPointer
 
         Arguments:
@@ -252,6 +250,4 @@ class JsonPointerSerializer:
         Returns:
             bool: True if pointer is absolute JsonPointer
         """
-        if JsonPointerSerializer.ABSOLUTE_POINTER_PATTERN.match(pointer):
-            return True
-        return False
+        return bool(cls.ABSOLUTE_POINTER_PATTERN.match(pointer))
