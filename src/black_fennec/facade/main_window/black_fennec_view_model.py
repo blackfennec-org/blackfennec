@@ -1,15 +1,13 @@
-import os
 import logging
+import os
 
+from src.black_fennec.document_system.document_factory import DocumentFactory
 from src.black_fennec.facade.extension_store.extension_store_view_model import ExtensionStoreViewModel
+from src.black_fennec.facade.main_window.tab import Tab
 from src.black_fennec.interpretation.interpretation_service import InterpretationService
 from src.black_fennec.navigation.navigation_service import NavigationService
-from src.black_fennec.util.document.document_factory import DocumentFactory
-from src.black_fennec.util.document.mime_type.types.json.json_reference_serializer import JsonReferenceSerializer
-from src.black_fennec.util.document.mime_type.types.json.structure_serializer import StructureSerializer
-from src.black_fennec.util.observable import Observable
 from src.black_fennec.structure.structure import Structure
-from src.black_fennec.facade.main_window.tab import Tab
+from src.black_fennec.util.observable import Observable
 from src.extension.extension_api import ExtensionApi
 from src.extension.extension_source_registry import ExtensionSourceRegistry
 

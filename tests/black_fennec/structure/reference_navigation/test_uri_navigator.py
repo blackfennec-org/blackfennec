@@ -1,18 +1,14 @@
 # -*- coding: utf-8 -*-
-import logging
 
 import pytest
 
+from doubles.black_fennec.document_system.double_document import DocumentMock
+from doubles.black_fennec.document_system.double_document_factory import DocumentFactoryMock
 from doubles.black_fennec.structure.double_root import RootMock
 from doubles.black_fennec.structure.double_structure import StructureMock
-from doubles.black_fennec.util.document.double_document import DocumentMock
-from doubles.black_fennec.util.document.double_document_factory import DocumentFactoryMock
+
 from doubles.double_dummy import Dummy
 from src.black_fennec.structure.reference_navigation.uri_navigator import UriNavigator
-from src.black_fennec.structure.structure import Structure
-from src.black_fennec.util.document.document import Document
-from src.black_fennec.util.document.document_factory import DocumentFactory
-from src.black_fennec.structure.reference_navigation.navigator import Navigator
 
 
 @pytest.fixture()

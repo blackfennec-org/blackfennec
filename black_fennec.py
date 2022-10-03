@@ -1,8 +1,5 @@
 import gi
 
-from src.black_fennec.util.document.mime_type.types.json.json_pointer_serializer import JsonPointerSerializer
-from src.black_fennec.util.document.mime_type.types.json.json_reference_serializer import JsonReferenceSerializer
-
 gi.require_version('Gtk', '3.0')
 
 # pylint: disable=wrong-import-position,ungrouped-imports
@@ -22,13 +19,15 @@ from src.extension.extension_api import ExtensionApi
 from src.extension.extension_initialisation_service import ExtensionInitialisationService
 from src.extension.extension_source_registry import ExtensionSourceRegistry
 
-from src.black_fennec.util.document.mime_type.types.json.structure_serializer import StructureSerializer
-from src.black_fennec.util.document.mime_type.mime_type_registry import MimeTypeRegistry
-from src.black_fennec.util.document.mime_type.types.json.json_mime_type import JsonMimeType
-from src.black_fennec.util.document.resource_type.protocols.file_resource_type import FileResourceType
-from src.black_fennec.util.document.resource_type.protocols.https_resource_type import HttpsResourceType
-from src.black_fennec.util.document.resource_type.resource_type_registry import ResourceTypeRegistry
-from src.black_fennec.util.document.document_factory import DocumentFactory
+from src.black_fennec.document_system.document_factory import DocumentFactory
+from src.black_fennec.document_system.mime_type.types.json.json_pointer_serializer import JsonPointerSerializer
+from src.black_fennec.document_system.mime_type.types.json.json_reference_serializer import JsonReferenceSerializer
+from src.black_fennec.document_system.mime_type.types.json.structure_serializer import StructureSerializer
+from src.black_fennec.document_system.mime_type.mime_type_registry import MimeTypeRegistry
+from src.black_fennec.document_system.mime_type.types.json.json_mime_type import JsonMimeType
+from src.black_fennec.document_system.resource_type.protocols.file_resource_type import FileResourceType
+from src.black_fennec.document_system.resource_type.protocols.https_resource_type import HttpsResourceType
+from src.black_fennec.document_system.resource_type.resource_type_registry import ResourceTypeRegistry
 
 # pylint: enable=wrong-import-position
 

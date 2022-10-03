@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 import logging
+
 from src.black_fennec.structure.structure import Structure
-from src.black_fennec.util.document.document import Document
-from src.black_fennec.util.document.document_factory import DocumentFactory
+from src.black_fennec.document_system.document import Document
+from src.black_fennec.document_system.document_factory import DocumentFactory
 from src.black_fennec.structure.reference_navigation.navigator import Navigator
 
 logger = logging.getLogger(__name__)

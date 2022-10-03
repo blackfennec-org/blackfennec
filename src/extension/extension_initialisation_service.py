@@ -5,15 +5,13 @@ import src.visualisation
 import src.presentation
 
 from src.black_fennec.structure.list import List
-from src.black_fennec.util.document.document_factory import DocumentFactory
-from src.black_fennec.util.document.mime_type.types.json.json_mime_type import JsonMimeType
-from src.black_fennec.util.document.resource_type.protocols.file_resource_type import FileResourceType
+from src.black_fennec.document_system.document_factory import DocumentFactory
 from src.extension.extension_api import ExtensionApi
 from src.extension.extension_source import ExtensionSource
 from src.extension.extension_source_registry import ExtensionSourceRegistry
 from src.extension.local_extension_service import LocalExtensionService
 from src.extension.pypi_extension_service import PyPIExtensionService
-from src.black_fennec.util.document.mime_type.types.json.structure_serializer import StructureSerializer
+from src.black_fennec.document_system.mime_type.types.json.structure_serializer import StructureSerializer
 
 
 class ExtensionInitialisationService:

@@ -1,8 +1,8 @@
 import unittest
 import logging
 
-from doubles.black_fennec.util.document.double_document import DocumentMock
-from doubles.black_fennec.util.document.double_document_factory import DocumentFactoryMock
+from doubles.black_fennec.document_system.double_document import DocumentMock
+from doubles.black_fennec.document_system.double_document_factory import DocumentFactoryMock
 from doubles.double_dummy import Dummy
 from doubles.black_fennec.interpretation.double_interpretation_service import InterpretationServiceMock
 from doubles.extension.double_extension_source_registry import ExtensionSourceRegistryMock
@@ -17,7 +17,6 @@ class BlackFennecViewModelTestSuite(unittest.TestCase):
         self.interpretation_service = InterpretationServiceMock(Dummy())
 
         self.document = DocumentMock(content=Dummy())
-
         self.document_factory = DocumentFactoryMock(create_return=self.document)
 
         self.extension_api = Dummy()
