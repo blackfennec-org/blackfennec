@@ -24,7 +24,7 @@ class JsonReferenceSerializer:
         self._document_factory = document_factory
         self._pointer_serializer = pointer_serializer
 
-    def serialize(self, navigator_list: list[Navigator]):
+    def serialize(self, navigator_list: list[Navigator]) -> dict:
         """Serializes a list of navigators into a json reference string
 
         Arguments:
@@ -32,11 +32,13 @@ class JsonReferenceSerializer:
         Returns:
             str: A json reference string
         """
+        if navigator_list is None or len(navigator_list) == 0:
+            return {self.REFERENCE_KEY: None}
         first_element = navigator_list[0]
         if isinstance(first_element, UriNavigator):
-            return first_element.uri
+            return {self.REFERENCE_KEY: first_element.uri}
 
-        return self._pointer_serializer.serialize(navigator_list)
+        return {self.REFERENCE_KEY: self._pointer_serializer.serialize(navigator_list)}
 
     def deserialize(self, raw: dict) -> list[Navigator]:
         reference = raw[self.REFERENCE_KEY]

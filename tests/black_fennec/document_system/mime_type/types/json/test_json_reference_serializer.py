@@ -5,6 +5,7 @@ from doubles.black_fennec.document_system.double_document_factory import Documen
 from doubles.black_fennec.document_system.mime_type.types.double_json_pointer_parser import JsonPointerSerializerMock
 from src.black_fennec.document_system.mime_type.types.json.json_reference_serializer import JsonReferenceSerializer
 from src.black_fennec.structure.map import Map
+from src.black_fennec.structure.reference_navigation.root_navigator import RootNavigator
 from src.black_fennec.structure.reference_navigation.uri_navigator import UriNavigator
 from src.black_fennec.structure.root_factory import RootFactory
 from src.black_fennec.structure.string import String
@@ -28,11 +29,45 @@ def document_factory(document):
 
 @pytest.fixture()
 def json_reference_parser(document_factory):
-    return JsonReferenceSerializer(document_factory, JsonPointerSerializerMock())
+    return JsonReferenceSerializer(
+        document_factory,
+        JsonPointerSerializerMock(serialize_result='pointer')
+    )
 
 
 def test_can_construct(json_reference_parser):
     pass
+
+
+@pytest.mark.parametrize("reference, expected", [
+    (
+            [UriNavigator(pytest.lazy_fixture("document_factory"), 'https://test.test/test.json')],
+            {JsonReferenceSerializer.REFERENCE_KEY: 'https://test.test/test.json'}
+    ),
+    (
+            [UriNavigator(pytest.lazy_fixture("document_factory"), 'C:/test.json')],
+            {JsonReferenceSerializer.REFERENCE_KEY: 'C:/test.json'}
+    ),
+    (
+            [UriNavigator(pytest.lazy_fixture("document_factory"), './test.json')],
+            {JsonReferenceSerializer.REFERENCE_KEY: './test.json'}
+    ),
+    (
+            [UriNavigator(pytest.lazy_fixture("document_factory"), 'test.json')],
+            {JsonReferenceSerializer.REFERENCE_KEY: 'test.json'}
+    ),
+    (
+            [RootNavigator()],
+            {JsonReferenceSerializer.REFERENCE_KEY: 'pointer'}
+    ),
+    (
+            [],
+            {JsonReferenceSerializer.REFERENCE_KEY: None}
+    )
+])
+def test_serialize_json_reference(json_reference_parser, reference, expected):
+    relative_pointer = json_reference_parser.serialize(reference)
+    assert relative_pointer == expected
 
 
 @pytest.mark.parametrize("reference, expected", [
