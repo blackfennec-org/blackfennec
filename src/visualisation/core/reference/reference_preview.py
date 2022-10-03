@@ -24,14 +24,9 @@ class ReferencePreview(Gtk.Bin):
 
     def _update_reference_value(self):
         value = self._view_model.reference.value
-        self._reference_value.set_text(value)
+        self._reference_value.set_text(str(value))
 
     @Gtk.Template.Callback()
     def _click_handler(self, unused_sender, unused_argument) -> None:
         """Handles clicks on reference items, triggers navigation"""
-        self._view_model.navigate_to(self._view_model.reference.destination)
-
-    @Gtk.Template.Callback()
-    def _on_text_changed(self, unused_sender):
-        reference = self._reference_value.get_text()
-        self._view_model.reference.value = reference
+        self._view_model.navigate_to_reference()

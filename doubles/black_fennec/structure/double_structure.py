@@ -25,13 +25,9 @@ class StructureMock:
     def parent(self, value):
         self._parent = value
 
-    @property
-    def root(self):
+    def get_root(self):
         return self._root
 
-    @root.setter
-    def root(self, value):
-        self._root = value
 
 
 class StructureInstanceMock(Structure, StructureMock):

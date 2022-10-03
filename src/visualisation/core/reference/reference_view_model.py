@@ -34,5 +34,5 @@ class ReferenceViewModel:
         """Readonly property for value."""
         return self._reference
 
-    def navigate_to(self, route_target: Structure):
-        self._interpretation.navigate(route_target)
+    def navigate_to_reference(self):
+        self._interpretation.navigate(self._reference.resolve())

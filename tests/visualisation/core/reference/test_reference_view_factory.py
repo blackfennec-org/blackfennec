@@ -1,5 +1,5 @@
 import pytest
-from uri import URI
+
 from doubles.black_fennec.interpretation.double_interpretation import InterpretationMock
 from doubles.black_fennec.structure.double_map import MapMock
 from doubles.black_fennec.structure.double_reference import ReferenceInstanceMock

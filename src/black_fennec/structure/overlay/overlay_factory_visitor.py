@@ -25,7 +25,7 @@ class OverlayFactoryVisitor(BaseFactoryVisitor):
 
     def visit_reference(self, subject_reference: Reference) -> Structure:
         try:
-            return subject_reference.destination.accept(self)
+            return subject_reference.resolve().accept(self)
         except Exception as e:
             message = f'An unknown exception has been ignored:\n{traceback.format_exc()}'
             logger.warning(message)

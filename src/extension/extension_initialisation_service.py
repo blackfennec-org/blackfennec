@@ -5,24 +5,22 @@ import src.visualisation
 import src.presentation
 
 from src.black_fennec.structure.list import List
-from src.black_fennec.util.document.document_factory import DocumentFactory
-from src.black_fennec.util.document.mime_type.types.json.json_mime_type import JsonMimeType
-from src.black_fennec.util.document.resource_type.protocols.file_resource_type import FileResourceType
+from src.black_fennec.document_system.document_factory import DocumentFactory
 from src.extension.extension_api import ExtensionApi
 from src.extension.extension_source import ExtensionSource
 from src.extension.extension_source_registry import ExtensionSourceRegistry
 from src.extension.local_extension_service import LocalExtensionService
 from src.extension.pypi_extension_service import PyPIExtensionService
-from src.black_fennec.util.document.mime_type.types.structure_encoding_service import StructureEncodingService
+from src.black_fennec.document_system.mime_type.types.json.structure_serializer import StructureSerializer
 
 
 class ExtensionInitialisationService:
     def __init__(
             self,
-            encoding_service: StructureEncodingService
+            encoding_service: StructureSerializer
     ):
         """
-        encoding_service (StructureEncodingService): to convert
+        encoding_service (StructureSerializer): to convert
                 structure to raw json
         """
         self._encoding_service = encoding_service
@@ -60,7 +58,7 @@ class ExtensionInitialisationService:
             presentation_source.underlay
         ])
 
-        raw = self._encoding_service.encode(source_list)
+        raw = self._encoding_service.serialize(source_list)
         with open(path, 'w') as file:
             file.write(raw)
 
@@ -92,8 +90,8 @@ class ExtensionInitialisationService:
         # TODO: https://gitlab.ost.ch/blackfennec/blackfennec/-/issues/1
         config = document_factory.create(
             uri,
-            FileResourceType().protocols[0],
-            JsonMimeType().mime_type_id
+            'file',
+            'application/json'
         )
 
         for extension_source_structure in config.content.value:

@@ -1,23 +1,15 @@
 # -*- coding: utf-8 -*-
+import imp
 import unittest
-from typing import Optional
+import json
 
-from doubles.black_fennec.structure.double_structure import StructureInstanceMock
-from doubles.black_fennec.structure.double_list import ListInstanceMock
-from doubles.black_fennec.structure.double_map import MapInstanceMock
+from doubles.black_fennec.document_system.mime_type.types.json.double_json_reference_serializer import JsonReferenceSerializerMock
 from src.black_fennec.structure.type.type_parser import TypeParser
-from src.black_fennec.structure.type.list_type import ListType
-from src.black_fennec.structure.type.map_type import MapType
-from src.black_fennec.structure.type.type import Type
 from src.black_fennec.structure.map import Map
 from src.black_fennec.structure.string import String
 from src.black_fennec.structure.number import Number
 from src.black_fennec.structure.type.type_factory import TypeFactory
-
-from src.black_fennec.util.document.mime_type.types.structure_parsing_service import (
-    StructureParsingService,
-)
-import json
+from src.black_fennec.document_system.mime_type.types.json.structure_serializer import StructureSerializer
 
 
 class TypeParserTestSuite(unittest.TestCase):
@@ -54,11 +46,10 @@ class TypeParserTestSuite(unittest.TestCase):
 }
         """
         json_object = json.loads(json_object)
-
-        parser = StructureParsingService()
-        structure_type = parser.from_json(json_type)
+        serializer = StructureSerializer(JsonReferenceSerializerMock())
+        structure_type = serializer.deserialize(json_type)
         type = self.type_parser.parse(structure_type)
-        structure = parser.from_json(json_object)
+        structure = serializer.deserialize(json_object)
         coverage = type.calculate_coverage(structure)
         assert coverage.is_covered()
 

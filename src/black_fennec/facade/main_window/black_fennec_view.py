@@ -1,8 +1,7 @@
 import logging
-from gi.repository import Gtk
 import os
 
-from uri import URI
+from gi.repository import Gtk
 
 from src.black_fennec.facade.extension_store.extension_store_view import ExtensionStoreView
 

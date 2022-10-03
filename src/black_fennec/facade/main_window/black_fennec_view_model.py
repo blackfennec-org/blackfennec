@@ -1,17 +1,13 @@
 import logging
+import os
 
-from uri import URI
-
+from src.black_fennec.document_system.document_factory import DocumentFactory
 from src.black_fennec.facade.extension_store.extension_store_view_model import ExtensionStoreViewModel
+from src.black_fennec.facade.main_window.tab import Tab
 from src.black_fennec.interpretation.interpretation_service import InterpretationService
 from src.black_fennec.navigation.navigation_service import NavigationService
-from src.black_fennec.util.document.document_factory import DocumentFactory
-from src.black_fennec.util.document.mime_type.mime_type import MimeType
-from src.black_fennec.util.document.resource_type.resource_type import ResourceType
-from src.black_fennec.util.document.mime_type.types.structure_encoding_service import StructureEncodingService
-from src.black_fennec.util.observable import Observable
 from src.black_fennec.structure.structure import Structure
-from src.black_fennec.facade.main_window.tab import Tab
+from src.black_fennec.util.observable import Observable
 from src.extension.extension_api import ExtensionApi
 from src.extension.extension_source_registry import ExtensionSourceRegistry
 
@@ -68,12 +64,7 @@ class BlackFennecViewModel(Observable):
         Args:
             uri (str): URI of the file to open
         """
-        resource_type = ResourceType.try_determine_resource_type(uri)
-        document = self._document_factory.create(
-            uri,
-            resource_type,
-            MimeType.try_determine_mime_type(uri, resource_type)
-        )
+        document = self._document_factory.create(uri, location=os.path.dirname(uri))
         structure: Structure = document.content
 
         navigation_service = NavigationService()
@@ -99,19 +90,18 @@ class BlackFennecViewModel(Observable):
         logger.warning('quit() not yet implemented')
 
     def save(self):
-        """Future implementation of save()"""
-        encoding_service = StructureEncodingService(indent=2)
-
+        """Saves all open files"""
         for tab in self.tabs:
-            raw = encoding_service.encode(tab.structure)
-            with open(tab.uri.path, 'w') as file:
-                file.write(raw)
+            root = tab.structure.get_root()
+            document = root.get_document()
+            document.save()
 
     def save_as(self):
         """Future implementation of save_as()"""
         logger.warning('save_as() not yet implemented')
 
     def create_extension_store(self) -> ExtensionStoreViewModel:
+        """Creates an extension store view model"""
         return ExtensionStoreViewModel(
             self._extension_source_registry,
             self._extension_api

@@ -2,16 +2,10 @@
 import unittest
 from typing import Optional
 
-from uri import URI
-
-from doubles.double_dummy import Dummy
 from doubles.black_fennec.structure.double_structure import StructureMock
 from doubles.black_fennec.structure.encapsulation_base.double_factory_base_visitor import FactoryBaseVisitorMock
-from doubles.black_fennec.util.json.double_json_reference_resolving_service import JsonReferenceResolvingServiceMock
-from src.black_fennec.structure.list import List
-from src.black_fennec.structure.map import Map
+from doubles.double_dummy import Dummy
 from src.black_fennec.structure.overlay.overlay_base import OverlayBase
-from src.black_fennec.structure.reference import Reference
 
 
 class OverlayBaseTestSuite(unittest.TestCase):

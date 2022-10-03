@@ -24,7 +24,7 @@
     "$ref": "/run/media/caspar/Data/programming/python/black-fennec/examples/address_test.json#1/first_name"
   },
   "Current File Relative Json Pointer": {
-    "$ref": "1/Project Member"
+    "$ref": "#1/Project Member"
   },
   "Current File Absolute Json Pointer": {
     "$ref": "#/Project Member"

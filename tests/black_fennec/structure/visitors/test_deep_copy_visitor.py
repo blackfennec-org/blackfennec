@@ -1,6 +1,6 @@
 import unittest
 
-from src.black_fennec.util.deep_compare.deep_compare import DeepCompare
+from tests.test_utils.deep_compare import DeepCompare
 from doubles.black_fennec.structure.double_list import ListMock
 from doubles.black_fennec.structure.double_map import MapMock
 from doubles.black_fennec.structure.double_reference import ReferenceMock
@@ -8,7 +8,6 @@ from doubles.black_fennec.structure.double_structure import StructureMock
 from doubles.double_dummy import Dummy
 from src.black_fennec.structure.visitors.deep_copy_visitor import \
     DeepCopyVisitor
-from uri import URI
 
 
 class TestDeepCopyVisitorTestSuite(unittest.TestCase):
@@ -35,7 +34,7 @@ class TestDeepCopyVisitorTestSuite(unittest.TestCase):
         self.assertEqual(structure.value, copy.value)
 
     def test_visit_reference(self):
-        structure = ReferenceMock(value=URI('ref'))
+        structure = ReferenceMock(value=[])
         copy = self.visitor.visit_reference(structure)
         self.assertEqual(structure.value, copy.value)
 
