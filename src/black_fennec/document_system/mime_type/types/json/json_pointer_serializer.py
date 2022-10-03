@@ -23,8 +23,8 @@ class JsonPointerSerializer:
     RELATIVE_POINTER_PATTERN = \
         re.compile('^([0-9]+([+][0-9]+|[-][0-9]+)?)(/(([^/~])|(~[01]))*)*$')
 
-    @staticmethod
-    def serialize(navigator_list: list[Navigator]) -> str:
+    @classmethod
+    def serialize(cls, navigator_list: list[Navigator]) -> str:
         """Serializes a list of navigators into a Json Pointer String
 
         Arguments:
@@ -32,33 +32,41 @@ class JsonPointerSerializer:
         Returns:
             str: A Json Pointer String
         """
-        reference = ""
-        level_navigation = 0
-        for navigator in navigator_list:
-            if isinstance(navigator, ParentNavigator):
-                level_navigation += 1
-                navigator_list.remove(navigator)
-            else:
-                break
-
-        if level_navigation:
-            reference = str(level_navigation)
+        # Must be relative pointer as absolute always contains a root navigator
+        if navigator_list is None or len(navigator_list) == 0:
+            return '0'
 
         first_element = navigator_list[0]
-        if isinstance(first_element, SiblingOffsetNavigator):
-            sibling_offset = first_element.sibling_offset
-            if sibling_offset < 0:
-                reference += "-"
-            else:
-                reference += "+"
-            reference += str(sibling_offset)
+        if isinstance(first_element, RootNavigator):
+            is_relative_pointer = False
+        else:
+            is_relative_pointer = True
 
-        if reference:
-            reference += "/"
+        reference = ""
+        if is_relative_pointer:
+            level_navigation = 0
+            for navigator in navigator_list:
+                if isinstance(navigator, ParentNavigator):
+                    level_navigation += 1
+                else:
+                    break
+
+            reference = str(level_navigation)
+
+            first_element = navigator_list[level_navigation]
+            if isinstance(first_element, SiblingOffsetNavigator):
+                sibling_offset = first_element.sibling_offset
+                if sibling_offset >= 0:
+                    reference += "+"
+                reference += str(sibling_offset)
 
         for navigator in navigator_list:
             if isinstance(navigator, ChildNavigator):
-                reference += str(navigator.subscript) + "/"
+                if reference != "":
+                    reference += "/"
+                elif navigator.subscript == "":
+                    reference += "/"
+                reference += cls._escape_navigator(str(navigator.subscript))
             elif isinstance(navigator, IndexOfNavigator):
                 reference += "#"
 
@@ -147,6 +155,20 @@ class JsonPointerSerializer:
         """
         navigator = navigator.replace('~1', '/')
         navigator = navigator.replace('~0', '~')
+        return navigator
+
+    @staticmethod
+    def _escape_navigator(navigator):
+        """Escapes navigator
+
+        Arguments:
+            navigator (str): Represents on level of the JsonPointer
+                that is inbetween two slashes.
+        Returns:
+            str: navigator with resolved escapings
+        """
+        navigator = navigator.replace('~', '~0')
+        navigator = navigator.replace('/', '~1')
         return navigator
 
     @classmethod
