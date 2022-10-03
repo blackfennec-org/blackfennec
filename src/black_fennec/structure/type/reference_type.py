@@ -4,6 +4,7 @@ import logging
 
 from typing import Optional
 from src.black_fennec.interpretation.auction.coverage import Coverage
+from src.black_fennec.structure.null import Null
 from src.black_fennec.structure.reference import Reference
 from src.black_fennec.structure.map import Map
 from src.black_fennec.structure.type.type import Type
@@ -21,7 +22,7 @@ class ReferenceType(Type):
 
     @staticmethod
     def _type_structure():
-        return Map({"type": String("Reference")})
+        return Map({"type": String("Reference"), "super": Null()})
 
     @property
     def default(self):

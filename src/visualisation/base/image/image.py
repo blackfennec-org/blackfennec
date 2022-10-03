@@ -4,7 +4,7 @@ import logging
 from src.black_fennec.structure.map import Map
 from src.black_fennec.structure.string import String
 from src.black_fennec.structure.type.type_factory import TypeFactory
-from src.visualisation.base.file.file import File
+from src.visualisation.base.file.file import File, create_file_type
 
 logger = logging.getLogger(__name__)
 
@@ -14,7 +14,7 @@ def create_image_type():
     Defines the format of the file
     """
     tf = TypeFactory()
-    type = tf.create_map(properties={
+    type = tf.create_map(type="Image", super=create_file_type(), properties={
         File.FILE_PATH_KEY: tf.create_string(),
         File.FILE_TYPE_KEY: tf.create_string('^image/.*$')
     })

@@ -4,6 +4,7 @@ import logging
 import re
 
 from src.black_fennec.interpretation.auction.coverage import Coverage
+from src.black_fennec.structure.null import Null
 from src.black_fennec.structure.string import String
 from src.black_fennec.structure.map import Map
 
@@ -22,7 +23,7 @@ class StringType(Type[String]):
 
     @staticmethod
     def _type_structure():
-        return Map({"type": String("String")})
+        return Map({"type": String("String"), "super": Null()})
 
     @property
     def pattern(self) -> re.Pattern:

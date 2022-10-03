@@ -11,9 +11,17 @@ from .string_type import StringType
 from .number_type import NumberType
 from .boolean_type import BooleanType
 
+
 class TypeParser(ParameterizedVisitor):
-    @staticmethod
-    def parse(type_map: Map) -> type_base.Type:
+    @classmethod
+    def _get_core_type(cls, structure: Map):
+        if structure.value["super"].value is not None:
+            return cls._get_core_type(structure.value["super"])
+        return structure.value["type"].value
+        
+
+    @classmethod
+    def parse(cls, structure: Map) -> type_base.Type:
         factory_map = {
             "Map": map_type.MapType,
             "List": list_type.ListType,
@@ -23,6 +31,6 @@ class TypeParser(ParameterizedVisitor):
             "Number": NumberType,
             "Boolean": BooleanType,
         }
-        type_name = type_map.value["type"].value
+        type_name = cls._get_core_type(structure)
         create_type = factory_map[type_name]
-        return create_type(type_map)
+        return create_type(structure)

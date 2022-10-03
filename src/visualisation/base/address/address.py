@@ -4,6 +4,7 @@ import logging
 from src.black_fennec.structure.map import Map
 from src.black_fennec.structure.list import List
 from src.black_fennec.structure.string import String
+from src.black_fennec.structure.type.map_type import MapType
 from src.black_fennec.structure.type.type_factory import TypeFactory
 
 
@@ -17,7 +18,7 @@ def create_address_type():
 
     tf = TypeFactory()
 
-    type = tf.create_map(properties={
+    type = tf.create_map(type="Address", super=MapType(), properties={
         Address.FIRST_NAME_KEY: tf.create_string(),
         Address.LAST_NAME_KEY: tf.create_string(),
         Address.STREET_KEY: tf.create_string(),

@@ -6,6 +6,7 @@ from typing import Optional
 from src.black_fennec.interpretation.auction.coverage import Coverage
 from src.black_fennec.structure.boolean import Boolean
 from src.black_fennec.structure.map import Map
+from src.black_fennec.structure.null import Null
 from src.black_fennec.structure.type.type import Type
 from src.black_fennec.structure.string import String
 
@@ -21,7 +22,7 @@ class BooleanType(Type):
 
     @staticmethod
     def _type_structure():
-        return Map({"type": String("Boolean")})
+        return Map({"type": String("Boolean"), "super": Null()})
 
     @property
     def default(self):

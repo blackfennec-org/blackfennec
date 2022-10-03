@@ -4,6 +4,7 @@ from typing import Dict
 
 
 from src.black_fennec.interpretation.auction.coverage import Coverage
+from src.black_fennec.structure.null import Null
 from src.black_fennec.structure.structure import Structure
 from src.black_fennec.structure.map import Map
 from src.black_fennec.structure.list import List
@@ -22,7 +23,7 @@ class MapType(Type[Map]):
     
     @staticmethod
     def _type_structure():
-        return Map({"type": String("Map")})
+        return Map({"type": String("Map"), "super": Null()})
 
     @property
     def default(self):

@@ -27,16 +27,19 @@ class TypeParserTestSuite(unittest.TestCase):
     def test_type_from_json(self):
         json_type = """
 {
+  "super": null,
   "type": "Map",
   "required": [
     "name"
   ],
   "properties": {
     "name": {
+      "super": null,
       "type": "String",
       "pattern": ".{3,}"
     },
     "age": {
+      "super": null,
       "type": "Number",
       "minimum": 0
     }

@@ -6,6 +6,7 @@ from src.black_fennec.structure.string import String
 from src.black_fennec.structure.number import Number
 from src.black_fennec.structure.boolean import Boolean
 from src.black_fennec.structure.null import Null
+from src.black_fennec.structure.type.type import Type
 from .list_type import ListType
 from .map_type import MapType
 from .null_type import NullType
@@ -16,10 +17,15 @@ from .boolean_type import BooleanType
 
 class TypeFactory:
     @staticmethod
-    def create_map(properties=None):
+    def create_map(properties=None, type="Map", super:Type=None):
+        if super:
+            super_struct = super.subject
+        else:
+            super_struct = Null()
         type = MapType(
             Map({
-                "type": String("Map"), 
+                "super": super_struct,
+                "type": String(type), 
                 "required": List(), 
                 "properties": Map()}),
         )
@@ -35,6 +41,7 @@ class TypeFactory:
     def create_list():
         type = ListType(
             Map({
+                "super": Null(),
                 "type": String("List"),
                 "required": List(),
                 "elements": List()
@@ -48,6 +55,7 @@ class TypeFactory:
         return StringType(
             Map(
                 {
+                    "super": Null(),
                     "type": String("String"),
                     "pattern": String(pattern),
                     "default": String(default),
@@ -60,6 +68,7 @@ class TypeFactory:
     def create_number(min=None, max=None, default=0):
         return NumberType(
             Map({
+                "super": Null(),
                 "type": String("Number"), 
                 "default": Number(default),
                 "minimum": Null(),
@@ -77,6 +86,7 @@ class TypeFactory:
         
         return BooleanType(
             Map({
+                "super": Null(),
                 "type": String("Boolean"), 
                 "default": Boolean(default),
                 "expected": expected
@@ -88,6 +98,7 @@ class TypeFactory:
     def create_null():
         return NullType(
             Map({
+                "super": Null(),
                 "type": String("Null"), 
             })
         )

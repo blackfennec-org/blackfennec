@@ -16,6 +16,10 @@ class Type(
         self._subject = subject
 
     @property
+    def name(self):
+        return self.subject.value["type"].value
+
+    @property
     def is_optional(self):
         if not self.parent:
             return False

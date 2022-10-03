@@ -21,7 +21,7 @@ class NullType(Type):
 
     @staticmethod
     def _type_structure():
-        return Map({"type": String("Null")})
+        return Map({"type": String("Null"), "super": Null()})
 
     @property
     def default(self):

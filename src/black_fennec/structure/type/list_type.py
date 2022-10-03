@@ -4,6 +4,7 @@ import logging
 from src.black_fennec.interpretation.auction.coverage import Coverage
 from src.black_fennec.structure.map import Map
 from src.black_fennec.structure.list import List
+from src.black_fennec.structure.null import Null
 from src.black_fennec.structure.number import Number
 from src.black_fennec.structure.string import String
 from .type import Type
@@ -21,7 +22,7 @@ class ListType(Type[List]):
 
     @staticmethod
     def _type_structure():
-        return Map({"type": String("List")})
+        return Map({"type": String("List"), "super": Null()})
 
     @property
     def default(self):

@@ -3,6 +3,7 @@
 import logging
 
 from src.black_fennec.interpretation.auction.coverage import Coverage
+from src.black_fennec.structure.null import Null
 from src.black_fennec.structure.number import Number
 from src.black_fennec.structure.map import Map
 from src.black_fennec.structure.string import String
@@ -20,7 +21,7 @@ class NumberType(Type[Number]):
 
     @staticmethod
     def _type_structure():
-        return Map({"type": String("Number")})
+        return Map({"type": String("Number"), "super": Null()})
 
     @property
     def default(self) -> Number:

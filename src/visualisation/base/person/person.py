@@ -3,6 +3,7 @@ import logging
 
 from src.black_fennec.structure.map import Map
 from src.black_fennec.structure.string import String
+from src.black_fennec.structure.type.map_type import MapType
 # from src.base.types.date import Date
 from src.black_fennec.structure.type.type_factory import TypeFactory
 from src.visualisation.base.address.address import Address, create_address_type
@@ -16,7 +17,7 @@ def create_person_type():
     Defines the format of the person
     """
     tf = TypeFactory()
-    type = tf.create_map()
+    type = tf.create_map(type="Person", super=MapType())
 
     type.add_property(
         Person.COURTESY_TITLE_KEY, tf.create_string(), is_required=False)
