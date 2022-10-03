@@ -8,9 +8,13 @@ from src.black_fennec.structure.type.type import Type
 
 
 class TypeMock(Type):
-    def __init__(self, type=None, coverage=None, default=None):
+    def __init__(self, type=None, coverage=None, default=None, super_type=None):
+        if super_type:
+            super_structure = super_type.subject
+        else:
+            super_structure = Null()
         super().__init__(
-            MapMock({"type": StringMock("String"), "super": Null()})
+            MapMock({"type": StringMock("String"), "super": super_structure})
         )
         self.type = type
         self._coverage = coverage or CoverageMock(1)

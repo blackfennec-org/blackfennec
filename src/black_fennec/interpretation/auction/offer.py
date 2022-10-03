@@ -58,8 +58,11 @@ class Offer(Comparable):
         Returns:
             int: specificity property set by constructor
         """
-        logger.warning("specificity hardcoded to 0")
-        return 0
+        def get_specificity(type: Type) -> int:
+            if type.super is None:
+                return 0
+            return 1 + get_specificity(type.super)
+        return get_specificity(self.type)
 
     @property
     def type(self) -> Type:
@@ -119,11 +122,6 @@ class Offer(Comparable):
             message = 'Subject of compared offers are not equal'
             logger.error(message)
             raise ValueError(message)
-
-        if self.coverage == other.coverage \
-                and 0 in (self.specificity, other.specificity) \
-                and (0, 0) != (self.specificity, other.specificity):
-            return self.specificity > other.specificity
 
         return (
                    self.coverage,

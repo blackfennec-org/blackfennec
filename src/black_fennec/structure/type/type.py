@@ -1,5 +1,7 @@
 from abc import ABCMeta, abstractmethod
 from typing import Generic, TypeVar
+
+from src.black_fennec.structure.null import Null
 from src.black_fennec.structure.string import String
 from .type_coverage_mixin import TypeCoverageMixin
 
@@ -14,6 +16,14 @@ class Type(
     def __init__(self, subject):
         TypeCoverageMixin.__init__(self)
         self._subject = subject
+
+    @property
+    def super(self):
+        super_structure = self.subject.value["super"]
+        if isinstance(super_structure, Null):
+            return None
+        from .type_parser import TypeParser
+        return TypeParser.parse(super_structure)
 
     @property
     def name(self):

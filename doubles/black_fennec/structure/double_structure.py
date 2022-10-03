@@ -44,15 +44,3 @@ class StructureInstanceMock(Structure, StructureMock):
 
     def __repr__(self) -> str:
         ...
-
-
-class StructureTypeMock:
-    def __init__(self, name, coverage=None):
-        self._name = name
-        self._coverage = coverage
-
-    def calculate_coverage(self, subject):
-        return self._coverage
-
-    def __repr__(self):
-        return self._name
