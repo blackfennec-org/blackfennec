@@ -1,0 +1,67 @@
+@startuml
+
+hide members
+hide methods
+
+skinparam class {
+    BackgroundColor #EEE
+    ArrowColor Black
+    BorderColor Black
+}
+
+title MimeType
+
+package Structure <<Frame>>{
+    abstract class Structure
+    class Reference extends Structure
+
+    class StructureSerializer
+    abstract class ReferenceSerializer
+
+    StructureSerializer *--> ReferenceSerializer : uses
+    StructureSerializer --> Structure : serializes/deserializes
+
+    package ReferenceNavigation <<Frame>> {
+        abstract Navigator
+        class ChildNavigator extends Navigator
+        class ParentNavigator extends Navigator
+        class IndexOfNavigator extends Navigator
+        class SiblingOffsetNavigator extends Navigator
+        class UriNavigator extends Navigator
+        class RootNavigator extends Navigator
+    }
+
+    Reference  -->   Navigator : value
+    Reference  -->   Navigator : navigates
+}
+
+package MimeType <<Frame>> {
+    abstract class MimeType
+    class MimeTypeRegistry
+
+    MimeTypeRegistry --> MimeType : holds
+
+    package JsonMimeType <<Frame>> {
+        class JsonMimeType extends MimeType
+        class JsonReferenceSerializer extends ReferenceSerializer
+        class JsonPointerSerializer
+
+        JsonMimeType --> JsonReferenceSerializer : uses
+        JsonReferenceSerializer --> JsonPointerSerializer : uses
+    }
+}
+
+JsonMimeType *-> StructureSerializer : uses
+JsonReferenceSerializer --> Navigator: serializes/deserializes
+JsonReferenceSerializer ...> UriNavigator : serializes/deserializes
+
+JsonPointerSerializer ...> ChildNavigator : serializes/deserializes
+JsonPointerSerializer ...> ParentNavigator : serializes/deserializes
+JsonPointerSerializer ...> IndexOfNavigator : serializes/deserializes
+JsonPointerSerializer ...> SiblingOffsetNavigator : serializes/deserializes
+JsonPointerSerializer ...> RootNavigator : serializes/deserializes
+
+@enduml
+
+
+@enduml

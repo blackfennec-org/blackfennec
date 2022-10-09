@@ -1,0 +1,49 @@
+@startuml
+
+hide members
+hide methods
+
+skinparam class {
+    BackgroundColor #EEE
+    ArrowColor Black
+    BorderColor Black
+}
+
+title The Document System
+
+package "Document System" <<Frame>>{
+    class Document
+    class DocumentFactory
+
+    DocumentFactory --> Document : creates
+
+    package MimeType <<Frame>> {
+        abstract class MimeType
+        class MimeTypeRegistry
+
+        MimeTypeRegistry --> MimeType : holds
+    }
+
+    package ResourceType <<Frame>> {
+        abstract class ResourceType
+        class ResourceTypeRegistry
+
+        ResourceTypeRegistry --> ResourceType : holds
+    }
+
+    DocumentFactory *--> "1" MimeTypeRegistry : uses
+    DocumentFactory *--> "1" ResourceTypeRegistry : uses
+    DocumentFactory --> MimeType : determines
+    DocumentFactory --> ResourceType : determines
+
+    Document --> MimeType : has
+    Document --> ResourceType : has
+}
+
+package Structure <<Frame>>{
+    abstract class Structure
+}
+
+MimeType --> Structure : serializes/deserializes
+
+@enduml

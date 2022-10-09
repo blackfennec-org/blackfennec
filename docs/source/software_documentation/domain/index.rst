@@ -63,3 +63,4 @@ The currently documented domain model is depicted below. To read more about the 
     navigation/index
     structure/index
     type_system/index
+    document_system/index

@@ -1,10 +1,11 @@
 import pytest
+from pytest_lazyfixture import lazy_fixture
 
 from doubles.black_fennec.document_system.double_document import DocumentMock
 from doubles.black_fennec.document_system.double_document_factory import DocumentFactoryMock
-from doubles.black_fennec.document_system.mime_type.types.json.double_json_pointer_parser import \
+from doubles.black_fennec.document_system.mime_type.json.double_json_pointer_parser import \
     JsonPointerSerializerMock
-from src.black_fennec.document_system.mime_type.types.json.json_reference_serializer import JsonReferenceSerializer
+from src.black_fennec.document_system.mime_type.json.json_reference_serializer import JsonReferenceSerializer
 from src.black_fennec.structure.map import Map
 from src.black_fennec.structure.reference_navigation.root_navigator import RootNavigator
 from src.black_fennec.structure.reference_navigation.uri_navigator import UriNavigator
@@ -46,19 +47,19 @@ def test_can_construct(json_reference_parser):
 
 @pytest.mark.parametrize("reference, expected", [
     (
-            [UriNavigator(pytest.lazy_fixture("document_factory"), 'https://test.test/test.json')],
+            [UriNavigator(lazy_fixture("document_factory"), 'https://test.test/test.json')],
             {JsonReferenceSerializer.REFERENCE_KEY: 'https://test.test/test.json'}
     ),
     (
-            [UriNavigator(pytest.lazy_fixture("document_factory"), 'C:/test.json')],
+            [UriNavigator(lazy_fixture("document_factory"), 'C:/test.json')],
             {JsonReferenceSerializer.REFERENCE_KEY: 'C:/test.json'}
     ),
     (
-            [UriNavigator(pytest.lazy_fixture("document_factory"), './test.json')],
+            [UriNavigator(lazy_fixture("document_factory"), './test.json')],
             {JsonReferenceSerializer.REFERENCE_KEY: './test.json'}
     ),
     (
-            [UriNavigator(pytest.lazy_fixture("document_factory"), 'test.json')],
+            [UriNavigator(lazy_fixture("document_factory"), 'test.json')],
             {JsonReferenceSerializer.REFERENCE_KEY: 'test.json'}
     ),
     (
@@ -77,16 +78,16 @@ def test_serialize_json_reference(json_reference_parser, reference, expected):
 
 @pytest.mark.parametrize("reference, expected", [
     ({JsonReferenceSerializer.REFERENCE_KEY: 'https://test.test/test.json'}, [
-        UriNavigator(pytest.lazy_fixture("document_factory"), 'https://test.test/test.json')
+        UriNavigator(lazy_fixture("document_factory"), 'https://test.test/test.json')
     ]),
     ({JsonReferenceSerializer.REFERENCE_KEY: 'C:/test.json'}, [
-        UriNavigator(pytest.lazy_fixture("document_factory"), 'C:/test.json')
+        UriNavigator(lazy_fixture("document_factory"), 'C:/test.json')
     ]),
     ({JsonReferenceSerializer.REFERENCE_KEY: './test.json'}, [
-        UriNavigator(pytest.lazy_fixture("document_factory"), './test.json')
+        UriNavigator(lazy_fixture("document_factory"), './test.json')
     ]),
     ({JsonReferenceSerializer.REFERENCE_KEY: 'test.json'}, [
-        UriNavigator(pytest.lazy_fixture("document_factory"), 'test.json')
+        UriNavigator(lazy_fixture("document_factory"), 'test.json')
     ]),
     ({JsonReferenceSerializer.REFERENCE_KEY + "_make_invalid": "test"}, KeyError),
     ({JsonReferenceSerializer.REFERENCE_KEY: None}, []),

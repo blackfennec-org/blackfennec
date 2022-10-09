@@ -20,11 +20,11 @@ from src.extension.extension_initialisation_service import ExtensionInitialisati
 from src.extension.extension_source_registry import ExtensionSourceRegistry
 
 from src.black_fennec.document_system.document_factory import DocumentFactory
-from src.black_fennec.document_system.mime_type.types.json.json_pointer_serializer import JsonPointerSerializer
-from src.black_fennec.document_system.mime_type.types.json.json_reference_serializer import JsonReferenceSerializer
-from src.black_fennec.document_system.mime_type.types.json.structure_serializer import StructureSerializer
+from src.black_fennec.document_system.mime_type.json.json_pointer_serializer import JsonPointerSerializer
+from src.black_fennec.document_system.mime_type.json.json_reference_serializer import JsonReferenceSerializer
+from src.black_fennec.structure.structure_serializer import StructureSerializer
 from src.black_fennec.document_system.mime_type.mime_type_registry import MimeTypeRegistry
-from src.black_fennec.document_system.mime_type.types.json.json_mime_type import JsonMimeType
+from src.black_fennec.document_system.mime_type.json.json_mime_type import JsonMimeType
 from src.black_fennec.document_system.resource_type.protocols.file_resource_type import FileResourceType
 from src.black_fennec.document_system.resource_type.protocols.https_resource_type import HttpsResourceType
 from src.black_fennec.document_system.resource_type.resource_type_registry import ResourceTypeRegistry

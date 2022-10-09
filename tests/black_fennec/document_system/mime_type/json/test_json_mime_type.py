@@ -3,10 +3,10 @@ from io import StringIO
 
 import pytest
 
-from doubles.black_fennec.document_system.mime_type.types.json.double_structure_serializer import \
+from doubles.black_fennec.document_system.mime_type.json.double_structure_serializer import \
     StructureSerializerMock
 from doubles.double_dummy import Dummy
-from src.black_fennec.document_system.mime_type.types.json.json_mime_type import JsonMimeType
+from src.black_fennec.document_system.mime_type.json.json_mime_type import JsonMimeType
 
 
 @pytest.fixture()

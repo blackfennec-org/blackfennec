@@ -2,7 +2,7 @@ import json
 
 import pytest
 
-from doubles.black_fennec.document_system.mime_type.types.json.double_json_reference_serializer import \
+from doubles.black_fennec.document_system.mime_type.json.double_json_reference_serializer import \
     JsonReferenceSerializerMock
 from src.black_fennec.structure.boolean import Boolean
 from src.black_fennec.structure.list import List
@@ -12,7 +12,7 @@ from src.black_fennec.structure.reference import Reference
 from src.black_fennec.structure.string import String
 from src.black_fennec.structure.null import Null
 from tests.test_utils.deep_compare import DeepCompare
-from src.black_fennec.document_system.mime_type.types.json.structure_serializer import StructureSerializer
+from src.black_fennec.structure.structure_serializer import StructureSerializer
 
 
 @pytest.fixture()

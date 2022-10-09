@@ -11,7 +11,7 @@ from src.extension.extension_source import ExtensionSource
 from src.extension.extension_source_registry import ExtensionSourceRegistry
 from src.extension.local_extension_service import LocalExtensionService
 from src.extension.pypi_extension_service import PyPIExtensionService
-from src.black_fennec.document_system.mime_type.types.json.structure_serializer import StructureSerializer
+from src.black_fennec.structure.structure_serializer import StructureSerializer
 
 
 class ExtensionInitialisationService:
