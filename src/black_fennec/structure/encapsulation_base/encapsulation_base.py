@@ -30,7 +30,7 @@ class EncapsulationBase:
         """Property for parent of this structure
             encapsulated in a EncapsulationBase."""
         if self.subject.parent:
-            return self.subject.parent.accept(self._visitor)
+            return self._encapsulate(self.subject.parent)
 
     @parent.setter
     def parent(self, parent: Structure):
@@ -42,8 +42,7 @@ class EncapsulationBase:
         Args:
             parent (Structure): new value for subjects parent
         """
-        decapsulated_parent = self._remove_encapsulation(parent)
-        self.subject.parent = decapsulated_parent
+        self.subject.parent = self._remove_encapsulation(parent)
 
     @property
     def value(self):
@@ -54,7 +53,7 @@ class EncapsulationBase:
         self.subject.value = value
 
     def accept(self, visitor):
-        return self._subject.accept(visitor)
+        return self.subject.accept(visitor)
 
     @property
     def root(self):
@@ -63,7 +62,7 @@ class EncapsulationBase:
         Returns:
             EncapsulationBase: encapsulates root of subject in FactoryBase class
         """
-        return self.subject.root.accept(self._visitor)
+        return self._encapsulate(self.subject.root)
 
     @staticmethod
     def _remove_encapsulation(item: Structure):
@@ -82,10 +81,17 @@ class EncapsulationBase:
             decapsulated_value = factory_base.subject
         return decapsulated_value
 
-    def __repr__(self):
-        """
+    def _encapsulate(self, subject: Structure):
+        """Encapsulates a Structure Class if it is not encapsulated by an instance
+            of EncapsulationBase
+
+        Args:
+            subject (Structure): to encapsulate.
+            visitor (BaseFactoryVisitor): visitor/abstract visitor used
+                to encapsulate parent/root
         Returns:
-             str: containing the subjects representation encapsulated
-                by a parentheses with the EncapsulationBase prefix.
+            Structure: subject of passed item, if item
+                is encapsulated.
         """
-        return f'EncapsulationBase({self.subject.__repr__()})'
+        return subject.accept(self._visitor)
+        

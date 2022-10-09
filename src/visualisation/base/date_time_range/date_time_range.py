@@ -20,9 +20,12 @@ def create_date_time_range_type():
                 r'([0-5][0-9])(\.[0-9]+)?(Z|[+-](?:2[0-3]|[01][0-9]):' \
                 r'[0-5][0-9])?$'
 
-    type = tf.create_map(type="DateTime Range", super=MapType(), properties={
-        DateTimeRange.START_KEY: tf.create_string(pattern=iso_regex),
-        DateTimeRange.END_KEY: tf.create_string(pattern=iso_regex)
+    type = tf.create_map(
+        type="DateTime Range", 
+        super=tf.create_map(), 
+        properties={
+            DateTimeRange.START_KEY: tf.create_string(pattern=iso_regex),
+            DateTimeRange.END_KEY: tf.create_string(pattern=iso_regex)
     })
 
     return type

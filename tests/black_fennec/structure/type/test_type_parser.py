@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-import imp
 import unittest
 import json
 
@@ -12,10 +11,7 @@ from src.black_fennec.structure.type.type_factory import TypeFactory
 from src.black_fennec.document_system.mime_type.types.json.structure_serializer import StructureSerializer
 
 
-class TypeParserTestSuite(unittest.TestCase):
-    def setUp(self):
-        self.type_parser: TypeParser = TypeParser()
-
+class TypeParserTestSuite(unittest.TestCase): 
     def test_type_from_json(self):
         json_type = """
 {
@@ -48,7 +44,7 @@ class TypeParserTestSuite(unittest.TestCase):
         json_object = json.loads(json_object)
         serializer = StructureSerializer(JsonReferenceSerializerMock())
         structure_type = serializer.deserialize(json_type)
-        type = self.type_parser.parse(structure_type)
+        type = TypeParser.parse(structure_type)
         structure = serializer.deserialize(json_object)
         coverage = type.calculate_coverage(structure)
         assert coverage.is_covered()

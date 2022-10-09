@@ -10,7 +10,7 @@ def has_internet_connection():
     """
     try:
         socket.create_connection(
-            ("www.google.com", 80),
+            ("1.1.1.1", 443),
             10
         )
         return True

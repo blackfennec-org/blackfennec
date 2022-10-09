@@ -17,7 +17,9 @@ def create_person_type():
     Defines the format of the person
     """
     tf = TypeFactory()
-    type = tf.create_map(type="Person", super=MapType())
+    type = tf.create_map(
+        type="Person", 
+        super=tf.create_map())
 
     type.add_property(
         Person.COURTESY_TITLE_KEY, tf.create_string(), is_required=False)

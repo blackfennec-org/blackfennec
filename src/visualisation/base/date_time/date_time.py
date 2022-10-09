@@ -19,8 +19,11 @@ def create_date_time_type():
                 r'(3[01]|0[1-9]|[12][0-9])T(2[0-3]|[01][0-9]):([0-5][0-9]):' \
                 r'([0-5][0-9])(\.[0-9]+)?(Z|[+-](?:2[0-3]|[01][0-9]):' \
                 r'[0-5][0-9])?$'
-    type = tf.create_map(type="DateTime", super=MapType(), properties={
-        DateTime.DATE_TIME_KEY: tf.create_string(pattern=iso_regex)
+    type = tf.create_map(
+        type="DateTime", 
+        super=tf.create_map(), 
+        properties={
+            DateTime.DATE_TIME_KEY: tf.create_string(pattern=iso_regex)
     })
 
     return type

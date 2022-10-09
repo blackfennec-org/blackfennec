@@ -54,9 +54,3 @@ class EncapsulationBaseTestSuite(unittest.TestCase):
         count, subject = self.visitor.get_stats(self.subject.type_name)
         self.assertEqual(subject, self.root)
         self.assertEqual(count, 1)
-
-    @data(*zip(MOCK_CORE_TYPES, MOCK_CORE_TYPES, MOCK_CORE_TYPES))
-    def test_can_get_repr(self, data):
-        self._setUp(*data)
-        representation: str = str(self.encapsulation_base)
-        self.assertTrue(representation.startswith('EncapsulationBase('))

@@ -18,13 +18,16 @@ def create_address_type():
 
     tf = TypeFactory()
 
-    type = tf.create_map(type="Address", super=MapType(), properties={
-        Address.FIRST_NAME_KEY: tf.create_string(),
-        Address.LAST_NAME_KEY: tf.create_string(),
-        Address.STREET_KEY: tf.create_string(),
-        Address.STREET_NUMBER_KEY: tf.create_string(),
-        Address.CITY_KEY: tf.create_string(),
-    })
+    type = tf.create_map(
+        type="Address", 
+        super=tf.create_map(), 
+        properties={
+            Address.FIRST_NAME_KEY: tf.create_string(),
+            Address.LAST_NAME_KEY: tf.create_string(),
+            Address.STREET_KEY: tf.create_string(),
+            Address.STREET_NUMBER_KEY: tf.create_string(),
+            Address.CITY_KEY: tf.create_string()
+        })
 
     return type
 

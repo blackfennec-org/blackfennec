@@ -14,9 +14,12 @@ def create_file_type():
     Defines the format of the file
     """
     tf = TypeFactory()
-    type = tf.create_map(type="File", super=MapType(), properties={
-        File.FILE_PATH_KEY: tf.create_string(),
-        File.FILE_TYPE_KEY: tf.create_string()
+    type = tf.create_map(
+        type="File", 
+        super=tf.create_map(), 
+        properties={
+            File.FILE_PATH_KEY: tf.create_string(),
+            File.FILE_TYPE_KEY: tf.create_string()
     })
 
     return type

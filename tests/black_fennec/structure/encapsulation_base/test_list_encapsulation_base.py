@@ -18,11 +18,6 @@ class ListEncapsulationBaseTestSuite(unittest.TestCase):
         self.list_encapsulation_base: Optional[ListEncapsulationBase] = ListEncapsulationBase(self.visitor,
                                                                                               self.subject)
 
-    def tearDown(self) -> None:
-        self.visitor = None
-        self.subject = None
-        self.list_encapsulation_base: Optional[ListEncapsulationBase] = None
-
     def test_can_create(self):
         pass
 
