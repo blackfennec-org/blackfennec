@@ -19,6 +19,7 @@ def api(registry) -> ExtensionApi:
         interpretation_service=Dummy("InterpretationService"),
         view_factory=Dummy("ViewFactory"),
         view_factory_registry=Dummy("ViewFactoryRegistry"),
+        type_loader=Dummy("TypeLoader"),
     )
 
 

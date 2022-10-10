@@ -13,37 +13,42 @@ from src.black_fennec.structure.type.string_type import StringType
 from src.visualisation.core.string.string_view_factory import StringViewFactory
 from src.black_fennec.interpretation.specification import Specification
 
-types = []
+__types = []
 
+
+def _types(extension_api):
+    global __types
+    if not __types:
+        __types = [
+            (BooleanType(), BooleanViewFactory()),
+            (NumberType(), NumberViewFactory()),
+            (StringType(), StringViewFactory()),
+            (
+                ListType(),
+                ListViewFactory(
+                    extension_api.interpretation_service, extension_api.type_registry,
+                    extension_api.view_factory
+                )
+            ),
+            (
+                MapType(),
+                MapViewFactory(
+                    extension_api.interpretation_service, extension_api.type_registry,
+                    extension_api.view_factory
+                )
+            ),
+            (ReferenceType(), ReferenceViewFactory()),
+        ]
+    return __types
 
 def create_extension(extension_api: ExtensionApi):
-    """
-    Registers all core types in black-fennec
+    """Registers all core types in black-fennec
+
     Args:
         extension_api (ExtensionApi): contains constructor injection
             parameters.
     """
-    global types
-    types = [
-        (BooleanType(), BooleanViewFactory()),
-        (NumberType(), NumberViewFactory()),
-        (StringType(), StringViewFactory()),
-        (
-            ListType(),
-            ListViewFactory(
-                extension_api.interpretation_service, extension_api.type_registry,
-                extension_api.view_factory
-            )
-        ),
-        (
-            MapType(),
-            MapViewFactory(
-                extension_api.interpretation_service, extension_api.type_registry,
-                extension_api.view_factory
-            )
-        ),
-        (ReferenceType(), ReferenceViewFactory()),
-    ]
+    types = _types(extension_api)
 
     for type, factory in types:
         extension_api.type_registry.register_type(type)
@@ -54,12 +59,13 @@ def create_extension(extension_api: ExtensionApi):
 
 
 def destroy_extension(extension_api: ExtensionApi):
-    """
-    Deregisters all core types from black-fennec
+    """Deregisters all core types from black-fennec
+
     Args:
         extension_api (ExtensionApi): contains constructor injection
             parameters
     """
+    types = _types(extension_api)
 
     for type, unused_factories in types:
         extension_api.type_registry.deregister_type(type)

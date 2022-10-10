@@ -1,4 +1,7 @@
+from distutils import extension
 import gi
+
+from src.black_fennec.structure.type.type_loader import TypeLoader
 
 gi.require_version('Gtk', '3.0')
 
@@ -23,8 +26,10 @@ from src.black_fennec.document_system.mime_type.types.json.json_reference_serial
 from src.black_fennec.document_system.mime_type.types.json.structure_serializer import StructureSerializer
 from src.black_fennec.document_system.mime_type.mime_type_registry import MimeTypeRegistry
 from src.black_fennec.document_system.mime_type.types.json.json_mime_type import JsonMimeType
+from src.black_fennec.document_system.mime_type.types.in_memory.in_memory_mime_type import InMemoryMimeType
 from src.black_fennec.document_system.resource_type.protocols.file_resource_type import FileResourceType
 from src.black_fennec.document_system.resource_type.protocols.https_resource_type import HttpsResourceType
+from src.black_fennec.document_system.resource_type.protocols.bftype_resource_type import BFTypeResourceType
 from src.black_fennec.document_system.resource_type.resource_type_registry import ResourceTypeRegistry
 
 from src.visualisation.view_factory import ViewFactory
@@ -37,6 +42,53 @@ logger = logging.getLogger(__name__)
 
 EXTENSIONS = os.path.realpath('extensions.json')
 
+def create_document_factory(type_registry):
+    resource_type_registry = ResourceTypeRegistry()
+
+    resource_types = [
+        HttpsResourceType(),
+        FileResourceType(),
+        BFTypeResourceType(type_registry),
+    ]
+    for resource_type in resource_types:
+        for protocol in resource_type.protocols:
+            resource_type_registry.register_resource_type(protocol, resource_type)
+
+    mime_type_registry = MimeTypeRegistry()
+    document_factory = DocumentFactory(resource_type_registry, mime_type_registry)
+
+    reference_parser = JsonReferenceSerializer(document_factory, JsonPointerSerializer)
+
+    structure_serializer = StructureSerializer(reference_parser)
+
+    mime_types = [
+        JsonMimeType(structure_serializer),
+        InMemoryMimeType(),
+    ]
+    for mime_type in mime_types:
+        mime_type_registry.register_mime_type(
+            mime_type.mime_type_id,
+            mime_type
+        )
+
+    return document_factory, structure_serializer
+
+def create_extension_api(
+        document_factory, type_registry, 
+        presenter_registry, interpretation_service):
+    view_registry = ViewFactoryRegistry()
+    view_factory = ViewFactory(view_registry)
+    type_loader = TypeLoader(document_factory, type_registry)
+
+    extension_api = ExtensionApi(
+        presenter_registry,
+        type_registry,
+        interpretation_service,
+        view_factory,
+        view_registry,
+        type_loader
+    )
+    return extension_api
 
 class BlackFennec(Gtk.Application):
     """BlackFennec Main Window GTK Application"""
@@ -64,44 +116,14 @@ class BlackFennec(Gtk.Application):
         """Setup BlackFennec application"""
         logger.debug('do_setup')
         type_registry = TypeRegistry()
+        presenter_registry = PresenterRegistry()
         interpretation_service = InterpretationService(type_registry)
 
-        resource_type_registry = ResourceTypeRegistry()
-
-        resource_types = [
-            HttpsResourceType(),
-            FileResourceType()
-        ]
-        for resource_type in resource_types:
-            for protocol in resource_type.protocols:
-                resource_type_registry.register_resource_type(protocol, resource_type)
-
-        mime_type_registry = MimeTypeRegistry()
-        document_factory = DocumentFactory(resource_type_registry, mime_type_registry)
-
-        reference_parser = JsonReferenceSerializer(document_factory, JsonPointerSerializer)
-
-        structure_serializer = StructureSerializer(reference_parser)
-
-        mime_types = [
-            JsonMimeType(
-                structure_serializer
-            )
-        ]
-        for mime_type in mime_types:
-            mime_type_registry.register_mime_type(
-                mime_type.mime_type_id,
-                mime_type
-            )
-
-        presenter_registry = PresenterRegistry()
-        extension_api = ExtensionApi(
-            presenter_registry,
-            type_registry,
-            interpretation_service,
-            view_factory,
-            view_registry
-        )
+        document_factory, structure_serializer = create_document_factory(type_registry)
+        extension_api = create_extension_api(
+            document_factory, type_registry, 
+            presenter_registry, interpretation_service)
+        
         extension_source_registry = ExtensionSourceRegistry()
         extension_initialisation_service = ExtensionInitialisationService(structure_serializer)
         extension_initialisation_service.load_extensions_from_file(

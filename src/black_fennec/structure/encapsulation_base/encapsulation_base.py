@@ -1,4 +1,5 @@
 from src.black_fennec.structure.structure import Structure
+from src.black_fennec.util.intercepting_visitor import InterceptingVisitor
 
 
 class EncapsulationBase:
@@ -53,7 +54,8 @@ class EncapsulationBase:
         self.subject.value = value
 
     def accept(self, visitor):
-        return self.subject.accept(visitor)
+        interceptor = InterceptingVisitor(lambda s: self, visitor)
+        return self.subject.accept(interceptor)
 
     @property
     def root(self):

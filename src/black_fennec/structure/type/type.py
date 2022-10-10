@@ -2,7 +2,6 @@ from abc import ABCMeta, abstractmethod
 from typing import Generic, TypeVar
 
 from src.black_fennec.structure.null import Null
-from src.black_fennec.structure.string import String
 from .type_coverage_mixin import TypeCoverageMixin
 
 T = TypeVar("T")

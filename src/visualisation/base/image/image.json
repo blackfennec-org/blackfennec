@@ -1,0 +1,9 @@
+{
+    "super": { "$ref": "bftype://File"},
+    "type": "Image",
+    "properties": {
+        "file_name": {
+            "pattern": "^image/.*$"
+        }
+    }
+}

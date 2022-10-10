@@ -1,0 +1,18 @@
+{
+    "super": { "$ref": "bftype://Map"},
+    "type": "File",
+    "required": [
+        "file_path",
+        "file_name"
+    ],
+    "properties": {
+        "file_path": {
+            "super": null,
+            "type": "String"
+        },
+        "file_name": {
+            "super": null,
+            "type": "String"
+        }
+    }
+}

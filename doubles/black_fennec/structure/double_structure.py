@@ -17,6 +17,9 @@ class StructureMock:
     def value(self, value):
         self._value = value
 
+    def accept(self, visitor):
+        return visitor.visit_structure(self)
+
     @property
     def parent(self):
         return self._parent

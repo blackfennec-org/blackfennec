@@ -2,9 +2,9 @@
 import abc
 import logging
 import mimetypes
-import urllib.request as req
 from typing import IO
 from urllib.parse import urlparse
+from src.black_fennec.document_system.resource_type.resource_type import ResourceType
 
 from src.black_fennec.structure.structure import Structure
 
@@ -47,7 +47,7 @@ class MimeType(metaclass=abc.ABCMeta):
         raise NotImplementedError
 
     @staticmethod
-    def try_determine_mime_type(uri: str, resource_type: str) -> str:
+    def try_determine_mime_type(uri: str, resource_type: ResourceType) -> str:
         """Get mime_type through different approaches.
 
         Tries guessing the mime_type from the URI ending, then by retrieving
@@ -66,12 +66,10 @@ class MimeType(metaclass=abc.ABCMeta):
         mime_type, _ = mimetypes.guess_type(parsed_uri.path)
         if mime_type:
             return mime_type
-        if resource_type in ('http', 'https'):
-            with req.urlopen(uri) as response:
-                structure = response.info()
-                mime_type = structure.get_content_type()
-            if mime_type:
-                return mime_type
+        mime_type = resource_type.guess_mime_type(uri)
+        if mime_type:
+            return mime_type
+
         message = 'mime_type could not have been deduced ' \
                   f'automatically of uri({uri})'
         logger.error(message)

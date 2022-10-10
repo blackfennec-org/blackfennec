@@ -52,6 +52,7 @@ def api(type_registry, interpreter, view_factory, view_factory_registry):
         interpretation_service=interpreter,
         view_factory=view_factory,
         view_factory_registry=view_factory_registry,
+        type_loader=Dummy('TypeLoader'),
     )
 
 

@@ -12,13 +12,15 @@ class ExtensionApiTestSuite(unittest.TestCase):
         self.interpretation_service = Dummy('InterpretationService')
         self.view_factory = Dummy('ViewFactory')
         self.view_factory_registry = Dummy('ViewFactoryRegistry')
+        type_loader = Dummy('TypeLoader')
 
         self.extension_api = ExtensionApi(
             self.presenter_registry,
             self.type_registry,
             self.interpretation_service,
             self.view_factory,
-            self.view_factory_registry
+            self.view_factory_registry,
+            type_loader
         )
 
     def test_can_construct(self):

@@ -1,7 +1,8 @@
 from src.black_fennec.structure.visitor import Visitor
 from src.black_fennec.structure.structure import Structure
-from src.black_fennec.util.intercepting_visitor import InterceptingVisitor
 import src.black_fennec.structure.merge.deep_merge as deep_merge
+from src.black_fennec.util.intercepting_visitor import InterceptingVisitor
+
 
 import logging
 logger = logging.getLogger(__name__)
@@ -50,6 +51,15 @@ class MergedStructure:
     def __repr__(self) -> str:
         return f"MergedStructure(underlay={self._underlay}, overlay={self._overlay})"
 
+    def __eq__(self, o):
+        if not isinstance(o, MergedStructure):
+            return False
+        return self._underlay == o._underlay and self._overlay == o._overlay
+
+    def __ne__(self, other) -> bool:
+        return not self == other
+
+
 class MergedList(MergedStructure):
     def __init__(self, underlay: Structure, overlay: Structure):
         super().__init__(underlay, overlay)
@@ -57,7 +67,9 @@ class MergedList(MergedStructure):
 
     @property
     def value(self):
-        raise NotImplementedError("MergedList does not support value")
+        logger.warning("Accessed value of merged list: implementation is disputed")
+        return [ deep_merge.DeepMerge.merge(MergedPhantom(self, child), child) 
+            for child in self._underlay.value + self._overlay.value ]
 
     @value.setter
     def value(self, value):
@@ -71,14 +83,15 @@ class MergedMap(MergedStructure):
     @property
     def value(self):
         result = {}
-        for key, value in self._underlay.value.items():
-            if key in self._overlay.value:
-                result[key] = deep_merge.DeepMerge.merge(value, self._overlay.value[key])
+        underlay = self._underlay.value if self._underlay else {}
+        overlay = self._overlay.value if self._overlay else {}
+        for key, value in underlay.items():
+            if key in overlay:
+                result[key] = deep_merge.DeepMerge.merge(value, overlay[key])
             else:
                 result[key] = deep_merge.DeepMerge.merge(value, MergedPhantom(self._overlay, value))
-
-        for key, value in self._overlay.value.items():
-            if key not in self._underlay.value:
+        for key, value in overlay.items():
+            if key not in underlay:
                 result[key] = deep_merge.DeepMerge.merge(MergedPhantom(self._underlay, value), value)
         return result
 
@@ -96,7 +109,7 @@ class MergedNull(MergedStructure):
 
     @property
     def value(self):
-        if self._overlay.value is not None:
+        if self._overlay and self._overlay.value is not None:
             return self._overlay.value
         return self._underlay.value
 
@@ -112,11 +125,20 @@ class MergedPhantom:
         self._parent = parent
         self._twin = twin
 
+    @property
     def parent(self):
         return self._parent
 
+    @property
+    def value(self):
+        return None
+
     def accept(self, visitor):
-        return self._twin.accept(visitor)
+        interceptor = InterceptingVisitor(lambda s: self, visitor)
+        return self._twin.accept(interceptor)
 
     def __bool__(self):
         return False
+
+    def __repr__(self) -> str:
+        return f"MergedPhantom(parent={self._parent}, twin={self._twin})"

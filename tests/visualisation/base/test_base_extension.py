@@ -3,6 +3,7 @@ import unittest
 from doubles.double_dummy import Dummy
 from doubles.black_fennec.type_system.double_type_registry import TypeRegistryMock
 from doubles.visualisation.double_view_factory_registry import ViewFactoryRegistryMock
+from doubles.black_fennec.structure.type.double_type_loader import TypeLoaderMock
 from src.extension.extension_api import ExtensionApi
 from src.visualisation.base import create_extension, destroy_extension
 
@@ -16,8 +17,9 @@ class BaseExtensionTestSuite(unittest.TestCase):
             type_registry=self.type_registry,
             interpretation_service=Dummy('InterpretationService'),
             view_factory=Dummy('ViewFactory'),
-            view_factory_registry=self.view_factory_registry
-        )
+            view_factory_registry=self.view_factory_registry,
+            type_loader=TypeLoaderMock(self.type_registry))
+        
 
     def test_create_base_extension(self):
         create_extension(self.extension_api)

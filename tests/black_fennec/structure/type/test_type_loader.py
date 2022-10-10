@@ -26,80 +26,93 @@ from src.black_fennec.document_system.resource_type.protocols.file_resource_type
 from src.black_fennec.document_system.resource_type.resource_type_registry import (
     ResourceTypeRegistry,
 )
-from src.black_fennec.structure.overlay.overlay_factory_visitor import (
-    OverlayFactoryVisitor,
-)
-from src.black_fennec.structure.type.type_parser import TypeParser
+from src.black_fennec.structure.type.type_loader import TypeLoader
 from src.black_fennec.structure.boolean import Boolean
 from src.black_fennec.structure.null import Null
 from src.black_fennec.structure.list import List
 from src.black_fennec.structure.map import Map
 from src.black_fennec.structure.number import Number
 from src.black_fennec.structure.string import String
-from doubles.black_fennec.type_system.double_type_registry import TypeRegistryMock
+from src.black_fennec.type_system.type_registry import TypeRegistry
+from src.black_fennec.document_system.resource_type.protocols.bftype_resource_type import BFTypeResourceType
+from src.black_fennec.document_system.mime_type.types.in_memory.in_memory_mime_type import InMemoryMimeType
+
 
 @pytest.fixture
-def document_factory() -> DocumentFactory:
+def type_registry():
+    return TypeRegistry()
+
+
+@pytest.fixture
+def document_factory(type_registry) -> DocumentFactory:
     resource_type_registry = ResourceTypeRegistry()
-    resource_type = FileResourceType()
-    for protocol in resource_type.protocols:
-        resource_type_registry.register_resource_type(protocol, resource_type)
+    resource_types = [
+        FileResourceType(),
+        BFTypeResourceType(type_registry),
+    ]
+    for resource_type in resource_types:
+        for protocol in resource_type.protocols:
+            resource_type_registry.register_resource_type(protocol, resource_type)
 
     mime_type_registry = MimeTypeRegistry()
     document_factory = DocumentFactory(resource_type_registry, mime_type_registry)
     reference_parser = JsonReferenceSerializer(document_factory, JsonPointerSerializer)
     structure_serializer = StructureSerializer(reference_parser)
-    mime_type = JsonMimeType(structure_serializer)
-    mime_type_registry.register_mime_type(mime_type.mime_type_id, mime_type)
+    mime_types = [
+        JsonMimeType(structure_serializer),
+        InMemoryMimeType(),
+    ]
+    for mime_type in mime_types:
+        mime_type_registry.register_mime_type(mime_type.mime_type_id,mime_type)
     return document_factory
 
 
 @pytest.fixture
-def type_registry():
-    return TypeRegistryMock()
-
-@pytest.fixture
 def type(tmp_path, document_factory, type_registry):
-    type_json = tmp_path / "type.json"
-    type_json.write_text(
-        """
+    supertype_json = tmp_path / "supbertype.json"
+    supertype_json.write_text("""
 {
     "super": {
         "super": {
-            "super": {
-                "super": null,
-                "type": "Map"
-            },
-            "type": "DevineType",
-            "properties": {
-                "property0": {
-                    "super": null,
-                    "type": "Null"
-                }
-            }
+            "super": null,
+            "type": "Map"
         },
-        "type": "SuperType",
-        "required": [],
+        "type": "DevineType",
         "properties": {
-            "property1": {
+            "property0": {
                 "super": null,
-                "type": "String",
-                "pattern": ".{3,}"
-            },
-            "property2": {
-                "super": null,
-                "type": "Number",
-                "minimum": 0
-            },
-            "property3": {
-                "super": {
-                    "super": null,
-                    "type": "Boolean"
-                },
-                "expected": true
+                "type": "Null"
             }
         }
     },
+    "type": "SuperType",
+    "required": [],
+    "properties": {
+        "property1": {
+            "super": null,
+            "type": "String",
+            "pattern": ".{3,}"
+        },
+        "property2": {
+            "super": null,
+            "type": "Number",
+            "minimum": 0
+        },
+        "property3": {
+            "super": {
+                "super": null,
+                "type": "Boolean"
+            },
+            "expected": true
+        }
+    }
+}
+""")
+
+    subtype_json = tmp_path / "subtype.json"
+    subtype_json.write_text("""
+{
+    "super": { "$ref": "bftype://SuperType" },
     "type": "SubType",
     "required": [
         "property1"
@@ -115,25 +128,8 @@ def type(tmp_path, document_factory, type_registry):
     )
 
     tl = TypeLoader(document_factory, type_registry)
-    return tl.load(type_json.as_uri())
-
-class TypeLoader:
-    def __init__(self, document_factory, type_registry):
-        self._document_factory = document_factory
-        self._visitors = [OverlayFactoryVisitor()]
-        self._type_registry = type_registry
-
-    def _apply_layers(self, structure):
-        for visitor in self._visitors:
-            structure = structure.accept(visitor)
-        return structure
-    
-    def load(self, uri):
-        document = self._document_factory.create(uri)
-        structure = self._apply_layers(document.content)
-        type = TypeParser.parse(structure)
-        self._type_registry.register_type(type)
-        return type
+    tl.load(supertype_json.as_uri())
+    return tl.load(subtype_json.as_uri())
 
 
 def test_merges_recursively(type):

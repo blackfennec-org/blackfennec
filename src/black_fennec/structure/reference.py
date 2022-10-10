@@ -36,7 +36,9 @@ class Reference(Structure[list[Navigator]]):
         for navigator in self.value:
             current_structure = navigator.navigate(current_structure)
         if current_structure == self:
-            return String("Reference was not resolved correctly")
+            message = "Reference was not resolved correctly"
+            logger.warning(message)
+            return String(message)
         return current_structure
 
     def accept(self, visitor: Visitor[TVisitor]) -> TVisitor:

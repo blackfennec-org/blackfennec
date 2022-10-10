@@ -99,6 +99,5 @@ def _create_generic_class(layer_base_class):
     class GenericClass(layer_base_class):
         def __init__(self, visitor, subject):
             layer_base_class.__init__(self, visitor, subject)
-            self.value = subject.value
 
     return GenericClass

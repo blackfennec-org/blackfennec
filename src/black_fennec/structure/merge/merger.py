@@ -87,8 +87,6 @@ class ListMerger(Merger):
         return MergedList(underlay, self._overlay)
 
 
-
-
 class MapMerger(Merger):
     def __init__(self, overlay):
         Merger.__init__(self, overlay)

@@ -35,12 +35,14 @@ class ExtensionSourceTestSuite(unittest.TestCase):
         type_registry = TypeRegistry()
         view_factory = None
         view_factory_registry = None
+        type_loader = None
         self.extension_api = ExtensionApi(
             PresenterRegistry(),
             type_registry,
             InterpretationService(type_registry),
             view_factory,
-            view_factory_registry
+            view_factory_registry,
+            type_loader,
         )
 
     def test_can_load_extension(self):

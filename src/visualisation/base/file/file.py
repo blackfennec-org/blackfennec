@@ -9,22 +9,6 @@ from src.black_fennec.structure.type.type_factory import TypeFactory
 logger = logging.getLogger(__name__)
 
 
-def create_file_type():
-    """File Type
-    Defines the format of the file
-    """
-    tf = TypeFactory()
-    type = tf.create_map(
-        type="File", 
-        super=tf.create_map(), 
-        properties={
-            File.FILE_PATH_KEY: tf.create_string(),
-            File.FILE_TYPE_KEY: tf.create_string()
-    })
-
-    return type
-
-
 class File:
     """File BaseType Class
 
@@ -98,6 +82,3 @@ class File:
     def __repr__(self) -> str:
         """Create representation for pretty printing"""
         return f'File({self.file_path}, {self.file_type})'
-
-
-File.TYPE = create_file_type()

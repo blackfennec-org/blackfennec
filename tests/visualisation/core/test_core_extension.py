@@ -34,6 +34,7 @@ class CoreExtensionTestSuite(unittest.TestCase):
             interpretation_service=Dummy("InterpretationService"),
             view_factory=Dummy("ViewFactory"),
             view_factory_registry=self.view_factory_registry,
+            type_loader=Dummy('TypeLoader'),
         )
 
     def test_create_core_extension(self):

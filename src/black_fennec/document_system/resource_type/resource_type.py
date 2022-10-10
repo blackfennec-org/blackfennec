@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 import abc
 import contextlib
-from typing import IO, List
+from typing import IO, List, Optional
+import urllib.request as req
 from urllib.parse import urlparse
 
 
@@ -37,3 +38,6 @@ class ResourceType(metaclass=abc.ABCMeta):
     def try_determine_resource_type(resource_uri: str) -> str:
         parsed_uri = urlparse(resource_uri)
         return str(parsed_uri.scheme) if parsed_uri.scheme else 'file'
+
+    def guess_mime_type(self, uri: str) -> Optional[str]:
+        return None
