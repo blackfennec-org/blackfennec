@@ -81,7 +81,7 @@ class MergedStructure(Structure):
 class MergedList(MergedStructure):
     def __init__(self, underlay: Structure, overlay: Structure):
         super().__init__(underlay, overlay)
-        logger.warning("MergedList is not implemented")
+        logger.info("MergedList is not implemented")
 
     @property
     def value(self):

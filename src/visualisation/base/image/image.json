@@ -3,7 +3,8 @@
     "type": "Image",
     "properties": {
         "file_type": {
-            "pattern": "^image/.*$"
+            "pattern": "^image/.*$",
+            "default": "image/unknown"
         }
     }
 }

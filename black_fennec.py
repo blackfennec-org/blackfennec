@@ -37,7 +37,7 @@ from src.visualisation.view_factory_registry import ViewFactoryRegistry
 
 # pylint: enable=wrong-import-position
 
-logging.basicConfig(level=logging.DEBUG)
+logging.basicConfig(level=logging.WARNING)
 logger = logging.getLogger(__name__)
 
 EXTENSIONS = os.path.realpath('extensions.json')
