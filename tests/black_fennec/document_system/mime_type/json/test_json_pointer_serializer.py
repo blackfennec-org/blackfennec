@@ -2,7 +2,7 @@ from typing import Union, Type
 
 import pytest
 
-from src.black_fennec.document_system.mime_type.types.json.json_pointer_serializer import JsonPointerSerializer
+from src.black_fennec.document_system.mime_type.json.json_pointer_serializer import JsonPointerSerializer
 from src.black_fennec.structure.reference_navigation.child_navigator import ChildNavigator
 from src.black_fennec.structure.reference_navigation.index_of_navigator import IndexOfNavigator
 from src.black_fennec.structure.reference_navigation.navigator import Navigator

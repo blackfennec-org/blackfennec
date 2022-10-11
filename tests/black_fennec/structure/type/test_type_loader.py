@@ -5,19 +5,19 @@ from src.black_fennec.structure.map import Map
 from src.black_fennec.structure.merge.deep_merge import DeepMerge
 from src.black_fennec.structure.type.boolean_type import BooleanType
 from src.black_fennec.document_system.document_factory import DocumentFactory
-from src.black_fennec.document_system.mime_type.types.json.json_pointer_serializer import (
+from src.black_fennec.document_system.mime_type.json.json_pointer_serializer import (
     JsonPointerSerializer,
 )
-from src.black_fennec.document_system.mime_type.types.json.json_reference_serializer import (
+from src.black_fennec.document_system.mime_type.json.json_reference_serializer import (
     JsonReferenceSerializer,
 )
-from src.black_fennec.document_system.mime_type.types.json.structure_serializer import (
+from src.black_fennec.structure.structure_serializer import (
     StructureSerializer,
 )
 from src.black_fennec.document_system.mime_type.mime_type_registry import (
     MimeTypeRegistry,
 )
-from src.black_fennec.document_system.mime_type.types.json.json_mime_type import (
+from src.black_fennec.document_system.mime_type.json.json_mime_type import (
     JsonMimeType,
 )
 from src.black_fennec.document_system.resource_type.protocols.file_resource_type import (
@@ -35,7 +35,7 @@ from src.black_fennec.structure.number import Number
 from src.black_fennec.structure.string import String
 from src.black_fennec.type_system.type_registry import TypeRegistry
 from src.black_fennec.document_system.resource_type.protocols.bftype_resource_type import BFTypeResourceType
-from src.black_fennec.document_system.mime_type.types.in_memory.in_memory_mime_type import InMemoryMimeType
+from src.black_fennec.document_system.mime_type.in_memory.in_memory_mime_type import InMemoryMimeType
 
 
 @pytest.fixture

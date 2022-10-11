@@ -1,11 +1,11 @@
 import json
 import pytest
 
-from doubles.black_fennec.document_system.mime_type.types.json.double_json_reference_serializer import JsonReferenceSerializerMock
-from src.black_fennec.document_system.mime_type.types.json.structure_serializer import StructureSerializer
+from doubles.black_fennec.document_system.mime_type.json.double_json_reference_serializer import JsonReferenceSerializerMock
+from src.black_fennec.structure.structure_serializer import StructureSerializer
 from src.black_fennec.structure.merge.deep_merge import DeepMerge
-from src.black_fennec.structure.merge.merged import MergedMap, MergedNull, MergedStructure
 from src.black_fennec.structure.null import Null
+from src.black_fennec.structure.merge.merged import MergedNull
 from src.black_fennec.structure.overlay.overlay_factory_visitor import OverlayFactoryVisitor
 
 from src.black_fennec.structure.map import Map

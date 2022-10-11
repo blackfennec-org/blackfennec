@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-from src.black_fennec.structure.reference_navigation.navigator import Navigator
 
 
 class JsonReferenceSerializerMock:

@@ -1,0 +1,29 @@
+@startuml
+
+hide members
+hide methods
+
+skinparam class {
+    BackgroundColor #EEE
+    ArrowColor Black
+    BorderColor Black
+}
+
+title ResourceType
+
+package ResourceType <<Frame>> {
+    abstract class ResourceType
+    class ResourceTypeRegistry
+
+    ResourceTypeRegistry --> ResourceType : holds
+
+    package Protocol <<Frame>> {
+        class FileResourceType extends ResourceType
+        class HttpsResourceType extends ResourceType
+    }
+}
+
+@enduml
+
+
+@enduml

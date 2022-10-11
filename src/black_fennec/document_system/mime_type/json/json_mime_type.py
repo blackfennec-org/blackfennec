@@ -4,7 +4,7 @@ from typing import IO
 
 from src.black_fennec.structure.structure import Structure
 from src.black_fennec.document_system.mime_type.mime_type import MimeType
-from src.black_fennec.document_system.mime_type.types.json.structure_serializer import StructureSerializer
+from src.black_fennec.structure.structure_serializer import StructureSerializer
 
 
 class JsonMimeType(MimeType):

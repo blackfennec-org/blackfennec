@@ -11,7 +11,7 @@ from src.black_fennec.structure.number import Number
 from src.black_fennec.structure.reference import Reference
 from src.black_fennec.structure.string import String
 from src.black_fennec.structure.structure import Structure
-from src.black_fennec.document_system.mime_type.types.json.json_reference_serializer import JsonReferenceSerializer
+from src.black_fennec.document_system.mime_type.json.json_reference_serializer import JsonReferenceSerializer
 
 logger = logging.getLogger(__name__)
 

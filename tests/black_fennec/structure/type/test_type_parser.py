@@ -2,13 +2,13 @@
 import unittest
 import json
 
-from doubles.black_fennec.document_system.mime_type.types.json.double_json_reference_serializer import JsonReferenceSerializerMock
+from doubles.black_fennec.document_system.mime_type.json.double_json_reference_serializer import JsonReferenceSerializerMock
 from src.black_fennec.structure.type.type_parser import TypeParser
 from src.black_fennec.structure.map import Map
 from src.black_fennec.structure.string import String
 from src.black_fennec.structure.number import Number
 from src.black_fennec.structure.type.type_factory import TypeFactory
-from src.black_fennec.document_system.mime_type.types.json.structure_serializer import StructureSerializer
+from src.black_fennec.structure.structure_serializer import StructureSerializer
 
 
 class TypeParserTestSuite(unittest.TestCase): 

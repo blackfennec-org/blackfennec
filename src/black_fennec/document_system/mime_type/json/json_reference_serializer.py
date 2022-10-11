@@ -4,7 +4,7 @@ import re
 from typing import Type
 from urllib.parse import urlparse
 
-from src.black_fennec.document_system.mime_type.types.json.json_pointer_serializer import JsonPointerSerializer
+from src.black_fennec.document_system.mime_type.json.json_pointer_serializer import JsonPointerSerializer
 from src.black_fennec.structure.reference_navigation.navigator import Navigator
 from src.black_fennec.structure.reference_navigation.uri_navigator import UriNavigator
 

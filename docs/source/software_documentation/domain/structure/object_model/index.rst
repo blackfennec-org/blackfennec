@@ -81,7 +81,14 @@ A map is a collection of key-value pairs of information.
 
 Reference
 """""""""
-A reference is an absolute or relative path to information. This type only exists on the :ref:`underlay <definition_underlay>` and is not visible on higher :ref:`layers <definition_layer>`.
+A reference is an absolute or relative path to information. This type only exists on the :ref:`underlay <definition_underlay>` and is not visible on higher :ref:`layers <definition_layer>`. The Reference consists of a list of Navigators
+
+.. _definition_reference_navigator
+
+Reference Navigation
+~~~~~~~~~~~~~~~~~~~~
+
+A Navigator is a token of the parsed Reference. The list of Navigators contained in a :ref:`reference <definition_type_reference>` are used to navigate through the :ref:`tree <definition_underlay>`.
 
 Root
 """"
