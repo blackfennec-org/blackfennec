@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 import contextlib
 from typing import IO, List
-import pytest
 
 from tests.test_utils.connection import has_internet_connection
 from src.black_fennec.document_system.resource_type.resource_type import ResourceType
@@ -33,10 +32,3 @@ class HttpsResourceType(ResourceType):
             structure = response.info()
             mime_type = structure.get_content_type()
         return mime_type
-
-    @pytest.mark.skipif(not has_internet_connection(), reason="test requires internet")
-    def test_determine_mimetype_online(self):
-        uri = 'https://jsonplaceholder.typicode.com/posts/1'
-        resource_type = 'https'
-        actual_mime_type = HttpsResourceType().guess_mime_type(uri)
-        self.assertEqual(actual_mime_type, 'application/json')

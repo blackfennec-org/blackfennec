@@ -4,7 +4,8 @@ import pytest
 from doubles.black_fennec.document_system.mime_type.types.json.double_json_reference_serializer import JsonReferenceSerializerMock
 from src.black_fennec.document_system.mime_type.types.json.structure_serializer import StructureSerializer
 from src.black_fennec.structure.merge.deep_merge import DeepMerge
-from src.black_fennec.structure.merge.merged import MergedMap, MergedStructure
+from src.black_fennec.structure.merge.merged import MergedMap, MergedNull, MergedStructure
+from src.black_fennec.structure.null import Null
 from src.black_fennec.structure.overlay.overlay_factory_visitor import OverlayFactoryVisitor
 
 from src.black_fennec.structure.map import Map
@@ -181,7 +182,6 @@ def test_navigation_in_doubly_merged_object():
     assert merged.value["1"].parent.value["2"].value == "underlay"
 
 def test_navigation_in_merged_object():
-    
     b = Map({"1": String("underlay")})
     c = Map({"2": String("overlay")})
     merged = DeepMerge.merge(underlay=b, overlay=c)
@@ -196,3 +196,54 @@ def test_can_access_parent():
     c = Map({})
     merged = DeepMerge.merge(underlay=b, overlay=c)
     assert merged.value["1"].parent == merged
+
+def test_navigation_in_phantom_parents():
+    a = Map({"1": Map({"2": String("underlay")}) })
+    b = Map(          {"2": String("overlay" )})
+    merged = DeepMerge.merge(underlay=a.value["1"], overlay=b)
+    assert merged.parent == a
+
+def test_can_compare_merged_objects():
+    a = Map({"1": String("underlay")})
+    b = Map({})
+    one = DeepMerge.merge(underlay=a, overlay=b)
+    two = DeepMerge.merge(underlay=a, overlay=b)
+
+    assert one == two
+
+def test_can_compare_merged_objects_with_different_values():
+    a = Map({"1": String("underlay")})
+    b = Map({})
+    c = Map({"1": String("underlay")})
+    d = Map({})
+    one = DeepMerge.merge(underlay=a, overlay=b)
+    two = DeepMerge.merge(underlay=c, overlay=d)
+
+    assert one == two
+
+def test_can_compare_merged_objects_with_standard_objects():
+    a = Map({"1": String("underlay")})
+    b = Map({})
+    one = DeepMerge.merge(underlay=a, overlay=b)
+    two = Map({"1": String("underlay")})
+
+    assert one == two
+
+def test_can_recover_from_null_merge():
+    a = Map({"1": String("underlay")})
+    b = Null()
+    c = Map({"1": String("overlay")})
+    one = DeepMerge.merge(underlay=a, overlay=b)
+    two = DeepMerge.merge(underlay=one, overlay=c)
+
+    assert not isinstance(two, MergedNull)
+
+
+def test_can_recover_from_null_merge_2():
+    a = Null()
+    b = Map({"1": String("underlay")})
+    c = Map({"1": String("overlay")})
+    one = DeepMerge.merge(underlay=a, overlay=b)
+    two = DeepMerge.merge(underlay=one, overlay=c)
+
+    assert not isinstance(two, MergedNull)

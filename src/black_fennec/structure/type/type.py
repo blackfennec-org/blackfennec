@@ -4,6 +4,9 @@ from typing import Generic, TypeVar
 from src.black_fennec.structure.null import Null
 from .type_coverage_mixin import TypeCoverageMixin
 
+import logging
+logger = logging.getLogger(__name__)
+
 T = TypeVar("T")
 
 
@@ -19,7 +22,7 @@ class Type(
     @property
     def super(self):
         super_structure = self.subject.value["super"]
-        if isinstance(super_structure, Null):
+        if super_structure.value is None:
             return None
         from .type_parser import TypeParser
         return TypeParser.parse(super_structure)

@@ -20,7 +20,7 @@
               <object class="GtkImage">
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
-                <property name="pixbuf">src/visualisation/base/date_time_range/date.png</property>
+                <property name="pixbuf">src/visualisation/base/date_time/date.png</property>
               </object>
               <packing>
                 <property name="expand">False</property>

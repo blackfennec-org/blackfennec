@@ -26,3 +26,10 @@ class HttpsResourceTypeTestSuite(unittest.TestCase):
             content = data.read()
 
         self.assertEqual(self.content, content)
+
+    @pytest.mark.skipif(not has_internet_connection(), reason="test requires internet")
+    def test_determine_mimetype_online(self):
+        uri = 'https://jsonplaceholder.typicode.com/posts/1'
+        resource_type = 'https'
+        actual_mime_type = HttpsResourceType().guess_mime_type(uri)
+        self.assertEqual(actual_mime_type, 'application/json')

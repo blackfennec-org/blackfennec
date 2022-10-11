@@ -58,6 +58,7 @@ class Offer(Comparable):
         Returns:
             int: specificity property set by constructor
         """
+        logger.debug(f'Getting specificity for {self.type}')
         def get_specificity(type: Type) -> int:
             if type.super is None:
                 return 0

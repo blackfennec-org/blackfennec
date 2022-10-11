@@ -1,22 +1,14 @@
 import unittest
-import pytest
 
-from doubles.black_fennec.structure.double_structure import StructureMock
+import pytest
 from doubles.black_fennec.structure.double_string import StringMock
-from doubles.black_fennec.structure.double_map import MapMock
-from doubles.black_fennec.structure.type.double_type_parser import TypeParserMock
 from doubles.black_fennec.structure.type.double_type import TypeMock
 from src.black_fennec.interpretation.auction.coverage import Coverage
-from src.black_fennec.structure.encapsulation_base.base_factory_visitor import _create_generic_class
-from src.black_fennec.structure.structure import Structure
-from src.black_fennec.structure.map import Map
 from src.black_fennec.structure.list import List
+from src.black_fennec.structure.map import Map
 from src.black_fennec.structure.string import String
-from src.black_fennec.structure.type.type_parser import TypeParser
-from src.black_fennec.structure.type.type_factory import TypeFactory
 from src.black_fennec.structure.type.map_type import MapType
-from src.black_fennec.structure.type.type import Type
-from src.visualisation.base.date_time_range.date_time_range import DateTimeRange
+from src.black_fennec.structure.type.type_factory import TypeFactory
 
 
 class MapTypeTestSuite(unittest.TestCase):
@@ -167,3 +159,6 @@ class MapTypeTestSuite(unittest.TestCase):
     def test_can_get_repr(self):
         representation: str = self.map_type.__repr__()
         self.assertTrue(representation.startswith("MapType("))
+
+    def test_can_recognize_self(self):
+        assert self.map_type == self.map_type

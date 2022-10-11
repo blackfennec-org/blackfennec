@@ -69,24 +69,32 @@ def document_factory(type_registry) -> DocumentFactory:
 
 @pytest.fixture
 def type(tmp_path, document_factory, type_registry):
+    devinetype_json = tmp_path / "devinetype.json"
+    devinetype_json.write_text("""
+{
+    "super": {
+        "super": null,
+        "type": "Map"
+    },
+    "type": "DevineType",
+    "properties": {
+        "property0": {
+            "super": null,
+            "type": "Null"
+        }
+    }
+}
+""")
+
     supertype_json = tmp_path / "supbertype.json"
     supertype_json.write_text("""
 {
-    "super": {
-        "super": {
-            "super": null,
-            "type": "Map"
-        },
-        "type": "DevineType",
-        "properties": {
-            "property0": {
-                "super": null,
-                "type": "Null"
-            }
-        }
-    },
+    "super": { "$ref": "bftype://DevineType"},
     "type": "SuperType",
-    "required": [],
+    "required": [
+        "property2",
+        "property3"
+    ],
     "properties": {
         "property1": {
             "super": null,
@@ -96,7 +104,8 @@ def type(tmp_path, document_factory, type_registry):
         "property2": {
             "super": null,
             "type": "Number",
-            "minimum": 0
+            "minimum": 0,
+            "maximum": 100
         },
         "property3": {
             "super": {
@@ -128,6 +137,7 @@ def type(tmp_path, document_factory, type_registry):
     )
 
     tl = TypeLoader(document_factory, type_registry)
+    tl.load(devinetype_json.as_uri())
     tl.load(supertype_json.as_uri())
     return tl.load(subtype_json.as_uri())
 
@@ -148,6 +158,10 @@ def test_overrides_minimum(type):
     assert type.properties["property2"].minimum == 10
 
 
+def test_inherits_maximum(type):
+    assert type.properties["property2"].maximum == 100
+
+
 def test_overrides_default(type):
     assert type.properties["property2"].default.value == 1337
 
@@ -158,6 +172,14 @@ def test_inheritance_in_inherited(type):
 
 def test_overrides_nested_constraintes(type):
     assert type.properties["property3"].expected == True
+
+
+def test_type_covers_good_instance(type):
+    assert type.calculate_coverage(Map({
+        "property1": String("abc"),
+        "property2": Number(10),
+        "property3": Boolean(True)
+    })).is_covered()
 
 
 @pytest.mark.parametrize(

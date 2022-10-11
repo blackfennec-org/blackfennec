@@ -35,6 +35,7 @@ class Auctioneer:
 
         for offer in offers:
             logger.debug("checking offer %s", offer)
+            logger.debug("offer is covered = %s", offer.coverage.is_covered())
 
             if best_offer is None or offer >= best_offer:
                 best_offer = offer

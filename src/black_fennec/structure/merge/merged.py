@@ -8,8 +8,9 @@ import logging
 logger = logging.getLogger(__name__)
 
 
-class MergedStructure:
+class MergedStructure(Structure):
     def __init__(self, underlay: Structure, overlay: Structure):
+        super().__init__(None)
         self._underlay = underlay
         self._overlay = overlay
 
@@ -37,8 +38,25 @@ class MergedStructure:
     @property
     def parent(self):
         if self._overlay.parent:
-            assert self._underlay.parent
-            return deep_merge.DeepMerge.merge(self._underlay.parent, self._overlay.parent)
+            overlay_parent = self._overlay.parent 
+        else:
+            if self._underlay.parent:
+                underlay_parent = self._underlay.parent
+            else:
+                underlay_parent = None
+            overlay_parent = MergedPhantom(None, underlay_parent)
+
+        if self._underlay.parent:
+            underlay_parent = self._underlay.parent
+        else:
+            if self._overlay.parent:
+                overlay_parent = self._overlay.parent
+            else:
+                overlay_parent = None
+            underlay_parent = MergedPhantom(None, overlay_parent)
+
+        if underlay_parent or overlay_parent:
+            return deep_merge.DeepMerge.merge(underlay_parent, overlay_parent)
 
     @parent.setter
     def parent(self, parent: Structure):
@@ -52,9 +70,9 @@ class MergedStructure:
         return f"MergedStructure(underlay={self._underlay}, overlay={self._overlay})"
 
     def __eq__(self, o):
-        if not isinstance(o, MergedStructure):
-            return False
-        return self._underlay == o._underlay and self._overlay == o._overlay
+        if isinstance(o, Structure):
+            return self.value == o.value
+        raise NotImplementedError()
 
     def __ne__(self, other) -> bool:
         return not self == other
@@ -68,13 +86,18 @@ class MergedList(MergedStructure):
     @property
     def value(self):
         logger.warning("Accessed value of merged list: implementation is disputed")
+        underlay = self._underlay.value if self._underlay else []
+        overlay = self._overlay.value if self._overlay else []
+        value = underlay + overlay
         return [ deep_merge.DeepMerge.merge(MergedPhantom(self, child), child) 
-            for child in self._underlay.value + self._overlay.value ]
+            for child in value ]
 
     @value.setter
     def value(self, value):
         raise AssertionError("Cannot set value on merged layer")
 
+    def __repr__(self) -> str:
+        return f"MergedList(underlay={self._underlay}, overlay={self._overlay})"
 
 class MergedMap(MergedStructure):
     def __init__(self, underlay: Structure, overlay: Structure):
@@ -108,14 +131,25 @@ class MergedNull(MergedStructure):
         super().__init__(underlay, overlay)
 
     @property
-    def value(self):
+    def _layer(self):
         if self._overlay and self._overlay.value is not None:
-            return self._overlay.value
-        return self._underlay.value
+            return self._overlay
+        return self._underlay
+
+    @property
+    def value(self):
+        return self._layer.value
 
     @value.setter
     def value(self, value):
         raise AssertionError("Value cannot be set on MergedStructure")
+
+    def accept(self, visitor: Visitor):
+        interceptor = InterceptingVisitor(lambda s: self, visitor)
+        return self._layer.accept(interceptor)
+
+    def __repr__(self) -> str:
+        return f"MergedNull(underlay={self._underlay}, overlay={self._overlay})"
 
 
 class MergedPhantom:

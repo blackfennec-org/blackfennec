@@ -3,14 +3,14 @@
     "type": "File",
     "required": [
         "file_path",
-        "file_name"
+        "file_type"
     ],
     "properties": {
         "file_path": {
             "super": null,
             "type": "String"
         },
-        "file_name": {
+        "file_type": {
             "super": null,
             "type": "String"
         }

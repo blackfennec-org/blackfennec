@@ -10,6 +10,8 @@ from .string_type import StringType
 from .number_type import NumberType
 from .boolean_type import BooleanType
 
+import logging
+logger = logging.getLogger(__name__)
 
 class TypeParser:
     FACTORIES = {
@@ -24,6 +26,7 @@ class TypeParser:
 
     @classmethod
     def _merge_super(cls, structure):
+        logger.debug(f"Merge super for {structure}")
         super = structure.value["super"]
         if super.value is None:
             return structure

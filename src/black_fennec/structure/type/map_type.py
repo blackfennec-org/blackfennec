@@ -41,16 +41,19 @@ class MapType(Type[Map]):
         self.set_required(name, not is_optional)
 
     def _get_name(self, structure) -> str:
+        logger.debug(f"looking up name for {structure}...")
         for name, prop in self.properties.items():
+            logger.debug(f"comparing {prop} to {structure}")
             if prop == structure:
+                logger.debug(f"found {name}")
                 return name
-        raise AssertionError(f"{structure} is not a property of this class")
+        raise AssertionError(f"{structure} should be a property of {self} but is not")
 
     def _is_property_guard(self, prop_name) -> None:
         for name, prop in self.properties.items():
             if name == prop_name:
                 return
-        raise AssertionError(f"{prop_name} is not a property of this class")
+        raise AssertionError(f"{prop_name} should be a property of {self} but is not")
 
     @property
     def required_properties(self) -> list:

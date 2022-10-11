@@ -1,10 +1,7 @@
 from src.extension.extension_api import ExtensionApi
-from src.visualisation.base.address.address import Address
+
 from src.visualisation.base.date_time.date_time import DateTime
-from src.visualisation.base.date_time_range.date_time_range import DateTimeRange
-from src.visualisation.base.address.address_view_factory import AddressViewFactory
 from src.visualisation.base.date_time.date_time_view_factory import DateTimeViewFactory
-from src.visualisation.base.date_time_range.date_time_range_view_factory import DateTimeRangeViewFactory
 from src.visualisation.base.file.file_view_factory import FileViewFactory
 from src.visualisation.base.image.image_view_factory import ImageViewFactory
 from src.black_fennec.interpretation.specification import Specification
@@ -16,9 +13,7 @@ def _types(api: ExtensionApi):
     global __types
     if not __types:
         __types = [
-            Address.TYPE,
             DateTime.TYPE,
-            DateTimeRange.TYPE,
             api.type_loader.load('src/visualisation/base/file/file.json'),
             api.type_loader.load('src/visualisation/base/image/image.json'),
         ]
@@ -26,9 +21,7 @@ def _types(api: ExtensionApi):
 
 
 factories = [
-    AddressViewFactory(),
     DateTimeViewFactory(),
-    DateTimeRangeViewFactory(),
     FileViewFactory(),
     ImageViewFactory(),
 ]
@@ -41,7 +34,7 @@ def create_extension(extension_api: ExtensionApi):
             parameters.
     """
 
-    for type in [ Address.TYPE, DateTime.TYPE, DateTimeRange.TYPE ]:
+    for type in [ DateTime.TYPE ]:
         extension_api.type_registry.register_type(type)
 
 
