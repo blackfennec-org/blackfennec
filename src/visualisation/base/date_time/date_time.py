@@ -4,7 +4,6 @@ from datetime import datetime
 
 from src.black_fennec.structure.map import Map
 from src.black_fennec.structure.string import String
-from src.black_fennec.structure.type.map_type import MapType
 from src.black_fennec.structure.type.type_factory import TypeFactory
 
 logger = logging.getLogger(__name__)
@@ -20,8 +19,8 @@ def create_date_time_type():
                 r'([0-5][0-9])(\.[0-9]+)?(Z|[+-](?:2[0-3]|[01][0-9]):' \
                 r'[0-5][0-9])?$'
     type = tf.create_map(
-        type="DateTime", 
-        super=tf.create_map(), 
+        type="DateTime",
+        super=tf.create_map(),
         properties={
             DateTime.DATE_TIME_KEY: tf.create_string(pattern=iso_regex)
     })

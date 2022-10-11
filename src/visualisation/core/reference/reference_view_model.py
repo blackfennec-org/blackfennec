@@ -1,7 +1,6 @@
 import logging
 
 from src.black_fennec.interpretation.interpretation import Interpretation
-from src.black_fennec.structure.structure import Structure
 from src.black_fennec.structure.reference import Reference
 
 logger = logging.getLogger(__name__)

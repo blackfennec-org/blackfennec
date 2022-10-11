@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 import abc
 import logging
-from typing import Optional
 
 from src.black_fennec.structure.structure import Structure
 

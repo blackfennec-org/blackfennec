@@ -41,9 +41,9 @@ class NumberType(Type[Number]):
             self.subject.remove_item('minimum')
             self.subject.add_item('minimum', Number())
         self.subject.value['minimum'].value = value
-    
+
     @property
-    def maximum(self):        
+    def maximum(self):
         if 'maximum' in self.subject.value:
             return self.subject.value['maximum'].value
         return None
@@ -61,6 +61,6 @@ class NumberType(Type[Number]):
         if self.maximum and subject.value > self.maximum:
             return Coverage.NOT_COVERED
         return Coverage.COVERED
-        
+
     def __repr__(self):
         return f'NumberType({self.subject.__repr__()})'

@@ -2,7 +2,6 @@
 import abc
 import contextlib
 from typing import IO, List, Optional
-import urllib.request as req
 from urllib.parse import urlparse
 
 

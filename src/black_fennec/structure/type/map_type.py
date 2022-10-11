@@ -20,7 +20,7 @@ class MapType(Type[Map]):
     def __init__(self, subject: Map = None):
         subject = subject or self._type_structure()
         Type.__init__(self, subject)
-    
+
     @staticmethod
     def _type_structure():
         return Map({"type": String("Map"), "super": Null()})

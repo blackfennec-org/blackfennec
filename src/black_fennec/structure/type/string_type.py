@@ -9,7 +9,6 @@ from src.black_fennec.structure.string import String
 from src.black_fennec.structure.map import Map
 
 from .type import Type
-from .type_coverage_mixin import TypeCoverageMixin
 
 logger = logging.getLogger(__name__)
 

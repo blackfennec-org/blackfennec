@@ -38,7 +38,7 @@ class MergedStructure(Structure):
     @property
     def parent(self):
         if self._overlay.parent:
-            overlay_parent = self._overlay.parent 
+            overlay_parent = self._overlay.parent
         else:
             if self._underlay.parent:
                 underlay_parent = self._underlay.parent
@@ -89,8 +89,8 @@ class MergedList(MergedStructure):
         underlay = self._underlay.value if self._underlay else []
         overlay = self._overlay.value if self._overlay else []
         value = underlay + overlay
-        return [ deep_merge.DeepMerge.merge(MergedPhantom(self, child), child) 
-            for child in value ]
+        return [ deep_merge.DeepMerge.merge(MergedPhantom(self, child), child)
+                for child in value ]
 
     @value.setter
     def value(self, value):
@@ -98,6 +98,7 @@ class MergedList(MergedStructure):
 
     def __repr__(self) -> str:
         return f"MergedList(underlay={self._underlay}, overlay={self._overlay})"
+
 
 class MergedMap(MergedStructure):
     def __init__(self, underlay: Structure, overlay: Structure):

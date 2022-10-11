@@ -3,7 +3,6 @@ import logging
 from functools import cached_property
 
 from src.black_fennec.interpretation.auction.coverage import Coverage
-from src.black_fennec.interpretation.specification import Specification
 from src.black_fennec.structure.structure import Structure
 from src.black_fennec.structure.type.type import Type
 from src.black_fennec.util.comparable import Comparable
@@ -59,6 +58,7 @@ class Offer(Comparable):
             int: specificity property set by constructor
         """
         logger.debug(f'Getting specificity for {self.type}')
+
         def get_specificity(type: Type) -> int:
             if type.super is None:
                 return 0
@@ -83,7 +83,7 @@ class Offer(Comparable):
         """
         return self.type.calculate_coverage(self.subject)
 
-    def __eq__(self, other: 'Offer') -> bool:
+    def __eq__(self, other) -> bool:
         """Equality operator
 
         Arguments:
@@ -93,6 +93,9 @@ class Offer(Comparable):
         Returns:
             bool: comparison of subject, specificity and coverage with other
         """
+        if not isinstance(other, Offer):
+            return False
+
         return (
                    self.subject,
                    self.coverage,

@@ -3,8 +3,6 @@ import logging
 
 from src.black_fennec.structure.map import Map
 from src.black_fennec.structure.string import String
-from src.black_fennec.structure.type.map_type import MapType
-from src.black_fennec.structure.type.type_factory import TypeFactory
 
 logger = logging.getLogger(__name__)
 

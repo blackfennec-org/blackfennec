@@ -1,10 +1,10 @@
 import logging
-from typing import List
 from src.black_fennec.structure.structure import Structure
 from src.black_fennec.structure.type.type import Type
 from src.black_fennec.interpretation.auction.offer import Offer
 
 logger = logging.getLogger(__name__)
+
 
 class Auctioneer:
     """A service to find the best offer, Auctioneer.
@@ -16,7 +16,7 @@ class Auctioneer:
     """
 
     @classmethod
-    def _filter_offers(cls, subject: Structure, offers) -> [Offer]:
+    def _filter_offers(cls, subject: Structure, offers) -> list[Offer]:
         """Select the best offers.
 
         Args:
@@ -47,7 +47,7 @@ class Auctioneer:
         return [best_offer]
 
     @classmethod
-    def auction(cls, types: List[Type], subject: Structure) -> list:
+    def auction(cls, types: list[Type], subject: Structure) -> list[Type]:
         """Auction off a subject, using the specification when selecting offers.
 
         Auctions subject to all known types which can follow the specification.

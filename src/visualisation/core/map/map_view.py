@@ -41,7 +41,7 @@ class MapView(Gtk.Bin):
     def _add_item(self, key, structure):
         preview = self._view_model.create_preview(structure)
         item = MapItemView(
-            key, preview, self._view_factory, 
+            key, preview, self._view_factory,
             self._view_model)
         self._items[key] = item
         self._item_interpretation_mapping[preview] = item

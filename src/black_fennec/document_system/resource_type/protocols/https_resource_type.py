@@ -2,7 +2,6 @@
 import contextlib
 from typing import IO, List
 
-from tests.test_utils.connection import has_internet_connection
 from src.black_fennec.document_system.resource_type.resource_type import ResourceType
 import urllib.request as req
 

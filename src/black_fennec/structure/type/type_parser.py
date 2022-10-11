@@ -13,6 +13,7 @@ from .boolean_type import BooleanType
 import logging
 logger = logging.getLogger(__name__)
 
+
 class TypeParser:
     FACTORIES = {
         "Map": map_type.MapType,

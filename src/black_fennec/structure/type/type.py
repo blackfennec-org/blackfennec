@@ -1,7 +1,6 @@
 from abc import ABCMeta, abstractmethod
 from typing import Generic, TypeVar
 
-from src.black_fennec.structure.null import Null
 from .type_coverage_mixin import TypeCoverageMixin
 
 import logging

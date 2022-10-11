@@ -38,13 +38,13 @@ class BooleanType(Type):
 
     @expected.setter
     def expected(self, value):
-        if self.expected == None:
+        if self.expected is None:
             self.subject.remove_item("expected")
             self.subject.add_item("expected", Boolean())
         self.subject.value["expected"].value = value
 
     def visit_boolean(self, subject: Boolean) -> Coverage:
-        if self.expected != None and subject.value != self.expected:
+        if self.expected is not None and subject.value != self.expected:
             return Coverage.NOT_COVERED
         return Coverage.COVERED
 

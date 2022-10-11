@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 import logging
-from functools import cached_property
 
 from src.black_fennec.structure.structure import Structure
 # from src.navigation.navigation_service import NavigationService
@@ -28,7 +27,6 @@ class Interpretation:
         self._navigation_service = None
         self._specification = specification
         self._types = types
-        self._structure_views = []
         self._structure = structure
 
     def set_navigation_service(self, navigation_service) -> None:

@@ -3,11 +3,11 @@ from src.black_fennec.structure.structure import Structure
 from src.black_fennec.structure.list import List
 from src.black_fennec.structure.map import Map
 from src.black_fennec.structure.null import Null
-from src.black_fennec.structure.reference import Reference
 from src.black_fennec.structure.string import String
 from src.black_fennec.structure.number import Number
 from src.black_fennec.structure.boolean import Boolean
-from .merged import *
+from .merged import MergedStructure, MergedNull, MergedList, MergedMap
+
 
 class MergerFactory(Visitor['Merger']):
     """Create a Merger using the visitor pattern"""

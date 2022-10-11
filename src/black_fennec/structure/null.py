@@ -13,7 +13,6 @@ class Null(Structure[None]):
         """Construct Null.
         """
         Structure.__init__(self, None)
-    
 
     @property
     def value(self) -> None:
@@ -21,11 +20,11 @@ class Null(Structure[None]):
 
     @value.setter
     def value(self, value: None):
-        assert value == None, "Null cannot have a value"
+        assert value is None, "Null cannot have a value"
 
     def accept(self, visitor: Visitor[TVisitor]) -> TVisitor:
         return visitor.visit_null(self)
 
     def __repr__(self) -> str:
         """Create representation for pretty printing"""
-        return f'Null'
+        return 'Null'

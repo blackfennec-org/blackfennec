@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 import contextlib
-import os
-from typing import IO, List
+from typing import List
 from urllib.parse import urlparse
 
 from src.black_fennec.document_system.document import Document
@@ -11,7 +10,6 @@ from src.black_fennec.document_system.resource_type.resource_type import Resourc
 class BFTypeResourceType(ResourceType):
     def __init__(self, type_registry):
         self._type_registry = type_registry
-
 
     @property
     def protocols(self) -> List[str]:

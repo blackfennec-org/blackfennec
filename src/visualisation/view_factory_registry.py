@@ -20,8 +20,8 @@ class ViewFactoryRegistry:
         for t, s, f in self._view_factories:
             if t == type and s == specification:
                 return f
-        raise AssertionError("%s, %s not in registry", 
-            type, specification)
+        raise AssertionError("%s, %s not in registry",
+                type, specification)
 
     def register_view_factory(self, type, specification, view_factory):
         """Function to register a new view_factory
@@ -41,6 +41,6 @@ class ViewFactoryRegistry:
         """
         for t, s, f in self._view_factories:
             if t == type and s == specification:
-                self._view_factories.remove((t,s,f))
+                self._view_factories.remove((t, s, f))
                 return
         raise AssertionError("type, specification not in registry")

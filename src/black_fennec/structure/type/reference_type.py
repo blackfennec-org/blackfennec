@@ -2,7 +2,6 @@
 
 import logging
 
-from typing import Optional
 from src.black_fennec.interpretation.auction.coverage import Coverage
 from src.black_fennec.structure.null import Null
 from src.black_fennec.structure.reference import Reference

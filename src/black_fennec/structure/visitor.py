@@ -4,6 +4,7 @@ from typing import Generic, TypeVar
 
 T = TypeVar('T')
 
+
 class Visitor(Generic[T], metaclass=ABCMeta):
     """Base class for all visitors as defined by the visitor pattern.
 

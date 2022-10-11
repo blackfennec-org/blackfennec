@@ -17,6 +17,7 @@ from src.black_fennec.structure.null import Null
 
 T = TypeVar('T')
 
+
 class BaseFactoryVisitor(Visitor[T]):
     """Abstract Factory and Visitor
 

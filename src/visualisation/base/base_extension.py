@@ -9,6 +9,7 @@ from src.black_fennec.interpretation.specification import Specification
 
 __types = []
 
+
 def _types(api: ExtensionApi):
     global __types
     if not __types:
@@ -26,6 +27,7 @@ factories = [
     ImageViewFactory(),
 ]
 
+
 def create_extension(extension_api: ExtensionApi):
     """Registers all base types
 
@@ -36,7 +38,6 @@ def create_extension(extension_api: ExtensionApi):
 
     for type in [ DateTime.TYPE ]:
         extension_api.type_registry.register_type(type)
-
 
     for type, factory in zip(_types(extension_api), factories):
         extension_api.view_factory_registry.register_view_factory(
@@ -52,7 +53,6 @@ def destroy_extension(extension_api: ExtensionApi):
         extension_api (ExtensionApi): contains constructor injection
             parameters
     """
-
 
     for type, factory in zip(_types(extension_api), factories):
         extension_api.type_registry.deregister_type(type)

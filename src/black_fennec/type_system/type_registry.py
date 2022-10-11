@@ -1,5 +1,6 @@
 from src.black_fennec.structure.type.type import Type
 
+
 class TypeRegistry:
     """Type Registry Class
 

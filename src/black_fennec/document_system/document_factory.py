@@ -22,17 +22,16 @@ class DocumentFactory:
     def create(
             self,
             uri: str,
-            resource_type: Optional[str] = None,
-            mime_type: Optional[str] = None,
+            resource_type_id: Optional[str] = None,
+            mime_type_id: Optional[str] = None,
             location: Optional[str] = None
     ) -> Document:
-        if not resource_type:
-            resource_type = ResourceType.try_determine_resource_type(uri)
-        resource_type = self._resource_type_registry.resource_types[resource_type]
+        if not resource_type_id:
+            resource_type_id = ResourceType.try_determine_resource_type(uri)
+        resource_type = self._resource_type_registry.resource_types[resource_type_id]
 
-        if not mime_type:
-            mime_type = MimeType.try_determine_mime_type(uri, resource_type)
-        mime_type = self._mime_type_registry.mime_types[mime_type]
-
+        if not mime_type_id:
+            mime_type_id = MimeType.try_determine_mime_type(uri, resource_type)
+        mime_type = self._mime_type_registry.mime_types[mime_type_id]
 
         return self._document_type(mime_type, resource_type, uri=uri, location=location)

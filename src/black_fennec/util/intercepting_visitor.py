@@ -8,6 +8,7 @@ from src.black_fennec.structure.number import Number
 from src.black_fennec.structure.boolean import Boolean
 from src.black_fennec.structure.visitor import Visitor
 
+
 class InterceptingVisitor(Visitor):
     def __init__(self, adapter, visitor):
         self.adapter = adapter

@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 
-from src.black_fennec.structure.type.type_parser import TypeParser
 from src.black_fennec.structure.list import List
 from src.black_fennec.structure.map import Map
 from src.black_fennec.structure.string import String

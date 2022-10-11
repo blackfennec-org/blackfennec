@@ -13,7 +13,7 @@ class TypeLoader:
         for visitor in self._visitors:
             structure = structure.accept(visitor)
         return structure
-    
+
     def load(self, uri):
         location = os.path.abspath(".")
         document = self._document_factory.create(uri, location=location)
