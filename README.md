@@ -1,6 +1,7 @@
-[![Pipeline status][pipeline-status]][commits]
-[![Coverage report][coverage-report]][commits]
+[![pipeline status](https://gitlab.ost.ch/blackfennec/blackfennec/badges/dev/pipeline.svg)](https://gitlab.ost.ch/blackfennec/blackfennec/-/commits/dev)
+[![coverage report](https://gitlab.ost.ch/blackfennec/blackfennec/badges/dev/coverage.svg)](https://gitlab.ost.ch/blackfennec/blackfennec/-/commits/dev)
 [![Pylint score][pylint-score]][pylint-log]
+[![Latest Release](https://gitlab.ost.ch/blackfennec/blackfennec/-/badges/release.svg)](https://gitlab.ost.ch/blackfennec/blackfennec/-/releases)
 
 <!-- PROJECT LOGO -->
 <br />
@@ -16,9 +17,9 @@
     <a href="https://gitlab.ost.ch/black-fennec/black-fennec"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://gitlab.ost.ch/black-fennec/black-fennec/issues">Report Bug</a>
+    <a href="https://gitlab.ost.ch/blackfennec/blackfennec/issues">Report Bug</a>
     ·
-    <a href="https://gitlab.ost.ch/black-fennec/black-fennec/issues">Request Feature</a>
+    <a href="https://gitlab.ost.ch/blackfennec/blackfennec/issues">Request Feature</a>
   </p>
 </div>
 
@@ -99,7 +100,7 @@ python black_fennec.py
 
 ## Roadmap
 
-See the [open issues](https://gitlab.ost.ch/black-fennec/black-fennec/issues) for a list of proposed features (and known
+See the [open issues](https://gitlab.ost.ch/blackfennec/blackfennec/issues) for a list of proposed features (and known
 issues).
 
 <!-- CONTRIBUTING -->
@@ -121,16 +122,16 @@ Distributed under the GNU General Public License. See `LICENSE` for more informa
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 
-[pipeline-status]: https://gitlab.ost.ch/black-fennec/black-fennec/badges/dev/pipeline.svg
+[pipeline-status]: https://gitlab.ost.ch/blackfennec/blackfennec/badges/dev/pipeline.svg
 
-[coverage-report]: https://gitlab.ost.ch/black-fennec/black-fennec/badges/dev/coverage.svg
+[coverage-report]: https://gitlab.ost.ch/blackfennec/blackfennec/badges/dev/coverage.svg
 
-[pylint-score]: https://gitlab.ost.ch/black-fennec/black-fennec/-/jobs/artifacts/dev/raw/pylint/pylint.svg?job=run%20linter
+[pylint-score]: https://gitlab.ost.ch/blackfennec/blackfennec/-/jobs/artifacts/dev/raw/pylint/pylint.svg?job=run%20linter
 
-[pylint-log]: https://gitlab.ost.ch/black-fennec/black-fennec/-/jobs/artifacts/dev/raw/pylint/pylint.log?job=run%20linter
+[pylint-log]: https://gitlab.ost.ch/blackfennec/blackfennec/-/jobs/artifacts/dev/raw/pylint/pylint.log?job=run%20linter
 
-[commits]: https://gitlab.ost.ch/black-fennec/black-fennec/-/commits/dev
+[commits]: https://gitlab.ost.ch/blackfennec/blackfennec/-/commits/dev
 
-[issues-url]: https://gitlab.ost.ch/black-fennec/black-fennec/issues
+[issues-url]: https://gitlab.ost.ch/blackfennec/blackfennec/issues
 
 [product-screenshot]: docs/source/images/corporate_identity/demo/ui.png
