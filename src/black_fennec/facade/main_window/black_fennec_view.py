@@ -1,11 +1,18 @@
+# -*- coding: utf-8 -*-
 import logging
 import os
+from pathlib import Path
 
-from gi.repository import Gtk
+from gi.repository import Adw, Gtk
 
 from src.black_fennec.facade.extension_store.extension_store_view import ExtensionStoreView
+from src.black_fennec.facade.main_window.document_tab import DocumentTab
+from src.black_fennec.facade.main_window.document_tab_view import DocumentTabView
 
 logger = logging.getLogger(__name__)
+
+BASE_DIR = Path(__file__).resolve().parent
+UI_TEMPLATE = str(BASE_DIR.joinpath('black_fennec.ui'))
 
 
 def create_folder_structure(root_directory):
@@ -25,20 +32,32 @@ def create_folder_structure(root_directory):
     return store
 
 
-@Gtk.Template(filename='src/black_fennec/facade/main_window/black_fennec.glade')
+@Gtk.Template(filename=UI_TEMPLATE)
 class BlackFennecView(Gtk.ApplicationWindow):
-    """Black Fennec Main UI view"""
     __gtype_name__ = 'BlackFennecView'
-    _presenter_container = Gtk.Template.Child()
-    _file_tree = Gtk.Template.Child()
-    _empty_list_pattern = Gtk.Template.Child()
+
+    _file_tree: Gtk.TreeView = Gtk.Template.Child()
+    _file_tree_flap: Adw.Flap = Gtk.Template.Child()
+
+    _tab_overview: Gtk.Box = Gtk.Template.Child()
+    _tab_view: Adw.TabView = Gtk.Template.Child()
+    _tab_bar: Adw.TabBar = Gtk.Template.Child()
 
     def __init__(self, app, view_model):
         self._application = app
+        app.create_action('main.quit', self.on_quit_clicked, ['<primary>q'])
+        app.create_action('main.settings', self.on_settings_action)
+        app.create_action('main.open', self.on_open_clicked)
+        app.create_action('main.save', self.on_save_clicked)
+        app.create_action('main.save_as', self.on_save_as_clicked)
+        app.create_action('main.extension_store', self.on_go_to_store_clicked)
+        app.create_action('main.about', self.on_about_clicked)
+
         super().__init__(application=app)
         logger.info('BlackFennecView __init__')
         self._view_model = view_model
-        self._view_model.bind(tabs=self._update_tabs)
+        self._view_model.bind(create_tab=self._create_tab)
+        self._view_model.bind(project=self._update_project)
         self._tabs = set()
 
         renderer = Gtk.CellRendererText()
@@ -47,39 +66,8 @@ class BlackFennecView(Gtk.ApplicationWindow):
         self._file_tree.append_column(tree_view_column)
 
     @Gtk.Template.Callback()
-    def on_new_clicked(self, unused_sender) -> None:
-        """Callback for the button click event"""
-        self._view_model.new()
-        logger.debug('new clicked')
-
-    @Gtk.Template.Callback()
-    def on_open_clicked(self, unused_sender) -> None:
-        """Callback for the button click event"""
-        logger.debug('open clicked')
-        dialog = Gtk.FileChooserDialog(
-            title='Please choose a project directory',
-            parent=self,
-            action=Gtk.FileChooserAction.SELECT_FOLDER
-        )
-        dialog.add_buttons(
-            Gtk.STOCK_CANCEL,
-            Gtk.ResponseType.CANCEL,
-            Gtk.STOCK_OPEN,
-            Gtk.ResponseType.OK,
-        )
-
-        response = dialog.run()
-        if response == Gtk.ResponseType.OK:
-            filename = dialog.get_filename()
-            dialog.destroy()
-        elif response == Gtk.ResponseType.CANCEL:
-            logger.debug('Directory selection canceled')
-            dialog.destroy()
-            return
-
-
-        store = create_folder_structure(filename)
-        self._file_tree.set_model(store)
+    def on_flap_button_toggled(self, toggle_button):
+        self._file_tree_flap.set_reveal_flap(not self._file_tree_flap.get_reveal_flap())
 
     @Gtk.Template.Callback()
     def on_file_clicked(self, unused_sender, path, unused_column) -> None:
@@ -87,76 +75,65 @@ class BlackFennecView(Gtk.ApplicationWindow):
         iterator = model.get_iter(path)
         if iterator:
             uri = model.get_value(iterator, 1)
-            self._view_model.open(uri)
+            self._view_model.open_file(uri)
 
-    @Gtk.Template.Callback()
-    def on_quit_clicked(self, unused_sender) -> None:
+    def _update_project(self, unused_sender, project_location: str):
+        store = create_folder_structure(project_location)
+        self._file_tree.set_model(store)
+        if not self._file_tree_flap.get_reveal_flap():
+            self._file_tree_flap.set_reveal_flap(True)
+
+    def _create_tab(self, unused_sender, tab: DocumentTab):
+        DocumentTabView(self._tab_view, tab)
+
+    def on_open_clicked(self, action, param) -> None:
         """Callback for the button click event"""
-        self.close()
-        logger.debug('quit clicked')
+        logger.debug('open clicked')
+        dialog = Gtk.FileChooserDialog(
+            title='Please choose a project directory',
+            transient_for=self,
+            action=Gtk.FileChooserAction.SELECT_FOLDER
+        )
+        dialog.add_buttons(
+            'Cancel', Gtk.ResponseType.CANCEL,
+            'Open', Gtk.ResponseType.OK
+        )
 
-    @Gtk.Template.Callback()
-    def on_save_clicked(self, unused_sender) -> None:
+        def on_response(dialog, response):
+            if response == Gtk.ResponseType.OK:
+                liststore = dialog.get_files()
+                self._view_model.set_project(liststore[0].get_path())
+            else:
+                logger.debug('Directory selection canceled')
+            dialog.destroy()
+
+        dialog.connect('response', on_response)
+        dialog.show()
+
+    def on_save_clicked(self, action, param) -> None:
         """Callback for the button click event"""
         self._view_model.save()
         logger.debug('save clicked')
 
-    @Gtk.Template.Callback()
-    def on_save_as_clicked(self, unused_sender) -> None:
+    def on_save_as_clicked(self, action, param) -> None:
         """Callback for the button click event"""
         self._view_model.save_as()
         logger.debug('save as clicked')
 
-    @Gtk.Template.Callback()
-    def on_go_to_store_clicked(self, unused_sender) -> None:
+    def on_go_to_store_clicked(self, action, param) -> None:
         """Callback for the button click event"""
         store_view_model = self._view_model.create_extension_store()
         store = ExtensionStoreView(self._application, store_view_model)
         store.show()
         logger.debug('go to store clicked')
 
-    @Gtk.Template.Callback()
-    def on_about_and_help_clicked(self, unused_sender) -> None:
+    def on_about_clicked(self, action, param) -> None:
         """Callback for the button click event"""
         self._view_model.about_and_help()
-        logger.debug('about and help clicked')
+        logger.debug('About clicked')
 
     def on_close_tab_clicked(self, sender):
         self._view_model.close_tab(sender.get_name())
-
-    def _update_tabs(self, unused_sender, tabs):
-        """observer for updates of tabs
-
-        Args:
-            unused_sender (any): unused
-            tabs (list): Updated list of tabs
-        """
-        if len(self._tabs) == 0:
-            self._presenter_container.remove_page(0)
-            self._show_tab()
-
-        intersection = self._tabs.intersection(tabs)
-        to_be_added = tabs.difference(intersection)
-        for tab in to_be_added:
-            notebook = self._presenter_container
-            tab_box = self._create_tab_widget(tab)
-
-            page_index = notebook.append_page(
-                tab.presenter, tab_box)
-            notebook.set_tab_reorderable(
-                self._presenter_container.get_nth_page(page_index), True)
-            notebook.set_current_page(page_index)
-
-        to_be_deleted = self._tabs.difference(intersection)
-        for tab in to_be_deleted:
-            index = self._presenter_container.page_num(tab.presenter)
-            self._presenter_container.remove_page(index)
-
-        self._tabs = set(tabs)
-        if not self._tabs:
-            self._add_empty_list_pattern()
-
-        self._presenter_container.show_all()
 
     def _add_empty_list_pattern(self):
         self._presenter_container.append_page(
@@ -166,26 +143,8 @@ class BlackFennecView(Gtk.ApplicationWindow):
             self._presenter_container.get_nth_page(0), 'tab-expand', True)
         self._hide_tab()
 
-    def _hide_tab(self):
-        style_context = self._presenter_container.get_style_context()
-        style_context.add_class('hide-tab')
+    def on_quit_clicked(self, action, param):
+        self._application.quit()
 
-    def _show_tab(self):
-        style_context = self._presenter_container.get_style_context()
-        style_context.remove_class('hide-tab')
-
-    def _create_tab_widget(self, tab):
-        button_image = Gtk.Image.new()
-        button_image.set_from_icon_name('window-close', Gtk.IconSize.BUTTON)
-
-        tab_button = Gtk.Button.new()
-        tab_button.set_name(tab.uri)
-        tab_button.set_label('✕')
-        tab_button.connect('clicked', self.on_close_tab_clicked)
-
-        tab_box = Gtk.Box.new(0, 5)
-        tab_box.pack_start(Gtk.Label.new(tab.uri), False, False, 0)
-        tab_box.pack_end(tab_button, True, True, 0)
-        tab_box.show_all()
-
-        return tab_box
+    def on_settings_action(self, action, param):
+        logger.debug('settings clicked')

@@ -1,0 +1,30 @@
+using Gtk 4.0;
+using Adw 1;
+
+template ImagePreview : Adw.Bin {
+  visible: true;
+  focusable: false;
+
+  Button {
+    visible: true;
+    focusable: false;
+    tooltip-text: _("Image");
+    clicked => _preview_clicked();
+    hexpand: true;
+    vexpand: true;
+
+    Image _image {
+      notify::realize => _on_resize();
+      width-request: 150;
+      icon-name: "image-x-generic";
+
+      styles [
+        "image",
+      ]
+    }
+
+    styles [
+      "flat",
+    ]
+  }
+}

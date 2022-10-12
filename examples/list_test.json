@@ -1,0 +1,16 @@
+[
+  {
+    "first_name": "Hans",
+    "last_name": "Wurst",
+    "street": "Bahnhofstrasse",
+    "street_nr": "666",
+    "city": "Zürich"
+  },
+  {
+    "first_name": "Derp",
+    "last_name": "Derpington",
+    "street": "Bahnhofstrasse",
+    "street_nr": "420",
+    "city": "Bern"
+  }
+]

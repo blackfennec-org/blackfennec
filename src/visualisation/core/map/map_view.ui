@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <requires lib="gtk" version="4.0"/>
+  <template class="MapView" parent="AdwBin">
+    <property name="visible">true</property>
+    <property name="focusable">false</property>
+    <child>
+      <object class="AdwPreferencesGroup" id="_preference_group">
+        <property name="title" translatable="true">Dictionary</property>
+        <property name="header-suffix">_add_item</property>
+        <property name="margin-start">8</property>
+        <property name="margin-end">8</property>
+        <property name="margin-top">8</property>
+        <property name="margin-bottom">8</property>
+      </object>
+    </child>
+  </template>
+  <object class="GtkMenuButton" id="_add_item">
+    <property name="icon-name">list-add-symbolic</property>
+    <property name="popover">_add_popover</property>
+    <style>
+      <class name="flat"/>
+    </style>
+  </object>
+  <object class="GtkPopover" id="_add_popover">
+    <property name="child">
+      <object class="GtkBox">
+        <property name="margin-start">8</property>
+        <property name="margin-end">8</property>
+        <property name="margin-top">8</property>
+        <property name="margin-bottom">8</property>
+        <property name="orientation">vertical</property>
+        <property name="spacing">5</property>
+        <child>
+          <object class="GtkBox">
+            <property name="orientation">vertical</property>
+            <child>
+              <object class="GtkLabel">
+                <property name="label" translatable="true">Add Map Item</property>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="GtkEntry" id="_add_entry">
+            <property name="focusable">true</property>
+            <property name="placeholder-text" translatable="true">Enter new key</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkComboBoxText" id="_template_box">
+            <property name="has-entry">true</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkBox">
+            <property name="hexpand">false</property>
+            <property name="spacing">10</property>
+            <child>
+              <object class="GtkButton">
+                <property name="label" translatable="true">Add</property>
+                <property name="focusable">true</property>
+                <property name="receives-default">true</property>
+                <property name="halign">end</property>
+                <signal name="clicked" handler="_add_map_item"/>
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+    </property>
+  </object>
+  <object class="GtkListStore" id="_template_store"></object>
+</interface>

@@ -3,8 +3,8 @@ from src.black_fennec.structure.structure import Structure
 import src.black_fennec.structure.merge.deep_merge as deep_merge
 from src.black_fennec.util.intercepting_visitor import InterceptingVisitor
 
-
 import logging
+
 logger = logging.getLogger(__name__)
 
 
@@ -76,12 +76,12 @@ class MergedList(MergedStructure):
 
     @property
     def value(self):
-        logger.warning("Accessed value of merged list: implementation is disputed")
+        logger.info("Accessed value of merged list: implementation is disputed")
         underlay = self._underlay.value if self._underlay else []
         overlay = self._overlay.value if self._overlay else []
         value = underlay + overlay
-        return [ deep_merge.DeepMerge.merge(MergedPhantom(self, child), child)
-                for child in value ]
+        return [deep_merge.DeepMerge.merge(MergedPhantom(self, child), child)
+                for child in value]
 
     @value.setter
     def value(self, value):

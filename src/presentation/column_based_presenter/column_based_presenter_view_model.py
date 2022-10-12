@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import logging
 
+from src.black_fennec.structure.root_factory import RootFactory
 from src.black_fennec.structure.structure import Structure
 from src.black_fennec.interpretation.interpretation import Interpretation
 from src.black_fennec.interpretation.interpretation_service import InterpretationService

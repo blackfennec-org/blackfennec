@@ -1,0 +1,24 @@
+using Gtk 4.0;
+using Adw 1;
+
+template MapPreview : Adw.Bin {
+  visible: true;
+  focusable: false;
+
+  Adw.Bin {
+    visible: true;
+    focusable: false;
+
+    Button {
+      focusable: true;
+      receives-default: true;
+      halign: end;
+      clicked => _on_navigate_clicked();
+
+      icon-name: "go-next-symbolic";
+      styles [
+        "flat",
+      ]
+    }
+  }
+}

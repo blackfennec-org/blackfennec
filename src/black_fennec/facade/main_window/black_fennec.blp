@@ -1,0 +1,200 @@
+using Gtk 4.0;
+using Adw 1;
+
+template BlackFennecView: ApplicationWindow {
+  title: "Black Fennec";
+  default-width: 1000;
+  default-height: 500;
+
+  [titlebar]
+  HeaderBar _header_bar {
+    [start]
+    ToggleButton {
+      icon-name: "sidebar-show-right-symbolic";
+      clicked => on_flap_button_toggled();
+    }
+
+    [start]
+    Button {
+      icon-name: "view-grid-symbolic";
+      tooltip-text: _("View Open Tabs");
+      action-name: "overview.open";
+    }
+
+    [start]
+    Button {
+      action-name: "win.tab-new";
+      icon-name: "tab-new-symbolic";
+    }
+
+    [end]
+    MenuButton {
+      icon-name: "open-menu-symbolic";
+      menu-model: _primary_menu;
+    }
+  }
+
+  Adw.Flap _file_tree_flap {
+    content: _tab_overview;
+    flap: _file_tree_scrolled_window;
+    locked: false;
+    reveal-flap: false;
+  }
+}
+
+ScrolledWindow _file_tree_scrolled_window {
+  focusable: true;
+  width-request: 200;
+  child:
+  TreeView _file_tree {
+    visible: true;
+    width-request: 200;
+    focusable: true;
+    vexpand: true;
+    enable-grid-lines: vertical;
+    row-activated => on_file_clicked();
+
+    [internal-child selection]
+    TreeSelection {
+    }
+  }
+
+  ;
+}
+
+Box _tab_overview {
+  orientation: vertical;
+
+  Adw.TabBar _tab_bar {
+    view: _tab_view;
+    extra-drag-drop => extra_drag_drop_cb() swapped;
+  }
+
+  Adw.TabView _tab_view {
+    vexpand: true;
+    menu-model: _tab_menu;
+    page-detached => page_detached_cb() swapped;
+    setup-menu => setup_menu_cb() swapped;
+    create-window => create_window_cb() swapped;
+    indicator-activated => indicator_activated_cb() swapped;
+  }
+}
+
+
+menu _tab_menu {
+  section {
+    item {
+      label: _("_Move to New Window");
+      action: "tab.move-to-new-window";
+    }
+
+    item {
+      label: _("D_uplicate");
+      action: "tab.duplicate";
+    }
+  }
+
+  section {
+    item {
+      label: _("P_in Tab");
+      action: "tab.pin";
+      hidden-when: "action-disabled";
+    }
+
+    item {
+      label: _("Unp_in Tab");
+      action: "tab.unpin";
+      hidden-when: "action-disabled";
+    }
+  }
+
+  section {
+    item {
+      label: _("Icon");
+      action: "tab.icon";
+    }
+
+    item {
+      label: _("R_efresh Icon");
+      action: "tab.refresh-icon";
+    }
+  }
+
+  section {
+    item {
+      label: _("Loa_ding");
+      action: "tab.loading";
+    }
+
+    item {
+      label: _("Needs _Attention");
+      action: "tab.needs-attention";
+    }
+
+    item {
+      label: _("Indicator");
+      action: "tab.indicator";
+    }
+  }
+
+  section {
+    item {
+      label: _("Close _Other Tabs");
+      action: "tab.close-other";
+    }
+
+    item {
+      /* Translators: Translators: “Close Tabs to the _Right” if you’re translating for a language that reads from right to left */
+
+      label: _("Close Tabs to the _Left");
+      action: "tab.close-before";
+    }
+
+    item {
+      /* Translators: Translators: “Close Tabs to the _Left” if you’re translating for a language that reads from right to left */
+
+      label: _("Close Tabs to the _Right");
+      action: "tab.close-after";
+    }
+  }
+
+  section {
+    item {
+      label: _("_Close");
+      action: "tab.close";
+    }
+  }
+}
+
+menu _primary_menu {
+  section {
+    item {
+      label: _("Settings");
+      action: "app.main.settings";
+    }
+    item {
+      label: _("Open...");
+      action: "app.main.open";
+    }
+    item {
+      label: _("Save");
+      action: "app.main.save";
+    }
+    item {
+      label: _("Save As...");
+      action: "app.main.save_as";
+    }
+    item {
+      label: _("Go to store");
+      action: "app.main.extension_store";
+    }
+    item {
+      label: _("About");
+      action: "app.main.about";
+    }
+    item {
+      label: _("Close");
+      action: "app.quit";
+    }
+  }
+}

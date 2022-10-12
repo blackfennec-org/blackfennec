@@ -1,25 +1,28 @@
 import logging
+from pathlib import Path
 
-from gi.repository import Gtk
+from gi.repository import Gtk, Adw
+
 from src.black_fennec.interpretation.interpretation import Interpretation
 from src.black_fennec.structure.structure import Structure
 from src.visualisation.core.list.list_view_model import ListViewModel
 
 logger = logging.getLogger(__name__)
 
+BASE_DIR = Path(__file__).resolve().parent
+UI_TEMPLATE = str(BASE_DIR.joinpath('list_item_view.ui'))
 
-@Gtk.Template(filename='src/visualisation/core/list/list_item_view.glade')
-class ListItemView(Gtk.Bin):
+
+@Gtk.Template(filename=UI_TEMPLATE)
+class ListItemView(Adw.ActionRow):
     """View for a single list item."""
     __gtype_name__ = 'ListItemView'
-    _item_row: Gtk.Box = Gtk.Template.Child()
-    _preview_container: Gtk.Bin = Gtk.Template.Child()
-    _popover = Gtk.Template.Child()
+    _preview_container: Gtk.Box = Gtk.Template.Child()
 
     def __init__(self,
-                preview: Interpretation,
-                view_factory,
-                view_model: ListViewModel):
+                 preview: Interpretation,
+                 view_factory,
+                 view_model: ListViewModel):
         """Create list item view
 
         Args:
@@ -31,7 +34,7 @@ class ListItemView(Gtk.Bin):
         self._preview = preview
         self._view_model = view_model
         view = view_factory.create(preview)
-        self._preview_container.add(view)
+        self._preview_container.append(view)
 
     @property
     def item(self) -> Structure:
@@ -45,36 +48,8 @@ class ListItemView(Gtk.Bin):
     @selected.setter
     def selected(self, value):
         self._selected = value
-        style = self._item_row.get_style_context()
+        style = self.get_style_context()
         if self.selected:
             style.add_class('is-active')
         else:
             style.remove_class('is-active')
-
-    def on_preview_clicked(self, unused_sender) -> None:
-        """Callback for the button click event"""
-        self._view_model.navigate_to(self._preview.structure)
-
-    @Gtk.Template.Callback()
-    def _on_button_click(self, sender, event):
-        if event.button != 3:
-            return False
-        self._popover.set_relative_to(sender)
-        self._popover.popup()
-
-    @Gtk.Template.Callback()
-    def _on_option_clicked(self, sender):
-        """Handler for option clicked on popover
-
-        Args:
-            sender: popover
-        """
-        button = sender.props.text
-        if button == 'Delete':
-            self._delete_request_handler(self)
-        else:
-            message = f'Unknown button({button}) clicked by {sender}'
-            logger.warning(message)
-
-    def _delete_request_handler(self, sender):
-        self._view_model.delete_item(sender.item)

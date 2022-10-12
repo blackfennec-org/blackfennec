@@ -1,11 +1,16 @@
-from gi.repository import Gtk
 import logging
+from pathlib import Path
+
+from gi.repository import Gtk, Adw
 
 logger = logging.getLogger(__name__)
 
+BASE_DIR = Path(__file__).resolve().parent
+UI_TEMPLATE = str(BASE_DIR.joinpath('reference_preview.ui'))
 
-@Gtk.Template(filename='src/visualisation/core/reference/reference_preview.glade')  # pylint:disable=line-too-long
-class ReferencePreview(Gtk.Bin):
+
+@Gtk.Template(filename=UI_TEMPLATE)
+class ReferencePreview(Adw.Bin):
     """Preview for the core type Reference."""
 
     __gtype_name__ = 'ReferencePreview'
@@ -19,12 +24,7 @@ class ReferencePreview(Gtk.Bin):
         """
         super().__init__()
         self._view_model = view_model
-        self._update_reference_value()
         logger.info('ReferencePreview created')
-
-    def _update_reference_value(self):
-        value = self._view_model.reference.value
-        self._reference_value.set_text(str(value))
 
     @Gtk.Template.Callback()
     def _click_handler(self, unused_sender, unused_argument) -> None:

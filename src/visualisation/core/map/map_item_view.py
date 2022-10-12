@@ -1,21 +1,21 @@
 import logging
-from gi.repository import Gtk
+from pathlib import Path
+
+from gi.repository import Gtk, Adw
 from src.black_fennec.interpretation.interpretation import Interpretation
 from src.visualisation.core.map.map_view_model import MapViewModel
 
 logger = logging.getLogger(__name__)
 
+BASE_DIR = Path(__file__).resolve().parent
+UI_TEMPLATE = str(BASE_DIR.joinpath('map_item_view.ui'))
 
-@Gtk.Template(filename='src/visualisation/core/map/map_item_view.glade')
-class MapItemView(Gtk.Bin):
+
+@Gtk.Template(filename=UI_TEMPLATE)
+class MapItemView(Adw.EntryRow):
     """View for a key value pair of a map."""
     __gtype_name__ = 'MapItemView'
-    _item_row: Gtk.Box = Gtk.Template.Child()
-    _key_label: Gtk.Label = Gtk.Template.Child()
-    _preview_container: Gtk.Bin = Gtk.Template.Child()
-    _popover = Gtk.Template.Child()
-    _edit_popover = Gtk.Template.Child()
-    _rename_entry = Gtk.Template.Child()
+    _preview_container: Gtk.Box = Gtk.Template.Child()
 
     def __init__(
             self,
@@ -37,17 +37,19 @@ class MapItemView(Gtk.Bin):
         self._preview = preview
         self._view_model = view_model
 
-        self.set_key(self._key)
+        self.key = self._key
         view = view_factory.create(preview)
-        self._preview_container.add(view)
+        self._preview_container.append(view)
 
     @property
     def key(self) -> str:
         """Readonly property for the key of the item"""
         return self._key
 
-    def set_key(self, key):
-        self._key_label.set_text(key)
+    @key.setter
+    def key(self, key):
+        self._key = key
+        self.set_text(key)
 
     @property
     def selected(self):
@@ -56,50 +58,22 @@ class MapItemView(Gtk.Bin):
     @selected.setter
     def selected(self, value):
         self._selected = value
-        style = self._item_row.get_style_context()
+        style = self.get_style_context()
         if self.selected:
             style.add_class('is-active')
         else:
             style.remove_class('is-active')
 
     @Gtk.Template.Callback()
-    def on_preview_clicked(self, unused_sender) -> None:
-        logger.warning('on_preview_clicked is deprecated.')
+    def _on_apply(self, sender):
+        new_key = sender.get_text()
+        self._view_model.rename_key(self._key, new_key)
+        self._key = new_key
 
     @Gtk.Template.Callback()
-    def _on_button_click(self, sender, event):
-        if event.button != 3:
-            return False
-        self._popover.set_relative_to(sender)
-        self._popover.popup()
-
-    @Gtk.Template.Callback()
-    def _on_option_clicked(self, sender):
-        """Popover click handler
-
-        Args:
-            sender: popover
-        """
-        button = sender.props.text
-        if button == 'Edit':
-            self._popover.popdown()
-            self._edit_popover.set_relative_to(self)
-            self._edit_popover.popup()
-        elif button == 'Delete':
-            self._delete_request_handler(self)
-        else:
-            message = f'Unknown button({button}) clicked by {sender}'
-            logger.warning(message)
-
-    @Gtk.Template.Callback()
-    def on_rename_clicked(self, unused_sender):
-        new_key = self._rename_entry.get_text()
-        self._edit_popover.popdown()
-        self._view_model.rename_key(self.key, new_key)
+    def _on_entry_activated(self, sender):
+        if not self.editable:
+            self._preview_container.mnemonic_activate()
 
     def _delete_request_handler(self, sender):
         self._view_model.delete_item(sender.key)
-
-    @Gtk.Template.Callback()
-    def on_cancel_clicked(self, unused_sender):
-        self._edit_popover.popdown()

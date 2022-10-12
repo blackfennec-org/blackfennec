@@ -1,0 +1,30 @@
+using Gtk 4.0;
+using Adw 1;
+
+template ReferencePreview : Adw.Bin {
+  visible: true;
+  focusable: false;
+
+  Box {
+    Entry _reference_value {
+      focusable: true;
+    }
+
+    Button {
+      width-request: 0;
+      height-request: 35;
+      focusable: true;
+      receives-default: true;
+      halign: end;
+
+      Image {
+        halign: center;
+        file: "src/visualisation/core/reference/link.png";
+      }
+
+      styles [
+        "map-preview",
+      ]
+    }
+  }
+}

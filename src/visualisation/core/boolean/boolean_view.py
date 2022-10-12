@@ -1,11 +1,16 @@
-from gi.repository import Gtk
+from pathlib import Path
+
+from gi.repository import Gtk, Adw
 import logging
 
 logger = logging.getLogger(__name__)
 
+BASE_DIR = Path(__file__).resolve().parent
+UI_TEMPLATE = str(BASE_DIR.joinpath('boolean_view.ui'))
 
-@Gtk.Template(filename='src/visualisation/core/boolean/boolean_view.glade')
-class BooleanView(Gtk.Bin):
+
+@Gtk.Template(filename=UI_TEMPLATE)
+class BooleanView(Adw.Bin):
     """View for the core type Boolean."""
 
     __gtype_name__ = 'BooleanView'

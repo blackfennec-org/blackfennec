@@ -1,15 +1,19 @@
 # -*- coding: utf-8 -*-
 import logging
+from pathlib import Path
 
-from gi.repository import Gtk
+from gi.repository import Gtk, Adw
 
 from src.visualisation.base.file.file_view_model import FileViewModel
 
 logger = logging.getLogger(__name__)
 
+BASE_DIR = Path(__file__).resolve().parent
+UI_TEMPLATE = str(BASE_DIR.joinpath('file_preview.ui'))
 
-@Gtk.Template(filename='src/visualisation/base/file/file_preview.glade')
-class FilePreview(Gtk.Bin):
+
+@Gtk.Template(filename=UI_TEMPLATE)
+class FilePreview(Adw.Bin):
     """Preview for the core type File."""
 
     __gtype_name__ = 'FilePreview'

@@ -1,0 +1,75 @@
+using Gtk 4.0;
+using Adw 1;
+
+template SplashScreenView : Adw.ApplicationWindow {
+  visible: true;
+  resizable: false;
+  deletable: false;
+
+  Fixed {
+    halign: center;
+    valign: center;
+    hexpand: false;
+
+    Image background {
+      valign: center;
+      file: "src/black_fennec/facade/splash_screen/splash_screen_background.png";
+      layout {
+        transform: "scale(35.0, 35.0)";
+      }
+    }
+
+    Label version {
+      layout {
+        transform: "translate(403, 78)";
+      }
+
+      width-request: 100;
+      height-request: 80;
+      label: _("ULTIMATE 4.20.6.9");
+    }
+
+    Label slogan1 {
+      layout {
+        transform: "translate(59, 332)";
+      }
+
+      width-request: 100;
+      height-request: 80;
+      label: _("Data Science");
+    }
+
+    ProgressBar progressBar {
+      layout {
+        transform: "translate(65, 232)";
+      }
+
+      width-request: 450;
+      height-request: 8;
+      halign: center;
+      valign: center;
+      fraction: 0.5;
+    }
+
+    Label slogan2 {
+      layout {
+        transform: "translate(59, 313)";
+      }
+
+      width-request: 100;
+      height-request: 80;
+      label: _("Reinventing");
+    }
+
+    Label {
+      layout {
+        transform: "translate(248, 323)";
+      }
+
+      width-request: 100;
+      height-request: 80;
+      label: _("Caspar Martens, Simon Kindhauser,\nLeonie Däullary, Lara Gubler");
+      justify: right;
+    }
+  }
+}

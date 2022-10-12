@@ -1,13 +1,18 @@
 import logging
-from gi.repository import Gtk
+from pathlib import Path
+
+from gi.repository import Gtk, Adw
 
 from src.black_fennec.facade.extension_store.extension_view_model import ExtensionViewModel
 
 logger = logging.getLogger(__name__)
 
+BASE_DIR = Path(__file__).resolve().parent
+UI_TEMPLATE = str(BASE_DIR.joinpath('extension.ui'))
 
-@Gtk.Template(filename='src/black_fennec/facade/extension_store/extension.glade')  # pylint:disable=line-too-long
-class ExtensionView(Gtk.Bin):
+
+@Gtk.Template(filename=UI_TEMPLATE)
+class ExtensionView(Adw.Bin):
     """Black Fennec Extension view"""
     __gtype_name__ = 'ExtensionView'
     _name: Gtk.Label = Gtk.Template.Child()

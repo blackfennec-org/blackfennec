@@ -2,12 +2,15 @@
 .PHONY: docs test
 
 dependencies:
-	python -m pip install -r requriements.txt
-	pythom -m pip install -r docs/requriements.txt
+	python -m pip install -r requirements.txt
+	python -m pip install -r docs/requirements.txt
 
 docs:
 	sphinx-apidoc -f -o docs/source/software_documentation/code/ .
 	cd docs/; make html
+
+compile-blueprint:
+	./scripts/compile-blueprint.sh
 
 lint:
 	find . -name "*.py" | xargs pylint --output-format=text || true

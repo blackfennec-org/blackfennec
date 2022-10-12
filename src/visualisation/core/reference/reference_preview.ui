@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <requires lib="gtk" version="4.0"/>
+  <template class="ReferencePreview" parent="AdwBin">
+    <property name="visible">true</property>
+    <property name="focusable">false</property>
+    <child>
+      <object class="GtkBox">
+        <child>
+          <object class="GtkEntry" id="_reference_value">
+            <property name="focusable">true</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkButton">
+            <property name="width-request">0</property>
+            <property name="height-request">35</property>
+            <property name="focusable">true</property>
+            <property name="receives-default">true</property>
+            <property name="halign">end</property>
+            <child>
+              <object class="GtkImage">
+                <property name="halign">center</property>
+                <property name="file">src/visualisation/core/reference/link.png</property>
+              </object>
+            </child>
+            <style>
+              <class name="map-preview"/>
+            </style>
+          </object>
+        </child>
+      </object>
+    </child>
+  </template>
+</interface>

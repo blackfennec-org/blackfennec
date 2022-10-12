@@ -1,12 +1,14 @@
 import logging
 import os
+from typing import Optional
 
 from src.black_fennec.document_system.document_factory import DocumentFactory
 from src.black_fennec.facade.extension_store.extension_store_view_model import ExtensionStoreViewModel
-from src.black_fennec.facade.main_window.tab import Tab
+
+from src.black_fennec.facade.main_window.document_tab import DocumentTab
 from src.black_fennec.interpretation.interpretation_service import InterpretationService
 from src.black_fennec.navigation.navigation_service import NavigationService
-from src.black_fennec.structure.structure import Structure
+from src.black_fennec.type_system.presenter_registry import PresenterRegistry
 from src.black_fennec.util.observable import Observable
 from src.extension.extension_api import ExtensionApi
 from src.extension.extension_source_registry import ExtensionSourceRegistry
@@ -28,7 +30,7 @@ class BlackFennecViewModel(Observable):
 
     def __init__(
             self,
-            presenter_factory,
+            presenter_registry: PresenterRegistry,
             interpretation_service: InterpretationService,
             document_factory: DocumentFactory,
             extension_api: ExtensionApi,
@@ -37,7 +39,7 @@ class BlackFennecViewModel(Observable):
         """BlackFennecViewModel constructor.
 
         Args:
-            presenter_factory (StructurePresenterFactory): presenter
+            presenter_registry (PresenterRegistry): presenter registry
             interpretation_service (InterpretationService): interpretation
                 service
             document_factory (DocumentFactory): document factory
@@ -46,44 +48,38 @@ class BlackFennecViewModel(Observable):
         """
         logger.info('BlackFennecViewModel __init__')
         super().__init__()
-        self._presenter_factory = presenter_factory
+        self._presenter_registry = presenter_registry
         self._interpretation_service = interpretation_service
         self._document_factory = document_factory
         self._extension_api = extension_api
         self._extension_source_registry = extension_source_registry
         self.tabs = set()
+        self.project: Optional[str] = None
 
-    def new(self):
-        """Future implementation of new()"""
-        logger.warning('new() not yet implemented')
+    def set_project(self, project_location: str):
+        """Sets the project location
 
-    def open(self, uri: str):
+        Args:
+            project_location (str): project location
+        """
+        self.project = project_location
+        self._notify(self.project, 'project')
+
+    def open_file(self, uri: str):
         """Opens a file
         specified by the filename
 
         Args:
             uri (str): URI of the file to open
         """
-        document = self._document_factory.create(uri, location=os.path.dirname(uri))
-        structure: Structure = document.content
-
         navigation_service = NavigationService()
-        presenter_view = self._presenter_factory.create(navigation_service)
-        presenter = presenter_view._view_model
-        navigation_service.set_presenter(presenter)
-        tab = Tab(presenter_view, uri, structure)
-        self.tabs.add(tab)
-        presenter.set_structure(structure)
-        self._notify(self.tabs, 'tabs')
-
-    def close_tab(self, filename):
-        for tab in self.tabs:
-            if tab.uri == filename:
-                element = tab
-                self.tabs.remove(element)
-                break
-
-        self._notify(self.tabs, 'tabs')
+        tab = DocumentTab(
+            self._presenter_registry,
+            self._document_factory,
+            navigation_service,
+            uri
+        )
+        self._notify(tab, 'create_tab')
 
     def quit(self):
         """Future implementation of quit()"""

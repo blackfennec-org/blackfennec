@@ -1,0 +1,12 @@
+using Gtk 4.0;
+using Adw 1;
+
+template NumberView : Adw.Bin {
+  visible: true;
+  focusable: false;
+
+  Entry _value {
+    focusable: true;
+    input-purpose: number;
+  }
+}

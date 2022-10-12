@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <requires lib="gtk" version="4.0"/>
+  <template class="ImagePreview" parent="AdwBin">
+    <property name="visible">true</property>
+    <property name="focusable">false</property>
+    <child>
+      <object class="GtkButton">
+        <property name="visible">true</property>
+        <property name="focusable">false</property>
+        <property name="tooltip-text" translatable="true">Image</property>
+        <signal name="clicked" handler="_preview_clicked"/>
+        <property name="hexpand">true</property>
+        <property name="vexpand">true</property>
+        <child>
+          <object class="GtkImage" id="_image">
+            <signal name="notify::realize" handler="_on_resize"/>
+            <property name="width-request">150</property>
+            <property name="icon-name">image-x-generic</property>
+            <style>
+              <class name="image"/>
+            </style>
+          </object>
+        </child>
+        <style>
+          <class name="flat"/>
+        </style>
+      </object>
+    </child>
+  </template>
+</interface>

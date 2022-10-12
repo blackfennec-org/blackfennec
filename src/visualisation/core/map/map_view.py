@@ -1,18 +1,22 @@
-from gi.repository import Gtk, GObject
 import logging
+from pathlib import Path
+
+from gi.repository import Gtk, GObject, Adw
 
 from src.visualisation.core.map.map_item_view import MapItemView
 
 logger = logging.getLogger(__name__)
 
+BASE_DIR = Path(__file__).resolve().parent
+UI_TEMPLATE = str(BASE_DIR.joinpath('map_view.ui'))
 
-@Gtk.Template(filename='src/visualisation/core/map/map_view.glade')
-class MapView(Gtk.Bin):
+
+@Gtk.Template(filename=UI_TEMPLATE)
+class MapView(Adw.Bin):
     """View for the core type Map."""
 
     __gtype_name__ = 'MapView'
-    _item_container: Gtk.Box = Gtk.Template.Child()
-    _add_item_row = Gtk.Template.Child()
+    _preference_group: Gtk.Box = Gtk.Template.Child()
     _add_popover = Gtk.Template.Child()
     _add_entry = Gtk.Template.Child()
     _template_store = Gtk.Template.Child()
@@ -36,7 +40,7 @@ class MapView(Gtk.Bin):
             selected=self._on_selection_changed)
 
         self._update_value(self, self._view_model.value)
-        logger.info('MapView created')
+        self._setup_template_store()
 
     def _add_item(self, key, structure):
         preview = self._view_model.create_preview(structure)
@@ -45,15 +49,11 @@ class MapView(Gtk.Bin):
             self._view_model)
         self._items[key] = item
         self._item_interpretation_mapping[preview] = item
-        self._item_container.add(item)
+        self._preference_group.add(item)
 
     def _remove_item(self, key):
         item = self._items.pop(key)
-        self._item_container.remove(item)
-
-    def _set_item_position(self, key, position):
-        item = self._items[key]
-        self._item_container.reorder_child(item, position)
+        self._preference_group.remove(item)
 
     def _update_value(self, unused_sender, new_value):
         """Observable handler for value
@@ -63,17 +63,10 @@ class MapView(Gtk.Bin):
             new_value: set by view model
         """
         for key in self._value:
-            if key not in new_value.value:
-                self._remove_item(key)
-
-        for i, (key, value) in enumerate(new_value.value.items()):
-            if key not in self._value:
-                self._add_item(key, value)
-            self._set_item_position(key, i)
+            self._remove_item(key)
+        for key, value in new_value.value.items():
+            self._add_item(key, value)
         self._value = new_value.value
-
-    def _preview_click_handler(self):
-        logger.warning('preview clicked handler is deprecated')
 
     def _on_selection_changed(self, unused_sender, new_value):
         if self._currently_selected:
@@ -88,7 +81,7 @@ class MapView(Gtk.Bin):
         return None
 
     def _delete_request_handler(self, sender):
-        self._item_container.remove(sender)
+        self._preference_group.remove(sender)
         self._view_model.delete_item(sender.key)
 
     def _rename_request_handler(self, sender, new_key):
@@ -115,19 +108,9 @@ class MapView(Gtk.Bin):
         raise KeyError(message)
 
     @Gtk.Template.Callback()
-    def _add_item_clicked(self, unused_sender):
-        self._add_popover.set_relative_to(self._add_item_row)
-        self._setup_template_store()
-        self._add_popover.popup()
-
-    @Gtk.Template.Callback()
-    def _add_submit_clicked(self, unused_sender):
+    def _add_map_item(self, unused_sender):
         key = self._add_entry.get_text()
         self._add_popover.popdown()
         template = self._get_template_by_string(
             self._template_box.get_active_text())
         self._view_model.add_by_template(key, template)
-
-    @Gtk.Template.Callback()
-    def _cancel_clicked(self, unused_sender):
-        self._add_popover.popdown()

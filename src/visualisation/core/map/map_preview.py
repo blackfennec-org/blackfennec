@@ -1,11 +1,16 @@
-from gi.repository import Gtk
 import logging
+from pathlib import Path
+
+from gi.repository import Gtk, Adw
 
 logger = logging.getLogger(__name__)
 
+BASE_DIR = Path(__file__).resolve().parent
+UI_TEMPLATE = str(BASE_DIR.joinpath('map_preview.ui'))
 
-@Gtk.Template(filename='src/visualisation/core/map/map_preview.glade')
-class MapPreview(Gtk.Bin):
+
+@Gtk.Template(filename=UI_TEMPLATE)
+class MapPreview(Adw.Bin):
     """Preview for the core type Map."""
 
     __gtype_name__ = 'MapPreview'
@@ -21,6 +26,6 @@ class MapPreview(Gtk.Bin):
         logger.info('MapPreview created')
 
     @Gtk.Template.Callback()
-    def _click_handler(self, unused_sender, unused_argument) -> None:
+    def _on_navigate_clicked(self, unused_sender) -> None:
         """Handles clicks on map items, triggers navigation"""
         self._view_model.navigate_to(self._view_model.value)
