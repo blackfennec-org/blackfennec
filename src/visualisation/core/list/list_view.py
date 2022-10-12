@@ -1,5 +1,7 @@
 from gi.repository import GObject, Gtk
 import logging
+
+from src.black_fennec.structure.structure import Structure
 from src.visualisation.core.list.list_item_view import ListItemView
 
 logger = logging.getLogger(__name__)
@@ -24,7 +26,7 @@ class ListView(Gtk.Bin):
         """
         super().__init__()
         self._value: list = []
-        self._items: dict = {}
+        self._items: list[(Structure, ListItemView)] = []
         self._item_interpretation_mapping = {}
         self._currently_selected = None
         self._view_factory = view_factory
@@ -42,18 +44,22 @@ class ListView(Gtk.Bin):
             preview,
             self._view_factory,
             self._view_model)
-        self._items[structure] = item
+        self._items.append((structure, item))
         self._item_container.add(item)
         self._item_interpretation_mapping[preview] = item
 
     def _remove_item(self, structure):
-        item = self._items[structure]
-        self._items.pop(structure)
-        self._item_container.remove(item)
+        for s, item in self._items:
+            if s is structure:
+                self._item_container.remove(item)
+                self._items.remove((s, item))
+                return
 
-    def _set_item_position(self, key, position):
-        item = self._items[key]
-        self._item_container.reorder_child(item, position)
+    def _set_item_position(self, structure, position):
+        for s, item in self._items:
+            if s is structure:
+                self._item_container.reorder_child(item, position)
+                return
 
     def _update_value(self, unused_sender, new_value):
         """Observable handler for value
