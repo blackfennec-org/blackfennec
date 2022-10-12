@@ -4,8 +4,8 @@ from src.black_fennec.structure.structure import Structure
 class StructureMock:
     def __init__(self, value=None, parent=None, root=None):
         self._value = value
-        self._root = root
-        self._parent = parent
+        self._root = root or self
+        self._parent = parent or self
         self._value_property_access_count = 0
 
     @property

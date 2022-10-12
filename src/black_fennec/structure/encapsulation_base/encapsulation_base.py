@@ -57,14 +57,13 @@ class EncapsulationBase:
         interceptor = InterceptingVisitor(lambda s: self, visitor)
         return self.subject.accept(interceptor)
 
-    @property
-    def root(self):
+    def get_root(self):
         """Property for root of this structure encapsulated in an FactoryBase.
 
         Returns:
             EncapsulationBase: encapsulates root of subject in FactoryBase class
         """
-        return self._encapsulate(self.subject.root)
+        return self._encapsulate(self.subject.get_root())
 
     @staticmethod
     def _remove_encapsulation(item: Structure):

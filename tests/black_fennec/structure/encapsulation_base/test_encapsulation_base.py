@@ -49,7 +49,7 @@ class EncapsulationBaseTestSuite(unittest.TestCase):
     @data(*zip(MOCK_CORE_TYPES, MOCK_CORE_TYPES, MOCK_CORE_TYPES))
     def test_root_getter(self, data):
         self._setUp(*data)
-        self.encapsulation_base.root
+        self.encapsulation_base.get_root()
 
         count, subject = self.visitor.get_stats(self.subject.type_name)
         self.assertEqual(subject, self.root)

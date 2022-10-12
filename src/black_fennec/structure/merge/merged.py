@@ -62,9 +62,8 @@ class MergedStructure(Structure):
     def parent(self, parent: Structure):
         raise AssertionError("Cannot set parent on MergedStructure")
 
-    @property
-    def root(self):
-        return deep_merge.DeepMerge.merge(self._underlay.root, self._overlay.root)
+    def get_root(self):
+        return deep_merge.DeepMerge.merge(self._underlay.root, self._overlay.get_root())
 
     def __repr__(self) -> str:
         return f"MergedStructure(underlay={self._underlay}, overlay={self._overlay})"
