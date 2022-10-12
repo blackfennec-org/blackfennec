@@ -1,11 +1,16 @@
-from gi.repository import Gtk
 import logging
+from pathlib import Path
+
+from gi.repository import Gtk, Adw
 
 logger = logging.getLogger(__name__)
 
+BASE_DIR = Path(__file__).resolve().parent
+UI_TEMPLATE = str(BASE_DIR.joinpath('number_preview.ui'))
 
-@Gtk.Template(filename='src/visualisation/core/number/number_preview.glade')
-class NumberPreview(Gtk.Bin):
+
+@Gtk.Template(filename=UI_TEMPLATE)
+class NumberPreview(Adw.Bin):
     """View for the core type Number"""
 
     __gtype_name__ = 'NumberPreview'

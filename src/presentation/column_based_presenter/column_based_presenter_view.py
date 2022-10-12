@@ -1,16 +1,19 @@
 # -*- coding: utf-8 -*-
 import logging
+from pathlib import Path
 
-from gi.repository import Gtk
+from gi.repository import Gtk, Adw
 from src.presentation.column_based_presenter.column_based_presenter_view_model import ColumnBasedPresenterViewModel
 from src.black_fennec.interpretation.interpretation import Interpretation
 from src.presentation.column_based_presenter.column_view import ColumnView
 
 logger = logging.getLogger(__name__)
 
+BASE_DIR = Path(__file__).resolve().parent
+UI_TEMPLATE = str(BASE_DIR.joinpath('column_based_presenter.ui'))
 
-@Gtk.Template(
-    filename="src/presentation/column_based_presenter/column_based_presenter.glade")  # pylint: disable=line-too-long
+
+@Gtk.Template(filename=UI_TEMPLATE)
 class ColumnBasedPresenterView(Gtk.Box):
     """ColumnBasedPresenterView Code behind.
 
@@ -18,13 +21,15 @@ class ColumnBasedPresenterView(Gtk.Box):
     lying behind that is an observable observed by this class.
 
     Attributes:
-        _view_model (ColumnBasedPresenterViewModel): stores injected
+        view_model (ColumnBasedPresenterViewModel): stores injected
             view model
         interpretations ([Interpretation]): stores list of interpretations
             shown at the moment. Is updated via view model
     """
     __gtype_name__ = "ColumnBasedPresenterView"
-    _empty_list_pattern = Gtk.Template.Child()
+    _empty_list_pattern: Adw.StatusPage = Gtk.Template.Child()
+    _loading: Adw.StatusPage = Gtk.Template.Child()
+    _error: Adw.StatusPage = Gtk.Template.Child()
 
     def __init__(self, view_model: ColumnBasedPresenterViewModel, view_factory):
         """ColumnBasedPresenterView constructor.
@@ -35,9 +40,17 @@ class ColumnBasedPresenterView(Gtk.Box):
         super().__init__()
         self._view_model = view_model
         self._view_factory = view_factory
-        self._view_model.bind(interpretations=self._update_interpretations)
+        self.view_model = view_model
+        self.view_model.bind(interpretations=self._update_interpretations)
         self.interpretations = []
         self._root_column = None
+
+    def set_error(self, error_message):
+        """Shows error placeholder"""
+        self._empty_list_pattern.set_visible(False)
+        self._loading.set_visible(False)
+        self._error.set_description(error_message)
+        self._error.set_visible(True)
 
     def _update_interpretations(self, unused_sender, interpretations):
         """interpretation update.
@@ -96,7 +109,7 @@ class ColumnBasedPresenterView(Gtk.Box):
         column = ColumnView(interpretation, self._view_factory)
         self.interpretations.append(interpretation)
         if self._root_column is None:
-            self.add(column)
+            self.append(column)
             self._root_column = column
         else:
             self._root_column.add_column(column)
@@ -111,12 +124,14 @@ class ColumnBasedPresenterView(Gtk.Box):
         """
         if not self.interpretations:
             logger.debug("show empty list pattern")
-            self.add(self._empty_list_pattern)
-            self._empty_list_pattern.show_all()
+            self._empty_list_pattern.set_visible(True)
+            self._loading.set_visible(False)
+            self._error.set_visible(False)
         else:
             logger.debug("hide empty list pattern")
-            self.remove(self._empty_list_pattern)
-            self._empty_list_pattern.hide()
+            self._empty_list_pattern.set_visible(False)
+            self._loading.set_visible(False)
+            self._error.set_visible(False)
 
     @staticmethod
     def _diff_interpretations(old, new) -> int:

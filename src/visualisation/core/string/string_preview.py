@@ -1,11 +1,16 @@
-from gi.repository import Gtk
 import logging
+from pathlib import Path
+
+from gi.repository import Gtk, Adw
 
 logger = logging.getLogger(__name__)
 
+BASE_DIR = Path(__file__).resolve().parent
+UI_TEMPLATE = str(BASE_DIR.joinpath('string_preview.ui'))
 
-@Gtk.Template(filename='src/visualisation/core/string/string_preview.glade')
-class StringPreview(Gtk.Bin):
+
+@Gtk.Template(filename=UI_TEMPLATE)
+class StringPreview(Adw.Bin):
     """View for the core type String."""
 
     __gtype_name__ = 'StringPreview'

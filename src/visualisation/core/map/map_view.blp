@@ -1,0 +1,70 @@
+using Gtk 4.0;
+using Adw 1;
+
+template MapView : Adw.Bin {
+  visible: true;
+  focusable: false;
+
+  Adw.PreferencesGroup _preference_group {
+        title: _("Dictionary");
+        header-suffix: _add_item;
+        margin-start: 8;
+        margin-end: 8;
+        margin-top: 8;
+        margin-bottom: 8;
+  }
+}
+
+MenuButton _add_item {
+  icon-name: "list-add-symbolic";
+  popover: _add_popover;
+
+  styles [
+    "flat",
+  ]
+}
+
+Popover _add_popover {
+  child:   Box {
+    margin-start: 8;
+    margin-end: 8;
+    margin-top: 8;
+    margin-bottom: 8;
+    orientation: vertical;
+    spacing: 5;
+
+    Box {
+      orientation: vertical;
+
+      Label {
+        label: _("Add Map Item");
+      }
+    }
+
+    Entry _add_entry {
+      focusable: true;
+      placeholder-text: _("Enter new key");
+    }
+
+    ComboBoxText _template_box {
+      has-entry: true;
+    }
+
+    Box {
+      hexpand: false;
+      spacing: 10;
+
+      Button {
+        label: _("Add");
+        focusable: true;
+        receives-default: true;
+        halign: end;
+        clicked => _add_map_item();
+      }
+    }
+  };
+}
+
+ListStore _template_store {
+
+}

@@ -1,0 +1,76 @@
+using Gtk 4.0;
+using Adw 1;
+
+template ImageView : Adw.Bin {
+  visible: true;
+  focusable: false;
+
+  Box _item_container {
+    orientation: vertical;
+    spacing: 2;
+
+    Box {
+      Image {
+        notify::realize => _on_resize();
+        file: "src/visualisation/base/image/image.png";
+      }
+
+      Label _image_title {
+        label: _("Image");
+      }
+    }
+
+    Image _image {
+      notify::realize => _on_resize();
+      width-request: 150;
+      icon-name: "image-x-generic";
+    }
+
+    Box _file_path_line {
+      spacing: 2;
+
+      Button _file_path_choose {
+        focusable: true;
+        receives-default: true;
+        clicked => _on_choose_clicked();
+
+        Image {
+          file: "src/visualisation/base/folder-16.png";
+        }
+      }
+
+      Label _file_path_value {
+        hexpand: true;
+        focusable: true;
+        label: _("<value-here>");
+        selectable: true;
+        ellipsize: start;
+        xalign: 0;
+      }
+
+      Label _file_path_key {
+        label: _("Path:");
+        width-chars: 6;
+        xalign: 0;
+      }
+    }
+
+    Box _file_type_line {
+      spacing: 2;
+
+      Label _file_type_key {
+        label: _("Type:");
+        width-chars: 6;
+        xalign: 0;
+      }
+
+      Label _file_type_value {
+        hexpand: true;
+        focusable: true;
+        label: _("<value-here>");
+        selectable: true;
+        xalign: 0;
+      }
+    }
+  }
+}

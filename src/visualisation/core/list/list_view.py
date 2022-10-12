@@ -1,21 +1,26 @@
-from gi.repository import GObject, Gtk
 import logging
+from pathlib import Path
 
-from src.black_fennec.structure.structure import Structure
+from gi.repository import GObject, Gtk, Adw
+
 from src.visualisation.core.list.list_item_view import ListItemView
+from src.black_fennec.structure.structure import Structure
 
 logger = logging.getLogger(__name__)
 
+BASE_DIR = Path(__file__).resolve().parent
+UI_TEMPLATE = str(BASE_DIR.joinpath('list_view.ui'))
 
-@Gtk.Template(filename='src/visualisation/core/list/list_view.glade')
-class ListView(Gtk.Bin):
+
+@Gtk.Template(filename=UI_TEMPLATE)
+class ListView(Adw.Bin):
     """View for the core type List."""
 
     __gtype_name__ = 'ListView'
-    _item_container: Gtk.Box = Gtk.Template.Child()
-    _add_item_row = Gtk.Template.Child()
-    _add_popover = Gtk.Template.Child()
-    _template_store = Gtk.Template.Child()
+    _preference_group: Adw.PreferencesGroup = Gtk.Template.Child()
+
+    _popover: Gtk.Popover = Gtk.Template.Child()
+    _template_store: Gtk.ListStore = Gtk.Template.Child()
     _template_box = Gtk.Template.Child()
 
     def __init__(self, view_factory, view_model):
@@ -36,7 +41,7 @@ class ListView(Gtk.Bin):
             selected=self._on_selection_changed)
 
         self._update_value(self, self._view_model.value)
-        logger.info('ListView created')
+        self._setup_template_store()
 
     def _add_item(self, structure):
         preview = self._view_model.create_preview(structure)
@@ -45,21 +50,15 @@ class ListView(Gtk.Bin):
             self._view_factory,
             self._view_model)
         self._items.append((structure, item))
-        self._item_container.add(item)
+        self._preference_group.add(item)
         self._item_interpretation_mapping[preview] = item
 
     def _remove_item(self, structure):
         for s, item in self._items:
             if s is structure:
-                self._item_container.remove(item)
+                self._preference_group.remove(item)
                 self._items.remove((s, item))
-                return
-
-    def _set_item_position(self, structure, position):
-        for s, item in self._items:
-            if s is structure:
-                self._item_container.reorder_child(item, position)
-                return
+                break
 
     def _update_value(self, unused_sender, new_value):
         """Observable handler for value
@@ -75,7 +74,6 @@ class ListView(Gtk.Bin):
         for i, item in enumerate(new_value.value):
             if item not in self._value:
                 self._add_item(item)
-            self._set_item_position(item, i)
         self._value = new_value.value
 
     def _setup_template_store(self):
@@ -97,12 +95,6 @@ class ListView(Gtk.Bin):
         logger.error(message)
         raise KeyError(message)
 
-    def _preview_click_handler(
-            self,
-            unused_sender,
-            unused_route_target) -> None:
-        logger.warning('preview clicked handler is deprecated')
-
     def _on_selection_changed(self, unused_sender, new_value):
         if self._currently_selected:
             self._currently_selected.selected = False
@@ -116,18 +108,8 @@ class ListView(Gtk.Bin):
         return None
 
     @Gtk.Template.Callback()
-    def _add_item_clicked(self, unused_sender):
-        self._add_popover.set_relative_to(self._add_item_row)
-        self._setup_template_store()
-        self._add_popover.popup()
-
-    @Gtk.Template.Callback()
-    def _add_from_submitted(self, unused_sender):
-        self._add_popover.popdown()
+    def _add_list_item(self, unused_sender):
+        self._popover.popdown()
         template = self._get_template_by_string(
             self._template_box.get_active_text())
         self._view_model.add_by_template(template)
-
-    @Gtk.Template.Callback()
-    def _add_form_canceled(self, unused_sender):
-        self._add_popover.popdown()

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <requires lib="gtk" version="4.0"/>
+  <template class="StringPreview" parent="AdwBin">
+    <property name="focusable">false</property>
+    <property name="visible">true</property>
+    <child>
+      <object class="GtkTextView" id="_value">
+        <property name="width-request">150</property>
+        <property name="height-request">35</property>
+        <property name="focusable">true</property>
+        <property name="margin-top">3</property>
+        <property name="margin-bottom">3</property>
+        <property name="pixels-above-lines">5</property>
+        <property name="pixels-below-lines">5</property>
+        <property name="wrap-mode">word</property>
+        <property name="left-margin">5</property>
+        <property name="right-margin">5</property>
+        <property name="top-margin">5</property>
+        <property name="bottom-margin">5</property>
+      </object>
+    </child>
+  </template>
+</interface>

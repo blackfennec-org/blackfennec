@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import contextlib
 import os
+from pathlib import Path
 from typing import IO, List
 from urllib.parse import urlparse
 
@@ -33,6 +34,8 @@ class FileResourceType(ResourceType):
             document_path = os.path.join(current_path, parsed_uri.path)
 
         file = None
+        if not os.path.exists(document_path):
+            Path(document_path).touch()
         try:
             file = open(document_path, 'r+')
             yield file

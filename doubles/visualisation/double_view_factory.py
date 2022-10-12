@@ -1,10 +1,6 @@
 # -*- coding: utf-8 -*-
-
-import gi
-
-gi.require_version('Gtk', '3.0')
-
 from gi.repository import Gtk
+
 
 class ViewFactoryMock:
     def __init__(self, view=None):

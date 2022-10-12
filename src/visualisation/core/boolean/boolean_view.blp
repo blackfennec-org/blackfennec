@@ -1,0 +1,13 @@
+using Gtk 4.0;
+using Adw 1;
+
+template BooleanView : Adw.Bin {
+  visible: true;
+  focusable: false;
+
+  Switch _value {
+    focusable: true;
+    activate => _click_handler();
+    state-set => _on_state_changed();
+  }
+}

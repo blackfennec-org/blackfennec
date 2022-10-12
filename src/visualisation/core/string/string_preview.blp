@@ -1,0 +1,22 @@
+using Gtk 4.0;
+using Adw 1;
+
+template StringPreview : Adw.Bin {
+  focusable: false;
+  visible: true;
+
+  TextView _value {
+    width-request: 150;
+    height-request: 35;
+    focusable: true;
+    margin-top: 3;
+    margin-bottom: 3;
+    pixels-above-lines: 5;
+    pixels-below-lines: 5;
+    wrap-mode: word;
+    left-margin: 5;
+    right-margin: 5;
+    top-margin: 5;
+    bottom-margin: 5;
+  }
+}

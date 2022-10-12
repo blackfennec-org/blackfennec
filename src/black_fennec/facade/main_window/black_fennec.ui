@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <requires lib="gtk" version="4.0"/>
+  <template class="BlackFennecView" parent="GtkApplicationWindow">
+    <property name="title">Black Fennec</property>
+    <property name="default-width">1000</property>
+    <property name="default-height">500</property>
+    <child type="titlebar">
+      <object class="GtkHeaderBar" id="_header_bar">
+        <child type="start">
+          <object class="GtkToggleButton">
+            <property name="icon-name">sidebar-show-right-symbolic</property>
+            <signal name="clicked" handler="on_flap_button_toggled"/>
+          </object>
+        </child>
+        <child type="start">
+          <object class="GtkButton">
+            <property name="icon-name">view-grid-symbolic</property>
+            <property name="tooltip-text" translatable="true">View Open Tabs</property>
+            <property name="action-name">overview.open</property>
+          </object>
+        </child>
+        <child type="start">
+          <object class="GtkButton">
+            <property name="action-name">win.tab-new</property>
+            <property name="icon-name">tab-new-symbolic</property>
+          </object>
+        </child>
+        <child type="end">
+          <object class="GtkMenuButton">
+            <property name="icon-name">open-menu-symbolic</property>
+            <property name="menu-model">_primary_menu</property>
+          </object>
+        </child>
+      </object>
+    </child>
+    <child>
+      <object class="AdwFlap" id="_file_tree_flap">
+        <property name="content">_tab_overview</property>
+        <property name="flap">_file_tree_scrolled_window</property>
+        <property name="locked">false</property>
+        <property name="reveal-flap">false</property>
+      </object>
+    </child>
+  </template>
+  <object class="GtkScrolledWindow" id="_file_tree_scrolled_window">
+    <property name="focusable">true</property>
+    <property name="width-request">200</property>
+    <property name="child">
+      <object class="GtkTreeView" id="_file_tree">
+        <property name="visible">true</property>
+        <property name="width-request">200</property>
+        <property name="focusable">true</property>
+        <property name="vexpand">true</property>
+        <property name="enable-grid-lines">vertical</property>
+        <signal name="row-activated" handler="on_file_clicked"/>
+        <child internal-child="selection">
+          <object class="GtkTreeSelection"></object>
+        </child>
+      </object>
+    </property>
+  </object>
+  <object class="GtkBox" id="_tab_overview">
+    <property name="orientation">vertical</property>
+    <child>
+      <object class="AdwTabBar" id="_tab_bar">
+        <property name="view">_tab_view</property>
+        <signal name="extra-drag-drop" handler="extra_drag_drop_cb" swapped="true"/>
+      </object>
+    </child>
+    <child>
+      <object class="AdwTabView" id="_tab_view">
+        <property name="vexpand">true</property>
+        <property name="menu-model">_tab_menu</property>
+        <signal name="page-detached" handler="page_detached_cb" swapped="true"/>
+        <signal name="setup-menu" handler="setup_menu_cb" swapped="true"/>
+        <signal name="create-window" handler="create_window_cb" swapped="true"/>
+        <signal name="indicator-activated" handler="indicator_activated_cb" swapped="true"/>
+      </object>
+    </child>
+  </object>
+  <menu id="_tab_menu">
+    <section>
+      <item>
+        <attribute name="label" translatable="true">_Move to New Window</attribute>
+        <attribute name="action">tab.move-to-new-window</attribute>
+      </item>
+      <item>
+        <attribute name="label" translatable="true">D_uplicate</attribute>
+        <attribute name="action">tab.duplicate</attribute>
+      </item>
+    </section>
+    <section>
+      <item>
+        <attribute name="label" translatable="true">P_in Tab</attribute>
+        <attribute name="action">tab.pin</attribute>
+        <attribute name="hidden-when">action-disabled</attribute>
+      </item>
+      <item>
+        <attribute name="label" translatable="true">Unp_in Tab</attribute>
+        <attribute name="action">tab.unpin</attribute>
+        <attribute name="hidden-when">action-disabled</attribute>
+      </item>
+    </section>
+    <section>
+      <item>
+        <attribute name="label" translatable="true">Icon</attribute>
+        <attribute name="action">tab.icon</attribute>
+      </item>
+      <item>
+        <attribute name="label" translatable="true">R_efresh Icon</attribute>
+        <attribute name="action">tab.refresh-icon</attribute>
+      </item>
+    </section>
+    <section>
+      <item>
+        <attribute name="label" translatable="true">Loa_ding</attribute>
+        <attribute name="action">tab.loading</attribute>
+      </item>
+      <item>
+        <attribute name="label" translatable="true">Needs _Attention</attribute>
+        <attribute name="action">tab.needs-attention</attribute>
+      </item>
+      <item>
+        <attribute name="label" translatable="true">Indicator</attribute>
+        <attribute name="action">tab.indicator</attribute>
+      </item>
+    </section>
+    <section>
+      <item>
+        <attribute name="label" translatable="true">Close _Other Tabs</attribute>
+        <attribute name="action">tab.close-other</attribute>
+      </item>
+      <item>
+        <attribute name="label" translatable="true">Close Tabs to the _Left</attribute>
+        <attribute name="action">tab.close-before</attribute>
+      </item>
+      <item>
+        <attribute name="label" translatable="true">Close Tabs to the _Right</attribute>
+        <attribute name="action">tab.close-after</attribute>
+      </item>
+    </section>
+    <section>
+      <item>
+        <attribute name="label" translatable="true">_Close</attribute>
+        <attribute name="action">tab.close</attribute>
+      </item>
+    </section>
+  </menu>
+  <menu id="_primary_menu">
+    <section>
+      <item>
+        <attribute name="label" translatable="true">Settings</attribute>
+        <attribute name="action">app.main.settings</attribute>
+      </item>
+      <item>
+        <attribute name="label" translatable="true">Open...</attribute>
+        <attribute name="action">app.main.open</attribute>
+      </item>
+      <item>
+        <attribute name="label" translatable="true">Save</attribute>
+        <attribute name="action">app.main.save</attribute>
+      </item>
+      <item>
+        <attribute name="label" translatable="true">Save As...</attribute>
+        <attribute name="action">app.main.save_as</attribute>
+      </item>
+      <item>
+        <attribute name="label" translatable="true">Go to store</attribute>
+        <attribute name="action">app.main.extension_store</attribute>
+      </item>
+      <item>
+        <attribute name="label" translatable="true">About</attribute>
+        <attribute name="action">app.main.about</attribute>
+      </item>
+      <item>
+        <attribute name="label" translatable="true">Close</attribute>
+        <attribute name="action">app.quit</attribute>
+      </item>
+    </section>
+  </menu>
+</interface>

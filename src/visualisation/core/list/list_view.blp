@@ -1,0 +1,63 @@
+using Gtk 4.0;
+using Adw 1;
+
+template ListView : Adw.Bin {
+  visible: true;
+  focusable: false;
+
+  Adw.PreferencesGroup _preference_group {
+        title: _("List");
+        header-suffix: _add_item;
+        margin-start: 8;
+        margin-end: 8;
+        margin-top: 8;
+        margin-bottom: 8;
+  }
+}
+
+MenuButton _add_item {
+  icon-name: "list-add-symbolic";
+  popover: _popover;
+
+  styles [
+    "flat",
+  ]
+}
+
+Popover _popover {
+  child:   Box {
+    margin-start: 8;
+    margin-end: 8;
+    margin-top: 8;
+    margin-bottom: 8;
+    orientation: vertical;
+    spacing: 8;
+
+    Box {
+      orientation: vertical;
+
+      Label {
+        label: _("Add List Item");
+      }
+    }
+
+    ComboBoxText _template_box {
+      has-entry: true;
+    }
+
+    Box {
+      hexpand: false;
+
+      Button {
+        label: _("Add");
+        focusable: true;
+        receives-default: true;
+        clicked => _add_list_item();
+      }
+    }
+  };
+}
+
+ListStore _template_store {
+
+}

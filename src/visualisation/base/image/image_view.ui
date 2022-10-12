@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <requires lib="gtk" version="4.0"/>
+  <template class="ImageView" parent="AdwBin">
+    <property name="visible">true</property>
+    <property name="focusable">false</property>
+    <child>
+      <object class="GtkBox" id="_item_container">
+        <property name="orientation">vertical</property>
+        <property name="spacing">2</property>
+        <child>
+          <object class="GtkBox">
+            <child>
+              <object class="GtkImage">
+                <signal name="notify::realize" handler="_on_resize"/>
+                <property name="file">src/visualisation/base/image/image.png</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkLabel" id="_image_title">
+                <property name="label" translatable="true">Image</property>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="GtkImage" id="_image">
+            <signal name="notify::realize" handler="_on_resize"/>
+            <property name="width-request">150</property>
+            <property name="icon-name">image-x-generic</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkBox" id="_file_path_line">
+            <property name="spacing">2</property>
+            <child>
+              <object class="GtkButton" id="_file_path_choose">
+                <property name="focusable">true</property>
+                <property name="receives-default">true</property>
+                <signal name="clicked" handler="_on_choose_clicked"/>
+                <child>
+                  <object class="GtkImage">
+                    <property name="file">src/visualisation/base/folder-16.png</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="GtkLabel" id="_file_path_value">
+                <property name="hexpand">true</property>
+                <property name="focusable">true</property>
+                <property name="label" translatable="true">&lt;value-here&gt;</property>
+                <property name="selectable">true</property>
+                <property name="ellipsize">start</property>
+                <property name="xalign">0</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkLabel" id="_file_path_key">
+                <property name="label" translatable="true">Path:</property>
+                <property name="width-chars">6</property>
+                <property name="xalign">0</property>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="GtkBox" id="_file_type_line">
+            <property name="spacing">2</property>
+            <child>
+              <object class="GtkLabel" id="_file_type_key">
+                <property name="label" translatable="true">Type:</property>
+                <property name="width-chars">6</property>
+                <property name="xalign">0</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkLabel" id="_file_type_value">
+                <property name="hexpand">true</property>
+                <property name="focusable">true</property>
+                <property name="label" translatable="true">&lt;value-here&gt;</property>
+                <property name="selectable">true</property>
+                <property name="xalign">0</property>
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+  </template>
+</interface>

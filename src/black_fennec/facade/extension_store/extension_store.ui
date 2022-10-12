@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <requires lib="gtk" version="4.0"/>
+  <template class="ExtensionStoreView" parent="GtkApplicationWindow">
+    <property name="visible">true</property>
+    <property name="default-width">1000</property>
+    <property name="default-height">700</property>
+    <child>
+      <object class="GtkBox">
+        <property name="orientation">vertical</property>
+        <child>
+          <object class="GtkBox" id="_box">
+            <property name="orientation">vertical</property>
+            <child>
+              <object class="GtkBox">
+                <property name="orientation">vertical</property>
+                <child>
+                  <object class="GtkImage">
+                    <property name="halign">center</property>
+                    <property name="hexpand">false</property>
+                    <property name="file">src/black_fennec/facade/extension_store/extension-logo.png</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkLabel">
+                    <property name="label" translatable="true">Tell us what you're looking for</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkSearchBar">
+                    <property name="hexpand">true</property>
+                    <property name="search-mode-enabled">true</property>
+                    <property name="child">
+                      <object class="GtkSearchEntry">
+                        <property name="width-request">600</property>
+                        <property name="height-request">50</property>
+                        <property name="focusable">true</property>
+                        <property name="hexpand">true</property>
+                        <property name="placeholder-text" translatable="true">Search all extensions</property>
+                      </object>
+                    </property>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="GtkScrolledWindow">
+            <property name="focusable">true</property>
+            <property name="hexpand">true</property>
+            <property name="vexpand">true</property>
+            <property name="hscrollbar-policy">always</property>
+            <property name="vscrollbar-policy">always</property>
+            <property name="child">
+              <object class="GtkViewport">
+                <property name="hexpand">true</property>
+                <property name="vexpand">true</property>
+                <property name="child">
+                  <object class="GtkBox">
+                    <property name="orientation">vertical</property>
+                    <child>
+                      <object class="GtkLabel">
+                        <property name="halign">start</property>
+                        <property name="label" translatable="true">Browse Extensions</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkFlowBox" id="_extension_container">
+                        <property name="valign">start</property>
+                        <property name="vexpand">false</property>
+                        <property name="homogeneous">true</property>
+                        <property name="column-spacing">20</property>
+                        <property name="row-spacing">20</property>
+                        <property name="min-children-per-line">3</property>
+                        <property name="max-children-per-line">3</property>
+                      </object>
+                    </child>
+                  </object>
+                </property>
+              </object>
+            </property>
+          </object>
+        </child>
+      </object>
+    </child>
+    <child type="titlebar">
+      <object class="GtkHeaderBar">
+        <child>
+          <object class="GtkImage">
+            <property name="valign">center</property>
+            <property name="vexpand">false</property>
+            <property name="file">src/black_fennec/facade/main_window/window_icon.png</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkLabel">
+            <property name="label" translatable="true">Marketplace</property>
+          </object>
+        </child>
+      </object>
+    </child>
+  </template>
+</interface>

@@ -3,13 +3,15 @@ import pytest
 
 from doubles.visualisation.double_view_factory import ViewFactoryMock
 from doubles.black_fennec.interpretation.double_interpretation import InterpretationMock
-from doubles.presentation.column_based_presenter.double_column_based_presenter_view_model import ColumnBasedPresenterViewModelMock
+from doubles.presentation.column_based_presenter.double_column_based_presenter_view_model import \
+    ColumnBasedPresenterViewModelMock
 from doubles.visualisation.double_structure_view import StructureViewDummy
 from src.presentation.column_based_presenter.column_based_presenter_view import ColumnBasedPresenterView
 
 
 def test_can_construct():
     ColumnBasedPresenterView(ColumnBasedPresenterViewModelMock(), ViewFactoryMock())
+
 
 def test_view_model_update():
     interpretations = list()

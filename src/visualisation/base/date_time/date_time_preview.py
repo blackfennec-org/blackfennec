@@ -1,15 +1,18 @@
 # -*- coding: utf-8 -*-
 import logging
-
-from gi.repository import Gtk
+from pathlib import Path
+from gi.repository import Gtk, Adw
 
 from src.visualisation.base.date_time.date_time_view_model import DateTimeViewModel
 
 logger = logging.getLogger(__name__)
 
+BASE_DIR = Path(__file__).resolve().parent
+UI_TEMPLATE = str(BASE_DIR.joinpath('date_time_preview.ui'))
 
-@Gtk.Template(filename='src/visualisation/base/date_time/date_time_preview.glade')  # pylint:disable=line-too-long
-class DateTimePreview(Gtk.Bin):
+
+@Gtk.Template(filename=UI_TEMPLATE)
+class DateTimePreview(Adw.Bin):
     """View for the core type DateTime."""
 
     __gtype_name__ = 'DateTimePreview'

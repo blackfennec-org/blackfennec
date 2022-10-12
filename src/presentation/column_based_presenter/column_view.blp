@@ -1,0 +1,28 @@
+using Gtk 4.0;
+
+template ColumnView : .AdwBin {
+  visible: "True";
+  focusable: "False";
+  hexpand: "True";
+
+  Paned _paned_container {
+    focusable: true;
+    vexpand: true;
+    position: 400;
+    position-set: true;
+    wide-handle: true;
+
+    ScrolledWindow _container {
+      width-request: 100;
+      focusable: true;
+
+      styles [
+        "container",
+      ]
+    }
+
+    Box _paned_right {
+      orientation: vertical;
+    }
+  }
+}

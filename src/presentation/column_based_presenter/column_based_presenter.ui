@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <requires lib="gtk" version="4.0"/>
+  <template class="ColumnBasedPresenterView" parent="GtkBox">
+    <property name="hexpand">true</property>
+    <property name="vexpand">true</property>
+    <child>
+      <object class="AdwStatusPage" id="_empty_list_pattern">
+        <property name="visible">false</property>
+        <property name="title">File seems to be empty</property>
+        <property name="description">You may add data to this file by clicking the button below</property>
+        <property name="icon-name">image-missing-symbolic</property>
+        <property name="hexpand">true</property>
+      </object>
+    </child>
+    <child>
+      <object class="AdwStatusPage" id="_loading">
+        <property name="visible">true</property>
+        <property name="title">Loading</property>
+        <property name="description">please be patient</property>
+        <property name="icon-name">process-working-symbolic</property>
+        <property name="hexpand">true</property>
+      </object>
+    </child>
+    <child>
+      <object class="AdwStatusPage" id="_error">
+        <property name="visible">false</property>
+        <property name="title">Error</property>
+        <property name="description">Error message</property>
+        <property name="icon-name">computer-fail-symbolic</property>
+        <property name="hexpand">true</property>
+      </object>
+    </child>
+  </template>
+</interface>

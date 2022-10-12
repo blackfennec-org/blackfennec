@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <requires lib="gtk" version="4.0"/>
+  <template class="ColumnView" parent="AdwBin">
+    <property name="visible">True</property>
+    <property name="focusable">False</property>
+    <property name="hexpand">True</property>
+    <child>
+      <object class="GtkPaned" id="_paned_container">
+        <property name="focusable">true</property>
+        <property name="vexpand">true</property>
+        <property name="position">400</property>
+        <property name="position-set">true</property>
+        <property name="wide-handle">true</property>
+        <child>
+          <object class="GtkScrolledWindow" id="_container">
+            <property name="width-request">100</property>
+            <property name="focusable">true</property>
+            <style>
+              <class name="container"/>
+            </style>
+          </object>
+        </child>
+        <child>
+          <object class="GtkBox" id="_paned_right">
+            <property name="orientation">vertical</property>
+          </object>
+        </child>
+      </object>
+    </child>
+  </template>
+</interface>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <requires lib="gtk" version="4.0"/>
+  <template class="MapItemView" parent="AdwEntryRow">
+    <property name="activatable">true</property>
+    <property name="show_apply_button">true</property>
+    <signal name="apply" handler="_on_apply"/>
+    <signal name="entry-activated" handler="_on_entry_activated"/>
+    <child>
+      <object class="GtkBox" id="_preview_container">
+        <property name="orientation">vertical</property>
+        <property name="focusable">false</property>
+        <property name="valign">center</property>
+      </object>
+    </child>
+  </template>
+</interface>

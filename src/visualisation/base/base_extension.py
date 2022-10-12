@@ -1,11 +1,9 @@
 from src.extension.extension_api import ExtensionApi
-
 from src.visualisation.base.date_time.date_time import DateTime
 from src.visualisation.base.date_time.date_time_view_factory import DateTimeViewFactory
 from src.visualisation.base.file.file_view_factory import FileViewFactory
 from src.visualisation.base.image.image_view_factory import ImageViewFactory
 from src.black_fennec.interpretation.specification import Specification
-
 
 __types = []
 
@@ -36,7 +34,7 @@ def create_extension(extension_api: ExtensionApi):
             parameters.
     """
 
-    for type in [ DateTime.TYPE ]:
+    for type in [DateTime.TYPE]:
         extension_api.type_registry.register_type(type)
 
     for type, factory in zip(_types(extension_api), factories):
@@ -63,4 +61,3 @@ def destroy_extension(extension_api: ExtensionApi):
 
     global __types
     __types = []
-

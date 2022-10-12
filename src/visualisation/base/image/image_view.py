@@ -1,15 +1,19 @@
 # -*- coding: utf-8 -*-
 import logging
+from pathlib import Path
 
-from gi.repository import Gtk, GdkPixbuf
+from gi.repository import Gtk, Adw, GdkPixbuf
 
 from src.visualisation.base.image.image_view_model import ImageViewModel
 
 logger = logging.getLogger(__name__)
 
+BASE_DIR = Path(__file__).resolve().parent
+UI_TEMPLATE = str(BASE_DIR.joinpath('image_view.ui'))
 
-@Gtk.Template(filename='src/visualisation/base/image/image_view.glade')
-class ImageView(Gtk.Bin):
+
+@Gtk.Template(filename=UI_TEMPLATE)
+class ImageView(Adw.Bin):
     """View for the core type Image."""
 
     __gtype_name__ = 'ImageView'
