@@ -74,6 +74,10 @@ class ListType(Type[List]):
 
     def _get_index(self, child):
         for index, element in enumerate(self.elements):
+            # TODO: find solution for this compairson 
+            #       as it results in an endless recursion
+            #       when comparing cyclic strcutures.
+            #       issue: https://gitlab.ost.ch/blackfennec/blackfennec/-/issues/34
             if child == element:
                 return index
         return -1

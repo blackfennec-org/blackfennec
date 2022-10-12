@@ -44,6 +44,10 @@ class MapType(Type[Map]):
         logger.debug(f"looking up name for {structure}...")
         for name, prop in self.properties.items():
             logger.debug(f"comparing {prop} to {structure}")
+            # TODO: find solution for this compairson 
+            #       as it results in an endless recursion
+            #       when comparing cyclic strcutures.
+            #       issue: https://gitlab.ost.ch/blackfennec/blackfennec/-/issues/34
             if prop == structure:
                 logger.debug(f"found {name}")
                 return name
