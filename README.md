@@ -6,19 +6,19 @@
 <br />
 <div align="center">
   <p>
-    <a href="https://git.yodabyte.ch/black-fennec/black-fennec">
+    <a href="https://gitlab.ost.ch/black-fennec/black-fennec">
       <img src="docs/source/images/corporate_identity/logo.jpg" alt="Logo" width="50%">
     </a>
   </p>
   <p align="center">
     bring structure for chaos
     <br />
-    <a href="https://git.yodabyte.ch/black-fennec/black-fennec"><strong>Explore the docs »</strong></a>
+    <a href="https://gitlab.ost.ch/black-fennec/black-fennec"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://git.yodabyte.ch/black-fennec/black-fennec/issues">Report Bug</a>
+    <a href="https://gitlab.ost.ch/black-fennec/black-fennec/issues">Report Bug</a>
     ·
-    <a href="https://git.yodabyte.ch/black-fennec/black-fennec/issues">Request Feature</a>
+    <a href="https://gitlab.ost.ch/black-fennec/black-fennec/issues">Request Feature</a>
   </p>
 </div>
 
@@ -72,7 +72,7 @@ To run Black-Fennec one needs python 3.8 installed on the computer.
 1. Clone the repo
 
 ```sh
-git clone https://git.yodabyte.ch/black-fennec/black-fennec.git
+git clone https://gitlab.ost.ch/black-fennec/black-fennec.git
 ```
 
 2. Install OS-level Dependencies
@@ -99,8 +99,8 @@ python black_fennec.py
 
 ## Roadmap
 
-See the [open issues](https://git.yodabyte.ch/black-fennec/black-fennec/issues) for a list of proposed features (and
-known issues).
+See the [open issues](https://gitlab.ost.ch/black-fennec/black-fennec/issues) for a list of proposed features (and known
+issues).
 
 <!-- CONTRIBUTING -->
 
@@ -121,16 +121,16 @@ Distributed under the GNU General Public License. See `LICENSE` for more informa
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 
-[pipeline-status]: https://git.yodabyte.ch/black-fennec/black-fennec/badges/dev/pipeline.svg
+[pipeline-status]: https://gitlab.ost.ch/black-fennec/black-fennec/badges/dev/pipeline.svg
 
-[coverage-report]: https://git.yodabyte.ch/black-fennec/black-fennec/badges/dev/coverage.svg
+[coverage-report]: https://gitlab.ost.ch/black-fennec/black-fennec/badges/dev/coverage.svg
 
-[pylint-score]: https://git.yodabyte.ch/black-fennec/black-fennec/-/jobs/artifacts/dev/raw/pylint/pylint.svg?job=run%20linter
+[pylint-score]: https://gitlab.ost.ch/black-fennec/black-fennec/-/jobs/artifacts/dev/raw/pylint/pylint.svg?job=run%20linter
 
-[pylint-log]: https://git.yodabyte.ch/black-fennec/black-fennec/-/jobs/artifacts/dev/raw/pylint/pylint.log?job=run%20linter
+[pylint-log]: https://gitlab.ost.ch/black-fennec/black-fennec/-/jobs/artifacts/dev/raw/pylint/pylint.log?job=run%20linter
 
-[commits]: https://git.yodabyte.ch/black-fennec/black-fennec/-/commits/dev
+[commits]: https://gitlab.ost.ch/black-fennec/black-fennec/-/commits/dev
 
-[issues-url]: https://git.yodabyte.ch/black-fennec/black-fennec/issues
+[issues-url]: https://gitlab.ost.ch/black-fennec/black-fennec/issues
 
 [product-screenshot]: docs/source/images/corporate_identity/demo/ui.png
