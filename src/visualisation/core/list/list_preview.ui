@@ -1,26 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
   <requires lib="gtk" version="4.0"/>
-  <template class="ListPreview" parent="AdwBin">
-    <property name="visible">true</property>
-    <property name="focusable">false</property>
-    <child>
-      <object class="AdwBin">
-        <property name="visible">true</property>
-        <property name="focusable">false</property>
-        <child>
-          <object class="GtkButton">
-            <property name="focusable">true</property>
-            <property name="receives-default">true</property>
-            <property name="halign">end</property>
-            <signal name="clicked" handler="_on_navigate_clicked"/>
-            <property name="icon-name">open-menu-symbolic</property>
-            <style>
-              <class name="flat"/>
-            </style>
-          </object>
-        </child>
-      </object>
-    </child>
+  <template class="ListPreview" parent="GtkButton">
+    <property name="focusable">true</property>
+    <property name="receives-default">true</property>
+    <property name="halign">end</property>
+    <property name="valign">center</property>
+    <signal name="clicked" handler="_on_navigate_clicked"/>
+    <property name="icon-name">open-menu-symbolic</property>
+    <style>
+      <class name="flat"/>
+      <class name="circular"/>
+    </style>
   </template>
 </interface>

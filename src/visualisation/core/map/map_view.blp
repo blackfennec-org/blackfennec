@@ -7,7 +7,7 @@ template MapView : Adw.Bin {
 
   Adw.PreferencesGroup _preference_group {
         title: _("Dictionary");
-        header-suffix: _add_item;
+        header-suffix: _suffix_group;
         margin-start: 8;
         margin-end: 8;
         margin-top: 8;
@@ -15,13 +15,56 @@ template MapView : Adw.Bin {
   }
 }
 
-MenuButton _add_item {
-  icon-name: "list-add-symbolic";
-  popover: _add_popover;
+Box _suffix_group {
+  orientation: horizontal;
 
-  styles [
-    "flat",
-  ]
+  Button _edit {
+    icon-name: "document-edit-symbolic";
+    clicked => _on_edit();
+    margin-end: 8;
+
+    styles [
+      "flat",
+      "circular",
+    ]
+  }
+
+  Box _edit_suffix_group {
+    orientation: horizontal;
+    visible: false;
+    Button _delete {
+      margin-end: 8;
+      icon-name: "user-trash-symbolic";
+      clicked => _on_delete();
+
+      styles [
+        "destructive-action",
+        "circular",
+      ]
+    }
+
+    Button _apply {
+      icon-name: "adw-entry-apply-symbolic";
+      clicked => _on_apply();
+      margin-end: 8;
+
+      styles [
+        "suggested-action",
+        "circular",
+      ]
+    }
+  }
+
+  MenuButton _add_item {
+    icon-name: "list-add-symbolic";
+    popover: _add_popover;
+    margin-end: 8;
+
+    styles [
+      "flat",
+      "circular",
+    ]
+  }
 }
 
 Popover _add_popover {
@@ -59,7 +102,7 @@ Popover _add_popover {
         focusable: true;
         receives-default: true;
         halign: end;
-        clicked => _add_map_item();
+        clicked => _on_add_by_template();
       }
     }
   };

@@ -1,16 +1,8 @@
 using Gtk 4.0;
 using Adw 1;
 
-template BooleanPreview : Adw.Bin {
-  visible: true;
-  focusable: false;
-
-  Switch _value {
-    focusable: true;
-    state-set => _on_state_changed();
-
-    styles [
-      "boolean",
-    ]
-  }
+template BooleanPreview : Switch {
+  valign: center;
+  focusable: true;
+  state-set => _on_state_changed();
 }
