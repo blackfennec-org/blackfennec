@@ -10,7 +10,7 @@ UI_TEMPLATE = str(BASE_DIR.joinpath('list_preview.ui'))
 
 
 @Gtk.Template(filename=UI_TEMPLATE)
-class ListPreview(Adw.Bin):
+class ListPreview(Gtk.Button):
     """Preview for the core type List"""
 
     __gtype_name__ = 'ListPreview'

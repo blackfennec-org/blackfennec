@@ -1,17 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
   <requires lib="gtk" version="4.0"/>
-  <template class="MapItemView" parent="AdwEntryRow">
+  <template class="EditableItemView" parent="AdwEntryRow">
     <property name="title">key</property>
     <property name="activatable">true</property>
     <property name="show_apply_button">true</property>
     <signal name="apply" handler="_on_apply"/>
-    <signal name="entry-activated" handler="_on_entry_activated"/>
     <child>
-      <object class="GtkBox" id="_preview_container">
-        <property name="orientation">vertical</property>
-        <property name="focusable">false</property>
+      <object class="GtkButton" id="_delete">
+        <property name="halign">end</property>
         <property name="valign">center</property>
+        <property name="icon-name">list-remove-symbolic</property>
+        <signal name="clicked" handler="_on_delete"/>
+        <style>
+          <class name="destructive-action"/>
+          <class name="circular"/>
+        </style>
       </object>
     </child>
   </template>

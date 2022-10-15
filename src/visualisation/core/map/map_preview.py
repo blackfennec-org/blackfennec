@@ -10,7 +10,7 @@ UI_TEMPLATE = str(BASE_DIR.joinpath('map_preview.ui'))
 
 
 @Gtk.Template(filename=UI_TEMPLATE)
-class MapPreview(Adw.Bin):
+class MapPreview(Gtk.Button):
     """Preview for the core type Map."""
 
     __gtype_name__ = 'MapPreview'

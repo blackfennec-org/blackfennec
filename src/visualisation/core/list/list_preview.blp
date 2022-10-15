@@ -1,24 +1,16 @@
 using Gtk 4.0;
 using Adw 1;
 
-template ListPreview : Adw.Bin {
-  visible: true;
-  focusable: false;
+template ListPreview : Button {
+  focusable: true;
+  receives-default: true;
+  halign: end;
+  valign: center;
+  clicked => _on_navigate_clicked();
 
-  Adw.Bin {
-    visible: true;
-    focusable: false;
-
-    Button {
-      focusable: true;
-      receives-default: true;
-      halign: end;
-      clicked => _on_navigate_clicked();
-
-      icon-name: "open-menu-symbolic";
-      styles [
-        "flat",
-      ]
-    }
-  }
+  icon-name: "open-menu-symbolic";
+  styles [
+    "flat",
+    "circular",
+  ]
 }

@@ -8,14 +8,13 @@ from src.visualisation.core.map.map_view_model import MapViewModel
 logger = logging.getLogger(__name__)
 
 BASE_DIR = Path(__file__).resolve().parent
-UI_TEMPLATE = str(BASE_DIR.joinpath('map_item_view.ui'))
+UI_TEMPLATE = str(BASE_DIR.joinpath('action_item_view.ui'))
 
 
 @Gtk.Template(filename=UI_TEMPLATE)
-class MapItemView(Adw.EntryRow):
+class ActionItemView(Adw.ActionRow):
     """View for a key value pair of a map."""
-    __gtype_name__ = 'MapItemView'
-    _preview_container: Gtk.Box = Gtk.Template.Child()
+    __gtype_name__ = 'ActionItemView'
 
     def __init__(
             self,
@@ -33,13 +32,13 @@ class MapItemView(Adw.EntryRow):
         """
         super().__init__()
 
-        self._key = key
+        self.key = key
         self._preview = preview
         self._view_model = view_model
 
-        self.key = self._key
         view = view_factory.create(preview)
-        self._preview_container.append(view)
+        self.set_activatable_widget(view)
+        self.add_suffix(view)
 
     @property
     def key(self) -> str:
@@ -49,7 +48,7 @@ class MapItemView(Adw.EntryRow):
     @key.setter
     def key(self, key):
         self._key = key
-        self.set_text(key)
+        self.set_title(key)
 
     @property
     def selected(self):
@@ -63,17 +62,3 @@ class MapItemView(Adw.EntryRow):
             style.add_class('is-active')
         else:
             style.remove_class('is-active')
-
-    @Gtk.Template.Callback()
-    def _on_apply(self, sender):
-        new_key = sender.get_text()
-        self._view_model.rename_key(self._key, new_key)
-        self._key = new_key
-
-    @Gtk.Template.Callback()
-    def _on_entry_activated(self, sender):
-        if not self.editable:
-            self._preview_container.mnemonic_activate()
-
-    def _delete_request_handler(self, sender):
-        self._view_model.delete_item(sender.key)

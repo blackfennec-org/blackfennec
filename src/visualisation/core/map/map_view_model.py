@@ -53,6 +53,13 @@ class MapViewModel(Observable):
         self._notify(self.value, 'value')
 
     @property
+    def decapsulated_value(self):
+        decapsulated_map = self.value
+        while hasattr(decapsulated_map, 'subject'):
+            decapsulated_map = decapsulated_map.subject
+        return decapsulated_map
+
+    @property
     def selected(self) -> Interpretation:
         return self._selected
 
@@ -105,9 +112,7 @@ class MapViewModel(Observable):
             new_key (str): The new key name of the key value pair
         """
         map_with_retained_order = Map({})
-        decapsulated_map = self.value
-        while hasattr(decapsulated_map, 'subject'):
-            decapsulated_map = decapsulated_map.subject
+        decapsulated_map = self.decapsulated_value
 
         if decapsulated_map.get_root() == decapsulated_map:
             RootFactory.make_root(map_with_retained_order, decapsulated_map.get_document())
