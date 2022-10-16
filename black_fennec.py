@@ -40,7 +40,11 @@ from src.visualisation.view_factory_registry import ViewFactoryRegistry
 logging.basicConfig(level=logging.WARNING)
 logger = logging.getLogger(__name__)
 
-EXTENSIONS = os.path.realpath('extensions.json')
+CONFIG_HOME = os.path.expanduser('~/.config/blackfennec/')
+if not os.path.exists(CONFIG_HOME):
+    os.makedirs(CONFIG_HOME)
+EXTENSIONS = os.path.join(CONFIG_HOME, os.path.relpath('extensions.json'))
+
 
 def create_document_factory(type_registry):
     resource_type_registry = ResourceTypeRegistry()
@@ -125,10 +129,9 @@ class BlackFennec(Gtk.Application):
             presenter_registry, interpretation_service)
         
         extension_source_registry = ExtensionSourceRegistry()
-        extension_initialisation_service = ExtensionInitialisationService(structure_serializer)
+        extension_initialisation_service = ExtensionInitialisationService(document_factory)
         extension_initialisation_service.load_extensions_from_file(
             extension_source_registry,
-            document_factory,
             extension_api,
             EXTENSIONS
         )
