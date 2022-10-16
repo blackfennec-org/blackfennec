@@ -185,23 +185,19 @@ def test_navigation_in_merged_object():
     b = Map({"1": String("underlay")})
     c = Map({"2": String("overlay")})
     merged = DeepMerge.merge(underlay=b, overlay=c)
-    assert merged.value["1"].value == "underlay"
-    assert merged.value["2"].value == "overlay"
-    assert merged.value["2"].parent == merged
-    assert merged.value["1"].parent == merged
     assert merged.value["1"].parent.value["2"].value == "overlay"
 
 def test_can_access_parent():   
     b = Map({"1": String("underlay")})
     c = Map({})
     merged = DeepMerge.merge(underlay=b, overlay=c)
-    assert merged.value["1"].parent == merged
+    assert merged.value["1"].parent.structure == merged.structure
 
 def test_navigation_in_phantom_parents():
     a = Map({"1": Map({"2": String("underlay")}) })
     b = Map(          {"2": String("overlay" )})
     merged = DeepMerge.merge(underlay=a.value["1"], overlay=b)
-    assert merged.parent == a
+    assert merged.parent.structure == a.structure
 
 def test_can_compare_merged_objects():
     a = Map({"1": String("underlay")})
@@ -209,9 +205,9 @@ def test_can_compare_merged_objects():
     one = DeepMerge.merge(underlay=a, overlay=b)
     two = DeepMerge.merge(underlay=a, overlay=b)
 
-    assert one == two
+    assert one.structure == two.structure
 
-def test_can_compare_merged_objects_with_different_values():
+def test_cannot_compare_merged_objects_with_different_values():
     a = Map({"1": String("underlay")})
     b = Map({})
     c = Map({"1": String("underlay")})
@@ -219,15 +215,15 @@ def test_can_compare_merged_objects_with_different_values():
     one = DeepMerge.merge(underlay=a, overlay=b)
     two = DeepMerge.merge(underlay=c, overlay=d)
 
-    assert one == two
+    assert one.structure != two.structure
 
-def test_can_compare_merged_objects_with_standard_objects():
+def test_cannot_compare_merged_objects_with_standard_objects():
     a = Map({"1": String("underlay")})
     b = Map({})
     one = DeepMerge.merge(underlay=a, overlay=b)
     two = Map({"1": String("underlay")})
 
-    assert one == two
+    assert one.structure != two.structure
 
 def test_can_recover_from_null_merge():
     a = Map({"1": String("underlay")})
@@ -247,3 +243,9 @@ def test_can_recover_from_null_merge_2():
     two = DeepMerge.merge(underlay=one, overlay=c)
 
     assert not isinstance(two, MergedNull)
+
+def test_cannot_compare_merged():
+    b = Map({"1": String("underlay")})
+    c = Map({})
+    merged = DeepMerge.merge(underlay=b, overlay=c)
+    assert merged.value["1"].parent != merged

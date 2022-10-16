@@ -102,13 +102,3 @@ class EncapsulationBase(Structure):
 
     def __repr__(self):
         return f"EncapsulationBase({self.value})"
-
-    def __eq__(self, other):
-        # TODO: ensure all layers inherit from Structure
-        # if isinstance(other, Structure):
-        if True:
-            return self.value == other.value
-        raise NotImplementedError()
-
-    def __ne__(self, other):
-        return not self == other

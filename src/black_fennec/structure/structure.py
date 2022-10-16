@@ -51,12 +51,6 @@ class Structure(Generic[T], metaclass=ABCMeta):
     def __repr__(self) -> str:
         ...
 
-    def __hash__(self):
-        """Hash function required for any structure
-            to act as a key in a dictionary"""
-        return hash(id(self))
-
-
 class ValueStructure(Structure[T], metaclass=ABCMeta):
     """Abstract base class for all structures that have a value."""
 

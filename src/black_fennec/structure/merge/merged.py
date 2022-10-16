@@ -68,14 +68,6 @@ class MergedStructure(Structure):
     def __repr__(self) -> str:
         return f"MergedStructure(underlay={self._underlay}, overlay={self._overlay})"
 
-    def __eq__(self, o):
-        if isinstance(o, Structure):
-            return self.value == o.value
-        raise NotImplementedError()
-
-    def __ne__(self, other) -> bool:
-        return not self == other
-
 
 class MergedList(MergedStructure):
     def __init__(self, underlay: Structure, overlay: Structure):

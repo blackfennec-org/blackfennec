@@ -113,15 +113,3 @@ def test_can_cover_image(type):
             {"file_path": String("examples/logo.jpg"), "file_type": String("image/jpg")}
         )
     ).is_covered()
-
-
-def test_can_recognise_self(type):
-    assert type.subject.value["super"].value["super"].value["super"].value == type.subject.value["super"].value["super"].value["super"].value
-    assert type.subject.value["super"].value["super"].value["super"] == type.subject.value["super"].value["super"].value["super"]
-    assert type.subject.value["super"].value["super"].value["type"] == type.subject.value["super"].value["super"].value["type"]
-    assert type.subject.value["super"].value["super"].value == type.subject.value["super"].value["super"].value
-    assert type.subject.value["super"].value["super"] == type.subject.value["super"].value["super"]
-    assert type.subject.value["super"] == type.subject.value["super"]
-    assert type.subject.value == type.subject.value
-    assert type.subject == type.subject
-    assert type == type

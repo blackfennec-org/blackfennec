@@ -32,8 +32,8 @@ class MapType(Type[Map]):
         )
 
     def is_child_optional(self, child: Type) -> bool:
-        name = String(self._get_name(child))
-        is_optional = name not in self.required_properties
+        name = self._get_name(child)
+        is_optional = name not in [s.value for s in self.required_properties]
         return is_optional
 
     def set_is_child_optional(self, child: Type, is_optional: bool) -> None:
@@ -41,39 +41,35 @@ class MapType(Type[Map]):
         self.set_required(name, not is_optional)
 
     def _get_name(self, structure: Type) -> str:
-        logger.debug(f"looking up name for {structure}...")
         for name, prop in self._properties.value.items():
-            logger.debug(f"comparing {prop} to {structure}")
             if prop.structure is structure.subject.structure:
-                logger.debug(f"found {name}")
                 return name
         raise AssertionError(f"{structure} should be a property of {self} but is not")
 
     def _is_property_guard(self, prop_name) -> None:
-        for name, prop in self.properties.items():
+        for name in self.properties:
             if name == prop_name:
                 return
         raise AssertionError(f"{prop_name} should be a property of {self} but is not")
 
     @property
-    def required_properties(self) -> list:
+    def required_properties(self) -> list[String]:
         return self._required_properties.value
 
     @property
-    def _required_properties(self) -> List:
+    def _required_properties(self) -> List[String]:
         if "required" not in self.subject.value:
             self.subject.add_item("required", List())
         return self.subject.value["required"]
 
-    def set_required(self, name, value) -> None:
+    def set_required(self, name: str, value) -> None:
         self._is_property_guard(name)
-        name = String(name)
-        currently_required = name in self.required_properties
+        currently_required = name in [r.value for r in self._required_properties.value]
         if value and not currently_required:
-            self._required_properties.add_item(name)
+            self._required_properties.add_item(String(name))
         elif not value and currently_required:
             for item in self.required_properties:
-                if item == name:
+                if item.value == name:
                     self._required_properties.remove_item(item)
 
     @property

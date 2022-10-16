@@ -64,9 +64,3 @@ class Type(
 
     def create_instance(self):
         return self.default
-
-    def __eq__(self, o):
-        return self.subject == o.subject
-
-    def __ne__(self, other) -> bool:
-        return not self == other

@@ -69,14 +69,6 @@ class ImageTestSuite(unittest.TestCase):
         file_type.parent = image
         self.assertEqual(image.file_type, file_type)
 
-    def test_equal_equal_elements(self):
-        data_map = MapMock({})
-        comp = Image(data_map)
-        equal_comp = Image(data_map)
-        self.assertTrue(
-            comp == equal_comp,
-            msg='Equal elements are not equal'
-        )
 
     def test_equal_unequal_elements(self):
         data_map = MapMock({})
@@ -88,14 +80,6 @@ class ImageTestSuite(unittest.TestCase):
             msg='Unequal elements are equal'
         )
 
-    def test_not_equal_equal_elements(self):
-        data_map = MapMock({})
-        comp = Image(data_map)
-        equal_comp = Image(data_map)
-        self.assertFalse(
-            comp != equal_comp,
-            msg='Equal elements are not equal'
-        )
 
     def test_not_equal_unequal_elements(self):
         data_map = MapMock({})
@@ -106,16 +90,6 @@ class ImageTestSuite(unittest.TestCase):
             comp != other_comp,
             msg='Unequal elements are equal'
         )
-
-    def test_to_string(self):
-        data = dict()
-        data[Image.FILE_PATH_KEY] = StringMock('file_path')
-        data[Image.FILE_TYPE_KEY] = StringMock('file_type')
-
-        data_map = MapMock(data)
-        image = Image(data_map)
-        expected = 'file_path (file_type)'
-        self.assertEqual(str(image), expected)
 
     def test_representation(self):
         data = dict()

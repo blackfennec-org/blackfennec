@@ -35,16 +35,17 @@ class NumberTestSuite(StructureTestMixin, unittest.TestCase):
 
         structure.remove_item("A")
 
-    def test_can_find_number_in_list(self):
+    def test_cannot_find_number_in_list(self):
         l = [Number(1337)]
         target = Number(1337)
+        found = None
         for n in l:
             if n == target:
                 found = n
 
-        assert found is not None
+        assert found is None
 
-    def test_can_check_if_number_in_list(self):
+    def test_cannot_check_if_number_in_list(self):
         l = [Number(1337)]
         target = Number(1337)
-        assert target in l
+        assert not target in l

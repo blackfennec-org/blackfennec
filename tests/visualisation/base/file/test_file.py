@@ -69,33 +69,6 @@ class FileTestSuite(unittest.TestCase):
         file_type.parent = file
         self.assertEqual(file.file_type, file_type)
 
-    def test_equal_equal_elements(self):
-        data_map = MapMock({})
-        comp = File(data_map)
-        equal_comp = File(data_map)
-        self.assertTrue(
-            comp == equal_comp,
-            msg='Equal elements are not equal'
-        )
-
-    def test_equal_unequal_elements(self):
-        data_map = MapMock({})
-        other_data_map = MapMock({File.FILE_PATH_KEY: StructureMock('test')})
-        comp = File(data_map)
-        other_comp = File(other_data_map)
-        self.assertFalse(
-            comp == other_comp,
-            msg='Unequal elements are equal'
-        )
-
-    def test_not_equal_equal_elements(self):
-        data_map = MapMock({})
-        comp = File(data_map)
-        equal_comp = File(data_map)
-        self.assertFalse(
-            comp != equal_comp,
-            msg='Equal elements are not equal'
-        )
 
     def test_not_equal_unequal_elements(self):
         data_map = MapMock({})
@@ -106,16 +79,6 @@ class FileTestSuite(unittest.TestCase):
             comp != other_comp,
             msg='Unequal elements are equal'
         )
-
-    def test_to_string(self):
-        data = dict()
-        data[File.FILE_PATH_KEY] = StringMock('file_path')
-        data[File.FILE_TYPE_KEY] = StringMock('file_type')
-
-        data_map = MapMock(data)
-        file = File(data_map)
-        expected = 'file_path (file_type)'
-        self.assertEqual(str(file), expected)
 
     def test_representation(self):
         data = dict()

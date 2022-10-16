@@ -61,22 +61,6 @@ class File:
     def file_type(self, value: str):
         self._set_value(File.FILE_TYPE_KEY, value)
 
-    def __eq__(self, other) -> bool:
-        return (
-            self.file_path,
-            self.file_type
-        ) == (
-            other.file_path,
-            other.file_type
-        )
-
-    def __ne__(self, other) -> bool:
-        return not self == other
-
-    def __str__(self) -> str:
-        """Convert to string"""
-        return f'{str(self.file_path)} ({str(self.file_type)})'
-
     def __repr__(self) -> str:
         """Create representation for pretty printing"""
         return f'File({self.file_path}, {self.file_type})'

@@ -18,7 +18,7 @@ class ListType(Type[List]):
 
     def __init__(self, subject: Map = None):
         subject = subject or self._type_structure()
-        Type.__init__(self, subject)
+        super().__init__(subject)
 
     @staticmethod
     def _type_structure():
@@ -56,16 +56,16 @@ class ListType(Type[List]):
         return elements
 
     @property
-    def required_elements(self) -> list[str]:
+    def required_elements(self) -> list[Number]:
         return self._required_elements.value
 
     @property
-    def _required_elements(self) -> List:
+    def _required_elements(self) -> List[Number]:
         return self.subject.value["required"]
 
     def is_child_optional(self, child: Type) -> bool:
-        index = Number(self._get_index(child))
-        is_optional = index not in self.required_elements
+        index = self._get_index(child)
+        is_optional = index not in [s.value for s in self.required_elements]
         return is_optional
 
     def set_is_child_optional(self, child: Type, is_optional: bool) -> None:
@@ -78,14 +78,13 @@ class ListType(Type[List]):
                 return index
         return -1
 
-    def set_required(self, i: int, value: bool) -> None:
-        self._is_element_guard(i)
-        index = Number(i)
-        currently_required = index in self.required_elements
+    def set_required(self, index: int, value: bool) -> None:
+        self._is_element_guard(index)
+        currently_required = index in [s.value for s in self.required_elements]
         if value and not currently_required:
-            self._required_elements.add_item(index)
+            self._required_elements.add_item(Number(index))
         elif not value and currently_required:
-            element = self._required_elements.value[index.value]
+            element = self._required_elements.value[index]
             self._required_elements.remove_item(element)
 
     def visit_list(self, subject: List):
