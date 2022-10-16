@@ -1,19 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
   <requires lib="gtk" version="4.0"/>
-  <template class="MapView" parent="AdwBin">
-    <property name="visible">true</property>
-    <property name="focusable">false</property>
-    <child>
-      <object class="AdwPreferencesGroup" id="_preference_group">
-        <property name="title" translatable="true">Dictionary</property>
-        <property name="header-suffix">_suffix_group</property>
-        <property name="margin-start">8</property>
-        <property name="margin-end">8</property>
-        <property name="margin-top">8</property>
-        <property name="margin-bottom">8</property>
-      </object>
-    </child>
+  <template class="MapView" parent="AdwPreferencesGroup">
+    <property name="title" translatable="true">Dictionary</property>
+    <property name="header-suffix">_suffix_group</property>
+    <property name="margin-start">8</property>
+    <property name="margin-end">8</property>
+    <property name="margin-top">8</property>
+    <property name="margin-bottom">8</property>
   </template>
   <object class="GtkBox" id="_suffix_group">
     <property name="orientation">horizontal</property>
