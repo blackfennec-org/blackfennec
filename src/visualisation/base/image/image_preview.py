@@ -2,7 +2,7 @@
 import logging
 from pathlib import Path
 
-from gi.repository import Gtk, Adw, GdkPixbuf
+from gi.repository import Gtk, Adw, Gdk
 
 from src.visualisation.base.image.image_view_model import ImageViewModel
 
@@ -13,7 +13,7 @@ UI_TEMPLATE = str(BASE_DIR.joinpath('image_preview.ui'))
 
 
 @Gtk.Template(filename=UI_TEMPLATE)
-class ImagePreview(Adw.Bin):
+class ImagePreview(Gtk.Button):
     """Preview for the core type Image."""
 
     __gtype_name__ = 'ImagePreview'
@@ -28,51 +28,22 @@ class ImagePreview(Adw.Bin):
         super().__init__()
         self._view_model = view_model
         self._set_file_path(self._view_model.file_path)
-
+        self._image.set_size(64)
         logger.info('ImageView created')
 
     def _set_image_from_path(self, file_path) -> None:
         try:
-            pixbuf = self._get_pixbuf(file_path)
-            pixbuf = self._rescale_pixbuf(pixbuf, 100)
-            self._set_image(pixbuf)
+            paintable = Gdk.Texture.new_from_filename(file_path)
+            self._set_image(paintable)
         except Exception as e:
             logger.warning(e)
-            self._set_file_not_found()
 
-    def _get_pixbuf(self, file_path) -> GdkPixbuf.Pixbuf:
-        return GdkPixbuf.Pixbuf.new_from_file(file_path)
-
-    def _rescale_pixbuf(self, pixbuf, width) -> GdkPixbuf.Pixbuf:
-        scaling = self._calculate_new_image_size_factor(width, pixbuf)
-        old_width = pixbuf.get_width()
-        old_height = pixbuf.get_height()
-        pixbuf = pixbuf.scale_simple(
-            old_width * scaling, old_height * scaling, 2)
-        return pixbuf
-
-    def _calculate_new_image_size_factor(self, width, pixbuf) -> float:
-        old_width = pixbuf.get_width()
-        factor = width / old_width
-        return factor
-
-    def _set_image(self, pixbuf) -> None:
-        self._image.set_from_pixbuf(pixbuf)
+    def _set_image(self, paintable) -> None:
+        self._image.set_custom_image(paintable)
 
     def _set_file_path(self, file_path):
         self._view_model.file_path = file_path
         self._set_image_from_path(file_path)
-
-    def _set_file_not_found(self):
-        self._image.set_from_file(str(BASE_DIR.joinpath('not-found.png')))
-
-    @Gtk.Template.Callback()
-    def _on_resize(self, unused_sender, unused_event) -> None:
-        file_path = self._view_model.file_path
-        pixbuf = self._get_pixbuf(file_path)
-        width = self.get_allocation().width
-        scaled_pixbuf = self._rescale_pixbuf(pixbuf, width - 50)
-        self._set_image(scaled_pixbuf)
 
     @Gtk.Template.Callback()
     def _preview_clicked(self, unused_sender) -> None:

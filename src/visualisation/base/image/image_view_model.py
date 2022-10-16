@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 import logging
 
+from src.black_fennec.structure.type.type import Type
+from src.black_fennec.type_system.type_registry import TypeRegistry
 from src.visualisation.base.image.image import Image
 from src.black_fennec.interpretation.interpretation import Interpretation
 from src.black_fennec.structure.map import Map
