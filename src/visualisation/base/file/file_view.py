@@ -13,12 +13,12 @@ UI_TEMPLATE = str(BASE_DIR.joinpath('file_view.ui'))
 
 
 @Gtk.Template(filename=UI_TEMPLATE)
-class FileView(Adw.Bin):
+class FileView(Adw.PreferencesGroup):
     """View for the core type File."""
 
     __gtype_name__ = 'FileView'
-    _file_path_value: Gtk.Label = Gtk.Template.Child()
-    _file_type_value: Gtk.Label = Gtk.Template.Child()
+    _file_path: Adw.EntryRow = Gtk.Template.Child()
+    _mime_type: Adw.EntryRow = Gtk.Template.Child()
 
     def __init__(self, view_model: FileViewModel):
         """Construct with view_model.
@@ -28,41 +28,40 @@ class FileView(Adw.Bin):
         """
         super().__init__()
         self._view_model = view_model
-        self._set_file_path()
-        self._set_file_type()
-        logger.info(
-            'FileView created'
-        )
+        self._set_file_path(self._view_model.file_path)
+        self._set_mime_type(self._view_model.file_type)
 
-    def _set_file_path(self):
-        file_path = self._view_model.file_path
-        self._file_path_value.set_text(str(file_path))
+        logger.info('FileView created')
 
-    def _set_file_type(self):
-        file_type = self._view_model.file_type
-        self._file_type_value.set_text(str(file_type))
+    def _set_file_path(self, file_path):
+        self._view_model.file_path = file_path
+        self._file_path.set_text(str(file_path))
+
+    def _set_mime_type(self, file_type):
+        self._view_model.file_type = file_type
+        self._mime_type.set_text(str(file_type))
 
     @Gtk.Template.Callback()
-    def on_choose_clicked(self, unused_sender) -> None:
+    def _on_choose_file(self, unused_sender) -> None:
         """Callback for the button click event"""
-        logger.debug('choose clicked')
+
         dialog = Gtk.FileChooserDialog(
             title='Please choose a file',
             action=Gtk.FileChooserAction.OPEN
         )
+
         dialog.add_buttons(
-            Gtk.STOCK_CANCEL,
-            Gtk.ResponseType.CANCEL,
-            Gtk.STOCK_OPEN,
-            Gtk.ResponseType.OK,
+            'Cancel', Gtk.ResponseType.CANCEL,
+            'Open', Gtk.ResponseType.OK
         )
 
-        response = dialog.run()
-        if response == Gtk.ResponseType.OK:
-            filename = dialog.get_filename()
-            self._view_model.file_path = filename
-            self._set_file_path()
-        elif response == Gtk.ResponseType.CANCEL:
-            logger.debug('file selection canceled')
+        def on_response(dialog, response):
+            if response == Gtk.ResponseType.OK:
+                liststore = dialog.get_files()
+                self._set_file_path(liststore[0].get_path())
+            else:
+                logger.debug('File selection canceled')
+            dialog.destroy()
 
-        dialog.destroy()
+        dialog.connect('response', on_response)
+        dialog.show()

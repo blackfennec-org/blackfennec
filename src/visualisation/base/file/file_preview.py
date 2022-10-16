@@ -13,11 +13,10 @@ UI_TEMPLATE = str(BASE_DIR.joinpath('file_preview.ui'))
 
 
 @Gtk.Template(filename=UI_TEMPLATE)
-class FilePreview(Adw.Bin):
+class FilePreview(Gtk.Button):
     """Preview for the core type File."""
 
     __gtype_name__ = 'FilePreview'
-    _file_path_value: Gtk.Label = Gtk.Template.Child()
 
     def __init__(self, view_model: FileViewModel):
         """Construct with view_model.
@@ -33,10 +32,10 @@ class FilePreview(Adw.Bin):
         )
 
     def _set_file_path(self):
-        file_path = self._view_model.file_path
-        self._file_path_value.set_text(str(file_path))
+        file_path = self._view_model.file_path or "empty_path"
+        self.set_tooltip_text(str(file_path))
 
     @Gtk.Template.Callback()
-    def _preview_clicked(self, unused_sender, unused_argument) -> None:
+    def _on_navigate(self, unused_sender) -> None:
         """Handles clicks on file items, triggers navigation"""
         self._view_model.navigate()
