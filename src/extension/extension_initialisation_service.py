@@ -1,37 +1,35 @@
 # -*- coding: utf-8 -*-
 import os
 
-import src.visualisation
 import src.presentation
-
-from src.black_fennec.structure.list import List
+import src.visualisation
 from src.black_fennec.document_system.document_factory import DocumentFactory
+from src.black_fennec.structure.list import List
 from src.extension.extension_api import ExtensionApi
 from src.extension.extension_source import ExtensionSource
 from src.extension.extension_source_registry import ExtensionSourceRegistry
 from src.extension.local_extension_service import LocalExtensionService
 from src.extension.pypi_extension_service import PyPIExtensionService
-from src.black_fennec.structure.structure_serializer import StructureSerializer
 
 
 class ExtensionInitialisationService:
     def __init__(
             self,
-            encoding_service: StructureSerializer
+            document_factory: DocumentFactory,
     ):
         """
         encoding_service (StructureSerializer): to convert
                 structure to raw json
         """
-        self._encoding_service = encoding_service
+        self._document_factory = document_factory
 
-    def _default_initialise_extensions(self, path):
+    def _default_initialise_extensions(self, uri: str):
         """
         Function creates default Extension sources
         and writes them to a file located at path
 
         Args:
-            path (str): path of file to create
+            uri (str): path of file to create
         """
         visualisation = src.visualisation
         type_system_source = ExtensionSource(
@@ -58,14 +56,18 @@ class ExtensionInitialisationService:
             presentation_source.underlay
         ])
 
-        raw = self._encoding_service.serialize(source_list)
-        with open(path, 'w') as file:
-            file.write(raw)
+        # TODO: https://gitlab.ost.ch/blackfennec/blackfennec/-/issues/1
+        config = self._document_factory.create(
+            uri,
+            'file',
+            'application/json'
+        )
+        config.content = source_list
+        config.save()
 
     def load_extensions_from_file(
             self,
             extension_source_registry: ExtensionSourceRegistry,
-            document_factory: DocumentFactory,
             extension_api: ExtensionApi,
             uri: str
     ):
@@ -74,8 +76,7 @@ class ExtensionInitialisationService:
         If it does not exists, it is created.
 
         Args:
-            extension_source_registry (ExtensionSourceRegistry):
-            document_factory (DocumentFactory): used to import the config file
+            extension_source_registry (ExtensionSourceRegistry): registry
             extension_api (ExtensionApi): passed to loaded extensions
             uri (str): uri of file where extension config is located
         """
@@ -88,7 +89,7 @@ class ExtensionInitialisationService:
             self._default_initialise_extensions(absolute_path)
 
         # TODO: https://gitlab.ost.ch/blackfennec/blackfennec/-/issues/1
-        config = document_factory.create(
+        config = self._document_factory.create(
             uri,
             'file',
             'application/json'

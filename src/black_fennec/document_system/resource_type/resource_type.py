@@ -21,11 +21,12 @@ class ResourceType(metaclass=abc.ABCMeta):
 
     @contextlib.contextmanager
     @abc.abstractmethod
-    def load_resource(self, document: 'Document') -> IO:
+    def load_resource(self, document: 'Document', mode: str) -> IO:
         """Load the resource
 
         Arguments:
             document (Document): document to load
+            mode (str): the file open mode to use
         Returns:
             IO: loaded resource
         Raises:

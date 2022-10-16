@@ -90,11 +90,11 @@ class Document:
 
     def _load_content(self):
         """Load the content of the document"""
-        with self.resource_type.load_resource(self) as raw:
+        with self.resource_type.load_resource(self, "r") as raw:
             structure = self.mime_type.import_structure(raw)
         self.content = structure
 
     def save(self):
         """Save the document"""
-        with self.resource_type.load_resource(self) as raw:
+        with self.resource_type.load_resource(self, "w") as raw:
             self.mime_type.export_structure(raw, self.content)

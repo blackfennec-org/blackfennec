@@ -38,4 +38,4 @@ class JsonMimeType(MimeType):
             structure (Structure): The structure to export
         """
         raw = self._structure_serializer.serialize(structure)
-        json.dump(raw, output)
+        json.dump(raw, output, indent=2)

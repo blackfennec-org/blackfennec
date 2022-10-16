@@ -19,7 +19,7 @@ class ResourceTypeMock(ResourceType):
         return self._protocols
 
     @contextlib.contextmanager
-    def load_resource(self, document: Document) -> IO:
+    def load_resource(self, document: Document, mode: str) -> IO:
         self.load_resource_count += 1
         self.loaded_resource_document_parameter = document
         yield self._loaded_resource

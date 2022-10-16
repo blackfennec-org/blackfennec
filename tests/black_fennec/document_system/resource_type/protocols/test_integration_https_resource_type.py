@@ -22,7 +22,7 @@ class HttpsResourceTypeTestSuite(unittest.TestCase):
     def test_load_resource(self):
         document = DocumentMock(uri=self.uri)
 
-        with HttpsResourceType().load_resource(document) as data:
+        with HttpsResourceType().load_resource(document, "r") as data:
             content = data.read()
 
         self.assertEqual(self.content, content)

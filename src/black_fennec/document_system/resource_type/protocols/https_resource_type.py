@@ -16,11 +16,12 @@ class HttpsResourceType(ResourceType):
         ]
 
     @contextlib.contextmanager
-    def load_resource(self, document: 'Document') -> IO:
+    def load_resource(self, document: 'Document', mode: str) -> IO:
+        assert mode == 'r'
         path, response = req.urlretrieve(document.uri)
         file = None
         try:
-            file = open(path, 'r')
+            file = open(path, mode)
             yield file
         finally:
             if file is not None:

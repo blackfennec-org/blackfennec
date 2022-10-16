@@ -27,7 +27,7 @@ class FileResourceTypeTestSuite(unittest.TestCase):
     def test_load_resource_relative_path(self):
         document = DocumentMock(uri=self.tmp_file_uri, location=self.tmp_file_location)
 
-        with FileResourceType().load_resource(document) as data:
+        with FileResourceType().load_resource(document, "r") as data:
             content = data.read()
 
         self.assertEqual('content', content)
@@ -35,7 +35,7 @@ class FileResourceTypeTestSuite(unittest.TestCase):
     def test_load_resource_absolute_path(self):
         document = DocumentMock(uri=self.tmp_file_path, location=self.tmp_file_location)
 
-        with FileResourceType().load_resource(document) as data:
+        with FileResourceType().load_resource(document, "r") as data:
             content = data.read()
 
         self.assertEqual('content', content)

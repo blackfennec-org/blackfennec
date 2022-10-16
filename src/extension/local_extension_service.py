@@ -18,9 +18,9 @@ class LocalExtensionService:
 
     @staticmethod
     def _iter_namespace(name, location):
-        return pkgutil.iter_modules(
+        return reversed(list(pkgutil.iter_modules(
             location,
-            name + '.')
+            name + '.')))
 
     @staticmethod
     def _check_if_function_exists(module, function_name):

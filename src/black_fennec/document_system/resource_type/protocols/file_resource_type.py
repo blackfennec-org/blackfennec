@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import contextlib
 import os
+from pathlib import Path
 from typing import IO, List
 from urllib.parse import urlparse
 
@@ -16,7 +17,7 @@ class FileResourceType(ResourceType):
         ]
 
     @contextlib.contextmanager
-    def load_resource(self, document: Document) -> IO:
+    def load_resource(self, document: Document, mode: str) -> IO:
         """Load the resource
 
         Arguments:
@@ -33,8 +34,10 @@ class FileResourceType(ResourceType):
             document_path = os.path.join(current_path, parsed_uri.path)
 
         file = None
+        if not os.path.exists(document_path):
+            Path(document_path).touch()
         try:
-            file = open(document_path, 'r+')
+            file = open(document_path, mode)
             yield file
         finally:
             if file is not None:

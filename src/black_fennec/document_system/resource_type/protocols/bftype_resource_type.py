@@ -18,7 +18,7 @@ class BFTypeResourceType(ResourceType):
         ]
 
     @contextlib.contextmanager
-    def load_resource(self, document: Document):
+    def load_resource(self, document: Document, mode: str):
         """Load the resource
 
         Arguments:
@@ -26,6 +26,7 @@ class BFTypeResourceType(ResourceType):
         Returns:
             IO: loaded resource
         """
+        assert mode == "r"
         parsed_uri = urlparse(document.uri)
         type_name = parsed_uri.path or parsed_uri.netloc
 

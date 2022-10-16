@@ -11,7 +11,9 @@ from src.black_fennec.document_system.mime_type.json.json_mime_type import JsonM
 
 @pytest.fixture()
 def json_string():
-    return '{"test": "test"}'
+    return '''{
+  "test": "test"
+}'''
 
 
 @pytest.fixture()
