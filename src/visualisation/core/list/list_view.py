@@ -19,9 +19,12 @@ class ListView(Adw.Bin):
     __gtype_name__ = 'ListView'
     _preference_group: Adw.PreferencesGroup = Gtk.Template.Child()
 
-    _popover: Gtk.Popover = Gtk.Template.Child()
+    _add_popover: Gtk.Popover = Gtk.Template.Child()
     _template_store: Gtk.ListStore = Gtk.Template.Child()
     _template_box = Gtk.Template.Child()
+
+    _edit_suffix_group: Gtk.Box = Gtk.Template.Child()
+    _edit: Gtk.Button = Gtk.Template.Child()
 
     def __init__(self, view_factory, view_model):
         """Construct with view_model.
@@ -31,11 +34,12 @@ class ListView(Adw.Bin):
         """
         super().__init__()
         self._value: list = []
-        self._items: list[(Structure, ListItemView)] = []
+        self._items: list[ListItemView] = []
         self._item_interpretation_mapping = {}
         self._currently_selected = None
         self._view_factory = view_factory
         self._view_model = view_model
+        self._in_edit_mode = False
         self._view_model.bind(
             value=self._update_value,
             selected=self._on_selection_changed)
@@ -43,22 +47,40 @@ class ListView(Adw.Bin):
         self._update_value(self, self._view_model.value)
         self._setup_template_store()
 
+    @Gtk.Template.Callback()
+    def _on_edit(self, unused_sender):
+        assert not self._in_edit_mode, 'edit mode already active'
+
+        self._in_edit_mode = True
+        self._edit_suffix_group.set_visible(True)
+        self._edit.set_visible(False)
+
+        self._update_value(self, self._view_model.decapsulated_value)
+
+    @Gtk.Template.Callback()
+    def _on_apply(self, unused_sender):
+        assert self._in_edit_mode, 'edit mode not active'
+
+        self._in_edit_mode = False
+        self._edit_suffix_group.set_visible(False)
+        self._edit.set_visible(True)
+
+        self._update_value(self, self._view_model.value)
+
+    @Gtk.Template.Callback()
+    def _on_delete(self, unused_sender):
+        self._view_model.delete()
+
     def _add_item(self, structure):
         preview = self._view_model.create_preview(structure)
         item = ListItemView(
             preview,
             self._view_factory,
             self._view_model)
-        self._items.append((structure, item))
+        item.set_deletable(self._in_edit_mode)
+        self._items.append(item)
         self._preference_group.add(item)
         self._item_interpretation_mapping[preview] = item
-
-    def _remove_item(self, structure):
-        for s, item in self._items:
-            if s is structure:
-                self._preference_group.remove(item)
-                self._items.remove((s, item))
-                break
 
     def _update_value(self, unused_sender, new_value):
         """Observable handler for value
@@ -67,14 +89,11 @@ class ListView(Adw.Bin):
             unused_sender: view model
             new_value: set by view model
         """
-        for item in self._value:
-            if item not in new_value.value:
-                self._remove_item(item)
-
-        for i, item in enumerate(new_value.value):
-            if item not in self._value:
-                self._add_item(item)
-        self._value = new_value.value
+        for item in self._items:
+            self._preference_group.remove(item)
+        self._items = []
+        for structure in new_value.value:
+            self._add_item(structure)
 
     def _setup_template_store(self):
         template_store = Gtk.ListStore(GObject.TYPE_STRING)
@@ -109,7 +128,7 @@ class ListView(Adw.Bin):
 
     @Gtk.Template.Callback()
     def _add_list_item(self, unused_sender):
-        self._popover.popdown()
+        self._add_popover.popdown()
         template = self._get_template_by_string(
             self._template_box.get_active_text())
         self._view_model.add_by_template(template)

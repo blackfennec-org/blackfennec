@@ -7,7 +7,7 @@
     <child>
       <object class="AdwPreferencesGroup" id="_preference_group">
         <property name="title" translatable="true">List</property>
-        <property name="header-suffix">_add_item</property>
+        <property name="header-suffix">_suffix_group</property>
         <property name="margin-start">8</property>
         <property name="margin-end">8</property>
         <property name="margin-top">8</property>
@@ -15,14 +15,60 @@
       </object>
     </child>
   </template>
-  <object class="GtkMenuButton" id="_add_item">
-    <property name="icon-name">list-add-symbolic</property>
-    <property name="popover">_popover</property>
-    <style>
-      <class name="flat"/>
-    </style>
+  <object class="GtkBox" id="_suffix_group">
+    <property name="orientation">horizontal</property>
+    <child>
+      <object class="GtkButton" id="_edit">
+        <property name="icon-name">document-edit-symbolic</property>
+        <signal name="clicked" handler="_on_edit"/>
+        <property name="margin-end">8</property>
+        <style>
+          <class name="flat"/>
+          <class name="circular"/>
+        </style>
+      </object>
+    </child>
+    <child>
+      <object class="GtkBox" id="_edit_suffix_group">
+        <property name="orientation">horizontal</property>
+        <property name="visible">false</property>
+        <child>
+          <object class="GtkButton" id="_delete">
+            <property name="margin-end">8</property>
+            <property name="icon-name">user-trash-symbolic</property>
+            <signal name="clicked" handler="_on_delete"/>
+            <style>
+              <class name="destructive-action"/>
+              <class name="circular"/>
+            </style>
+          </object>
+        </child>
+        <child>
+          <object class="GtkButton" id="_apply">
+            <property name="icon-name">adw-entry-apply-symbolic</property>
+            <signal name="clicked" handler="_on_apply"/>
+            <property name="margin-end">8</property>
+            <style>
+              <class name="suggested-action"/>
+              <class name="circular"/>
+            </style>
+          </object>
+        </child>
+      </object>
+    </child>
+    <child>
+      <object class="GtkMenuButton" id="_add_item">
+        <property name="icon-name">list-add-symbolic</property>
+        <property name="popover">_add_popover</property>
+        <property name="margin-end">8</property>
+        <style>
+          <class name="flat"/>
+          <class name="circular"/>
+        </style>
+      </object>
+    </child>
   </object>
-  <object class="GtkPopover" id="_popover">
+  <object class="GtkPopover" id="_add_popover">
     <property name="child">
       <object class="GtkBox">
         <property name="margin-start">8</property>
