@@ -1,43 +1,16 @@
 using Gtk 4.0;
 using Adw 1;
 
-template FilePreview : Adw.Bin {
+template FilePreview : Button {
+  icon-name: "emblem-documents-symbolic";
+  clicked => _on_navigate();
+
+  valign: center;
   visible: true;
   focusable: false;
 
-  .GtkEventBox {
-    visible: "True";
-    focusable: "False";
-    button-press-event => _preview_clicked();
-
-    Box _file_path_line {
-      spacing: 2;
-
-      Button _file_path_choose {
-        focusable: true;
-        receives-default: true;
-        clicked => on_choose_clicked();
-
-        Image {
-          file: "src/visualisation/base/folder-16.png";
-        }
-
-        styles [
-          "base-button",
-        ]
-      }
-
-      Label _file_path_value {
-        hexpand: true;
-        label: _("<value-here>");
-        selectable: true;
-        ellipsize: start;
-        xalign: 0;
-
-        styles [
-          "base-value",
-        ]
-      }
-    }
-  }
+  styles [
+    "flat",
+    "circular",
+  ]
 }

@@ -12,6 +12,7 @@
         <property name="activatable">false</property>
         <child>
           <object class="GtkImage" id="_image">
+            <property name="icon-name">image-missing-symbolic</property>
             <property name="height-request">200</property>
             <property name="vexpand">true</property>
             <property name="hexpand">true</property>

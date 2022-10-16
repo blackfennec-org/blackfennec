@@ -2,7 +2,6 @@
 import logging
 from pathlib import Path
 
-from gi.overrides.GObject import GObject
 from gi.overrides.Gdk import Gdk
 from gi.repository import Gtk, Adw
 

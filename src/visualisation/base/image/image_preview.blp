@@ -2,7 +2,7 @@ using Gtk 4.0;
 using Adw 1;
 
 template ImagePreview : Button {
-  clicked => _preview_clicked();
+  clicked => _on_navigate();
 
   Adw.Avatar _image {
     margin-start: 4;

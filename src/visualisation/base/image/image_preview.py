@@ -46,6 +46,6 @@ class ImagePreview(Gtk.Button):
         self._set_image_from_path(file_path)
 
     @Gtk.Template.Callback()
-    def _preview_clicked(self, unused_sender) -> None:
+    def _on_navigate(self, unused_sender) -> None:
         """Handles clicks on image items, triggers navigation"""
         self._view_model.navigate()

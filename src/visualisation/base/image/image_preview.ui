@@ -2,7 +2,7 @@
 <interface>
   <requires lib="gtk" version="4.0"/>
   <template class="ImagePreview" parent="GtkButton">
-    <signal name="clicked" handler="_preview_clicked"/>
+    <signal name="clicked" handler="_on_navigate"/>
     <child>
       <object class="AdwAvatar" id="_image">
         <property name="margin-start">4</property>
