@@ -1,11 +1,12 @@
-from doubles.black_fennec.structure.double_structure import StructureMock
+from doubles.black_fennec.structure.double_structure import StructureInstanceMock
 
 
-class RootMock(StructureMock):
+class RootMock(StructureInstanceMock):
     def __init__(self, value=None, document=None):
-        StructureMock.__init__(self, value, self, self)
+        super().__init__(value, self, self)
         self._document = document
         self.get_document_count = 0
+        self.parent = self
 
     def accept(self, visitor):
         return visitor.visit_root(self)
@@ -13,3 +14,6 @@ class RootMock(StructureMock):
     def get_document(self):
         self.get_document_count += 1
         return self._document
+
+    def get_root(self):
+        return self

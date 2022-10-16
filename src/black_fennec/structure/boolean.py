@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 from typing import TypeVar
-from src.black_fennec.structure.structure import Structure
+from src.black_fennec.structure.structure import ValueStructure
 from src.black_fennec.structure.visitor import Visitor
 
 TVisitor = TypeVar('TVisitor')
 
 
-class Boolean(Structure[bool]):
+class Boolean(ValueStructure[bool]):
     """Core Type Boolean, represents booleans in the domain model."""
 
     def __init__(self, value: bool = False):
@@ -16,7 +16,7 @@ class Boolean(Structure[bool]):
             value (bool, optional): The value of the `Boolean`.
                 Default item is `False`
         """
-        Structure.__init__(self, value)
+        super().__init__(value)
 
     def accept(self, visitor: Visitor[TVisitor]) -> TVisitor:
         return visitor.visit_boolean(self)

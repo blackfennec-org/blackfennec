@@ -13,12 +13,12 @@ class MapEncapsulationBase(EncapsulationBase, Map):
             visitor: 'BaseFactoryVisitor',
             subject: Map,
     ):
-        Map.__init__(self)
         EncapsulationBase.__init__(
             self,
             visitor,
             subject
         )
+        Map.__init__(self)
 
     @property
     def subject(self) -> Map:

@@ -10,7 +10,7 @@ logger = logging.getLogger(__name__)
 
 class MergedStructure(Structure):
     def __init__(self, underlay: Structure, overlay: Structure):
-        super().__init__(None)
+        super().__init__()
         self._underlay = underlay
         self._overlay = overlay
 

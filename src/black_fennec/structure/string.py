@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 from typing import TypeVar
-from src.black_fennec.structure.structure import Structure
+from src.black_fennec.structure.structure import ValueStructure
 from src.black_fennec.structure.visitor import Visitor
 
 TVisitor = TypeVar('TVisitor')
 
 
-class String(Structure):
+class String(ValueStructure[str]):
     """Core Type String, represents strings in the domain model."""
 
     def __init__(self, value: str = ''):
@@ -16,7 +16,7 @@ class String(Structure):
             value (str, optional): The item of the `String`.
                 By default "" (empty string)
         """
-        Structure.__init__(self, value)
+        super().__init__(value)
 
     def accept(self, visitor: Visitor[TVisitor]) -> TVisitor:
         return visitor.visit_string(self)

@@ -9,11 +9,6 @@ TVisitor = TypeVar('TVisitor')
 class Null(Structure[None]):
     """Core Type Null, represents null values in the domain model."""
 
-    def __init__(self):
-        """Construct Null.
-        """
-        Structure.__init__(self, None)
-
     @property
     def value(self) -> None:
         return None

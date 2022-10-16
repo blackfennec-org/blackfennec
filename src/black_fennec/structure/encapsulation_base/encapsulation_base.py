@@ -2,7 +2,7 @@ from src.black_fennec.structure.structure import Structure
 from src.black_fennec.util.intercepting_visitor import InterceptingVisitor
 
 
-class EncapsulationBase:
+class EncapsulationBase(Structure):
     """Is the base class of the abstract visitor BaseFactoryVisitor,
         which means that any created object of the abstract visitor
         has the super class EncapsulationBase or a specialisation.
@@ -95,6 +95,9 @@ class EncapsulationBase:
                 is encapsulated.
         """
         return subject.accept(self._visitor)
+
+    def __repr__(self):
+        return f"EncapsulationBase({self.value})"
 
     def __eq__(self, other):
         # TODO: ensure all layers inherit from Structure

@@ -5,7 +5,7 @@ class StructureMock:
     def __init__(self, value=None, parent=None, root=None):
         self._value = value
         self._root = root or self
-        self._parent = parent or self
+        self._parent = parent
         self._value_property_access_count = 0
 
     @property
@@ -33,10 +33,10 @@ class StructureMock:
 
 
 
-class StructureInstanceMock(Structure, StructureMock):
+class StructureInstanceMock(StructureMock, Structure):
     def __init__(self, value=None, parent=None, root=None):
-        Structure.__init__(self, value)
         StructureMock.__init__(self, value, parent, root)
+        Structure.__init__(self)
 
     def accept(self, visitor):
         ...

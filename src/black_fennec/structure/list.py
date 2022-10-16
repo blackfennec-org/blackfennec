@@ -18,7 +18,8 @@ class List(Structure[list]):
             data (list[Structure], optional): Structures
                 with which to initialise the List.
         """
-        Structure.__init__(self, [])
+        super().__init__()
+        self._value: list[Structure] = []
         if value is not None:
             self.value = value
 
@@ -43,8 +44,8 @@ class List(Structure[list]):
         Args:
             item (Structure): Item to append.
         """
-        self._value.append(item)
         self._set_parent(item)
+        self._value.append(item)
 
     def _is_item(self, item):
         for i in self._value:

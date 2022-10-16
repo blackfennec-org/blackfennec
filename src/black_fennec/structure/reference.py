@@ -17,14 +17,23 @@ class Reference(Structure[list[Navigator]]):
 
     def __init__(
             self,
-            navigation: list[Navigator]
+            navigators: list[Navigator]
     ):
         """Reference Constructor.
 
         Args:
             navigation (list[Navigator]): list of Navigators
         """
-        Structure.__init__(self, navigation)
+        super().__init__()
+        self._navigators = navigators
+
+    @property
+    def value(self) -> list[Navigator]:
+        return self._navigators
+
+    @value.setter
+    def value(self, value: list[Navigator]):
+        self._navigators = value
 
     def resolve(self) -> Structure:
         """Resolves Reference navigation
@@ -32,7 +41,7 @@ class Reference(Structure[list[Navigator]]):
         Returns:
             Structure: destination to which the reference_navigation points
         """
-        current_structure = self
+        current_structure: Structure = self
         for navigator in self.value:
             current_structure = navigator.navigate(current_structure)
         if current_structure == self:
@@ -47,6 +56,3 @@ class Reference(Structure[list[Navigator]]):
     def __repr__(self) -> str:
         """Create representation for pretty printing"""
         return f'Reference({self.value})'
-
-
-Reference.TEMPLATE = Reference([])

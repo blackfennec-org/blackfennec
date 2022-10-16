@@ -18,8 +18,8 @@ class Map(Structure[dict]):
             value (dict[any, Structure], optional):
                 Structures with which to initialise the Map.
         """
-        Structure.__init__(self, {})
-        self._value = {}
+        super().__init__()
+        self._value: dict[str, Structure] = {}
         if value is not None:
             self.value = value
 
