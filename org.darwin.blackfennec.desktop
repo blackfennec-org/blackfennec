@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=Black Fennec
+Exec=run.sh
+Type=Application
+Icon=org.darwin.blackfennec
+Categories=GTK;
+Keywords=Json;Editor;
