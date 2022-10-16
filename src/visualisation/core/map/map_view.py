@@ -13,11 +13,10 @@ UI_TEMPLATE = str(BASE_DIR.joinpath('map_view.ui'))
 
 
 @Gtk.Template(filename=UI_TEMPLATE)
-class MapView(Adw.Bin):
+class MapView(Adw.PreferencesGroup):
     """View for the core type Map."""
 
     __gtype_name__ = 'MapView'
-    _preference_group: Gtk.Box = Gtk.Template.Child()
     _add_popover = Gtk.Template.Child()
     _add_entry = Gtk.Template.Child()
     _template_store = Gtk.Template.Child()
@@ -97,11 +96,11 @@ class MapView(Adw.Bin):
             )
         self._items[key] = item
         self._item_interpretation_mapping[preview] = item
-        self._preference_group.add(item)
+        self.add(item)
 
     def _remove_item(self, key):
         item = self._items.pop(key)
-        self._preference_group.remove(item)
+        self.remove(item)
 
     def _update_value(self, unused_sender, new_value):
         """Observable handler for value

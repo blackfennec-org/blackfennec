@@ -16,6 +16,8 @@ class EditableItemView(Adw.EntryRow):
     """View for a key value pair of a map."""
     __gtype_name__ = 'EditableItemView'
 
+    _delete = Gtk.Template.Child()
+
     def __init__(
             self,
             key,
@@ -38,6 +40,7 @@ class EditableItemView(Adw.EntryRow):
 
         self.key = self._key
         view = view_factory.create(preview)
+        self.add_prefix(self._delete)
         self.add_suffix(view)
 
     @property
