@@ -43,7 +43,7 @@ class EncapsulationBase(Structure):
         Args:
             parent (Structure): new value for subjects parent
         """
-        self.subject.parent = self._remove_encapsulation(parent)
+        self.subject.parent = self._decapsulate(parent)
 
     @property
     def value(self):
@@ -66,7 +66,7 @@ class EncapsulationBase(Structure):
         return self._encapsulate(self.subject.get_root())
 
     @staticmethod
-    def _remove_encapsulation(item: Structure):
+    def _decapsulate(item: Structure):
         """Decapsulates a Structure Class if it is encapsulated by an instance
             of EncapsulationBase
 

@@ -16,7 +16,7 @@ class OverlayBase(EncapsulationBase):
         return f'OverlayBase({self.subject.__repr__()})'
 
     @staticmethod
-    def _remove_encapsulation(item: Structure):
+    def _decapsulate(item: Structure):
         """Decapsulates a Structure Class if it is encapsulated by an instance
             of OverlayBase
 

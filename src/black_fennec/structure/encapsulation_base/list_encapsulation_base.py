@@ -39,7 +39,7 @@ class ListEncapsulationBase(EncapsulationBase, List):
     @value.setter
     def value(self, value):
         self.subject.value = [
-            self._remove_encapsulation(item) for item in (value or [])
+            self._decapsulate(item) for item in (value or [])
         ]
 
     def add_item(self, item: Structure):
@@ -48,7 +48,7 @@ class ListEncapsulationBase(EncapsulationBase, List):
         Args:
             item (Structure): Item to append.
         """
-        decapsulated_item = self._remove_encapsulation(item)
+        decapsulated_item = self._decapsulate(item)
         self.subject.add_item(decapsulated_item)
 
     def remove_item(self, item: Structure):
@@ -61,7 +61,7 @@ class ListEncapsulationBase(EncapsulationBase, List):
             KeyError: If the item passed is not in
                 list and hence cannot be removed.
         """
-        decapsulated_value = self._remove_encapsulation(item)
+        decapsulated_value = self._decapsulate(item)
         if decapsulated_value not in self.subject.value:
             message = 'item not in list'
             logger.error(message)
