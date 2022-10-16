@@ -4,6 +4,10 @@
 help:
 	cat Makefile
 
+install:
+	flatpak --user remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+	flatpak-builder --user --install build-dir org.darwin.blackfennec.yml --force-clean --install-deps-from flathub
+
 dependencies:
 	python -m pip install -r requriements.txt
 	pythom -m pip install -r docs/requriements.txt
