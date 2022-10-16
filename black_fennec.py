@@ -1,4 +1,3 @@
-from distutils import extension
 import gi
 
 from src.black_fennec.structure.type.type_loader import TypeLoader

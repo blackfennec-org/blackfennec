@@ -1,17 +1,19 @@
 import logging
-from typing import TypeVar, Any
+from typing import TypeVar
 
 from src.black_fennec.structure.structure import Structure
 from src.black_fennec.structure.visitor import Visitor
 
 logger = logging.getLogger(__name__)
+T = TypeVar('T', bound=Structure)
+TDict = dict[str, T]
 TVisitor = TypeVar('TVisitor')
 
 
-class Map(Structure[dict]):
+class Map(Structure[TDict]):
     """Core type Map, a set of keys with values"""
 
-    def __init__(self, value: dict = None):
+    def __init__(self, value: TDict = None):
         """Constructor for List.
 
         Args:
@@ -19,26 +21,26 @@ class Map(Structure[dict]):
                 Structures with which to initialise the Map.
         """
         super().__init__()
-        self._value: dict[str, Structure] = {}
+        self._value: TDict = {}
         if value is not None:
             self.value = value
 
     @property
-    def value(self) -> dict:
+    def value(self) -> TDict:
         return dict(self._value)
 
     @value.setter
-    def value(self, value: dict) -> None:
+    def value(self, value: TDict) -> None:
         for key in (dict(self._value) or {}):
             self.remove_item(key)
         for key, item in (value or {}).items():
             self.add_item(key, item)
 
-    def _set_parent(self, item: Structure) -> None:
+    def _set_parent(self, item: T) -> None:
         assert item.parent is None
         item.parent = self
 
-    def add_item(self, key: str, value: Structure) -> None:
+    def add_item(self, key: str, value: T) -> None:
         """Custom set item hook, adds self as parent or raises error.
 
         Args:
@@ -55,18 +57,18 @@ class Map(Structure[dict]):
         self._set_parent(value)
         self._value[key] = value
 
-    def _is_item(self, item):
+    def _is_item(self, item: T) -> bool:
         for i in self._value.items():
             if item is i:
                 return True
         return False
 
-    def _unset_parent(self, item: Structure) -> None:
+    def _unset_parent(self, item: T) -> None:
         assert item.parent is self
         assert not self._is_item(item)
         item.parent = None
 
-    def remove_item(self, key: Any) -> None:
+    def remove_item(self, key: str) -> None:
         """Custom delete hook, resets parent for removed structure.
 
         Args:
