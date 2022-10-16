@@ -1,90 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
   <requires lib="gtk" version="4.0"/>
-  <template class="ImageView" parent="AdwBin">
-    <property name="visible">true</property>
-    <property name="focusable">false</property>
+  <template class="ImageView" parent="AdwPreferencesGroup">
+    <property name="title" translatable="true">Image</property>
+    <property name="margin-start">8</property>
+    <property name="margin-end">8</property>
+    <property name="margin-top">8</property>
+    <property name="margin-bottom">8</property>
     <child>
-      <object class="GtkBox" id="_item_container">
-        <property name="orientation">vertical</property>
-        <property name="spacing">2</property>
-        <child>
-          <object class="GtkBox">
-            <child>
-              <object class="GtkImage">
-                <signal name="notify::realize" handler="_on_resize"/>
-                <property name="file">src/visualisation/base/image/image.png</property>
-              </object>
-            </child>
-            <child>
-              <object class="GtkLabel" id="_image_title">
-                <property name="label" translatable="true">Image</property>
-              </object>
-            </child>
-          </object>
-        </child>
+      <object class="AdwPreferencesRow">
+        <property name="activatable">false</property>
         <child>
           <object class="GtkImage" id="_image">
-            <signal name="notify::realize" handler="_on_resize"/>
-            <property name="width-request">150</property>
-            <property name="icon-name">image-x-generic</property>
+            <property name="height-request">200</property>
+            <property name="vexpand">true</property>
+            <property name="hexpand">true</property>
           </object>
         </child>
+      </object>
+    </child>
+    <child>
+      <object class="AdwEntryRow" id="_file_path">
+        <property name="title" translatable="true">Path</property>
+        <property name="editable">true</property>
         <child>
-          <object class="GtkBox" id="_file_path_line">
-            <property name="spacing">2</property>
-            <child>
-              <object class="GtkButton" id="_file_path_choose">
-                <property name="focusable">true</property>
-                <property name="receives-default">true</property>
-                <signal name="clicked" handler="_on_choose_clicked"/>
-                <child>
-                  <object class="GtkImage">
-                    <property name="file">src/visualisation/base/folder-16.png</property>
-                  </object>
-                </child>
-              </object>
-            </child>
-            <child>
-              <object class="GtkLabel" id="_file_path_value">
-                <property name="hexpand">true</property>
-                <property name="focusable">true</property>
-                <property name="label" translatable="true">&lt;value-here&gt;</property>
-                <property name="selectable">true</property>
-                <property name="ellipsize">start</property>
-                <property name="xalign">0</property>
-              </object>
-            </child>
-            <child>
-              <object class="GtkLabel" id="_file_path_key">
-                <property name="label" translatable="true">Path:</property>
-                <property name="width-chars">6</property>
-                <property name="xalign">0</property>
-              </object>
-            </child>
+          <object class="GtkButton" id="_file_chooser">
+            <property name="icon-name">folder-open-symbolic</property>
+            <signal name="clicked" handler="_on_choose_image"/>
+            <property name="valign">center</property>
+            <style>
+              <class name="circular"/>
+            </style>
           </object>
         </child>
-        <child>
-          <object class="GtkBox" id="_file_type_line">
-            <property name="spacing">2</property>
-            <child>
-              <object class="GtkLabel" id="_file_type_key">
-                <property name="label" translatable="true">Type:</property>
-                <property name="width-chars">6</property>
-                <property name="xalign">0</property>
-              </object>
-            </child>
-            <child>
-              <object class="GtkLabel" id="_file_type_value">
-                <property name="hexpand">true</property>
-                <property name="focusable">true</property>
-                <property name="label" translatable="true">&lt;value-here&gt;</property>
-                <property name="selectable">true</property>
-                <property name="xalign">0</property>
-              </object>
-            </child>
-          </object>
-        </child>
+      </object>
+    </child>
+    <child>
+      <object class="AdwEntryRow" id="_mime_type">
+        <property name="editable">false</property>
+        <property name="title" translatable="true">MIME Type</property>
       </object>
     </child>
   </template>

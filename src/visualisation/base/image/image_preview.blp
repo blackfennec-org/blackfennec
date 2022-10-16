@@ -1,30 +1,23 @@
 using Gtk 4.0;
 using Adw 1;
 
-template ImagePreview : Adw.Bin {
-  visible: true;
-  focusable: false;
+template ImagePreview : Button {
+  clicked => _preview_clicked();
 
-  Button {
+  Adw.Avatar _image {
+    margin-start: 4;
+    margin-end: 4;
+    margin-top: 4;
+    margin-bottom: 4;
     visible: true;
     focusable: false;
     tooltip-text: _("Image");
-    clicked => _preview_clicked();
-    hexpand: true;
-    vexpand: true;
-
-    Image _image {
-      notify::realize => _on_resize();
-      width-request: 150;
-      icon-name: "image-x-generic";
-
-      styles [
-        "image",
-      ]
-    }
-
-    styles [
-      "flat",
-    ]
+    icon-name: "image-missing-symbolic";
   }
+
+  styles [
+    "flat",
+    "circular",
+  ]
+
 }

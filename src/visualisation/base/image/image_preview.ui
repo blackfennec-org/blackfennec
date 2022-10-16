@@ -1,31 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
   <requires lib="gtk" version="4.0"/>
-  <template class="ImagePreview" parent="AdwBin">
-    <property name="visible">true</property>
-    <property name="focusable">false</property>
+  <template class="ImagePreview" parent="GtkButton">
+    <signal name="clicked" handler="_preview_clicked"/>
     <child>
-      <object class="GtkButton">
+      <object class="AdwAvatar" id="_image">
+        <property name="margin-start">4</property>
+        <property name="margin-end">4</property>
+        <property name="margin-top">4</property>
+        <property name="margin-bottom">4</property>
         <property name="visible">true</property>
         <property name="focusable">false</property>
         <property name="tooltip-text" translatable="true">Image</property>
-        <signal name="clicked" handler="_preview_clicked"/>
-        <property name="hexpand">true</property>
-        <property name="vexpand">true</property>
-        <child>
-          <object class="GtkImage" id="_image">
-            <signal name="notify::realize" handler="_on_resize"/>
-            <property name="width-request">150</property>
-            <property name="icon-name">image-x-generic</property>
-            <style>
-              <class name="image"/>
-            </style>
-          </object>
-        </child>
-        <style>
-          <class name="flat"/>
-        </style>
+        <property name="icon-name">image-missing-symbolic</property>
       </object>
     </child>
+    <style>
+      <class name="flat"/>
+      <class name="circular"/>
+    </style>
   </template>
 </interface>
