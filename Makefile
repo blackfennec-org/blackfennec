@@ -1,6 +1,9 @@
 
 .PHONY: docs test
 
+help:
+	cat Makefile
+
 dependencies:
 	python -m pip install -r requriements.txt
 	pythom -m pip install -r docs/requriements.txt

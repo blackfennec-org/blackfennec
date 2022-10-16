@@ -14,3 +14,6 @@ venv/
 extensions.json
 htmlcov/
 .pytest_cache/
+.mypy_cache/
+.flatpak-builder/
+build-dir/
