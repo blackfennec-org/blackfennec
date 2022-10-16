@@ -2,13 +2,17 @@ using Gtk 4.0;
 using Adw 1;
 
 template ListItemView : Adw.ActionRow {
-  visible: true;
-  focusable: false;
-  activatable-widget: _preview_container;
-
-  Box _preview_container {
-    orientation: vertical;
+    visible: true;
     focusable: false;
+}
+
+Button _delete {
+    halign: end;
     valign: center;
-  }
+    icon-name: "list-remove-symbolic";
+    clicked => _on_delete();
+    styles [
+        "destructive-action",
+        "circular",
+    ]
 }

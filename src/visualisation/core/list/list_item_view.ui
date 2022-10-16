@@ -4,13 +4,15 @@
   <template class="ListItemView" parent="AdwActionRow">
     <property name="visible">true</property>
     <property name="focusable">false</property>
-    <property name="activatable-widget">_preview_container</property>
-    <child>
-      <object class="GtkBox" id="_preview_container">
-        <property name="orientation">vertical</property>
-        <property name="focusable">false</property>
-        <property name="valign">center</property>
-      </object>
-    </child>
   </template>
+  <object class="GtkButton" id="_delete">
+    <property name="halign">end</property>
+    <property name="valign">center</property>
+    <property name="icon-name">list-remove-symbolic</property>
+    <signal name="clicked" handler="_on_delete"/>
+    <style>
+      <class name="destructive-action"/>
+      <class name="circular"/>
+    </style>
+  </object>
 </interface>

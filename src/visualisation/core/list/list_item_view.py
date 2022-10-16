@@ -17,7 +17,7 @@ UI_TEMPLATE = str(BASE_DIR.joinpath('list_item_view.ui'))
 class ListItemView(Adw.ActionRow):
     """View for a single list item."""
     __gtype_name__ = 'ListItemView'
-    _preview_container: Gtk.Box = Gtk.Template.Child()
+    _delete = Gtk.Template.Child()
 
     def __init__(self,
                  preview: Interpretation,
@@ -34,12 +34,9 @@ class ListItemView(Adw.ActionRow):
         self._preview = preview
         self._view_model = view_model
         view = view_factory.create(preview)
-        self._preview_container.append(view)
-
-    @property
-    def item(self) -> Structure:
-        """Readonly property for the item"""
-        return self._preview.structure
+        self.set_activatable_widget(view)
+        self.add_suffix(view)
+        self.add_prefix(self._delete)
 
     @property
     def selected(self):
@@ -53,3 +50,15 @@ class ListItemView(Adw.ActionRow):
             style.add_class('is-active')
         else:
             style.remove_class('is-active')
+
+    @Gtk.Template.Callback()
+    def _on_delete(self, unused_sender):
+        self._view_model.delete_item(self._preview.structure)
+
+    def set_deletable(self, value: bool):
+        self._delete.set_visible(value)
+
+    @property
+    def item(self) -> Structure:
+        """Readonly property for the item"""
+        return self._preview.structure

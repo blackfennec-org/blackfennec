@@ -40,6 +40,13 @@ class ListViewModel(Observable):
         return self._list
 
     @property
+    def decapsulated_value(self):
+        decapsulated_map = self.value
+        while hasattr(decapsulated_map, 'subject'):
+            decapsulated_map = decapsulated_map.subject
+        return decapsulated_map
+
+    @property
     def selected(self) -> Interpretation:
         return self._selected
 
@@ -94,3 +101,6 @@ class ListViewModel(Observable):
 
     def navigate_to(self, route_target: Structure):
         self._interpretation.navigate(route_target)
+
+    def delete(self):
+        raise NotImplementedError()
