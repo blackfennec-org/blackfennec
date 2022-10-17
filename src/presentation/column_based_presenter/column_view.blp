@@ -1,9 +1,10 @@
 using Gtk 4.0;
 
 template ColumnView : .AdwBin {
-  visible: "True";
-  focusable: "False";
-  hexpand: "True";
+  visible: true;
+  focusable: false;
+  hexpand: true;
+  vexpand: true;
 
   Paned _paned_container {
     focusable: true;
@@ -13,15 +14,11 @@ template ColumnView : .AdwBin {
     wide-handle: true;
 
     ScrolledWindow _container {
-      width-request: 100;
       focusable: true;
-
-      styles [
-        "container",
-      ]
     }
 
     Box _paned_right {
+      width-request: 10000;
       orientation: vertical;
     }
   }

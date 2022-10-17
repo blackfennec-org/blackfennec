@@ -1,31 +1,47 @@
 using Gtk 4.0;
 using Adw 1;
 
-template ColumnBasedPresenterView : Box {
-  hexpand: true;
-  vexpand: true;
+template ColumnBasedPresenterView : ScrolledWindow {
+    Viewport viewport {
+        hexpand: true;
+        vexpand: true;
+        hscroll-policy: natural;
+        scroll-to-focus: true;
 
-  Adw.StatusPage _empty_list_pattern {
-    visible: false;
-    title: "File seems to be empty";
-    description: "You may add data to this file by clicking the button below";
-    icon-name: "image-missing-symbolic";
-    hexpand: true;
-  }
+        Box {
+            hexpand: true;
+            vexpand: true;
 
-  Adw.StatusPage _loading {
-    visible: true;
-    title: "Loading";
-    description: "please be patient";
-    icon-name: "process-working-symbolic";
-    hexpand: true;
-  }
+            Box _container {
+                visible: false;
+                hexpand: true;
+                vexpand: true;
+                focusable: true;
+            }
 
-  Adw.StatusPage _error {
-    visible: false;
-    title: "Error";
-    description: "Error message";
-    icon-name: "computer-fail-symbolic";
-    hexpand: true;
-  }
+            Adw.StatusPage _empty_list_pattern {
+                visible: false;
+                title: "File seems to be empty";
+                description: "You may add data to this file by clicking the button below";
+                icon-name: "image-missing-symbolic";
+                hexpand: true;
+            }
+
+            Adw.StatusPage _loading {
+                visible: true;
+                title: "Loading";
+                description: "please be patient";
+                icon-name: "process-working-symbolic";
+                hexpand: true;
+            }
+
+            Adw.StatusPage _error {
+                visible: false;
+                title: "Error";
+                description: "Error message";
+                icon-name: "computer-fail-symbolic";
+                hexpand: true;
+            }
+        }
+    }
 }

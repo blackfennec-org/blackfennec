@@ -14,7 +14,7 @@ UI_TEMPLATE = str(BASE_DIR.joinpath('column_based_presenter.ui'))
 
 
 @Gtk.Template(filename=UI_TEMPLATE)
-class ColumnBasedPresenterView(Gtk.Box):
+class ColumnBasedPresenterView(Gtk.ScrolledWindow):
     """ColumnBasedPresenterView Code behind.
 
     Code behind of the column based presenter. Has ViewModel
@@ -30,6 +30,7 @@ class ColumnBasedPresenterView(Gtk.Box):
     _empty_list_pattern: Adw.StatusPage = Gtk.Template.Child()
     _loading: Adw.StatusPage = Gtk.Template.Child()
     _error: Adw.StatusPage = Gtk.Template.Child()
+    _container: Gtk.Box = Gtk.Template.Child()
 
     def __init__(self, view_model: ColumnBasedPresenterViewModel, view_factory):
         """ColumnBasedPresenterView constructor.
@@ -88,7 +89,7 @@ class ColumnBasedPresenterView(Gtk.Box):
         logger.debug("remove interpretation %s", interpretation)
         assert self._root_column
         if self._root_column.i_host_interpretation(interpretation):
-            self.remove(self._root_column)
+            self._container.remove(self._root_column)
             self._root_column = None
         else:
             self._root_column.remove_column(interpretation)
@@ -109,7 +110,7 @@ class ColumnBasedPresenterView(Gtk.Box):
         column = ColumnView(interpretation, self._view_factory)
         self.interpretations.append(interpretation)
         if self._root_column is None:
-            self.append(column)
+            self._container.append(column)
             self._root_column = column
         else:
             self._root_column.add_column(column)
@@ -124,11 +125,13 @@ class ColumnBasedPresenterView(Gtk.Box):
         """
         if not self.interpretations:
             logger.debug("show empty list pattern")
+            self._container.set_visible(False)
             self._empty_list_pattern.set_visible(True)
             self._loading.set_visible(False)
             self._error.set_visible(False)
         else:
             logger.debug("hide empty list pattern")
+            self._container.set_visible(True)
             self._empty_list_pattern.set_visible(False)
             self._loading.set_visible(False)
             self._error.set_visible(False)
