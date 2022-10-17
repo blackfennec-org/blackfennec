@@ -1,33 +1,18 @@
 using Gtk 4.0;
 using Adw 1;
 
-template DateTimePreview : Adw.Bin {
-  visible: true;
-  focusable: false;
-  tooltip-text: _("Date-Time");
+template DateTimePreview : MenuButton {
+    tooltip-text: _("Date-Time");
+    icon-name: "x-office-calendar-symbolic";
+    label: "not set";
+    popover: _popover;
 
-  .GtkEventBox {
-    visible: "True";
-    focusable: "False";
-    button-press-event => _preview_clicked();
+    styles [
+        "flat",
+        "pill",
+    ]
+}
 
-    Box {
-      spacing: 7;
-
-      Image {
-        file: "src/visualisation/base/date_time_range/date.png";
-      }
-
-      Label _date_time_value {
-        label: _("<value-here>");
-        selectable: true;
-        ellipsize: start;
-        xalign: 0;
-
-        styles [
-          "base-value",
-        ]
-      }
-    }
-  }
+Popover _popover {
+    has-arrow: false;
 }

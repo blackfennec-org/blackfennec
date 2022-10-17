@@ -22,8 +22,10 @@ def create_date_time_type():
         type="DateTime",
         super=tf.create_map(),
         properties={
-            DateTime.DATE_TIME_KEY: tf.create_string(pattern=iso_regex)
-    })
+            DateTime.DATE_TIME_KEY: tf.create_string(pattern=iso_regex),
+            DateTime.FORMAT_KEY: tf.create_string()
+        })
+    type.set_is_child_optional(type.properties[DateTime.FORMAT_KEY], True)
 
     return type
 
@@ -38,7 +40,7 @@ class DateTime:
     """
     TYPE = None
     DATE_TIME_KEY = 'date_time'
-    ACCURACY_KEY = 'accuracy'
+    FORMAT_KEY = 'format'
 
     def __init__(self, subject: Map = None):
         """DateTime Constructor
@@ -82,18 +84,12 @@ class DateTime:
     def date_time(self, value: datetime):
         self._set_value(DateTime.DATE_TIME_KEY, value.isoformat())
 
-    """
-    # no easy conversion found.
-
-    @property
-    def accuracy(self):
-        accuracy_string: String = self._data[DateTime.ACCURACY_KEY]
-        return
-
-    @accuracy.setter
-    def accuracy(self, value: timedelta):
-        self._data[DateTime.ACCURACY_KEY] = value
-    """
+    def __repr__(self):
+        if DateTime.FORMAT_KEY in self.subject.value:
+            format = self.subject.value[DateTime.FORMAT_KEY].value
+            return self.date_time.strftime(format)
+        else:
+            return self.date_time.isoformat()
 
 
 DateTime.TYPE = create_date_time_type()
