@@ -1,37 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
   <requires lib="gtk" version="4.0"/>
-  <template class="DateTimePreview" parent="AdwBin">
-    <property name="visible">true</property>
-    <property name="focusable">false</property>
+  <template class="DateTimePreview" parent="GtkMenuButton">
     <property name="tooltip-text" translatable="true">Date-Time</property>
-    <child>
-      <object class="GtkEventBox">
-        <property name="visible">True</property>
-        <property name="focusable">False</property>
-        <signal name="button-press-event" handler="_preview_clicked"/>
-        <child>
-          <object class="GtkBox">
-            <property name="spacing">7</property>
-            <child>
-              <object class="GtkImage">
-                <property name="file">src/visualisation/base/date_time_range/date.png</property>
-              </object>
-            </child>
-            <child>
-              <object class="GtkLabel" id="_date_time_value">
-                <property name="label" translatable="true">&lt;value-here&gt;</property>
-                <property name="selectable">true</property>
-                <property name="ellipsize">start</property>
-                <property name="xalign">0</property>
-                <style>
-                  <class name="base-value"/>
-                </style>
-              </object>
-            </child>
-          </object>
-        </child>
-      </object>
-    </child>
+    <property name="icon-name">x-office-calendar-symbolic</property>
+    <property name="label">not set</property>
+    <property name="popover">_popover</property>
+    <style>
+      <class name="flat"/>
+      <class name="pill"/>
+    </style>
   </template>
+  <object class="GtkPopover" id="_popover">
+    <property name="has-arrow">false</property>
+  </object>
 </interface>
