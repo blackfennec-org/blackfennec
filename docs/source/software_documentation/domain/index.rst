@@ -64,3 +64,5 @@ The currently documented domain model is depicted below. To read more about the 
     structure/index
     type_system/index
     document_system/index
+    action_system/index
+    facade/index

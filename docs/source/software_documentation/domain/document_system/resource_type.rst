@@ -27,3 +27,10 @@ File Resource Type
 """""""""""""""""""
 
 The File Resource Type is a concrete implementation of the Abstract Resource Type. It is responsible for handling all file requests. This allows Black Fennec to load data from local files.
+
+.. _definition_bftype_resource_type:
+
+BfType Resource Type
+"""""""""""""""""""""
+
+The BfType Resource Type is a concrete implementation of the Abstract Resource Type. It is responsible for handling the `bftype://` protocol. This allows Black Fennec to reference :ref:`types<definition_type>` which are currently loaded in the :ref:`definition_type_registry`.

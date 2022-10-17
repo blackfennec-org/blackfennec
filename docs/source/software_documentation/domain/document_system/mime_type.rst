@@ -34,3 +34,8 @@ Json Reference Pointer
 ~~~~~~~~~~~~~~~~~~~~~~~
 
 The JSON mime type also provides a Json Pointer Serializer which is able to serialize the part of the JSON Reference contained in the fragment. This JSON Pointer is implemented according to the IETF Specification (RFC 6901).
+
+InMemory Mime Type
+""""""""""""""""""
+
+The InMemory mime type is used to reference already loaded types. It is essentially a mock mime type that does not serialize or deserialize anything. Currently it is imposible to save structures loaded with this mime type. 

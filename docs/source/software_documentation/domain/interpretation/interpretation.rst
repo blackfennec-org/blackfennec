@@ -1,6 +1,6 @@
 Interpretation
 ==============
-The domain concepts of interpretation service and interpretation have been created to allow flexibility in the implementation of the :ref:`selection process <definition_selection_process>` and to provide a layer of abstraction for the :ref:`presenter <definition_presenter>` towards the :ref:`structure view <definition_structure_view>`.
+The domain concepts of interpretation service and interpretation have been created to allow flexibility in the implementation of the :ref:`selection process <definition_selection_process>` and to provide a layer of abstraction for the :ref:`presenter <definition_presenter>` towards the :ref:`structure view <definition_type_view>`.
 
 .. uml::
     

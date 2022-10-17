@@ -1,0 +1,39 @@
+@startuml type system hierarchy
+
+hide members
+hide methods
+
+skinparam class {
+    BackgroundColor #EEE
+    ArrowColor Black
+    BorderColor Black
+}
+
+abstract class Type
+
+class MapType
+class ListType
+class ReferenceType
+class NullType
+class StringType
+class NumberType
+class BooleanType
+
+MapType         -up-|> Type
+ListType        -up-|> Type
+ReferenceType   -up-|> Type
+NullType        -up-|> Type
+StringType      -up-|> Type
+NumberType      -up-|> Type
+BooleanType     -up-|> Type
+
+class FileType
+class ImageType
+class DateTimeType
+
+FileType -up-|> MapType
+ImageType -up-|> FileType
+DateTimeType -up-|> MapType
+
+
+@enduml

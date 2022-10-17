@@ -13,7 +13,8 @@
 #
 import os
 import sys
-sys.path.insert(0, os.path.abspath('../..'))
+
+sys.path.insert(0, os.path.abspath("../.."))
 from unittest.mock import MagicMock
 
 
@@ -22,20 +23,19 @@ class Mock(MagicMock):
     def __getattr__(cls, name):
         return MagicMock()
 
-MOCK_MODULES = ['gi.repository']
+
+MOCK_MODULES = ["gi.repository"]
 sys.modules.update((mod_name, Mock()) for mod_name in MOCK_MODULES)
 
 
 # -- Project Information -----------------------------------------------------
 
-project = 'Black Fennec'
-copyright = '2021, Simon Kindhauser, Caspar Martens, ' \
-            'Lara Gubler, Leonie Däullary'
-author = 'Simon Kindhauser, Caspar Martens, ' \
-         'Lara Gubler, Leonie Däullary'
+project = "Black Fennec"
+copyright = "2021, Simon Kindhauser, Caspar Martens, " "Lara Gubler, Leonie Däullary"
+author = "Simon Kindhauser, Caspar Martens, " "Lara Gubler, Leonie Däullary"
 
 # The full version, including alpha/beta/rc tags
-release = '0.8.0'
+release = "0.8.0"
 
 
 # -- General configuration ---------------------------------------------------
@@ -44,15 +44,19 @@ release = '0.8.0'
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
-    'plantweb.directive',
-    'sphinxcontrib.rsvgconverter',
-    'sphinx.ext.napoleon',
-    'sphinx_rtd_theme'
+    "sphinx_rtd_theme",
+    "plantweb.directive",
+    "sphinxcontrib.rsvgconverter",
+    "sphinx.ext.autodoc",
+    "sphinx.ext.doctest",
+    "sphinx.ext.todo",
+    "sphinx.ext.viewcode",
+    "sphinx.ext.napoleon",
 ]
 
 
 # Add any paths that contain templates here, relative to this directory.
-templates_path = ['_templates']
+templates_path = ["_templates"]
 
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
@@ -67,16 +71,16 @@ exclude_patterns = []
 #
 
 html_theme = "sphinx_rtd_theme"
-#html_logo = 'logo.svg'
+# html_logo = 'logo.svg'
 
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
-html_static_path = ['_static']
+html_static_path = ["_static"]
 
 # These paths are either relative to html_static_path
 # or fully qualified paths (eg. https://...)
 html_css_files = [
-    'css/black_fennec.css',
+    "css/black_fennec.css",
 ]

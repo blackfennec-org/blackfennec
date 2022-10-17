@@ -44,16 +44,10 @@ A type extension defines and adds a new :ref:`type <definition_type>` to the obj
 
 Structure View
 """"""""""""""
-This component is responsible for displaying the defined type adequately. For example if an extension defined the JPEG type the Structure View would presumably render an image. For more click :ref:`here <definition_structure_view>`.
+This component is responsible for displaying the defined type adequately. For example if an extension defined the JPEG type the Structure View would presumably render an image. For more click :ref:`here <definition_type_view>`.
 
 .. _structure_view_factory:
 
 Structure View Factory
 """"""""""""""""""""""
-This component is responsible for creating structure views as described above. For more click :ref:`here <definition_structure_view_factory>`
-
-Structure Bidder
-""""""""""""""""
-The bidders job is to evaluate how good - if at all - the associated type is able to represent a given data structure.
-For more on Structure Bidders click :ref:`here <definition_structure_bidder>`
-For an overview of the selection process click :ref:`here <definition_selection_process>`
+This component is responsible for creating structure views as described above. For more click :ref:`here <definition_type_view_factory>`

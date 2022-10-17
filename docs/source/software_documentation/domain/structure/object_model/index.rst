@@ -3,7 +3,7 @@
 
 The Object Model
 ================
-The object model (also known as core :ref:`types <definition_type>`) defines the  fundamental types. All other types are structures built with it. The most commonly used structures are considered :ref:`base types <definition_base_types>` and are included in the base installation.
+The object model (also known as core :ref:`types <definition_type>`) defines the  fundamental types. All other types are structures built with it. The most commonly used structures are included in the base installation.
 
 The object model is a DAG - apart from references - implemented with a composite pattern. It is possible to recognise this from the member of type Information in Lists and Maps. As for References, accessing the Information they point to is a special operation and References never has any children from the perspective of the DAG. Therefore, although they can break the DAG properties this is not their default behaviour. 
 
@@ -83,7 +83,7 @@ Reference
 """""""""
 A reference is an absolute or relative path to information. This type only exists on the :ref:`underlay <definition_underlay>` and is not visible on higher :ref:`layers <definition_layer>`. The Reference consists of a list of Navigators
 
-.. _definition_reference_navigator
+.. _definition_reference_navigator:
 
 Reference Navigation
 ~~~~~~~~~~~~~~~~~~~~

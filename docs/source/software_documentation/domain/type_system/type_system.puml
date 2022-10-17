@@ -1,0 +1,41 @@
+@startuml type loader
+
+hide members
+hide methods
+
+skinparam class {
+    BackgroundColor #EEE
+    ArrowColor Black
+    BorderColor Black
+}
+
+title The Type System
+
+class TypeRegistry
+class TypeLoader
+class DocumentSystem
+class JsonMimeType
+class FileResourceType
+class BFTypeResourceType
+class RegisteredTypes
+
+package "Loading Stack" as ls {
+    class MergedLayer
+    class Overlay
+    class Underlay
+    class Source
+
+    MergedLayer -down-> Overlay
+    Overlay -down-> Underlay
+    Underlay -down-> Source
+}
+
+TypeLoader --> TypeRegistry : registers new types\nin registry
+TypeLoader --> DocumentSystem : uses document system\nto load files
+DocumentSystem --> JsonMimeType
+DocumentSystem --> FileResourceType
+DocumentSystem --> BFTypeResourceType
+TypeRegistry -- "*" RegisteredTypes
+TypeLoader -right-> ls : applies layers and\ninterprets inheritance
+
+@enduml

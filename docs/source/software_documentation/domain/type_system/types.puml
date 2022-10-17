@@ -1,0 +1,60 @@
+@startuml types
+
+hide members
+hide methods
+
+skinparam class {
+    BackgroundColor #EEE
+    ArrowColor Black
+    BorderColor Black
+}
+
+title Types
+
+package Types <<Frame>> {
+        abstract class Type
+        class MapType
+        class ListType
+        class ReferenceType
+        class NullType
+        class StringType
+        class NumberType
+        class BooleanType
+
+        MapType         -up-|> Type
+        ListType        -up-|> Type
+        ReferenceType   -up-|> Type
+        NullType        -up-|> Type
+        StringType      -up-|> Type
+        NumberType      -up-|> Type
+        BooleanType     -up-|> Type
+    }
+
+package Structures <<Frame>> {
+    abstract class Structure
+    class "Map" as M
+    class List
+    class Reference
+    class Null
+    class String
+    class Number
+    class Boolean
+
+    M           -down-|> Structure
+    List        -down-|> Structure
+    Reference   -down-|> Structure
+    Null        -down-|> Structure
+    String      -down-|> Structure
+    Number      -down-|> Structure
+    Boolean     -down-|> Structure
+}
+
+MapType         -down-> M           : typeof
+ListType        -down-> List       : typeof
+ReferenceType   -down-> Reference  : typeof
+NullType        -down-> Null       : typeof
+StringType      -down-> String     : typeof
+NumberType      -down-> Number     : typeof
+BooleanType     -down-> Boolean    : typeof
+
+@enduml
