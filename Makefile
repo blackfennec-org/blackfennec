@@ -6,7 +6,7 @@ help:
 
 install:
 	flatpak --user remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-	flatpak-builder --user --install build-dir org.darwin.blackfennec.yml --force-clean --install-deps-from flathub --repo=.flatpak-repo
+	flatpak-builder --user --install .flatpak-build/ org.darwin.blackfennec.yml --force-clean --install-deps-from flathub --repo=.flatpak-repo
 
 dependencies:
 	python -m pip install -r requriements.txt
