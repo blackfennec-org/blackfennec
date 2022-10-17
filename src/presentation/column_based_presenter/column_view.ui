@@ -2,9 +2,10 @@
 <interface>
   <requires lib="gtk" version="4.0"/>
   <template class="ColumnView" parent="AdwBin">
-    <property name="visible">True</property>
-    <property name="focusable">False</property>
-    <property name="hexpand">True</property>
+    <property name="visible">true</property>
+    <property name="focusable">false</property>
+    <property name="hexpand">true</property>
+    <property name="vexpand">true</property>
     <child>
       <object class="GtkPaned" id="_paned_container">
         <property name="focusable">true</property>
@@ -14,15 +15,12 @@
         <property name="wide-handle">true</property>
         <child>
           <object class="GtkScrolledWindow" id="_container">
-            <property name="width-request">100</property>
             <property name="focusable">true</property>
-            <style>
-              <class name="container"/>
-            </style>
           </object>
         </child>
         <child>
           <object class="GtkBox" id="_paned_right">
+            <property name="width-request">10000</property>
             <property name="orientation">vertical</property>
           </object>
         </child>
