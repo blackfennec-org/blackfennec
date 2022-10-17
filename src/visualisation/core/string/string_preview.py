@@ -10,7 +10,7 @@ UI_TEMPLATE = str(BASE_DIR.joinpath('string_preview.ui'))
 
 
 @Gtk.Template(filename=UI_TEMPLATE)
-class StringPreview(Adw.Bin):
+class StringPreview(Gtk.Frame):
     """View for the core type String."""
 
     __gtype_name__ = 'StringPreview'
@@ -27,8 +27,12 @@ class StringPreview(Adw.Bin):
         buffer = self._value.get_buffer()
         buffer.set_text(self._view_model.value)
         buffer.connect('changed', self._on_buffer_changed)
+        self.connect('notify::active', self._on_activate)
         logger.info(
             'StringPreview with text: "%s" created', self._view_model.value)
+
+    def _on_activate(self, unused_sender):
+        self._value.activate()
 
     def _on_buffer_changed(self, buffer):
         start, end = buffer.get_bounds()
