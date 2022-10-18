@@ -6,10 +6,13 @@ from src.black_fennec.structure.null import Null
 from src.black_fennec.structure.string import String
 from src.black_fennec.structure.number import Number
 from src.black_fennec.structure.boolean import Boolean
-from .merged import MergedStructure, MergedNull, MergedList, MergedMap
+from .merged_structure import MergedStructure
+from .merged_null import MergedNull
+from .merged_list import MergedList
+from .merged_map import MergedMap
 
 
-class MergerFactory(Visitor['Merger']):
+class MergerFactory(Visitor["Merger"]):
     """Create a Merger using the visitor pattern"""
 
     def visit_string(self, overlay: String):
@@ -29,7 +32,6 @@ class MergerFactory(Visitor['Merger']):
 
     def visit_map(self, overlay: Map):
         return MapMerger(overlay)
-
 
 
 class Merger(Visitor[MergedStructure]):
