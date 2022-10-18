@@ -4,10 +4,7 @@ from doubles.presentation.double_presenter_factory import PresenterFactoryMock
 class PresenterRegistryMock:
 
     def __init__(self, presenters=None):
-        if presenters is None:
-            self._presenters = list()
-            self._presenters = PresenterFactoryMock()
-        self._presenters = presenters
+        self._presenters = presenters or [PresenterFactoryMock()]
         self.presenters_getter_count = 0
 
         self.register_presenter_count = 0

@@ -1,7 +1,7 @@
 import pytest
 
 from doubles.double_dummy import Dummy
-from doubles.presentation.double_presenter_registry import PresenterRegistryMock
+from doubles.black_fennec.type_system.double_presenter_registry import PresenterRegistryMock
 from src.extension.extension_api import ExtensionApi
 from src.presentation.column_based_presenter import create_extension, destroy_extension
 
