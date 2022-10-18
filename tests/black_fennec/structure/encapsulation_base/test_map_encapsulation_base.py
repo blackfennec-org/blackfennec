@@ -73,6 +73,13 @@ class MapEncapsulationBaseTestSuite(unittest.TestCase):
         self.map_encapsulation_base.value = {key: value}
         self.assertEqual(value, self.map_encapsulation_base.value[key])
 
+    def test_can_remove_item(self):
+        key = 'test'
+        value = StringMock('test')
+        self.subject.add_item(key, value)
+        self.map_encapsulation_base.remove_item(key)
+        self.assertEqual(len(self.map_encapsulation_base.value), 0)
+
     def test_can_get_repr(self):
         representation: str = self.map_encapsulation_base.__repr__()
         self.assertTrue(representation.startswith('MapEncapsulationBase('))
