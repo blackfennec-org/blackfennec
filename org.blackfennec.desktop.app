@@ -2,6 +2,6 @@
 Name=Black Fennec
 Exec=run.sh
 Type=Application
-Icon=org.darwin.blackfennec
+Icon=org.blackfennec.app
 Categories=GTK;
 Keywords=Json;Editor;

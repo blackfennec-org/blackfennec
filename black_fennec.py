@@ -99,7 +99,7 @@ class BlackFennec(Gtk.Application):
 
     def __init__(self):
         super().__init__(
-            application_id='org.darwin.blackfennec')
+            application_id='org.blackfennec.app')
         self._window: Gtk.Window = None
 
         screen = Gdk.Screen.get_default()

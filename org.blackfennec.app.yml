@@ -1,4 +1,4 @@
-app-id: org.darwin.blackfennec
+app-id: org.blackfennec.app
 runtime: org.gnome.Platform
 runtime-version: '43'
 sdk: org.gnome.Sdk
@@ -15,8 +15,8 @@ modules:
     buildsystem: simple
     build-commands:
       - cp -r ./ /app/
-      - install -D org.darwin.blackfennec.desktop /app/share/applications/org.darwin.blackfennec.desktop
-      - install -D icon.png /app/share/icons/hicolor/128x128/apps/org.darwin.blackfennec.png
+      - install -D org.blackfennec.app.desktop /app/share/applications/org.blackfennec.app.desktop
+      - install -D icon.png /app/share/icons/hicolor/128x128/apps/org.blackfennec.app.png
       - pip3 install -r /app/requirements.txt
       - pip3 install /app
       - install -D run.sh /app/bin/run.sh
