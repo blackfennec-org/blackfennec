@@ -36,7 +36,7 @@
     </child>
     <child>
       <object class="AdwFlap" id="_file_tree_flap">
-        <property name="content">_tab_overview</property>
+        <property name="content">_empty_list_pattern</property>
         <property name="flap">_file_tree_scrolled_window</property>
         <property name="locked">false</property>
         <property name="reveal-flap">false</property>
@@ -53,7 +53,7 @@
         <property name="focusable">true</property>
         <property name="vexpand">true</property>
         <property name="enable-grid-lines">vertical</property>
-        <signal name="row-activated" handler="on_file_clicked"/>
+        <signal name="row-activated" handler="on_open_file_from_filetree"/>
         <child internal-child="selection">
           <object class="GtkTreeSelection"></object>
         </child>
@@ -65,6 +65,7 @@
     <child>
       <object class="AdwTabBar" id="_tab_bar">
         <property name="view">_tab_view</property>
+        <property name="autohide">false</property>
         <signal name="extra-drag-drop" handler="extra_drag_drop_cb" swapped="true"/>
       </object>
     </child>
@@ -76,6 +77,39 @@
         <signal name="setup-menu" handler="setup_menu_cb" swapped="true"/>
         <signal name="create-window" handler="create_window_cb" swapped="true"/>
         <signal name="indicator-activated" handler="indicator_activated_cb" swapped="true"/>
+      </object>
+    </child>
+  </object>
+  <object class="AdwStatusPage" id="_empty_list_pattern">
+    <property name="title" translatable="true">Nothing to show...</property>
+    <property name="description" translatable="true">Open a file or project to start editing.</property>
+    <property name="icon-name">document-open-symbolic</property>
+    <child>
+      <object class="GtkBox">
+        <property name="hexpand">true</property>
+        <property name="orientation">vertical</property>
+        <property name="spacing">8</property>
+        <child>
+          <object class="GtkButton" id="_open_project_button">
+            <property name="label" translatable="true">Open project ...</property>
+            <property name="action-name">app.main.open_project</property>
+            <property name="halign">center</property>
+            <style>
+              <class name="suggested-action"/>
+              <class name="pill"/>
+            </style>
+          </object>
+        </child>
+        <child>
+          <object class="GtkButton" id="_open_file_button">
+            <property name="label" translatable="true">Open file ...</property>
+            <property name="action-name">app.main.open_file</property>
+            <property name="halign">center</property>
+            <style>
+              <class name="pill"/>
+            </style>
+          </object>
+        </child>
       </object>
     </child>
   </object>
@@ -154,8 +188,12 @@
         <attribute name="action">app.main.settings</attribute>
       </item>
       <item>
-        <attribute name="label" translatable="true">Open...</attribute>
-        <attribute name="action">app.main.open</attribute>
+        <attribute name="label" translatable="true">Open project ...</attribute>
+        <attribute name="action">app.main.open_project</attribute>
+      </item>
+      <item>
+        <attribute name="label" translatable="true">Open file ...</attribute>
+        <attribute name="action">app.main.open_file</attribute>
       </item>
       <item>
         <attribute name="label" translatable="true">Save</attribute>

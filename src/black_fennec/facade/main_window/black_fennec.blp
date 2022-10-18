@@ -35,7 +35,7 @@ template BlackFennecView: ApplicationWindow {
   }
 
   Adw.Flap _file_tree_flap {
-    content: _tab_overview;
+    content: _empty_list_pattern;
     flap: _file_tree_scrolled_window;
     locked: false;
     reveal-flap: false;
@@ -52,7 +52,7 @@ ScrolledWindow _file_tree_scrolled_window {
     focusable: true;
     vexpand: true;
     enable-grid-lines: vertical;
-    row-activated => on_file_clicked();
+    row-activated => on_open_file_from_filetree();
 
     [internal-child selection]
     TreeSelection {
@@ -67,6 +67,7 @@ Box _tab_overview {
 
   Adw.TabBar _tab_bar {
     view: _tab_view;
+    autohide: false;
     extra-drag-drop => extra_drag_drop_cb() swapped;
   }
 
@@ -80,6 +81,37 @@ Box _tab_overview {
   }
 }
 
+Adw.StatusPage _empty_list_pattern {
+  title: _("Nothing to show...");
+  description: _("Open a file or project to start editing.");
+  icon-name: "document-open-symbolic";
+
+  Box {
+    hexpand: true;
+    orientation: vertical;
+    spacing: 8;
+
+    Button _open_project_button{
+      label: _("Open project ...");
+      action-name: "app.main.open_project";
+      halign: center;
+
+      styles [
+        "suggested-action",
+        "pill",
+      ]
+    }
+
+    Button _open_file_button {
+      label: _("Open file ...");
+      action-name: "app.main.open_file";
+      halign: center;
+         styles [
+        "pill",
+      ]
+    }
+  }
+}
 
 menu _tab_menu {
   section {
@@ -173,8 +205,12 @@ menu _primary_menu {
       action: "app.main.settings";
     }
     item {
-      label: _("Open...");
-      action: "app.main.open";
+      label: _("Open project ...");
+      action: "app.main.open_project";
+    }
+    item {
+      label: _("Open file ...");
+      action: "app.main.open_file";
     }
     item {
       label: _("Save");

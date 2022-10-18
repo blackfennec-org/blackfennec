@@ -3,7 +3,7 @@ import logging
 import os
 from pathlib import Path
 
-from gi.repository import Adw, Gtk
+from gi.repository import Adw, Gtk, Gio
 
 from src.black_fennec.facade.extension_store.extension_store_view import ExtensionStoreView
 from src.black_fennec.facade.main_window.document_tab import DocumentTab
@@ -43,11 +43,17 @@ class BlackFennecView(Gtk.ApplicationWindow):
     _tab_view: Adw.TabView = Gtk.Template.Child()
     _tab_bar: Adw.TabBar = Gtk.Template.Child()
 
-    def __init__(self, app, view_model):
+    _open_project_button: Gtk.Button = Gtk.Template.Child()
+    _open_file_button: Gtk.Button = Gtk.Template.Child()
+
+    _empty_list_pattern: Adw.StatusPage = Gtk.Template.Child()
+
+    def __init__(self, app, view_model, current_project: str = None):
         self._application = app
         app.create_action('main.quit', self.on_quit_clicked, ['<primary>q'])
         app.create_action('main.settings', self.on_settings_action)
-        app.create_action('main.open', self.on_open_clicked)
+        app.create_action('main.open_project', self.on_open_project)
+        app.create_action('main.open_file', self.on_open_file)
         app.create_action('main.save', self.on_save_clicked)
         app.create_action('main.save_as', self.on_save_as_clicked)
         app.create_action('main.extension_store', self.on_go_to_store_clicked)
@@ -56,59 +62,131 @@ class BlackFennecView(Gtk.ApplicationWindow):
         super().__init__(application=app)
         logger.info('BlackFennecView __init__')
         self._view_model = view_model
-        self._view_model.bind(create_tab=self._create_tab)
-        self._view_model.bind(project=self._update_project)
-        self._tabs = set()
+        self._view_model.bind(
+            open_file=self.on_open_tab,
+            project=self._update_project,
+        )
+
+        self._tab_view.connect('close-page', self.on_close_tab)
 
         renderer = Gtk.CellRendererText()
         tree_view_column = Gtk.TreeViewColumn(
             'Project', renderer, text=0)
         self._file_tree.append_column(tree_view_column)
 
+        self._current_project = current_project
+        self._update_project(self, self._current_project)
+        self._file_chooser_native = None
+
     @Gtk.Template.Callback()
     def on_flap_button_toggled(self, toggle_button):
         self._file_tree_flap.set_reveal_flap(not self._file_tree_flap.get_reveal_flap())
 
+    def on_open_project(self, action, param) -> None:
+        """Callback for the button click event"""
+        logger.debug('open clicked')
+        dialog = Gtk.FileChooserNative(
+            title='Choose project directory',
+            transient_for=self,
+            action=Gtk.FileChooserAction.SELECT_FOLDER,
+        )
+
+        self.tabs = {}
+
+        def on_response(dialog, response):
+            if response == Gtk.ResponseType.ACCEPT:
+                folder = dialog.get_file()
+                file_path = folder.get_path()
+                self._view_model.set_project(file_path)
+            else:
+                logger.debug('Directory selection canceled')
+            dialog.destroy()
+            self._file_chooser_native = None
+
+        dialog.connect('response', on_response)
+        self._file_chooser_native = dialog
+        dialog.show()
+
+    def _update_project(self, unused_sender, project_location: str):
+        if not self._current_project:
+            self._init_new_project(project_location)
+        else:
+            dialog = Adw.MessageDialog(
+                transient_for=self,
+                heading='Opening new project',
+                body='Where do you want to open the new project?',
+            )
+            dialog.add_response(Gtk.ResponseType.CANCEL.value_nick, 'Cancel')
+            dialog.add_response('open_in_new', 'New window')
+            dialog.add_response(Gtk.ResponseType.ACCEPT.value_nick, 'This window')
+
+            dialog.set_response_appearance(Gtk.ResponseType.ACCEPT.value_nick, Adw.ResponseAppearance.DESTRUCTIVE)
+            dialog.set_response_appearance('open_in_new', Adw.ResponseAppearance.SUGGESTED)
+
+            def on_response(dialog, response):
+                if response == 'open_in_new':
+                    message = 'Opening in new window is not implemented yet'
+                    logger.warning(message)
+                    raise NotImplementedError(message)
+                elif response == Gtk.ResponseType.ACCEPT.value_nick:
+                    self._init_new_project(project_location)
+                dialog.destroy()
+
+            dialog.connect('response', on_response)
+            dialog.present()
+
+    def _init_new_project(self, project_location: str):
+        if not project_location:
+            return
+        self._current_project = project_location
+
+        store = create_folder_structure(project_location)
+        self._file_tree.set_model(store)
+        if not self._file_tree_flap.get_reveal_flap():
+            self._file_tree_flap.set_reveal_flap(True)
+
     @Gtk.Template.Callback()
-    def on_file_clicked(self, unused_sender, path, unused_column) -> None:
+    def on_open_file_from_filetree(self, unused_sender, path, unused_column) -> None:
         model = self._file_tree.get_model()
         iterator = model.get_iter(path)
         if iterator:
             uri = model.get_value(iterator, 1)
             self._view_model.open_file(uri)
 
-    def _update_project(self, unused_sender, project_location: str):
-        store = create_folder_structure(project_location)
-        self._file_tree.set_model(store)
-        if not self._file_tree_flap.get_reveal_flap():
-            self._file_tree_flap.set_reveal_flap(True)
-
-    def _create_tab(self, unused_sender, tab: DocumentTab):
-        DocumentTabView(self._tab_view, tab)
-
-    def on_open_clicked(self, action, param) -> None:
-        """Callback for the button click event"""
-        logger.debug('open clicked')
-        dialog = Gtk.FileChooserDialog(
-            title='Please choose a project directory',
+    def on_open_file(self, action, param) -> None:
+        dialog = Gtk.FileChooserNative(
+            title='Choose file to open',
             transient_for=self,
-            action=Gtk.FileChooserAction.SELECT_FOLDER
+            action=Gtk.FileChooserAction.OPEN,
         )
-        dialog.add_buttons(
-            'Cancel', Gtk.ResponseType.CANCEL,
-            'Open', Gtk.ResponseType.OK
-        )
+        if self._current_project:
+            dialog.set_current_folder(Gio.File.new_for_path(self._current_project))
 
         def on_response(dialog, response):
-            if response == Gtk.ResponseType.OK:
-                liststore = dialog.get_files()
-                self._view_model.set_project(liststore[0].get_path())
+            if response == Gtk.ResponseType.ACCEPT:
+                files = dialog.get_files()
+                for file in files:
+                    self._view_model.open_file(file.get_path())
             else:
-                logger.debug('Directory selection canceled')
+                logger.debug('File selection canceled')
             dialog.destroy()
+            self._file_chooser_native = None
 
         dialog.connect('response', on_response)
+        self._file_chooser_native = dialog
         dialog.show()
+
+    def on_open_tab(self, unused_sender, tab: DocumentTab):
+        self._file_tree_flap.set_content(self._tab_overview)
+        document_tab_view = DocumentTabView(self._tab_view, tab)
+        tab_page = document_tab_view.tab_page
+        self.tabs[tab_page] = tab
+        self._tab_view.set_selected_page(tab_page)
+
+    def on_close_tab(self, action, page):
+        self._view_model.close_file(self.tabs[page])
+        if self._tab_view.get_n_pages() <= 1:
+            self._file_tree_flap.set_content(self._empty_list_pattern)
 
     def on_save_clicked(self, action, param) -> None:
         """Callback for the button click event"""
@@ -131,9 +209,6 @@ class BlackFennecView(Gtk.ApplicationWindow):
         """Callback for the button click event"""
         self._view_model.about_and_help()
         logger.debug('About clicked')
-
-    def on_close_tab_clicked(self, sender):
-        self._view_model.close_tab(sender.get_name())
 
     def _add_empty_list_pattern(self):
         self._presenter_container.append_page(
