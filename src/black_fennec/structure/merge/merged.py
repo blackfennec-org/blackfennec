@@ -16,11 +16,7 @@ class MergedStructure(Structure):
 
     @property
     def subject(self):
-        raise AssertionError("Subject of a merged structure is not defined.")
-
-    @subject.setter
-    def subject(self, value: Structure):
-        raise AssertionError("Subject of MergedStructure cannot be set")
+        return self._overlay or self._underlay
 
     def accept(self, visitor: Visitor):
         interceptor = InterceptingVisitor(lambda s: self, visitor)
@@ -63,7 +59,11 @@ class MergedStructure(Structure):
         raise AssertionError("Cannot set parent on MergedStructure")
 
     def get_root(self):
-        return deep_merge.DeepMerge.merge(self._underlay.root, self._overlay.get_root())
+        return deep_merge.DeepMerge.merge(self._underlay.get_root(), self._overlay.get_root())
+
+    @property
+    def structure(self):
+        return self.subject.structure
 
     def __repr__(self) -> str:
         return f"MergedStructure(underlay={self._underlay}, overlay={self._overlay})"

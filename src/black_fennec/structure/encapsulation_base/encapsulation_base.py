@@ -65,6 +65,10 @@ class EncapsulationBase(Structure):
         """
         return self._encapsulate(self.subject.get_root())
 
+    @property
+    def structure(self):
+        return self.subject.structure
+
     @staticmethod
     def _decapsulate(item: Structure):
         """Decapsulates a Structure Class if it is encapsulated by an instance

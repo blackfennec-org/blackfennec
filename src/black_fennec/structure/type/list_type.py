@@ -44,7 +44,7 @@ class ListType(Type[List]):
             raise AssertionError(f"index:{index} out of range")
 
     @property
-    def elements(self) -> list:
+    def elements(self) -> list[Type]:
         raw_elements = self._elements.value
 
         elements = []
@@ -56,35 +56,31 @@ class ListType(Type[List]):
         return elements
 
     @property
-    def required_elements(self) -> list:
+    def required_elements(self) -> list[str]:
         return self._required_elements.value
 
     @property
     def _required_elements(self) -> List:
         return self.subject.value["required"]
 
-    def is_child_optional(self, child):
+    def is_child_optional(self, child: Type) -> bool:
         index = Number(self._get_index(child))
         is_optional = index not in self.required_elements
         return is_optional
 
-    def set_is_child_optional(self, child, is_optional):
+    def set_is_child_optional(self, child: Type, is_optional: bool) -> None:
         index = self._get_index(child)
         self.set_required(index, not is_optional)
 
-    def _get_index(self, child):
-        for index, element in enumerate(self.elements):
-            # TODO: find solution for this compairson 
-            #       as it results in an endless recursion
-            #       when comparing cyclic strcutures.
-            #       issue: https://gitlab.ost.ch/blackfennec/blackfennec/-/issues/34
-            if child == element:
+    def _get_index(self, child: Type) -> int:
+        for index, element in enumerate(self._elements.value):
+            if element.structure is child.subject.structure:
                 return index
         return -1
 
-    def set_required(self, index, value):
-        self._is_element_guard(index)
-        index = Number(index)
+    def set_required(self, i: int, value: bool) -> None:
+        self._is_element_guard(i)
+        index = Number(i)
         currently_required = index in self.required_elements
         if value and not currently_required:
             self._required_elements.add_item(index)

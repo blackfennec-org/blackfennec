@@ -19,7 +19,7 @@ class MapType(Type[Map]):
 
     def __init__(self, subject: Map = None):
         subject = subject or self._type_structure()
-        Type.__init__(self, subject)
+        super().__init__(subject)
 
     @staticmethod
     def _type_structure():
@@ -31,24 +31,20 @@ class MapType(Type[Map]):
             {name: type.create_instance() for name, type in self.properties.items()}
         )
 
-    def is_child_optional(self, child) -> bool:
+    def is_child_optional(self, child: Type) -> bool:
         name = String(self._get_name(child))
         is_optional = name not in self.required_properties
         return is_optional
 
-    def set_is_child_optional(self, child, is_optional) -> None:
+    def set_is_child_optional(self, child: Type, is_optional: bool) -> None:
         name = self._get_name(child)
         self.set_required(name, not is_optional)
 
-    def _get_name(self, structure) -> str:
+    def _get_name(self, structure: Type) -> str:
         logger.debug(f"looking up name for {structure}...")
-        for name, prop in self.properties.items():
+        for name, prop in self._properties.value.items():
             logger.debug(f"comparing {prop} to {structure}")
-            # TODO: find solution for this compairson 
-            #       as it results in an endless recursion
-            #       when comparing cyclic strcutures.
-            #       issue: https://gitlab.ost.ch/blackfennec/blackfennec/-/issues/34
-            if prop == structure:
+            if prop.structure is structure.subject.structure:
                 logger.debug(f"found {name}")
                 return name
         raise AssertionError(f"{structure} should be a property of {self} but is not")

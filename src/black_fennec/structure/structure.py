@@ -39,6 +39,10 @@ class Structure(Generic[T], metaclass=ABCMeta):
             return None
         return self.parent.get_root()
 
+    @property
+    def structure(self):
+        return self
+
     @abstractmethod
     def accept(self, visitor: Visitor[TVisitor]) -> TVisitor:
         ...

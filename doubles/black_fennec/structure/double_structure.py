@@ -28,6 +28,10 @@ class StructureMock:
     def parent(self, value):
         self._parent = value
 
+    @property
+    def structure(self):
+        return self
+
     def get_root(self):
         return self._root
 

@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-import numbers
 from typing import TypeVar
 from src.black_fennec.structure.structure import ValueStructure
 from src.black_fennec.structure.visitor import Visitor
@@ -14,8 +13,8 @@ class Number(ValueStructure[numb]):
         """Construct Number with item `item`.
 
         Args:
-            value (numbers.Number, optional): The item of the `Number`.
-                By default "" (empty number)
+            value (int, float, optional): The item of the `Number`.
+                By default 0
         """
         super().__init__(value)
 
