@@ -1,5 +1,4 @@
 import logging
-import os
 from typing import Optional
 
 from src.black_fennec.document_system.document_factory import DocumentFactory
@@ -79,7 +78,17 @@ class BlackFennecViewModel(Observable):
             navigation_service,
             uri
         )
-        self._notify(tab, 'create_tab')
+        self.tabs.add(tab)
+        self._notify(tab, 'open_file')
+
+    def close_file(self, tab: DocumentTab):
+        """Closes a file
+
+        Args:
+            tab (DocumentTab): tab to close
+        """
+        self.tabs.remove(tab)
+        self._notify(tab, 'close_file')
 
     def quit(self):
         """Future implementation of quit()"""
