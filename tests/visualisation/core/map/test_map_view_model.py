@@ -13,12 +13,15 @@ from doubles.black_fennec.structure.double_structure import StructureMock
 from doubles.black_fennec.type_system.double_type_registry import TypeRegistryMock
 from doubles.double_dummy import Dummy
 from doubles.black_fennec.structure.type.double_type import TypeMock
+from src.black_fennec.structure.root_factory import RootFactory
 from src.visualisation.core.map.map_view_model import MapViewModel
 
 
 class MapViewModelTestSuite(unittest.TestCase):
     def setUp(self):
-        self.interpretation = InterpretationMock(MapInstanceMock())
+        structure = MapInstanceMock()
+        RootFactory.make_root(structure)
+        self.interpretation = InterpretationMock(structure)
         self.interpretation_service = InterpretationServiceMock(
             deque([self.interpretation]))
         self.type_registry = TypeRegistryMock([
@@ -61,7 +64,6 @@ class MapViewModelTestSuite(unittest.TestCase):
         self.assertTrue(last_spec.is_request_for_preview)
         self.assertIsNotNone(preview.navigation_service)
 
-    @pytest.mark.skip(reason="Requires structure to have or be root")
     def test_can_rename_key(self):
         self.view_model.add_item('old_key', StructureMock())
         self.view_model.rename_key('old_key', 'new_key')
