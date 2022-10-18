@@ -1,7 +1,7 @@
 # Version: 0.2.1
 
 variables:
-  PROJECT_BUILD_IMAGE: ceem/black-fennec:3.10
+  PROJECT_BUILD_IMAGE: ceem/black-fennec:gtk4
 
 ###############################################################################
 # Test Black-Fennec

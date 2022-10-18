@@ -1,13 +1,9 @@
-FROM python:3.10
+FROM fedora:37
 
-RUN apt-get update && apt-get install -y \
-  make \
-  git \
-  python3-gi \
-  python3-gi-cairo \
-  gir1.2-gtk-3.0 \
-  libgirepository1.0-dev \
-  xvfb
+RUN dnf -y install python3 python3-pip python3-gobject gcc ccache make meson mold uncrustify desktop-file-utils \
+    gtk4-devel libhandy-devel libadwaita-devel docbook-style-xsl \
+    libappstream-glib libxslt gcovr xorg-x11-server-Xvfb gtk-doc gi-docgen \
+    vulkan-headers bash-completion itstool util-linux git  && rm -rf /var/cache
 
 ADD requirements.txt ./
 
