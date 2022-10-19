@@ -26,4 +26,5 @@ modules:
     sources:
       - type: git
         url: https://gitlab.ost.ch/blackfennec/blackfennec.git
-        branch: feature/flatpak
+        branch: dev
+        
