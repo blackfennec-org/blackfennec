@@ -32,5 +32,6 @@ class NumberPreview(Adw.Bin):
     def _on_text_changed(self, unused_sender):
         text = self._value.get_text()
         digits_string = ''.join([i for i in text if i in '0123456789'])
-        self._value.set_text(digits_string)
+        if text != digits_string:
+            self._value.set_text(digits_string)
         self._view_model.value = int('0' + digits_string)
