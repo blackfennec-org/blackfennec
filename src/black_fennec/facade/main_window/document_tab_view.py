@@ -1,7 +1,8 @@
 import logging
+import threading
 import traceback
 
-from gi.repository import Adw
+from gi.repository import Adw, GLib
 
 logger = logging.getLogger(__name__)
 
@@ -27,11 +28,15 @@ class DocumentTabView():
 
         if not error_occured:
             self.tab_page.set_loading(True)
-            try:
-                tab.load_document()
-                self.tab_page.set_loading(False)
-            except Exception as e:
-                logger.error(traceback.format_exc())
-                self.tab_page.set_loading(False)
-                presenter.set_error(str(e))
-                return
+
+            def load_document_async():
+                try:
+                    tab.load_document()
+                    GLib.idle_add(lambda: self.tab_page.set_loading(False))
+                except Exception as e:
+                    logger.error(traceback.format_exc())
+                    GLib.idle_add(lambda: self.tab_page.set_loading(False))
+                    GLib.idle_add(lambda: presenter.set_error("Error while loading document"))
+                    return False
+
+            threading.Thread(target=load_document_async).start()
