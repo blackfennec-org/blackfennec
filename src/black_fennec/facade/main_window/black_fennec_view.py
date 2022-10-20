@@ -68,6 +68,7 @@ class BlackFennecView(Gtk.ApplicationWindow):
         )
 
         self._tab_view.connect('close-page', self.on_close_tab)
+        self.tabs = {}
 
         renderer = Gtk.CellRendererText()
         tree_view_column = Gtk.TreeViewColumn(
@@ -90,8 +91,6 @@ class BlackFennecView(Gtk.ApplicationWindow):
             transient_for=self,
             action=Gtk.FileChooserAction.SELECT_FOLDER,
         )
-
-        self.tabs = {}
 
         def on_response(dialog, response):
             if response == Gtk.ResponseType.ACCEPT:
