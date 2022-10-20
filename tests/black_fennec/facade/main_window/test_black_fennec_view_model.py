@@ -71,6 +71,11 @@ def test_can_save_as_file(view_model):
     view_model.save_as()
 
 
+def test_can_set_project(view_model):
+    view_model.set_project("test")
+    assert view_model.project == "test"
+
+
 def test_can_create_extension_store(view_model):
     extension_store_view_model = view_model.create_extension_store()
     assert isinstance(extension_store_view_model, ExtensionStoreViewModel)

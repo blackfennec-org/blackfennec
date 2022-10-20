@@ -4,4 +4,4 @@ from doubles.presentation.column_based_presenter.double_column_based_presenter_v
 
 class PresenterViewMock:
     def __init__(self):
-        self._view_model = ColumnBasedPresenterViewModelMock()
+        self.view_model = ColumnBasedPresenterViewModelMock()
