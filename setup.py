@@ -4,7 +4,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='Black Fennec',
-    version='0.8.0',
+    version='0.8.1',
     description='Extensible Semi-structured Data Editing Environment',
     long_description='Black Fennec',
     long_description_content_type='text/markdown',
