@@ -35,7 +35,7 @@ class ExtensionStoreView(Gtk.ApplicationWindow):
             extension_view_model = ExtensionViewModel(
                 extension, self._view_model.extension_api)
             extension_view = ExtensionView(extension_view_model)
-            self._extension_container.add(extension_view)
+            self._extension_container.append(extension_view)
             self._extension_index[extension] = extension_view
 
         to_be_deleted = self._extensions.difference(intersection)
