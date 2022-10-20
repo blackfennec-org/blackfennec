@@ -34,6 +34,7 @@ class ImageView(Adw.PreferencesGroup):
         self._set_mime_type(self._view_model.file_type)
 
         logger.info('ImageView created')
+        self._file_chooser_native = None
 
     def _set_image_from_path(self, file_path) -> None:
         try:
@@ -61,27 +62,25 @@ class ImageView(Adw.PreferencesGroup):
     def _on_choose_image(self, unused_sender) -> None:
         """Callback for the button click event"""
 
-        dialog = Gtk.FileChooserDialog(
-            title='Please choose a image',
-            action=Gtk.FileChooserAction.OPEN
+        dialog = Gtk.FileChooserNative(
+            title='Choose file to open',
+            transient_for=self.get_root(),
+            action=Gtk.FileChooserAction.OPEN,
         )
 
         filter = Gtk.FileFilter(name='Images')
         filter.add_pixbuf_formats()
         dialog.set_filter(filter)
 
-        dialog.add_buttons(
-            'Cancel', Gtk.ResponseType.CANCEL,
-            'Open', Gtk.ResponseType.OK
-        )
-
         def on_response(dialog, response):
-            if response == Gtk.ResponseType.OK:
+            if response == Gtk.ResponseType.ACCEPT:
                 liststore = dialog.get_files()
                 self._set_file_path(liststore[0].get_path())
             else:
                 logger.debug('Image selection canceled')
             dialog.destroy()
+            self._file_chooser_native = None
 
         dialog.connect('response', on_response)
         dialog.show()
+        self._file_chooser_native = dialog

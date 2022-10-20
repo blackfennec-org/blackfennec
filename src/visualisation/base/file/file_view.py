@@ -32,6 +32,7 @@ class FileView(Adw.PreferencesGroup):
         self._set_mime_type(self._view_model.file_type)
 
         logger.info('FileView created')
+        self._file_chooser_native = None
 
     def _set_file_path(self, file_path):
         self._view_model.file_path = file_path
@@ -45,23 +46,21 @@ class FileView(Adw.PreferencesGroup):
     def _on_choose_file(self, unused_sender) -> None:
         """Callback for the button click event"""
 
-        dialog = Gtk.FileChooserDialog(
-            title='Please choose a file',
-            action=Gtk.FileChooserAction.OPEN
-        )
-
-        dialog.add_buttons(
-            'Cancel', Gtk.ResponseType.CANCEL,
-            'Open', Gtk.ResponseType.OK
+        dialog = Gtk.FileChooserNative(
+            title='Choose file to open',
+            transient_for=self.get_root(),
+            action=Gtk.FileChooserAction.OPEN,
         )
 
         def on_response(dialog, response):
-            if response == Gtk.ResponseType.OK:
+            if response == Gtk.ResponseType.ACCEPT:
                 liststore = dialog.get_files()
                 self._set_file_path(liststore[0].get_path())
             else:
                 logger.debug('File selection canceled')
             dialog.destroy()
+            self._file_chooser_native = None
 
         dialog.connect('response', on_response)
         dialog.show()
+        self._file_chooser_native = dialog
