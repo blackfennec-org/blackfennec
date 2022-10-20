@@ -89,7 +89,7 @@ class ListView(Adw.Bin):
             unused_sender: view model
             new_value: set by view model
         """
-        currently_selected_index = 0
+        currently_selected_index = None
         for index, item in enumerate(self._items):
             if item is self._currently_selected:
                 currently_selected_index = index
@@ -98,9 +98,10 @@ class ListView(Adw.Bin):
         for structure in new_value.value:
             self._add_item(structure)
 
-        if currently_selected_index >= len(self._items):
-            currently_selected_index = len(self._items) - 1
-        self._items[currently_selected_index].activate()
+        if currently_selected_index is not None:
+            if currently_selected_index >= len(self._items):
+                currently_selected_index = len(self._items) - 1
+            self._items[currently_selected_index].activate()
 
     def _setup_template_store(self):
         template_store = Gtk.ListStore(GObject.TYPE_STRING)
