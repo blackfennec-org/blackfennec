@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=Black Fennec
+Exec=run.sh
+Type=Application
+Icon=org.blackfennec.app
+Categories=Development;Office;Utility;TextEditor;Viewer;GNOME;GTK
+Keywords=Json;Editor;Semi-structured;Interpretation

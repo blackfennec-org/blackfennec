@@ -23,7 +23,7 @@ class BlackFennec(Adw.Application):
 
     def __init__(self, initialisation_service: InitialisationService):
         super().__init__(
-            application_id='org.darwin.black_fennec',
+            application_id='org.blackfennec.app',
             flags=Gio.ApplicationFlags.FLAGS_NONE
         )
         self._initialisation_service = initialisation_service
