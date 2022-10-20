@@ -47,9 +47,9 @@ class ListItemView(Adw.ActionRow):
         self._selected = value
         style = self.get_style_context()
         if self.selected:
-            style.add_class('is-active')
+            style.add_class('card')
         else:
-            style.remove_class('is-active')
+            style.remove_class('card')
 
     @Gtk.Template.Callback()
     def _on_delete(self, unused_sender):

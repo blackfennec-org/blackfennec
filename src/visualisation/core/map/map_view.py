@@ -32,7 +32,6 @@ class MapView(Adw.PreferencesGroup):
             view_model (MapViewModel): The view_model.
         """
         super().__init__()
-        self._value: dict = {}
         self._items: dict = {}
         self._item_interpretation_mapping = {}
         self._currently_selected = None
@@ -109,11 +108,19 @@ class MapView(Adw.PreferencesGroup):
             unused_sender: view model
             new_value: set by view model
         """
-        for key in self._value:
+        old_key_list = list(self._items.keys())
+
+        for key in dict(self._items).keys():
             self._remove_item(key)
         for key, value in new_value.value.items():
             self._add_item(key, value)
-        self._value = new_value.value
+
+        if self._currently_selected and self._currently_selected.key in old_key_list:
+            currently_selected_offset = old_key_list.index(self._currently_selected.key)
+            if currently_selected_offset >= len(self._items):
+                currently_selected_offset = len(self._items) - 1
+            currently_selected_key = list(self._items.keys())[currently_selected_offset]
+            self._items[currently_selected_key].activate()
 
     def _on_selection_changed(self, unused_sender, new_value):
         if self._currently_selected:
