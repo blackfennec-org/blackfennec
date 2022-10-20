@@ -11,20 +11,20 @@ finish-args:
   - "--socket=fallback-x11"
   - "--socket=wayland"
 modules:
-  - name: blackfennec-install
+  - name: blackfennec
     buildsystem: simple
-    build-commands:
-      - cp -r ./ /app/
-      - install -D org.blackfennec.app.desktop /app/share/applications/org.blackfennec.app.desktop
-      - install -D icon.png /app/share/icons/hicolor/128x128/apps/org.blackfennec.app.png
-      - pip3 install -r /app/requirements.txt
-      - pip3 install /app
-      - install -D run.sh /app/bin/run.sh
     build-options:  
       build-args:
         - "--share=network"
+    build-commands:
+      - mkdir -p /app/share/applications/
+      - mkdir -p /app/share/icons/hicolor/128x128/apps/
+      - cp -r ./ /app/
+      - cp ./org.blackfennec.app.desktop /app/share/applications/org.blackfennec.app.desktop
+      - cp ./icon.png /app/share/icons/hicolor/128x128/apps/org.blackfennec.app.png
+      - pip3 install -r /app/requirements.txt
+      - pip3 install /app
+      - install -D run.sh /app/bin/run.sh
     sources:
-      - type: git
-        url: https://gitlab.ost.ch/blackfennec/blackfennec.git
-        branch: dev
-        
+      - type: dir
+        path: .
