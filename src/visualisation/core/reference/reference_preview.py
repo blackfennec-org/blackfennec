@@ -25,8 +25,9 @@ class ReferencePreview(Adw.Bin):
         super().__init__()
         self._view_model = view_model
         logger.info('ReferencePreview created')
+        self._reference_value.set_text(str(view_model.reference))
 
     @Gtk.Template.Callback()
-    def _click_handler(self, unused_sender, unused_argument) -> None:
+    def _on_navigate(self, unused_sender) -> None:
         """Handles clicks on reference items, triggers navigation"""
         self._view_model.navigate_to_reference()

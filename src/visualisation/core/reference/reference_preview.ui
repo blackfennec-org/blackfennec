@@ -9,6 +9,7 @@
         <child>
           <object class="GtkEntry" id="_reference_value">
             <property name="focusable">true</property>
+            <property name="editable">false</property>
           </object>
         </child>
         <child>
@@ -18,15 +19,17 @@
             <property name="focusable">true</property>
             <property name="receives-default">true</property>
             <property name="halign">end</property>
+            <signal name="clicked" handler="_on_navigate"/>
             <child>
               <object class="GtkImage">
                 <property name="halign">center</property>
-                <property name="file">src/visualisation/core/reference/link.png</property>
+                <property name="icon-name">edit-find-symbolic</property>
+                <style>
+                  <class name="flat"/>
+                  <class name="circular"/>
+                </style>
               </object>
             </child>
-            <style>
-              <class name="map-preview"/>
-            </style>
           </object>
         </child>
       </object>

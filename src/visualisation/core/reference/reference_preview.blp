@@ -8,6 +8,7 @@ template ReferencePreview : Adw.Bin {
   Box {
     Entry _reference_value {
       focusable: true;
+      editable: false;
     }
 
     Button {
@@ -16,15 +17,17 @@ template ReferencePreview : Adw.Bin {
       focusable: true;
       receives-default: true;
       halign: end;
+      clicked => _on_navigate();
 
       Image {
         halign: center;
-        file: "src/visualisation/core/reference/link.png";
-      }
+        icon-name: "edit-find-symbolic";
 
-      styles [
-        "map-preview",
-      ]
+        styles [
+          "flat",
+          "circular",
+        ]
+      }
     }
   }
 }
