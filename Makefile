@@ -1,6 +1,13 @@
 
 .PHONY: docs test
 
+help:
+	cat Makefile
+
+install:
+	flatpak --user remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+	flatpak-builder --user --install .flatpak-build/ org.blackfennec.app.yml --force-clean --install-deps-from flathub --repo=.flatpak-repo
+
 dependencies:
 	python -m pip install -r requriements.txt
 	pythom -m pip install -r docs/requriements.txt
