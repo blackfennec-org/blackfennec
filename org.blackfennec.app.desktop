@@ -3,5 +3,5 @@ Name=Black Fennec
 Exec=run.sh
 Type=Application
 Icon=org.blackfennec.app
-Categories=GTK;
-Keywords=Json;Editor;
+Categories=Development;Office;Utility;TextEditor;Viewer;GNOME;GTK
+Keywords=Json;Editor;Semi-structured;Interpretation
