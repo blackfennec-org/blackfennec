@@ -31,12 +31,23 @@ class DocumentTabView():
 
             def load_document_async():
                 try:
-                    tab.load_document()
+                    document = tab.load_document()
+
+                    def set_presenter():
+                        if tab.presenter:
+                            tab.presenter.set_structure(document)
+                        else:
+                            message = "Presenter not set yet"
+                            logger.warning(message)
+                            raise RuntimeError(message)
+
+                    GLib.idle_add(set_presenter)
                     GLib.idle_add(lambda: self.tab_page.set_loading(False))
                 except Exception as e:
-                    logger.error(traceback.format_exc())
+                    message = traceback.format_exc()
+                    logger.error(message)
                     GLib.idle_add(lambda: self.tab_page.set_loading(False))
-                    GLib.idle_add(lambda: presenter.set_error("Error while loading document"))
+                    GLib.idle_add(lambda: presenter.set_error(message))
                     return False
 
             threading.Thread(target=load_document_async).start()

@@ -37,4 +37,4 @@ class DocumentTab():
             self.uri,
             location=os.path.dirname(self.uri)
         )
-        self.presenter.set_structure(self.document.content)
+        return self.document.content
