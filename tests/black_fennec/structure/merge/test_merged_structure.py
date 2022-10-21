@@ -17,6 +17,19 @@ def test_can_get_value(underlay, overlay, expected):
     t = MergedStructure(underlay, overlay)
     assert t.value == expected
 
+def test_cannot_set_value():
+    t = MergedStructure(None, None)
+    with pytest.raises(AssertionError):
+        t.value = "foo"
+
+def test_cannot_set_parent():
+    t = MergedStructure(None, None)
+    with pytest.raises(AssertionError):
+        t.parent = t
+
+def test_repr():
+    t = MergedStructure(None, None)
+    assert repr(t).startswith("MergedStructure")
 
 def map_chain(layer, depth):
     innermost = Map({"layer": String(layer)})

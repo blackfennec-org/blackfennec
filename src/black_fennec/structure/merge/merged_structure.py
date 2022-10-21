@@ -27,8 +27,7 @@ class MergedStructure(Structure):
 
     @property
     def value(self):
-        subject = self._overlay or self._underlay
-        return subject.value
+        return self.subject.value
 
     @value.setter
     def value(self, value):
