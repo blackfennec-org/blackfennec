@@ -30,3 +30,14 @@ def test_view_model_update():
     view_model._notify(view_model.interpretations, 'interpretations')
 
     assert view_factory.create_call_count == 2
+
+
+def test_set_error():
+    view_model = ColumnBasedPresenterViewModelMock()
+    view_factory = ViewFactoryMock()
+    view = ColumnBasedPresenterView(view_model, view_factory)
+
+    message = 'Error message'
+    view.set_error(message)
+    assert view._error.get_visible() is True
+    assert view._error.get_description() == message
