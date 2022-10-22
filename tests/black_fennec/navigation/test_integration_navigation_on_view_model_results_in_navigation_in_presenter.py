@@ -1,4 +1,5 @@
 import unittest
+import pytest
 
 from doubles.black_fennec.type_system.double_type_registry import TypeRegistryMock
 from doubles.double_dummy import Dummy
@@ -18,7 +19,7 @@ from src.black_fennec.structure.type.number_type import NumberType
 from src.black_fennec.structure.type.reference_type import ReferenceType
 from src.black_fennec.structure.type.string_type import StringType
 
-
+pytestmark = pytest.mark.integration
 
 
 class NavigationOnViewModelResultsInNavigationInPresenterTestSuite(

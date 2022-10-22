@@ -1,3 +1,4 @@
+from src.black_fennec.structure.null import Null
 from src.black_fennec.util.intercepting_visitor import InterceptingVisitor
 
 
@@ -11,6 +12,12 @@ class MergedPhantom:
     def __init__(self, parent, twin):
         self._parent = parent
         self._twin = twin
+        self._structure = Null()
+        self._structure.parent = self._parent
+
+    @property
+    def structure(self):
+        return self._structure
 
     @property
     def parent(self):

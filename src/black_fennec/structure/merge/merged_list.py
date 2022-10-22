@@ -12,11 +12,16 @@ class MergedList(MergedStructure):
         super().__init__(underlay, overlay)
         logger.info("MergedList is not implemented")
 
+    def _value_or_empty(self, structure):
+        if structure.value is None:
+            return []
+        return structure.value
+
     @property
     def value(self):
         logger.warning("Accessed value of merged list: implementation is disputed")
-        underlay = self._underlay.value if self._underlay else []
-        overlay = self._overlay.value if self._overlay else []
+        underlay = self._value_or_empty(self._underlay)
+        overlay = self._value_or_empty(self._overlay)
         value = underlay + overlay
         return [
             deep_merge.DeepMerge.merge(MergedPhantom(self, child), child)

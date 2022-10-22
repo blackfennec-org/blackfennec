@@ -2,11 +2,13 @@ from src.black_fennec.structure.structure import Structure
 
 
 class StructureMock:
-    def __init__(self, value=None, parent=None, root=None):
+    def __init__(self, value=None, parent=None, root=None, accept_strategy=None):
         self._value = value
         self._root = root or self
         self._parent = parent
         self._value_property_access_count = 0
+        self._accept_strategy = accept_strategy or \
+            (lambda self, visitor: visitor.visit_structure(self))
 
     @property
     def value(self):
@@ -18,7 +20,7 @@ class StructureMock:
         self._value = value
 
     def accept(self, visitor):
-        return visitor.visit_structure(self)
+        return self._accept_strategy(self, visitor)
 
     @property
     def parent(self):

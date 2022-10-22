@@ -6,6 +6,7 @@ from doubles.black_fennec.document_system.double_document import DocumentMock
 from src.black_fennec.document_system.resource_type.protocols.https_resource_type import HttpsResourceType
 from tests.test_utils.connection import has_internet_connection
 
+pytestmark = pytest.mark.integration
 
 class HttpsResourceTypeTestSuite(unittest.TestCase):
 

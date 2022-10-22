@@ -11,7 +11,6 @@ class ReferenceMock(StructureMock):
         self._resolve_return = resolve_return
         self.resolve_count = 0
 
-    @property
     def resolve(self):
         self.resolve_count += 1
         return self._resolve_return

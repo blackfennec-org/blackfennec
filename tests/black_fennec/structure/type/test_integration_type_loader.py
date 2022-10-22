@@ -37,6 +37,7 @@ from src.black_fennec.type_system.type_registry import TypeRegistry
 from src.black_fennec.document_system.resource_type.protocols.bftype_resource_type import BFTypeResourceType
 from src.black_fennec.document_system.mime_type.in_memory.in_memory_mime_type import InMemoryMimeType
 
+pytestmark = pytest.mark.integration
 
 @pytest.fixture
 def type_registry():
@@ -69,14 +70,14 @@ def document_factory(type_registry) -> DocumentFactory:
 
 @pytest.fixture
 def type(tmp_path, document_factory, type_registry):
-    devinetype_json = tmp_path / "devinetype.json"
-    devinetype_json.write_text("""
+    divinetype_json = tmp_path / "divinetype.json"
+    divinetype_json.write_text("""
 {
     "super": {
         "super": null,
         "type": "Map"
     },
-    "type": "DevineType",
+    "type": "DivineType",
     "properties": {
         "property0": {
             "super": null,
@@ -86,10 +87,10 @@ def type(tmp_path, document_factory, type_registry):
 }
 """)
 
-    supertype_json = tmp_path / "supbertype.json"
+    supertype_json = tmp_path / "supertype.json"
     supertype_json.write_text("""
 {
-    "super": { "$ref": "bftype://DevineType"},
+    "super": { "$ref": "bftype://DivineType"},
     "type": "SuperType",
     "required": [
         "property2",
@@ -137,7 +138,7 @@ def type(tmp_path, document_factory, type_registry):
     )
 
     tl = TypeLoader(document_factory, type_registry)
-    tl.load(devinetype_json.as_uri())
+    tl.load(divinetype_json.as_uri())
     tl.load(supertype_json.as_uri())
     return tl.load(subtype_json.as_uri())
 

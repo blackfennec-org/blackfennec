@@ -11,11 +11,16 @@ class MergedMap(MergedStructure):
     def __init__(self, underlay: Structure, overlay: Structure):
         super().__init__(underlay, overlay)
 
+    def _value_or_empty(self, structure):
+        if structure.value is None:
+            return {}
+        return structure.value
+
     @property
     def value(self):
         result = {}
-        underlay = self._underlay.value if self._underlay else {}
-        overlay = self._overlay.value if self._overlay else {}
+        underlay = self._value_or_empty(self._underlay)
+        overlay = self._value_or_empty(self._overlay)
         for key, value in underlay.items():
             if key in overlay:
                 result[key] = deep_merge.DeepMerge.merge(value, overlay[key])

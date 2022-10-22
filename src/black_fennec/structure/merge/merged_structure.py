@@ -1,10 +1,9 @@
-from multiprocessing import parent_process
 from typing import Optional
 from src.black_fennec.structure.visitor import Visitor
 from src.black_fennec.structure.structure import Structure
 import src.black_fennec.structure.merge.deep_merge as deep_merge
+from src.black_fennec.structure.merge.merged_phantom import MergedPhantom
 from src.black_fennec.util.intercepting_visitor import InterceptingVisitor
-from .merged_phantom import MergedPhantom
 
 import logging
 
@@ -14,16 +13,20 @@ logger = logging.getLogger(__name__)
 class MergedStructure(Structure):
     def __init__(self, underlay: Structure, overlay: Structure):
         super().__init__()
+        assert underlay is not None, "Underlay cannot be None"
+        assert overlay is not None, "Overlay cannot be None"
         self._underlay = underlay
         self._overlay = overlay
 
     @property
     def subject(self):
-        return self._overlay or self._underlay
+        if self._overlay.value is not None:
+            return self._overlay
+        return self._underlay
 
     def accept(self, visitor: Visitor):
         interceptor = InterceptingVisitor(lambda s: self, visitor)
-        return self._underlay.accept(interceptor)
+        return self.subject.accept(interceptor)
 
     @property
     def value(self):
@@ -33,25 +36,16 @@ class MergedStructure(Structure):
     def value(self, value):
         raise AssertionError("Value cannot be set on MergedStructure")
 
+    def _parent_or_phantom(self, left, right):
+        if left.parent:
+            return left.parent
+        else:
+            return MergedPhantom(None, right.parent)
+
     @property
     def parent(self) -> Optional['MergedStructure']:
-        if self._overlay.parent:
-            overlay_parent = self._overlay.parent
-        else:
-            if self._underlay.parent:
-                underlay_parent = self._underlay.parent
-            else:
-                underlay_parent = None
-            overlay_parent = MergedPhantom(None, underlay_parent)
-
-        if self._underlay.parent:
-            underlay_parent = self._underlay.parent
-        else:
-            if self._overlay.parent:
-                overlay_parent = self._overlay.parent
-            else:
-                overlay_parent = None
-            underlay_parent = MergedPhantom(None, overlay_parent)
+        underlay_parent = self._parent_or_phantom(self._underlay, self._overlay)
+        overlay_parent = self._parent_or_phantom(self._overlay, self._underlay)
 
         if underlay_parent or overlay_parent:
             return deep_merge.DeepMerge.merge(underlay_parent, overlay_parent)
