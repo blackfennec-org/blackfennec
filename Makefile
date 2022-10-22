@@ -26,12 +26,7 @@ lint:
 	find . -name "*.py" | xargs pylint --output-format=text || true
 
 test:
-	python -m pytest \
-		--cov-config=.coveragerc \
-		--cov=src \
-		--cov-report=xml:cov.xml \
-		--cov-report=term-missing \
-		tests
+	python -m pytest
 
 run: compile-blueprint
 	python black_fennec.py

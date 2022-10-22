@@ -1,2 +1,35 @@
 [run]
-branch = True
+branch = true
+source = src
+omit = 
+    # Omit view code
+    *_view.py
+    *_preview.py
+
+[report]
+precision = 2
+fail_under = 90
+show_missing = true
+skip_empty = true
+exclude_lines =
+    pragma: no cover
+
+    # Don't complain about missing debug-only code:
+    def __repr__
+    if self\.debug
+
+    # Don't complain if tests don't hit defensive assertion code:
+    raise AssertionError
+    raise NotImplementedError
+
+    # Don't complain if non-runnable code isn't run:
+    if __name__ == .__main__.:
+
+    # Don't complain about abstract methods, they aren't run:
+    @(abc\.)?abstractmethod
+
+    # Don't complain about view classes:
+    class .+View(\(|:)
+
+[html]
+show_contexts = true
