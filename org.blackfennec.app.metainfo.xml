@@ -2,10 +2,11 @@
 <component type="desktop-application">
     <id>org.blackfennec.app</id>
     <metadata_license>FSFAP</metadata_license>
-    <project_license>GPL-3.0</project_license>
     <name>BlackFennec</name>
     <summary>Extensible Semi-structured Data Editing Environment</summary>
-
+    <icon type="remote">
+        https://gitlab.ost.ch/blackfennec/blackfennec/-/raw/main/icon.png
+    </icon>
     <description>
         <p>
             Black Fennec is free and open source software. It is a simple and easy to use application for viewing and
@@ -14,13 +15,11 @@
         </p>
     </description>
 
-    <launchable type="desktop-id">org.blackfennec.org.desktop</launchable>
-
     <screenshots>
         <screenshot type="default">
             <caption>The options dialog</caption>
             <image>
-                https://gitlab.ost.ch/blackfennec/blackfennec/-/raw/feature/flatpak/docs/source/images/corporate_identity/demo/ui.png
+                https://gitlab.ost.ch/blackfennec/blackfennec/-/raw/main/docs/source/images/corporate_identity/demo/ui.png
             </image>
         </screenshot>
     </screenshots>
@@ -29,11 +28,16 @@
     <url type="bugtracker">https://gitlab.ost.ch/blackfennec/blackfennec/-/issues/</url>
     <url type="unknown">https://gitlab.ost.ch/blackfennec/blackfennec.git</url>
 
+
     <releases>
-        <release version="0.8.1" date="2022-10-24">
+        <release version="0.8.1" date="2022-10-20">
             <description>
                 <p>Published on Flathub</p>
             </description>
         </release>
     </releases>
+    <project_license>GPL-3.0</project_license>
+    <content_rating type="oars-1.1">
+        <content_attribute id="language-humor">mild</content_attribute>
+    </content_rating>
 </component>
