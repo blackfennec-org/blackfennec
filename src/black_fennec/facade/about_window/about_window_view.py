@@ -10,6 +10,7 @@ class AboutWindowView:
         self.adw_about_window = Adw.AboutWindow()
         self.adw_about_window.set_transient_for(parent_window)
         self.adw_about_window.set_application_name(self._view_model.application_name)
+        self.adw_about_window.set_comments(self._view_model.comments)
         self.adw_about_window.set_version(self._view_model.version)
         self.adw_about_window.set_release_notes(self._view_model.release_notes)
         self.adw_about_window.set_website(self._view_model.website)

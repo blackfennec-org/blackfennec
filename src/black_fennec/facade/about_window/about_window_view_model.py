@@ -14,7 +14,7 @@ class AboutWindowViewModel:
         self.application_name = self._meta_info.component.get_name()
         self.developer_name = self._meta_info.component.get_developer_name()
         self.license = self._meta_info.component.get_project_license()
-        self.comments = self._meta_info.component.get_description()
+        self.comments = self._meta_info.get_plain_description()
         self.website = self._meta_info.component.get_url(AppStream.UrlKind.HOMEPAGE)
         self.issue_tracker = self._meta_info.component.get_url(AppStream.UrlKind.BUGTRACKER)
         self.copy_right = f"© {datetime.now().year} {self.application_name}"

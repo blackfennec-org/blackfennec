@@ -29,3 +29,6 @@ class BlackFennecMetaInfo:
 
     def get_icon_path(self) -> str:
         return str(BASE_DIR.joinpath('icon.png'))
+
+    def get_plain_description(self) -> str:
+        return AppStream.markup_convert_simple(self._component.get_description())

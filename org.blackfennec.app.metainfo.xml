@@ -27,6 +27,7 @@
 
     <url type="homepage">http://blackfennec.org</url>
     <url type="bugtracker">https://gitlab.ost.ch/blackfennec/blackfennec/-/issues/</url>
+    <url type="unknown">https://gitlab.ost.ch/blackfennec/blackfennec.git</url>
 
     <releases>
         <release version="0.8.1" date="2022-10-24">
