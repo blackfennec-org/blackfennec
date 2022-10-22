@@ -8,6 +8,7 @@ from doubles.black_fennec.document_system.double_document_factory import Documen
 from doubles.black_fennec.type_system.double_presenter_registry import PresenterRegistryMock
 from doubles.double_dummy import Dummy
 from doubles.black_fennec.interpretation.double_interpretation_service import InterpretationServiceMock
+from doubles.double_meta_info import MetaInfoMock
 from doubles.extension.double_extension_source_registry import ExtensionSourceRegistryMock
 from doubles.presentation.double_presenter_factory import PresenterFactoryMock
 from src.black_fennec.facade.extension_store.extension_store_view_model import ExtensionStoreViewModel
@@ -40,18 +41,25 @@ def extension_source_registry():
 
 
 @pytest.fixture()
+def meta_info():
+    return MetaInfoMock()
+
+
+@pytest.fixture()
 def view_model(
         presenter_registry,
         interpretation_service,
         document_factory,
-        extension_source_registry
+        extension_source_registry,
+        meta_info
 ):
     return BlackFennecViewModel(
         presenter_registry,
         interpretation_service,
         document_factory,
         Dummy(),
-        extension_source_registry
+        extension_source_registry,
+        meta_info,
     )
 
 
@@ -81,5 +89,5 @@ def test_can_create_extension_store(view_model):
     assert isinstance(extension_store_view_model, ExtensionStoreViewModel)
 
 
-def test_can_go_to_about_and_help(view_model):
-    view_model.about_and_help()
+def test_can_get_about_window_view_model(view_model):
+    view_model.get_about_window_view_model()
