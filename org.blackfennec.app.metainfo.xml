@@ -1,33 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component type="desktop-application">
-  <id>org.blackfennec.app</id>
-  <metadata_license>FSFAP</metadata_license>
-  <project_license>GPL-3.0</project_license>
-  <name>BlackFennec</name>
-  <summary>Extensible Semi-structured Data Editing Environment</summary>
+    <id>org.blackfennec.app</id>
+    <metadata_license>FSFAP</metadata_license>
+    <project_license>GPL-3.0</project_license>
+    <name>BlackFennec</name>
+    <summary>Extensible Semi-structured Data Editing Environment</summary>
 
-  <description>
-    <p>
-      Black Fennec is free and open source software. It is a simple and easy to use application for viewing and editing semi-structured data like JSON. It is written in Python and follows the GNOME Human Interface Guidelines.
-    </p>
-  </description>
+    <description>
+        <p>
+            Black Fennec is free and open source software. It is a simple and easy to use application for viewing and
+            editing semi-structured data like JSON. It is written in Python and follows the GNOME Human Interface
+            Guidelines.
+        </p>
+    </description>
 
-  <launchable type="desktop-id">org.blackfennec.org.desktop</launchable>
+    <launchable type="desktop-id">org.blackfennec.org.desktop</launchable>
 
-  <screenshots>
-    <screenshot type="default">
-      <caption>The options dialog</caption>
-      <image>https://gitlab.ost.ch/blackfennec/blackfennec/-/raw/feature/flatpak/docs/source/images/corporate_identity/demo/ui.png</image>
-    </screenshot>
-  </screenshots>
+    <screenshots>
+        <screenshot type="default">
+            <caption>The options dialog</caption>
+            <image>
+                https://gitlab.ost.ch/blackfennec/blackfennec/-/raw/feature/flatpak/docs/source/images/corporate_identity/demo/ui.png
+            </image>
+        </screenshot>
+    </screenshots>
 
-  <url type="homepage">http://blackfennec.org</url>
-  
-  <releases>
-    <release version="0.8.1" date="2022-10-24">
-      <description>
-        <p>Published on Flathub</p>
-      </description>
-    </release>
-  </releases>
+    <url type="homepage">http://blackfennec.org</url>
+    <url type="bugtracker">https://gitlab.ost.ch/blackfennec/blackfennec/-/issues/</url>
+
+    <releases>
+        <release version="0.8.1" date="2022-10-24">
+            <description>
+                <p>Published on Flathub</p>
+            </description>
+        </release>
+    </releases>
 </component>

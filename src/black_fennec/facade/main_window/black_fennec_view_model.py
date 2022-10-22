@@ -2,6 +2,7 @@ import logging
 from typing import Optional
 
 from src.black_fennec.document_system.document_factory import DocumentFactory
+from src.black_fennec.facade.about_window.about_window_view_model import AboutWindowViewModel
 from src.black_fennec.facade.extension_store.extension_store_view_model import ExtensionStoreViewModel
 
 from src.black_fennec.facade.main_window.document_tab import DocumentTab
@@ -33,7 +34,8 @@ class BlackFennecViewModel(Observable):
             interpretation_service: InterpretationService,
             document_factory: DocumentFactory,
             extension_api: ExtensionApi,
-            extension_source_registry: ExtensionSourceRegistry
+            extension_source_registry: ExtensionSourceRegistry,
+            meta_info,
     ):
         """BlackFennecViewModel constructor.
 
@@ -52,6 +54,7 @@ class BlackFennecViewModel(Observable):
         self._document_factory = document_factory
         self._extension_api = extension_api
         self._extension_source_registry = extension_source_registry
+        self._meta_info = meta_info
         self.tabs = set()
         self.project: Optional[str] = None
 
@@ -112,6 +115,5 @@ class BlackFennecViewModel(Observable):
             self._extension_api
         )
 
-    def about_and_help(self):
-        """Future implementation of about_and_help()"""
-        logger.warning('about_and_help() not yet implemented')
+    def get_about_window_view_model(self):
+        return AboutWindowViewModel(self._meta_info)

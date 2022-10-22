@@ -5,6 +5,7 @@ from pathlib import Path
 
 from gi.repository import Adw, Gtk, Gio
 
+from src.black_fennec.facade.about_window.about_window_view import AboutWindowView
 from src.black_fennec.facade.extension_store.extension_store_view import ExtensionStoreView
 from src.black_fennec.facade.main_window.document_tab import DocumentTab
 from src.black_fennec.facade.main_window.document_tab_view import DocumentTabView
@@ -206,8 +207,9 @@ class BlackFennecView(Gtk.ApplicationWindow):
 
     def on_about_clicked(self, action, param) -> None:
         """Callback for the button click event"""
-        self._view_model.about_and_help()
-        logger.debug('About clicked')
+        about_view_model = self._view_model.get_about_window_view_model()
+        about_window = AboutWindowView(about_view_model, self)
+        about_window.adw_about_window.present()
 
     def _add_empty_list_pattern(self):
         self._presenter_container.append_page(
