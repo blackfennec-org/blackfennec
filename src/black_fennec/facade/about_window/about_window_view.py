@@ -19,3 +19,4 @@ class AboutWindowView:
         self.adw_about_window.set_license(self._view_model.license)
         self.adw_about_window.set_copyright(self._view_model.copy_right)
         self.adw_about_window.set_icon_name(self._view_model.icon)
+        self.adw_about_window.set_developers(self._view_model.developer_names)
