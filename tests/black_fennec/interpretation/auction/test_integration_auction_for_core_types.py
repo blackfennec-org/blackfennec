@@ -17,6 +17,8 @@ from src.black_fennec.structure.type.reference_type import ReferenceType
 from src.black_fennec.structure.null import Null
 from src.black_fennec.structure.type.null_type import NullType
 
+pytestmark = pytest.mark.integration
+
 @pytest.fixture
 def types():
     types = [

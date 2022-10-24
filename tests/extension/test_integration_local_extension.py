@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import unittest
+import pytest
 import doubles.extension.double_extensions
 import doubles.extension.double_extensions.valid_extension
 from src.extension.extension_api import ExtensionApi
@@ -14,6 +15,7 @@ from src.black_fennec.structure.map import Map
 from src.black_fennec.structure.string import String
 from src.black_fennec.type_system.type_registry import TypeRegistry
 
+pytestmark = pytest.mark.integration
 
 class ExtensionSourceTestSuite(unittest.TestCase):
     def setUp(self) -> None:

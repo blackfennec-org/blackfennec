@@ -1,4 +1,3 @@
-import unittest
 import pytest
 
 from doubles.double_dummy import Dummy
@@ -23,6 +22,7 @@ from src.visualisation.core.number.number_view import NumberView
 # from src.visualisation.core.reference.reference_view import ReferenceView
 from src.visualisation.core.string.string_view import StringView
 
+pytestmark = pytest.mark.integration
 
 @pytest.fixture
 def view_factory_registry():
