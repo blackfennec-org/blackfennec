@@ -83,7 +83,7 @@ Box _tab_overview {
 
 Adw.StatusPage _empty_list_pattern {
   title: _("Nothing to show...");
-  description: _("Open a file or project to start editing.");
+  description: _("Open a folder or file to start editing.");
   icon-name: "document-open-symbolic";
 
   Box {
@@ -91,9 +91,9 @@ Adw.StatusPage _empty_list_pattern {
     orientation: vertical;
     spacing: 8;
 
-    Button _open_project_button{
-      label: _("Open project ...");
-      action-name: "app.main.open_project";
+    Button _open_folder_button{
+      label: _("Open folder ...");
+      action-name: "app.main.open_folder";
       halign: center;
 
       styles [
@@ -205,8 +205,8 @@ menu _primary_menu {
       action: "app.main.settings";
     }
     item {
-      label: _("Open project ...");
-      action: "app.main.open_project";
+      label: _("Open folder ...");
+      action: "app.main.open_folder";
     }
     item {
       label: _("Open file ...");

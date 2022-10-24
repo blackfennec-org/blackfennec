@@ -54,16 +54,16 @@ class BlackFennecViewModel(Observable):
         self._extension_api = extension_api
         self._extension_source_registry = extension_source_registry
         self.tabs = set()
-        self.project: Optional[str] = None
+        self._current_folder: Optional[str] = None
 
-    def set_project(self, project_location: str):
-        """Sets the project location
+    @property
+    def current_folder(self):
+        return self._current_folder
 
-        Args:
-            project_location (str): project location
-        """
-        self.project = project_location
-        self._notify(self.project, 'project')
+    @current_folder.setter
+    def current_folder(self, folder: str):
+        self._current_folder = folder
+        self._notify(self._current_folder, 'open_folder')
 
     def open_file(self, uri: str):
         """Opens a file

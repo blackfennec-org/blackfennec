@@ -82,7 +82,7 @@
   </object>
   <object class="AdwStatusPage" id="_empty_list_pattern">
     <property name="title" translatable="true">Nothing to show...</property>
-    <property name="description" translatable="true">Open a file or project to start editing.</property>
+    <property name="description" translatable="true">Open a folder or file to start editing.</property>
     <property name="icon-name">document-open-symbolic</property>
     <child>
       <object class="GtkBox">
@@ -90,9 +90,9 @@
         <property name="orientation">vertical</property>
         <property name="spacing">8</property>
         <child>
-          <object class="GtkButton" id="_open_project_button">
-            <property name="label" translatable="true">Open project ...</property>
-            <property name="action-name">app.main.open_project</property>
+          <object class="GtkButton" id="_open_folder_button">
+            <property name="label" translatable="true">Open folder ...</property>
+            <property name="action-name">app.main.open_folder</property>
             <property name="halign">center</property>
             <style>
               <class name="suggested-action"/>
@@ -188,8 +188,8 @@
         <attribute name="action">app.main.settings</attribute>
       </item>
       <item>
-        <attribute name="label" translatable="true">Open project ...</attribute>
-        <attribute name="action">app.main.open_project</attribute>
+        <attribute name="label" translatable="true">Open folder ...</attribute>
+        <attribute name="action">app.main.open_folder</attribute>
       </item>
       <item>
         <attribute name="label" translatable="true">Open file ...</attribute>

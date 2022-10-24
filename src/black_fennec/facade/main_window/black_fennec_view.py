@@ -44,16 +44,16 @@ class BlackFennecView(Gtk.ApplicationWindow):
     _tab_view: Adw.TabView = Gtk.Template.Child()
     _tab_bar: Adw.TabBar = Gtk.Template.Child()
 
-    _open_project_button: Gtk.Button = Gtk.Template.Child()
+    _open_folder_button: Gtk.Button = Gtk.Template.Child()
     _open_file_button: Gtk.Button = Gtk.Template.Child()
 
     _empty_list_pattern: Adw.StatusPage = Gtk.Template.Child()
 
-    def __init__(self, app, view_model, current_project: str = None):
+    def __init__(self, app, view_model, current_folder: str = None):
         self._application = app
         app.create_action('main.quit', self.on_quit_clicked, ['<primary>q'])
         app.create_action('main.settings', self.on_settings_action)
-        app.create_action('main.open_project', self.on_open_project)
+        app.create_action('main.open_folder', self.on_open_folder)
         app.create_action('main.open_file', self.on_open_file)
         app.create_action('main.save', self.on_save_clicked)
         app.create_action('main.save_as', self.on_save_as_clicked)
@@ -65,7 +65,7 @@ class BlackFennecView(Gtk.ApplicationWindow):
         self._view_model = view_model
         self._view_model.bind(
             open_file=self.on_open_tab,
-            project=self._update_project,
+            open_folder=self._update_folder,
         )
 
         self._tab_view.connect('close-page', self.on_close_tab)
@@ -73,22 +73,22 @@ class BlackFennecView(Gtk.ApplicationWindow):
 
         renderer = Gtk.CellRendererText()
         tree_view_column = Gtk.TreeViewColumn(
-            'Project', renderer, text=0)
+            'Current folder', renderer, text=0)
         self._file_tree.append_column(tree_view_column)
 
-        self._current_project = current_project
-        self._update_project(self, self._current_project)
+        self._current_folder = current_folder
+        self._update_folder(self, self._current_folder)
         self._file_chooser_native = None
 
     @Gtk.Template.Callback()
     def on_flap_button_toggled(self, toggle_button):
         self._file_tree_flap.set_reveal_flap(not self._file_tree_flap.get_reveal_flap())
 
-    def on_open_project(self, action, param) -> None:
+    def on_open_folder(self, action, param) -> None:
         """Callback for the button click event"""
         logger.debug('open clicked')
         dialog = Gtk.FileChooserNative(
-            title='Choose project directory',
+            title='Choose directory',
             transient_for=self,
             action=Gtk.FileChooserAction.SELECT_FOLDER,
         )
@@ -97,7 +97,7 @@ class BlackFennecView(Gtk.ApplicationWindow):
             if response == Gtk.ResponseType.ACCEPT:
                 folder = dialog.get_file()
                 file_path = folder.get_path()
-                self._view_model.set_project(file_path)
+                self._view_model.current_folder = file_path
             else:
                 logger.debug('Directory selection canceled')
             dialog.destroy()
@@ -107,14 +107,14 @@ class BlackFennecView(Gtk.ApplicationWindow):
         self._file_chooser_native = dialog
         dialog.show()
 
-    def _update_project(self, unused_sender, project_location: str):
-        if not self._current_project:
-            self._init_new_project(project_location)
+    def _update_folder(self, unused_sender, folder_location: str):
+        if not self._current_folder:
+            self._init_new_folder(folder_location)
         else:
             dialog = Adw.MessageDialog(
                 transient_for=self,
-                heading='Opening new project',
-                body='Where do you want to open the new project?',
+                heading='Opening new folder',
+                body='Where do you want to open the new folder?',
             )
             dialog.add_response(Gtk.ResponseType.CANCEL.value_nick, 'Cancel')
             dialog.add_response('open_in_new', 'New window')
@@ -129,18 +129,18 @@ class BlackFennecView(Gtk.ApplicationWindow):
                     logger.warning(message)
                     raise NotImplementedError(message)
                 elif response == Gtk.ResponseType.ACCEPT.value_nick:
-                    self._init_new_project(project_location)
+                    self._init_new_folder(folder_location)
                 dialog.destroy()
 
             dialog.connect('response', on_response)
             dialog.present()
 
-    def _init_new_project(self, project_location: str):
-        if not project_location:
+    def _init_new_folder(self, folder_location: str):
+        if not folder_location:
             return
-        self._current_project = project_location
+        self._current_folder = folder_location
 
-        store = create_folder_structure(project_location)
+        store = create_folder_structure(folder_location)
         self._file_tree.set_model(store)
         if not self._file_tree_flap.get_reveal_flap():
             self._file_tree_flap.set_reveal_flap(True)
@@ -159,8 +159,8 @@ class BlackFennecView(Gtk.ApplicationWindow):
             transient_for=self,
             action=Gtk.FileChooserAction.OPEN,
         )
-        if self._current_project:
-            dialog.set_current_folder(Gio.File.new_for_path(self._current_project))
+        if self._current_folder:
+            dialog.set_current_folder(Gio.File.new_for_path(self._current_folder))
 
         def on_response(dialog, response):
             if response == Gtk.ResponseType.ACCEPT:
