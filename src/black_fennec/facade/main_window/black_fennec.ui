@@ -213,7 +213,7 @@
       </item>
       <item>
         <attribute name="label" translatable="true">Close</attribute>
-        <attribute name="action">app.quit</attribute>
+        <attribute name="action">app.main.quit</attribute>
       </item>
     </section>
   </menu>

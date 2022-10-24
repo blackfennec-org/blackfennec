@@ -91,10 +91,6 @@ class BlackFennecViewModel(Observable):
         self.tabs.remove(tab)
         self._notify(tab, 'close_file')
 
-    def quit(self):
-        """Future implementation of quit()"""
-        logger.warning('quit() not yet implemented')
-
     def save(self):
         """Saves all open files"""
         for tab in self.tabs:
