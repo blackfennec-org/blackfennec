@@ -1,3 +1,4 @@
+EXTS = $(shell find extensions/ -type d -maxdepth 1 -mindepth 1)
 BLPS = $(shell find . -name "*.blp")
 UIS = $(BLPS:.blp=.ui)
 
@@ -25,8 +26,17 @@ compile-blueprint: $(UIS)
 lint:
 	find . -name "*.py" | xargs pylint --output-format=text || true
 
-test:
-	python -m pytest
+test: test_blackfennec test_extensions
+
+test_blackfennec:
+	pytest tests/
+
+test_extensions:
+	for ext in $(EXTS); do \
+		cd "$$ext"; \
+		pytest tests/; \
+	done
+
 
 run: compile-blueprint
 	python black_fennec.py

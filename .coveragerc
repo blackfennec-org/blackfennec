@@ -1,6 +1,6 @@
 [run]
 branch = true
-source = src
+source = blackfennec
 omit = 
     # Omit view code
     *_view.py
@@ -30,6 +30,7 @@ exclude_lines =
 
     # Don't complain about view classes:
     class .+View(\(|:)
+    @Gtk.Template(.*)
 
 [html]
 show_contexts = true

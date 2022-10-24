@@ -1,11 +1,11 @@
-from src.black_fennec.structure.boolean import Boolean
-from src.black_fennec.structure.null import Null
-from src.black_fennec.structure.structure import Structure
-from src.black_fennec.structure.list import List
-from src.black_fennec.structure.map import Map
-from src.black_fennec.structure.number import Number
-from src.black_fennec.structure.reference import Reference
-from src.black_fennec.structure.string import String
+from blackfennec.structure.boolean import Boolean
+from blackfennec.structure.null import Null
+from blackfennec.structure.structure import Structure
+from blackfennec.structure.list import List
+from blackfennec.structure.map import Map
+from blackfennec.structure.number import Number
+from blackfennec.structure.reference import Reference
+from blackfennec.structure.string import String
 
 
 class DeepCompare:

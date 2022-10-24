@@ -1,0 +1,88 @@
+# Version: 0.2.1
+
+variables:
+  PROJECT_BUILD_IMAGE: ceem/black-fennec:gtk4
+
+###############################################################################
+# Test Black-Fennec
+###############################################################################
+run linter:
+  image: $PROJECT_BUILD_IMAGE
+  stage: test
+  before_script:
+    - pip install -r requirements.txt
+    - pip install pylint-exit anybadge
+  script:
+    - mkdir ./pylint
+    - find . -name "*.py" | awk '{printf "%s ",$0}' | xargs -I {} sh -c "pylint --output-format=text {} | tee ./pylint/pylint.log || pylint-exit $?"
+    - PYLINT_SCORE=$(sed -n 's/^Your code has been rated at \([-0-9.]*\)\/.*/\1/p' ./pylint/pylint.log)
+    - anybadge --label=Pylint --file=pylint/pylint.svg --value=$PYLINT_SCORE 2=red 4=orange 8=yellow 10=green
+    - echo "Pylint score is $PYLINT_SCORE"
+  artifacts:
+    paths:
+      - ./pylint/
+
+run blackfennec tests:
+  image: $PROJECT_BUILD_IMAGE
+  stage: test
+  before_script:
+    - pip install -r requirements.txt
+  script:
+    - xvfb-run -a pytest tests/
+    - coverage xml
+  artifacts:
+    reports:
+      coverage_report:
+        coverage_format: cobertura
+        path: coverage.xml
+  coverage: /^TOTAL.+?(\d+\.\d+\%)$/
+
+run core extension tests:
+  image: $PROJECT_BUILD_IMAGE
+  stage: test
+  before_script:
+    - pip install -r requirements.txt
+    - pip install .
+  script:
+    - cd extensions/core
+    - xvfb-run -a pytest tests/
+    - coverage xml
+  artifacts:
+    reports:
+      coverage_report:
+        coverage_format: cobertura
+        path: extensions/core/coverage.xml
+  coverage: /^TOTAL.+?(\d+\.\d+\%)$/
+
+run base extension tests:
+  image: $PROJECT_BUILD_IMAGE
+  stage: test
+  before_script:
+    - pip install -r requirements.txt
+    - pip install .
+  script:
+    - cd extensions/base
+    - xvfb-run -a pytest tests/
+    - coverage xml
+  artifacts:
+    reports:
+      coverage_report:
+        coverage_format: cobertura
+        path: extensions/base/coverage.xml
+  coverage: /^TOTAL.+?(\d+\.\d+\%)$/
+
+###############################################################################
+# Publish Python Package
+###############################################################################
+
+publish package:
+  image: $PROJECT_BUILD_IMAGE
+  stage: deploy
+  only:
+    - tags
+  before_script:
+    - pip install -r requirements.txt
+  script:
+    - pip install twine
+    - python setup.py sdist
+    - TWINE_PASSWORD=${CI_JOB_TOKEN} TWINE_USERNAME=gitlab-ci-token python -m twine upload --repository-url ${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/pypi dist/*

@@ -16,7 +16,7 @@ import sys
 
 sys.path.insert(0, os.path.abspath("../.."))
 
-from src.black_fennec.util.meta_info import BlackFennecMetaInfo
+from blackfennec.util.meta_info import BlackFennecMetaInfo
 from unittest.mock import MagicMock
 
 

@@ -14,4 +14,4 @@ stages:
 
 include:
   - local: '/.gitlab/docs/ci.yml'
-  - local: '/.gitlab/project/ci.yml'
+  - local: '/.gitlab/code/ci.yml'

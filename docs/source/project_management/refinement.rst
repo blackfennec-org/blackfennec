@@ -30,7 +30,7 @@ Improvements
 **Use the personas in the use-cases**
 We did this by relating the user stories to specific personas. An example of this can be found :ref:`here <https://gitlab.ost.ch/epj/2021-FS/g01_blackfennec/black-fennec/-/issues/131>`_.
 
-**Add sketches from extensions as soon as they exist**
+**Add sketches from blackfennec.extensions as soon as they exist**
 These sketches were added in the form of wireframes to the domain model document at :ref:`this <extension_wireframe>` location.
 
 
