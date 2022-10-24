@@ -16,7 +16,7 @@ BASE_DIR = Path(__file__).resolve().parent
 UI_TEMPLATE = str(BASE_DIR.joinpath('black_fennec.ui'))
 
 
-def create_folder_structure(root_directory):
+def create_directory_structure(root_directory):
     store = Gtk.TreeStore(str, str)
     parent_map = {root_directory: None}
     for sub_directory, directories, files in os.walk(root_directory):
@@ -44,27 +44,31 @@ class BlackFennecView(Gtk.ApplicationWindow):
     _tab_view: Adw.TabView = Gtk.Template.Child()
     _tab_bar: Adw.TabBar = Gtk.Template.Child()
 
-    _open_folder_button: Gtk.Button = Gtk.Template.Child()
+    _open_directory_button: Gtk.Button = Gtk.Template.Child()
     _open_file_button: Gtk.Button = Gtk.Template.Child()
 
     _empty_list_pattern: Adw.StatusPage = Gtk.Template.Child()
 
-    def __init__(self, app, view_model, current_folder: str = None):
+    def __init__(self, app, view_model, current_directory: str = None):
         self._application = app
-        app.create_action('main.quit', self.on_quit_clicked, ['<primary>q'])
-        app.create_action('main.open_folder', self.on_open_folder, ['<primary>d'])
+        app.create_action('main.open_directory', self.on_open_directory, ['<primary><alt>o'])
         app.create_action('main.open_file', self.on_open_file, ['<primary>o'])
-        app.create_action('main.save', self.on_save_clicked, ['<primary>s'])
-        app.create_action('main.save_as', self.on_save_as_clicked, ['<primary><shift>s'])
-        app.create_action('main.extension_store', self.on_go_to_store_clicked, ['<primary>e'])
-        app.create_action('main.about', self.on_about_clicked, ['<primary>i'])
+        app.create_action('main.save', self.on_save, ['<primary>s'])
+        app.create_action('main.save_as', self.on_save_as, ['<primary><shift>s'])
+        app.create_action('main.save_all', self.on_save_all, ['<primary><alt>s'])
+        app.create_action('main.extension_store', self.on_go_to_store, ['<primary>e'])
+        app.create_action('main.about', self.on_about, ['<primary>i'])
+        app.create_action('main.quit', self.on_quit, ['<primary>q'])
+
+        app.actions['main.save'].set_enabled(False)
+        app.actions['main.save_as'].set_enabled(False)
 
         super().__init__(application=app)
         logger.info('BlackFennecView __init__')
         self._view_model = view_model
         self._view_model.bind(
             open_file=self.on_open_tab,
-            open_folder=self._update_folder,
+            open_directory=self._update_directory,
         )
 
         self._tab_view.connect('close-page', self.on_close_tab)
@@ -72,18 +76,18 @@ class BlackFennecView(Gtk.ApplicationWindow):
 
         renderer = Gtk.CellRendererText()
         tree_view_column = Gtk.TreeViewColumn(
-            'Current folder', renderer, text=0)
+            'Current directory', renderer, text=0)
         self._file_tree.append_column(tree_view_column)
 
-        self._current_folder = current_folder
-        self._update_folder(self, self._current_folder)
+        self._current_directory = current_directory
+        self._update_directory(self, self._current_directory)
         self._file_chooser_native = None
 
     @Gtk.Template.Callback()
     def on_flap_button_toggled(self, toggle_button):
         self._file_tree_flap.set_reveal_flap(not self._file_tree_flap.get_reveal_flap())
 
-    def on_open_folder(self, action, param) -> None:
+    def on_open_directory(self, action, param) -> None:
         """Callback for the button click event"""
         logger.debug('open clicked')
         dialog = Gtk.FileChooserNative(
@@ -94,9 +98,9 @@ class BlackFennecView(Gtk.ApplicationWindow):
 
         def on_response(dialog, response):
             if response == Gtk.ResponseType.ACCEPT:
-                folder = dialog.get_file()
-                file_path = folder.get_path()
-                self._view_model.current_folder = file_path
+                directory = dialog.get_file()
+                file_path = directory.get_path()
+                self._view_model.current_directory = file_path
             else:
                 logger.debug('Directory selection canceled')
             dialog.destroy()
@@ -106,14 +110,14 @@ class BlackFennecView(Gtk.ApplicationWindow):
         self._file_chooser_native = dialog
         dialog.show()
 
-    def _update_folder(self, unused_sender, folder_location: str):
-        if not self._current_folder:
-            self._init_new_folder(folder_location)
+    def _update_directory(self, unused_sender, directory_location: str):
+        if not self._current_directory:
+            self._init_new_directory(directory_location)
         else:
             dialog = Adw.MessageDialog(
                 transient_for=self,
-                heading='Opening new folder',
-                body='Where do you want to open the new folder?',
+                heading='Opening new directory',
+                body='Where do you want to open the new directory?',
             )
             dialog.add_response(Gtk.ResponseType.CANCEL.value_nick, 'Cancel')
             dialog.add_response('open_in_new', 'New window')
@@ -128,18 +132,18 @@ class BlackFennecView(Gtk.ApplicationWindow):
                     logger.warning(message)
                     raise NotImplementedError(message)
                 elif response == Gtk.ResponseType.ACCEPT.value_nick:
-                    self._init_new_folder(folder_location)
+                    self._init_new_directory(directory_location)
                 dialog.destroy()
 
             dialog.connect('response', on_response)
             dialog.present()
 
-    def _init_new_folder(self, folder_location: str):
-        if not folder_location:
+    def _init_new_directory(self, directory_location: str):
+        if not directory_location:
             return
-        self._current_folder = folder_location
+        self._current_directory = directory_location
 
-        store = create_folder_structure(folder_location)
+        store = create_directory_structure(directory_location)
         self._file_tree.set_model(store)
         if not self._file_tree_flap.get_reveal_flap():
             self._file_tree_flap.set_reveal_flap(True)
@@ -158,8 +162,8 @@ class BlackFennecView(Gtk.ApplicationWindow):
             transient_for=self,
             action=Gtk.FileChooserAction.OPEN,
         )
-        if self._current_folder:
-            dialog.set_current_folder(Gio.File.new_for_path(self._current_folder))
+        if self._current_directory:
+            dialog.set_current_directory(Gio.File.new_for_path(self._current_directory))
 
         def on_response(dialog, response):
             if response == Gtk.ResponseType.ACCEPT:
@@ -177,6 +181,9 @@ class BlackFennecView(Gtk.ApplicationWindow):
 
     def on_open_tab(self, unused_sender, tab: DocumentTab):
         self._file_tree_flap.set_content(self._tab_overview)
+        self._application.actions['main.save'].set_enabled(True)
+        self._application.actions['main.save_as'].set_enabled(True)
+
         document_tab_view = DocumentTabView(self._tab_view, tab)
         tab_page = document_tab_view.tab_page
         self.tabs[tab_page] = tab
@@ -185,26 +192,54 @@ class BlackFennecView(Gtk.ApplicationWindow):
     def on_close_tab(self, action, page):
         self._view_model.close_file(self.tabs[page])
         if self._tab_view.get_n_pages() <= 1:
+            self._application.actions['main.save'].set_enabled(False)
+            self._application.actions['main.save_as'].set_enabled(False)
+
             self._file_tree_flap.set_content(self._empty_list_pattern)
 
-    def on_save_clicked(self, action, param) -> None:
+    def on_save(self, action, param) -> None:
         """Callback for the button click event"""
-        self._view_model.save()
+        tab_view = self._tab_view.get_selected_page()
+        self._view_model.save(self.tabs[tab_view])
         logger.debug('save clicked')
 
-    def on_save_as_clicked(self, action, param) -> None:
+    def on_save_as(self, action, param) -> None:
         """Callback for the button click event"""
-        self._view_model.save_as()
+        tab_view = self._tab_view.get_selected_page()
+        dialog = Gtk.FileChooserNative(
+            title='Choose directory',
+            transient_for=self,
+            action=Gtk.FileChooserAction.SAVE,
+        )
+
+        def on_response(dialog, response):
+            if response == Gtk.ResponseType.ACCEPT:
+                directory = dialog.get_file()
+                file_path = directory.get_path()
+                self._view_model.save_as(self.tabs[tab_view], file_path)
+            else:
+                logger.debug('Save as canceled')
+            dialog.destroy()
+            self._file_chooser_native = None
+
+        dialog.connect('response', on_response)
+        self._file_chooser_native = dialog
+        dialog.show()
         logger.debug('save as clicked')
 
-    def on_go_to_store_clicked(self, action, param) -> None:
+    def on_save_all(self, action, param) -> None:
+        """Callback for the button click event"""
+        self._view_model.save_all()
+        logger.debug('save all clicked')
+
+    def on_go_to_store(self, action, param) -> None:
         """Callback for the button click event"""
         store_view_model = self._view_model.create_extension_store()
         store = ExtensionStoreView(self._application, store_view_model)
         store.show()
         logger.debug('go to store clicked')
 
-    def on_about_clicked(self, action, param) -> None:
+    def on_about(self, action, param) -> None:
         """Callback for the button click event"""
         about_view_model = self._view_model.get_about_window_view_model()
         about_window = AboutWindowView(about_view_model, self)
@@ -218,7 +253,7 @@ class BlackFennecView(Gtk.ApplicationWindow):
             self._presenter_container.get_nth_page(0), 'tab-expand', True)
         self._hide_tab()
 
-    def on_quit_clicked(self, action, param):
+    def on_quit(self, action, param):
         self._application.quit()
 
     def on_settings_action(self, action, param):

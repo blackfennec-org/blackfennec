@@ -28,6 +28,7 @@ class BlackFennec(Adw.Application):
             flags=Gio.ApplicationFlags.FLAGS_NONE
         )
         self._initialisation_service = initialisation_service
+        self.actions = {}
 
     def do_activate(self):
         win = self.props.active_window
@@ -47,6 +48,7 @@ class BlackFennec(Adw.Application):
     def create_action(self, name, callback, shortcuts=None):
         action = Gio.SimpleAction.new(name, None)
         action.connect('activate', callback)
+        self.actions[name] = action
         self.add_action(action)
         if shortcuts:
             self.set_accels_for_action(f"app.{name}", shortcuts)

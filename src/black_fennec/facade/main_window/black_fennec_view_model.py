@@ -8,6 +8,7 @@ from src.black_fennec.facade.extension_store.extension_store_view_model import E
 from src.black_fennec.facade.main_window.document_tab import DocumentTab
 from src.black_fennec.interpretation.interpretation_service import InterpretationService
 from src.black_fennec.navigation.navigation_service import NavigationService
+
 from src.black_fennec.type_system.presenter_registry import PresenterRegistry
 from src.black_fennec.util.observable import Observable
 from src.extension.extension_api import ExtensionApi
@@ -54,16 +55,16 @@ class BlackFennecViewModel(Observable):
         self._extension_api = extension_api
         self._extension_source_registry = extension_source_registry
         self.tabs = set()
-        self._current_folder: Optional[str] = None
+        self._current_directory: Optional[str] = None
 
     @property
-    def current_folder(self):
-        return self._current_folder
+    def current_directory(self):
+        return self._current_directory
 
-    @current_folder.setter
-    def current_folder(self, folder: str):
-        self._current_folder = folder
-        self._notify(self._current_folder, 'open_folder')
+    @current_directory.setter
+    def current_directory(self, directory: str):
+        self._current_directory = directory
+        self._notify(self._current_directory, 'open_directory')
 
     def open_file(self, uri: str):
         """Opens a file
@@ -91,16 +92,20 @@ class BlackFennecViewModel(Observable):
         self.tabs.remove(tab)
         self._notify(tab, 'close_file')
 
-    def save(self):
+    def save(self, tab: DocumentTab):
+        """Saves the passed file"""
+        tab.save_document()
+
+    def save_as(self, tab: DocumentTab, uri: str):
+        """Saves the passed tab under new path"""
+        tab.save_document_as(uri)
+
+    def save_all(self):
         """Saves all open files"""
         for tab in self.tabs:
             root = tab.structure.get_root()
             document = root.get_document()
             document.save()
-
-    def save_as(self):
-        """Future implementation of save_as()"""
-        logger.warning('save_as() not yet implemented')
 
     def create_extension_store(self) -> ExtensionStoreViewModel:
         """Creates an extension store view model"""

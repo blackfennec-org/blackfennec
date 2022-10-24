@@ -15,6 +15,13 @@ import logging
 logger = logging.getLogger(__name__)
 
 
+class DeepCopy:
+    @staticmethod
+    def copy(structure):
+        deep_copy_visitor = DeepCopyVisitor()
+        return structure.accept(deep_copy_visitor)
+
+
 class DeepCopyVisitor(Visitor[Structure]):
     """Creates a deep copy of a structure
     """

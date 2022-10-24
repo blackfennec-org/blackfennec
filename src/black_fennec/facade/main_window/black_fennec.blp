@@ -91,9 +91,9 @@ Adw.StatusPage _empty_list_pattern {
     orientation: vertical;
     spacing: 8;
 
-    Button _open_folder_button{
+    Button _open_directory_button{
       label: _("Open directory ...");
-      action-name: "app.main.open_folder";
+      action-name: "app.main.open_directory";
       halign: center;
 
       styles [
@@ -201,13 +201,15 @@ menu _tab_menu {
 menu _primary_menu {
   section {
     item {
-      label: _("Open directory ...");
-      action: "app.main.open_folder";
+      label: _("Open Directory ...");
+      action: "app.main.open_directory";
     }
     item {
-      label: _("Open file ...");
+      label: _("Open File ...");
       action: "app.main.open_file";
     }
+  }
+  section {
     item {
       label: _("Save");
       action: "app.main.save";
@@ -217,15 +219,23 @@ menu _primary_menu {
       action: "app.main.save_as";
     }
     item {
-      label: _("Go to store");
+      label: _("Save All");
+      action: "app.main.save_all";
+    }
+  }
+  section {
+    item {
+      label: _("Go to Store");
       action: "app.main.extension_store";
     }
     item {
       label: _("About");
       action: "app.main.about";
     }
+  }
+  section {
     item {
-      label: _("Close");
+      label: _("Close Window");
       action: "app.main.quit";
     }
   }

@@ -90,9 +90,9 @@
         <property name="orientation">vertical</property>
         <property name="spacing">8</property>
         <child>
-          <object class="GtkButton" id="_open_folder_button">
+          <object class="GtkButton" id="_open_directory_button">
             <property name="label" translatable="true">Open directory ...</property>
-            <property name="action-name">app.main.open_folder</property>
+            <property name="action-name">app.main.open_directory</property>
             <property name="halign">center</property>
             <style>
               <class name="suggested-action"/>
@@ -184,13 +184,15 @@
   <menu id="_primary_menu">
     <section>
       <item>
-        <attribute name="label" translatable="true">Open directory ...</attribute>
-        <attribute name="action">app.main.open_folder</attribute>
+        <attribute name="label" translatable="true">Open Directory ...</attribute>
+        <attribute name="action">app.main.open_directory</attribute>
       </item>
       <item>
-        <attribute name="label" translatable="true">Open file ...</attribute>
+        <attribute name="label" translatable="true">Open File ...</attribute>
         <attribute name="action">app.main.open_file</attribute>
       </item>
+    </section>
+    <section>
       <item>
         <attribute name="label" translatable="true">Save</attribute>
         <attribute name="action">app.main.save</attribute>
@@ -200,15 +202,23 @@
         <attribute name="action">app.main.save_as</attribute>
       </item>
       <item>
-        <attribute name="label" translatable="true">Go to store</attribute>
+        <attribute name="label" translatable="true">Save All</attribute>
+        <attribute name="action">app.main.save_all</attribute>
+      </item>
+    </section>
+    <section>
+      <item>
+        <attribute name="label" translatable="true">Go to Store</attribute>
         <attribute name="action">app.main.extension_store</attribute>
       </item>
       <item>
         <attribute name="label" translatable="true">About</attribute>
         <attribute name="action">app.main.about</attribute>
       </item>
+    </section>
+    <section>
       <item>
-        <attribute name="label" translatable="true">Close</attribute>
+        <attribute name="label" translatable="true">Close Window</attribute>
         <attribute name="action">app.main.quit</attribute>
       </item>
     </section>

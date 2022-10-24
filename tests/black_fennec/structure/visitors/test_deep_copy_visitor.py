@@ -6,7 +6,7 @@ from doubles.black_fennec.structure.double_map import MapMock
 from doubles.black_fennec.structure.double_reference import ReferenceMock
 from doubles.black_fennec.structure.double_structure import StructureMock
 from doubles.double_dummy import Dummy
-from src.black_fennec.structure.visitors.deep_copy_visitor import \
+from src.black_fennec.structure.visitors.deep_copy import \
     DeepCopyVisitor
 
 
