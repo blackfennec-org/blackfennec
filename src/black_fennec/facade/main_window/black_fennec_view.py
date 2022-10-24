@@ -52,13 +52,12 @@ class BlackFennecView(Gtk.ApplicationWindow):
     def __init__(self, app, view_model, current_folder: str = None):
         self._application = app
         app.create_action('main.quit', self.on_quit_clicked, ['<primary>q'])
-        app.create_action('main.settings', self.on_settings_action)
-        app.create_action('main.open_folder', self.on_open_folder)
-        app.create_action('main.open_file', self.on_open_file)
-        app.create_action('main.save', self.on_save_clicked)
-        app.create_action('main.save_as', self.on_save_as_clicked)
-        app.create_action('main.extension_store', self.on_go_to_store_clicked)
-        app.create_action('main.about', self.on_about_clicked)
+        app.create_action('main.open_folder', self.on_open_folder, ['<primary>d'])
+        app.create_action('main.open_file', self.on_open_file, ['<primary>o'])
+        app.create_action('main.save', self.on_save_clicked, ['<primary>s'])
+        app.create_action('main.save_as', self.on_save_as_clicked, ['<primary><shift>s'])
+        app.create_action('main.extension_store', self.on_go_to_store_clicked, ['<primary>e'])
+        app.create_action('main.about', self.on_about_clicked, ['<primary>i'])
 
         super().__init__(application=app)
         logger.info('BlackFennecView __init__')

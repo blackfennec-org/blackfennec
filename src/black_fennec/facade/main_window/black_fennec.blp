@@ -82,8 +82,8 @@ Box _tab_overview {
 }
 
 Adw.StatusPage _empty_list_pattern {
-  title: _("Nothing to show...");
-  description: _("Open a folder or file to start editing.");
+  title: _("Nothing to show ...");
+  description: _("Open  a file or directory to start editing.");
   icon-name: "document-open-symbolic";
 
   Box {
@@ -92,7 +92,7 @@ Adw.StatusPage _empty_list_pattern {
     spacing: 8;
 
     Button _open_folder_button{
-      label: _("Open folder ...");
+      label: _("Open directory ...");
       action-name: "app.main.open_folder";
       halign: center;
 
@@ -201,11 +201,7 @@ menu _tab_menu {
 menu _primary_menu {
   section {
     item {
-      label: _("Settings");
-      action: "app.main.settings";
-    }
-    item {
-      label: _("Open folder ...");
+      label: _("Open directory ...");
       action: "app.main.open_folder";
     }
     item {
@@ -217,7 +213,7 @@ menu _primary_menu {
       action: "app.main.save";
     }
     item {
-      label: _("Save As...");
+      label: _("Save As ...");
       action: "app.main.save_as";
     }
     item {

@@ -81,8 +81,8 @@
     </child>
   </object>
   <object class="AdwStatusPage" id="_empty_list_pattern">
-    <property name="title" translatable="true">Nothing to show...</property>
-    <property name="description" translatable="true">Open a folder or file to start editing.</property>
+    <property name="title" translatable="true">Nothing to show ...</property>
+    <property name="description" translatable="true">Open  a file or directory to start editing.</property>
     <property name="icon-name">document-open-symbolic</property>
     <child>
       <object class="GtkBox">
@@ -91,7 +91,7 @@
         <property name="spacing">8</property>
         <child>
           <object class="GtkButton" id="_open_folder_button">
-            <property name="label" translatable="true">Open folder ...</property>
+            <property name="label" translatable="true">Open directory ...</property>
             <property name="action-name">app.main.open_folder</property>
             <property name="halign">center</property>
             <style>
@@ -184,11 +184,7 @@
   <menu id="_primary_menu">
     <section>
       <item>
-        <attribute name="label" translatable="true">Settings</attribute>
-        <attribute name="action">app.main.settings</attribute>
-      </item>
-      <item>
-        <attribute name="label" translatable="true">Open folder ...</attribute>
+        <attribute name="label" translatable="true">Open directory ...</attribute>
         <attribute name="action">app.main.open_folder</attribute>
       </item>
       <item>
@@ -200,7 +196,7 @@
         <attribute name="action">app.main.save</attribute>
       </item>
       <item>
-        <attribute name="label" translatable="true">Save As...</attribute>
+        <attribute name="label" translatable="true">Save As ...</attribute>
         <attribute name="action">app.main.save_as</attribute>
       </item>
       <item>
