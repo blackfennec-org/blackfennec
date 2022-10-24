@@ -35,7 +35,6 @@ class BlackFennecViewModel(Observable):
             document_factory: DocumentFactory,
             extension_api: ExtensionApi,
             extension_source_registry: ExtensionSourceRegistry,
-            meta_info,
     ):
         """BlackFennecViewModel constructor.
 
@@ -54,7 +53,6 @@ class BlackFennecViewModel(Observable):
         self._document_factory = document_factory
         self._extension_api = extension_api
         self._extension_source_registry = extension_source_registry
-        self._meta_info = meta_info
         self.tabs = set()
         self.project: Optional[str] = None
 
@@ -116,4 +114,4 @@ class BlackFennecViewModel(Observable):
         )
 
     def get_about_window_view_model(self):
-        return AboutWindowViewModel(self._meta_info)
+        return AboutWindowViewModel()

@@ -1,9 +1,10 @@
+from datetime import datetime
 from functools import lru_cache
 from pathlib import Path
 
 from gi.repository import AppStream, Gio
 
-BASE_DIR = Path(__file__).resolve().parent
+BASE_DIR = Path(__file__).resolve().parent.parent.parent.parent
 META_INFO_XML = str(BASE_DIR.joinpath('org.blackfennec.app.metainfo.xml'))
 
 
@@ -20,7 +21,7 @@ class BlackFennecMetaInfo:
 
     @lru_cache
     def get_current_release(self) -> AppStream.Release:
-        releases = self._component.get_releases()
+        releases = self.component.get_releases()
         current_release = releases[0]
         for release in releases:
             if release.vercmp(current_release) == 1:
@@ -32,3 +33,9 @@ class BlackFennecMetaInfo:
 
     def get_plain_description(self) -> str:
         return AppStream.markup_convert_simple(self._component.get_description())
+
+    def get_copy_right(self) -> str:
+        return f"© {datetime.now().year} {self.component.get_name()}"
+
+    def get_authors(self) -> []:
+        return self.component.get_developer_name().split(', ')

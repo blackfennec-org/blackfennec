@@ -6,7 +6,7 @@ from src.black_fennec.facade.main_window.black_fennec_view import BlackFennecVie
 from src.black_fennec.facade.main_window.black_fennec_view_model import BlackFennecViewModel
 from src.black_fennec.facade.splash_screen.splash_screen_view import SplashScreenView
 from src.black_fennec.util.initialisation_service import InitialisationService
-from meta_info import BlackFennecMetaInfo
+from src.black_fennec.util.meta_info import BlackFennecMetaInfo
 
 from gi.repository import Adw, Gio, Gtk
 
@@ -53,7 +53,6 @@ class BlackFennec(Adw.Application):
 
     def do_setup(self):
         """Setup BlackFennec application"""
-        meta_info = BlackFennecMetaInfo()
 
         view_model = BlackFennecViewModel(
             self._initialisation_service.presenter_registry,
@@ -61,7 +60,6 @@ class BlackFennec(Adw.Application):
             self._initialisation_service.document_factory,
             self._initialisation_service.extension_api,
             self._initialisation_service.extension_source_registry,
-            meta_info,
         )
         black_fennec_view = BlackFennecView(self, view_model)
         return black_fennec_view

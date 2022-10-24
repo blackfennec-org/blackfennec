@@ -15,6 +15,8 @@ import os
 import sys
 
 sys.path.insert(0, os.path.abspath("../.."))
+
+from src.black_fennec.util.meta_info import BlackFennecMetaInfo
 from unittest.mock import MagicMock
 
 
@@ -27,16 +29,15 @@ class Mock(MagicMock):
 MOCK_MODULES = ["gi.repository"]
 sys.modules.update((mod_name, Mock()) for mod_name in MOCK_MODULES)
 
-
 # -- Project Information -----------------------------------------------------
 
-project = "Black Fennec"
-copyright = "2021, Simon Kindhauser, Caspar Martens, " "Lara Gubler, Leonie Däullary"
-author = "Simon Kindhauser, Caspar Martens, " "Lara Gubler, Leonie Däullary"
+meta_info = BlackFennecMetaInfo()
+project = meta_info.component.get_name()
+copyright = meta_info.get_copy_right()
+author = ", ".join(meta_info.get_authors())
 
 # The full version, including alpha/beta/rc tags
-release = '0.8.1'
-
+release = meta_info.get_current_release().get_version()
 
 # -- General configuration ---------------------------------------------------
 
@@ -54,7 +55,6 @@ extensions = [
     "sphinx.ext.napoleon",
 ]
 
-
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ["_templates"]
 
@@ -62,7 +62,6 @@ templates_path = ["_templates"]
 # directories to ignore when looking for source files.
 # This pattern also affects html_static_path and html_extra_path.
 exclude_patterns = []
-
 
 # -- Options for HTML output -------------------------------------------------
 

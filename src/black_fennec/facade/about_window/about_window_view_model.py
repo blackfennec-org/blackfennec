@@ -1,14 +1,11 @@
-from datetime import datetime
+from gi.repository import AppStream
 
-from gi.repository import Adw, AppStream
-
-from meta_info import BlackFennecMetaInfo
+from src.black_fennec.util.meta_info import BlackFennecMetaInfo
 
 
 class AboutWindowViewModel:
-
-    def __init__(self, meta_info: BlackFennecMetaInfo):
-        self._meta_info = meta_info
+    def __init__(self):
+        self._meta_info = BlackFennecMetaInfo()
         self.version = self._meta_info.get_current_release().get_version()
         self.release_notes = self._meta_info.get_current_release().get_description()
         self.application_name = self._meta_info.component.get_name()
@@ -17,6 +14,6 @@ class AboutWindowViewModel:
         self.comments = self._meta_info.get_plain_description()
         self.website = self._meta_info.component.get_url(AppStream.UrlKind.HOMEPAGE)
         self.issue_tracker = self._meta_info.component.get_url(AppStream.UrlKind.BUGTRACKER)
-        self.copy_right = f"© {datetime.now().year} {self.application_name}"
+        self.copy_right = self._meta_info.get_copy_right()
         self.app_id = self._meta_info.component.get_id()
         self.icon = self._meta_info.get_icon_path()

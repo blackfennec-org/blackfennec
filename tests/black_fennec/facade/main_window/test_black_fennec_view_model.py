@@ -1,6 +1,3 @@
-import unittest
-import logging
-
 import pytest
 
 from doubles.black_fennec.document_system.double_document import DocumentMock
@@ -8,9 +5,7 @@ from doubles.black_fennec.document_system.double_document_factory import Documen
 from doubles.black_fennec.type_system.double_presenter_registry import PresenterRegistryMock
 from doubles.double_dummy import Dummy
 from doubles.black_fennec.interpretation.double_interpretation_service import InterpretationServiceMock
-from doubles.double_meta_info import MetaInfoMock
 from doubles.extension.double_extension_source_registry import ExtensionSourceRegistryMock
-from doubles.presentation.double_presenter_factory import PresenterFactoryMock
 from src.black_fennec.facade.extension_store.extension_store_view_model import ExtensionStoreViewModel
 from src.black_fennec.facade.main_window.black_fennec_view_model import BlackFennecViewModel
 
@@ -41,17 +36,11 @@ def extension_source_registry():
 
 
 @pytest.fixture()
-def meta_info():
-    return MetaInfoMock()
-
-
-@pytest.fixture()
 def view_model(
         presenter_registry,
         interpretation_service,
         document_factory,
         extension_source_registry,
-        meta_info
 ):
     return BlackFennecViewModel(
         presenter_registry,
@@ -59,7 +48,6 @@ def view_model(
         document_factory,
         Dummy(),
         extension_source_registry,
-        meta_info,
     )
 
 

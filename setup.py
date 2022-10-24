@@ -8,7 +8,7 @@ gi.require_version('AppStream', '1.0')
 
 from gi.repository import AppStream
 
-from meta_info import BlackFennecMetaInfo
+from src.black_fennec.util.meta_info import BlackFennecMetaInfo
 
 meta_info = BlackFennecMetaInfo()
 
