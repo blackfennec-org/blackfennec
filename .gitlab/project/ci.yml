@@ -35,7 +35,7 @@ run tests:
       coverage_report:
         coverage_format: cobertura
         path: coverage.xml
-  coverage: /^TOTAL.+?(\d+\%)$/
+  coverage: /^TOTAL.+?(\d+\.\d+\%)$/
 
 ###############################################################################
 # Publish Python Package
