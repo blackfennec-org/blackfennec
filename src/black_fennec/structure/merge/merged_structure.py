@@ -48,7 +48,7 @@ class MergedStructure(Structure):
         overlay_parent = self._parent_or_phantom(self._overlay, self._underlay)
 
         if underlay_parent or overlay_parent:
-            return deep_merge.DeepMerge.merge(underlay_parent, overlay_parent)
+            return self._encapsulate(underlay_parent, overlay_parent)
 
         return None
 
@@ -65,6 +65,9 @@ class MergedStructure(Structure):
         if parent:
             return parent.get_root()
         return None
+
+    def _encapsulate(self, underlay: Structure, overlay: Structure) -> 'MergedStructure':
+        return deep_merge.DeepMerge.merge(underlay, overlay)
 
     def __repr__(self) -> str:
         return f"MergedStructure(underlay={self._underlay}, overlay={self._overlay})"

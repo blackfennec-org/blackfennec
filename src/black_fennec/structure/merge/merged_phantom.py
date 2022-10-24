@@ -1,10 +1,10 @@
 from src.black_fennec.structure.null import Null
 from src.black_fennec.util.intercepting_visitor import InterceptingVisitor
 
-
 import logging
 
 logger = logging.getLogger(__name__)
+
 
 class MergedPhantom:
     """A mock object to allow navigating a phantom structure for merging"""

@@ -3,10 +3,10 @@ from src.black_fennec.structure.visitor import Visitor
 from src.black_fennec.structure.structure import Structure
 from .merged_structure import MergedStructure
 
-
 import logging
 
 logger = logging.getLogger(__name__)
+
 
 class MergedNull(MergedStructure):
     def __init__(self, underlay: Structure, overlay: Structure):
@@ -27,4 +27,3 @@ class MergedNull(MergedStructure):
 
     def __repr__(self) -> str:
         return f"MergedNull()"
-

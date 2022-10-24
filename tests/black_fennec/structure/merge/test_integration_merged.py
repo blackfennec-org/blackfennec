@@ -1,16 +1,17 @@
 import pytest
+
 from doubles.black_fennec.structure.double_reference import ReferenceMock
 from src.black_fennec.structure.map import Map
 from src.black_fennec.structure.merge.deep_merge import DeepMerge
 from src.black_fennec.structure.merge.merged_structure import MergedStructure
-
 from src.black_fennec.structure.null import Null
 from src.black_fennec.structure.overlay.overlay_factory_visitor import OverlayFactoryVisitor
+from src.black_fennec.structure.reference import Reference
 from src.black_fennec.structure.string import String
-from src.black_fennec.structure.type.map_type import MapType
-from src.black_fennec.structure.type.type_parser import TypeParser
+from tests.test_utils.parameterize import CORE_STRUCTURES
 
 pytestmark = pytest.mark.integration
+
 
 @pytest.mark.parametrize(
     "underlay, overlay",
@@ -24,30 +25,6 @@ def test_merged_map_null_property(underlay, overlay):
     merged = DeepMerge.merge(underlay, overlay)
     assert merged.value["foo"].value is None
 
-def test_unknown_error():
-    visitor = OverlayFactoryVisitor()
-
-    divinetype = Map({
-        "super": Map({
-            "super": Null(),
-        })
-    })
-
-    divinetype_merged = DeepMerge.merge(divinetype.value["super"], divinetype)
-    
-    supertype = Map({
-        "super": ReferenceMock(resolve_return=divinetype_merged),
-    })
-
-    supertype_overlay = supertype.accept(visitor)
-
-    divinetype = supertype_overlay.value["super"]
-    maptype = divinetype.value["super"]
-    divinetype_merged = DeepMerge.merge(underlay=maptype, overlay=divinetype)
-    supertype_merged = DeepMerge.merge(
-        underlay=divinetype_merged, overlay=supertype_overlay)
-
-    assert supertype_merged.value["super"].value["super"].value["super"].value is None
 
 @pytest.mark.parametrize(
     "underlay, overlay",
@@ -61,6 +38,7 @@ def test_unknown_error():
 def test_merge_two_merged_maps_with_null_properties(underlay, overlay):
     merged = DeepMerge.merge(underlay, overlay)
     assert merged.value == "foo"
+
 
 def test_merged_parent_is_self():
     divinetype = Map({
@@ -96,6 +74,7 @@ def test_can_get_parent(underlay, overlay, expected):
     merged = MergedStructure(underlay, overlay)
     actual = merged.parent.value["layer"].value
     assert actual == expected
+
 
 def test_can_get_parent_if_no_parent():
     merged = MergedStructure(Null(), Null())
@@ -176,3 +155,25 @@ def test_can_get_root(underlay, overlay, expected):
     else:
         actual = Null()
     assert actual == expected
+
+
+@pytest.mark.parametrize(
+    "underlay",
+    CORE_STRUCTURES,
+    ids=lambda x: x.__class__.__name__,
+)
+@pytest.mark.parametrize(
+    "overlay",
+    CORE_STRUCTURES,
+    ids=lambda x: x.__class__.__name__,
+)
+def test_only_merge_with_same_type(underlay, overlay):
+    if isinstance(underlay, Reference) or isinstance(overlay, Reference):
+        pytest.skip("Reference not implemented yet")
+    elif type(underlay) is type(overlay):
+        DeepMerge.merge(underlay, overlay)
+    elif isinstance(underlay, Null) or isinstance(overlay, Null):
+        DeepMerge.merge(underlay, overlay)
+    else:
+        with pytest.raises(TypeError):
+            DeepMerge.merge(underlay, overlay)

@@ -7,6 +7,7 @@ import logging
 
 logger = logging.getLogger(__name__)
 
+
 class MergedMap(MergedStructure):
     def __init__(self, underlay: Structure, overlay: Structure):
         super().__init__(underlay, overlay)
@@ -23,14 +24,14 @@ class MergedMap(MergedStructure):
         overlay = self._value_or_empty(self._overlay)
         for key, value in underlay.items():
             if key in overlay:
-                result[key] = deep_merge.DeepMerge.merge(value, overlay[key])
+                result[key] = self._encapsulate(value, overlay[key])
             else:
-                result[key] = deep_merge.DeepMerge.merge(
+                result[key] = self._encapsulate(
                     value, MergedPhantom(self._overlay, value)
                 )
         for key, value in overlay.items():
             if key not in underlay:
-                result[key] = deep_merge.DeepMerge.merge(
+                result[key] = self._encapsulate(
                     MergedPhantom(self._underlay, value), value
                 )
         return result

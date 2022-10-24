@@ -11,6 +11,7 @@ from .merged_structure import MergedStructure
 from .merged_null import MergedNull
 from .merged_list import MergedList
 from .merged_map import MergedMap
+from ..reference import Reference
 
 
 class MergerFactory(Visitor["Merger"]):
@@ -34,6 +35,9 @@ class MergerFactory(Visitor["Merger"]):
     def visit_map(self, overlay: Map):
         return MapMerger(overlay)
 
+    def visit_reference(self, overlay: Reference):
+        raise TypeError("Cannot merge a reference")
+
 
 class Merger(Visitor[MergedStructure]):
     def __init__(self, overlay) -> None:
@@ -44,7 +48,7 @@ class Merger(Visitor[MergedStructure]):
         return underlay.accept(self)
 
     def visit_structure(self, unused_other: Structure):
-        raise AssertionError("cannot merge structures of different types")
+        raise TypeError("cannot merge structures of different types")
 
     @abstractmethod
     def visit_null(self, underlay: Null):
@@ -69,7 +73,6 @@ class NumberMerger(Merger):
     def visit_number(self, underlay):
         return MergedStructure(underlay, self._overlay)
 
-    
     def visit_null(self, underlay):
         return MergedStructure(underlay, self._overlay)
 
@@ -109,7 +112,6 @@ class ListMerger(Merger):
     def visit_list(self, underlay):
         return MergedList(underlay, self._overlay)
 
-    
     def visit_null(self, underlay):
         return MergedList(underlay, self._overlay)
 

@@ -7,10 +7,10 @@ import logging
 
 logger = logging.getLogger(__name__)
 
+
 class MergedList(MergedStructure):
     def __init__(self, underlay: Structure, overlay: Structure):
         super().__init__(underlay, overlay)
-        logger.info("MergedList is not implemented")
 
     def _value_or_empty(self, structure):
         if structure.value is None:
@@ -24,7 +24,7 @@ class MergedList(MergedStructure):
         overlay = self._value_or_empty(self._overlay)
         value = underlay + overlay
         return [
-            deep_merge.DeepMerge.merge(MergedPhantom(self, child), child)
+            self._encapsulate(MergedPhantom(self, child), child)
             for child in value
         ]
 
