@@ -24,12 +24,6 @@ def interpretation_service():
 
 
 @pytest.fixture()
-def document_tab_parametrized(request):
-    document = DocumentMock(content=request.param)
-    return DocumentTabMock(document=document)
-
-
-@pytest.fixture()
 def document():
     return DocumentMock(content=Dummy())
 
@@ -74,16 +68,9 @@ def test_can_save_file(view_model, document_tab):
     assert document_tab.save_document_count == 1
 
 
-@pytest.mark.parametrize(
-    "document_tab_parametrized",
-    CORE_STRUCTURES,
-    indirect=True,
-)
-def test_can_save_as_file(view_model, document_tab_parametrized, tmp_path):
-    old_content = document_tab_parametrized.document.content
-    view_model.save_as(document_tab_parametrized, (tmp_path / "test.json").as_posix())
-    assert document_tab_parametrized.save_document_as_count == 1
-    assert DeepCompare.compare(document_tab_parametrized.document.content, old_content)
+def test_can_save_as_file(view_model, document_tab, tmp_path):
+    view_model.save_as(document_tab, (tmp_path / "test.json").as_posix())
+    assert document_tab.save_document_as_count == 1
 
 
 def test_can_set_directory(view_model):

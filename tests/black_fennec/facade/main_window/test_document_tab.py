@@ -2,10 +2,14 @@ import pytest
 
 from doubles.black_fennec.document_system.double_document import DocumentMock
 from doubles.black_fennec.document_system.double_document_factory import DocumentFactoryMock
+from doubles.black_fennec.document_system.mime_type.double_mime_type import MimeTypeMock
+from doubles.black_fennec.document_system.resource_type.double_resource_type import ResourceTypeMock
 from doubles.black_fennec.navigation.double_navigation_service import NavigationServiceMock
 from doubles.black_fennec.type_system.double_presenter_registry import PresenterRegistryMock
 from doubles.double_dummy import Dummy
 from src.black_fennec.facade.main_window.document_tab import DocumentTab
+from tests.test_utils.deep_compare import DeepCompare
+from tests.test_utils.parameterize import CORE_STRUCTURES
 
 
 @pytest.fixture
@@ -14,13 +18,29 @@ def presenter_registry():
 
 
 @pytest.fixture
-def document_factory():
-    return DocumentFactoryMock(create_return=DocumentMock(content=Dummy()))
+def document():
+    return DocumentMock(content=Dummy())
+
+
+@pytest.fixture
+def document_factory(document):
+    return DocumentFactoryMock(create_return=document)
 
 
 @pytest.fixture
 def navigation_service():
     return NavigationServiceMock()
+
+
+@pytest.fixture()
+def document_tab_parametrized(request, presenter_registry, navigation_service):
+    mime_type = MimeTypeMock()
+    resource_type = ResourceTypeMock()
+    document = DocumentMock(mime_type, resource_type, content=request.param)
+    document_factory = DocumentFactoryMock(create_return=document)
+    document_tab = DocumentTab(presenter_registry, document_factory, navigation_service, "uri")
+    document_tab.document = document
+    return document_tab
 
 
 @pytest.fixture
@@ -41,3 +61,20 @@ def test_can_load_document(document_tab, document_factory):
     document_tab.presenter = Dummy()
     document_tab.load_document()
     assert document_factory.create_count == 1
+
+
+def test_can_save(document_tab, document):
+    document_tab.document = document
+    document_tab.save_document()
+    assert document.save_count == 1
+
+
+@pytest.mark.parametrize(
+    "document_tab_parametrized",
+    CORE_STRUCTURES,
+    indirect=True,
+)
+def test_can_save_as(tmp_path, document_tab_parametrized: DocumentTab):
+    content = document_tab_parametrized.document.content
+    document_tab_parametrized.save_document_as((tmp_path / "test.json").as_posix())
+    assert DeepCompare.compare(document_tab_parametrized.document.content, content)

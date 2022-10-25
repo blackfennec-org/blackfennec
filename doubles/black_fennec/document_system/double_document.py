@@ -11,8 +11,18 @@ class DocumentMock:
         self._content = content
 
         self.load_content_count = 0
+        self.set_content_count = 0
+        self.save_count = 0
 
     @property
     def content(self):
         self.load_content_count += 1
         return self._content
+
+    @content.setter
+    def content(self, value):
+        self.set_content_count += 1
+        self._content = value
+
+    def save(self):
+        self.save_count += 1
