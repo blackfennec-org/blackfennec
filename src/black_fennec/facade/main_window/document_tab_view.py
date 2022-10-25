@@ -4,11 +4,13 @@ import traceback
 
 from gi.repository import Adw, GLib
 
+from src.black_fennec.facade.main_window.document_tab import DocumentTab
+
 logger = logging.getLogger(__name__)
 
 
 class DocumentTabView():
-    def __init__(self, tab_view: Adw.TabView, tab):
+    def __init__(self, tab_view: Adw.TabView, tab: DocumentTab):
         error_occured = False
         try:
             presenter = tab.create_presenter()
@@ -25,6 +27,7 @@ class DocumentTabView():
         self.tab_page = tab_view.add_page(presenter)
         self.tab_page.set_title(tab.uri)
         self.tab_page.set_tooltip(tab.uri)
+        self.tab_page.document_tab = tab
 
         if not error_occured:
             self.tab_page.set_loading(True)

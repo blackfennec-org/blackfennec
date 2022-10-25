@@ -116,3 +116,20 @@ class BlackFennecViewModel(Observable):
 
     def get_about_window_view_model(self):
         return AboutWindowViewModel()
+
+    def copy(self):
+        return BlackFennecViewModel(
+            self._presenter_registry,
+            self._interpretation_service,
+            self._document_factory,
+            self._extension_api,
+            self._extension_source_registry
+        )
+
+    def attach_tab(self, tab: DocumentTab):
+        if tab not in self.tabs:
+            self.tabs.add(tab)
+
+    def detach_tab(self, tab: DocumentTab):
+        if tab in self.tabs:
+            self.tabs.remove(tab)

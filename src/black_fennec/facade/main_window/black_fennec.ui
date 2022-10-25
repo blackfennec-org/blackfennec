@@ -13,19 +13,6 @@
             <signal name="clicked" handler="on_flap_button_toggled"/>
           </object>
         </child>
-        <child type="start">
-          <object class="GtkButton">
-            <property name="icon-name">view-grid-symbolic</property>
-            <property name="tooltip-text" translatable="true">View Open Tabs</property>
-            <property name="action-name">overview.open</property>
-          </object>
-        </child>
-        <child type="start">
-          <object class="GtkButton">
-            <property name="action-name">win.tab-new</property>
-            <property name="icon-name">tab-new-symbolic</property>
-          </object>
-        </child>
         <child type="end">
           <object class="GtkMenuButton">
             <property name="icon-name">open-menu-symbolic</property>
@@ -64,19 +51,14 @@
     <property name="orientation">vertical</property>
     <child>
       <object class="AdwTabBar" id="_tab_bar">
-        <property name="view">_tab_view</property>
+        <property name="view">tab_view</property>
         <property name="autohide">false</property>
-        <signal name="extra-drag-drop" handler="extra_drag_drop_cb" swapped="true"/>
       </object>
     </child>
     <child>
-      <object class="AdwTabView" id="_tab_view">
+      <object class="AdwTabView" id="tab_view">
         <property name="vexpand">true</property>
         <property name="menu-model">_tab_menu</property>
-        <signal name="page-detached" handler="page_detached_cb" swapped="true"/>
-        <signal name="setup-menu" handler="setup_menu_cb" swapped="true"/>
-        <signal name="create-window" handler="create_window_cb" swapped="true"/>
-        <signal name="indicator-activated" handler="indicator_activated_cb" swapped="true"/>
       </object>
     </child>
   </object>
@@ -92,7 +74,7 @@
         <child>
           <object class="GtkButton" id="_open_directory_button">
             <property name="label" translatable="true">Open directory ...</property>
-            <property name="action-name">app.main.open_directory</property>
+            <property name="action-name">main.open_directory</property>
             <property name="halign">center</property>
             <style>
               <class name="suggested-action"/>
@@ -103,7 +85,7 @@
         <child>
           <object class="GtkButton" id="_open_file_button">
             <property name="label" translatable="true">Open file ...</property>
-            <property name="action-name">app.main.open_file</property>
+            <property name="action-name">main.open_file</property>
             <property name="halign">center</property>
             <style>
               <class name="pill"/>
@@ -117,11 +99,7 @@
     <section>
       <item>
         <attribute name="label" translatable="true">_Move to New Window</attribute>
-        <attribute name="action">tab.move-to-new-window</attribute>
-      </item>
-      <item>
-        <attribute name="label" translatable="true">D_uplicate</attribute>
-        <attribute name="action">tab.duplicate</attribute>
+        <attribute name="action">tab.move_to_new_window</attribute>
       </item>
     </section>
     <section>
@@ -138,43 +116,35 @@
     </section>
     <section>
       <item>
-        <attribute name="label" translatable="true">Icon</attribute>
-        <attribute name="action">tab.icon</attribute>
+        <attribute name="label" translatable="true">_Save</attribute>
+        <attribute name="action">tab.save</attribute>
       </item>
       <item>
-        <attribute name="label" translatable="true">R_efresh Icon</attribute>
-        <attribute name="action">tab.refresh-icon</attribute>
-      </item>
-    </section>
-    <section>
-      <item>
-        <attribute name="label" translatable="true">Loa_ding</attribute>
-        <attribute name="action">tab.loading</attribute>
-      </item>
-      <item>
-        <attribute name="label" translatable="true">Needs _Attention</attribute>
-        <attribute name="action">tab.needs-attention</attribute>
-      </item>
-      <item>
-        <attribute name="label" translatable="true">Indicator</attribute>
-        <attribute name="action">tab.indicator</attribute>
+        <attribute name="label" translatable="true">Save _As ...</attribute>
+        <attribute name="action">tab.save_as</attribute>
       </item>
     </section>
     <section>
       <item>
         <attribute name="label" translatable="true">Close _Other Tabs</attribute>
-        <attribute name="action">tab.close-other</attribute>
+        <attribute name="action">tab.close_other</attribute>
+        <attribute name="hidden-when">action-disabled</attribute>
       </item>
       <item>
         <attribute name="label" translatable="true">Close Tabs to the _Left</attribute>
-        <attribute name="action">tab.close-before</attribute>
+        <attribute name="action">tab.close_before</attribute>
+        <attribute name="hidden-when">action-disabled</attribute>
       </item>
       <item>
         <attribute name="label" translatable="true">Close Tabs to the _Right</attribute>
-        <attribute name="action">tab.close-after</attribute>
+        <attribute name="action">tab.close_after</attribute>
+        <attribute name="hidden-when">action-disabled</attribute>
       </item>
-    </section>
-    <section>
+      <item>
+        <attribute name="label" translatable="true">Close _All Tabs</attribute>
+        <attribute name="action">tab.close_all</attribute>
+        <attribute name="hidden-when">action-disabled</attribute>
+      </item>
       <item>
         <attribute name="label" translatable="true">_Close</attribute>
         <attribute name="action">tab.close</attribute>
@@ -185,41 +155,41 @@
     <section>
       <item>
         <attribute name="label" translatable="true">Open Directory ...</attribute>
-        <attribute name="action">app.main.open_directory</attribute>
+        <attribute name="action">main.open_directory</attribute>
       </item>
       <item>
         <attribute name="label" translatable="true">Open File ...</attribute>
-        <attribute name="action">app.main.open_file</attribute>
+        <attribute name="action">main.open_file</attribute>
       </item>
     </section>
     <section>
       <item>
         <attribute name="label" translatable="true">Save</attribute>
-        <attribute name="action">app.main.save</attribute>
+        <attribute name="action">main.save</attribute>
       </item>
       <item>
         <attribute name="label" translatable="true">Save As ...</attribute>
-        <attribute name="action">app.main.save_as</attribute>
+        <attribute name="action">main.save_as</attribute>
       </item>
       <item>
         <attribute name="label" translatable="true">Save All</attribute>
-        <attribute name="action">app.main.save_all</attribute>
+        <attribute name="action">main.save_all</attribute>
       </item>
     </section>
     <section>
       <item>
         <attribute name="label" translatable="true">Go to Store</attribute>
-        <attribute name="action">app.main.extension_store</attribute>
+        <attribute name="action">main.extension_store</attribute>
       </item>
       <item>
         <attribute name="label" translatable="true">About</attribute>
-        <attribute name="action">app.main.about</attribute>
+        <attribute name="action">main.about</attribute>
       </item>
     </section>
     <section>
       <item>
         <attribute name="label" translatable="true">Close Window</attribute>
-        <attribute name="action">app.main.quit</attribute>
+        <attribute name="action">main.quit</attribute>
       </item>
     </section>
   </menu>
