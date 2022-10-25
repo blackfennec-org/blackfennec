@@ -98,3 +98,16 @@ def test_can_create_extension_store(view_model):
 
 def test_can_get_about_window_view_model(view_model):
     view_model.get_about_window_view_model()
+
+
+def test_can_attach_tab(view_model):
+    tab = Dummy()
+    view_model.attach_tab(tab)
+    assert tab in view_model.tabs
+
+
+def test_can_detach_tab(view_model):
+    tab = Dummy()
+    view_model.tabs = [tab]
+    view_model.detach_tab(tab)
+    assert tab not in view_model.tabs
