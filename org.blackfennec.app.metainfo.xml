@@ -29,7 +29,7 @@
 
     <url type="homepage">http://blackfennec.org</url>
     <url type="bugtracker">https://gitlab.ost.ch/blackfennec/blackfennec/-/issues/</url>
-    <url type="unknown">https://gitlab.ost.ch/blackfennec/blackfennec.git</url>
+    <url type="vcs-browser">https://gitlab.ost.ch/blackfennec/blackfennec.git</url>
 
 
     <releases>
