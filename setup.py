@@ -20,5 +20,10 @@ setup(
     long_description_content_type='text/markdown',
     license=meta_info.component.get_project_license(),
     url=meta_info.component.get_url(AppStream.UrlKind.HOMEPAGE),
-    packages=find_packages(exclude=('tests', 'doubles', 'docs'))
+    packages=find_packages(exclude=('tests', 'doubles', 'docs')),
+    entry_points={
+        "console_scripts": [
+            "blackfennec = blackfennec:main"
+        ],
+    }
 )

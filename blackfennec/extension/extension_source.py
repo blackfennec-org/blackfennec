@@ -84,13 +84,13 @@ class ExtensionSource:
         return self._subject
 
     @property
-    def extensions(self) -> [Extension]:
+    def extensions(self) -> list[Extension]:
         """
         Reloads extensions from underlay, but keeps
             status of already loaded extensions.
 
         Returns:
-             [Extension]: list of extensions in source
+            list[Extension]: list of extensions in source
         """
         source_extension_list = \
             self._subject.value[self.EXTENSION_LIST_KEY].value

@@ -7,6 +7,8 @@ from blackfennec.structure.boolean import Boolean
 from blackfennec.structure.map import Map
 from blackfennec.structure.string import String
 
+import logging
+logger = logging.getLogger(__name__)
 
 class Extension:
     """
@@ -101,6 +103,10 @@ class Extension:
             self.status = (ExtensionStatus.LOADED, module)
         except Exception as exception:
             self.status = (ExtensionStatus.CREATE_FAILED, exception)
+            logger.error(
+                f'Failed to create extension {self.name} from module {module}',
+                exc_info=True
+            )
             raise exception
 
     def unload(self, extension_api):

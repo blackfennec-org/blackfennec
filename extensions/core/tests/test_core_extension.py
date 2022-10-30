@@ -1,13 +1,12 @@
 import unittest
 from blackfennec_doubles.double_dummy import Dummy
 from blackfennec_doubles.extension.double_view_factory_registry import ViewFactoryRegistryMock
+from blackfennec_doubles.type_system.double_presenter_registry import PresenterRegistryMock
 from blackfennec_doubles.type_system.double_type_registry import TypeRegistryMock
 
 from blackfennec.extension.extension_api import ExtensionApi
-from extension import create_extension, destroy_extension
+from core import create_extension, destroy_extension
 
-# from core.reference.reference_view import ReferenceView
-from core.string.string_view import StringView
 
 
 class CoreExtensionTestSuite(unittest.TestCase):
@@ -15,7 +14,7 @@ class CoreExtensionTestSuite(unittest.TestCase):
         self.type_registry = TypeRegistryMock()
         self.view_factory_registry = ViewFactoryRegistryMock()
         self.extension_api = ExtensionApi(
-            presenter_registry=Dummy("PresenterRegistry"),
+            presenter_registry=PresenterRegistryMock(),
             type_registry=self.type_registry,
             interpretation_service=Dummy("InterpretationService"),
             view_factory=Dummy("ViewFactory"),

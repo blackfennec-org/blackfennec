@@ -4,6 +4,7 @@ docs/source/_build/
 docs/source/software_documentation/code/*
 .vscode/
 .idea/
+*.egg-info/
 .coverage
 coverage.xml
 *.glade~

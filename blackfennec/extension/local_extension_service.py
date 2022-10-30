@@ -1,29 +1,34 @@
 # -*- coding: utf-8 -*-
+import os
 import importlib
 import inspect
 import logging
 import pkgutil
+from importlib.metadata import entry_points
 
 from blackfennec.extension.extension import Extension
 from blackfennec.extension.extension_status import ExtensionStatus
 
 logger = logging.getLogger(__name__)
+logger.setLevel(logging.DEBUG)
 
 
 class LocalExtensionService:
     """
     Can import and list modules present in a local
         python namespace.
-    """
+    """    
 
-    @staticmethod
-    def _iter_namespace(name, location):
-        return reversed(list(pkgutil.iter_modules(
-            location,
-            name + '.')))
+    @classmethod
+    def _validate_extension(self, module) -> bool:
+        logger.debug(f'Validating module {module}')
+        if not self._function_exists(module, 'create_extension'):
+            return False
+        if not self._function_exists(module, 'destroy_extension'):
+            return False
+        return True
 
-    @staticmethod
-    def _check_if_function_exists(module, function_name):
+    def _function_exists(module, function_name):
         members = inspect.getmembers(module)
         for function, _ in members:
             if function == function_name:
@@ -34,39 +39,33 @@ class LocalExtensionService:
             self,
             sender: 'ExtensionSource',
             name: str,
-            location: [str]
-    ) -> [Extension]:
+            locations: list[str]
+    ) -> list[Extension]:
         """
         Args:
             sender (ExtensionSource): source querying extensions
             name (str): name of namespace
-            location ([str]): location of namespace
+            location (str): location of namespace
         Returns:
             [Extension]: Extensions which are installed in namespace
                 and have a create_extension and destroy_extension
                 method
         """
         extensions = {}
-        for module_structure in self._iter_namespace(name, location):
-            module_name = module_structure.name
-            module_spec = module_structure.module_finder.find_spec(module_name)
-            module_path = module_spec.submodule_search_locations
+        modules = entry_points(group="blackfennec.extension")
+        logger.debug(f"Found {len(modules)} modules")
+        for module in reversed(modules):
+            logger.debug(f'Found module {module.name}: {module}')
+            if not self._validate_extension(module.load()):
+                message = f'module "{module.name}" is not a valid extension'
+                logger.warning(message)
+                continue
             extension = Extension(
                 self,
                 sender,
-                name=module_name,
-                location=module_path
+                name = module.name
             )
-            module = importlib.import_module(module_name)
-            if self._check_if_function_exists(
-                    module, 'create_extension') and self._check_if_function_exists(
-                    module, 'destroy_extension'):
-                extensions[module_name] = extension
-            else:
-                message = f'module({module_name}, {module_path}) does ' \
-                          f'not contain create_extension and' \
-                          f' destroy_extension function'
-                logger.info(message)
+            extensions[module.name] = extension
         return extensions
 
     @staticmethod
