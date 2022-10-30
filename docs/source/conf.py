@@ -32,12 +32,12 @@ sys.modules.update((mod_name, Mock()) for mod_name in MOCK_MODULES)
 # -- Project Information -----------------------------------------------------
 
 meta_info = BlackFennecMetaInfo()
-project = meta_info.component.get_name()
+project = meta_info.get_name()
 copyright = meta_info.get_copy_right()
 author = ", ".join(meta_info.get_authors())
 
 # The full version, including alpha/beta/rc tags
-release = meta_info.get_current_release().get_version()
+release = meta_info.get_version()
 
 # -- General configuration ---------------------------------------------------
 

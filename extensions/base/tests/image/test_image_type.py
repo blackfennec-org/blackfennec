@@ -1,4 +1,5 @@
 import pytest
+from pathlib import Path
 from blackfennec.document_system.document_factory import DocumentFactory
 from blackfennec.document_system.mime_type.mime_type_registry import (
     MimeTypeRegistry,
@@ -38,6 +39,7 @@ from blackfennec.structure.string import String
 from blackfennec.structure.map import Map
 from blackfennec.type_system.type_registry import TypeRegistry
 
+BASE_NAME = Path(__file__).parent.parent.parent.as_posix()
 
 @pytest.fixture
 def type_registry():
@@ -83,8 +85,8 @@ def type_loader(document_factory, type_registry):
 
 @pytest.fixture
 def type(type_loader):
-    type_loader.load("base/file/file.json")
-    return type_loader.load("base/image/image.json")
+    type_loader.load(BASE_NAME + "/base/file/file.json")
+    return type_loader.load(BASE_NAME + "/base/image/image.json")
 
 
 def test_can_load(type):

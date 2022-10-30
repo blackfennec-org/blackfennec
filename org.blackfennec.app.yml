@@ -8,25 +8,43 @@ tags:
   - development
   - nightly
 finish-args:
-  - "--socket=fallback-x11"
   - "--socket=wayland"
+  - "--socket=fallback-x11"
+  - "--share=ipc"
 modules:
-  - name: appstream
-    sources:
-      - type: archive
-  - name: blackfennec
+  - name: dependencies
     buildsystem: simple
     build-options:  
       build-args:
         - "--share=network"
     build-commands:
-      - cp -r ./ /app/
+      - pip install -r requirements.txt
+    sources:
+      - type: file
+        path: requirements.txt  
+  - name: metadata
+    buildsystem: simple
+    build-commands:
       - install -Dm644 ./org.blackfennec.app.desktop /app/share/applications/org.blackfennec.app.desktop
       - install -Dm644 ./icon.png /app/share/icons/hicolor/128x128/apps/org.blackfennec.app.png
       - install -Dm644 ./org.blackfennec.app.metainfo.xml /app/share/metainfo/org.blackfennec.app.metainfo.xml
-      - pip3 install -r /app/requirements.txt
-      - pip3 install /app
+    sources:
+      - type: file
+        path: org.blackfennec.app.desktop
+      - type: file
+        path: icon.png
+      - type: file
+        path: org.blackfennec.app.metainfo.xml
+  - name: blackfennec
+    buildsystem: simple
+    build-options:
+      build-args:
+        - "--share=network"
+    build-commands:
       - install -D run.sh /app/bin/run.sh
+      - pip install --prefix=${FLATPAK_DEST} .
+      - pip install --prefix=${FLATPAK_DEST} extensions/core
+      - pip install --prefix=${FLATPAK_DEST} extensions/base
     sources:
       - type: dir
         path: .

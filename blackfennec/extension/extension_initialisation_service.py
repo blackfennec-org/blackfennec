@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 import os
 
-import extensions
 from blackfennec.document_system.document_factory import DocumentFactory
 from blackfennec.structure.list import List
 from blackfennec.extension.extension_api import ExtensionApi
@@ -32,8 +31,8 @@ class ExtensionInitialisationService:
         """
         extension_source = ExtensionSource(
             LocalExtensionService(),
-            identification=extensions.__name__,
-            location=extensions.__path__,
+            identification="blackfennec",
+            location="extensions",
             source_type='local'
         )
         for extension in extension_source.extensions:

@@ -18,5 +18,6 @@ htmlcov/
 .flatpak-repo/
 .flatpak-builder/
 .flatpak-build/
+build/
 
 extensions.json

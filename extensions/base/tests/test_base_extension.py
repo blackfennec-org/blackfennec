@@ -5,7 +5,7 @@ from blackfennec_doubles.type_system.double_type_registry import TypeRegistryMoc
 from blackfennec_doubles.extension.double_view_factory_registry import ViewFactoryRegistryMock
 from blackfennec_doubles.structure.type.double_type_loader import TypeLoaderMock
 from blackfennec.extension.extension_api import ExtensionApi
-from extensions.base.base import create_extension, destroy_extension
+from base import create_extension, destroy_extension
 
 
 class BaseExtensionTestSuite(unittest.TestCase):

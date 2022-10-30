@@ -1,4 +1,4 @@
-import os
+from pathlib import Path
 from .type_parser import TypeParser
 from blackfennec.structure.overlay.overlay_factory_visitor import OverlayFactoryVisitor
 
@@ -14,9 +14,8 @@ class TypeLoader:
             structure = structure.accept(visitor)
         return structure
 
-    def load(self, uri):
-        location = os.path.abspath(".")
-        document = self._document_factory.create(uri, location=location)
+    def load(self, absolute_path: str):
+        document = self._document_factory.create(absolute_path)
         structure = self._apply_layers(document.content)
         type = TypeParser.parse(structure)
         self._type_registry.register_type(type)

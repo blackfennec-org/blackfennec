@@ -1,3 +1,4 @@
+from pathlib import Path
 from blackfennec.extension.extension_api import ExtensionApi
 from base.date_time.date_time import DateTime
 from base.date_time.date_time_view_factory import DateTimeViewFactory
@@ -5,6 +6,7 @@ from base.file.file_view_factory import FileViewFactory
 from base.image.image_view_factory import ImageViewFactory
 from blackfennec.interpretation.specification import Specification
 
+BASE_NAME = Path(__file__).parent.as_posix()
 __types = []
 
 
@@ -13,8 +15,8 @@ def _types(api: ExtensionApi):
     if not __types:
         __types = [
             DateTime.TYPE,
-            api.type_loader.load('extensions/base/base/file/file.json'),
-            api.type_loader.load('extensions/base/base/image/image.json'),
+            api.type_loader.load(BASE_NAME + '/file/file.json'),
+            api.type_loader.load(BASE_NAME + '/image/image.json'),
         ]
     return __types
 

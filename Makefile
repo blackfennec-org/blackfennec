@@ -32,7 +32,7 @@ test: $(EXTS)
 .PHONY: $(EXTS)
 $(EXTS):
 	cd "$@"; \
-	pytest tests/;
+	xvfb-run -a pytest tests/;
 
 run: compile-blueprint
 	python blackfennec/__init__.py

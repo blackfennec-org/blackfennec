@@ -1,2 +1,3 @@
 #! /bin/env bash
-cd /app/ && python black_fennec.py
+
+python -m blackfennec
