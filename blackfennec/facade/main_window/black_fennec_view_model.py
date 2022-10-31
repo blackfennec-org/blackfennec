@@ -54,16 +54,16 @@ class BlackFennecViewModel(Observable):
         self._extension_api = extension_api
         self._extension_source_registry = extension_source_registry
         self.tabs = set()
-        self.project: Optional[str] = None
+        self._current_directory: Optional[str] = None
 
-    def set_project(self, project_location: str):
-        """Sets the project location
+    @property
+    def current_directory(self):
+        return self._current_directory
 
-        Args:
-            project_location (str): project location
-        """
-        self.project = project_location
-        self._notify(self.project, 'project')
+    @current_directory.setter
+    def current_directory(self, directory: str):
+        self._current_directory = directory
+        self._notify(self._current_directory, 'open_directory')
 
     def open_file(self, uri: str):
         """Opens a file
@@ -91,20 +91,18 @@ class BlackFennecViewModel(Observable):
         self.tabs.remove(tab)
         self._notify(tab, 'close_file')
 
-    def quit(self):
-        """Future implementation of quit()"""
-        logger.warning('quit() not yet implemented')
+    def save(self, tab: DocumentTab):
+        """Saves the passed file"""
+        tab.save_document()
 
-    def save(self):
+    def save_as(self, tab: DocumentTab, uri: str):
+        """Saves the passed tab under new path"""
+        tab.save_document_as(uri)
+
+    def save_all(self):
         """Saves all open files"""
         for tab in self.tabs:
-            root = tab.structure.get_root()
-            document = root.get_document()
-            document.save()
-
-    def save_as(self):
-        """Future implementation of save_as()"""
-        logger.warning('save_as() not yet implemented')
+            self.save(tab)
 
     def create_extension_store(self) -> ExtensionStoreViewModel:
         """Creates an extension store view model"""
@@ -115,3 +113,20 @@ class BlackFennecViewModel(Observable):
 
     def get_about_window_view_model(self):
         return AboutWindowViewModel()
+
+    def copy(self) -> 'BlackFennecViewModel':
+        return BlackFennecViewModel(
+            self._presenter_registry,
+            self._interpretation_service,
+            self._document_factory,
+            self._extension_api,
+            self._extension_source_registry
+        )
+
+    def attach_tab(self, tab: DocumentTab):
+        if tab not in self.tabs:
+            self.tabs.add(tab)
+
+    def detach_tab(self, tab: DocumentTab):
+        if tab in self.tabs:
+            self.tabs.remove(tab)

@@ -1,5 +1,5 @@
-from pathlib import Path
 from datetime import datetime
+from pathlib import Path
 import xml.etree.ElementTree as ET
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
@@ -45,3 +45,4 @@ class BlackFennecMetaInfo:
 
     def get_copy_right(self) -> str:
         return f"© {datetime.now().year} {self.get_name()}"
+

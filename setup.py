@@ -2,9 +2,6 @@
 
 from setuptools import setup, find_packages
 
-from blackfennec.util.meta_info import BlackFennecMetaInfo
-
-meta_info = BlackFennecMetaInfo()
 
 setup(
     name='blackfennec',
@@ -23,3 +20,4 @@ setup(
         ],
     }
 )
+

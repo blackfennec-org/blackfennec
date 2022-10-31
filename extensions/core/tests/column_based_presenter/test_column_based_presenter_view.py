@@ -7,6 +7,7 @@ from blackfennec_doubles.extension.double_presenter_view_model import \
     PresenterViewModelMock
 from blackfennec_doubles.extension.double_structure_view import StructureViewDummy
 from core.column_based_presenter.column_based_presenter_view import ColumnBasedPresenterView
+from blackfennec_doubles.extension.double_presenter_view_model import PresenterViewModelMock
 
 
 def test_can_construct():
@@ -30,3 +31,14 @@ def test_view_model_update():
     view_model._notify(view_model.interpretations, 'interpretations')
 
     assert view_factory.create_call_count == 2
+
+
+def test_set_error():
+    view_model = PresenterViewModelMock()
+    view_factory = ViewFactoryMock()
+    view = ColumnBasedPresenterView(view_model, view_factory)
+
+    message = 'Error message'
+    view.set_error(message)
+    assert view._error.get_visible() is True
+    assert view._error.get_description() == message
