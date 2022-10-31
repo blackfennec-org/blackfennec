@@ -103,9 +103,7 @@ class BlackFennecViewModel(Observable):
     def save_all(self):
         """Saves all open files"""
         for tab in self.tabs:
-            root = tab.structure.get_root()
-            document = root.get_document()
-            document.save()
+            self.save(tab)
 
     def create_extension_store(self) -> ExtensionStoreViewModel:
         """Creates an extension store view model"""
