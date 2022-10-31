@@ -87,6 +87,11 @@ def test_can_get_about_window_view_model(view_model):
     view_model.get_about_window_view_model()
 
 
+def test_can_copy_view_model(view_model):
+    view_model_copy = view_model.copy()
+    assert isinstance(view_model_copy, BlackFennecViewModel)
+
+
 def test_can_attach_tab(view_model):
     tab = Dummy()
     view_model.attach_tab(tab)

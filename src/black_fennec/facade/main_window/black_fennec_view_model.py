@@ -115,7 +115,7 @@ class BlackFennecViewModel(Observable):
     def get_about_window_view_model(self):
         return AboutWindowViewModel()
 
-    def copy(self):
+    def copy(self) -> 'BlackFennecViewModel':
         return BlackFennecViewModel(
             self._presenter_registry,
             self._interpretation_service,
