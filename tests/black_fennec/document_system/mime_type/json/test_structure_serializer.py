@@ -41,7 +41,7 @@ def test_can_construct():
     (Boolean(True), True),
     (Boolean(False), False),
     (Null(), None),
-    (Reference([]), {"$ref": None}),
+    (Reference([]), None),
     (
             Map({
                 'key': String('value'),

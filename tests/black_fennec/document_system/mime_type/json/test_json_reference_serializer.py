@@ -64,7 +64,7 @@ def test_can_construct(json_reference_parser):
     ),
     (
             [RootNavigator()],
-            {JsonReferenceSerializer.REFERENCE_KEY: 'pointer'}
+            {JsonReferenceSerializer.REFERENCE_KEY: '#/pointer'}
     ),
     (
             [],

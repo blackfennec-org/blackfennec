@@ -38,7 +38,7 @@ class JsonReferenceSerializer:
         if isinstance(first_element, UriNavigator):
             return {self.REFERENCE_KEY: first_element.uri}
 
-        return {self.REFERENCE_KEY: self._pointer_serializer.serialize(navigator_list)}
+        return {self.REFERENCE_KEY: '#/' + self._pointer_serializer.serialize(navigator_list)}
 
     def deserialize(self, raw: dict) -> list[Navigator]:
         reference = raw[self.REFERENCE_KEY]

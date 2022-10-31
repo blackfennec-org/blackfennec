@@ -45,9 +45,7 @@ class StructureSerializer:
         if isinstance(structure, Null):
             return None
         if isinstance(structure, Reference):
-            return {
-                self._reference_serializer.REFERENCE_KEY: self._reference_serializer.serialize(structure.value)
-            }
+            return self._reference_serializer.serialize(structure.value)
 
         message = "Type '{}' not known".format(type(structure))
         logger.error(message)
