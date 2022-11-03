@@ -3,7 +3,7 @@
 Type System
 ===========
 
-The type system is a set of classes which describe black fennec core types as well as novel types from blackfennec.extensions, plus a set of services for handling types. 
+The type system is a set of classes which describe black fennec core types as well as novel types from extensions, plus a set of services for handling types. 
 
 .. uml:: type_system.puml
 
