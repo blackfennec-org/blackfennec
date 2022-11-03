@@ -1,10 +1,16 @@
 from pathlib import Path
 from blackfennec.extension.extension_api import ExtensionApi
+from blackfennec.interpretation.specification import Specification
 from base.date_time.date_time import DateTime
+
+import gi
+gi.require_version('Gtk', '4.0')
+gi.require_version('Adw', '1')
+
 from base.date_time.date_time_view_factory import DateTimeViewFactory
 from base.file.file_view_factory import FileViewFactory
 from base.image.image_view_factory import ImageViewFactory
-from blackfennec.interpretation.specification import Specification
+
 
 BASE_NAME = Path(__file__).parent.as_posix()
 __types = []

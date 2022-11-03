@@ -12,12 +12,9 @@ setup(
     license='GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007',
     url='https://gitlab.ost.ch/blackfennec/blackfennec.git',
     packages=find_packages(exclude=('tests', 'doubles', 'docs')),
-    package_data={'blackfennec': [ '*.ui' ]},
+    package_data={
+        '': [ '*.ui' ],
+    },
     include_package_data=True,
-    entry_points={
-        'console_scripts': [
-            'blackfennec = blackfennec.__main__:main',
-        ],
-    }
 )
 

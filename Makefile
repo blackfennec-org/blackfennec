@@ -1,4 +1,4 @@
-EXTS = $(shell find extensions/ -maxdepth 1 -mindepth 1 -type d)
+EXTS = $(shell find extensions/ -maxdepth 1 -mindepth 1 -type d | tac)
 BLPS = $(shell find . -name "*.blp")
 UIS = $(BLPS:.blp=.ui)
 
@@ -7,9 +7,12 @@ UIS = $(BLPS:.blp=.ui)
 help:
 	cat Makefile
 
-install:
+flatpak:
 	flatpak --user remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 	flatpak-builder --user --install .flatpak-build/ org.blackfennec.app.yml --force-clean --install-deps-from flathub --repo=.flatpak-repo
+
+flatpak_run: flatpak
+	flatpak run org.blackfennec.app
 
 dependencies:
 	python -m pip install -r requirements.txt
@@ -34,5 +37,9 @@ $(EXTS):
 	cd "$@"; \
 	xvfb-run -a pytest tests/;
 
-run: compile-blueprint
-	python blackfennec/__init__.py
+install_extensions:
+	rm ~/.config/blackfennec/extensions.json || true
+	python -m pip install -e $(EXTS)
+
+run: compile-blueprint install_extensions
+	python blackfennec.py

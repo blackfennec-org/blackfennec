@@ -7,6 +7,10 @@ from blackfennec.structure.type.number_type import NumberType
 from blackfennec.structure.type.reference_type import ReferenceType
 from blackfennec.structure.type.string_type import StringType
 
+import gi
+gi.require_version('Gtk', '4.0')
+gi.require_version('Adw', '1')
+
 from core.boolean.boolean_view_factory import BooleanViewFactory
 from core.column_based_presenter.column_based_presenter_view_factory import \
     ColumnBasedPresenterViewFactory
