@@ -2,7 +2,7 @@
 
 Type Extension
 ==============
-A type extension defines and adds a new :ref:`type <definition_type>` to the object model. For this new type to be usable it must be accessible to the user. Therefore, it is necessary for the extension to also provide three further components, namely a user interface henceforth `Structure View`_ and a factory (`Structure View Factory`_) that can produce them on demand, and a service that participates in the InfoView selection process henceforth the `Structure Bidder`_.
+A type extension defines and adds a new :ref:`type <definition_type>` to the object model. For this new type to be usable it must be accessible to the user. Therefore, it is necessary for the extension to also provide three further components, namely a user interface henceforth `Structure View`_ and a factory (`Structure View Factory`_) that can produce them on demand, and a type definition that can participate in the selection process.
 
 .. uml::
     
@@ -50,4 +50,4 @@ This component is responsible for displaying the defined type adequately. For ex
 
 Structure View Factory
 """"""""""""""""""""""
-This component is responsible for creating structure views as described above. For more click :ref:`here <definition_type_view_factory>`
+This component is responsible for creating structure views as described above.

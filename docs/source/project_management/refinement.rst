@@ -21,14 +21,14 @@ We created a project timeline in the document :ref:`project timeline <project_ti
 **Add the time needed to respond to the risk to the risk analysis and the rough plan of the project**
 The time needed to respond to a risk is included in the :ref:`project timeline <project_timeline>` by the use of phase buffers but do not address specific risk but rather correspond with when risks are most likely to occur.
 
-Requirements Engineering & Domainanalysis
-=========================================
+Requirements Engineering & Domain Analysis
+==========================================
 
 Improvements
 ------------
 
 **Use the personas in the use-cases**
-We did this by relating the user stories to specific personas. An example of this can be found :ref:`here <https://gitlab.ost.ch/epj/2021-FS/g01_blackfennec/black-fennec/-/issues/131>`_.
+We did this by relating the user stories to specific personas. An example of this can be found in the following issue (issue does not exist anymore).
 
 **Add sketches from extensions as soon as they exist**
 These sketches were added in the form of wireframes to the domain model document at :ref:`this <extension_wireframe>` location.
@@ -41,7 +41,7 @@ Improvements
 ------------
 
 **It is hard to make a connection between the architecture documentation and our structure in the code. We should therefore consider either adapting the documentation or the folder structure**
-With a major refactoring of the structure we ensured that the architecture documentation matches the structure of the code. For more details on this refactoring one can look at following :ref:`merge request <https://gitlab.ost.ch/epj/2021-FS/g01_blackfennec/black-fennec/-/merge_requests/90>`_
+With a major refactoring of the structure we ensured that the architecture documentation matches the structure of the code. For more details on this refactoring one can look at following issue (issue does not exist anymore).
 
 Software Architecture
 =====================

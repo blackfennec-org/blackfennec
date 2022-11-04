@@ -4,7 +4,7 @@ Develop a Type Extension
 ========================
 Developing a :ref:`Type extension <type_extension>` is depending on the complexity of your goals rather easy. When only a Type should be created that has some fields and you require a specialised layout for your type, this walk-through should suffice your needs, and no further reading of the domain-model is needed.
 
-As a basis for this walk-through on how to develop a :ref:`Type extension <type_extension>` we will take one of the :ref:`base types <definition_base_types>` of black-fennec called the 'address'. To read this section it might make sense to open the projects repository located at `here <https://gitlab.ost.ch/epj/2021-FS/g01_blackfennec/black-fennec/-/tree/master/src/type_system/base>`_. This allows you to individually explore the code lying behind the 'base extension' which contains the type 'address' as one of multiple types.
+As a basis for this walk-through on how to develop a :ref:`Type extension <type_extension>` we will take one of the base types of black-fennec called the 'address'. To read this section it might make sense to open the projects repository located at `here <https://gitlab.ost.ch/epj/2021-FS/g01_blackfennec/black-fennec/-/tree/master/src/type_system/base>`_. This allows you to individually explore the code lying behind the 'base extension' which contains the type 'address' as one of multiple types.
 
 .. hint:: The structure that is present in this type is how black-fennec recommends an extension should be structured. But as previously mentioned this is up to the developer of the extension.
 
