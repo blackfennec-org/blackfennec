@@ -34,6 +34,11 @@
 
 
     <releases>
+        <release version="0.9.0" date="2022-11-04">
+            <description>
+                <p>Ported to GTK4</p>
+            </description>
+        </release>
         <release version="0.8.1" date="2022-10-20">
             <description>
                 <p>Published on Flathub</p>
