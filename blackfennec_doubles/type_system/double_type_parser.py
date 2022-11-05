@@ -2,10 +2,10 @@ from blackfennec_doubles.structure.encapsulation_base.double_factory_base_visito
 from blackfennec.structure.encapsulation_base.base_factory_visitor import _create_generic_class
 from blackfennec.structure.encapsulation_base.list_encapsulation_base import ListEncapsulationBase
 from blackfennec.structure.encapsulation_base.map_encapsulation_base import MapEncapsulationBase
-from blackfennec.structure.type.string_type import StringType
-from blackfennec.structure.type.list_type import ListType
-from blackfennec.structure.type.map_type import MapType
-from blackfennec.structure.type.type import Type
+from blackfennec.type_system.string_type import StringType
+from blackfennec.type_system.list_type import ListType
+from blackfennec.type_system.map_type import MapType
+from blackfennec.type_system.type import Type
 
 
 class TypeParserMock(FactoryBaseVisitorMock):

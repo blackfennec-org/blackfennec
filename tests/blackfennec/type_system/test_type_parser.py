@@ -2,11 +2,11 @@
 import json
 
 from blackfennec_doubles.document_system.mime_type.json.double_json_reference_serializer import JsonReferenceSerializerMock
-from blackfennec.structure.type.type_parser import TypeParser
+from blackfennec.type_system.type_parser import TypeParser
 from blackfennec.structure.map import Map
 from blackfennec.structure.string import String
 from blackfennec.structure.number import Number
-from blackfennec.structure.type.type_factory import TypeFactory
+from blackfennec.type_system.type_factory import TypeFactory
 from blackfennec.structure.structure_serializer import StructureSerializer
 
 

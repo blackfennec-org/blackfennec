@@ -4,7 +4,7 @@ import logging
 from blackfennec.document_system.document_factory import DocumentFactory
 from blackfennec.navigation.navigation_service import NavigationService
 from blackfennec.structure.visitors.deep_copy import DeepCopy
-from blackfennec.type_system.presenter_registry import PresenterRegistry
+from blackfennec.extension.presenter_registry import PresenterRegistry
 from blackfennec.util.observable import Observable
 
 logger = logging.getLogger(__name__)

@@ -1,6 +1,6 @@
 import logging
 from blackfennec.structure.structure import Structure
-from blackfennec.structure.type.type import Type
+from blackfennec.type_system.type import Type
 from blackfennec.interpretation.auction.offer import Offer
 
 logger = logging.getLogger(__name__)

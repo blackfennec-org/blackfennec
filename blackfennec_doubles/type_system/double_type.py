@@ -4,7 +4,7 @@ from blackfennec_doubles.structure.double_string import StringMock
 from blackfennec_doubles.interpretation.auction.double_coverage import CoverageMock
 from blackfennec.structure.null import Null
 
-from blackfennec.structure.type.type import Type
+from blackfennec.type_system.type import Type
 
 
 class TypeMock(Type):

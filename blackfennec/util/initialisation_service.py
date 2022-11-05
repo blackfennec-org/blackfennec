@@ -13,8 +13,8 @@ from blackfennec.document_system.resource_type.protocols.https_resource_type imp
 from blackfennec.document_system.resource_type.resource_type_registry import ResourceTypeRegistry
 from blackfennec.interpretation.auction.auctioneer import Auctioneer
 from blackfennec.interpretation.interpretation_service import InterpretationService
-from blackfennec.structure.type.type_loader import TypeLoader
-from blackfennec.type_system.presenter_registry import PresenterRegistry
+from blackfennec.type_system.type_loader import TypeLoader
+from blackfennec.extension.presenter_registry import PresenterRegistry
 from blackfennec.type_system.type_registry import TypeRegistry
 from blackfennec.extension.extension_api import ExtensionApi
 from blackfennec.extension.extension_initialisation_service import ExtensionInitialisationService

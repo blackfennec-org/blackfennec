@@ -3,7 +3,7 @@ import pytest
 
 from blackfennec_doubles.double_dummy import Dummy
 from blackfennec_doubles.interpretation.auction.double_coverage import CoverageMock
-from blackfennec_doubles.structure.type.double_type import TypeMock
+from blackfennec_doubles.type_system.double_type import TypeMock
 from blackfennec.interpretation.auction.auctioneer import Auctioneer
 
 

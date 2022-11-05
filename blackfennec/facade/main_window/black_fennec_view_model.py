@@ -8,7 +8,7 @@ from blackfennec.facade.extension_store.extension_store_view_model import Extens
 from blackfennec.facade.main_window.document_tab import DocumentTab
 from blackfennec.interpretation.interpretation_service import InterpretationService
 from blackfennec.navigation.navigation_service import NavigationService
-from blackfennec.type_system.presenter_registry import PresenterRegistry
+from blackfennec.extension.presenter_registry import PresenterRegistry
 from blackfennec.util.observable import Observable
 from blackfennec.extension.extension_api import ExtensionApi
 from blackfennec.extension.extension_source_registry import ExtensionSourceRegistry

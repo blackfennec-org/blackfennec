@@ -6,8 +6,8 @@ from blackfennec_doubles.structure.encapsulation_base.double_factory_base_visito
 from blackfennec.interpretation.auction.coverage import Coverage
 from blackfennec.structure.string import String
 from blackfennec.structure.map import Map
-from blackfennec.structure.type.string_type import StringType
-from blackfennec.structure.type.type import Type
+from blackfennec.type_system.string_type import StringType
+from blackfennec.type_system.type import Type
 
 
 class StringTypeTestSuite(unittest.TestCase):

@@ -2,13 +2,13 @@ import unittest
 
 import pytest
 from blackfennec_doubles.structure.double_string import StringMock
-from blackfennec_doubles.structure.type.double_type import TypeMock
+from blackfennec_doubles.type_system.double_type import TypeMock
 from blackfennec.interpretation.auction.coverage import Coverage
 from blackfennec.structure.list import List
 from blackfennec.structure.map import Map
 from blackfennec.structure.string import String
-from blackfennec.structure.type.map_type import MapType
-from blackfennec.structure.type.type_factory import TypeFactory
+from blackfennec.type_system.map_type import MapType
+from blackfennec.type_system.type_factory import TypeFactory
 
 
 class MapTypeTestSuite(unittest.TestCase):

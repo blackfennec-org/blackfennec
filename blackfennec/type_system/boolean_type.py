@@ -7,7 +7,7 @@ from blackfennec.interpretation.auction.coverage import Coverage
 from blackfennec.structure.boolean import Boolean
 from blackfennec.structure.map import Map
 from blackfennec.structure.null import Null
-from blackfennec.structure.type.type import Type
+from blackfennec.type_system.type import Type
 from blackfennec.structure.string import String
 
 logger = logging.getLogger(__name__)

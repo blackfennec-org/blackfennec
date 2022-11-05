@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from blackfennec.interpretation.interpretation_service import InterpretationService
-from blackfennec.type_system.presenter_registry import PresenterRegistry
+from blackfennec.extension.presenter_registry import PresenterRegistry
 from blackfennec.type_system.type_registry import TypeRegistry
 
 

@@ -28,13 +28,13 @@ from blackfennec.document_system.resource_type.protocols.file_resource_type impo
 from blackfennec.document_system.resource_type.resource_type_registry import (
     ResourceTypeRegistry,
 )
-from blackfennec.structure.type.boolean_type import BooleanType
-from blackfennec.structure.type.list_type import ListType
-from blackfennec.structure.type.map_type import MapType
-from blackfennec.structure.type.null_type import NullType
-from blackfennec.structure.type.number_type import NumberType
-from blackfennec.structure.type.string_type import StringType
-from blackfennec.structure.type.type_loader import TypeLoader
+from blackfennec.type_system.boolean_type import BooleanType
+from blackfennec.type_system.list_type import ListType
+from blackfennec.type_system.map_type import MapType
+from blackfennec.type_system.null_type import NullType
+from blackfennec.type_system.number_type import NumberType
+from blackfennec.type_system.string_type import StringType
+from blackfennec.type_system.type_loader import TypeLoader
 from blackfennec.structure.string import String
 from blackfennec.structure.map import Map
 from blackfennec.type_system.type_registry import TypeRegistry

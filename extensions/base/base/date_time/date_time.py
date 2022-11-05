@@ -4,7 +4,7 @@ from datetime import datetime
 
 from blackfennec.structure.map import Map
 from blackfennec.structure.string import String
-from blackfennec.structure.type.type_factory import TypeFactory
+from blackfennec.type_system.type_factory import TypeFactory
 
 logger = logging.getLogger(__name__)
 

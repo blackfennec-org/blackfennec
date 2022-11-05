@@ -11,13 +11,13 @@ from blackfennec.structure.null import Null
 from blackfennec.structure.number import Number
 from blackfennec.structure.reference import Reference
 from blackfennec.structure.string import String
-from blackfennec.structure.type.boolean_type import BooleanType
-from blackfennec.structure.type.list_type import ListType
-from blackfennec.structure.type.map_type import MapType
-from blackfennec.structure.type.null_type import NullType
-from blackfennec.structure.type.number_type import NumberType
-from blackfennec.structure.type.reference_type import ReferenceType
-from blackfennec.structure.type.string_type import StringType
+from blackfennec.type_system.boolean_type import BooleanType
+from blackfennec.type_system.list_type import ListType
+from blackfennec.type_system.map_type import MapType
+from blackfennec.type_system.null_type import NullType
+from blackfennec.type_system.number_type import NumberType
+from blackfennec.type_system.reference_type import ReferenceType
+from blackfennec.type_system.string_type import StringType
 
 MOCK_CORE_STRUCTURES = [
     MapMock(), ListMock(),

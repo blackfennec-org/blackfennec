@@ -2,8 +2,8 @@ import pytest
 
 from blackfennec.structure.null import Null
 from blackfennec.structure.map import Map
-from blackfennec.structure.type.null_type import NullType
-from blackfennec.structure.type.type_factory import TypeFactory
+from blackfennec.type_system.null_type import NullType
+from blackfennec.type_system.type_factory import TypeFactory
 from blackfennec.interpretation.auction.coverage import Coverage
 
 

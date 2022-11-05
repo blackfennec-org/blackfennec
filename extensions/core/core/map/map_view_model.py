@@ -9,7 +9,7 @@ from blackfennec.structure.map import Map
 from blackfennec.structure.overlay.overlay_factory_visitor import OverlayFactoryVisitor
 from blackfennec.structure.root_factory import RootFactory
 from blackfennec.structure.structure import Structure
-from blackfennec.structure.type.type import Type
+from blackfennec.type_system.type import Type
 from blackfennec.type_system.type_registry import TypeRegistry
 from blackfennec.util.observable import Observable
 

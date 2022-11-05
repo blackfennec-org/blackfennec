@@ -16,7 +16,7 @@ from blackfennec.type_system.type_registry import TypeRegistry
 from blackfennec_doubles.double_dummy import Dummy
 from blackfennec_doubles.extension.double_structure_presenter import \
     StructurePresenterMock
-from blackfennec_doubles.type_system.double_presenter_registry import PresenterRegistryMock
+from blackfennec_doubles.extension.double_presenter_registry import PresenterRegistryMock
 from blackfennec_doubles.type_system.double_type_registry import \
     TypeRegistryMock
 from core.boolean.boolean_view import BooleanView

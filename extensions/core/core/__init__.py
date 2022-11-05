@@ -1,11 +1,11 @@
 from blackfennec.extension.extension_api import ExtensionApi
 from blackfennec.interpretation.specification import Specification
-from blackfennec.structure.type.boolean_type import BooleanType
-from blackfennec.structure.type.list_type import ListType
-from blackfennec.structure.type.map_type import MapType
-from blackfennec.structure.type.number_type import NumberType
-from blackfennec.structure.type.reference_type import ReferenceType
-from blackfennec.structure.type.string_type import StringType
+from blackfennec.type_system.boolean_type import BooleanType
+from blackfennec.type_system.list_type import ListType
+from blackfennec.type_system.map_type import MapType
+from blackfennec.type_system.number_type import NumberType
+from blackfennec.type_system.reference_type import ReferenceType
+from blackfennec.type_system.string_type import StringType
 
 import gi
 gi.require_version('Gtk', '4.0')

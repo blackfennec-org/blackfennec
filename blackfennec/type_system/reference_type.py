@@ -4,15 +4,16 @@ import logging
 
 from blackfennec.interpretation.auction.coverage import Coverage
 from blackfennec.structure.null import Null
+from blackfennec.structure.reference import Reference
 from blackfennec.structure.map import Map
-from blackfennec.structure.type.type import Type
+from blackfennec.type_system.type import Type
 from blackfennec.structure.string import String
 
 logger = logging.getLogger(__name__)
 
 
-class NullType(Type):
-    """Base Class for Type of a Null."""
+class ReferenceType(Type):
+    """Base Class for Type of a Boolean."""
 
     def __init__(self, subject: Map = None):
         subject = subject or self._type_structure()
@@ -20,14 +21,16 @@ class NullType(Type):
 
     @staticmethod
     def _type_structure():
-        return Map({"type": String("Null"), "super": Null()})
+        return Map({"type": String("Reference"), "super": Null()})
 
     @property
     def default(self):
-        return Null()
+        if "default" in self.subject.value:
+            return Reference(self.subject.value["default"].value)
+        return Reference(None)
 
-    def visit_null(self, subject: Null) -> Coverage:
+    def visit_reference(self, subject: Reference) -> Coverage:
         return Coverage.COVERED
 
     def __repr__(self):
-        return f"NullType({self.subject.__repr__()})"
+        return f"ReferenceType({self.subject.__repr__()})"

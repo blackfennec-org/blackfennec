@@ -4,8 +4,8 @@ import pytest
 from tests.test_utils.parameterize import CORE_STRUCTURES, CORE_TYPES
 from blackfennec_doubles.structure.double_structure import StructureMock
 from blackfennec.structure.structure import Structure
-from blackfennec.structure.type.type import Type
-from blackfennec.structure.type.type_factory import TypeFactory
+from blackfennec.type_system.type import Type
+from blackfennec.type_system.type_factory import TypeFactory
 from blackfennec.interpretation.auction.coverage import Coverage
 
 

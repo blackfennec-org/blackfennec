@@ -3,7 +3,7 @@ import pytest
 from blackfennec.structure.list import List
 from blackfennec.structure.map import Map
 from blackfennec.structure.merge.deep_merge import DeepMerge
-from blackfennec.structure.type.boolean_type import BooleanType
+from blackfennec.type_system.boolean_type import BooleanType
 from blackfennec.document_system.document_factory import DocumentFactory
 from blackfennec.document_system.mime_type.json.json_pointer_serializer import (
     JsonPointerSerializer,
@@ -26,7 +26,7 @@ from blackfennec.document_system.resource_type.protocols.file_resource_type impo
 from blackfennec.document_system.resource_type.resource_type_registry import (
     ResourceTypeRegistry,
 )
-from blackfennec.structure.type.type_loader import TypeLoader
+from blackfennec.type_system.type_loader import TypeLoader
 from blackfennec.structure.boolean import Boolean
 from blackfennec.structure.null import Null
 from blackfennec.structure.list import List

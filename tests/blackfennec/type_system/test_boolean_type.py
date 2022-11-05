@@ -2,8 +2,8 @@ import pytest
 
 from blackfennec.structure.boolean import Boolean
 from blackfennec.structure.map import Map
-from blackfennec.structure.type.boolean_type import BooleanType
-from blackfennec.structure.type.type_factory import TypeFactory
+from blackfennec.type_system.boolean_type import BooleanType
+from blackfennec.type_system.type_factory import TypeFactory
 from blackfennec.interpretation.auction.coverage import Coverage
 
 

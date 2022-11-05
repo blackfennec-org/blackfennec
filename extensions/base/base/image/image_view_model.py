@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import logging
 
-from blackfennec.structure.type.type import Type
+from blackfennec.type_system.type import Type
 from blackfennec.type_system.type_registry import TypeRegistry
 from base.image.image import Image
 from blackfennec.interpretation.interpretation import Interpretation

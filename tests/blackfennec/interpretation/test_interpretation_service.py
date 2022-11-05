@@ -6,7 +6,7 @@ from blackfennec_doubles.interpretation.auction.double_auctioneer import Auction
 from blackfennec_doubles.extension.double_structure_view_factory import StructureViewFactoryMock
 from blackfennec_doubles.double_dummy import Dummy
 from blackfennec_doubles.type_system.double_type_registry import TypeRegistryMock
-from blackfennec_doubles.structure.type.double_type import TypeMock
+from blackfennec_doubles.type_system.double_type import TypeMock
 from blackfennec.interpretation.interpretation import Interpretation
 from blackfennec.interpretation.interpretation_service import InterpretationService
 

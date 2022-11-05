@@ -10,7 +10,7 @@ from blackfennec_doubles.structure.double_list import (ListInstanceMock,
                                                         ListMock)
 from blackfennec_doubles.structure.double_structure import StructureMock
 from blackfennec_doubles.type_system.double_type_registry import TypeRegistryMock
-from blackfennec_doubles.structure.type.double_type import TypeMock
+from blackfennec_doubles.type_system.double_type import TypeMock
 from core.list.list_view_model import ListViewModel
 
 

@@ -37,9 +37,12 @@ $(EXTS):
 	cd "$@"; \
 	xvfb-run -a pytest tests/;
 
+install: install_extensions
+	python -m pip install -e .
+
 install_extensions:
 	rm ~/.config/blackfennec/extensions.json || true
 	python -m pip install -e $(EXTS)
 
-run: compile-blueprint install_extensions
+run: compile-blueprint install
 	python blackfennec.py

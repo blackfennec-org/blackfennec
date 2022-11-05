@@ -11,7 +11,7 @@ This module contains the unit-tests of the presenter-registry."""
 import unittest
 
 from blackfennec_doubles.double_dummy import Dummy
-from blackfennec.type_system.presenter_registry import PresenterRegistry
+from blackfennec.extension.presenter_registry import PresenterRegistry
 
 
 class PresenterRegistryTestSuite(unittest.TestCase):

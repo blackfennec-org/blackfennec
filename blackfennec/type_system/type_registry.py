@@ -1,4 +1,4 @@
-from blackfennec.structure.type.type import Type
+from blackfennec.type_system.type import Type
 
 
 class TypeRegistry:

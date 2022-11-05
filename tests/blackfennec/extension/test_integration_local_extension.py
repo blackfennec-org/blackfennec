@@ -9,7 +9,7 @@ from blackfennec.extension.extension_status import ExtensionStatus
 from blackfennec.extension.local_extension_service import LocalExtensionService
 from blackfennec.interpretation.auction.auctioneer import Auctioneer
 from blackfennec.interpretation.interpretation_service import InterpretationService
-from blackfennec.type_system.presenter_registry import PresenterRegistry
+from blackfennec.extension.presenter_registry import PresenterRegistry
 from blackfennec.structure.list import List
 from blackfennec.structure.map import Map
 from blackfennec.structure.string import String

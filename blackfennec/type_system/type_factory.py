@@ -6,7 +6,7 @@ from blackfennec.structure.string import String
 from blackfennec.structure.number import Number
 from blackfennec.structure.boolean import Boolean
 from blackfennec.structure.null import Null
-from blackfennec.structure.type.type import Type
+from blackfennec.type_system.type import Type
 from .list_type import ListType
 from .map_type import MapType
 from .null_type import NullType
