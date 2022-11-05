@@ -1,0 +1,1 @@
+from .double_type import TypeMock
