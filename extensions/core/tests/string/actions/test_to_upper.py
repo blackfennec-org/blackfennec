@@ -16,3 +16,11 @@ def test_can_execute():
 def test_is_correct_type():
     action = ToUpperAction()
     assert action.type is CORE_EXTENSION.types.string
+
+def test_has_correct_name():
+    action = ToUpperAction()
+    assert action.name == "to upper"
+
+def test_has_correct_description():
+    action = ToUpperAction()
+    assert len(action.description) > 7

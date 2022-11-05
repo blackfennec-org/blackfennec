@@ -8,3 +8,11 @@ class ToLowerAction(Action):
 
     def execute(self, context: Context):
         context.structure.value = context.structure.value.lower()
+
+    @property
+    def name(self):
+        return "to lower"
+
+    @property
+    def description(self):
+        return """Converts the string to lower case."""

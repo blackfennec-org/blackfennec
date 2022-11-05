@@ -8,3 +8,11 @@ class ToUpperAction(Action):
 
     def execute(self, context: Context):
         context.structure.value = context.structure.value.upper()
+
+    @property
+    def name(self):
+        return "to upper"
+    
+    @property
+    def description(self):
+        return """Converts the string to upper case."""

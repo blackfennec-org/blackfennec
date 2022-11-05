@@ -3,13 +3,19 @@ import pytest
 from blackfennec_doubles.type_system import TypeMock
 from blackfennec.actions import Action
 
+class ConcreteAction(Action):
+    def __init__(self, type=None):
+        super().__init__(type or TypeMock())
+    def execute(self, context):
+        pass
+    @property
+    def name(self):
+        return "name"
+    @property
+    def description(self):
+        return "description"
+
 def test_can_construct_action():
-    class ConcreteAction(Action):
-        def __init__(self):
-            super().__init__(TypeMock())
-        def execute(self, context):
-            pass
-        
     action = ConcreteAction()
     assert action is not None
 
@@ -23,22 +29,10 @@ def test_must_override_execute():
 
 def test_can_get_type():
     type = TypeMock()
-    class ConcreteAction(Action):
-        def __init__(self):
-            super().__init__(type)
-        def execute(self, context):
-            pass
-        
-    action = ConcreteAction()
+    action = ConcreteAction(type)
     assert action.type == type
 
 def test_can_execute():
-    """ Ensure the interface of the execute function is correct """
-    class ConcreteAction(Action):
-        def __init__(self):
-            super().__init__(TypeMock())
-        def execute(self, context):
-            pass
-        
+    """Ensure the interface of the execute function is correct"""    
     action = ConcreteAction()
     action.execute(None)
