@@ -11,11 +11,11 @@ from blackfennec.structure.structure_serializer import StructureSerializer
 from blackfennec.document_system.resource_type.protocols.file_resource_type import FileResourceType
 from blackfennec.document_system.resource_type.protocols.https_resource_type import HttpsResourceType
 from blackfennec.document_system.resource_type.resource_type_registry import ResourceTypeRegistry
-from blackfennec.interpretation.auction.auctioneer import Auctioneer
 from blackfennec.interpretation.interpretation_service import InterpretationService
 from blackfennec.type_system.type_loader import TypeLoader
 from blackfennec.extension.presenter_registry import PresenterRegistry
 from blackfennec.type_system.type_registry import TypeRegistry
+from blackfennec.actions.action_registry import ActionRegistry
 from blackfennec.extension.extension_api import ExtensionApi
 from blackfennec.extension.extension_initialisation_service import ExtensionInitialisationService
 from blackfennec.extension.extension_source_registry import ExtensionSourceRegistry
@@ -35,6 +35,7 @@ class InitialisationService():
         self.mime_type_registry = MimeTypeRegistry()
         self.presenter_registry = PresenterRegistry()
         self.view_factory_registry = ViewFactoryRegistry()
+        self.action_registry = ActionRegistry()
         self.view_factory = ViewFactory(self.view_factory_registry)
         self.document_factory = DocumentFactory(self.resource_type_registry, self.mime_type_registry)
 
@@ -50,6 +51,7 @@ class InitialisationService():
             self.view_factory,
             self.view_factory_registry,
             self.type_loader,
+            self.action_registry,
         )
 
         self._setup_document_system()

@@ -29,10 +29,12 @@ compile-blueprint: $(UIS)
 lint:
 	find . -name "*.py" | xargs pylint --output-format=text || true
 
-test_all: test $(EXTS)
+test_all: test test_extensions
 
 test:
 	pytest tests/;
+
+test_extensions: $(EXTS)
 
 .PHONY: $(EXTS)
 $(EXTS):

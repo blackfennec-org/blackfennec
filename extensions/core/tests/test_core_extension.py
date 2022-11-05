@@ -3,6 +3,7 @@ from blackfennec_doubles.double_dummy import Dummy
 from blackfennec_doubles.extension.double_view_factory_registry import ViewFactoryRegistryMock
 from blackfennec_doubles.extension.double_presenter_registry import PresenterRegistryMock
 from blackfennec_doubles.type_system.double_type_registry import TypeRegistryMock
+from blackfennec_doubles.actions.double_action_registry import ActionRegistryMock
 
 from blackfennec.extension.extension_api import ExtensionApi
 from core import create_extension, destroy_extension
@@ -20,6 +21,7 @@ class CoreExtensionTestSuite(unittest.TestCase):
             view_factory=Dummy("ViewFactory"),
             view_factory_registry=self.view_factory_registry,
             type_loader=Dummy('TypeLoader'),
+            action_registry=ActionRegistryMock(),
         )
 
     def test_create_core_extension(self):

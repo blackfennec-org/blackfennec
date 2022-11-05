@@ -13,6 +13,7 @@ class ExtensionApiTestSuite(unittest.TestCase):
         self.view_factory = Dummy('ViewFactory')
         self.view_factory_registry = Dummy('ViewFactoryRegistry')
         type_loader = Dummy('TypeLoader')
+        self.action_registry = Dummy('ActionRegistry')
 
         self.extension_api = ExtensionApi(
             self.presenter_registry,
@@ -20,7 +21,8 @@ class ExtensionApiTestSuite(unittest.TestCase):
             self.interpretation_service,
             self.view_factory,
             self.view_factory_registry,
-            type_loader
+            type_loader,
+            self.action_registry,
         )
 
     def test_can_construct(self):
@@ -34,3 +36,6 @@ class ExtensionApiTestSuite(unittest.TestCase):
 
     def test_interpretation_service_getter(self):
         self.assertEqual(self.extension_api.interpretation_service, self.interpretation_service)
+
+    def test_action_registry_getter(self):
+        self.assertEqual(self.extension_api.action_registry, self.action_registry)
