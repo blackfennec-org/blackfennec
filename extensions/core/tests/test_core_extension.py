@@ -14,6 +14,7 @@ class CoreExtensionTestSuite(unittest.TestCase):
     def setUp(self) -> None:
         self.type_registry = TypeRegistryMock()
         self.view_factory_registry = ViewFactoryRegistryMock()
+        self.action_registry = ActionRegistryMock()
         self.extension_api = ExtensionApi(
             presenter_registry=PresenterRegistryMock(),
             type_registry=self.type_registry,
@@ -21,7 +22,7 @@ class CoreExtensionTestSuite(unittest.TestCase):
             view_factory=Dummy("ViewFactory"),
             view_factory_registry=self.view_factory_registry,
             type_loader=Dummy('TypeLoader'),
-            action_registry=ActionRegistryMock(),
+            action_registry=self.action_registry,
         )
 
     def test_create_core_extension(self):
@@ -35,7 +36,6 @@ class CoreExtensionTestSuite(unittest.TestCase):
     def test_everything_created_is_destroyed(self):
         create_extension(self.extension_api)
         destroy_extension(self.extension_api)
-        self.assertEqual(
-            self.type_registry.register_type_count,
-            self.type_registry.deregister_type_count,
-        )
+        assert self.type_registry.register_type_count == self.type_registry.deregister_type_count
+        assert self.action_registry.register_action_count == self.action_registry.deregister_action_count
+        
