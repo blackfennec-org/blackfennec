@@ -7,7 +7,6 @@ from blackfennec.extension.extension_api import ExtensionApi
 from blackfennec.extension.extension_source import ExtensionSource
 from blackfennec.extension.extension_status import ExtensionStatus
 from blackfennec.extension.local_extension_service import LocalExtensionService
-from blackfennec.interpretation.auction.auctioneer import Auctioneer
 from blackfennec.interpretation.interpretation_service import InterpretationService
 from blackfennec.extension.presenter_registry import PresenterRegistry
 from blackfennec.structure.list import List

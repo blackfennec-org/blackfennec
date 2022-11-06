@@ -20,8 +20,7 @@ class ViewFactoryRegistry:
         for t, s, f in self._view_factories:
             if t == type and s == specification:
                 return f
-        raise AssertionError("%s, %s not in registry",
-                type, specification)
+        return None
 
     def register_view_factory(self, type, specification, view_factory):
         """Function to register a new view_factory

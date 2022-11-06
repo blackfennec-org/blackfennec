@@ -3,6 +3,7 @@ from blackfennec.extension.extension_api import ExtensionApi
 from blackfennec.extension.view_factory import ViewFactory
 from blackfennec.extension.view_factory_registry import ViewFactoryRegistry
 from blackfennec.interpretation.interpretation import Interpretation
+from blackfennec.interpretation.specification import Specification
 from blackfennec.interpretation.interpretation_service import \
     InterpretationService
 from blackfennec.navigation.navigation_service import NavigationService
@@ -98,7 +99,7 @@ def test_integration_correct_interpretation(
     api, structure, interpreter, view_factory, view_class
 ):
     create_extension(api)
-    interpretation = interpreter.interpret(structure)
+    interpretation = interpreter.interpret(structure, Specification())
     view = view_factory.create(interpretation)
     assert isinstance(view, view_class)
 

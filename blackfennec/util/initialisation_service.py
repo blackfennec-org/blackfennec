@@ -11,7 +11,6 @@ from blackfennec.structure.structure_serializer import StructureSerializer
 from blackfennec.document_system.resource_type.protocols.file_resource_type import FileResourceType
 from blackfennec.document_system.resource_type.protocols.https_resource_type import HttpsResourceType
 from blackfennec.document_system.resource_type.resource_type_registry import ResourceTypeRegistry
-from blackfennec.interpretation.auction.auctioneer import Auctioneer
 from blackfennec.interpretation.interpretation_service import InterpretationService
 from blackfennec.type_system.type_loader import TypeLoader
 from blackfennec.extension.presenter_registry import PresenterRegistry

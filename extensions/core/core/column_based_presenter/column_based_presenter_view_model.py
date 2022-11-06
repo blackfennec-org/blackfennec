@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 import logging
 
-from blackfennec.structure.root_factory import RootFactory
 from blackfennec.structure.structure import Structure
 from blackfennec.interpretation.interpretation import Interpretation
 from blackfennec.interpretation.interpretation_service import InterpretationService
+from blackfennec.interpretation.specification import Specification
 from blackfennec.navigation.navigation_service import NavigationService
 from blackfennec.structure.overlay.overlay_factory_visitor import OverlayFactoryVisitor
 from blackfennec.util.observable import Observable
@@ -71,7 +71,7 @@ class ColumnBasedPresenterViewModel(Observable):
         """
         logger.debug('show structure (%s) for sender (%s)', structure, sender)
         self._try_cut_interpretations_at(sender)
-        interpretation = self._interpretation_service.interpret(structure)
+        interpretation = self._interpretation_service.interpret(structure, Specification())
         interpretation.set_navigation_service(self._navigation_service)
         self._add_interpretation(interpretation)
 

@@ -1,7 +1,9 @@
 import pytest
 
 from blackfennec_doubles.double_dummy import Dummy
-from blackfennec.interpretation.auction.auctioneer import Auctioneer
+from blackfennec_doubles.type_system.double_type_registry import TypeRegistryMock
+from blackfennec_doubles.interpretation.double_specification import SpecificationMock
+from blackfennec.interpretation.interpretation_service import InterpretationService
 from blackfennec.structure.boolean import Boolean
 from blackfennec.type_system.boolean_type import BooleanType
 from blackfennec.structure.list import List
@@ -54,5 +56,7 @@ def types():
         "null"
     ])
 def test_auction(types, structure, type):
-    result = Auctioneer.auction(types, structure)
-    assert isinstance(result[0], type)
+    service = InterpretationService(TypeRegistryMock(types))
+    interpretation = service.interpret(structure, SpecificationMock())
+    interpreted_types = interpretation.types
+    assert isinstance(interpreted_types[0], type)
