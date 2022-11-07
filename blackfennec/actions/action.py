@@ -2,6 +2,7 @@ from abc import ABCMeta, abstractmethod, abstractproperty
 from .context import Context
 from blackfennec.type_system.type import Type
 
+
 class Action(metaclass=ABCMeta):
     """Action Interface
 
@@ -10,6 +11,7 @@ class Action(metaclass=ABCMeta):
     Attributes:
         type: type which is used to identify the action
     """
+
     def __init__(self, type: Type):
         self.type = type
 
@@ -23,12 +25,14 @@ class Action(metaclass=ABCMeta):
         """
         ...
 
-    @abstractproperty
+    @property
+    @abstractmethod
     def name(self) -> str:
         """A short, identifying name for the action."""
         ...
 
-    @abstractproperty
+    @property
+    @abstractmethod
     def description(self) -> str:
         """An informative description of the action."""
         ...

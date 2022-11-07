@@ -5,12 +5,12 @@ from .action import Action
 
 class ActionRegistry:
     def __init__(self):
-        self._actions: dict[type, list[Action]] = {}
+        self._actions: dict[Type, list[Action]] = {}
 
     @property
-    def actions(self) -> dict[type, list[Action]]:
+    def actions(self) -> dict[Type, list[Action]]:
         return dict(self._actions)
-    
+
     def get_actions(self, type: Type) -> list[Action]:
         """Function to get all actions for a specific type"""
         if type not in self._actions:
