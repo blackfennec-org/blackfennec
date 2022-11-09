@@ -3,6 +3,7 @@ import pytest
 from blackfennec_doubles.structure.double_structure import StructureMock
 from blackfennec_doubles.structure.reference_navigation.double_navigation import NavigatorMock
 from blackfennec.structure.reference import Reference
+from tests.test_utils.observer import Observer
 
 
 @pytest.fixture()
@@ -28,3 +29,13 @@ def test_resolve(reference, navigator, structure):
     assert reference.resolve() == structure
     assert navigator.navigate_count == 1
     assert navigator.navigate_parameter_current_structure == reference
+
+def test_can_set_value(reference, navigator):
+    reference.value = navigator
+    assert reference.value == navigator
+    
+def test_notifies_on_value_change(reference, navigator):
+    observer = Observer()
+    reference.bind(value=observer.endpoint)
+    reference.value = navigator
+    assert observer.last_call == ((reference, navigator), {})
