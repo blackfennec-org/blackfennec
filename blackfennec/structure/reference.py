@@ -34,6 +34,7 @@ class Reference(Structure[list[Navigator]]):
     @value.setter
     def value(self, value: list[Navigator]):
         self._navigators = value
+        self._notify(self.value, 'value')
 
     def resolve(self) -> Structure:
         """Resolves Reference navigation

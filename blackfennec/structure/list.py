@@ -34,6 +34,7 @@ class List(Structure[list[T]]):
             self.remove_item(item)
         for item in (value or []):
             self.add_item(item)
+        self._notify(self.value, 'value')
 
     def _set_parent(self, item: Structure) -> None:
         assert item.parent is None

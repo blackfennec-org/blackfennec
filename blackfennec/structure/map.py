@@ -35,6 +35,7 @@ class Map(Structure[TDict]):
             self.remove_item(key)
         for key, item in (value or {}).items():
             self.add_item(key, item)
+        self._notify(self._value, 'value')
 
     def _set_parent(self, item: T) -> None:
         assert item.parent is None
