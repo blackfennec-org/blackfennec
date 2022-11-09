@@ -2,140 +2,209 @@
 
 Develop a Type Extension
 ========================
-Developing a :ref:`Type extension <type_extension>` is depending on the complexity of your goals rather easy. When only a Type should be created that has some fields and you require a specialised layout for your type, this walk-through should suffice your needs, and no further reading of the domain-model is needed.
+Developing a :ref:`Type extension <type_extension>` is relatively simple. In walk-through we develop of a `Type` and a custom `View` for it.
 
-As a basis for this walk-through on how to develop a :ref:`Type extension <type_extension>` we will take one of the base types of black-fennec called the 'address'. To read this section it might make sense to open the projects repository located at `here <https://gitlab.ost.ch/epj/2021-FS/g01_blackfennec/black-fennec/-/tree/master/src/type_system/base>`_. This allows you to individually explore the code lying behind the 'base extension' which contains the type 'address' as one of multiple types.
+.. note::
 
-.. hint:: The structure that is present in this type is how black-fennec recommends an extension should be structured. But as previously mentioned this is up to the developer of the extension.
+   This walk-through re-implements the `File` type already provided by the `Base` extension. The upstream source code can be found in `extensions/base`.
 
-<extension_name>_extension.py
-"""""""""""""""""""""""""""""
+Defining the Extension Entrypoint
+"""""""""""""""""""""""""""""""""
+A valid extension is required to provide an entrypoint. Currently this means that the extension must provide two special functions called `create_extension` and `destroy_extension`. These functions are called when the extension is loaded and unloaded respectively. It is further required that these functions can be imported from the extension's root module.
 
-In this file the 'create_extension' and 'load_extension' functions are defined. If the function of these two functions is unclear please refer to this :ref:`document <definition_extension_development>`.
+We will start by creating a file called `__init__.py` in the root of our extension. This file will contain the two special functions.
 
 .. code-block:: python
     :linenos:
 
     def create_extension(extension_api: ExtensionApi):
-        extension_api.type_registry.register_type(AddressBidder())
+        # TODO: register the `File` type
+        # TODO: register a view for the `File` type
 
     def destroy_extension(extension_api: ExtensionApi):
-        # Hint: Only the Type is passed as this static-method has no access to the created instance of 'create_extension'
-        extension_api.type_registry.deregister_type(AddressBidder)
+        # TODO: deregister the `File` type
+        # TODO: deregister a view for the `File` type
 
-As you can see the extension_api that is passed can be used to register our type into the :ref:`type registry <definition_type_registry>`. Through the type registry it is then possible for black-fennec to use our created type in its structure :ref:`auctions <definition_selection_process>`.
+As you can see, these methods have the `extension_api` as an argument. We can use it to register our type into the :ref:`type registry <definition_type_registry>`. Through the type registry it is then possible for BlackFennec to use our created type during :ref:`interpretation <definition_selection_process>`.
+
+
+.. _type_definition:
+
+Creating and Loading a Type Definition
+""""""""""""""""""""""""""""""""""""""
+The first file that needs to be created is the `Type` definition file. This file is a JSON file that contains the definition of the `Type`. The file should be named `<type_name>.json`. In the case of a `File` type it could look like this:
+
+.. code-block:: json
+
+    {
+        "super": { "$ref": "bftype://Map" },
+        "type": "File",
+        "required": [
+            "file_path",
+            "file_type"
+        ],
+        "properties": {
+            "file_path": {
+                "super": null,
+                "type": "String"
+            },
+            "file_type": {
+                "super": null,
+                "type": "String"
+            }
+        }
+    }
+
+The `Type` definition file contains the following information:
+
+* The super class of the `Type`. This is the `Type` that the `Type` extends. In this case the `File` `Type` extends the `Map` `Type`. Note, that this is a reference with the `bftype://` protocol. This is a reference to a `Type` that must already be loaded in the `TypeRegistry`.
+* The name of the `Type`. This is the name that will be used to reference the `Type`. In this case the `Type` is called `File`.
+* Required properties. These are the properties that are required to be set on the `Type` instance. In this case the `file_path` and `file_type` properties are required.
+* The properties themselves. These are the properties that are available on the `Type` instance. In this case the `file_path` and `file_type` properties are available.
+  * The `file_path` property is a `String` `Type`.
+  * The `file_type` property is a `String` `Type`.
+
+With this we can extend our `__init__.py` file to register the `File` `Type` into the `TypeRegistry`:
+
+.. code-block:: python
+
+    FILE_TYPE = None
+
+    def create_extension(extension_api: ExtensionApi):
+        FILE_TYPE = extension_api.type_loader.load('file/file.json')
+        # TODO: register a view for the `File` type
+
+    def destroy_extension(extension_api: ExtensionApi):
+        extension_api.type_registry.deregister_type(FILE_TYPE)
+        # TODO: deregister a view for the `File` type
+
+If we didn't want to add any special functionality for our new `Type` we could stop here.
 
 .. _type.py:
 
-<type_name>.py
-""""""""""""""
-This class is used by our base-extension as a helper class and represents the type which is overlayed over a Map, which is the actual underlying core type. The properties introduced are later on used for example in the view model for easier access, than always requiring to work with the underlay.
+
+
+Creating a Wrapper for the Type
+"""""""""""""""""""""""""""""""
+BlackFennec lacks the ability to create a concrete `Type` instance directly. Instead it is recommended to create a wrapper for the `Type` that can be used to interact with instances of it. The snipped below is an example of a `File` wrapper:
 
 
 .. code-block:: python
-    :linenos:
 
-    # this address template is passed to the offer created by the bidder.
-    # The offer requires this to evaluate how well your type can cover
-    # a subject of the auction
-    def create_address_template():
-        """Address Template
-        Defines the format of the address
+    class File:
+        """File type wrapper
+
+        Helper class representing an instance of a 'File'.
+        Can be used by other classes as a helper interact with the underlay more easily.
         """
-        template_map = Map()
-        template_map[Address.FIRST_NAME_KEY] = String()
-        # ...
+        FILE_PATH_KEY = 'file_path'
+        FILE_TYPE_KEY = 'file_type'
 
-        template_factory = TemplateParser()
-        # with the appliance of the template factory your structure
-        # that before was only core types.
-        template = template_map.accept(template_factory)
-
-        # after the conversion one now could make fields optional by using the following
-        # syntax: template[Address.FIRST_NAME_KEY].optional = True. Per default all types
-        # are required.
-        return template
-
-
-    class Address:
-        """Address BaseType Class
-
-        Helper class used by the address view_model representing
-        the actual type 'Address'.
-        Can be used by other classes as a helper to be able to
-        include addresses in a overlaying datatype.
-        """
-
-        TEMPLATE = None
-        FIRST_NAME_KEY = 'first_name'
-        # ...
-
-        def __init__(self, map_interpretation: Map = Map()):
-            """Address Constructor
+        def __init__(self, subject: Map = None):
+            """File Constructor
 
             Args:
-                map_interpretation (Map): underlying map interpretation to
+                subject (Map): underlying map interpretation to
                     which property calls are dispatched
             """
-            self._data: Map = map_interpretation
-            # Initialise data structure to always contain a string
-            if Address.FIRST_NAME_KEY not in self._data:
-                self._data[Address.FIRST_NAME_KEY] = String()
-            # ...
+            self._subject: Map = subject or Map()
+            if File.FILE_PATH_KEY not in self._subject.value:
+                self._subject.add_item(File.FILE_PATH_KEY, String())
+            if File.FILE_TYPE_KEY not in self._subject.value:
+                self._subject.add_item(File.FILE_TYPE_KEY, String())
 
         @property
-        def first_name(self) -> str:
-            return self._data[Address.FIRST_NAME_KEY]
+        def subject(self):
+            return self._subject
 
-        @first_name.setter
-        def first_name(self, value: str):
-            self._data[Address.FIRST_NAME_KEY].value = value
+        def _get_value(self, key):
+            if key not in self.subject.value:
+                return None
+            return self.subject.value[key].value
 
-        # ...
+        def _set_value(self, key, value):
+            assert key in self.subject.value
+            self.subject.value[key].value = value
 
-    Address.TEMPLATE = create_address_template()
+        @property
+        def file_path(self) -> str:
+            return self._get_value(File.FILE_PATH_KEY)
+
+        @file_path.setter
+        def file_path(self, value: str):
+            self._set_value(File.FILE_PATH_KEY, value)
+
+        @property
+        def file_type(self) -> str:
+            return self._get_value(File.FILE_TYPE_KEY)
+
+        @file_type.setter
+        def file_type(self, value: str):
+            self._set_value(File.FILE_TYPE_KEY, value)
 
 
-<type_name>_bidder.py
-"""""""""""""""""""""
+Creating the View Model
+"""""""""""""""""""""""
+Next we want to create a view model.
 
-The bidder is the component of your type extension that is asked for an offer on how well your type can handle a core type structure. The 'bid' function that takes one parameter, which contains the structure that is auctioned, has to be present in this form. As a return value an offer is expected.
+.. note::
+
+    We recommend using MVVM.
 
 .. code-block:: python
-    :linenos:
 
-    logger = logging.getLogger(__name__)
+    class FileViewModel:
+    """View model for core type File."""
 
+    def __init__(self, interpretation: Interpretation):
+        """Create constructor
 
-    class AddressBidder:
-        """The bidding service for the base type `Address`.
+        Args:
+            interpretation (Interpretation): The overarching
+                interpretation
         """
+        self._interpretation = interpretation
+        self._file: File = File(interpretation.structure)
 
-        def bid(self, subject: Info):
-            """"Produces an offer for a given object.
+    @property
+    def file_path(self):
+        """Property for file path"""
+        return self._file.file_path
 
-            Args:
-                subject (Info): The Structure for which an
-                    offer should be produced.
+    @file_path.setter
+    def file_path(self, value: str):
+        self._file.file_path = value
 
-            Returns:
-                Offer: Offer that this type offers for
-                    the received subject.
-            """
-            logger.info('bidding on object')
-            return Offer(subject, 1, Address.TEMPLATE, AddressViewFactory())
+    @property
+    def file_type(self):
+        """Property for file type"""
+        return self._file.file_type
 
-The offer has 4 arguments. The first is the subject that is being auctioned. Next is the specificity of your type. Core types have the specificity of zero, and since we are directly 'inheriting by composition' from a core type our type is of specificity one. The Template is defined in the :ref:`helper type class <type.py>`. The last argument is described directly in the next chapter.
+    @file_type.setter
+    def file_type(self, value: str):
+        self._file.file_type = value
 
-<type_name>_view_factory.py
-"""""""""""""""""""""""""""
-The Code of this class is quite self-explanatory thanks to the docstrings used.
+    def navigate(self):
+        self._interpretation.navigate(self._interpretation.structure)
 
-.. code-block::
-    :linenos:
 
-    class AddressViewFactory:
-        """Creator of the AddressView"""
+Creating the View
+"""""""""""""""""
+
+This file depends on how one wants to visualise the `Type`. Important is that your view is as responsive as possible, as you never know how big a presenter will show your type view. For an example please see the `FileView` in the `blackfennec.core.file` package.
+
+
+Writing a ViewFactory
+"""""""""""""""""""""
+Creating a view is a non-trivial problem. This is why BlackFennec does not create them itself. Instead you have to register a `ViewFactory` capable of creating a view for your `Type`.
+
+Luckily creating a view for a `File` is rather simple. First, we create the view model and after we can construct the appropriate view.
+
+
+.. code-block:: python
+
+    class FileViewFactory:
+    """Creator of the FileView"""
 
         def satisfies(self, specification: Specification) -> bool:
             """Test if this view factory can satisfy the specification
@@ -146,29 +215,45 @@ The Code of this class is quite self-explanatory thanks to the docstrings used.
             Returns:
                 bool: True if the specification can be satisfied. Otherwise False.
             """
-            return not specification.is_request_for_preview
+            return True
 
-        def create(self, interpretation: Interpretation,
-                _: Specification) -> AddressView:
-            """creates an AddressView
+        def create(self, interpretation: Interpretation) -> FileView:
+            """creates a FileView
 
             Args:
                 interpretation (Interpretation): The overarching
                     interpretation.
-                _ (Specification): The specification which can fine
+                specification (Specification): The specification which can fine
                     tune the creation function.
 
             Returns:
-                AddressView
+                FileView
             """
-            view_model = AddressViewModel(interpretation)
-            return AddressView(view_model)
+            view_model = FileViewModel(interpretation)
+            if interpretation.specification.is_request_for_preview:
+                return FilePreview(view_model)
 
-The only thing left to mention are that these two functions are expected to be present in the property view_factory of the offer that your type_bidder created.
+            return FileView(view_model)
 
-The specification is a possibility for black-fennec components or presenters to specify preferences. Until now only the distinction between whether a view created is a preview or a view is supported, but this functionality will enhance to also contain preferred dimensions, visualisation types or anything else you can imagine, as it can be handled independently when writing your own presenter.
 
-<type_name>_view.py & <type_name>_view_model.py
-"""""""""""""""""""""""""""""""""""""""""""""""
+Registering the View
+""""""""""""""""""""
+The last step is to register the view for the `File` `Type`. This can be done by adding the following code to the `create_extension` method:
 
-These two files depend on how one wants to visualise his type. Important is that your view is as responsive as possible, as you never know how big a presenter will show your type view. These files can also be combined into one if one refrains from using MVVM.
+
+.. code-block:: python
+
+    FILE_TYPE = None
+
+    def create_extension(extension_api: ExtensionApi):
+        FILE_TYPE = extension_api.type_loader.load('file/file.json')
+        extension_api.view_registry.register_view_factory(
+            FILE_TYPE,
+            Specification(),
+            FileViewFactory())
+
+    def destroy_extension(extension_api: ExtensionApi):
+        extension_api.type_registry.deregister_type(FILE_TYPE)
+        extension_api.view_registry.deregister_view_factory(
+            FILE_TYPE,
+            Specification())
