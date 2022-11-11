@@ -53,13 +53,6 @@ class MapViewModel(Observable):
         self._notify(self.value, 'value')
 
     @property
-    def decapsulated_value(self):
-        decapsulated_map = self.value
-        while hasattr(decapsulated_map, 'subject'):
-            decapsulated_map = decapsulated_map.subject
-        return decapsulated_map
-
-    @property
     def selected(self) -> Interpretation:
         return self._selected
 
@@ -111,23 +104,11 @@ class MapViewModel(Observable):
                 which should be renamed
             new_key (str): The new key name of the key value pair
         """
-        map_with_retained_order = Map({})
-        decapsulated_map = self.decapsulated_value
+        decapsulated_map = self.value.structure
 
-        if decapsulated_map.get_root() == decapsulated_map:
-            RootFactory.make_root(map_with_retained_order, decapsulated_map.get_document())
-        else:
-            map_with_retained_order.parent = decapsulated_map.parent
-
-        for key, value in decapsulated_map.value.items():
-            if key == old_key:
-                decapsulated_map.remove_item(key)
-                map_with_retained_order.add_item(new_key, value)
-            else:
-                decapsulated_map.remove_item(key)
-                map_with_retained_order.add_item(key, value)
-        overlay = map_with_retained_order.accept(OverlayFactoryVisitor())
-        self.value = overlay
+        for key, value in decapsulated_map.value.items():             
+            decapsulated_map.remove_item(key)
+            decapsulated_map.add_item(new_key if key == old_key else key, value)
 
     def _is_resolved_reference(self, key: str):
         return self.value.value[key].parent != self.value
