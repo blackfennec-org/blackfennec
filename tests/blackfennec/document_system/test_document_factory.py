@@ -3,6 +3,7 @@
 import pytest
 
 from blackfennec_doubles.document_system.double_document import DocumentMock
+from blackfennec_doubles.document_system.double_document_registry import DocumentRegistryMock
 from blackfennec_doubles.document_system.mime_type.double_mime_type_registry import MimeTypeRegistryMock
 from blackfennec_doubles.document_system.resource_type.double_resource_type_registry import ResourceTypeRegistryMock
 from blackfennec.document_system.document_factory import DocumentFactory
@@ -17,17 +18,22 @@ def resource_type_registry():
 def mime_type_registry():
     return MimeTypeRegistryMock({'mime_type': None, 'application/json': None})
 
+@pytest.fixture
+def document_registry():
+    return DocumentRegistryMock()
 
 @pytest.fixture
-def document_factory(resource_type_registry, mime_type_registry):
+def document_factory(
+        document_registry, resource_type_registry, mime_type_registry):
     return DocumentFactory(
-        resource_type_registry, 
-        mime_type_registry, 
+        document_registry,
+        resource_type_registry,
+        mime_type_registry,
         DocumentMock)
 
 
 def test_can_construct(document_factory):
-    pass
+    assert document_factory
 
 
 def test_create_document(document_factory, mime_type_registry, resource_type_registry):
@@ -46,6 +52,7 @@ def test_create_document_without_mime_type(
     assert resource_type_registry.resource_types_getter_count == 1
 
 
-def test_get_document_for_created_document(document_factory):
-    document = document_factory.create("uri", "resource_type", "mime_type")
+def test_get_document_for_created_document(document_factory, document_registry):
+    document = DocumentMock()
+    document_registry.register_document(document)
     assert document_factory.get_document(document.content) == document

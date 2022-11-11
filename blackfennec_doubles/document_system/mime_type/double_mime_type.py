@@ -9,11 +9,11 @@ class MimeTypeMock(MimeType):
     def __init__(
             self,
             mime_type_id="mime_type",
-            imported_structure=StructureMock(),
+            imported_structure=None,
             exported_structure=None,
     ):
         self._mime_type_id = mime_type_id
-        self._imported_structure = imported_structure
+        self._imported_structure = imported_structure or StructureMock()
         self._exported_structure = exported_structure
         self.import_structure_count = 0
         self.export_structure_count = 0

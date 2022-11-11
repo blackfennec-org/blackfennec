@@ -1,5 +1,6 @@
 import pytest
 from pathlib import Path
+from blackfennec_doubles.document_system.double_document_registry import DocumentRegistryMock
 from blackfennec.document_system.document_factory import DocumentFactory
 from blackfennec.document_system.mime_type.mime_type_registry import (
     MimeTypeRegistry,
@@ -66,7 +67,8 @@ def document_factory(type_registry) -> DocumentFactory:
             resource_type_registry.register_resource_type(protocol, resource_type)
 
     mime_type_registry = MimeTypeRegistry()
-    document_factory = DocumentFactory(resource_type_registry, mime_type_registry)
+    document_factory = DocumentFactory(
+        DocumentRegistryMock(), resource_type_registry, mime_type_registry)
     reference_parser = JsonReferenceSerializer(document_factory, JsonPointerSerializer)
     structure_serializer = StructureSerializer(reference_parser)
     mime_types = [

@@ -7,19 +7,17 @@ from blackfennec_doubles.interpretation.double_interpretation import \
 from blackfennec_doubles.interpretation.double_interpretation_service import \
     InterpretationServiceMock
 from blackfennec_doubles.structure.double_structure import StructureMock
-from blackfennec_doubles.structure.double_map import MapInstanceMock, MapMock
+from blackfennec_doubles.structure.double_map import MapInstanceMock
 from blackfennec_doubles.structure.double_structure import StructureMock
 from blackfennec_doubles.type_system.double_type_registry import TypeRegistryMock
 from blackfennec_doubles.double_dummy import Dummy
 from blackfennec_doubles.type_system.double_type import TypeMock
-from blackfennec.structure.root_factory import RootFactory
 from core.map.map_view_model import MapViewModel
 
 
 @pytest.fixture
 def interpretation():
     structure = MapInstanceMock()
-    RootFactory.make_root(structure)
     return InterpretationMock(structure)
 
 

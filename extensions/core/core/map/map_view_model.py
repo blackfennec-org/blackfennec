@@ -6,8 +6,6 @@ from blackfennec.interpretation.interpretation_service import \
 from blackfennec.interpretation.specification import Specification
 from blackfennec.navigation.navigation_proxy import NavigationProxy
 from blackfennec.structure.map import Map
-from blackfennec.layers.overlay.overlay_factory_visitor import OverlayFactoryVisitor
-from blackfennec.structure.root_factory import RootFactory
 from blackfennec.structure.structure import Structure
 from blackfennec.type_system.type import Type
 from blackfennec.type_system.type_registry import TypeRegistry

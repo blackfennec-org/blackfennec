@@ -1,35 +1,44 @@
 # -*- coding: utf-8 -*-
 import pytest
 
-from blackfennec_doubles.structure.double_root_factory import RootFactoryMock
+from blackfennec_doubles.document_system.double_document_registry import DocumentRegistryMock
 from blackfennec_doubles.document_system.mime_type.double_mime_type import MimeTypeMock
 from blackfennec_doubles.document_system.resource_type.double_resource_type import ResourceTypeMock
+from blackfennec_doubles.structure.double_structure import StructureMock
 from blackfennec.document_system.document import Document
 
 
 class TestDocument:
     @pytest.fixture
-    def mime_type(self):
-        return MimeTypeMock()
+    def content(self):
+        return StructureMock()
+
+    @pytest.fixture
+    def mime_type(self, content):
+        return MimeTypeMock(imported_structure=content)
 
     @pytest.fixture
     def resource_type(self):
         return ResourceTypeMock()
 
     @pytest.fixture
-    def root_factory(self):
-        return RootFactoryMock()
+    def document_registry(self):
+        return DocumentRegistryMock()
 
     @pytest.fixture
-    def document(self, mime_type, resource_type, root_factory):
-        return Document(mime_type, resource_type, root_factory)
+    def document(self, document_registry, mime_type, resource_type):
+        return Document(document_registry, mime_type, resource_type)
 
     def test_can_construct(self, document):
-        pass
+        assert document
 
-    def test_get_content(self, document, mime_type, resource_type, root_factory):
-        content = document.content
-        assert root_factory.make_root_document_parameter == document
+    def test_get_content(self, content, document):
+        assert content == document.content
+
+    def test_does_register_document(self, document, document_registry):
+        # registration is lazy
+        document.content
+        assert document_registry.registered_document == document
 
     def test_get_content_cached(self, document, mime_type, resource_type):
         content1 = document.content

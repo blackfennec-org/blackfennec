@@ -4,7 +4,7 @@ from blackfennec_doubles.structure.double_root import RootMock
 
 
 class DocumentMock:
-    def __init__(self, mime_type=None, resource_type=None, uri: str = None, location: str = None, content=None):
+    def __init__(self, document_registry=None, mime_type=None, resource_type=None, uri: str = None, location: str = None, content=None):
         self.uri = uri
         self.location = location
         self.mime_type = mime_type or Dummy()

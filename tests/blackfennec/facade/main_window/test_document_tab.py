@@ -1,6 +1,7 @@
 import pytest
 
 from blackfennec_doubles.document_system.double_document import DocumentMock
+from blackfennec_doubles.document_system.double_document_registry import DocumentRegistryMock
 from blackfennec_doubles.document_system.double_document_factory import DocumentFactoryMock
 from blackfennec_doubles.document_system.mime_type.double_mime_type import MimeTypeMock
 from blackfennec_doubles.document_system.resource_type.double_resource_type import ResourceTypeMock
@@ -36,7 +37,8 @@ def navigation_service():
 def document_tab_parametrized(request, presenter_registry, navigation_service):
     mime_type = MimeTypeMock()
     resource_type = ResourceTypeMock()
-    document = DocumentMock(mime_type, resource_type, content=request.param)
+    document_registry = DocumentRegistryMock()
+    document = DocumentMock(document_registry, mime_type, resource_type, content=request.param)
     document_factory = DocumentFactoryMock(document=document)
     document_tab = DocumentTab(presenter_registry, document_factory, navigation_service, "uri")
     document_tab.document = document

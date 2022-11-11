@@ -9,7 +9,6 @@ from blackfennec.document_system.mime_type.json.json_reference_serializer import
 from blackfennec.structure.map import Map
 from blackfennec.structure.reference_navigation.root_navigator import RootNavigator
 from blackfennec.structure.reference_navigation.uri_navigator import UriNavigator
-from blackfennec.structure.root_factory import RootFactory
 from blackfennec.structure.string import String
 
 
@@ -20,7 +19,6 @@ def document():
     }
     structure_map = Map(data)
     document = DocumentMock(content=structure_map)
-    RootFactory.make_root(structure_map, document)
     return document
 
 

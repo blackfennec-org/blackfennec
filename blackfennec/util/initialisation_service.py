@@ -1,6 +1,7 @@
 import logging
 
 from blackfennec.document_system.document_factory import DocumentFactory
+from blackfennec.document_system.document_registry import DocumentRegistry
 from blackfennec.document_system.mime_type.in_memory.in_memory_mime_type import InMemoryMimeType
 from blackfennec.document_system.mime_type.mime_type_registry import MimeTypeRegistry
 from blackfennec.document_system.mime_type.json.json_mime_type import JsonMimeType
@@ -35,9 +36,13 @@ class InitialisationService():
         self.presenter_registry = PresenterRegistry()
         self.view_factory_registry = ViewFactoryRegistry()
         self.view_factory = ViewFactory(self.view_factory_registry)
-        self.document_factory = DocumentFactory(self.resource_type_registry, self.mime_type_registry)
+        self.document_factory = DocumentFactory(
+            DocumentRegistry(),
+            self.resource_type_registry,
+            self.mime_type_registry)
 
-        self.type_loader = TypeLoader(self.document_factory, self.type_registry)
+        self.type_loader = TypeLoader(
+            self.document_factory, self.type_registry)
         self.extension_source_registry = ExtensionSourceRegistry()
 
         self.interpretation_service = InterpretationService(self.type_registry)
@@ -63,9 +68,11 @@ class InitialisationService():
         ]
         for resource_type in resource_types:
             for protocol in resource_type.protocols:
-                self.resource_type_registry.register_resource_type(protocol, resource_type)
+                self.resource_type_registry.register_resource_type(
+                    protocol, resource_type)
 
-        reference_parser = JsonReferenceSerializer(self.document_factory, JsonPointerSerializer)
+        reference_parser = JsonReferenceSerializer(
+            self.document_factory, JsonPointerSerializer)
         structure_serializer = StructureSerializer(reference_parser)
 
         mime_types = [
@@ -80,7 +87,8 @@ class InitialisationService():
 
     def _setup_extensions(self, extension_configuration_file: str):
         """Setup extensions"""
-        extension_initialisation_service = ExtensionInitialisationService(self.document_factory)
+        extension_initialisation_service = ExtensionInitialisationService(
+            self.document_factory)
         extension_initialisation_service.load_extensions_from_file(
             self.extension_source_registry,
             self.extension_api,

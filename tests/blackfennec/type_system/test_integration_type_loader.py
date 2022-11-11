@@ -5,6 +5,7 @@ from blackfennec.structure.map import Map
 from blackfennec.layers.merge.deep_merge import DeepMerge
 from blackfennec.type_system.boolean_type import BooleanType
 from blackfennec.document_system.document_factory import DocumentFactory
+from blackfennec.document_system.document_registry import DocumentRegistry
 from blackfennec.document_system.mime_type.json.json_pointer_serializer import (
     JsonPointerSerializer,
 )
@@ -39,6 +40,7 @@ from blackfennec.document_system.mime_type.in_memory.in_memory_mime_type import 
 
 pytestmark = pytest.mark.integration
 
+
 @pytest.fixture
 def type_registry():
     return TypeRegistry()
@@ -53,18 +55,22 @@ def document_factory(type_registry) -> DocumentFactory:
     ]
     for resource_type in resource_types:
         for protocol in resource_type.protocols:
-            resource_type_registry.register_resource_type(protocol, resource_type)
+            resource_type_registry.register_resource_type(
+                protocol, resource_type)
 
     mime_type_registry = MimeTypeRegistry()
-    document_factory = DocumentFactory(resource_type_registry, mime_type_registry)
-    reference_parser = JsonReferenceSerializer(document_factory, JsonPointerSerializer)
+    document_factory = DocumentFactory(
+        DocumentRegistry(), resource_type_registry, mime_type_registry)
+    reference_parser = JsonReferenceSerializer(
+        document_factory, JsonPointerSerializer)
     structure_serializer = StructureSerializer(reference_parser)
     mime_types = [
         JsonMimeType(structure_serializer),
         InMemoryMimeType(),
     ]
     for mime_type in mime_types:
-        mime_type_registry.register_mime_type(mime_type.mime_type_id,mime_type)
+        mime_type_registry.register_mime_type(
+            mime_type.mime_type_id, mime_type)
     return document_factory
 
 
@@ -135,7 +141,7 @@ def type(tmp_path, document_factory, type_registry):
     }
 }
 """
-    )
+                            )
 
     tl = TypeLoader(document_factory, type_registry)
     tl.load(divinetype_json.as_uri())
@@ -185,7 +191,8 @@ def test_type_covers_good_instance(type):
 
 @pytest.mark.parametrize(
     "merger",
-    [lambda s: DeepMerge.merge(s, Null()), lambda s: DeepMerge.merge(Null(), s)],
+    [lambda s: DeepMerge.merge(s, Null()),
+        lambda s: DeepMerge.merge(Null(), s)],
     ids=["s_null", "null_s"],
 )
 @pytest.mark.parametrize(

@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 from typing import Type
 
-from blackfennec.structure.root_factory import RootFactory
 from blackfennec.structure.structure import Structure
 from blackfennec.document_system.mime_type.mime_type import MimeType
 from blackfennec.document_system.resource_type.resource_type import ResourceType
@@ -12,9 +11,9 @@ class Document:
 
     def __init__(
             self,
+            document_registry,
             mime_type: MimeType,
             resource_type: ResourceType,
-            root_factory: Type[RootFactory] = RootFactory,
             uri: str = '',
             location: str = ''
     ):
@@ -31,7 +30,7 @@ class Document:
         self.uri: str = uri
         self.location: str = location
         self.mime_type: MimeType = mime_type
-        self._root_factory: Type[RootFactory] = root_factory
+        self._document_registry = document_registry
         self.resource_type: ResourceType = resource_type
         self._content = None
 
@@ -85,8 +84,8 @@ class Document:
     @content.setter
     def content(self, content: Structure):
         """Set the content of the document"""
-        self._root_factory.make_root(content, document=self)
         self._content = content
+        self._document_registry.register_document(self)
 
     def _load_content(self):
         """Load the content of the document"""
