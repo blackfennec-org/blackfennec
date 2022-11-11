@@ -6,7 +6,7 @@ from blackfennec.interpretation.interpretation import Interpretation
 from blackfennec.interpretation.interpretation_service import InterpretationService
 from blackfennec.interpretation.specification import Specification
 from blackfennec.navigation.navigation_service import NavigationService
-from blackfennec.structure.overlay.overlay_factory_visitor import OverlayFactoryVisitor
+from blackfennec.layers.overlay.overlay_factory_visitor import OverlayFactoryVisitor
 from blackfennec.util.observable import Observable
 
 logger = logging.getLogger(__name__)

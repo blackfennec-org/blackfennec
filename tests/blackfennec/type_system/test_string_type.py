@@ -2,7 +2,7 @@ import unittest
 
 from blackfennec_doubles.structure.double_structure import StructureMock
 from blackfennec_doubles.structure.double_number import NumberMock
-from blackfennec_doubles.structure.encapsulation_base.double_factory_base_visitor import FactoryBaseVisitorMock
+from blackfennec_doubles.layers.encapsulation_base.double_factory_base_visitor import FactoryBaseVisitorMock
 from blackfennec.interpretation.auction.coverage import Coverage
 from blackfennec.structure.string import String
 from blackfennec.structure.map import Map

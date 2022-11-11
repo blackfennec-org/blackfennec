@@ -4,7 +4,7 @@ import logging
 from tests.test_utils.observer import Observer
 from blackfennec_doubles.structure.double_structure import StructureMock
 from blackfennec_doubles.structure.double_root import RootMock
-from blackfennec_doubles.structure.encapsulation_base.double_factory_base_visitor import FactoryBaseVisitorMock
+from blackfennec_doubles.layers.encapsulation_base.double_factory_base_visitor import FactoryBaseVisitorMock
 from tests.test_utils.parameterize import CORE_TYPE_FACTORIES
 from blackfennec.structure.map import Map
 

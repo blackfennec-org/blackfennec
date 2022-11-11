@@ -2,7 +2,7 @@ import pytest
 
 from blackfennec.structure.list import List
 from blackfennec.structure.map import Map
-from blackfennec.structure.merge.deep_merge import DeepMerge
+from blackfennec.layers.merge.deep_merge import DeepMerge
 from blackfennec.type_system.boolean_type import BooleanType
 from blackfennec.document_system.document_factory import DocumentFactory
 from blackfennec.document_system.mime_type.json.json_pointer_serializer import (

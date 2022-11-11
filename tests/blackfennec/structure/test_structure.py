@@ -1,6 +1,6 @@
 from abc import ABCMeta, abstractmethod
 from blackfennec_doubles.structure.double_root import RootMock
-from blackfennec_doubles.structure.encapsulation_base.double_factory_base_visitor import FactoryBaseVisitorMock
+from blackfennec_doubles.layers.encapsulation_base.double_factory_base_visitor import FactoryBaseVisitorMock
 from tests.test_utils.observer import Observer
 
 

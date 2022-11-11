@@ -1,5 +1,5 @@
 
-from blackfennec.structure.overlay.overlay_factory_visitor import OverlayFactoryVisitor
+from blackfennec.layers.overlay.overlay_factory_visitor import OverlayFactoryVisitor
 
 
 class TypeLoaderMock:
