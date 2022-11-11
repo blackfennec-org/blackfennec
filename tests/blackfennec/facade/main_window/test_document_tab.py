@@ -24,7 +24,7 @@ def document():
 
 @pytest.fixture
 def document_factory(document):
-    return DocumentFactoryMock(create_return=document)
+    return DocumentFactoryMock(document=document)
 
 
 @pytest.fixture
@@ -37,7 +37,7 @@ def document_tab_parametrized(request, presenter_registry, navigation_service):
     mime_type = MimeTypeMock()
     resource_type = ResourceTypeMock()
     document = DocumentMock(mime_type, resource_type, content=request.param)
-    document_factory = DocumentFactoryMock(create_return=document)
+    document_factory = DocumentFactoryMock(document=document)
     document_tab = DocumentTab(presenter_registry, document_factory, navigation_service, "uri")
     document_tab.document = document
     return document_tab

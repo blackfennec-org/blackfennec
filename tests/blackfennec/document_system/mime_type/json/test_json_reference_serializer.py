@@ -26,7 +26,7 @@ def document():
 
 @pytest.fixture()
 def document_factory(document):
-    return DocumentFactoryMock(create_return=document)
+    return DocumentFactoryMock(document=document)
 
 
 @pytest.fixture()

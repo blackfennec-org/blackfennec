@@ -20,7 +20,10 @@ def mime_type_registry():
 
 @pytest.fixture
 def document_factory(resource_type_registry, mime_type_registry):
-    return DocumentFactory(resource_type_registry, mime_type_registry, DocumentMock)
+    return DocumentFactory(
+        resource_type_registry, 
+        mime_type_registry, 
+        DocumentMock)
 
 
 def test_can_construct(document_factory):
@@ -41,3 +44,8 @@ def test_create_document_without_mime_type(
     document_factory.create("https://test.com/test.json")
     assert mime_type_registry.mime_types_getter_count == 1
     assert resource_type_registry.resource_types_getter_count == 1
+
+
+def test_get_document_for_created_document(document_factory):
+    document = document_factory.create("uri", "resource_type", "mime_type")
+    assert document_factory.get_document(document.content) == document

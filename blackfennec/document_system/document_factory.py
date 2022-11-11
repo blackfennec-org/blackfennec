@@ -35,3 +35,6 @@ class DocumentFactory:
         mime_type = self._mime_type_registry.mime_types[mime_type_id]
 
         return self._document_type(mime_type, resource_type, uri=uri, location=location)
+
+    def get_document(self, structure) -> Document:
+        return structure.get_root().get_document()

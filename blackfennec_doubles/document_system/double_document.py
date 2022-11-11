@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from blackfennec_doubles.double_dummy import Dummy
+from blackfennec_doubles.structure.double_root import RootMock
 
 
 class DocumentMock:
@@ -8,7 +9,7 @@ class DocumentMock:
         self.location = location
         self.mime_type = mime_type or Dummy()
         self.resource_type = resource_type or Dummy()
-        self._content = content
+        self._content = content or RootMock(document=self)
 
         self.load_content_count = 0
         self.set_content_count = 0
