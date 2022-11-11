@@ -41,11 +41,12 @@ class Structure(Observable, Generic[T], metaclass=ABCMeta):
     def parent(self, parent: 'Structure'):
         self._parent = parent
 
-    def get_root(self) -> Optional['Root']:
+    @property
+    def root(self) -> Optional['Structure']:
         """Readonly property for `Root` of this structure."""
         if self.parent is None:
-            return None
-        return self.parent.get_root()
+            return self
+        return self.parent.root
 
     @property
     def structure(self):

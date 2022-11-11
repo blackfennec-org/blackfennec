@@ -111,7 +111,7 @@ def test_parent_returns_merged_structure(underlay, overlay, expected_type):
 )
 def test_get_root_returns_merged_structure(underlay, overlay):
     merged = MergedStructure(underlay, overlay)
-    root = merged.get_root() or Null()
+    root = merged.root or Null()
     assert isinstance(root, MergedStructure)
 
 
@@ -128,7 +128,7 @@ def test_get_root_returns_merged_structure(underlay, overlay):
 )
 def test_can_get_child_of_root(underlay, overlay, diff, expected):
     merged = MergedStructure(underlay, overlay)
-    actual = merged.get_root()
+    actual = merged.root
     for i in range(diff):
         actual = actual.value["child"]
     actual = actual.value["layer"].value
@@ -149,7 +149,7 @@ def test_can_get_child_of_root(underlay, overlay, diff, expected):
 )
 def test_can_get_root(underlay, overlay, expected):
     merged = MergedStructure(underlay, overlay)
-    root = merged.get_root()
+    root = merged.root
     if root:
         actual = root.value["layer"].value
     else:

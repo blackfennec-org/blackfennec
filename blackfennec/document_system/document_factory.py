@@ -37,4 +37,4 @@ class DocumentFactory:
         return self._document_type(mime_type, resource_type, uri=uri, location=location)
 
     def get_document(self, structure) -> Document:
-        return structure.get_root().get_document()
+        return structure.root.get_document()

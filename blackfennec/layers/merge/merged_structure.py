@@ -60,11 +60,12 @@ class MergedStructure(Structure):
     def structure(self) -> Structure:
         return self.subject.structure
 
-    def get_root(self) -> Optional["MergedStructure"]:
+    @property
+    def root(self) -> Optional["MergedStructure"]:
         parent = self.parent
         if parent:
-            return parent.get_root()
-        return None
+            return parent.root
+        return self
 
     def _encapsulate(self, underlay: Structure, overlay: Structure) -> 'MergedStructure':
         return deep_merge.DeepMerge.merge(underlay, overlay)
