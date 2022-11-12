@@ -64,7 +64,7 @@ class ImageView(Adw.PreferencesGroup):
 
         dialog = Gtk.FileChooserNative(
             title='Choose file to open',
-            transient_for=self.root,
+            transient_for=self.get_root(),
             action=Gtk.FileChooserAction.OPEN,
         )
 
