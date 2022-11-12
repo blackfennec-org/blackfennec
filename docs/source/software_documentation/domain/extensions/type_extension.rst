@@ -2,7 +2,7 @@
 
 Type Extension
 ==============
-A type extension defines and adds a new `type <definition_type>` to the object model. For this new type to be usable it must be accessible to the user. Therefore, it is necessary for the extension to also provide three further components, namely a user interface henceforth `Structure View`_ and a factory (`Structure View Factory`_) that can produce them on demand, and a type definition that can participate in the selection process.
+A type extension defines and adds a new `type <definition_type>` to the object model. For this new type to be usable it must be accessible to the user. Therefore, it is necessary for the extension to also provide three further components, namely a user interface  `Structure View`_ and a factory (`Structure View Factory`_) that can produce them on demand, and a type definition that can participate in the selection process.
 
 .. uml:: type_extension_overview.puml
 

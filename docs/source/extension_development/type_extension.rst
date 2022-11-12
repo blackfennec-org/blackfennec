@@ -2,7 +2,7 @@
 
 Develop a Type Extension
 ========================
-Developing a :ref:`Type extension <type_extension>` is relatively simple. In walk-through we develop of a `Type` and a custom `View` for it.
+Developing a :ref:`Type extension <type_extension>` is relatively simple. In this walk-through we develop a `Type` and a custom `View` for it.
 
 .. note::
 
@@ -191,7 +191,7 @@ Next we want to create a view model.
 Creating the View
 """""""""""""""""
 
-This file depends on how one wants to visualise the `Type`. Important is that your view is as responsive as possible, as you never know how big a presenter will show your type view. For an example please see the `FileView` in the `blackfennec.core.file` package.
+This file depends on how one wants to visualise the `Type`. Important is that your view is as responsive as possible, as you never know how big a presenter will show your type view. For an example please see the `FileView` in the `blackfennec_extensions_base` package located in `extensions/base/base/file`.
 
 
 Writing a ViewFactory
