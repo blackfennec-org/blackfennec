@@ -1,3 +1,4 @@
+from blackfennec.actions import ActionRegistry
 from core.map.map_view_model import MapViewModel
 from core.map.map_view import MapView
 from core.map.map_preview import MapPreview
@@ -10,12 +11,16 @@ from blackfennec.type_system.type_registry import TypeRegistry
 class MapViewFactory:
     """Creator of the MapView"""
 
-    def __init__(self,
-                 interpretation_service: InterpretationService,
-                 type_registry: TypeRegistry,
-                 view_factory):
+    def __init__(
+            self,
+            interpretation_service: InterpretationService,
+            type_registry: TypeRegistry,
+            action_registry: ActionRegistry,
+            view_factory,
+    ):
         self._interpretation_service = interpretation_service
         self._type_registry = type_registry
+        self._action_registry = action_registry
         self._view_factory = view_factory
 
     def satisfies(self, unused_specification: Specification) -> bool:
@@ -45,7 +50,9 @@ class MapViewFactory:
         view_model = MapViewModel(
             interpretation,
             self._interpretation_service,
-            self._type_registry)
+            self._type_registry,
+            self._action_registry,
+        )
         if interpretation.specification.is_request_for_preview:
             return MapPreview(view_model)
         return MapView(self._view_factory, view_model)

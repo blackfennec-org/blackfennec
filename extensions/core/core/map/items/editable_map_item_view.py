@@ -8,36 +8,39 @@ from core.map.map_view_model import MapViewModel
 logger = logging.getLogger(__name__)
 
 BASE_DIR = Path(__file__).resolve().parent
-UI_TEMPLATE = str(BASE_DIR.joinpath('action_item_view.ui'))
+UI_TEMPLATE = str(BASE_DIR.joinpath('editable_map_item_view.ui'))
 
 
 @Gtk.Template(filename=UI_TEMPLATE)
-class ActionItemView(Adw.ActionRow):
+class EditableMapItemView(Adw.EntryRow):
     """View for a key value pair of a map."""
-    __gtype_name__ = 'ActionItemView'
+    __gtype_name__ = 'EditableItemView'
+
+    _delete = Gtk.Template.Child()
 
     def __init__(
             self,
             key,
-            preview: Interpretation,
+            interpretation: Interpretation,
             view_factory,
             view_model: MapViewModel):
         """Create map item view.
 
         Args:
             key: The key of the map item.
-            preview (Interpretation): The preview.
+            interpretation (Interpretation): The preview.
             view_model (ListViewModel): view model.
 
         """
         super().__init__()
 
-        self.key = key
-        self._preview = preview
+        self._key = key
+        self._preview = interpretation
         self._view_model = view_model
 
-        view = view_factory.create(preview)
-        self.set_activatable_widget(view)
+        self.key = self._key
+        view = view_factory.create(interpretation)
+        self.add_prefix(self._delete)
         self.add_suffix(view)
 
     @property
@@ -48,7 +51,7 @@ class ActionItemView(Adw.ActionRow):
     @key.setter
     def key(self, key):
         self._key = key
-        self.set_title(key)
+        self.set_text(key)
 
     @property
     def selected(self):
@@ -62,3 +65,15 @@ class ActionItemView(Adw.ActionRow):
             style.add_class('card')
         else:
             style.remove_class('card')
+
+    @Gtk.Template.Callback()
+    def _on_apply(self, sender):
+        new_key = sender.get_text()
+        self._view_model.rename_key(self.key, new_key)
+        self._key = new_key
+
+    @Gtk.Template.Callback()
+    def _on_delete(self, unused_sender):
+        self.selected = False
+        self._view_model.selected = None
+        self._view_model.delete_item(self.key)

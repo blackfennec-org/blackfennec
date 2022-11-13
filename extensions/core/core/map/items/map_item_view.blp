@@ -1,7 +1,9 @@
 using Gtk 4.0;
 using Adw 1;
 
-template ActionItemView : Adw.ActionRow {
+template MapItemView : Adw.ActionRow {
     title: "key";
     activatable: true;
+
+    Box _popover_parent {}
 }

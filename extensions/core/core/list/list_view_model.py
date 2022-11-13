@@ -1,3 +1,4 @@
+from blackfennec.actions import ActionRegistry
 from blackfennec.interpretation.interpretation import Interpretation
 from blackfennec.interpretation.interpretation_service import \
     InterpretationService
@@ -16,7 +17,8 @@ class ListViewModel(Observable):
             self,
             interpretation: Interpretation,
             interpretation_service: InterpretationService,
-            type_registry: TypeRegistry
+            type_registry: TypeRegistry,
+            action_registry: ActionRegistry,
     ):
         """Create with value empty list.
 
@@ -32,6 +34,7 @@ class ListViewModel(Observable):
         self._interpretation = interpretation
         self._interpretation_service = interpretation_service
         self._type_registry = type_registry
+        self._action_registry = action_registry
         self._list = self._interpretation.structure
 
     @property
@@ -55,8 +58,8 @@ class ListViewModel(Observable):
         self._notify(new_selected, 'selected')
         self._selected = new_selected
 
-    def create_preview(self, substructure: Structure) -> Interpretation:
-        """create preview for substructure
+    def create_interpretation(self, substructure: Structure) -> Interpretation:
+        """create interpretation for substructure
 
         Args:
             substructure (Structure): will be interpreted as a preview
@@ -64,12 +67,21 @@ class ListViewModel(Observable):
         Returns:
             Interpretation: represents the substructure as preview
         """
-        preview = self._interpretation_service.interpret(
+        interpretation = self._interpretation_service.interpret(
             substructure, Specification(request_preview=True))
         navigation_proxy = NavigationProxy()
         navigation_proxy.bind(navigation_request=self.navigate)
-        preview.set_navigation_service(navigation_proxy)
-        return preview
+        interpretation.set_navigation_service(navigation_proxy)
+        return interpretation
+
+    def get_actions(self, substructure: Structure):
+        types = self._interpretation_service.interpret(substructure).types
+        actions = set(
+            action
+            for type in types
+            for action in self._action_registry.get_actions(type)
+        )
+        return actions
 
     def add_item(self, value: Structure):
         """Add item to the list.

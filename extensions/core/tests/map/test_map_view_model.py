@@ -3,6 +3,7 @@ from collections import deque
 
 import pytest
 
+from blackfennec_doubles.actions import ActionRegistryMock
 from blackfennec_doubles.interpretation.double_interpretation import \
     InterpretationMock
 from blackfennec_doubles.interpretation.double_interpretation_service import \
@@ -27,10 +28,13 @@ class MapViewModelTestSuite(unittest.TestCase):
         self.type_registry = TypeRegistryMock([
             TypeMock(Dummy('structure'))
         ])
+        self.action_registry = ActionRegistryMock()
         self.view_model = MapViewModel(
             self.interpretation,
             self.interpretation_service,
-            self.type_registry)
+            self.type_registry,
+            self.action_registry,
+        )
 
     def test_can_construct(self):
         self.assertIsNotNone(self.view_model)
@@ -58,8 +62,8 @@ class MapViewModelTestSuite(unittest.TestCase):
             self.interpretation.navigation_requests,
             [route_target])
 
-    def test_can_create_preview(self):
-        preview = self.view_model.create_preview(StructureMock())
+    def test_can_create_interpretation(self):
+        preview = self.view_model.create_interpretation(StructureMock())
         last_spec = self.interpretation_service.last_specification
         self.assertTrue(last_spec.is_request_for_preview)
         self.assertIsNotNone(preview.navigation_service)

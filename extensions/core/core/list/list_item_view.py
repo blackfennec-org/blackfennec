@@ -4,8 +4,8 @@ from pathlib import Path
 from gi.repository import Gtk, Adw
 
 from blackfennec.interpretation.interpretation import Interpretation
-from blackfennec.structure.structure import Structure
 from core.list.list_view_model import ListViewModel
+from core.util.action_item_view import ActionItemView
 
 logger = logging.getLogger(__name__)
 
@@ -14,42 +14,39 @@ UI_TEMPLATE = str(BASE_DIR.joinpath('list_item_view.ui'))
 
 
 @Gtk.Template(filename=UI_TEMPLATE)
-class ListItemView(Adw.ActionRow):
+class ListItemView(Adw.ActionRow, ActionItemView):
     """View for a single list item."""
+
     __gtype_name__ = 'ListItemView'
+
+    _popover_parent: Gtk.Box = Gtk.Template.Child()
     _delete = Gtk.Template.Child()
 
     def __init__(self,
-                 preview: Interpretation,
+                 interpretation: Interpretation,
                  view_factory,
                  view_model: ListViewModel):
         """Create list item view
 
         Args:
-            preview (Interpretation): The preview
+            interpretation (Interpretation): The preview
             view_model (ListViewModel): view model
         """
-        super().__init__()
+        Adw.ActionRow.__init__(self)
+        ActionItemView.__init__(self, interpretation, view_model)
 
-        self._preview = preview
-        self._view_model = view_model
-        view = view_factory.create(preview)
+        view = view_factory.create(interpretation)
         self.set_activatable_widget(view)
         self.add_suffix(view)
         self.add_prefix(self._delete)
 
     @property
-    def selected(self):
-        return self._selected
+    def action_row(self) -> Adw.ActionRow:
+        return self
 
-    @selected.setter
-    def selected(self, value):
-        self._selected = value
-        style = self.get_style_context()
-        if self.selected:
-            style.add_class('card')
-        else:
-            style.remove_class('card')
+    @property
+    def popover_parent(self) -> Gtk.Box:
+        return self._popover_parent
 
     @Gtk.Template.Callback()
     def _on_delete(self, unused_sender):
@@ -57,8 +54,3 @@ class ListItemView(Adw.ActionRow):
 
     def set_deletable(self, value: bool):
         self._delete.set_visible(value)
-
-    @property
-    def item(self) -> Structure:
-        """Readonly property for the item"""
-        return self._preview.structure

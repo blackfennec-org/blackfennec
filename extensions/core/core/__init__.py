@@ -8,6 +8,7 @@ from blackfennec.type_system.reference_type import ReferenceType
 from blackfennec.type_system.string_type import StringType
 
 import gi
+
 gi.require_version('Gtk', '4.0')
 gi.require_version('Adw', '1')
 
@@ -54,7 +55,7 @@ class CoreTypes:
         type_registry.deregister_type(self.list)
         type_registry.deregister_type(self.map)
         type_registry.deregister_type(self.reference)
-        
+
 
 class CoreExtension:
     def __init__(self):
@@ -70,13 +71,17 @@ class CoreExtension:
             self.types.number: NumberViewFactory(),
             self.types.string: StringViewFactory(),
             self.types.list: ListViewFactory(
-                    extension_api.interpretation_service,
-                    extension_api.type_registry,
-                    extension_api.view_factory),
+                extension_api.interpretation_service,
+                extension_api.type_registry,
+                extension_api.action_registry,
+                extension_api.view_factory
+            ),
             self.types.map: MapViewFactory(
-                    extension_api.interpretation_service, 
-                    extension_api.type_registry,
-                    extension_api.view_factory),
+                extension_api.interpretation_service,
+                extension_api.type_registry,
+                extension_api.action_registry,
+                extension_api.view_factory,
+            ),
             self.types.reference: ReferenceViewFactory(),
         }
 
@@ -95,7 +100,7 @@ class CoreExtension:
             ColumnBasedPresenterViewFactory(
                 extension_api.interpretation_service,
                 extension_api.view_factory))
-        
+
         for type, factory in self.view_factories.items():
             extension_api.view_factory_registry.register_view_factory(
                 type, Specification(), factory)
@@ -121,7 +126,9 @@ class CoreExtension:
         for action in self.actions:
             extension_api.action_registry.deregister_action(action)
 
+
 CORE_EXTENSION = CoreExtension()
+
 
 def create_extension(extension_api: ExtensionApi):
     """Registers all core types in black-fennec

@@ -2,9 +2,8 @@ import logging
 from pathlib import Path
 
 from gi.repository import Gtk, GObject, Adw
-
-from core.map.items.action_item_view import ActionItemView
-from core.map.items.editable_item_view import EditableItemView
+from core.map.items.editable_map_item_view import EditableMapItemView
+from core.map.items.map_item_view import MapItemView
 
 logger = logging.getLogger(__name__)
 
@@ -78,23 +77,23 @@ class MapView(Adw.PreferencesGroup):
         self._view_model.add_by_template(key, template)
 
     def _add_item(self, key, structure):
-        preview = self._view_model.create_preview(structure)
+        interpretation = self._view_model.create_interpretation(structure)
         if self._in_edit_mode:
-            item = EditableItemView(
+            item = EditableMapItemView(
                 key,
-                preview,
+                interpretation,
                 self._view_factory,
                 self._view_model
             )
         else:
-            item = ActionItemView(
+            item = MapItemView(
                 key,
-                preview,
+                interpretation,
                 self._view_factory,
                 self._view_model
             )
         self._items[key] = item
-        self._item_interpretation_mapping[preview] = item
+        self._item_interpretation_mapping[interpretation] = item
         self.add(item)
 
     def _remove_item(self, key):

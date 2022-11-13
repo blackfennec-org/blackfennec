@@ -31,6 +31,7 @@ from core import create_extension, destroy_extension
 
 pytestmark = pytest.mark.integration
 
+
 @pytest.fixture
 def view_factory_registry():
     return ViewFactoryRegistry()
@@ -68,6 +69,7 @@ def api(type_registry, interpreter, view_factory, view_factory_registry):
 def presenter():
     return StructurePresenterMock()
 
+
 @pytest.fixture
 def navigation_service(presenter):
     navigation_service = NavigationService()
@@ -97,7 +99,7 @@ def navigation_service(presenter):
     ],
 )
 def test_integration_correct_interpretation(
-    api, structure, interpreter, view_factory, view_class
+        api, structure, interpreter, view_factory, view_class
 ):
     create_extension(api)
     interpretation = interpreter.interpret(structure)
@@ -112,10 +114,13 @@ def test_map_can_navigate(presenter, navigation_service):
     interpretation.set_navigation_service(navigation_service)
     interpretation_service = Dummy('InterpretationService')
     type_registry = TypeRegistryMock()
+    action_registry = ActionRegistryMock()
     map_view_model = MapViewModel(
         interpretation,
         interpretation_service,
-        type_registry)
+        type_registry,
+        action_registry,
+    )
     map_view_model.navigate_to(Map())
     assert presenter.show_count == 1
 
@@ -127,10 +132,12 @@ def test_list_can_navigate(presenter, navigation_service):
     interpretation.set_navigation_service(navigation_service)
     interpretation_service = Dummy('InterpretationService')
     type_registry = Dummy('TypeRegistry')
+    action_registry = Dummy('ActionRegistry')
     list_view_model = ListViewModel(
         interpretation,
         interpretation_service,
-        type_registry
+        type_registry,
+        action_registry,
     )
     list_view_model.navigate_to(List())
     assert presenter.show_count == 1

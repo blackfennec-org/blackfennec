@@ -19,7 +19,7 @@ class MergedList(MergedStructure):
 
     @property
     def value(self):
-        logger.warning("Accessed value of merged list: implementation is disputed")
+        logger.info("Accessed value of merged list: implementation is disputed")
         underlay = self._value_or_empty(self._underlay)
         overlay = self._value_or_empty(self._overlay)
         value = underlay + overlay

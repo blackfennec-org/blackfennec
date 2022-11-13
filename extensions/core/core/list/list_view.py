@@ -72,7 +72,7 @@ class ListView(Adw.Bin):
         self._view_model.delete()
 
     def _add_item(self, structure):
-        preview = self._view_model.create_preview(structure)
+        preview = self._view_model.create_interpretation(structure)
         item = ListItemView(
             preview,
             self._view_factory,

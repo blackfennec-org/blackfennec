@@ -16,26 +16,33 @@ def factory():
     return ListViewFactory(
         InterpretationServiceMock([]),
         TypeRegistryMock(),
-        Dummy('ViewFactory'))
+        Dummy('ActionRegistry'),
+        Dummy('ViewFactory')
+    )
+
 
 def test_can_construct(factory):
     assert isinstance(factory, ListViewFactory)
+
 
 def test_can_create_list_view(factory):
     view = factory.create(
         InterpretationMock(ListInstanceMock()))
     assert isinstance(view, ListView)
 
+
 def test_can_create_list_preview(factory):
     view = factory.create(
         InterpretationMock(
-            ListInstanceMock(), 
+            ListInstanceMock(),
             specification=Specification(request_preview=True)))
     assert isinstance(view, ListPreview)
+
 
 def test_satisfies_default(factory):
     satisfies = factory.satisfies(Specification())
     assert satisfies
+
 
 def test_does_satisfy_preview(factory):
     satisfies = factory.satisfies(Specification(request_preview=True))

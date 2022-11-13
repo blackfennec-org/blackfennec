@@ -2,12 +2,13 @@ import unittest
 from collections import deque
 from typing import Optional
 
+from blackfennec_doubles.actions import ActionRegistryMock
 from blackfennec_doubles.interpretation.double_interpretation import \
     InterpretationMock
 from blackfennec_doubles.interpretation.double_interpretation_service import \
     InterpretationServiceMock
 from blackfennec_doubles.structure.double_list import (ListInstanceMock,
-                                                        ListMock)
+                                                       ListMock)
 from blackfennec_doubles.structure.double_structure import StructureMock
 from blackfennec_doubles.type_system.double_type_registry import TypeRegistryMock
 from blackfennec_doubles.type_system.double_type import TypeMock
@@ -21,10 +22,12 @@ class ListViewModelTestSuite(unittest.TestCase):
             deque([InterpretationMock()])
         )
         self.type_registry = TypeRegistryMock()
+        self.action_registry = ActionRegistryMock()
         self.view_model: Optional[ListViewModel] = ListViewModel(
             self.interpretation,
             self.interpretation_service,
-            self.type_registry
+            self.type_registry,
+            self.action_registry,
         )
 
     def test_can_construct(self):
@@ -52,7 +55,7 @@ class ListViewModelTestSuite(unittest.TestCase):
             [route_target])
 
     def test_can_create_preview(self):
-        preview = self.view_model.create_preview(StructureMock())
+        preview = self.view_model.create_interpretation(StructureMock())
         self.assertTrue(
             self.interpretation_service.last_specification.is_request_for_preview)
         self.assertIsNotNone(preview.navigation_service)
