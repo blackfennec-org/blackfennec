@@ -16,9 +16,14 @@ from core.map.map_view_model import MapViewModel
 
 
 @pytest.fixture
-def interpretation():
+def bf_type():
+    return TypeMock(Dummy('structure'))
+
+
+@pytest.fixture
+def interpretation(bf_type):
     structure = MapInstanceMock()
-    return InterpretationMock(structure)
+    return InterpretationMock(structure, types=[bf_type])
 
 
 @pytest.fixture
@@ -27,15 +32,17 @@ def interpretation_service(interpretation):
 
 
 @pytest.fixture
-def type_registry():
+def type_registry(bf_type):
     return TypeRegistryMock([
-        TypeMock(Dummy('structure'))
+        bf_type
     ])
 
 
 @pytest.fixture
-def action_registry():
-    return ActionRegistryMock()
+def action_registry(bf_type):
+    return ActionRegistryMock({
+        bf_type: [Dummy('action')]
+    })
 
 
 @pytest.fixture
@@ -109,3 +116,8 @@ def test_can_add_by_template(view_model):
     template = TypeMock(default=structure)
     view_model.add_by_template(key, template)
     assert view_model.value.value[key] == structure
+
+
+def test_can_get_actions(view_model, action_registry):
+    actions = view_model.get_actions(Dummy('structure'))
+    assert str(actions.pop()) == "action"

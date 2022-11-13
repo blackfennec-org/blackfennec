@@ -1,74 +1,105 @@
-import unittest
+import pytest
 from collections import deque
-from typing import Optional
 
 from blackfennec_doubles.actions import ActionRegistryMock
-from blackfennec_doubles.interpretation.double_interpretation import \
-    InterpretationMock
-from blackfennec_doubles.interpretation.double_interpretation_service import \
-    InterpretationServiceMock
-from blackfennec_doubles.structure.double_list import (ListInstanceMock,
-                                                       ListMock)
+from blackfennec_doubles.double_dummy import Dummy
+from blackfennec_doubles.interpretation.double_interpretation import InterpretationMock
+from blackfennec_doubles.interpretation.double_interpretation_service import InterpretationServiceMock
+from blackfennec_doubles.structure.double_list import ListInstanceMock
 from blackfennec_doubles.structure.double_structure import StructureMock
 from blackfennec_doubles.type_system.double_type_registry import TypeRegistryMock
 from blackfennec_doubles.type_system.double_type import TypeMock
 from core.list.list_view_model import ListViewModel
 
 
-class ListViewModelTestSuite(unittest.TestCase):
-    def setUp(self) -> None:
-        self.interpretation = InterpretationMock(ListInstanceMock())
-        self.interpretation_service = InterpretationServiceMock(
-            deque([InterpretationMock()])
-        )
-        self.type_registry = TypeRegistryMock()
-        self.action_registry = ActionRegistryMock()
-        self.view_model: Optional[ListViewModel] = ListViewModel(
-            self.interpretation,
-            self.interpretation_service,
-            self.type_registry,
-            self.action_registry,
-        )
+@pytest.fixture
+def bf_type():
+    return TypeMock(Dummy('structure'))
 
-    def test_can_construct(self):
-        self.assertIsNotNone(self.view_model)
 
-    def test_can_get_value(self):
-        self.assertEqual(self.view_model.value.value, [])
+@pytest.fixture
+def interpretation(bf_type):
+    structure = ListInstanceMock()
+    return InterpretationMock(structure, types=[bf_type])
 
-    def test_can_add_item(self):
-        item = StructureMock()
-        self.view_model.add_item(item)
-        self.assertIn(item, self.view_model.value.value)
 
-    def test_can_delete_item(self):
-        item = StructureMock()
-        self.view_model.add_item(item)
-        self.view_model.delete_item(item)
-        self.assertNotIn(item, self.view_model.value.value)
+@pytest.fixture
+def interpretation_service(interpretation):
+    return InterpretationServiceMock(deque([interpretation]))
 
-    def test_can_forward_navigation_request(self):
-        route_target = StructureMock()
-        self.view_model.navigate_to(route_target)
-        self.assertListEqual(
-            self.interpretation.navigation_requests,
-            [route_target])
 
-    def test_can_create_preview(self):
-        preview = self.view_model.create_interpretation(StructureMock())
-        self.assertTrue(
-            self.interpretation_service.last_specification.is_request_for_preview)
-        self.assertIsNotNone(preview.navigation_service)
+@pytest.fixture
+def type_registry(bf_type):
+    return TypeRegistryMock([
+        bf_type
+    ])
 
-    def test_can_add_by_template(self):
-        subject = StructureMock()
-        template = TypeMock(default=subject)
-        self.view_model.add_by_template(template)
-        self.assertIn(subject, self.view_model.value.value)
 
-    def test_can_get_templates(self):
-        subject = StructureMock()
-        template = TypeMock(subject)
-        self.type_registry.types.append(template)
-        templates = self.view_model.get_templates()
-        self.assertIn(template, templates)
+@pytest.fixture
+def action_registry(bf_type):
+    return ActionRegistryMock({
+        bf_type: [Dummy('action')]
+    })
+
+
+@pytest.fixture
+def view_model(interpretation, interpretation_service, type_registry, action_registry):
+    return ListViewModel(
+        interpretation,
+        interpretation_service,
+        type_registry,
+        action_registry,
+    )
+
+
+def test_can_construct(view_model):
+    assert isinstance(view_model, ListViewModel)
+
+
+def test_can_get_value(view_model):
+    assert view_model.value.value == []
+
+
+def test_can_add_item(view_model):
+    item = StructureMock()
+    view_model.add_item(item)
+    assert item in view_model.value.value
+
+
+def test_can_delete_item(view_model):
+    item = StructureMock()
+    view_model.add_item(item)
+    view_model.delete_item(item)
+    assert item not in view_model.value.value
+
+
+def test_can_forward_navigation_request(view_model, interpretation):
+    route_target = StructureMock()
+    view_model.navigate_to(route_target)
+    assert interpretation.navigation_requests == [route_target]
+
+
+def test_can_create_preview(view_model, interpretation_service, interpretation):
+    interpretation = view_model.create_interpretation(StructureMock())
+    assert interpretation_service.last_specification.is_request_for_preview
+    assert interpretation.navigation_service is not None
+
+
+def test_can_add_by_template(view_model):
+    subject = StructureMock()
+    template = TypeMock(default=subject)
+    view_model.add_by_template(template)
+    assert subject in view_model.value.value
+
+
+def test_can_get_templates(view_model, type_registry):
+    subject = StructureMock()
+    template = TypeMock(subject)
+    type_registry.types.append(template)
+    templates = view_model.get_templates()
+    assert template in templates
+
+
+def test_can_get_actions(view_model, action_registry):
+    actions = view_model.get_actions(Dummy('structure'))
+    assert str(actions.pop()) == "action"
