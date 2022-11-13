@@ -16,7 +16,7 @@ class RootNavigator(Navigator):
         Returns:
             Structure: Parent
         """
-        return current.get_root()
+        return current.root
 
     def __repr__(self) -> str:
         """Create representation for pretty printing"""

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from blackfennec.structure.map import Map
-from blackfennec.structure.merge.deep_merge import DeepMerge
+from blackfennec.layers.merge.deep_merge import DeepMerge
 
 import blackfennec.type_system.list_type as list_type
 import blackfennec.type_system.map_type as map_type

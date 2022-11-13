@@ -15,5 +15,6 @@ class RootMock(StructureInstanceMock):
         self.get_document_count += 1
         return self._document
 
-    def get_root(self):
+    @property
+    def root(self):
         return self

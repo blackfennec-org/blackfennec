@@ -1,6 +1,6 @@
 from pathlib import Path
 from .type_parser import TypeParser
-from blackfennec.structure.overlay.overlay_factory_visitor import OverlayFactoryVisitor
+from blackfennec.layers.overlay.overlay_factory_visitor import OverlayFactoryVisitor
 
 
 class TypeLoader:

@@ -18,7 +18,6 @@ class NavigationProxyTestSuite(unittest.TestCase):
                 self.destination = destination
         sender = Dummy('Interpretation')
         destination = Dummy('Structure')
-        interpretation = InterpretationMock()
         observer = Observer()
         navigation_proxy = NavigationProxy()
         navigation_proxy.bind(navigation_request=observer.navigate)

@@ -10,14 +10,13 @@ from blackfennec.extension.extension import Extension
 from blackfennec.extension.extension_status import ExtensionStatus
 
 logger = logging.getLogger(__name__)
-logger.setLevel(logging.DEBUG)
 
 
 class LocalExtensionService:
     """
     Can import and list modules present in a local
         python namespace.
-    """    
+    """
 
     @classmethod
     def _validate_extension(self, module) -> bool:
@@ -63,7 +62,7 @@ class LocalExtensionService:
             extension = Extension(
                 self,
                 sender,
-                name = module.name
+                name=module.name
             )
             extensions[module.name] = extension
         return extensions

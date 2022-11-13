@@ -1,0 +1,34 @@
+@startuml Type Extension Overview
+
+hide members
+hide methods
+
+skinparam class {
+    BackgroundColor #EEE
+    ArrowColor Black
+    BorderColor Black
+}
+
+title Type Extension Overview
+
+package "TypeExtension" {
+    class Entrypoint {}
+    class Type {}
+    class View {}
+    class ViewFactory {}
+    class Action {}
+
+    Entrypoint ---> Type : registers
+    Entrypoint -down-> ViewFactory : registers
+    Entrypoint -right-> Action : registers
+
+    ViewFactory -down-> View  : creates
+    Action -down-> Type : manipulates
+
+    View -up-> Type : displays
+
+    ViewFactory -[hidden]right-> Action
+    Type -[hidden]right-> Action
+}
+
+@enduml

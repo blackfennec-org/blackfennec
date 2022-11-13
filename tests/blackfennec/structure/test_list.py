@@ -1,10 +1,10 @@
-import unittest
 import pytest
-import logging
+from tests.test_utils.observer import Observer
 from blackfennec_doubles.structure.double_structure import StructureMock
 from blackfennec_doubles.structure.double_root import RootMock
-from blackfennec_doubles.structure.encapsulation_base.double_factory_base_visitor import FactoryBaseVisitorMock
+from blackfennec_doubles.layers.encapsulation_base.double_factory_base_visitor import FactoryBaseVisitorMock
 from blackfennec.structure.list import List
+
 from tests.test_utils.parameterize import CORE_TYPE_FACTORIES
 
 def test_can_construct():
@@ -72,6 +72,17 @@ def test_can_set_value():
     structure_list = List()
     structure_list.value = [value]
     assert value in structure_list.value
+
+
+def test_notifies_on_value_change():
+    observer = Observer()
+    structure = List()
+    structure.bind(value=observer.endpoint)
+    new_value = [StructureMock()]
+    structure.value = new_value
+
+    assert observer.last_call == ((structure, new_value), {})
+
 
 def test_accept():
     visitor = FactoryBaseVisitorMock()

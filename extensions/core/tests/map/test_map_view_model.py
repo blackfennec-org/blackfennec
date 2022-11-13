@@ -1,4 +1,3 @@
-import unittest
 from collections import deque
 
 import pytest
@@ -8,79 +7,105 @@ from blackfennec_doubles.interpretation.double_interpretation import \
     InterpretationMock
 from blackfennec_doubles.interpretation.double_interpretation_service import \
     InterpretationServiceMock
-from blackfennec_doubles.structure.double_structure import StructureMock
-from blackfennec_doubles.structure.double_map import MapInstanceMock, MapMock
+from blackfennec_doubles.structure.double_map import MapInstanceMock
 from blackfennec_doubles.structure.double_structure import StructureMock
 from blackfennec_doubles.type_system.double_type_registry import TypeRegistryMock
 from blackfennec_doubles.double_dummy import Dummy
 from blackfennec_doubles.type_system.double_type import TypeMock
-from blackfennec.structure.root_factory import RootFactory
 from core.map.map_view_model import MapViewModel
 
 
-class MapViewModelTestSuite(unittest.TestCase):
-    def setUp(self):
-        structure = MapInstanceMock()
-        RootFactory.make_root(structure)
-        self.interpretation = InterpretationMock(structure)
-        self.interpretation_service = InterpretationServiceMock(
-            deque([self.interpretation]))
-        self.type_registry = TypeRegistryMock([
-            TypeMock(Dummy('structure'))
-        ])
-        self.action_registry = ActionRegistryMock()
-        self.view_model = MapViewModel(
-            self.interpretation,
-            self.interpretation_service,
-            self.type_registry,
-            self.action_registry,
-        )
+@pytest.fixture
+def interpretation():
+    structure = MapInstanceMock()
+    return InterpretationMock(structure)
 
-    def test_can_construct(self):
-        self.assertIsNotNone(self.view_model)
 
-    def test_can_get_value(self):
-        self.assertEqual(self.view_model.value.value, {})
+@pytest.fixture
+def interpretation_service(interpretation):
+    return InterpretationServiceMock(deque([interpretation]))
 
-    def test_can_add_item(self):
-        key = 'Key'
-        value = StructureMock()
-        self.view_model.add_item(key, value)
-        self.assertIn(key, self.view_model.value.value)
 
-    def test_can_delete_item(self):
-        key = 'Key'
-        value = StructureMock()
-        self.view_model.add_item(key, value)
-        self.view_model.delete_item(key)
-        self.assertNotIn(key, self.view_model.value.value)
+@pytest.fixture
+def type_registry():
+    return TypeRegistryMock([
+        TypeMock(Dummy('structure'))
+    ])
 
-    def test_can_forward_navigation_request(self):
-        route_target = StructureMock()
-        self.view_model.navigate_to(route_target)
-        self.assertListEqual(
-            self.interpretation.navigation_requests,
-            [route_target])
 
-    def test_can_create_interpretation(self):
-        preview = self.view_model.create_interpretation(StructureMock())
-        last_spec = self.interpretation_service.last_specification
-        self.assertTrue(last_spec.is_request_for_preview)
-        self.assertIsNotNone(preview.navigation_service)
+@pytest.fixture
+def action_registry():
+    return ActionRegistryMock()
 
-    def test_can_rename_key(self):
-        self.view_model.add_item('old_key', StructureMock())
-        self.view_model.rename_key('old_key', 'new_key')
-        self.assertIn('new_key', self.view_model.value.value)
-        self.assertNotIn('old_key', self.view_model.value.value)
 
-    def test_can_add_by_template(self):
-        key = 'key'
-        structure = StructureMock(value='structure')
-        template = TypeMock(default=structure)
-        self.view_model.add_by_template(key, template)
-        self.assertEqual(self.view_model.value.value[key], structure)
+@pytest.fixture
+def view_model(interpretation, interpretation_service, type_registry, action_registry):
+    return MapViewModel(
+        interpretation,
+        interpretation_service,
+        type_registry,
+        action_registry,
+    )
 
-    def test_can_get_templates(self):
-        templates = self.view_model.get_templates()
-        self.assertEqual(templates, self.type_registry.types)
+
+def test_can_construct(view_model):
+    assert view_model
+
+
+def test_can_get_value(view_model):
+    assert view_model.value.value == {}
+
+
+def test_can_add_item(view_model):
+    key = 'Key'
+    value = StructureMock()
+    view_model.add_item(key, value)
+    assert key in view_model.value.value
+
+
+def test_can_delete_item(view_model):
+    key = 'Key'
+    value = StructureMock()
+    view_model.add_item(key, value)
+    view_model.delete_item(key)
+    assert key not in view_model.value.value
+
+
+def test_can_forward_navigation_request(view_model, interpretation):
+    route_target = StructureMock()
+    view_model.navigate_to(route_target)
+    assert interpretation.navigation_requests == [route_target]
+
+
+def test_can_create_interpretation(view_model, interpretation_service):
+    preview = view_model.create_interpretation(StructureMock())
+    last_spec = interpretation_service.last_specification
+    assert last_spec.is_request_for_preview
+    assert preview.navigation_service
+
+
+def test_can_rename_key(view_model):
+    view_model.add_item('old_key', StructureMock())
+    view_model.rename_key('old_key', 'new_key')
+    assert 'new_key' in view_model.value.value
+    assert 'old_key' not in view_model.value.value
+
+
+def test_can_rename_without_corrupting_structure(view_model):
+    parent = MapInstanceMock({'child': view_model.value})
+    view_model.add_item('old_key', StructureMock())
+    view_model.rename_key('old_key', 'new_key')
+    assert parent.value['child'] == view_model.value
+
+
+def test_can_get_templates(view_model, type_registry):
+    templates = view_model.get_templates()
+    assert templates == type_registry.types
+
+
+def test_can_add_by_template(view_model):
+    key = 'key'
+    structure = StructureMock(value='structure')
+    template = TypeMock(default=structure)
+    view_model.add_by_template(key, template)
+    assert view_model.value.value[key] == structure

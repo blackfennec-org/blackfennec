@@ -2,12 +2,13 @@
 from abc import ABCMeta, abstractmethod
 from typing import Generic, TypeVar, Optional
 from blackfennec.structure.visitor import Visitor
+from blackfennec.util.observable import Observable
 
 T = TypeVar('T')
 TVisitor = TypeVar('TVisitor')
 
 
-class Structure(Generic[T], metaclass=ABCMeta):
+class Structure(Observable, Generic[T], metaclass=ABCMeta):
     """Abstract base class for all types (Structures)."""
 
     def __init__(self):
@@ -16,12 +17,19 @@ class Structure(Generic[T], metaclass=ABCMeta):
         Args:
             value (T): The value of this structure.
         """
+        super().__init__()
         self._parent: Optional[Structure] = None
 
     @property
     @abstractmethod
     def value(self) -> T:
         """Property for value of this structure."""
+        ...
+
+    @value.setter
+    @abstractmethod
+    def value(self, value: T):
+        """Setter for value of this structure."""
         ...
 
     @property
@@ -33,11 +41,12 @@ class Structure(Generic[T], metaclass=ABCMeta):
     def parent(self, parent: 'Structure'):
         self._parent = parent
 
-    def get_root(self) -> Optional['Root']:
+    @property
+    def root(self) -> Optional['Structure']:
         """Readonly property for `Root` of this structure."""
         if self.parent is None:
-            return None
-        return self.parent.get_root()
+            return self
+        return self.parent.root
 
     @property
     def structure(self):
@@ -70,3 +79,4 @@ class ValueStructure(Structure[T], metaclass=ABCMeta):
     @value.setter
     def value(self, value: T):
         self._value = value
+        self._notify(self.value, 'value')

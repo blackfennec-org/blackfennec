@@ -2,52 +2,27 @@
 
 Type Extension
 ==============
-A type extension defines and adds a new :ref:`type <definition_type>` to the object model. For this new type to be usable it must be accessible to the user. Therefore, it is necessary for the extension to also provide three further components, namely a user interface henceforth `Structure View`_ and a factory (`Structure View Factory`_) that can produce them on demand, and a type definition that can participate in the selection process.
+A type extension defines and adds a new `type <definition_type>` to the object model. For this new type to be usable it must be accessible to the user. Therefore, it is necessary for the extension to also provide three further components, namely a user interface  `Structure View`_ and a factory (`Structure View Factory`_) that can produce them on demand, and a type definition that can participate in the selection process.
 
-.. uml::
-    
-    @startuml
-
-    hide circle
-    hide members
-    hide methods
-
-    skinparam class {
-        BackgroundColor #EEE
-        ArrowColor Black
-        BorderColor Black
-    }
-    
-    title Basic Type Extension Overview
-    
-    class Auctioneer {}
-    note top of Auctioneer: Not part of this document
-
-    package "TypeExtension" {
-        class Type {}
-        class InfoView {}
-        class InfoViewFactory {}
-        class Bidder {}
-    
-        InfoViewFactory -> InfoView  : (4) creates
-        Bidder -left> Type : (2) advertises
-        Type <-- InfoView : (5) displays
-    }
-
-    Auctioneer -> InfoViewFactory : (3) awards interpretation to
-    Auctioneer -> Bidder : (1) consolidates with
-    
-
-    @enduml
-
-.. _structure_view:
-
-Structure View
-""""""""""""""
-This component is responsible for displaying the defined type adequately. For example if an extension defined the JPEG type the Structure View would presumably render an image. For more click :ref:`here <definition_type_view>`.
+.. uml:: type_extension_overview.puml
 
 .. _structure_view_factory:
 
-Structure View Factory
-""""""""""""""""""""""
-This component is responsible for creating structure views as described above.
+View Factory
+""""""""""""
+BlackFennec does not constrain the way in which the user interface is implemented. The only requirement is that it must be able to be instantiated on demand. This is achieved by requiring the registration of a capable factory with the `ViewFactoryRegistry`. The factory is responsible for creating the widget and for providing it with the necessary dependencies.
+
+.. _structure_view:
+
+View
+""""
+A `View` for a `Type` can be defined if a custom visualisation for displaying the defined type is wanted. For example if an extension defined the JPEG type the Structure View would presumably render an image. For more click `here <definition_type_view>`.
+
+Keep in mind that you must register your `View` via a `ViewFactory <structure_view_factory>`_ with the `ViewFactoryRegistry`.
+
+
+.. _structure_action
+
+Action
+""""""
+Coming Soon™

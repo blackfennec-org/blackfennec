@@ -21,9 +21,9 @@ class UriNavigator(Navigator):
         Returns:
             Structure: Uri content
         """
-        current_structure_root = current.get_root()
-        current_structure_document: Document = current_structure_root.get_document()
-        document: Document = self._document_factory.create(self.uri, location=current_structure_document.location)
+        location = self._document_factory.get_document(current).location
+        document: Document = self._document_factory.create(
+            self.uri, location)
         return document.content
 
     def __repr__(self) -> str:

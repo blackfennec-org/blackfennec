@@ -1,5 +1,4 @@
-from blackfennec_doubles.interpretation.auction.double_coverage import CoverageMock
-from blackfennec_doubles.extension.double_structure_view_factory import StructureViewFactoryMock
+
 
 
 class ViewFactoryRegistryMock:

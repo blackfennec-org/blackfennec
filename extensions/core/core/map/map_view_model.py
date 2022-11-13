@@ -7,8 +7,6 @@ from blackfennec.interpretation.interpretation_service import \
 from blackfennec.interpretation.specification import Specification
 from blackfennec.navigation.navigation_proxy import NavigationProxy
 from blackfennec.structure.map import Map
-from blackfennec.structure.overlay.overlay_factory_visitor import OverlayFactoryVisitor
-from blackfennec.structure.root_factory import RootFactory
 from blackfennec.structure.structure import Structure
 from blackfennec.type_system.type import Type
 from blackfennec.type_system.type_registry import TypeRegistry
@@ -56,13 +54,6 @@ class MapViewModel(Observable):
         self._notify(self.value, 'value')
 
     @property
-    def decapsulated_value(self):
-        decapsulated_map = self.value
-        while hasattr(decapsulated_map, 'subject'):
-            decapsulated_map = decapsulated_map.subject
-        return decapsulated_map
-
-    @property
     def selected(self) -> Interpretation:
         return self._selected
 
@@ -88,7 +79,10 @@ class MapViewModel(Observable):
         return interpretation
 
     def get_actions(self, substructure: Structure):
-        types = self._interpretation_service.interpret(substructure).types
+        types = self._interpretation_service.interpret(
+            substructure,
+            Specification(request_preview=True)
+        ).types
         actions = set(
             action
             for type in types
@@ -123,23 +117,11 @@ class MapViewModel(Observable):
                 which should be renamed
             new_key (str): The new key name of the key value pair
         """
-        map_with_retained_order = Map({})
-        decapsulated_map = self.decapsulated_value
-
-        if decapsulated_map.get_root() == decapsulated_map:
-            RootFactory.make_root(map_with_retained_order, decapsulated_map.get_document())
-        else:
-            map_with_retained_order.parent = decapsulated_map.parent
+        decapsulated_map = self.value.structure
 
         for key, value in decapsulated_map.value.items():
-            if key == old_key:
-                decapsulated_map.remove_item(key)
-                map_with_retained_order.add_item(new_key, value)
-            else:
-                decapsulated_map.remove_item(key)
-                map_with_retained_order.add_item(key, value)
-        overlay = map_with_retained_order.accept(OverlayFactoryVisitor())
-        self.value = overlay
+            decapsulated_map.remove_item(key)
+            decapsulated_map.add_item(new_key if key == old_key else key, value)
 
     def _is_resolved_reference(self, key: str):
         return self.value.value[key].parent != self.value

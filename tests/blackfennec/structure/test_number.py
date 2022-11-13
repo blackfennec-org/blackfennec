@@ -3,7 +3,7 @@ import unittest
 import pytest
 from tests.blackfennec.structure.test_structure import StructureTestMixin
 from blackfennec_doubles.structure.double_root import RootMock
-from blackfennec_doubles.structure.encapsulation_base.double_factory_base_visitor import FactoryBaseVisitorMock
+from blackfennec_doubles.layers.encapsulation_base.double_factory_base_visitor import FactoryBaseVisitorMock
 from blackfennec.structure.number import Number
 from blackfennec.structure.map import Map
 

@@ -54,7 +54,7 @@ class Interpretation:
 
     @property
     def types(self):
-        return self._types
+        return list(self._types)
 
     def navigate(self, destination: Structure):
         """Navigation dispatch.

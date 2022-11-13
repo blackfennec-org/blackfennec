@@ -75,7 +75,10 @@ class ListViewModel(Observable):
         return interpretation
 
     def get_actions(self, substructure: Structure):
-        types = self._interpretation_service.interpret(substructure).types
+        types = self._interpretation_service.interpret(
+            substructure,
+            Specification(request_types=True)
+        ).types
         actions = set(
             action
             for type in types
