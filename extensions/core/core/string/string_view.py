@@ -24,6 +24,8 @@ class StringView(Adw.Bin):
         """
         super().__init__()
         self._view_model = view_model
+        self._view_model.bind(changed=self._update_value)
+
         buffer = self._value.get_buffer()
         buffer.connect('changed', self._on_text_changed)
         buffer.set_text(self._view_model.value)
@@ -34,3 +36,10 @@ class StringView(Adw.Bin):
         start, end = buffer.get_bounds()
         text = buffer.get_text(start, end, False)
         self._view_model.value = text
+
+    def _update_value(self, unused_sender, new_value):
+        buffer = self._value.get_buffer()
+        start, end = buffer.get_bounds()
+        text = buffer.get_text(start, end, False)
+        if text != new_value:
+            buffer.set_text(new_value)
