@@ -7,7 +7,6 @@
     <child>
       <object class="GtkSwitch" id="_value">
         <property name="focusable">true</property>
-        <signal name="activate" handler="_click_handler"/>
         <signal name="state-set" handler="_on_state_changed"/>
       </object>
     </child>

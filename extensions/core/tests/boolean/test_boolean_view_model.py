@@ -11,7 +11,7 @@ class BooleanViewModelTestSuite(unittest.TestCase):
 
     def test_can_get_value(self):
         boolean_view_model = BooleanViewModel(InterpretationMock(BooleanMock()))
-        self.assertFalse(boolean_view_model.value)
+        self.assertFalse(boolean_view_model.boolean.value)
 
     def test_can_set_value(self):
         boolean_view_model = BooleanViewModel(InterpretationMock())

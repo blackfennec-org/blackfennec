@@ -7,7 +7,6 @@ template BooleanView : Adw.Bin {
 
   Switch _value {
     focusable: true;
-    activate => _click_handler();
     state-set => _on_state_changed();
   }
 }
