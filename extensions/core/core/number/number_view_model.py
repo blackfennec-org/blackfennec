@@ -1,6 +1,7 @@
 import numbers
 
 from blackfennec.util.change_notification import ChangeNotification
+from blackfennec.structure.number import Number
 from blackfennec.util.observable import Observable
 
 
@@ -16,17 +17,19 @@ class NumberViewModel(Observable):
         """
         super().__init__()
 
-        self._model = interpretation.structure
-        self._model.structure.bind(changed=self._update_value)
+        self._number: Number = interpretation.structure
+        self._number.bind(changed=self._update_value)
 
     @property
-    def value(self) -> numbers.Number:
+    def number(self) -> Number:
         """Property for value of type number.Number"""
-        return self._model.value
+        return self._number
 
-    @value.setter
-    def value(self, value: numbers.Number):
-        self._model.value = value
+    @number.setter
+    def number(self, number: Number):
+        self._number = number
 
     def _update_value(self, sender, notification: ChangeNotification):
+        new_value = notification.new_value
+        assert self.number.structure.value == new_value
         self._notify('changed', notification, sender)

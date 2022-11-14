@@ -28,9 +28,9 @@ class NumberPreview(Adw.Bin):
         self._view_model = view_model
         self._view_model.bind(changed=self._update_value)
 
-        self._value.set_text(str(self._view_model.value))
+        self._value.set_text(str(self._view_model.number.value))
         logger.info(
-            'NumberView with text: "%s" created', self._view_model.value)
+            'NumberView with text: "%s" created', self._view_model.number.value)
 
     @Gtk.Template.Callback()
     def _on_text_changed(self, unused_sender):
@@ -38,9 +38,9 @@ class NumberPreview(Adw.Bin):
         digits_string = ''.join([i for i in text if i in '0123456789.,eE-+'])
         try:
             if not float(digits_string).is_integer():
-                self._view_model.value = float(digits_string)
+                self._view_model.number.value = float(digits_string)
             else:
-                self._view_model.value = int(digits_string)
+                self._view_model.number.value = int(digits_string)
 
             self._value.set_icon_from_icon_name(
                 Gtk.EntryIconPosition.SECONDARY,
