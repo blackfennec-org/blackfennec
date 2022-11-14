@@ -4,13 +4,13 @@ from blackfennec.interpretation.specification import Specification
 from base.date_time.date_time import DateTime
 
 import gi
+
 gi.require_version('Gtk', '4.0')
 gi.require_version('Adw', '1')
 
 from base.date_time.date_time_view_factory import DateTimeViewFactory
 from base.file.file_view_factory import FileViewFactory
 from base.image.image_view_factory import ImageViewFactory
-
 
 BASE_NAME = Path(__file__).parent.as_posix()
 __types = []
@@ -46,10 +46,10 @@ def create_extension(extension_api: ExtensionApi):
         extension_api.type_registry.register_type(type)
 
     for type, factory in zip(_types(extension_api), factories):
-        extension_api.view_factory_registry.register_view_factory(
-            type, Specification(), factory)
-        extension_api.view_factory_registry.register_view_factory(
-            type, Specification(True), factory)
+        for specification in [Specification(), Specification(request_preview=True)]:
+            if factory.satisfies(specification):
+                extension_api.view_factory_registry.register_view_factory(
+                    type, specification, factory)
 
 
 def destroy_extension(extension_api: ExtensionApi):

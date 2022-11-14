@@ -1,7 +1,10 @@
 {
   "Logo": {
     "file_path": "examples/logo.jpg",
-    "file_type": "image/jpg"
+    "file_type": "image/jpg",
+    "date_time": "2021-02-16T15:50:00",
+    "First Name": "Black",
+    "Last Name": "Fennec"
   },
   "Project Name": "Black Fennec",
   "Is Active": true,
