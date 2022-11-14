@@ -25,10 +25,10 @@ def test_view_model_update():
     ColumnBasedPresenterView(view_model, view_factory)
 
     interpretations.append(first_interpretation)
-    view_model._notify(view_model.interpretations, 'interpretations')
+    view_model._notify('interpretations', view_model.interpretations)
     view_model.interpretations.clear()
     view_model.interpretations.append(second_interpretation)
-    view_model._notify(view_model.interpretations, 'interpretations')
+    view_model._notify('interpretations', view_model.interpretations)
 
     assert view_factory.create_call_count == 2
 

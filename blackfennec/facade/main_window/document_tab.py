@@ -37,8 +37,8 @@ class DocumentTab(Observable):
     def uri(self, uri: str):
         self._uri = uri
         self.title = os.path.basename(uri)
-        self._notify(self.title, 'title')
-        self._notify(self.uri, 'uri')
+        self._notify('title', self.title)
+        self._notify('uri', self.uri)
 
     @property
     def icon(self):
@@ -47,7 +47,7 @@ class DocumentTab(Observable):
     @icon.setter
     def icon(self, icon: str):
         self._icon = icon
-        self._notify(self.icon, 'icon')
+        self._notify('icon', self.icon)
 
     def create_presenter(self):
         presenter_factory = self._presenter_registry.presenters[0]

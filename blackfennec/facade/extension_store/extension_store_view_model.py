@@ -19,7 +19,7 @@ class ExtensionStoreViewModel(Observable):
         self._extensions = set()
         for source in self._extension_source_registry.extension_sources:
             self._extensions.update(source.extensions)
-        self._notify(self._extensions, 'extensions')
+        self._notify('extensions', self._extensions)
 
     @property
     def extension_api(self) -> ExtensionApi:

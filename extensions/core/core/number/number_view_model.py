@@ -14,7 +14,7 @@ class NumberViewModel(Observable):
                 interpretation
         """
         super().__init__()
-        
+
         self._model = interpretation.structure
         self._model.structure.bind(value=self._update_value)
 
@@ -28,8 +28,4 @@ class NumberViewModel(Observable):
         self._model.value = value
 
     def _update_value(self, sender, new_value):
-        self._notify(
-            new_value,
-            'changed',
-            sender,
-        )
+        self._notify('changed', new_value, sender)

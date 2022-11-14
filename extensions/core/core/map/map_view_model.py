@@ -51,7 +51,7 @@ class MapViewModel(Observable):
     @value.setter
     def value(self, value: Map):
         self._map = value
-        self._notify(self.value, 'value')
+        self._notify('value', self.value)
 
     @property
     def selected(self) -> Interpretation:
@@ -59,7 +59,7 @@ class MapViewModel(Observable):
 
     @selected.setter
     def selected(self, new_selected):
-        self._notify(new_selected, 'selected')
+        self._notify('selected', new_selected)
         self._selected = new_selected
 
     def create_interpretation(self, substructure: Structure) -> Interpretation:
@@ -98,7 +98,7 @@ class MapViewModel(Observable):
             value (Structure): The `Structure` behind the key.
         """
         self.value.add_item(key, value)
-        self._notify(self.value, 'value')
+        self._notify('value', self.value)
 
     def delete_item(self, key):
         """Delete an item from the map.
@@ -107,7 +107,7 @@ class MapViewModel(Observable):
             key: The key of the key value pair which should be deleted
         """
         self.value.remove_item(key)
-        self._notify(self.value, 'value')
+        self._notify('value', self.value)
 
     def rename_key(self, old_key: str, new_key: str):
         """Rename the key of an item.

@@ -10,11 +10,11 @@ class Observable:
     def __init__(self):
         self._bindings = {}
 
-    def _notify(self, changed_property, name, sender=None):
+    def _notify(self, key, notification, sender=None):
         sender = sender or self
-        if name in self._bindings:
-            for listener in self._bindings[name]:
-                listener(sender, changed_property)
+        if key in self._bindings:
+            for listener in self._bindings[key]:
+                listener(sender, notification)
 
     def bind(self, **kwargs):
         for key, word in kwargs.items():

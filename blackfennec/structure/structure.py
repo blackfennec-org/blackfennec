@@ -60,6 +60,7 @@ class Structure(Observable, Generic[T], metaclass=ABCMeta):
     def __repr__(self) -> str:
         ...
 
+
 class ValueStructure(Structure[T], metaclass=ABCMeta):
     """Abstract base class for all structures that have a value."""
 
@@ -79,4 +80,4 @@ class ValueStructure(Structure[T], metaclass=ABCMeta):
     @value.setter
     def value(self, value: T):
         self._value = value
-        self._notify(self.value, 'value')
+        self._notify('value', self.value)

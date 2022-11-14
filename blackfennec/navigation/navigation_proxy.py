@@ -33,4 +33,4 @@ class NavigationProxy(Observable):
             sender (Interpretation): Ignored
             destination (Structure): destination which will be passed on
         """
-        self._notify(destination, 'navigation_request', sender)
+        self._notify('navigation_request', destination, sender)

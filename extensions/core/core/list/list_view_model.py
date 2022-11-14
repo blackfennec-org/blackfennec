@@ -55,7 +55,7 @@ class ListViewModel(Observable):
 
     @selected.setter
     def selected(self, new_selected):
-        self._notify(new_selected, 'selected')
+        self._notify('selected', new_selected)
         self._selected = new_selected
 
     def create_interpretation(self, substructure: Structure) -> Interpretation:
@@ -93,7 +93,7 @@ class ListViewModel(Observable):
             value (Structure): The `Structure` representing the item.
         """
         self._list.add_item(value)
-        self._notify(self.value, 'value')
+        self._notify('value', self.value)
 
     def delete_item(self, item: Structure):
         """Delete an item from the list.
@@ -102,7 +102,7 @@ class ListViewModel(Observable):
             item: The item which should be deleted
         """
         self._list.remove_item(item)
-        self._notify(self.value, 'value')
+        self._notify('value', self.value)
 
     def add_by_template(self, template: Type):
         self.add_item(template.create_instance())

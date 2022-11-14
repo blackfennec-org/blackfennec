@@ -31,7 +31,7 @@ class DateTimeViewModel(Observable):
     @date_time.setter
     def date_time(self, value: datetime):
         self._model.date_time = value
-        self._notify(self._model.date_time, 'date_time')
+        self._notify('date_time', self._model.date_time)
 
     def navigate(self):
         self._interpretation.navigate(self._interpretation.structure)
