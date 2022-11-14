@@ -60,22 +60,7 @@ def test_can_construct(view_model):
 
 
 def test_can_get_value(view_model):
-    assert view_model.value.value == {}
-
-
-def test_can_add_item(view_model):
-    key = 'Key'
-    value = StructureMock()
-    view_model.add_item(key, value)
-    assert key in view_model.value.value
-
-
-def test_can_delete_item(view_model):
-    key = 'Key'
-    value = StructureMock()
-    view_model.add_item(key, value)
-    view_model.delete_item(key)
-    assert key not in view_model.value.value
+    assert view_model.map.value == {}
 
 
 def test_can_forward_navigation_request(view_model, interpretation):
@@ -92,17 +77,17 @@ def test_can_create_interpretation(view_model, interpretation_service):
 
 
 def test_can_rename_key(view_model):
-    view_model.add_item('old_key', StructureMock())
+    view_model.map.add_item('old_key', StructureMock())
     view_model.rename_key('old_key', 'new_key')
-    assert 'new_key' in view_model.value.value
-    assert 'old_key' not in view_model.value.value
+    assert 'new_key' in view_model.map.value
+    assert 'old_key' not in view_model.map.value
 
 
 def test_can_rename_without_corrupting_structure(view_model):
-    parent = MapInstanceMock({'child': view_model.value})
-    view_model.add_item('old_key', StructureMock())
+    parent = MapInstanceMock({'child': view_model.map})
+    view_model.map.add_item('old_key', StructureMock())
     view_model.rename_key('old_key', 'new_key')
-    assert parent.value['child'] == view_model.value
+    assert parent.value['child'] == view_model.map
 
 
 def test_can_get_templates(view_model, type_registry):
@@ -115,7 +100,7 @@ def test_can_add_by_template(view_model):
     structure = StructureMock(value='structure')
     template = TypeMock(default=structure)
     view_model.add_by_template(key, template)
-    assert view_model.value.value[key] == structure
+    assert view_model.map.value[key] == structure
 
 
 def test_can_get_actions(view_model, action_registry):

@@ -76,4 +76,4 @@ class EditableMapItemView(Adw.EntryRow):
     def _on_delete(self, unused_sender):
         self.selected = False
         self._view_model.selected = None
-        self._view_model.delete_item(self.key)
+        self._view_model.map.remove_item(self.key)

@@ -40,18 +40,14 @@ class MapViewModel(Observable):
         self._interpretation_service = interpretation_service
         self._type_registry = type_registry
         self._action_registry = action_registry
-        self._map: Map = self._interpretation.structure
-        logger.debug('Showing view for %s', str(self._map))
+
+        self._map: Map[Structure] = self._interpretation.structure
+        self._map.bind(changed=self._update_value)
 
     @property
-    def value(self):
-        """Readonly property for value."""
+    def map(self) -> Map:
+        """Readonly property for map."""
         return self._map
-
-    @value.setter
-    def value(self, value: Map):
-        self._map = value
-        self._notify('value', self.value)
 
     @property
     def selected(self) -> Interpretation:
@@ -90,25 +86,6 @@ class MapViewModel(Observable):
         )
         return actions
 
-    def add_item(self, key, value: Structure):
-        """Add item (key, value) to the map.
-
-        Args:
-            key: The key under which to store the value.
-            value (Structure): The `Structure` behind the key.
-        """
-        self.value.add_item(key, value)
-        self._notify('value', self.value)
-
-    def delete_item(self, key):
-        """Delete an item from the map.
-
-        Args:
-            key: The key of the key value pair which should be deleted
-        """
-        self.value.remove_item(key)
-        self._notify('value', self.value)
-
     def rename_key(self, old_key: str, new_key: str):
         """Rename the key of an item.
 
@@ -117,17 +94,17 @@ class MapViewModel(Observable):
                 which should be renamed
             new_key (str): The new key name of the key value pair
         """
-        decapsulated_map = self.value.structure
+        decapsulated_map = self._map.structure
 
         for key, value in decapsulated_map.value.items():
             decapsulated_map.remove_item(key)
             decapsulated_map.add_item(new_key if key == old_key else key, value)
 
     def _is_resolved_reference(self, key: str):
-        return self.value.value[key].parent != self.value
+        return self.map.value[key].parent != self._map
 
     def add_by_template(self, key, template: Type):
-        self.add_item(key, template.create_instance())
+        self.map.add_item(key, template.create_instance())
 
     def get_templates(self):
         return self._type_registry.types
@@ -138,3 +115,8 @@ class MapViewModel(Observable):
 
     def navigate_to(self, route_target: Structure):
         self._interpretation.navigate(route_target)
+
+    def _update_value(self, sender, notification):
+        new_value = notification.new_value
+        assert self.map.structure.value == new_value
+        self._notify('changed', new_value, sender)
