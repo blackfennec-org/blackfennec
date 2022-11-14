@@ -4,6 +4,7 @@ from blackfennec.interpretation.interpretation_service import \
     InterpretationService
 from blackfennec.interpretation.specification import Specification
 from blackfennec.navigation.navigation_proxy import NavigationProxy
+from blackfennec.structure.list import List
 from blackfennec.structure.structure import Structure
 from blackfennec.type_system.type import Type
 from blackfennec.type_system.type_registry import TypeRegistry
@@ -35,19 +36,14 @@ class ListViewModel(Observable):
         self._interpretation_service = interpretation_service
         self._type_registry = type_registry
         self._action_registry = action_registry
-        self._list = self._interpretation.structure
+
+        self._list: List = self._interpretation.structure
+        self._list.bind(changed=self._update_value)
 
     @property
-    def value(self):
-        """Readonly property for value."""
+    def list(self) -> List:
+        """Readonly property for list."""
         return self._list
-
-    @property
-    def decapsulated_value(self):
-        decapsulated_map = self.value
-        while hasattr(decapsulated_map, 'subject'):
-            decapsulated_map = decapsulated_map.subject
-        return decapsulated_map
 
     @property
     def selected(self) -> Interpretation:
@@ -86,26 +82,8 @@ class ListViewModel(Observable):
         )
         return actions
 
-    def add_item(self, value: Structure):
-        """Add item to the list.
-
-        Args:
-            value (Structure): The `Structure` representing the item.
-        """
-        self._list.add_item(value)
-        self._notify('value', self.value)
-
-    def delete_item(self, item: Structure):
-        """Delete an item from the list.
-
-        Args:
-            item: The item which should be deleted
-        """
-        self._list.remove_item(item)
-        self._notify('value', self.value)
-
     def add_by_template(self, template: Type):
-        self.add_item(template.create_instance())
+        self.list.add_item(template.create_instance())
 
     def get_templates(self):
         return self._type_registry.types
@@ -117,5 +95,7 @@ class ListViewModel(Observable):
     def navigate_to(self, route_target: Structure):
         self._interpretation.navigate(route_target)
 
-    def delete(self):
-        raise NotImplementedError()
+    def _update_value(self, sender, notification):
+        new_value = notification.new_value
+        assert self.list.structure.value == new_value
+        self._notify('changed', new_value, sender)

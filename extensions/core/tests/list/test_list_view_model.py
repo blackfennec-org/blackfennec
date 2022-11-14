@@ -57,20 +57,7 @@ def test_can_construct(view_model):
 
 
 def test_can_get_value(view_model):
-    assert view_model.value.value == []
-
-
-def test_can_add_item(view_model):
-    item = StructureMock()
-    view_model.add_item(item)
-    assert item in view_model.value.value
-
-
-def test_can_delete_item(view_model):
-    item = StructureMock()
-    view_model.add_item(item)
-    view_model.delete_item(item)
-    assert item not in view_model.value.value
+    assert view_model.list.value == []
 
 
 def test_can_forward_navigation_request(view_model, interpretation):
@@ -89,7 +76,7 @@ def test_can_add_by_template(view_model):
     subject = StructureMock()
     template = TypeMock(default=subject)
     view_model.add_by_template(template)
-    assert subject in view_model.value.value
+    assert subject in view_model.list.value
 
 
 def test_can_get_templates(view_model, type_registry):

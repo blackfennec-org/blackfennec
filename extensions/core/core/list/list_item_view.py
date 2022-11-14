@@ -50,7 +50,7 @@ class ListItemView(Adw.ActionRow, ActionItemView):
 
     @Gtk.Template.Callback()
     def _on_delete(self, unused_sender):
-        self._view_model.delete_item(self._preview.structure)
+        self._view_model.list.remove_item(self._interpretation.structure)
 
     def set_deletable(self, value: bool):
         self._delete.set_visible(value)
