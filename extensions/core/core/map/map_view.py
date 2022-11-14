@@ -37,11 +37,11 @@ class MapView(Adw.PreferencesGroup):
         self._view_factory = view_factory
         self._view_model = view_model
         self._view_model.bind(
-            value=self._update_value,
+            changed=self._update_value,
             selected=self._on_selection_changed)
 
         self._in_edit_mode = False
-        self._update_value(self, self._view_model.value)
+        self._update_value(self, self._view_model.map.value)
         self._setup_template_store()
 
     @Gtk.Template.Callback()
@@ -52,7 +52,7 @@ class MapView(Adw.PreferencesGroup):
         self._edit_suffix_group.set_visible(True)
         self._edit.set_visible(False)
 
-        self._update_value(self, self._view_model.decapsulated_value)
+        self._update_value(self, self._view_model.map.structure.value)
 
     @Gtk.Template.Callback()
     def _on_apply(self, unused_sender):
@@ -62,7 +62,7 @@ class MapView(Adw.PreferencesGroup):
         self._edit_suffix_group.set_visible(False)
         self._edit.set_visible(True)
 
-        self._update_value(self, self._view_model.value)
+        self._update_value(self, self._view_model.map.value)
 
     @Gtk.Template.Callback()
     def _on_delete(self, unused_sender):
@@ -100,7 +100,7 @@ class MapView(Adw.PreferencesGroup):
         item = self._items.pop(key)
         self.remove(item)
 
-    def _update_value(self, unused_sender, new_value):
+    def _update_value(self, unused_sender, new_value: dict):
         """Observable handler for value
 
         Args:
@@ -111,7 +111,7 @@ class MapView(Adw.PreferencesGroup):
 
         for key in dict(self._items).keys():
             self._remove_item(key)
-        for key, value in new_value.value.items():
+        for key, value in new_value.items():
             self._add_item(key, value)
 
         if self._currently_selected and self._currently_selected.key in old_key_list:
