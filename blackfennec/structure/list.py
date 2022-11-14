@@ -3,6 +3,7 @@ from typing import TypeVar
 
 from blackfennec.structure.structure import Structure
 from blackfennec.structure.visitor import Visitor
+from blackfennec.util.change_notification import ChangeNotification
 
 logger = logging.getLogger(__name__)
 T = TypeVar('T', bound=Structure)
@@ -30,11 +31,12 @@ class List(Structure[list[T]]):
 
     @value.setter
     def value(self, value: list[T]) -> None:
+        notification = ChangeNotification(self.value, value)
         for item in (list(self._value) or []):
             self.remove_item(item)
         for item in (value or []):
             self.add_item(item)
-        self._notify('value', self.value)
+        self._notify('changed', notification)
 
     def _set_parent(self, item: Structure) -> None:
         assert item.parent is None
@@ -46,8 +48,13 @@ class List(Structure[list[T]]):
         Args:
             item (Structure): Item to append.
         """
+        notification = ChangeNotification(self.value, None)
+
         self._set_parent(item)
         self._value.append(item)
+
+        notification.new_value = self.value
+        self._notify('changed', notification)
 
     def _is_item(self, item):
         for i in self._value:
@@ -70,8 +77,13 @@ class List(Structure[list[T]]):
             KeyError: If the item passed is not in
                 list and hence cannot be removed.
         """
+        notification = ChangeNotification(self.value, None)
+
         self._value.remove(item)
         self._unset_parent(item)
+
+        notification.new_value = self.value
+        self._notify('changed', notification)
 
     def accept(self, visitor: Visitor[TVisitor]) -> TVisitor:
         return visitor.visit_list(self)

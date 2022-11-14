@@ -3,6 +3,8 @@ from pathlib import Path
 
 from gi.repository import Gtk, Adw
 
+from blackfennec.util.change_notification import ChangeNotification
+
 logger = logging.getLogger(__name__)
 
 BASE_DIR = Path(__file__).resolve().parent
@@ -37,9 +39,9 @@ class StringView(Adw.Bin):
         text = buffer.get_text(start, end, False)
         self._view_model.value = text
 
-    def _update_value(self, unused_sender, new_value):
+    def _update_value(self, unused_sender, notification: ChangeNotification):
         buffer = self._value.get_buffer()
         start, end = buffer.get_bounds()
         text = buffer.get_text(start, end, False)
-        if text != new_value:
-            buffer.set_text(new_value)
+        if text != notification.new_value:
+            buffer.set_text(notification.new_value)

@@ -23,10 +23,11 @@ class StructureTestMixin(metaclass=ABCMeta):
     def test_notifies_on_value_change(self):
         observer = Observer()
         structure = self.create_instance(self.default_value)
-        structure.bind(value=observer.endpoint)
+        structure.bind(changed=observer.endpoint)
         structure.value = self.alternative_value
 
-        assert observer.last_call == ((structure, self.alternative_value), {})
+        assert observer.last_call[0][1].new_value == self.alternative_value
+        assert observer.last_call[0][1].old_value == self.default_value
 
     def test_can_accept(self):
         structure = self.create_instance(self.default_value)

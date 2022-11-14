@@ -13,7 +13,7 @@ class StringViewModel(Observable):
         """
         super().__init__()
         self._model = interpretation.structure
-        self._model.structure.bind(value=self._update_value)
+        self._model.structure.bind(changed=self._update_value)
 
     @property
     def value(self):
@@ -24,5 +24,5 @@ class StringViewModel(Observable):
     def value(self, value):
         self._model.value = value
 
-    def _update_value(self, sender, new_value):
-        self._notify('changed', new_value, sender)
+    def _update_value(self, sender, notification):
+        self._notify('changed', notification, sender)
