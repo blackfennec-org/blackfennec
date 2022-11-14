@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="addon">
+  <id>org.blackfennec.extensions.core</id>
+  <extends>org.blackfennec.app</extends>
+  <name>Core</name>
+  <summary>Provides UIs and actions for core types</summary>
+  <project_license>GPL-3.0</project_license>
+  <metadata_license>FSFAP</metadata_license>
+</component>

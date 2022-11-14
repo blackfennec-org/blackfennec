@@ -1,0 +1,14 @@
+id: org.blackfennec.extensions.base
+branch: '1.0'
+runtime: org.blackfennec.app
+runtime-version: '1.0'
+sdk: org.gnome.Sdk//43
+build-extension: true
+modules:
+  - name: blackfennec.extensions.base
+    buildsystem: simple
+    build-commands:
+      - pip install --prefix=${FLATPAK_DEST} .
+    sources:
+      - type: dir
+        path: .

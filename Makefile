@@ -1,4 +1,5 @@
 EXTS = $(shell find extensions/ -maxdepth 1 -mindepth 1 -type d | tac)
+EXTS_FLATPAK = $(addsuffix .flatpak, $(EXTS))
 BLPS = $(shell find . -name "*.blp")
 UIS = $(BLPS:.blp=.ui)
 
@@ -7,9 +8,18 @@ UIS = $(BLPS:.blp=.ui)
 help:
 	cat Makefile
 
+flatpak_all: flatpak, flatpak_extensions
+
 flatpak:
 	flatpak --user remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 	flatpak-builder --user --install .flatpak-build/ org.blackfennec.app.yml --force-clean --install-deps-from flathub --repo=.flatpak-repo
+
+flatpak_extensions: $(EXTS_FLATPAK)
+
+%.flatpak:
+	# remove the trailing .flatpak
+	$(eval EXT := $(subst .flatpak,,$@))
+	cd $(EXT) && make flatpak
 
 flatpak_run: flatpak
 	flatpak run org.blackfennec.app

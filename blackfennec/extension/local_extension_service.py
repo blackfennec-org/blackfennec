@@ -53,7 +53,7 @@ class LocalExtensionService:
         extensions = {}
         modules = entry_points(group="blackfennec.extension")
         logger.debug(f"Found {len(modules)} modules")
-        for module in reversed(modules):
+        for module in modules:
             logger.debug(f'Found module {module.name}: {module}')
             if not self._validate_extension(module.load()):
                 message = f'module "{module.name}" is not a valid extension'

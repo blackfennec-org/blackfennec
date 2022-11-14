@@ -1,12 +1,17 @@
 app-id: org.blackfennec.app
+branch: '1.0'
 runtime: org.gnome.Platform
 runtime-version: '43'
 sdk: org.gnome.Sdk
 command: run.sh
-tags:
-  - devel
-  - development
-  - nightly
+add-extensions:
+  org.blackfennec.extensions:
+    version: '1.0'
+    directory: extensions
+    merge-dirs: lib/python3.10/site-packages/
+    subdirectories: true
+    no-autodownload: true
+    autodelete: true
 finish-args:
   - "--socket=wayland"
   - "--socket=fallback-x11"
@@ -38,14 +43,11 @@ modules:
         path: org.blackfennec.app.metainfo.xml
   - name: blackfennec
     buildsystem: simple
-    build-options:
-      build-args:
-        - "--share=network"
     build-commands:
-      - install -D run.sh /app/bin/run.sh
+      - install -D run.sh ${FLATPAK_DEST}/bin/run.sh
       - pip install --prefix=${FLATPAK_DEST} .
-      - pip install --prefix=${FLATPAK_DEST} extensions/core
-      - pip install --prefix=${FLATPAK_DEST} extensions/base
     sources:
       - type: dir
         path: .
+    post-install:
+      - "install -d ${FLATPAK_DEST}/extensions"
