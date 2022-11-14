@@ -3,6 +3,8 @@ from pathlib import Path
 from gi.repository import Gtk, Adw
 import logging
 
+from blackfennec.util.change_notification import ChangeNotification
+
 logger = logging.getLogger(__name__)
 
 BASE_DIR = Path(__file__).resolve().parent
@@ -58,7 +60,7 @@ class NumberView(Adw.Bin):
                 'Invalid number'
             )
 
-    def _update_value(self, unused_sender, new_value):
+    def _update_value(self, unused_sender, notification: ChangeNotification):
         text = self._value.get_text()
-        if text != str(new_value):
-            self._value.set_text(str(new_value))
+        if text != str(notification.new_value):
+            self._value.set_text(str(notification.new_value))

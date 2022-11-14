@@ -1,8 +1,9 @@
 from blackfennec.structure.structure import Structure
 from blackfennec.util.intercepting_visitor import InterceptingVisitor
+from blackfennec.util.observable import Observable
 
 
-class EncapsulationBase(Structure):
+class EncapsulationBase(Structure, Observable):
     """Is the base class of the abstract visitor BaseFactoryVisitor,
         which means that any created object of the abstract visitor
         has the super class EncapsulationBase or a specialisation.
@@ -100,6 +101,12 @@ class EncapsulationBase(Structure):
                 is encapsulated.
         """
         return subject.accept(self._visitor)
+
+    def _notify(self, changed_property, name, sender=None):
+        raise AssertionError("Should not be called")
+
+    def bind(self, **kwargs):
+        self.structure.bind(**kwargs)
 
     def __repr__(self):
         return f"EncapsulationBase({self.value})"

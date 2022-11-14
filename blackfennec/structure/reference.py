@@ -6,6 +6,7 @@ from blackfennec.structure.string import String
 from blackfennec.structure.structure import Structure
 from blackfennec.structure.visitor import Visitor
 from blackfennec.structure.reference_navigation.navigator import Navigator
+from blackfennec.util.change_notification import ChangeNotification
 
 logger = logging.getLogger(__name__)
 TVisitor = TypeVar('TVisitor')
@@ -33,8 +34,9 @@ class Reference(Structure[list[Navigator]]):
 
     @value.setter
     def value(self, value: list[Navigator]):
+        notification = ChangeNotification(self.value, value)
         self._navigators = value
-        self._notify('value', self.value)
+        self._notify('changed', notification)
 
     def resolve(self) -> Structure:
         """Resolves Reference navigation

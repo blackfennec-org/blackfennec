@@ -126,11 +126,12 @@ def test_can_set_value():
 def test_notifies_on_value_change():
     observer = Observer()
     structure = Map()
-    structure.bind(value=observer.endpoint)
+    structure.bind(changed=observer.endpoint)
     new_value = {'key': StructureMock()}
     structure.value = new_value
 
-    assert observer.last_call == ((structure, new_value), {})
+    assert observer.last_call[0][1].new_value == new_value
+    assert observer.last_call[0][1].old_value == {}
 
 
 def test_can_set_value_when_map_has_content():

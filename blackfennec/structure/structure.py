@@ -2,6 +2,7 @@
 from abc import ABCMeta, abstractmethod
 from typing import Generic, TypeVar, Optional
 from blackfennec.structure.visitor import Visitor
+from blackfennec.util.change_notification import ChangeNotification
 from blackfennec.util.observable import Observable
 
 T = TypeVar('T')
@@ -79,5 +80,6 @@ class ValueStructure(Structure[T], metaclass=ABCMeta):
 
     @value.setter
     def value(self, value: T):
+        notification = ChangeNotification(self.value, value)
         self._value = value
-        self._notify('value', self.value)
+        self._notify('changed', notification)

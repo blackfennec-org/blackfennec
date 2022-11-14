@@ -3,6 +3,8 @@ from pathlib import Path
 
 from gi.repository import Gtk, Adw
 
+from blackfennec.util.change_notification import ChangeNotification
+
 logger = logging.getLogger(__name__)
 
 BASE_DIR = Path(__file__).resolve().parent
@@ -39,7 +41,7 @@ class NumberPreview(Adw.Bin):
                 self._view_model.value = float(digits_string)
             else:
                 self._view_model.value = int(digits_string)
-                
+
             self._value.set_icon_from_icon_name(
                 Gtk.EntryIconPosition.SECONDARY,
                 None
@@ -58,7 +60,7 @@ class NumberPreview(Adw.Bin):
                 'Invalid number'
             )
 
-    def _update_value(self, unused_sender, new_value):
+    def _update_value(self, unused_sender, notification: ChangeNotification):
         text = self._value.get_text()
-        if text != str(new_value):
-            self._value.set_text(str(new_value))
+        if text != str(notification.new_value):
+            self._value.set_text(str(notification.new_value))

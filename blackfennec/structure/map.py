@@ -3,6 +3,7 @@ from typing import TypeVar
 
 from blackfennec.structure.structure import Structure
 from blackfennec.structure.visitor import Visitor
+from blackfennec.util.change_notification import ChangeNotification
 
 logger = logging.getLogger(__name__)
 T = TypeVar('T', bound=Structure)
@@ -31,11 +32,14 @@ class Map(Structure[TDict]):
 
     @value.setter
     def value(self, value: TDict) -> None:
+        notification = ChangeNotification(self.value, value)
+
         for key in (dict(self._value) or {}):
-            self.remove_item(key)
+            self._remove_item(key)
         for key, item in (value or {}).items():
-            self.add_item(key, item)
-        self._notify('value', self._value)
+            self._add_item(key, item)
+
+        self._notify('changed', notification)
 
     def _set_parent(self, item: T) -> None:
         assert item.parent is None
@@ -51,6 +55,14 @@ class Map(Structure[TDict]):
         Raises:
             ValueError: If the key already exists
         """
+        notification = ChangeNotification(self.value, None)
+
+        self._add_item(key, value)
+
+        notification.new_value = self.value
+        self._notify('changed', notification)
+
+    def _add_item(self, key: str, value: T) -> None:
         if key in self._value:
             message = f'item already exists {self._value[key]}'
             logger.error(message)
@@ -79,6 +91,14 @@ class Map(Structure[TDict]):
             KeyError: If the item with the key to delete
                 is not contained in map.
         """
+        notification = ChangeNotification(self.value, None)
+
+        self._remove_item(key)
+
+        notification.new_value = self.value
+        self._notify('changed', notification)
+
+    def _remove_item(self, key: str) -> None:
         if key in self._value:
             value = self._value.pop(key)
             self._unset_parent(value)
