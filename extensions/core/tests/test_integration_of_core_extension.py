@@ -11,7 +11,6 @@ from blackfennec.structure.boolean import Boolean
 from blackfennec.structure.list import List
 from blackfennec.structure.map import Map
 from blackfennec.structure.number import Number
-from blackfennec.structure.reference import Reference
 from blackfennec.structure.string import String
 from blackfennec.type_system.type_registry import TypeRegistry
 from blackfennec_doubles.double_dummy import Dummy
@@ -28,7 +27,7 @@ from core.map.map_view import MapView
 from core.map.map_view_model import MapViewModel
 from core.number.number_view import NumberView
 from core.string.string_view import StringView
-from core import create_extension, destroy_extension
+from core import create_extension
 
 pytestmark = pytest.mark.integration
 
@@ -104,7 +103,7 @@ def test_integration_correct_interpretation(
 ):
     create_extension(api)
     interpretation = interpreter.interpret(structure, Specification())
-    view = view_factory.create(interpretation)
+    view = next(view_factory.create(interpretation))
     assert isinstance(view, view_class)
 
 

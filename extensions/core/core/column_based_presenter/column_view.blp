@@ -13,8 +13,13 @@ template ColumnView : .AdwBin {
     position-set: true;
     wide-handle: true;
 
-    ScrolledWindow _container {
+    ScrolledWindow {
       focusable: true;
+
+      Box _container {
+        focusable: true;
+        orientation: vertical;
+      }
     }
 
     Box _paned_right {

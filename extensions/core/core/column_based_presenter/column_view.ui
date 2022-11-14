@@ -14,8 +14,14 @@
         <property name="position-set">true</property>
         <property name="wide-handle">true</property>
         <child>
-          <object class="GtkScrolledWindow" id="_container">
+          <object class="GtkScrolledWindow">
             <property name="focusable">true</property>
+            <child>
+              <object class="GtkBox" id="_container">
+                <property name="focusable">true</property>
+                <property name="orientation">vertical</property>
+              </object>
+            </child>
           </object>
         </child>
         <child>

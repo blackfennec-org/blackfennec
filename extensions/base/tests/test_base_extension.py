@@ -20,7 +20,6 @@ class BaseExtensionTestSuite(unittest.TestCase):
             view_factory_registry=self.view_factory_registry,
             type_loader=TypeLoaderMock(self.type_registry),
             action_registry=Dummy('ActionRegistry'))
-        
 
     def test_create_base_extension(self):
         create_extension(self.extension_api)

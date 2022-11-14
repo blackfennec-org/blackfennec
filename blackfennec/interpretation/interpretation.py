@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
 import logging
 
+from blackfennec.interpretation.specification import Specification
 from blackfennec.structure.structure import Structure
+
 # from navigation.navigation_service import NavigationService
 
 logger = logging.getLogger(__name__)
@@ -14,7 +16,9 @@ class Interpretation:
     and can create a view. Dispatches navigation requests to navigation_service.
     """
 
-    def __init__(self, structure: Structure, specification, types):
+    def __init__(self, structure: Structure,
+                 specification: Specification,
+                 types):
         """Interpretation constructor.
 
         Args:
@@ -49,7 +53,7 @@ class Interpretation:
         return self._structure
 
     @property
-    def specification(self):
+    def specification(self) -> Specification:
         return self._specification
 
     @property

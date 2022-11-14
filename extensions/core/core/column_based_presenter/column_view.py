@@ -12,14 +12,15 @@ class ColumnView(Adw.Bin):
     """
     __gtype_name__ = 'ColumnView'
     _paned_right = Gtk.Template.Child()
-    _container: Gtk.ScrolledWindow = Gtk.Template.Child()
+    _container: Gtk.Box = Gtk.Template.Child()
 
     def __init__(self, interpretation, view_factory):
         super().__init__()
         self._column_right = None
         self._interpretation = interpretation
-        view = view_factory.create(interpretation)
-        self._container.set_child(view)
+        views = view_factory.create(interpretation)
+        for view in views:
+            self._container.append(view)
 
     def add_column(self, column: 'Column'):
         if self._column_right is None:

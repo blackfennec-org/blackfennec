@@ -35,7 +35,7 @@ class ListItemView(Adw.ActionRow, ActionItemView):
         Adw.ActionRow.__init__(self)
         ActionItemView.__init__(self, interpretation, view_model)
 
-        view = view_factory.create(interpretation)
+        view = next(view_factory.create(interpretation))
         self.set_activatable_widget(view)
         self.add_suffix(view)
         self.add_prefix(self._delete)

@@ -40,7 +40,7 @@ class MapItemView(Adw.ActionRow, ActionItemView):
         ActionItemView.__init__(self, interpretation, view_model)
         self.key = key
 
-        view = view_factory.create(interpretation)
+        view = next(view_factory.create(interpretation))
         self.set_activatable_widget(view)
         self.add_suffix(view)
 
