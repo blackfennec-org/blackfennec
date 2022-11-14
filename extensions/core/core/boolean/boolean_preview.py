@@ -23,11 +23,14 @@ class BooleanPreview(Gtk.Switch):
         """
         super().__init__()
         self._view_model = view_model
-        self.set_state(self._view_model.value)
+        self._view_model.bind(changed=self._on_view_model_value_changed)
 
-        logger.info(
-            'BooleanView with text: "%s" created', self._view_model.value)
+        self.set_state(self._view_model.boolean.value)
 
     @Gtk.Template.Callback()
     def _on_state_changed(self, unused_sender, state):
-        self._view_model.value = state
+        self._view_model.boolean.value = state
+
+    def _on_view_model_value_changed(self, unused_sender, new_value):
+        if self.get_state() != new_value:
+            self.set_state(new_value)
