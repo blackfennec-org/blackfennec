@@ -13,9 +13,6 @@
         <property name="placeholder-text" translatable="true">Enter a number</property>
         <property name="input-purpose">number</property>
         <signal name="changed" handler="_on_text_changed"/>
-        <style>
-          <class name="number"/>
-        </style>
       </object>
     </child>
   </template>
