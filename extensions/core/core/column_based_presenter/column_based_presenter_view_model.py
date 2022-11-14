@@ -90,7 +90,7 @@ class ColumnBasedPresenterViewModel(Observable):
                 '_try_cut_interpretations_at(sender: %s => index: %i)',
                 sender, index)
             self.interpretations = self.interpretations[:index]
-            self._notify(self.interpretations, 'interpretations')
+            self._notify('interpretations', self.interpretations)
 
     def _add_interpretation(self, interpretation: Interpretation):
         """Append interpretation to interpretations attribute.
@@ -103,4 +103,4 @@ class ColumnBasedPresenterViewModel(Observable):
         """
         logger.debug('_add_interpretation(%s)', interpretation)
         self.interpretations.append(interpretation)
-        self._notify(self.interpretations, 'interpretations')
+        self._notify('interpretations', self.interpretations)

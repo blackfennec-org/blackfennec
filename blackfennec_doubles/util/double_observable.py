@@ -9,4 +9,4 @@ class ObservableMock(Observable):
 
     @i_notify_observers.setter
     def i_notify_observers(self, new_value):
-        self._notify(new_value, "i_notify_observers")
+        self._notify("i_notify_observers", new_value)

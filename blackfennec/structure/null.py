@@ -16,7 +16,7 @@ class Null(Structure[None]):
     @value.setter
     def value(self, value: None):
         assert value is None, "Null cannot have a value"
-        self._notify(self.value, 'value')
+        self._notify('value', self.value)
 
     def accept(self, visitor: Visitor[TVisitor]) -> TVisitor:
         return visitor.visit_null(self)

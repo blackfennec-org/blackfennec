@@ -63,7 +63,7 @@ class BlackFennecViewModel(Observable):
     @current_directory.setter
     def current_directory(self, directory: str):
         self._current_directory = directory
-        self._notify(self._current_directory, 'open_directory')
+        self._notify('open_directory', self._current_directory)
 
     def open_file(self, uri: str):
         """Opens a file
@@ -80,7 +80,7 @@ class BlackFennecViewModel(Observable):
             uri
         )
         self.tabs.add(tab)
-        self._notify(tab, 'open_file')
+        self._notify('open_file', tab)
 
     def close_file(self, tab: DocumentTab):
         """Closes a file
@@ -89,7 +89,7 @@ class BlackFennecViewModel(Observable):
             tab (DocumentTab): tab to close
         """
         self.tabs.remove(tab)
-        self._notify(tab, 'close_file')
+        self._notify('close_file', tab)
 
     def save(self, tab: DocumentTab):
         """Saves the passed file"""

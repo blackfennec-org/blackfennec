@@ -9,4 +9,4 @@ class DateTimeViewModelMock(Observable):
         self.date_time = date_time or datetime.min
 
     def notify(self, changed_property, name):
-        self._notify(changed_property, name, self)
+        self._notify(name, changed_property, self)
