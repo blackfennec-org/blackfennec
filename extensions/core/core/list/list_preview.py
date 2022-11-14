@@ -28,4 +28,4 @@ class ListPreview(Gtk.Button):
     @Gtk.Template.Callback()
     def _on_navigate_clicked(self, unused_sender) -> None:
         """Handles clicks on list items, triggers navigation"""
-        self._view_model.navigate_to(self._view_model.value)
+        self._view_model.navigate_to(self._view_model.list)

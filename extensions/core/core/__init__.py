@@ -89,11 +89,13 @@ class CoreExtension:
         from core.string.actions.to_lower import ToLowerAction
         from core.number.actions.to_integer import ToIntegerAction
         from core.map.actions.delete_items import DeleteMapItemsAction
+        from core.list.actions.delete_items import DeleteListItemsAction
         self.actions = [
             ToUpperAction(),
             ToLowerAction(),
             ToIntegerAction(),
             DeleteMapItemsAction(),
+            DeleteListItemsAction(),
         ]
 
     def register(self, extension_api: ExtensionApi):

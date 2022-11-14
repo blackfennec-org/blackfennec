@@ -41,10 +41,10 @@ class ListView(Adw.Bin):
         self._view_model = view_model
         self._in_edit_mode = False
         self._view_model.bind(
-            value=self._update_value,
+            changed=self._update_value,
             selected=self._on_selection_changed)
 
-        self._update_value(self, self._view_model.value)
+        self._update_value(self, self._view_model.list.value)
         self._setup_template_store()
 
     @Gtk.Template.Callback()
@@ -55,7 +55,7 @@ class ListView(Adw.Bin):
         self._edit_suffix_group.set_visible(True)
         self._edit.set_visible(False)
 
-        self._update_value(self, self._view_model.decapsulated_value)
+        self._update_value(self, self._view_model.list.structure.value)
 
     @Gtk.Template.Callback()
     def _on_apply(self, unused_sender):
@@ -65,7 +65,7 @@ class ListView(Adw.Bin):
         self._edit_suffix_group.set_visible(False)
         self._edit.set_visible(True)
 
-        self._update_value(self, self._view_model.value)
+        self._update_value(self, self._view_model.list.value)
 
     @Gtk.Template.Callback()
     def _on_delete(self, unused_sender):
@@ -82,7 +82,7 @@ class ListView(Adw.Bin):
         self._preference_group.add(item)
         self._item_interpretation_mapping[preview] = item
 
-    def _update_value(self, unused_sender, new_value):
+    def _update_value(self, unused_sender, new_value: list):
         """Observable handler for value
 
         Args:
@@ -95,7 +95,7 @@ class ListView(Adw.Bin):
                 currently_selected_index = index
             self._preference_group.remove(item)
         self._items = []
-        for structure in new_value.value:
+        for structure in new_value:
             self._add_item(structure)
 
         if currently_selected_index is not None:
