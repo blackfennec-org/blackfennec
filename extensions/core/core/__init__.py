@@ -85,10 +85,13 @@ class CoreExtension:
             self.types.reference: ReferenceViewFactory(),
         }
 
-        from core.string.actions import ToUpperAction, ToLowerAction
+        from core.string.actions.to_upper import ToUpperAction
+        from core.string.actions.to_lower import ToLowerAction
+        from core.number.actions.to_integer import ToIntegerAction
         self.actions = [
             ToUpperAction(),
             ToLowerAction(),
+            ToIntegerAction(),
         ]
 
     def register(self, extension_api: ExtensionApi):

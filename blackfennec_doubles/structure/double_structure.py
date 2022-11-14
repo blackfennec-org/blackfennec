@@ -1,14 +1,22 @@
 from blackfennec.structure.structure import Structure
+from blackfennec.util.observable import Observable
 
 
-class StructureMock:
-    def __init__(self, value=None, parent=None, root=None, accept_strategy=None):
+class StructureMock(Observable):
+    def __init__(
+            self,
+            value=None,
+            parent=None,
+            root=None,
+            accept_strategy=None
+    ):
+        super().__init__()
         self._value = value
         self._root = root or self
         self._parent = parent
         self._value_property_access_count = 0
-        self._accept_strategy = accept_strategy or \
-            (lambda self, visitor: visitor.visit_structure(self))
+        self._accept_strategy = accept_strategy or (
+            lambda self, visitor: visitor.visit_structure(self))
 
     @property
     def value(self):
