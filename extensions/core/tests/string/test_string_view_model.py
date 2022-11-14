@@ -11,7 +11,7 @@ class StringViewModelTestSuite(unittest.TestCase):
 
     def test_can_get_value(self):
         string_view_model = StringViewModel(InterpretationMock(StringMock()))
-        self.assertEqual(string_view_model.value, '')
+        self.assertEqual(string_view_model.string.value, '')
 
     def test_can_set_value(self):
         string_view_model = StringViewModel(InterpretationMock())

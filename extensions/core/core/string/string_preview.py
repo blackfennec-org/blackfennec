@@ -29,11 +29,11 @@ class StringPreview(Gtk.Frame):
         self._view_model.bind(changed=self._update_value)
 
         buffer = self._value.get_buffer()
-        buffer.set_text(self._view_model.value)
+        buffer.set_text(self._view_model.string.value)
         buffer.connect('changed', self._on_buffer_changed)
         self.connect('notify::active', self._on_activate)
         logger.info(
-            'StringPreview with text: "%s" created', self._view_model.value)
+            'StringPreview with text: "%s" created', self._view_model.string.value)
 
     def _on_activate(self, unused_sender):
         self._value.activate()
@@ -41,7 +41,7 @@ class StringPreview(Gtk.Frame):
     def _on_buffer_changed(self, buffer):
         start, end = buffer.get_bounds()
         text = buffer.get_text(start, end, False)
-        self._view_model.value = text
+        self._view_model.string.value = text
 
     def _update_value(self, unused_sender, notification: ChangeNotification):
         buffer = self._value.get_buffer()

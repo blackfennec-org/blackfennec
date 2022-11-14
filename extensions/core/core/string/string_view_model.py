@@ -1,3 +1,4 @@
+from blackfennec.structure.string import String
 from blackfennec.util.observable import Observable
 
 
@@ -12,17 +13,19 @@ class StringViewModel(Observable):
                 interpretation
         """
         super().__init__()
-        self._model = interpretation.structure
-        self._model.structure.bind(changed=self._update_value)
+        self._string: String = interpretation.structure
+        self._string.bind(changed=self._update_value)
 
     @property
-    def value(self):
-        """Property for value"""
-        return self._model.value
+    def string(self):
+        """Property for string"""
+        return self._string
 
-    @value.setter
-    def value(self, value):
-        self._model.value = value
+    @string.setter
+    def string(self, string: String):
+        self._string = string
 
     def _update_value(self, sender, notification):
+        new_value = notification.new_value
+        assert self.string.structure.value == new_value
         self._notify('changed', notification, sender)

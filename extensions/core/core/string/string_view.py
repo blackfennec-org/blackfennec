@@ -30,18 +30,18 @@ class StringView(Adw.Bin):
 
         buffer = self._value.get_buffer()
         buffer.connect('changed', self._on_text_changed)
-        buffer.set_text(self._view_model.value)
+        buffer.set_text(self._view_model.string.value)
         logger.info(
-            'StringView with text: "%s" created', self._view_model.value)
+            'StringView with text: "%s" created', self._view_model.string.value)
 
     def _on_text_changed(self, buffer):
         start, end = buffer.get_bounds()
         text = buffer.get_text(start, end, False)
-        self._view_model.value = text
+        self._view_model.string.value = text
 
-    def _update_value(self, unused_sender, notification: ChangeNotification):
+    def _update_value(self, unused_sender, new_value):
         buffer = self._value.get_buffer()
         start, end = buffer.get_bounds()
         text = buffer.get_text(start, end, False)
-        if text != notification.new_value:
-            buffer.set_text(notification.new_value)
+        if text != new_value:
+            buffer.set_text(new_value)
