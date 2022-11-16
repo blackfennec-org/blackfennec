@@ -51,6 +51,21 @@ class StructureMock(Observable):
         self._root = value
 
 
+class NotifyingStructureMock(StructureMock):
+    def __init__(self, observer, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self._observer = observer
+
+    @property
+    def value(self):
+        return super().value
+    
+    @value.setter
+    def value(self, new_value):
+        self._observer(self, super().value, new_value)
+        StructureMock.value.fset(self, new_value)
+
+
 class StructureInstanceMock(StructureMock, Structure):
     def __init__(self, value=None, parent=None, root=None):
         StructureMock.__init__(self, value, parent, root)

@@ -68,7 +68,7 @@ class ListEncapsulationBaseTestSuite(unittest.TestCase):
     def test_remove_encapsulated_item(self):
         value = StringMock('test_value')
         subject = List([value])
-        list_type: Optional[ListEncapsulationBase] = ListEncapsulationBase(
+        list_type = ListEncapsulationBase(
             self.visitor,
             subject
         )
