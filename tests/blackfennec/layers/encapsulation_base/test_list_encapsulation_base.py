@@ -25,12 +25,12 @@ class ListEncapsulationBaseTestSuite(unittest.TestCase):
         self.assertEqual(self.list_encapsulation_base.subject, self.subject)
 
     def test_add_item_item(self):
-        value = StructureMock('test_value')
+        value = StringMock('test_value')
         self.list_encapsulation_base.add_item(value)
         self.assertIn(value, self.list_encapsulation_base.subject.value)
 
     def test_add_item_item_already_encapsulated(self):
-        value = StructureMock('test_value')
+        value = StringMock('test_value')
         type_class = _create_generic_class(EncapsulationBase)
         encapsulated = type_class(self.visitor, value)
         self.list_encapsulation_base.add_item(encapsulated)
@@ -51,12 +51,12 @@ class ListEncapsulationBaseTestSuite(unittest.TestCase):
         self.assertIsInstance(value, list)
 
     def test_set_value(self):
-        value = StructureMock('test')
+        value = StringMock('test')
         self.list_encapsulation_base.value = [value]
         self.assertIn(value, self.list_encapsulation_base.subject.value)
 
     def test_remove_item(self):
-        value = StructureMock('test_value')
+        value = StringMock('test_value')
         subject = List([value])
         list_type: Optional[ListEncapsulationBase] = ListEncapsulationBase(
             self.visitor,
@@ -66,7 +66,7 @@ class ListEncapsulationBaseTestSuite(unittest.TestCase):
         self.assertEqual(len(self.subject.value), 0)
 
     def test_remove_encapsulated_item(self):
-        value = StructureMock('test_value')
+        value = StringMock('test_value')
         subject = List([value])
         list_type: Optional[ListEncapsulationBase] = ListEncapsulationBase(
             self.visitor,
@@ -78,7 +78,7 @@ class ListEncapsulationBaseTestSuite(unittest.TestCase):
         self.assertEqual(len(self.subject.value), 0)
 
     def test_remove_item_not_in_list(self):
-        value = StructureMock('test_value')
+        value = StringMock('test_value')
         with self.assertRaises(KeyError):
             self.list_encapsulation_base.remove_item(value)
 

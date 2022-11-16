@@ -1,7 +1,6 @@
+from blackfennec.type_system.null_type import NullType
 from blackfennec_doubles.layers.encapsulation_base.double_factory_base_visitor import FactoryBaseVisitorMock
 from blackfennec.layers.encapsulation_base.base_factory_visitor import _create_generic_class
-from blackfennec.layers.encapsulation_base.list_encapsulation_base import ListEncapsulationBase
-from blackfennec.layers.encapsulation_base.map_encapsulation_base import MapEncapsulationBase
 from blackfennec.type_system.string_type import StringType
 from blackfennec.type_system.list_type import ListType
 from blackfennec.type_system.map_type import MapType
@@ -48,11 +47,10 @@ class TypeParserMock(FactoryBaseVisitorMock):
     def visit_map(self, subject_map):
         subject_map = super().visit_map(subject_map)
         return MapType(self, subject_map)
-        
+
     def visit_null(self, subject):
         subject = super().visit_null(subject)
         return NullType(self, subject)
-
 
     @property
     def metadata_storage(self):

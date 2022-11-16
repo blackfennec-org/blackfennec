@@ -1,4 +1,5 @@
 from blackfennec.structure.structure import Structure
+from blackfennec.util.change_notification import ChangeNotification
 from blackfennec.util.intercepting_visitor import InterceptingVisitor
 from blackfennec.util.observable import Observable
 
@@ -18,8 +19,12 @@ class EncapsulationBase(Structure, Observable):
                 to encapsulate parent/root
             subject (Structure): subject that gets encapsulated
         """
+        Structure.__init__(self)
+        Observable.__init__(self)
+
         self._visitor = visitor
         self._subject = subject
+        self._subject.bind(changed=self._change_notification)
 
     @property
     def subject(self):
@@ -102,11 +107,12 @@ class EncapsulationBase(Structure, Observable):
         """
         return subject.accept(self._visitor)
 
-    def _notify(self, changed_property, name, sender=None):
-        raise AssertionError("Should not be called")
+    def _change_notification(self, sender, notification: ChangeNotification):
+        Observable._notify(self, 'changed', notification, sender)
 
     def bind(self, **kwargs):
-        self.structure.bind(**kwargs)
+        assert list(kwargs.keys()) == ["changed"], f"Only changed observation is supported, was {kwargs.keys()}"
+        Observable.bind(self, **kwargs)
 
     def __repr__(self):
         return f"EncapsulationBase({self.value})"

@@ -1,8 +1,12 @@
 # -*- coding: utf-8 -*-
+import logging
 
 from blackfennec.layers.encapsulation_base.encapsulation_base import EncapsulationBase
 from blackfennec.structure.map import Map
 from blackfennec.structure.structure import Structure
+from blackfennec.util.change_notification import ChangeNotification
+
+logger = logging.getLogger(__name__)
 
 
 class MapEncapsulationBase(EncapsulationBase, Map):
@@ -45,6 +49,20 @@ class MapEncapsulationBase(EncapsulationBase, Map):
         decapsulated_value = self._decapsulate(value)
         self.subject.add_item(key, decapsulated_value)
         decapsulated_value.parent = self.subject
+
+    def _change_notification(self, sender, notification: ChangeNotification):
+        sender = sender or self
+        encapsulated_notification = ChangeNotification(
+            {
+                key: item.accept(self._visitor)
+                for key, item in notification.old_value.items()
+            },
+            {
+                key: item.accept(self._visitor)
+                for key, item in notification.new_value.items()
+            },
+        )
+        super()._change_notification(sender, encapsulated_notification)
 
     def __repr__(self):
         return f'MapEncapsulationBase({self.subject.__repr__()})'

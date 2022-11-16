@@ -32,5 +32,4 @@ class BooleanViewModel(Observable):
 
     def _update_value(self, sender, notification):
         new_value = notification.new_value
-        assert self.boolean.structure.value == new_value
         self._notify('changed', new_value, sender)

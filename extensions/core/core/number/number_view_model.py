@@ -31,5 +31,4 @@ class NumberViewModel(Observable):
 
     def _update_value(self, sender, notification: ChangeNotification):
         new_value = notification.new_value
-        assert self.number.structure.value == new_value
         self._notify('changed', notification, sender)

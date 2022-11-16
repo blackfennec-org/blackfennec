@@ -36,7 +36,6 @@ class MapEncapsulationBaseTestSuite(unittest.TestCase):
         get = map_encapsulation.value[key]
         self.assertEqual(get, value)
         self.assertEqual(self.visitor.string, value)
-        self.assertEqual(self.visitor.visit_string_count, 1)
 
     def test_set_item(self):
         key = 'test'

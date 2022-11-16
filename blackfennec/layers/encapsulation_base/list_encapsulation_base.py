@@ -4,6 +4,7 @@ import logging
 from blackfennec.layers.encapsulation_base.encapsulation_base import EncapsulationBase
 from blackfennec.structure.list import List
 from blackfennec.structure.structure import Structure
+from blackfennec.util.change_notification import ChangeNotification
 
 logger = logging.getLogger(__name__)
 
@@ -67,6 +68,14 @@ class ListEncapsulationBase(EncapsulationBase, List):
             logger.error(message)
             raise KeyError(message)
         self.subject.remove_item(decapsulated_value)
+
+    def _change_notification(self, sender, notification: ChangeNotification):
+        sender = sender or self
+        encapsulated_notification = ChangeNotification(
+            [item.accept(self._visitor) for item in notification.old_value],
+            [item.accept(self._visitor) for item in notification.new_value],
+        )
+        super()._change_notification(sender, encapsulated_notification)
 
     def __repr__(self):
         return f'ListEncapsulationBase({self.subject.__repr__()})'
