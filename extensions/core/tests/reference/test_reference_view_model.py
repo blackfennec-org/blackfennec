@@ -30,12 +30,6 @@ def test_can_construct(reference_view_model):
     assert isinstance(reference_view_model, ReferenceViewModel)
 
 
-def test_wrong_instance_in_interpretation(reference_view_model):
-    interpretation = InterpretationMock(ReferenceMock())
-    with pytest.raises(TypeError):
-        ReferenceViewModel(interpretation)
-
-
 def test_can_get_reference(reference_view_model, interpretation):
     assert reference_view_model.reference == interpretation.structure
 
