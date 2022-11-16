@@ -2,11 +2,12 @@ import logging
 
 from blackfennec.interpretation.interpretation import Interpretation
 from blackfennec.structure.reference import Reference
+from blackfennec.util.observable import Observable
 
 logger = logging.getLogger(__name__)
 
 
-class ReferenceViewModel:
+class ReferenceViewModel(Observable):
     """View model for core type Reference."""
 
     def __init__(self, interpretation: Interpretation):
@@ -18,15 +19,11 @@ class ReferenceViewModel:
         Raises:
             TypeError: if passed Interpretation does not contain a Reference.
         """
+        super().__init__()
         self._interpretation = interpretation
-        interpretation_structure = interpretation.structure
-        if isinstance(interpretation_structure, Reference):
-            self._reference: Reference = interpretation_structure
-        else:
-            message = 'Structure contained in Interpretation has to be' \
-                      ' of type Reference'
-            logger.error(message)
-            raise TypeError(message)
+
+        self._reference: Reference = interpretation.structure
+        self._reference.bind(changed=self._update_value)
 
     @property
     def reference(self) -> Reference:
@@ -35,3 +32,8 @@ class ReferenceViewModel:
 
     def navigate_to_reference(self):
         self._interpretation.navigate(self._reference.resolve())
+
+    def _update_value(self, sender, notification):
+        new_value = notification.new_value
+        assert self.reference.structure.value == new_value
+        self._notify('changed', notification, sender)

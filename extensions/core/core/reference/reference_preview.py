@@ -24,6 +24,8 @@ class ReferencePreview(Adw.Bin):
         """
         super().__init__()
         self._view_model = view_model
+        self._view_model.bind(changed=self._update_value)
+
         logger.info('ReferencePreview created')
         self._reference_value.set_text(str(view_model.reference))
 
@@ -31,3 +33,8 @@ class ReferencePreview(Adw.Bin):
     def _on_navigate(self, unused_sender) -> None:
         """Handles clicks on reference items, triggers navigation"""
         self._view_model.navigate_to_reference()
+
+    def _update_value(self, unused_sender, new_value):
+        text = self._reference_value.get_text()
+        if text != new_value:
+            self._reference_value.set_text(new_value)
