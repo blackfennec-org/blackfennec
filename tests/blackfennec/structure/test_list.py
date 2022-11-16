@@ -25,6 +25,17 @@ def test_can_add_item_item():
     assert value in test_list.value
 
 
+def test_notifies_on_item_removal():
+    observer = Observer()
+    value = StructureMock()
+    structure = List()
+    structure.bind(changed=observer.endpoint)
+    structure.add_item(value)
+
+    assert observer.last_call[0][1].new_value == [value]
+    assert observer.last_call[0][1].old_value == []
+
+
 def test_add_item_does_set_parent():
     test_list = List()
     value = StructureMock()
@@ -54,6 +65,17 @@ def test_can_remove_item_item():
     test_list.add_item(value)
     test_list.remove_item(value)
     assert value not in test_list.value
+
+
+def test_notifies_on_item_removal():
+    observer = Observer()
+    value = StructureMock()
+    structure = List([value])
+    structure.bind(changed=observer.endpoint)
+    structure.remove_item(value)
+
+    assert observer.last_call[0][1].new_value == []
+    assert observer.last_call[0][1].old_value == [value]
 
 
 def test_remove_item_does_unset_parent():

@@ -27,6 +27,17 @@ def test_can_add_item():
     assert key in m.value
 
 
+def test_notifies_on_item_add():
+    observer = Observer()
+    structure = Map()
+    structure.bind(changed=observer.endpoint)
+    value = StructureMock()
+    structure.add_item('key', value)
+
+    assert observer.last_call[0][1].new_value == {'key': value}
+    assert observer.last_call[0][1].old_value == {}
+
+
 def test_add_item_does_set_parent():
     m = Map()
     key = 'Key'
@@ -78,6 +89,17 @@ def test_can_remove_item():
     })
     m.remove_item(key)
     assert key not in m.value
+
+
+def test_notifies_on_item_removal():
+    observer = Observer()
+    value = StructureMock()
+    structure = Map({'key': value})
+    structure.bind(changed=observer.endpoint)
+    structure.remove_item('key')
+
+    assert observer.last_call[0][1].new_value == {}
+    assert observer.last_call[0][1].old_value == {'key': value}
 
 
 def test_remove_item_does_unset_parent():
