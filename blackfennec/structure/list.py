@@ -48,12 +48,12 @@ class List(Structure[list[T]]):
         Args:
             item (Structure): Item to append.
         """
-        notification = ChangeNotification(self.value, None)
+        old_value = self.value
 
         self._set_parent(item)
         self._value.append(item)
 
-        notification.new_value = self.value
+        notification = ChangeNotification(old_value, self.value)
         self._notify('changed', notification)
 
     def _is_item(self, item):
@@ -77,12 +77,12 @@ class List(Structure[list[T]]):
             KeyError: If the item passed is not in
                 list and hence cannot be removed.
         """
-        notification = ChangeNotification(self.value, None)
+        old_value = self.value
 
         self._value.remove(item)
         self._unset_parent(item)
 
-        notification.new_value = self.value
+        notification = ChangeNotification(old_value, self.value)
         self._notify('changed', notification)
 
     def accept(self, visitor: Visitor[TVisitor]) -> TVisitor:

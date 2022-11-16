@@ -55,11 +55,11 @@ class Map(Structure[TDict]):
         Raises:
             ValueError: If the key already exists
         """
-        notification = ChangeNotification(self.value, None)
+        old_value = self.value
 
         self._add_item(key, value)
 
-        notification.new_value = self.value
+        notification = ChangeNotification(old_value, self.value)
         self._notify('changed', notification)
 
     def _add_item(self, key: str, value: T) -> None:
@@ -91,11 +91,11 @@ class Map(Structure[TDict]):
             KeyError: If the item with the key to delete
                 is not contained in map.
         """
-        notification = ChangeNotification(self.value, None)
+        old_value = self.value
 
         self._remove_item(key)
 
-        notification.new_value = self.value
+        notification = ChangeNotification(old_value, self.value)
         self._notify('changed', notification)
 
     def _remove_item(self, key: str) -> None:
