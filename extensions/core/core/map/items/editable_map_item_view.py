@@ -39,7 +39,7 @@ class EditableMapItemView(Adw.EntryRow):
         self._view_model = view_model
 
         self.key = self._key
-        view = view_factory.create(interpretation)
+        view = next(view_factory.create(interpretation))
         self.add_prefix(self._delete)
         self.add_suffix(view)
 
