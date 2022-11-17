@@ -5,6 +5,7 @@ from datetime import datetime
 from blackfennec.structure.map import Map
 from blackfennec.structure.string import String
 from blackfennec.type_system.type_factory import TypeFactory
+from blackfennec.util.change_notification_dispatch_mixin import ChangeNotificationDispatchMixin
 
 logger = logging.getLogger(__name__)
 
@@ -30,7 +31,7 @@ def create_date_time_type():
     return type
 
 
-class DateTime:
+class DateTime(ChangeNotificationDispatchMixin):
     """DateTime BaseType Class
 
     Helper class used by the date time view_model representing
@@ -49,13 +50,19 @@ class DateTime:
             subject (Map): underlying map interpretation to
                 which property calls are dispatched
         """
+        super().__init__()
+        
         self._subject: Map = subject or Map()
+        self._subject.bind(changed=self._dispatch_change_notification)
+
         if DateTime.DATE_TIME_KEY not in self.subject.value:
             default_time: datetime = datetime.min
             self.subject.add_item(
                 DateTime.DATE_TIME_KEY,
                 String(default_time.isoformat())
             )
+
+        self._subject.value[DateTime.DATE_TIME_KEY].bind(changed=self._dispatch_change_notification)
 
     @property
     def subject(self):

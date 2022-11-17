@@ -27,7 +27,7 @@ class DateTimePreview(Gtk.MenuButton):
         """
         super().__init__()
         self._view_model = view_model
-        self._view_model.bind(date_time=self._set_date_time)
+        self._view_model.bind(changed=self._set_date_time)
         self._set_date_time(self, self._view_model.date_time)
         logger.info('DateTimePreview created')
 
@@ -35,5 +35,5 @@ class DateTimePreview(Gtk.MenuButton):
         self._date_time_editor = DateTimeEditor(self._view_model)
         self._popover.set_child(self._date_time_editor)
 
-    def _set_date_time(self, unused_sender, date_time):
-        self.set_label(str(date_time))
+    def _set_date_time(self, unused_sender, notification):
+        self.set_label(str(self._view_model.date_time))

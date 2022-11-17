@@ -6,6 +6,8 @@ from gi.repository import Gtk, Adw
 
 from base.file.file_view_model import FileViewModel
 
+from blackfennec.util.change_notification import ChangeNotification
+
 logger = logging.getLogger(__name__)
 
 BASE_DIR = Path(__file__).resolve().parent
@@ -28,19 +30,16 @@ class FileView(Adw.PreferencesGroup):
         """
         super().__init__()
         self._view_model = view_model
-        self._set_file_path(self._view_model.file_path)
-        self._set_mime_type(self._view_model.file_type)
+        self._view_model.bind(changed=self._update_values)
+
+        self._update_values(self, ChangeNotification('', 'updates values from view model'))
 
         logger.info('FileView created')
         self._file_chooser_native = None
 
-    def _set_file_path(self, file_path):
-        self._view_model.file_path = file_path
-        self._file_path.set_text(str(file_path))
-
-    def _set_mime_type(self, file_type):
-        self._view_model.file_type = file_type
-        self._mime_type.set_text(str(file_type))
+    def _update_values(self, unused_sender, unused_notification: ChangeNotification):
+        self._file_path.set_text(self._view_model.file_path)
+        self._mime_type.set_text(self._view_model.file_type)
 
     @Gtk.Template.Callback()
     def _on_choose_file(self, unused_sender) -> None:
@@ -55,7 +54,7 @@ class FileView(Adw.PreferencesGroup):
         def on_response(dialog, response):
             if response == Gtk.ResponseType.ACCEPT:
                 liststore = dialog.get_files()
-                self._set_file_path(liststore[0].get_path())
+                self._view_model.file_path = liststore[0].get_path()
             else:
                 logger.debug('File selection canceled')
             dialog.destroy()

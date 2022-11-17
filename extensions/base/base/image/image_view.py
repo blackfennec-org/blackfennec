@@ -7,6 +7,8 @@ from gi.repository import Gtk, Adw
 
 from base.image.image_view_model import ImageViewModel
 
+from blackfennec.util.change_notification import ChangeNotification
+
 logger = logging.getLogger(__name__)
 
 BASE_DIR = Path(__file__).resolve().parent
@@ -30,8 +32,9 @@ class ImageView(Adw.PreferencesGroup):
         """
         super().__init__()
         self._view_model = view_model
-        self._set_file_path(self._view_model.file_path)
-        self._set_mime_type(self._view_model.file_type)
+        self._view_model.bind(changed=self._update_values)
+
+        self._update_values(self, ChangeNotification('', 'updates values from view model'))
 
         logger.info('ImageView created')
         self._file_chooser_native = None
@@ -39,24 +42,18 @@ class ImageView(Adw.PreferencesGroup):
     def _set_image_from_path(self, file_path) -> None:
         try:
             paintable = Gdk.Texture.new_from_filename(file_path)
-            self._set_image(paintable)
+            self._image.set_from_paintable(paintable)
         except Exception as e:
+            self._set_image_not_found()
             logger.warning(e)
 
-    def _set_image(self, paintable) -> None:
-        self._image.set_from_paintable(paintable)
+    def _set_image_not_found(self):
+        self._image.set_from_icon_name('image-missing-symbolic')
 
-    def _set_file_path(self, file_path):
-        self._view_model.file_path = file_path
-        self._file_path.set_text(str(file_path))
-        self._set_image_from_path(file_path)
-
-    def _set_mime_type(self, file_type):
-        self._view_model.file_type = file_type
-        self._mime_type.set_text(str(file_type))
-
-    def _set_file_not_found(self):
-        self._image.set_from_icon_name('image-missing-symbolic', 64)
+    def _update_values(self, unused_sender, unused_notification: ChangeNotification):
+        self._file_path.set_text(self._view_model.file_path)
+        self._set_image_from_path(self._view_model.file_path)
+        self._mime_type.set_text(self._view_model.file_type)
 
     @Gtk.Template.Callback()
     def _on_choose_image(self, unused_sender) -> None:
@@ -75,7 +72,7 @@ class ImageView(Adw.PreferencesGroup):
         def on_response(dialog, response):
             if response == Gtk.ResponseType.ACCEPT:
                 liststore = dialog.get_files()
-                self._set_file_path(liststore[0].get_path())
+                self._view_model.file_path = liststore[0].get_path()
             else:
                 logger.debug('Image selection canceled')
             dialog.destroy()

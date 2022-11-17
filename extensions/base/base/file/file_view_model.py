@@ -2,13 +2,15 @@
 import logging
 
 from blackfennec.interpretation.interpretation import Interpretation
+from blackfennec.util.change_notification_dispatch_mixin import ChangeNotificationDispatchMixin
 from blackfennec.structure.map import Map
+
 from base.file.file import File
 
 logger = logging.getLogger(__name__)
 
 
-class FileViewModel:
+class FileViewModel(ChangeNotificationDispatchMixin):
     """View model for core type File."""
 
     def __init__(self, interpretation: Interpretation):
@@ -18,12 +20,11 @@ class FileViewModel:
             interpretation (Interpretation): The overarching
                 interpretation
         """
-        if not isinstance(interpretation.structure, Map):
-            message = 'interpretation received should be of' \
-                      ' super type Map, but is of type %s'
-            logger.warning(message, type(interpretation.structure))
+        super().__init__()
+
         self._interpretation = interpretation
         self._model: File = File(interpretation.structure)
+        self._model.bind(changed=self._dispatch_change_notification)
 
     @property
     def file_path(self):

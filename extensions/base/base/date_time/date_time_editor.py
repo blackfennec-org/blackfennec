@@ -7,6 +7,8 @@ import gi
 
 from base.date_time.date_time_view_model import DateTimeViewModel
 
+from blackfennec.util.change_notification import ChangeNotification
+
 gi.require_version('Gtk', '4.0')
 from gi.repository import Gtk, Adw, Gio, GLib
 
@@ -28,7 +30,7 @@ class DateTimeEditor(Gtk.Box):
     def __init__(self, view_model: DateTimeViewModel):
         super().__init__()
         self._view_model = view_model
-        self._view_model.bind(date_time=self.update_date_time)
+        self._view_model.bind(changed=self.update_date_time)
 
         self._date_chooser.connect('day-selected', self._on_day_selected)
         self.update_date_time(self, self._view_model.date_time)
@@ -37,7 +39,8 @@ class DateTimeEditor(Gtk.Box):
         self.minute = self._view_model.date_time.minute
         self.second = self._view_model.date_time.second
 
-    def update_date_time(self, unused_sender, date_time: datetime):
+    def update_date_time(self, unused_sender, unused_notification: ChangeNotification):
+        date_time = self._view_model.date_time
         time_zone = GLib.TimeZone.new(date_time.tzname())
         g_date_time = GLib.DateTime.new(
             time_zone,

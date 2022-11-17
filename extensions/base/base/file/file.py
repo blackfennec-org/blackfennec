@@ -3,11 +3,12 @@ import logging
 
 from blackfennec.structure.map import Map
 from blackfennec.structure.string import String
+from blackfennec.util.change_notification_dispatch_mixin import ChangeNotificationDispatchMixin
 
 logger = logging.getLogger(__name__)
 
 
-class File:
+class File(ChangeNotificationDispatchMixin):
     """File BaseType Class
 
     Helper class used by the file view_model representing
@@ -26,11 +27,18 @@ class File:
             subject (Map): underlying map interpretation to
                 which property calls are dispatched
         """
+        super().__init__()
+
         self._subject: Map = subject or Map()
+        self._subject.bind(changed=self._dispatch_change_notification)
+
         if File.FILE_PATH_KEY not in self._subject.value:
             self._subject.add_item(File.FILE_PATH_KEY, String())
         if File.FILE_TYPE_KEY not in self._subject.value:
             self._subject.add_item(File.FILE_TYPE_KEY, String())
+
+        self._subject.value[File.FILE_PATH_KEY].bind(changed=self._dispatch_change_notification)
+        self._subject.value[File.FILE_TYPE_KEY].bind(changed=self._dispatch_change_notification)
 
     @property
     def subject(self):
