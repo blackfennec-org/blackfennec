@@ -29,8 +29,9 @@ class StringView(Adw.Bin):
         self._view_model.bind(changed=self._update_value)
 
         buffer = self._value.get_buffer()
-        buffer.connect('changed', self._on_text_changed)
         buffer.set_text(self._view_model.string.value)
+        buffer.set_enable_undo(False)
+        buffer.connect('changed', self._on_text_changed)
         logger.info(
             'StringView with text: "%s" created', self._view_model.string.value)
 

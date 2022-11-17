@@ -12,6 +12,7 @@
         <property name="valign">center</property>
         <property name="placeholder-text" translatable="true">Enter a number</property>
         <property name="input-purpose">number</property>
+        <property name="enable-undo">false</property>
         <signal name="changed" handler="_on_text_changed"/>
       </object>
     </child>

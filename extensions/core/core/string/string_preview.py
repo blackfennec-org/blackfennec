@@ -30,10 +30,12 @@ class StringPreview(Gtk.Frame):
 
         buffer = self._value.get_buffer()
         buffer.set_text(self._view_model.string.value)
+        buffer.set_enable_undo(False)
         buffer.connect('changed', self._on_buffer_changed)
         self.connect('notify::active', self._on_activate)
         logger.info(
-            'StringPreview with text: "%s" created', self._view_model.string.value)
+            'StringPreview with text: "%s" created',
+            self._view_model.string.value)
 
     def _on_activate(self, unused_sender):
         self._value.activate()

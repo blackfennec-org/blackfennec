@@ -10,6 +10,7 @@
           <object class="GtkEntry" id="_reference_value">
             <property name="focusable">true</property>
             <property name="editable">false</property>
+            <property name="enable-undo">false</property>
           </object>
         </child>
         <child>

@@ -12,6 +12,7 @@ template NumberPreview : Adw.Bin {
         valign: center;
         placeholder-text: _("Enter a number");
         input-purpose: number;
+        enable-undo: false;
         changed => _on_text_changed();
     }
 }
