@@ -1,10 +1,12 @@
 from blackfennec.structure.structure import Structure
 from blackfennec.util.change_notification import ChangeNotification
+from blackfennec.util.change_notification_dispatch_mixin import \
+    ChangeNotificationDispatchMixin
 from blackfennec.util.intercepting_visitor import InterceptingVisitor
 from blackfennec.util.observable import Observable
 
 
-class EncapsulationBase(Structure, Observable):
+class EncapsulationBase(Structure, ChangeNotificationDispatchMixin):
     """Is the base class of the abstract visitor BaseFactoryVisitor,
         which means that any created object of the abstract visitor
         has the super class EncapsulationBase or a specialisation.
@@ -20,11 +22,11 @@ class EncapsulationBase(Structure, Observable):
             subject (Structure): subject that gets encapsulated
         """
         Structure.__init__(self)
-        Observable.__init__(self)
+        ChangeNotificationDispatchMixin.__init__(self)
 
         self._visitor = visitor
         self._subject = subject
-        self._subject.bind(changed=self._change_notification)
+        self._subject.bind(changed=self._dispatch_change_notification)
 
     @property
     def subject(self):
@@ -107,11 +109,9 @@ class EncapsulationBase(Structure, Observable):
         """
         return subject.accept(self._visitor)
 
-    def _change_notification(self, sender, notification: ChangeNotification):
-        Observable._notify(self, 'changed', notification, sender)
-
     def bind(self, **kwargs):
-        assert list(kwargs.keys()) == ["changed"], f"Only changed observation is supported, was {kwargs.keys()}"
+        assert list(kwargs.keys()) == [
+            "changed"], f"Only changed observation is supported, was {kwargs.keys()}"
         Observable.bind(self, **kwargs)
 
     def __repr__(self):

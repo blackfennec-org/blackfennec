@@ -77,7 +77,6 @@ class Map(Structure[TDict]):
         return False
 
     def _unset_parent(self, item: T) -> None:
-        assert item.parent is self
         assert not self._is_item(item)
         item.parent = None
 

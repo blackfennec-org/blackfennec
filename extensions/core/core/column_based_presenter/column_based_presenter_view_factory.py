@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
-from core.column_based_presenter.column_based_presenter_view import ColumnBasedPresenterView
-from core.column_based_presenter.column_based_presenter_view_model import ColumnBasedPresenterViewModel
+from core.column_based_presenter.column_based_presenter_view import \
+    ColumnBasedPresenterView
+from core.column_based_presenter.column_based_presenter_view_model import \
+    ColumnBasedPresenterViewModel
 
 
 class ColumnBasedPresenterViewFactory:
@@ -10,7 +12,7 @@ class ColumnBasedPresenterViewFactory:
         self._interpretation_service = interpretation_service
         self._view_factory = view_factory
 
-    def create(self, navigation_service) -> ColumnBasedPresenterView:
+    def create(self, navigation_service, history) -> ColumnBasedPresenterView:
         """Create column based presenter view
 
         Returns:
@@ -19,6 +21,7 @@ class ColumnBasedPresenterViewFactory:
         """
         view_model = ColumnBasedPresenterViewModel(
             self._interpretation_service,
-            navigation_service
+            navigation_service,
+            history
         )
         return ColumnBasedPresenterView(view_model, self._view_factory)

@@ -6,7 +6,8 @@ from pathlib import Path
 from gi.repository import Adw, Gtk, Gio, GLib
 
 from blackfennec.facade.about_window.about_window_view import AboutWindowView
-from blackfennec.facade.extension_store.extension_store_view import ExtensionStoreView
+from blackfennec.facade.extension_store.extension_store_view import \
+    ExtensionStoreView
 from blackfennec.facade.main_window.document_tab import DocumentTab
 from blackfennec.facade.main_window.document_tab_view import DocumentTabView
 
@@ -74,6 +75,8 @@ class BlackFennecView(Gtk.ApplicationWindow):
         self._update_directory(self, self._current_directory)
         self._file_chooser_native = None
 
+        self._active_history = None
+
     def _init_main_actions(self):
         self._main_action_group = Gio.SimpleActionGroup().new()
         self._main_action_group.add_action_entries([
@@ -85,18 +88,28 @@ class BlackFennecView(Gtk.ApplicationWindow):
             ('extension_store', self.on_go_to_store),
             ('about', self.on_about),
             ('quit', self.on_quit),
+            ('undo', self.on_undo),
+            ('redo', self.on_redo),
         ])
 
         self.insert_action_group('main', self._main_action_group)
 
-        self._application.set_accels_for_action('main.open_directory', ['<primary><alt>o'])
-        self._application.set_accels_for_action('main.open_file', ['<primary>o'])
+        self._application.set_accels_for_action('main.open_directory',
+                                                ['<primary><alt>o'])
+        self._application.set_accels_for_action('main.open_file',
+                                                ['<primary>o'])
         self._application.set_accels_for_action('main.save', ['<primary>s'])
-        self._application.set_accels_for_action('main.save_as', ['<primary><shift>s'])
-        self._application.set_accels_for_action('main.save_all', ['<primary><alt>s'])
-        self._application.set_accels_for_action('main.extension_store', ['<primary>e'])
+        self._application.set_accels_for_action('main.save_as',
+                                                ['<primary><shift>s'])
+        self._application.set_accels_for_action('main.save_all',
+                                                ['<primary><alt>s'])
+        self._application.set_accels_for_action('main.extension_store',
+                                                ['<primary>e'])
         self._application.set_accels_for_action('main.about', ['<primary>i'])
         self._application.set_accels_for_action('main.quit', ['<primary>q'])
+        self._application.set_accels_for_action('main.undo', ['<primary>z'])
+        self._application.set_accels_for_action('main.redo',
+                                                ['<primary><shift>z'])
 
         self.set_main_action_enabled('save', False)
         self.set_main_action_enabled('save_as', False)
@@ -108,9 +121,11 @@ class BlackFennecView(Gtk.ApplicationWindow):
 
     @Gtk.Template.Callback()
     def on_flap_button_toggled(self, toggle_button):
-        self._file_tree_flap.set_reveal_flap(not self._file_tree_flap.get_reveal_flap())
+        self._file_tree_flap.set_reveal_flap(
+            not self._file_tree_flap.get_reveal_flap())
 
-    def on_open_directory(self, unused_action, unused_param, unused_none) -> None:
+    def on_open_directory(self, unused_action, unused_param,
+                          unused_none) -> None:
         """Callback for the button click event"""
         logger.debug('open clicked')
         dialog = Gtk.FileChooserNative(
@@ -151,15 +166,19 @@ class BlackFennecView(Gtk.ApplicationWindow):
             )
             dialog.add_response(Gtk.ResponseType.CANCEL.value_nick, 'Cancel')
             dialog.add_response('open_in_new', 'New window')
-            dialog.add_response(Gtk.ResponseType.ACCEPT.value_nick, 'This window')
+            dialog.add_response(Gtk.ResponseType.ACCEPT.value_nick,
+                                'This window')
 
-            dialog.set_response_appearance(Gtk.ResponseType.ACCEPT.value_nick, Adw.ResponseAppearance.DESTRUCTIVE)
-            dialog.set_response_appearance('open_in_new', Adw.ResponseAppearance.SUGGESTED)
+            dialog.set_response_appearance(Gtk.ResponseType.ACCEPT.value_nick,
+                                           Adw.ResponseAppearance.DESTRUCTIVE)
+            dialog.set_response_appearance('open_in_new',
+                                           Adw.ResponseAppearance.SUGGESTED)
 
             def on_response(dialog, response):
                 if response == 'open_in_new':
                     new_window_view_model = self._view_model.copy()
-                    new_window = BlackFennecView(self._application, new_window_view_model)
+                    new_window = BlackFennecView(self._application,
+                                                 new_window_view_model)
                     new_window.present()
                     new_window_view_model.current_directory = directory_location
                 elif response == Gtk.ResponseType.ACCEPT.value_nick:
@@ -180,7 +199,8 @@ class BlackFennecView(Gtk.ApplicationWindow):
             self._file_tree_flap.set_reveal_flap(True)
 
     @Gtk.Template.Callback()
-    def on_open_file_from_filetree(self, unused_sender, path, unused_column) -> None:
+    def on_open_file_from_filetree(self, unused_sender, path,
+                                   unused_column) -> None:
         model = self._file_tree.get_model()
         iterator = model.get_iter(path)
         if iterator:
@@ -194,7 +214,8 @@ class BlackFennecView(Gtk.ApplicationWindow):
             action=Gtk.FileChooserAction.OPEN,
         )
         if self._current_directory:
-            dialog.set_current_folder(Gio.File.new_for_path(self._current_directory))
+            dialog.set_current_folder(
+                Gio.File.new_for_path(self._current_directory))
 
         def on_response(dialog, response):
             if response == Gtk.ResponseType.ACCEPT:
@@ -272,6 +293,22 @@ class BlackFennecView(Gtk.ApplicationWindow):
     def on_settings_action(self, unused_action, unused_param, unused_none):
         logger.debug('settings clicked')
 
+    def on_undo(self, unused_action, unused_param, unused_data):
+        current_page = self.get_current_page()
+        tab = current_page.document_tab
+        if tab.history.can_undo():
+            tab.history.undo()
+        else:
+            logger.warning('Cannot undo')
+
+    def on_redo(self, unused_action, unused_param, unused_data):
+        current_page = self.get_current_page()
+        tab = current_page.document_tab
+        if tab.history.can_redo():
+            tab.history.redo()
+        else:
+            logger.warning('Cannot redo')
+
     """Tab handling"""
 
     def _init_tabs(self):
@@ -320,11 +357,14 @@ class BlackFennecView(Gtk.ApplicationWindow):
         self.set_tab_action_enabled("pin", not page or not pinned)
         self.set_tab_action_enabled("unpin", not page or pinned)
         self.set_tab_action_enabled("close", not page or not pinned)
-        self.set_tab_action_enabled("close_all", not page or (not pinned and n_pages > 1))
+        self.set_tab_action_enabled("close_all",
+                                    not page or (not pinned and n_pages > 1))
         self.set_tab_action_enabled("close_before", can_close_before)
         self.set_tab_action_enabled("close_after", can_close_after)
-        self.set_tab_action_enabled("close_other", can_close_before or can_close_after)
-        self.set_tab_action_enabled("move_to_new_window", not page or (not pinned and n_pages > 1))
+        self.set_tab_action_enabled("close_other",
+                                    can_close_before or can_close_after)
+        self.set_tab_action_enabled("move_to_new_window",
+                                    not page or (not pinned and n_pages > 1))
 
     def set_tab_action_enabled(self, action_name: str, enabled: bool):
         action = self._tab_action_group.lookup_action(action_name)
@@ -383,7 +423,12 @@ class BlackFennecView(Gtk.ApplicationWindow):
         new_window.present()
         return new_window.tab_view
 
-    def on_tab_move_to_new_window(self, unused_action, unused_param, unused_none):
+    def on_tab_move_to_new_window(
+            self,
+            unused_action,
+            unused_param,
+            unused_none
+    ):
         new_window_view_model = self._view_model.copy()
         new_window = BlackFennecView(self._application, new_window_view_model)
         self.tab_view.transfer_page(

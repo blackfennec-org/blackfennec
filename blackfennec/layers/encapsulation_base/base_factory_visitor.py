@@ -3,10 +3,14 @@ from functools import lru_cache
 
 from typing import TypeVar
 
+from blackfennec.layers.encapsulation_base.reference_encapsulation_base import \
+    ReferenceEncapsulationBase
 from blackfennec.structure.visitor import Visitor
 from blackfennec.structure.boolean import Boolean
-from blackfennec.layers.encapsulation_base.list_encapsulation_base import ListEncapsulationBase
-from blackfennec.layers.encapsulation_base.map_encapsulation_base import MapEncapsulationBase
+from blackfennec.layers.encapsulation_base.list_encapsulation_base import \
+    ListEncapsulationBase
+from blackfennec.layers.encapsulation_base.map_encapsulation_base import \
+    MapEncapsulationBase
 from blackfennec.structure.structure import Structure
 from blackfennec.structure.list import List
 from blackfennec.structure.map import Map
@@ -53,14 +57,19 @@ class BaseFactoryVisitor(Visitor[T]):
         return self._create_generic_instance(subject)
 
     def visit_reference(self, subject: Reference) -> T:
-        return self._create_generic_instance(subject)
+        ReferenceEncapsulationClass = \
+            _create_generic_encapsulation_class(
+                ReferenceEncapsulationBase,
+                self.layer_base_class
+            )
+        return ReferenceEncapsulationClass(self, subject)
 
     def visit_null(self, subject: Null) -> T:
         return self._create_generic_instance(subject)
 
     def visit_list(self, subject: List) -> T:
         ListEncapsulationClass = \
-            _create_generic_collection_class(
+            _create_generic_encapsulation_class(
                 ListEncapsulationBase,
                 self.layer_base_class
             )
@@ -68,7 +77,7 @@ class BaseFactoryVisitor(Visitor[T]):
 
     def visit_map(self, subject: Map) -> T:
         MapEncapsulationClass = \
-            _create_generic_collection_class(
+            _create_generic_encapsulation_class(
                 MapEncapsulationBase,
                 self.layer_base_class
             )
@@ -80,7 +89,7 @@ class BaseFactoryVisitor(Visitor[T]):
 
 
 @lru_cache(maxsize=8, typed=True)
-def _create_generic_collection_class(
+def _create_generic_encapsulation_class(
         encapsulation_base_class,
         layer_base_class
 ):

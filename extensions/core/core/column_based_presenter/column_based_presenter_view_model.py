@@ -1,12 +1,17 @@
 # -*- coding: utf-8 -*-
 import logging
 
+from blackfennec.layers.history.history import History
+from blackfennec.layers.history.history_factory_visitor import \
+    HistoryFactoryVisitor
 from blackfennec.structure.structure import Structure
 from blackfennec.interpretation.interpretation import Interpretation
-from blackfennec.interpretation.interpretation_service import InterpretationService
+from blackfennec.interpretation.interpretation_service import \
+    InterpretationService
 from blackfennec.interpretation.specification import Specification
 from blackfennec.navigation.navigation_service import NavigationService
-from blackfennec.layers.overlay.overlay_factory_visitor import OverlayFactoryVisitor
+from blackfennec.layers.overlay.overlay_factory_visitor import \
+    OverlayFactoryVisitor
 from blackfennec.util.observable import Observable
 
 logger = logging.getLogger(__name__)
@@ -26,7 +31,8 @@ class ColumnBasedPresenterViewModel(Observable):
 
     def __init__(self,
                  interpretation_service: InterpretationService,
-                 navigation_service: NavigationService):
+                 navigation_service: NavigationService,
+                 history: History):
         """Constructor of Column-Based Presenter View Model
 
         A presenter that arranges interpretations in columns.
@@ -46,13 +52,16 @@ class ColumnBasedPresenterViewModel(Observable):
         self.interpretations = []
         self._interpretation_service = interpretation_service
         self._navigation_service = navigation_service
+        self._history = history
 
     def set_structure(
             self,
             structure: Structure
     ):
-        visitor = OverlayFactoryVisitor()
-        overlay = structure.accept(visitor)
+        history_visitor = HistoryFactoryVisitor(self._history)
+        historizable = structure.accept(history_visitor)
+        overlay_visitor = OverlayFactoryVisitor()
+        overlay = historizable.accept(overlay_visitor)
         self.show(None, overlay)
 
     def show(
@@ -71,7 +80,8 @@ class ColumnBasedPresenterViewModel(Observable):
         """
         logger.debug('show structure (%s) for sender (%s)', structure, sender)
         self._try_cut_interpretations_at(sender)
-        interpretation = self._interpretation_service.interpret(structure, Specification())
+        interpretation = self._interpretation_service.interpret(structure,
+                                                                Specification())
         interpretation.set_navigation_service(self._navigation_service)
         self._add_interpretation(interpretation)
 

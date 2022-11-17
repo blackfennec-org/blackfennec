@@ -178,6 +178,16 @@
     </section>
     <section>
       <item>
+        <attribute name="label" translatable="true">Undo</attribute>
+        <attribute name="action">main.undo</attribute>
+      </item>
+      <item>
+        <attribute name="label" translatable="true">Redo</attribute>
+        <attribute name="action">main.redo</attribute>
+      </item>
+    </section>
+    <section>
+      <item>
         <attribute name="label" translatable="true">Go to Store</attribute>
         <attribute name="action">main.extension_store</attribute>
       </item>
