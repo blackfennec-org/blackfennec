@@ -34,4 +34,6 @@ class BooleanPreview(Gtk.Switch):
         self._view_model.boolean.value = state
 
     def _on_view_model_value_changed(self, unused_sender, notification: ChangeNotification):
-        self.set_state(notification.new_value)
+        current_value = self._value.get_state()
+        if current_value != notification.new_value:
+            self._value.set_state(notification.new_value)

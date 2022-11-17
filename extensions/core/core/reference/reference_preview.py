@@ -37,4 +37,4 @@ class ReferencePreview(Adw.Bin):
         self._view_model.navigate_to_reference()
 
     def _update_value(self, unused_sender, notification: ChangeNotification):
-        self._reference_value.set_text(notification.new_value)
+        self._reference_value.set_text(str(notification.new_value))

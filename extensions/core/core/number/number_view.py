@@ -61,4 +61,6 @@ class NumberView(Adw.Bin):
             )
 
     def _update_value(self, unused_sender, notification: ChangeNotification):
-        self._value.set_text(str(notification.new_value))
+        text = self._value.get_text()
+        if text != notification.new_value:
+            self._value.set_text(str(notification.new_value))
