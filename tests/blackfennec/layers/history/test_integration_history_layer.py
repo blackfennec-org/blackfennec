@@ -9,6 +9,8 @@ from blackfennec.structure.boolean import Boolean
 from blackfennec.layers.history.history import History
 from blackfennec.layers.history.history_factory_visitor import HistoryFactoryVisitor
 
+pytestmark = pytest.mark.integration
+
 @pytest.fixture
 def structure():
     return Map({
