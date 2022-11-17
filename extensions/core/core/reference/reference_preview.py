@@ -3,6 +3,8 @@ from pathlib import Path
 
 from gi.repository import Gtk, Adw
 
+from blackfennec.util.change_notification import ChangeNotification
+
 logger = logging.getLogger(__name__)
 
 BASE_DIR = Path(__file__).resolve().parent
@@ -34,7 +36,5 @@ class ReferencePreview(Adw.Bin):
         """Handles clicks on reference items, triggers navigation"""
         self._view_model.navigate_to_reference()
 
-    def _update_value(self, unused_sender, new_value):
-        text = self._reference_value.get_text()
-        if text != new_value:
-            self._reference_value.set_text(new_value)
+    def _update_value(self, unused_sender, notification: ChangeNotification):
+        self._reference_value.set_text(str(notification.new_value))

@@ -2,10 +2,11 @@ import numbers
 
 from blackfennec.util.change_notification import ChangeNotification
 from blackfennec.structure.number import Number
+from blackfennec.util.change_notification_dispatch_mixin import ChangeNotificationDispatchMixin
 from blackfennec.util.observable import Observable
 
 
-class NumberViewModel(Observable):
+class NumberViewModel(ChangeNotificationDispatchMixin):
     """View model for core type Number."""
 
     def __init__(self, interpretation):
@@ -15,10 +16,10 @@ class NumberViewModel(Observable):
             interpretation (Interpretation): The overarching
                 interpretation
         """
-        super().__init__()
+        ChangeNotificationDispatchMixin.__init__(self)
 
         self._number: Number = interpretation.structure
-        self._number.bind(changed=self._update_value)
+        self._number.bind(changed=self._dispatch_change_notification)
 
     @property
     def number(self) -> Number:
@@ -28,7 +29,3 @@ class NumberViewModel(Observable):
     @number.setter
     def number(self, number: Number):
         self._number = number
-
-    def _update_value(self, sender, notification: ChangeNotification):
-        new_value = notification.new_value
-        self._notify('changed', notification, sender)

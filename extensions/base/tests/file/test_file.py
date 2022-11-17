@@ -50,9 +50,9 @@ class FileTestSuite(unittest.TestCase):
     def test_file_path_setter(self):
         file_path = StringMock('file_path')
         file = File()
-        file.file_path = file_path
+        file.file_path = file_path.value
         file_path.parent = file
-        self.assertEqual(file.file_path, file_path)
+        self.assertEqual(file.file_path, file_path.value)
 
     def test_file_type_getter(self):
         data = dict()
@@ -65,10 +65,9 @@ class FileTestSuite(unittest.TestCase):
     def test_file_type_setter(self):
         file_type = StringMock('file_type')
         file = File()
-        file.file_type = file_type
+        file.file_type = file_type.value
         file_type.parent = file
-        self.assertEqual(file.file_type, file_type)
-
+        self.assertEqual(file.file_type, file_type.value)
 
     def test_not_equal_unequal_elements(self):
         data_map = MapMock({})

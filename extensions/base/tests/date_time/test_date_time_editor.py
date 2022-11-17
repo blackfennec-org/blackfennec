@@ -2,9 +2,9 @@ from datetime import datetime
 
 import pytest
 
-from blackfennec_doubles.util.double_observable import ObservableMock
-from doubles.date_time.double_date_time_view_model import DateTimeViewModelMock
 from base.date_time.date_time_editor import DateTimeEditor
+
+from doubles.date_time.double_date_time_view_model import DateTimeViewModelMock
 
 
 @pytest.fixture()

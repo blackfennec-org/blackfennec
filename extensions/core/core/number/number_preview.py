@@ -62,5 +62,5 @@ class NumberPreview(Adw.Bin):
 
     def _update_value(self, unused_sender, notification: ChangeNotification):
         text = self._value.get_text()
-        if text != str(notification.new_value):
+        if text != notification.new_value:
             self._value.set_text(str(notification.new_value))

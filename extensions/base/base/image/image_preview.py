@@ -6,6 +6,8 @@ from gi.repository import Gtk, Adw, Gdk
 
 from base.image.image_view_model import ImageViewModel
 
+from blackfennec.util.change_notification import ChangeNotification
+
 logger = logging.getLogger(__name__)
 
 BASE_DIR = Path(__file__).resolve().parent
@@ -27,23 +29,24 @@ class ImagePreview(Gtk.Button):
         """
         super().__init__()
         self._view_model = view_model
-        self._set_file_path(self._view_model.file_path)
+        self._view_model.bind(changed=self._update_values)
+
+        self._update_values(self, ChangeNotification('',
+                                                     'updates values from view model'))
+
         self._image.set_size(64)
         logger.info('ImageView created')
 
     def _set_image_from_path(self, file_path) -> None:
         try:
             paintable = Gdk.Texture.new_from_filename(file_path)
-            self._set_image(paintable)
+            self._image.set_custom_image(paintable)
         except Exception as e:
-            logger.warning(e)
+            logger.info(e)
 
-    def _set_image(self, paintable) -> None:
-        self._image.set_custom_image(paintable)
-
-    def _set_file_path(self, file_path):
-        self._view_model.file_path = file_path
-        self._set_image_from_path(file_path)
+    def _update_values(self, unused_sender,
+                       unused_notification: ChangeNotification):
+        self._set_image_from_path(self._view_model.file_path)
 
     @Gtk.Template.Callback()
     def _on_navigate(self, unused_sender) -> None:

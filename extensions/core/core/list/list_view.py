@@ -3,6 +3,7 @@ from pathlib import Path
 
 from gi.repository import GObject, Gtk, Adw
 
+from blackfennec.util.change_notification import ChangeNotification
 from core.list.list_item_view import ListItemView
 from blackfennec.structure.structure import Structure
 
@@ -44,7 +45,10 @@ class ListView(Adw.Bin):
             changed=self._update_value,
             selected=self._on_selection_changed)
 
-        self._update_value(self, self._view_model.list.value)
+        self._update_value(
+            self,
+            ChangeNotification([], self._view_model.list.value)
+        )
         self._setup_template_store()
 
     @Gtk.Template.Callback()
@@ -55,7 +59,10 @@ class ListView(Adw.Bin):
         self._edit_suffix_group.set_visible(True)
         self._edit.set_visible(False)
 
-        self._update_value(self, self._view_model.list.structure.value)
+        self._update_value(
+            self,
+            ChangeNotification([], self._view_model.list.structure.value)
+        )
 
     @Gtk.Template.Callback()
     def _on_apply(self, unused_sender):
@@ -65,7 +72,10 @@ class ListView(Adw.Bin):
         self._edit_suffix_group.set_visible(False)
         self._edit.set_visible(True)
 
-        self._update_value(self, self._view_model.list.value)
+        self._update_value(
+            self,
+            ChangeNotification([], self._view_model.list.value)
+        )
 
     @Gtk.Template.Callback()
     def _on_delete(self, unused_sender):
@@ -82,13 +92,14 @@ class ListView(Adw.Bin):
         self._preference_group.add(item)
         self._item_interpretation_mapping[preview] = item
 
-    def _update_value(self, unused_sender, new_value: list):
+    def _update_value(self, unused_sender, notification: ChangeNotification):
         """Observable handler for value
 
         Args:
             unused_sender: view model
-            new_value: set by view model
+            notification: sent by view model
         """
+        new_value: list = notification.new_value
         currently_selected_index = None
         for index, item in enumerate(self._items):
             if item is self._currently_selected:

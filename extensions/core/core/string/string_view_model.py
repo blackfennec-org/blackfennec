@@ -1,8 +1,9 @@
 from blackfennec.structure.string import String
+from blackfennec.util.change_notification_dispatch_mixin import ChangeNotificationDispatchMixin
 from blackfennec.util.observable import Observable
 
 
-class StringViewModel(Observable):
+class StringViewModel(ChangeNotificationDispatchMixin):
     """View model for core type String."""
 
     def __init__(self, interpretation):
@@ -12,9 +13,10 @@ class StringViewModel(Observable):
             interpretation (Interpretation): The overarching
                 interpretation
         """
-        super().__init__()
+        ChangeNotificationDispatchMixin.__init__(self)
+
         self._string: String = interpretation.structure
-        self._string.bind(changed=self._update_value)
+        self._string.bind(changed=self._dispatch_change_notification)
 
     @property
     def string(self):
@@ -24,7 +26,3 @@ class StringViewModel(Observable):
     @string.setter
     def string(self, string: String):
         self._string = string
-
-    def _update_value(self, sender, notification):
-        new_value = notification.new_value
-        self._notify('changed', notification, sender)
