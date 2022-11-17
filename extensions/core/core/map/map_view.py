@@ -43,7 +43,10 @@ class MapView(Adw.PreferencesGroup):
             selected=self._on_selection_changed)
 
         self._in_edit_mode = False
-        self._update_value(self, ChangeNotification({}, self._view_model.map.value))
+        self._update_value(
+            self,
+            ChangeNotification({}, self._view_model.map.value)
+        )
         self._setup_template_store()
 
     @Gtk.Template.Callback()
@@ -54,7 +57,10 @@ class MapView(Adw.PreferencesGroup):
         self._edit_suffix_group.set_visible(True)
         self._edit.set_visible(False)
 
-        self._update_value(self, self._view_model.map.structure.value)
+        self._update_value(
+            self,
+            ChangeNotification({}, self._view_model.map.structure.value)
+        )
 
     @Gtk.Template.Callback()
     def _on_apply(self, unused_sender):
@@ -64,7 +70,10 @@ class MapView(Adw.PreferencesGroup):
         self._edit_suffix_group.set_visible(False)
         self._edit.set_visible(True)
 
-        self._update_value(self, self._view_model.map.value)
+        self._update_value(
+            self,
+            ChangeNotification({}, self._view_model.map.value)
+        )
 
     @Gtk.Template.Callback()
     def _on_delete(self, unused_sender):
@@ -118,10 +127,12 @@ class MapView(Adw.PreferencesGroup):
             self._add_item(key, value)
 
         if self._currently_selected and self._currently_selected.key in old_key_list:
-            currently_selected_offset = old_key_list.index(self._currently_selected.key)
+            currently_selected_offset = old_key_list.index(
+                self._currently_selected.key)
             if currently_selected_offset >= len(self._items):
                 currently_selected_offset = len(self._items) - 1
-            currently_selected_key = list(self._items.keys())[currently_selected_offset]
+            currently_selected_key = list(self._items.keys())[
+                currently_selected_offset]
             self._items[currently_selected_key].activate()
 
     def _on_selection_changed(self, unused_sender, new_value):

@@ -34,7 +34,10 @@ class ImageView(Adw.PreferencesGroup):
         self._view_model = view_model
         self._view_model.bind(changed=self._update_values)
 
-        self._update_values(self, ChangeNotification('', 'updates values from view model'))
+        self._update_values(
+            self,
+            ChangeNotification('', 'updates values from view model')
+        )
 
         logger.info('ImageView created')
         self._file_chooser_native = None
@@ -45,15 +48,20 @@ class ImageView(Adw.PreferencesGroup):
             self._image.set_from_paintable(paintable)
         except Exception as e:
             self._set_image_not_found()
-            logger.warning(e)
+            logger.info(e)
 
     def _set_image_not_found(self):
         self._image.set_from_icon_name('image-missing-symbolic')
 
-    def _update_values(self, unused_sender, unused_notification: ChangeNotification):
-        self._file_path.set_text(self._view_model.file_path)
+    def _update_values(
+            self,
+            unused_sender,
+            unused_notification: ChangeNotification
+    ):
+        self._file_path.set_text(self._view_model.file_path or 'empty path')
         self._set_image_from_path(self._view_model.file_path)
-        self._mime_type.set_text(self._view_model.file_type)
+        self._mime_type.set_text(
+            self._view_model.file_type or 'empty mime type')
 
     @Gtk.Template.Callback()
     def _on_choose_image(self, unused_sender) -> None:

@@ -38,8 +38,8 @@ class FileView(Adw.PreferencesGroup):
         self._file_chooser_native = None
 
     def _update_values(self, unused_sender, unused_notification: ChangeNotification):
-        self._file_path.set_text(self._view_model.file_path)
-        self._mime_type.set_text(self._view_model.file_type)
+        self._file_path.set_text(self._view_model.file_path or 'empty path')
+        self._mime_type.set_text(self._view_model.file_type or 'empty mime type')
 
     @Gtk.Template.Callback()
     def _on_choose_file(self, unused_sender) -> None:

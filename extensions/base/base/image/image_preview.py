@@ -31,7 +31,8 @@ class ImagePreview(Gtk.Button):
         self._view_model = view_model
         self._view_model.bind(changed=self._update_values)
 
-        self._update_values(self, ChangeNotification('', 'updates values from view model'))
+        self._update_values(self, ChangeNotification('',
+                                                     'updates values from view model'))
 
         self._image.set_size(64)
         logger.info('ImageView created')
@@ -41,9 +42,10 @@ class ImagePreview(Gtk.Button):
             paintable = Gdk.Texture.new_from_filename(file_path)
             self._image.set_custom_image(paintable)
         except Exception as e:
-            logger.warning(e)
+            logger.info(e)
 
-    def _update_values(self, unused_sender, unused_notification: ChangeNotification):
+    def _update_values(self, unused_sender,
+                       unused_notification: ChangeNotification):
         self._set_image_from_path(self._view_model.file_path)
 
     @Gtk.Template.Callback()

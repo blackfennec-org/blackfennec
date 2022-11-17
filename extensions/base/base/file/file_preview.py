@@ -36,8 +36,8 @@ class FilePreview(Gtk.Button):
         )
 
     def _set_file_path(self, unused_sender, unused_notification: ChangeNotification):
-        file_path = self._view_model.file_path or "empty_path"
-        self.set_tooltip_text(file_path)
+        file_path = self._view_model.file_path or "empty path"
+        self.set_tooltip_text(file_path or 'empty path')
 
     @Gtk.Template.Callback()
     def _on_navigate(self, unused_sender) -> None:

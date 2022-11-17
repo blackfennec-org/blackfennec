@@ -45,7 +45,10 @@ class ListView(Adw.Bin):
             changed=self._update_value,
             selected=self._on_selection_changed)
 
-        self._update_value(self, ChangeNotification([], self._view_model.list.value))
+        self._update_value(
+            self,
+            ChangeNotification([], self._view_model.list.value)
+        )
         self._setup_template_store()
 
     @Gtk.Template.Callback()
@@ -56,7 +59,10 @@ class ListView(Adw.Bin):
         self._edit_suffix_group.set_visible(True)
         self._edit.set_visible(False)
 
-        self._update_value(self, self._view_model.list.structure.value)
+        self._update_value(
+            self,
+            ChangeNotification([], self._view_model.list.structure.value)
+        )
 
     @Gtk.Template.Callback()
     def _on_apply(self, unused_sender):
@@ -66,7 +72,10 @@ class ListView(Adw.Bin):
         self._edit_suffix_group.set_visible(False)
         self._edit.set_visible(True)
 
-        self._update_value(self, self._view_model.list.value)
+        self._update_value(
+            self,
+            ChangeNotification([], self._view_model.list.value)
+        )
 
     @Gtk.Template.Callback()
     def _on_delete(self, unused_sender):
