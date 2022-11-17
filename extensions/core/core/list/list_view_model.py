@@ -8,10 +8,10 @@ from blackfennec.structure.list import List
 from blackfennec.structure.structure import Structure
 from blackfennec.type_system.type import Type
 from blackfennec.type_system.type_registry import TypeRegistry
-from blackfennec.util.observable import Observable
+from blackfennec.util.change_notification_dispatch_mixin import ChangeNotificationDispatchMixin
 
 
-class ListViewModel(Observable):
+class ListViewModel(ChangeNotificationDispatchMixin):
     """View model for core type List."""
 
     def __init__(
@@ -31,14 +31,15 @@ class ListViewModel(Observable):
             type_registry (TypeRegistry): registry used to
                 add children to List from template.
         """
-        Observable.__init__(self)
+        ChangeNotificationDispatchMixin.__init__(self)
+
         self._interpretation = interpretation
         self._interpretation_service = interpretation_service
         self._type_registry = type_registry
         self._action_registry = action_registry
 
         self._list: List = self._interpretation.structure
-        self._list.bind(changed=self._update_value)
+        self._list.bind(changed=self._dispatch_change_notification)
 
     @property
     def list(self) -> List:
@@ -94,7 +95,3 @@ class ListViewModel(Observable):
 
     def navigate_to(self, route_target: Structure):
         self._interpretation.navigate(route_target)
-
-    def _update_value(self, sender, notification):
-        new_value = notification.new_value
-        self._notify('changed', new_value, sender)

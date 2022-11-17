@@ -2,6 +2,8 @@ import logging
 from pathlib import Path
 
 from gi.repository import Gtk, GObject, Adw
+
+from blackfennec.util.change_notification import ChangeNotification
 from core.map.items.editable_map_item_view import EditableMapItemView
 from core.map.items.map_item_view import MapItemView
 
@@ -41,7 +43,7 @@ class MapView(Adw.PreferencesGroup):
             selected=self._on_selection_changed)
 
         self._in_edit_mode = False
-        self._update_value(self, self._view_model.map.value)
+        self._update_value(self, ChangeNotification({}, self._view_model.map.value))
         self._setup_template_store()
 
     @Gtk.Template.Callback()
@@ -100,13 +102,14 @@ class MapView(Adw.PreferencesGroup):
         item = self._items.pop(key)
         self.remove(item)
 
-    def _update_value(self, unused_sender, new_value: dict):
+    def _update_value(self, unused_sender, notification: ChangeNotification):
         """Observable handler for value
 
         Args:
             unused_sender: view model
-            new_value: set by view model
+            notification: sent by view model
         """
+        new_value = notification.new_value
         old_key_list = list(self._items.keys())
 
         for key in dict(self._items).keys():

@@ -45,7 +45,4 @@ class StringPreview(Gtk.Frame):
 
     def _update_value(self, unused_sender, notification: ChangeNotification):
         buffer = self._value.get_buffer()
-        start, end = buffer.get_bounds()
-        text = buffer.get_text(start, end, False)
-        if text != notification.new_value:
-            buffer.set_text(notification.new_value)
+        buffer.set_text(notification.new_value)

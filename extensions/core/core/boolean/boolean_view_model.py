@@ -1,12 +1,13 @@
 import logging
 
 from blackfennec.structure.boolean import Boolean
+from blackfennec.util.change_notification_dispatch_mixin import ChangeNotificationDispatchMixin
 from blackfennec.util.observable import Observable
 
 logger = logging.getLogger(__name__)
 
 
-class BooleanViewModel(Observable):
+class BooleanViewModel(ChangeNotificationDispatchMixin):
     """View model for core type Boolean."""
 
     def __init__(self, interpretation):
@@ -16,10 +17,10 @@ class BooleanViewModel(Observable):
             interpretation (Interpretation): The overarching
                 interpretation
         """
-        super().__init__()
+        ChangeNotificationDispatchMixin.__init__(self)
 
         self._boolean = interpretation.structure
-        self._boolean.bind(changed=self._update_value)
+        self._boolean.bind(changed=self._dispatch_change_notification)
 
     @property
     def boolean(self) -> Boolean:
@@ -29,7 +30,3 @@ class BooleanViewModel(Observable):
     @boolean.setter
     def boolean(self, boolean):
         self._boolean = boolean
-
-    def _update_value(self, sender, notification):
-        new_value = notification.new_value
-        self._notify('changed', new_value, sender)

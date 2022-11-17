@@ -10,12 +10,13 @@ from blackfennec.structure.map import Map
 from blackfennec.structure.structure import Structure
 from blackfennec.type_system.type import Type
 from blackfennec.type_system.type_registry import TypeRegistry
+from blackfennec.util.change_notification_dispatch_mixin import ChangeNotificationDispatchMixin
 from blackfennec.util.observable import Observable
 
 logger = logging.getLogger(__name__)
 
 
-class MapViewModel(Observable):
+class MapViewModel(ChangeNotificationDispatchMixin):
     """View model for core type Map."""
 
     def __init__(
@@ -35,14 +36,15 @@ class MapViewModel(Observable):
                 add children to List from type.
 
         """
-        Observable.__init__(self)
+        ChangeNotificationDispatchMixin.__init__(self)
+
         self._interpretation = interpretation
         self._interpretation_service = interpretation_service
         self._type_registry = type_registry
         self._action_registry = action_registry
 
         self._map: Map[Structure] = self._interpretation.structure
-        self._map.bind(changed=self._update_value)
+        self._map.bind(changed=self._dispatch_change_notification)
 
     @property
     def map(self) -> Map:
@@ -115,7 +117,3 @@ class MapViewModel(Observable):
 
     def navigate_to(self, route_target: Structure):
         self._interpretation.navigate(route_target)
-
-    def _update_value(self, sender, notification):
-        new_value = notification.new_value
-        self._notify('changed', new_value, sender)
