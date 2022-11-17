@@ -10,4 +10,6 @@ class Observer:
 
     @property
     def last_call(self):
+        if len(self._calls) == 0:
+            return []
         return self._calls[-1]
