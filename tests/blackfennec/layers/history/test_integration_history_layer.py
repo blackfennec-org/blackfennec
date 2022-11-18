@@ -4,6 +4,8 @@ from enum import Enum
 
 import pytest
 
+from blackfennec.layers.overlay.overlay_factory_visitor import \
+    OverlayFactoryVisitor
 from blackfennec.structure.map import Map
 from blackfennec.structure.list import List
 from blackfennec.structure.string import String
@@ -75,8 +77,7 @@ def random_string():
     return ''.join(random.choice(string.hexdigits) for _ in range(16))
 
 
-@pytest.mark.xfail
-@pytest.mark.parametrize('scenario', [
+SCENARIOS = [
     ([Action.RESULT, Action.CHANGE, Action.UNDO]),
     ([Action.CHANGE, Action.RESULT, Action.UNDO, Action.REDO]),
     ([Action.RESULT, Action.CHANGE, Action.CHANGE, Action.UNDO, Action.UNDO]),
@@ -93,7 +94,11 @@ def random_string():
       Action.REMOVE_ITEM]),
     ([Action.RESULT, Action.ADD_ITEM, Action.REMOVE_ITEM, Action.UNDO,
       Action.UNDO]),
-])
+]
+
+
+@pytest.mark.xfail
+@pytest.mark.parametrize('scenario', SCENARIOS)
 def test_can_undo_redo_on_list(history, historized, scenario):
     list_structure = historized.value["list"]
     for action in scenario:
@@ -122,24 +127,7 @@ def test_can_undo_redo_on_list(history, historized, scenario):
     assert historized.value["list"].structure.value == result
 
 
-@pytest.mark.parametrize('scenario', [
-    ([Action.RESULT, Action.CHANGE, Action.UNDO]),
-    ([Action.CHANGE, Action.RESULT, Action.UNDO, Action.REDO]),
-    ([Action.RESULT, Action.CHANGE, Action.CHANGE, Action.UNDO, Action.UNDO]),
-    ([Action.CHANGE, Action.CHANGE, Action.RESULT, Action.UNDO, Action.UNDO,
-      Action.REDO, Action.REDO]),
-    ([Action.CHANGE, Action.RESULT, Action.UNDO, Action.REDO, Action.UNDO,
-      Action.REDO]),
-    ([Action.CHANGE, Action.UNDO, Action.CHANGE, Action.RESULT, Action.UNDO,
-      Action.REDO]),
-    ([Action.RESULT, Action.ADD_ITEM, Action.UNDO]),
-    ([Action.RESULT, Action.ADD_ITEM, Action.ADD_ITEM, Action.UNDO,
-      Action.UNDO]),
-    ([Action.RESULT, Action.ADD_ITEM, Action.ADD_ITEM, Action.UNDO,
-      Action.REMOVE_ITEM]),
-    ([Action.RESULT, Action.ADD_ITEM, Action.REMOVE_ITEM, Action.UNDO,
-      Action.UNDO]),
-])
+@pytest.mark.parametrize('scenario', SCENARIOS)
 def test_can_undo_redo_on_map(history, historized, scenario):
     map_structure = historized.value["map"]
     for action in scenario:
@@ -178,3 +166,21 @@ def test_can_undo_redo_on_top_level_map(history, historized):
     assert historized.structure.value == result2
     history.undo()
     assert historized.structure.value == result1
+
+
+def test_can_undo_redo_on_overlayed_top_level_map(history, historized):
+    overlay = historized.accept(OverlayFactoryVisitor())
+    test_can_undo_redo_on_top_level_map(history, overlay)
+
+
+@pytest.mark.parametrize('scenario', SCENARIOS)
+def test_can_undo_redo_on_overlayed_map(history, historized, scenario):
+    overlay = historized.accept(OverlayFactoryVisitor())
+    test_can_undo_redo_on_map(history, overlay, scenario)
+
+
+@pytest.mark.xfail
+@pytest.mark.parametrize('scenario', SCENARIOS)
+def test_can_undo_redo_on_overlayed_list(history, historized, scenario):
+    overlay = historized.accept(OverlayFactoryVisitor())
+    test_can_undo_redo_on_list(history, overlay, scenario)
