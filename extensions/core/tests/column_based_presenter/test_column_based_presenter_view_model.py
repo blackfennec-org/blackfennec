@@ -5,7 +5,6 @@ from collections import deque
 
 import pytest
 
-from blackfennec_doubles.double_dummy import Dummy
 from blackfennec_doubles.interpretation.double_interpretation import \
     InterpretationMock
 from blackfennec_doubles.interpretation.double_interpretation_service import \
