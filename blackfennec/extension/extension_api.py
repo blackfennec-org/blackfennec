@@ -1,8 +1,11 @@
 # -*- coding: utf-8 -*-
-from blackfennec.interpretation.interpretation_service import InterpretationService
+from blackfennec.document_system.document_registry import DocumentRegistry
+from blackfennec.interpretation.interpretation_service import \
+    InterpretationService
 from blackfennec.extension.presenter_registry import PresenterRegistry
 from blackfennec.type_system.type_registry import TypeRegistry
 from blackfennec.actions.action_registry import ActionRegistry
+
 
 class ExtensionApi:
     """
@@ -19,6 +22,7 @@ class ExtensionApi:
             view_factory_registry,
             type_loader,
             action_registry: ActionRegistry,
+            document_registry: DocumentRegistry,
     ):
         self._presenter_registry = presenter_registry
         self._type_registry = type_registry
@@ -27,6 +31,7 @@ class ExtensionApi:
         self._view_factory_registry = view_factory_registry
         self._type_loader = type_loader
         self._action_registry = action_registry
+        self._document_registry = document_registry
 
     @property
     def presenter_registry(self) -> PresenterRegistry:
@@ -55,3 +60,7 @@ class ExtensionApi:
     @property
     def action_registry(self) -> ActionRegistry:
         return self._action_registry
+
+    @property
+    def document_registry(self) -> DocumentRegistry:
+        return self._document_registry

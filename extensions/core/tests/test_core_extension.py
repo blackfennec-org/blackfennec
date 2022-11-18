@@ -33,6 +33,7 @@ def extension_api(type_registry, presenter_registry) -> ExtensionApi:
         view_factory_registry=ViewFactoryRegistryMock(),
         type_loader=Dummy("TypeLoader"),
         action_registry=ActionRegistryMock(),
+        document_registry=Dummy("DocumentRegistry"),
     )
 
 

@@ -16,10 +16,12 @@ from blackfennec.type_system.type_registry import TypeRegistry
 from blackfennec_doubles.double_dummy import Dummy
 from blackfennec_doubles.extension.double_structure_presenter import \
     StructurePresenterMock
-from blackfennec_doubles.extension.double_presenter_registry import PresenterRegistryMock
+from blackfennec_doubles.extension.double_presenter_registry import \
+    PresenterRegistryMock
 from blackfennec_doubles.type_system.double_type_registry import \
     TypeRegistryMock
-from blackfennec_doubles.actions.double_action_registry import ActionRegistryMock
+from blackfennec_doubles.actions.double_action_registry import \
+    ActionRegistryMock
 from core.boolean.boolean_view import BooleanView
 from core.list.list_view import ListView
 from core.list.list_view_model import ListViewModel
@@ -62,6 +64,7 @@ def api(type_registry, interpreter, view_factory, view_factory_registry):
         view_factory_registry=view_factory_registry,
         type_loader=Dummy('TypeLoader'),
         action_registry=ActionRegistryMock(),
+        document_registry=Dummy('DocumentRegistry'),
     )
 
 

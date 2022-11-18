@@ -1,41 +1,101 @@
 # -*- coding: utf-8 -*-
 import unittest
 
+import pytest
+
 from blackfennec_doubles.double_dummy import Dummy
 from blackfennec.extension.extension_api import ExtensionApi
 
 
-class ExtensionApiTestSuite(unittest.TestCase):
-    def setUp(self) -> None:
-        self.presenter_registry = Dummy('PresenterRegistry')
-        self.type_registry = Dummy('TypeRegistry')
-        self.interpretation_service = Dummy('InterpretationService')
-        self.view_factory = Dummy('ViewFactory')
-        self.view_factory_registry = Dummy('ViewFactoryRegistry')
-        type_loader = Dummy('TypeLoader')
-        self.action_registry = Dummy('ActionRegistry')
+@pytest.fixture
+def presenter_registry():
+    return Dummy('PresenterRegistry')
 
-        self.extension_api = ExtensionApi(
-            self.presenter_registry,
-            self.type_registry,
-            self.interpretation_service,
-            self.view_factory,
-            self.view_factory_registry,
-            type_loader,
-            self.action_registry,
-        )
 
-    def test_can_construct(self):
-        self.assertIsNotNone(self.extension_api)
-    
-    def test_presenter_registry_getter(self):
-        self.assertEqual(self.extension_api.presenter_registry, self.presenter_registry)
-        
-    def test_type_registry_getter(self):
-        self.assertEqual(self.extension_api.type_registry, self.type_registry)
+@pytest.fixture
+def type_registry():
+    return Dummy('TypeRegistry')
 
-    def test_interpretation_service_getter(self):
-        self.assertEqual(self.extension_api.interpretation_service, self.interpretation_service)
 
-    def test_action_registry_getter(self):
-        self.assertEqual(self.extension_api.action_registry, self.action_registry)
+@pytest.fixture
+def interpretation_service():
+    return Dummy('InterpretationService')
+
+
+@pytest.fixture
+def view_factory():
+    return Dummy('ViewFactory')
+
+
+@pytest.fixture
+def view_factory_registry():
+    return Dummy('ViewFactoryRegistry')
+
+
+@pytest.fixture
+def type_loader():
+    return Dummy('TypeLoader')
+
+
+@pytest.fixture
+def action_registry():
+    return Dummy('ActionRegistry')
+
+
+@pytest.fixture
+def document_registry():
+    return Dummy('DocumentRegistry')
+
+
+@pytest.fixture
+def extension_api(
+        presenter_registry, type_registry, interpretation_service,
+        view_factory, view_factory_registry, type_loader, action_registry,
+        document_registry
+):
+    return ExtensionApi(
+        presenter_registry,
+        type_registry,
+        interpretation_service,
+        view_factory,
+        view_factory_registry,
+        type_loader,
+        action_registry,
+        document_registry,
+    )
+
+
+def test_can_construct(extension_api):
+    assert isinstance(extension_api, ExtensionApi)
+
+
+def test_can_get_presenter_registry(extension_api, presenter_registry):
+    assert extension_api.presenter_registry == presenter_registry
+
+
+def test_can_get_type_registry(extension_api, type_registry):
+    assert extension_api.type_registry == type_registry
+
+
+def test_can_get_interpretation_service(extension_api, interpretation_service):
+    assert extension_api.interpretation_service == interpretation_service
+
+
+def test_can_get_view_factory(extension_api, view_factory):
+    assert extension_api.view_factory == view_factory
+
+
+def test_can_get_view_factory_registry(extension_api, view_factory_registry):
+    assert extension_api.view_factory_registry == view_factory_registry
+
+
+def test_can_get_type_loader(extension_api, type_loader):
+    assert extension_api.type_loader == type_loader
+
+
+def test_can_get_action_registry(extension_api, action_registry):
+    assert extension_api.action_registry == action_registry
+
+
+def test_can_get_document_registry(extension_api, document_registry):
+    assert extension_api.document_registry == document_registry

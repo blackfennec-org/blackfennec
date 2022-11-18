@@ -7,7 +7,8 @@ from blackfennec.extension.extension_api import ExtensionApi
 from blackfennec.extension.extension_source import ExtensionSource
 from blackfennec.extension.extension_status import ExtensionStatus
 from blackfennec.extension.local_extension_service import LocalExtensionService
-from blackfennec.interpretation.interpretation_service import InterpretationService
+from blackfennec.interpretation.interpretation_service import \
+    InterpretationService
 from blackfennec.extension.presenter_registry import PresenterRegistry
 from blackfennec.structure.list import List
 from blackfennec.structure.map import Map
@@ -16,12 +17,14 @@ from blackfennec.type_system.type_registry import TypeRegistry
 
 pytestmark = pytest.mark.integration
 
+
 class ExtensionSourceTestSuite(unittest.TestCase):
     def setUp(self) -> None:
         self.source_identification = blackfennec_doubles.extension.double_extensions.__name__
         self.source_location = blackfennec_doubles.extension.double_extensions.__path__
         self.extension_source_map = Map({
-            ExtensionSource.SOURCE_IDENTIFICATION: String(self.source_identification),
+            ExtensionSource.SOURCE_IDENTIFICATION: String(
+                self.source_identification),
             ExtensionSource.SOURCE_LOCATION: List([
                 String(self.source_location[0])
             ]),
@@ -38,6 +41,7 @@ class ExtensionSourceTestSuite(unittest.TestCase):
         view_factory_registry = None
         type_loader = None
         action_registry = None
+        document_registry = None
         self.extension_api = ExtensionApi(
             PresenterRegistry(),
             type_registry,
@@ -45,7 +49,8 @@ class ExtensionSourceTestSuite(unittest.TestCase):
             view_factory,
             view_factory_registry,
             type_loader,
-            action_registry
+            action_registry,
+            document_registry,
         )
 
     def test_can_load_extension(self):
@@ -57,7 +62,8 @@ class ExtensionSourceTestSuite(unittest.TestCase):
             if extension.name == blackfennec_doubles.extension.double_extensions.valid_extension.__name__:
                 self.assertEqual(extension.status[0], ExtensionStatus.LOADED)
             else:
-                self.assertEqual(extension.status[0], ExtensionStatus.NOT_LOADED)
+                self.assertEqual(extension.status[0],
+                                 ExtensionStatus.NOT_LOADED)
 
     def test_can_unload_loaded_extension(self):
         self.test_can_load_extension()
