@@ -1,9 +1,12 @@
 # -*- coding: utf-8 -*-
 import pytest
 
-from blackfennec_doubles.document_system.double_document_registry import DocumentRegistryMock
-from blackfennec_doubles.document_system.mime_type.double_mime_type import MimeTypeMock
-from blackfennec_doubles.document_system.resource_type.double_resource_type import ResourceTypeMock
+from blackfennec_doubles.document_system.double_document_registry import \
+    DocumentRegistryMock
+from blackfennec_doubles.document_system.mime_type.double_mime_type import \
+    MimeTypeMock
+from blackfennec_doubles.document_system.resource_type.double_resource_type import \
+    ResourceTypeMock
 from blackfennec_doubles.structure.double_structure import StructureMock
 from blackfennec.document_system.document import Document
 
@@ -15,7 +18,8 @@ class TestDocument:
 
     @pytest.fixture
     def mime_type(self, content):
-        return MimeTypeMock(imported_structure=content)
+        return MimeTypeMock(imported_structure=content,
+                            exported_structure="exported_structure")
 
     @pytest.fixture
     def resource_type(self):

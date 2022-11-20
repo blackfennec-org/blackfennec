@@ -99,6 +99,7 @@ class CoreExtension:
         from core.list.actions.delete_items import DeleteListItemsAction
         from core.boolean.actions.toggle_boolean import ToggleBooleanAction
         from core.structure.actions.copy import CopyAction
+        from core.structure.actions.paste import PasteAction
 
         self.actions = [
             CopyAction(self.types.map, extension_api.document_registry),
@@ -107,6 +108,12 @@ class CoreExtension:
             CopyAction(self.types.number, extension_api.document_registry),
             CopyAction(self.types.reference, extension_api.document_registry),
             CopyAction(self.types.boolean, extension_api.document_registry),
+            PasteAction(self.types.map, extension_api.document_registry),
+            PasteAction(self.types.list, extension_api.document_registry),
+            PasteAction(self.types.string, extension_api.document_registry),
+            PasteAction(self.types.number, extension_api.document_registry),
+            PasteAction(self.types.reference, extension_api.document_registry),
+            PasteAction(self.types.boolean, extension_api.document_registry),
             ToUpperAction(),
             ToLowerAction(),
             ToIntegerAction(),

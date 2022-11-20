@@ -15,6 +15,7 @@ class MimeTypeMock(MimeType):
         self._mime_type_id = mime_type_id
         self._imported_structure = imported_structure or StructureMock()
         self._exported_structure = exported_structure
+        self.import_structure_parameter_to_import = None
         self.import_structure_count = 0
         self.export_structure_count = 0
 
@@ -24,8 +25,9 @@ class MimeTypeMock(MimeType):
 
     def import_structure(self, data: IO) -> StructureMock:
         self.import_structure_count += 1
+        self.import_structure_parameter_to_import = data.read()
         return self._imported_structure
 
     def export_structure(self, output: IO, structure):
         self.export_structure_count += 1
-        return self._exported_structure
+        output.write(self._exported_structure)

@@ -18,6 +18,11 @@ class CopyAction(Action):
         super().__init__(type)
         self._document_registry = document_registry
 
+    @classmethod
+    def _set_clipboard(cls, serialized_structure: str):  # pragma: no cover
+        clipboard = Gdk.Display.get_default().get_clipboard()
+        clipboard.set(serialized_structure)
+
     def execute(self, context: Context):
         document: Document = self._document_registry.get_document(
             context.structure.structure
@@ -29,9 +34,9 @@ class CopyAction(Action):
         )
         export_output.seek(0)
         serialized_structure = export_output.read()
+        logger.debug(export_output)
 
-        clipboard = Gdk.Display.get_default().get_clipboard()
-        clipboard.set(serialized_structure)
+        self._set_clipboard(serialized_structure)
 
     @property
     def name(self):
