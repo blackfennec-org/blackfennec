@@ -49,7 +49,6 @@ class MapEncapsulationBase(EncapsulationBase, Map):
     def add_item(self, key, value: Structure):
         decapsulated_value = self._decapsulate(value)
         self.subject.add_item(key, decapsulated_value)
-        decapsulated_value.parent = self.subject
 
     def _dispatch_change_notification(self, sender,
                                       notification: ChangeNotification):

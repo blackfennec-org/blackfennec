@@ -6,6 +6,7 @@ from blackfennec.structure.visitor import Visitor
 from blackfennec.util.change_notification import ChangeNotification
 
 logger = logging.getLogger(__name__)
+
 T = TypeVar('T', bound=Structure)
 TDict = dict[str, T]
 TVisitor = TypeVar('TVisitor')
@@ -77,6 +78,7 @@ class Map(Structure[TDict]):
         return False
 
     def _unset_parent(self, item: T) -> None:
+        assert item.parent is self
         assert not self._is_item(item)
         item.parent = None
 

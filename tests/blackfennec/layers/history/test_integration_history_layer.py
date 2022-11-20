@@ -3,6 +3,7 @@ import string
 from enum import Enum
 
 import pytest
+from pytest_lazyfixture import lazy_fixture
 
 from blackfennec.layers.overlay.overlay_factory_visitor import \
     OverlayFactoryVisitor
@@ -38,6 +39,11 @@ def history():
 @pytest.fixture
 def visitor(history):
     return HistoryFactoryVisitor(history)
+
+
+@pytest.fixture
+def layer(historized, request):
+    return request.param(historized)
 
 
 @pytest.fixture
@@ -96,10 +102,16 @@ SCENARIOS = [
       Action.UNDO]),
 ]
 
+LAYERS = [
+    (lambda s: s),
+    (lambda s: s.accept(OverlayFactoryVisitor())),
+]
 
+
+@pytest.mark.parametrize('layer', LAYERS, indirect=True)
 @pytest.mark.parametrize('scenario', SCENARIOS)
-def test_can_undo_redo_on_list(history, historized, scenario):
-    list_structure = historized.value["list"]
+def test_can_undo_redo_on_list(history, layer, scenario):
+    list_structure = layer.value["list"]
     for action in scenario:
         match action:
             case Action.UNDO:
@@ -123,12 +135,13 @@ def test_can_undo_redo_on_list(history, historized, scenario):
                         ]
                     )
                 )
-    assert historized.value["list"].structure.value == result
+    assert layer.value["list"].structure.value == result
 
 
+@pytest.mark.parametrize('layer', LAYERS, indirect=True)
 @pytest.mark.parametrize('scenario', SCENARIOS)
-def test_can_undo_redo_on_map(history, historized, scenario):
-    map_structure = historized.value["map"]
+def test_can_undo_redo_on_map(history, layer, scenario):
+    map_structure = layer.value["map"]
     for action in scenario:
         match action:
             case Action.UNDO:
@@ -153,7 +166,7 @@ def test_can_undo_redo_on_map(history, historized, scenario):
                     )
                 )
 
-    assert historized.value["map"].structure.value == result
+    assert layer.value["map"].structure.value == result
 
 
 def test_can_undo_redo_on_top_level_map(history, historized):
@@ -170,16 +183,3 @@ def test_can_undo_redo_on_top_level_map(history, historized):
 def test_can_undo_redo_on_overlayed_top_level_map(history, historized):
     overlay = historized.accept(OverlayFactoryVisitor())
     test_can_undo_redo_on_top_level_map(history, overlay)
-
-
-@pytest.mark.parametrize('scenario', SCENARIOS)
-def test_can_undo_redo_on_overlayed_map(history, historized, scenario):
-    overlay = historized.accept(OverlayFactoryVisitor())
-    test_can_undo_redo_on_map(history, overlay, scenario)
-
-
-@pytest.mark.xfail
-@pytest.mark.parametrize('scenario', SCENARIOS)
-def test_can_undo_redo_on_overlayed_list(history, historized, scenario):
-    overlay = historized.accept(OverlayFactoryVisitor())
-    test_can_undo_redo_on_list(history, overlay, scenario)
