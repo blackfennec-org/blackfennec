@@ -1,6 +1,4 @@
 # -*- coding: utf-8 -*-
-import unittest
-
 from collections import deque
 
 import pytest
@@ -150,3 +148,14 @@ def test_show_sibling(
         .interpretations
     assert child_interpretation not in column_based_presenter_view_model \
         .interpretations
+
+
+def test_set_structure(
+        column_based_presenter_view_model,
+        interpretation_service,
+        structure
+):
+    column_based_presenter_view_model.set_structure(structure)
+
+    assert interpretation_service.interpret_count == 1
+    assert interpretation_service.last_interpreted_structure.structure == structure
