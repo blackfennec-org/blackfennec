@@ -33,9 +33,9 @@ class List(Structure[list[T]]):
     def value(self, value: list[T]) -> None:
         notification = ChangeNotification(self.value, value)
         for item in (list(self._value) or []):
-            self.remove_item(item)
+            self._remove_item(item)
         for item in (value or []):
-            self.add_item(item)
+            self._add_item(item)
         self._notify('changed', notification)
 
     def _set_parent(self, item: Structure) -> None:
@@ -50,11 +50,14 @@ class List(Structure[list[T]]):
         """
         old_value = self.value
 
-        self._set_parent(item)
-        self._value.append(item)
+        self._add_item(item)
 
         notification = ChangeNotification(old_value, self.value)
         self._notify('changed', notification)
+
+    def _add_item(self, item: T) -> None:
+        self._set_parent(item)
+        self._value.append(item)
 
     def _is_item(self, item):
         for i in self._value:
@@ -79,11 +82,14 @@ class List(Structure[list[T]]):
         """
         old_value = self.value
 
-        self._value.remove(item)
-        self._unset_parent(item)
+        self._remove_item(item)
 
         notification = ChangeNotification(old_value, self.value)
         self._notify('changed', notification)
+
+    def _remove_item(self, item: T) -> None:
+        self._value.remove(item)
+        self._unset_parent(item)
 
     def accept(self, visitor: Visitor[TVisitor]) -> TVisitor:
         return visitor.visit_list(self)

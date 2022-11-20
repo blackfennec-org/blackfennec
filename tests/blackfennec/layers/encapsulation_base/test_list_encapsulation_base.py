@@ -97,12 +97,6 @@ def test_remove_encapsulated_item(visitor):
     assert len(subject.value) == 0
 
 
-def test_remove_item_not_in_list(list_encapsulation_base):
-    value = StringMock('test_value')
-    with pytest.raises(KeyError):
-        list_encapsulation_base.remove_item(value)
-
-
 def test_dispatch_change_notification(
         list_encapsulation_base,
         visitor,

@@ -64,10 +64,6 @@ class ListEncapsulationBase(EncapsulationBase, List):
                 list and hence cannot be removed.
         """
         decapsulated_value = self._decapsulate(item)
-        if decapsulated_value not in self.subject.value:
-            message = 'item not in list'
-            logger.error(message)
-            raise KeyError(message)
         self.subject.remove_item(decapsulated_value)
 
     def _dispatch_change_notification(

@@ -97,7 +97,6 @@ SCENARIOS = [
 ]
 
 
-@pytest.mark.xfail
 @pytest.mark.parametrize('scenario', SCENARIOS)
 def test_can_undo_redo_on_list(history, historized, scenario):
     list_structure = historized.value["list"]
