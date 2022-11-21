@@ -6,6 +6,7 @@ from gi.repository import Gtk, GObject, Adw
 from blackfennec.util.change_notification import ChangeNotification
 from core.map.items.editable_map_item_view import EditableMapItemView
 from core.map.items.map_item_view import MapItemView
+from core.map.map_view_model import MapViewModel
 
 logger = logging.getLogger(__name__)
 
@@ -26,7 +27,7 @@ class MapView(Adw.PreferencesGroup):
     _edit_suffix_group = Gtk.Template.Child()
     _edit = Gtk.Template.Child()
 
-    def __init__(self, view_factory, view_model):
+    def __init__(self, view_factory, view_model: MapViewModel):
         """Construct with view_model.
 
         Args:
@@ -74,10 +75,6 @@ class MapView(Adw.PreferencesGroup):
             self,
             ChangeNotification({}, self._view_model.map.value)
         )
-
-    @Gtk.Template.Callback()
-    def _on_delete(self, unused_sender):
-        self._view_model.delete()
 
     @Gtk.Template.Callback()
     def _on_add_by_template(self, unused_sender):

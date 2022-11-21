@@ -27,17 +27,6 @@
         <property name="orientation">horizontal</property>
         <property name="visible">false</property>
         <child>
-          <object class="GtkButton" id="_delete">
-            <property name="margin-end">8</property>
-            <property name="icon-name">user-trash-symbolic</property>
-            <signal name="clicked" handler="_on_delete"/>
-            <style>
-              <class name="destructive-action"/>
-              <class name="circular"/>
-            </style>
-          </object>
-        </child>
-        <child>
           <object class="GtkButton" id="_apply">
             <property name="icon-name">adw-entry-apply-symbolic</property>
             <signal name="clicked" handler="_on_apply"/>

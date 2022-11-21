@@ -10,7 +10,8 @@ from blackfennec.structure.map import Map
 from blackfennec.structure.structure import Structure
 from blackfennec.type_system.type import Type
 from blackfennec.type_system.type_registry import TypeRegistry
-from blackfennec.util.change_notification_dispatch_mixin import ChangeNotificationDispatchMixin
+from blackfennec.util.change_notification_dispatch_mixin import \
+    ChangeNotificationDispatchMixin
 from blackfennec.util.observable import Observable
 
 logger = logging.getLogger(__name__)

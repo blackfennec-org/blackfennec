@@ -77,10 +77,6 @@ class ListView(Adw.Bin):
             ChangeNotification([], self._view_model.list.value)
         )
 
-    @Gtk.Template.Callback()
-    def _on_delete(self, unused_sender):
-        self._view_model.delete()
-
     def _add_item(self, structure):
         preview = self._view_model.create_interpretation(structure)
         item = ListItemView(
