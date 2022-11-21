@@ -10,7 +10,6 @@ from blackfennec.type_system.type import Type
 from gi.repository import Gdk
 
 logger = logging.getLogger(__name__)
-logger.setLevel(logging.DEBUG)
 
 
 class CopyAction(Action):

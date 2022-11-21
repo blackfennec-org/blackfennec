@@ -6,10 +6,10 @@ template DateTimeEditor : Box {
   Box {
     orientation: horizontal;
 
-    Entry _hour {
+    Entry _hour_entry {
       input-purpose: digits;
       tooltip-text: _("Hour digits");
-      changed => _on_hour_changed();
+      changed => _on_time_changed();
       overwrite-mode: true;
       xalign: 0.5;
       valign: center;
@@ -30,10 +30,10 @@ template DateTimeEditor : Box {
       ]
     }
 
-    Entry _minute {
+    Entry _minute_entry {
       input-purpose: digits;
       tooltip-text: _("Minute digits");
-      changed => _on_minute_changed();
+      changed => _on_time_changed();
       overwrite-mode: true;
       xalign: 0.5;
       valign: center;
@@ -54,10 +54,10 @@ template DateTimeEditor : Box {
       ]
     }
 
-    Entry _second {
+    Entry _second_entry {
       input-purpose: digits;
       tooltip-text: _("Second digits");
-      changed => _on_second_changed();
+      changed => _on_time_changed();
       overwrite-mode: true;
       xalign: 0.5;
       valign: center;

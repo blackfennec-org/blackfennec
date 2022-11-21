@@ -2,7 +2,8 @@
 import logging
 from datetime import datetime
 
-from blackfennec.util.change_notification_dispatch_mixin import ChangeNotificationDispatchMixin
+from blackfennec.util.change_notification_dispatch_mixin import \
+    ChangeNotificationDispatchMixin
 from blackfennec.util.observable import Observable
 from base.date_time.date_time import DateTime
 from blackfennec.interpretation.interpretation import Interpretation
@@ -21,14 +22,13 @@ class DateTimeViewModel(ChangeNotificationDispatchMixin):
                 interpretation
         """
         super().__init__()
-        
+
         self._interpretation = interpretation
         self._model: DateTime = DateTime(interpretation.structure)
         self._model.bind(changed=self._dispatch_change_notification)
 
     @property
     def date_time(self) -> datetime:
-        """Property for first name"""
         return self._model.date_time
 
     @date_time.setter

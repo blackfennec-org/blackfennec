@@ -22,44 +22,30 @@ def test_can_construct_date_time_editor(date_time_editor):
 
 
 def test_get_hour(date_time_editor):
-    assert date_time_editor.hour == '00'
+    assert date_time_editor.hour == 0
 
 
 def test_set_hour(date_time_editor):
-    date_time_editor._hour.set_text('12')
-    assert date_time_editor.hour == '12'
-
-
-def test_set_hour_minimal(date_time_editor):
-    with pytest.raises(ValueError):
-        date_time_editor.hour = -1
-    assert date_time_editor.hour == '00'
+    date_time_editor._hour_entry.set_text('12')
+    assert date_time_editor.hour == 12
 
 
 def test_set_hour_maximal(date_time_editor):
-    date_time_editor._hour.set_text('23')
-    assert date_time_editor.hour == '23'
+    date_time_editor._hour_entry.set_text('23')
+    assert date_time_editor.hour == 23
 
 
 def test_set_hour_out_of_range(date_time_editor):
     date_time_editor.hour = 24
-    assert date_time_editor.hour == '23'
+    assert date_time_editor.hour == 23
 
 
 def test_get_minute(date_time_editor):
-    assert date_time_editor.minute == '00'
+    assert date_time_editor.minute == 0
 
 
 def test_get_second(date_time_editor):
-    assert date_time_editor.second == '00'
-
-
-def test_set_now(date_time_editor):
-    now = datetime.now()
-    date_time_editor._on_set_to_now(None)
-    assert int(date_time_editor.hour) == now.hour or int(date_time_editor.hour) == now.hour - 1
-    assert int(date_time_editor.minute) == now.minute or int(date_time_editor.minute) == now.minute - 1
-    assert now.second <= int(date_time_editor.second) <= now.second + 20
+    assert date_time_editor.second == 0
 
 
 def test_update_date_time(date_time_editor, view_model):

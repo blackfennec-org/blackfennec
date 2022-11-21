@@ -7,10 +7,10 @@
       <object class="GtkBox">
         <property name="orientation">horizontal</property>
         <child>
-          <object class="GtkEntry" id="_hour">
+          <object class="GtkEntry" id="_hour_entry">
             <property name="input-purpose">digits</property>
             <property name="tooltip-text" translatable="true">Hour digits</property>
-            <signal name="changed" handler="_on_hour_changed"/>
+            <signal name="changed" handler="_on_time_changed"/>
             <property name="overwrite-mode">true</property>
             <property name="xalign">0.5</property>
             <property name="valign">center</property>
@@ -33,10 +33,10 @@
           </object>
         </child>
         <child>
-          <object class="GtkEntry" id="_minute">
+          <object class="GtkEntry" id="_minute_entry">
             <property name="input-purpose">digits</property>
             <property name="tooltip-text" translatable="true">Minute digits</property>
-            <signal name="changed" handler="_on_minute_changed"/>
+            <signal name="changed" handler="_on_time_changed"/>
             <property name="overwrite-mode">true</property>
             <property name="xalign">0.5</property>
             <property name="valign">center</property>
@@ -59,10 +59,10 @@
           </object>
         </child>
         <child>
-          <object class="GtkEntry" id="_second">
+          <object class="GtkEntry" id="_second_entry">
             <property name="input-purpose">digits</property>
             <property name="tooltip-text" translatable="true">Second digits</property>
-            <signal name="changed" handler="_on_second_changed"/>
+            <signal name="changed" handler="_on_time_changed"/>
             <property name="overwrite-mode">true</property>
             <property name="xalign">0.5</property>
             <property name="valign">center</property>
