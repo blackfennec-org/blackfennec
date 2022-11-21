@@ -28,14 +28,20 @@ class NumberView(Adw.Bin):
         self._view_model = view_model
         self._view_model.bind(changed=self._update_value)
 
-        self._value.set_text(str(self._view_model.number.value))
+        self._update_value(
+            self,
+            ChangeNotification(0, self._view_model.number.value)
+        )
         logger.info(
             'NumberView with text: "%s" created', self._view_model.number.value)
 
     @Gtk.Template.Callback()
     def _on_text_changed(self, unused_sender):
         text = self._value.get_text()
-        digits_string = ''.join([i for i in text if i in '0123456789.,eE-+'])
+        digits_string = ''.join(
+            [i for i in text if i in '0123456789.,eE-+'])
+        if str(self._view_model.number.value) == digits_string:
+            return
         try:
             if not float(digits_string).is_integer():
                 self._view_model.number.value = float(digits_string)
@@ -62,5 +68,5 @@ class NumberView(Adw.Bin):
 
     def _update_value(self, unused_sender, notification: ChangeNotification):
         text = self._value.get_text()
-        if text != notification.new_value:
+        if text != str(notification.new_value):
             self._value.set_text(str(notification.new_value))
