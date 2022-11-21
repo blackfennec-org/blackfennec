@@ -16,8 +16,8 @@ def test_can_resolve(layer):
     target = StringMock('test')
     subject = ReferenceMock(resolve_return=target)
     reference_encapsulation_base = ReferenceEncapsulationBase(
-        layer,
-        subject
+        layer=layer,
+        subject=subject
     )
     reference_encapsulation_base.resolve()
     assert subject.resolve_count == 1

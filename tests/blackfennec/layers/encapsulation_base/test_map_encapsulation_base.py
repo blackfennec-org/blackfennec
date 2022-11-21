@@ -28,7 +28,7 @@ def subject():
 
 @pytest.fixture
 def map_encapsulation_base(layer, subject) -> MapEncapsulationBase:
-    return MapEncapsulationBase(layer, subject)
+    return MapEncapsulationBase(layer=layer, subject=subject)
 
 
 def test_can_construct(map_encapsulation_base):
@@ -50,7 +50,7 @@ def test_add_item_item_already_encapsulated(map_encapsulation_base, layer):
     key = 'test'
     value = StringMock('test_value')
     type_class = _create_generic_class(EncapsulationBase)
-    encapsulated = type_class(layer, value)
+    encapsulated = type_class(layer=layer, subject=value)
     map_encapsulation_base.add_item(key, encapsulated)
     assert value == map_encapsulation_base.subject.value[key]
 
@@ -61,8 +61,8 @@ def test_get_value(layer):
     expected = StringMock('test')
     layer.returns = expected
     map_encapsulation_base = MapEncapsulationBase(
-        layer,
-        subject
+        layer=layer,
+        subject=subject
     )
     value = map_encapsulation_base.value
     assert {key: expected} == value

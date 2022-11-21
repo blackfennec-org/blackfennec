@@ -18,17 +18,8 @@ class ListEncapsulationBase(EncapsulationBase, List):
         in order to stay in the encapsulation layer.
     """
 
-    def __init__(
-            self,
-            layer: 'BaseFactoryVisitor',
-            subject: List,
-    ):
-        List.__init__(self)
-        EncapsulationBase.__init__(
-            self,
-            layer,
-            subject
-        )
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
 
     @property
     def subject(self) -> List:

@@ -13,17 +13,8 @@ logger = logging.getLogger(__name__)
 class MapEncapsulationBase(EncapsulationBase, Map):
     """Base Class for Encapsulation of a Map."""
 
-    def __init__(
-            self,
-            visitor: 'BaseFactoryVisitor',
-            subject: Map,
-    ):
-        EncapsulationBase.__init__(
-            self,
-            visitor,
-            subject
-        )
-        Map.__init__(self)
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
 
     @property
     def subject(self) -> Map:

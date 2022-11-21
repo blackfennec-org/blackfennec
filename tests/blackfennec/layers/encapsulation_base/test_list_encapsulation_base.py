@@ -26,7 +26,7 @@ def subject():
 
 @pytest.fixture
 def list_encapsulation_base(layer, subject) -> ListEncapsulationBase:
-    return ListEncapsulationBase(layer, subject)
+    return ListEncapsulationBase(layer=layer, subject=subject)
 
 
 def test_can_construct(list_encapsulation_base):
@@ -46,7 +46,7 @@ def test_add_item_item(list_encapsulation_base):
 def test_add_item_item_already_encapsulated(list_encapsulation_base, layer):
     value = StringMock('test_value')
     type_class = _create_generic_class(EncapsulationBase)
-    encapsulated = type_class(layer, value)
+    encapsulated = type_class(layer=layer, subject=value)
     list_encapsulation_base.add_item(encapsulated)
     assert value in list_encapsulation_base.subject.value
 
@@ -56,8 +56,8 @@ def test_get_value(layer):
     element = StringMock('test')
     layer.returns = element
     list_encapsulation_base = ListEncapsulationBase(
-        layer,
-        subject
+        layer=layer,
+        subject=subject
     )
     value = list_encapsulation_base.value
     assert [element] == value
@@ -77,8 +77,8 @@ def test_remove_item(layer):
     value = StringMock('test_value')
     subject = List([value])
     list_type: Optional[ListEncapsulationBase] = ListEncapsulationBase(
-        layer,
-        subject
+        layer=layer,
+        subject=subject
     )
     list_type.remove_item(value)
     assert len(subject.value) == 0
@@ -88,11 +88,11 @@ def test_remove_encapsulated_item(layer):
     value = StringMock('test_value')
     subject = List([value])
     list_type = ListEncapsulationBase(
-        layer,
-        subject
+        layer=layer,
+        subject=subject
     )
     type_class = _create_generic_class(EncapsulationBase)
-    encapsulated = type_class(layer, value)
+    encapsulated = type_class(layer=layer, subject=value)
     list_type.remove_item(encapsulated)
     assert len(subject.value) == 0
 

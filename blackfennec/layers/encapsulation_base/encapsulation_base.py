@@ -21,8 +21,7 @@ class EncapsulationBase(Structure, ChangeNotificationDispatchMixin):
                 to encapsulate parent/root
             subject (Structure): subject that gets encapsulated
         """
-        Structure.__init__(self)
-        ChangeNotificationDispatchMixin.__init__(self)
+        super().__init__()
 
         self._layer = layer
         self._subject = subject

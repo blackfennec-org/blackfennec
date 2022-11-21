@@ -9,8 +9,8 @@ class ReferenceEncapsulationBase(EncapsulationBase):
     This class is used to provide a reference implementation of the
     EncapsulationBase class."""
 
-    def __init__(self, visitor: 'BaseFactoryVisitor', subject: Reference):
-        EncapsulationBase.__init__(self, visitor, subject)
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
 
     def resolve(self):
         target = self._subject.resolve()

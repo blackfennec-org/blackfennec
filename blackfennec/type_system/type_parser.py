@@ -31,8 +31,8 @@ class TypeParser:
         super = structure.value["super"]
         if super.value is None:
             return structure
-        merged_super = cls._merge_super(super)
-        return DeepMerge.merge(underlay=merged_super, overlay=structure)
+        #merged_super = cls._merge_super(super)
+        return DeepMerge.merge(underlay=super, overlay=structure)
 
     @classmethod
     def _get_core_type(cls, structure: Map):

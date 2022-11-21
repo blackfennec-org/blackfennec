@@ -46,16 +46,16 @@ class BaseFactoryVisitor(Visitor[T]):
         self.layer_base_class = layer_base_class
 
     def visit_structure(self, subject: Structure) -> T:
-        return self._create_generic_instance(subject)
+        return self._create_generic_instance(subject=subject)
 
     def visit_string(self, subject: String) -> T:
-        return self._create_generic_instance(subject)
+        return self._create_generic_instance(subject=subject)
 
     def visit_number(self, subject: Number) -> T:
-        return self._create_generic_instance(subject)
+        return self._create_generic_instance(subject=subject)
 
     def visit_boolean(self, subject: Boolean) -> T:
-        return self._create_generic_instance(subject)
+        return self._create_generic_instance(subject=subject)
 
     def visit_reference(self, subject: Reference) -> T:
         ReferenceEncapsulationClass = \
@@ -63,10 +63,10 @@ class BaseFactoryVisitor(Visitor[T]):
                 ReferenceEncapsulationBase,
                 self.layer_base_class
             )
-        return ReferenceEncapsulationClass(self._layer, subject)
+        return ReferenceEncapsulationClass(layer=self._layer, subject=subject)
 
     def visit_null(self, subject: Null) -> T:
-        return self._create_generic_instance(subject)
+        return self._create_generic_instance(subject=subject)
 
     def visit_list(self, subject: List) -> T:
         ListEncapsulationClass = \
@@ -74,7 +74,7 @@ class BaseFactoryVisitor(Visitor[T]):
                 ListEncapsulationBase,
                 self.layer_base_class
             )
-        return ListEncapsulationClass(self._layer, subject)
+        return ListEncapsulationClass(layer=self._layer, subject=subject)
 
     def visit_map(self, subject: Map) -> T:
         MapEncapsulationClass = \
@@ -82,11 +82,11 @@ class BaseFactoryVisitor(Visitor[T]):
                 MapEncapsulationBase,
                 self.layer_base_class
             )
-        return MapEncapsulationClass(self._layer, subject)
+        return MapEncapsulationClass(layer=self._layer, subject=subject)
 
     def _create_generic_instance(self, subject: Structure):
         GenericClass = _create_generic_class(self.layer_base_class)
-        return GenericClass(self._layer, subject)
+        return GenericClass(layer=self._layer, subject=subject)
 
 
 @lru_cache(maxsize=8, typed=True)
@@ -95,9 +95,8 @@ def _create_generic_encapsulation_class(
         layer_base_class
 ):
     class GenericCollectionClass(encapsulation_base_class, layer_base_class):
-        def __init__(self, layer, subject):
-            encapsulation_base_class.__init__(self, layer, subject)
-            layer_base_class.__init__(self, layer, subject)
+        def __init__(self, **kwargs):
+            super().__init__(**kwargs)
 
     return GenericCollectionClass
 
@@ -108,7 +107,7 @@ def _create_generic_class(layer_base_class):
         work properly with a class_method."""
 
     class GenericClass(layer_base_class):
-        def __init__(self, layer, subject):
-            layer_base_class.__init__(self, layer, subject)
+        def __init__(self, **kwargs):
+            super().__init__(**kwargs)
 
     return GenericClass
