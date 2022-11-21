@@ -10,8 +10,5 @@ class StringMock(StructureMock):
     def accept(self, visitor):
         return visitor.visit_string(self)
 
-    def __eq__(self, other):
-        return (self.value, self.parent) == (other.value, other.parent)
-
     def __str__(self):
         return self._value

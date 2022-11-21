@@ -34,7 +34,7 @@ class BaseFactoryVisitor(Visitor[T]):
         function are present for all existing core types.
     """
 
-    def __init__(self, layer_base_class):
+    def __init__(self, layer, layer_base_class):
         """Constructor of BaseFactoryVisitor
 
         Args:
@@ -42,6 +42,7 @@ class BaseFactoryVisitor(Visitor[T]):
                 the visitor base, meaning that all instantiated classes
                 will include this base class via multi-inheritance.
         """
+        self._layer = layer
         self.layer_base_class = layer_base_class
 
     def visit_structure(self, subject: Structure) -> T:
@@ -62,7 +63,7 @@ class BaseFactoryVisitor(Visitor[T]):
                 ReferenceEncapsulationBase,
                 self.layer_base_class
             )
-        return ReferenceEncapsulationClass(self, subject)
+        return ReferenceEncapsulationClass(self._layer, subject)
 
     def visit_null(self, subject: Null) -> T:
         return self._create_generic_instance(subject)
@@ -73,7 +74,7 @@ class BaseFactoryVisitor(Visitor[T]):
                 ListEncapsulationBase,
                 self.layer_base_class
             )
-        return ListEncapsulationClass(self, subject)
+        return ListEncapsulationClass(self._layer, subject)
 
     def visit_map(self, subject: Map) -> T:
         MapEncapsulationClass = \
@@ -81,11 +82,11 @@ class BaseFactoryVisitor(Visitor[T]):
                 MapEncapsulationBase,
                 self.layer_base_class
             )
-        return MapEncapsulationClass(self, subject)
+        return MapEncapsulationClass(self._layer, subject)
 
     def _create_generic_instance(self, subject: Structure):
         GenericClass = _create_generic_class(self.layer_base_class)
-        return GenericClass(self, subject)
+        return GenericClass(self._layer, subject)
 
 
 @lru_cache(maxsize=8, typed=True)
@@ -94,9 +95,9 @@ def _create_generic_encapsulation_class(
         layer_base_class
 ):
     class GenericCollectionClass(encapsulation_base_class, layer_base_class):
-        def __init__(self, visitor, subject):
-            encapsulation_base_class.__init__(self, visitor, subject)
-            layer_base_class.__init__(self, visitor, subject)
+        def __init__(self, layer, subject):
+            encapsulation_base_class.__init__(self, layer, subject)
+            layer_base_class.__init__(self, layer, subject)
 
     return GenericCollectionClass
 
@@ -107,7 +108,7 @@ def _create_generic_class(layer_base_class):
         work properly with a class_method."""
 
     class GenericClass(layer_base_class):
-        def __init__(self, visitor, subject):
-            layer_base_class.__init__(self, visitor, subject)
+        def __init__(self, layer, subject):
+            layer_base_class.__init__(self, layer, subject)
 
     return GenericClass

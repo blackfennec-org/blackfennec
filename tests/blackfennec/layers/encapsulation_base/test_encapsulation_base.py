@@ -1,30 +1,22 @@
 # -*- coding: utf-8 -*-
 import unittest
 from ddt import ddt, data, unpack
-from typing import Optional
+
 from tests.test_utils.parameterize import MOCK_CORE_STRUCTURES
-from blackfennec_doubles.structure.double_structure import StructureMock
-from blackfennec_doubles.layers.encapsulation_base.double_factory_base_visitor import FactoryBaseVisitorMock
+from blackfennec_doubles.layers.double_layer import LayerMock
 from blackfennec.layers.encapsulation_base.encapsulation_base import EncapsulationBase
 
 
 @ddt
 class EncapsulationBaseTestSuite(unittest.TestCase):
     def _setUp(self, parent, root, subject):
-        self.visitor = FactoryBaseVisitorMock()
+        self.layer = LayerMock()
         self.parent = parent
         self.root = root
         self.subject = subject
         self.subject.parent = parent
         self.subject.root = root
-        self.encapsulation_base: EncapsulationBase = EncapsulationBase(self.visitor, self.subject)
-
-    def tearDown(self):
-        self.visitor = None
-        self.parent = None
-        self.root = None
-        self.subject = None
-        self.encapsulation_base = None
+        self.encapsulation_base: EncapsulationBase = EncapsulationBase(self.layer, self.subject)
 
     @data(*zip(MOCK_CORE_STRUCTURES, MOCK_CORE_STRUCTURES, MOCK_CORE_STRUCTURES))
     def test_subject_getter(self, data):
@@ -35,7 +27,7 @@ class EncapsulationBaseTestSuite(unittest.TestCase):
     def test_parent_getter(self, data):
         self._setUp(*data)
         self.encapsulation_base.parent
-        count, subject = self.visitor.get_stats(self.subject.type_name)
+        count, subject = self.layer.get_stats(self.subject)
         self.assertEqual(subject, self.parent)
         self.assertEqual(count, 1)
 
@@ -52,6 +44,6 @@ class EncapsulationBaseTestSuite(unittest.TestCase):
         self._setUp(*data)
         self.encapsulation_base.root
 
-        count, subject = self.visitor.get_stats(self.subject.type_name)
+        count, subject = self.layer.get_stats(self.subject)
         self.assertEqual(subject, self.root)
         self.assertEqual(count, 1)

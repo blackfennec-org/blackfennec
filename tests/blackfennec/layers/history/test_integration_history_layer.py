@@ -3,10 +3,8 @@ import string
 from enum import Enum
 
 import pytest
-from pytest_lazyfixture import lazy_fixture
 
-from blackfennec.layers.overlay.overlay_factory_visitor import \
-    OverlayFactoryVisitor
+from blackfennec.layers.overlay.overlay import Overlay
 from blackfennec.structure.map import Map
 from blackfennec.structure.list import List
 from blackfennec.structure.string import String
@@ -14,8 +12,7 @@ from blackfennec.structure.number import Number
 from blackfennec.structure.boolean import Boolean
 
 from blackfennec.layers.history.history import History
-from blackfennec.layers.history.history_factory_visitor import \
-    HistoryFactoryVisitor
+from blackfennec.layers.history.recording import RecordingLayer
 
 pytestmark = pytest.mark.integration
 
@@ -37,8 +34,8 @@ def history():
 
 
 @pytest.fixture
-def visitor(history):
-    return HistoryFactoryVisitor(history)
+def recording(history):
+    return RecordingLayer(history)
 
 
 @pytest.fixture
@@ -47,8 +44,8 @@ def layer(historized, request):
 
 
 @pytest.fixture
-def historized(structure, visitor):
-    return structure.accept(visitor)
+def historized(structure, recording):
+    return recording.apply(structure)
 
 
 def test_can_create_layer(historized):
@@ -104,7 +101,7 @@ SCENARIOS = [
 
 LAYERS = [
     (lambda s: s),
-    (lambda s: s.accept(OverlayFactoryVisitor())),
+    (lambda s: Overlay().apply(s)),
 ]
 
 
@@ -168,18 +165,13 @@ def test_can_undo_redo_on_map(history, layer, scenario):
 
     assert layer.value["map"].structure.value == result
 
-
-def test_can_undo_redo_on_top_level_map(history, historized):
-    result1 = historized.structure.value
-    historized.add_item("number", Number(1337))
-    result2 = historized.structure.value
-    historized.remove_item("number")
+@pytest.mark.parametrize('layer', LAYERS, indirect=True)
+def test_can_undo_redo_on_top_level_map(history, layer):
+    result1 = layer.structure.value
+    layer.add_item("number", Number(1337))
+    result2 = layer.structure.value
+    layer.remove_item("number")
     history.undo()
-    assert historized.structure.value == result2
+    assert layer.structure.value == result2
     history.undo()
-    assert historized.structure.value == result1
-
-
-def test_can_undo_redo_on_overlayed_top_level_map(history, historized):
-    overlay = historized.accept(OverlayFactoryVisitor())
-    test_can_undo_redo_on_top_level_map(history, overlay)
+    assert layer.structure.value == result1

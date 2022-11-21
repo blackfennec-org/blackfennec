@@ -5,10 +5,5 @@ from .history_base import HistoryBase
 from .history import History
 
 class HistoryFactoryVisitor(BaseFactoryVisitor):
-    def __init__(self, history: History):
-        BaseFactoryVisitor.__init__(self, HistoryBase)
-        self._history = history
-
-    @property
-    def history(self) -> History:
-        return self._history
+    def __init__(self, layer):
+        BaseFactoryVisitor.__init__(self, layer, HistoryBase)

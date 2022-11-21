@@ -1,17 +1,17 @@
 from pathlib import Path
 from .type_parser import TypeParser
-from blackfennec.layers.overlay.overlay_factory_visitor import OverlayFactoryVisitor
+from blackfennec.layers.overlay.overlay import Overlay
 
 
 class TypeLoader:
     def __init__(self, document_factory, type_registry):
         self._document_factory = document_factory
-        self._visitors = [OverlayFactoryVisitor()]
+        self._layers = [Overlay()]
         self._type_registry = type_registry
 
     def _apply_layers(self, structure):
-        for visitor in self._visitors:
-            structure = structure.accept(visitor)
+        for layer in self._layers:
+            structure = layer.apply(structure)
         return structure
 
     def load(self, absolute_path: str):

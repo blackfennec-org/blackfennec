@@ -9,8 +9,8 @@ logger = logging.getLogger(__name__)
 class OverlayBase(EncapsulationBase):
     """Base Class for Overlay of any Structure."""
 
-    def __init__(self, visitor, subject):
-        EncapsulationBase.__init__(self, visitor, subject)
+    def __init__(self, layer, subject):
+        EncapsulationBase.__init__(self, layer, subject)
 
     def __repr__(self):
         return f'OverlayBase({self.subject.__repr__()})'

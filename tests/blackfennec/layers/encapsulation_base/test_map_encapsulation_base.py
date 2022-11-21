@@ -5,22 +5,20 @@ import pytest
 
 from blackfennec_doubles.structure.double_structure import StructureMock
 from blackfennec_doubles.structure.double_string import StringMock
-from blackfennec_doubles.layers.encapsulation_base.double_factory_base_visitor import \
-    FactoryBaseVisitorMock
+from blackfennec_doubles.layers.double_layer import LayerMock
 from blackfennec.layers.encapsulation_base.encapsulation_base import \
     EncapsulationBase
 from blackfennec.layers.encapsulation_base.map_encapsulation_base import \
     MapEncapsulationBase
 from blackfennec.layers.encapsulation_base.base_factory_visitor import \
     _create_generic_class
-from blackfennec.structure.structure import Structure
 from blackfennec.structure.map import Map
 from tests.test_utils.observer import Observer
 
 
 @pytest.fixture
-def visitor():
-    return FactoryBaseVisitorMock()
+def layer():
+    return LayerMock()
 
 
 @pytest.fixture
@@ -29,8 +27,8 @@ def subject():
 
 
 @pytest.fixture
-def map_encapsulation_base(visitor, subject) -> MapEncapsulationBase:
-    return MapEncapsulationBase(visitor, subject)
+def map_encapsulation_base(layer, subject) -> MapEncapsulationBase:
+    return MapEncapsulationBase(layer, subject)
 
 
 def test_can_construct(map_encapsulation_base):
@@ -48,25 +46,26 @@ def test_add_item_item(map_encapsulation_base):
     assert value == map_encapsulation_base.subject.value[key]
 
 
-def test_add_item_item_already_encapsulated(map_encapsulation_base, visitor):
+def test_add_item_item_already_encapsulated(map_encapsulation_base, layer):
     key = 'test'
     value = StringMock('test_value')
     type_class = _create_generic_class(EncapsulationBase)
-    encapsulated = type_class(visitor, value)
+    encapsulated = type_class(layer, value)
     map_encapsulation_base.add_item(key, encapsulated)
     assert value == map_encapsulation_base.subject.value[key]
 
 
-def test_get_value(visitor):
+def test_get_value(layer):
     key = 'test'
-    subject_content = StringMock('test')
-    subject = Map({key: subject_content})
+    subject = Map({key: StringMock('test')})
+    expected = StringMock('test')
+    layer.returns = expected
     map_encapsulation_base = MapEncapsulationBase(
-        visitor,
+        layer,
         subject
     )
     value = map_encapsulation_base.value
-    assert subject_content == value[key]
+    assert {key: expected} == value
 
 
 def test_can_get_value_empty(map_encapsulation_base):
@@ -80,7 +79,7 @@ def test_set_value(map_encapsulation_base):
     assert value == map_encapsulation_base.subject.value[key]
 
 
-def test_remove_item(map_encapsulation_base, visitor, subject):
+def test_remove_item(map_encapsulation_base, subject):
     key = 'test'
     value = StringMock('test')
     subject.add_item(key, value)
@@ -96,18 +95,18 @@ def test_remove_item_not_in_map(map_encapsulation_base):
 
 def test_dispatch_change_notification(
         map_encapsulation_base,
-        visitor,
+        layer,
         subject
 ):
     key = 'test'
     observer = Observer()
     map_encapsulation_base.bind(changed=observer.endpoint)
-
-    map_encapsulation_base.add_item(key, StringMock('test'))
+    item = StringMock('test')
+    map_encapsulation_base.add_item(key, item)
 
     assert observer.last_call[0][0] == subject
-    assert visitor.visit_string_count == 1
+    assert layer.get_stats(item)[0] == 1
 
-    def test_can_get_repr(map_encapsulation_base):
-        representation: str = map_encapsulation_base.__repr__()
-        assert representation.startswith('MapEncapsulationBase(')
+def test_can_get_repr(map_encapsulation_base):
+    representation: str = map_encapsulation_base.__repr__()
+    assert representation.startswith('MapEncapsulationBase(')

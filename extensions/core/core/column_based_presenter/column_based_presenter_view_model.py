@@ -2,16 +2,14 @@
 import logging
 
 from blackfennec.layers.history.history import History
-from blackfennec.layers.history.history_factory_visitor import \
-    HistoryFactoryVisitor
+from blackfennec.layers.history.recording import RecordingLayer
 from blackfennec.structure.structure import Structure
 from blackfennec.interpretation.interpretation import Interpretation
 from blackfennec.interpretation.interpretation_service import \
     InterpretationService
 from blackfennec.interpretation.specification import Specification
 from blackfennec.navigation.navigation_service import NavigationService
-from blackfennec.layers.overlay.overlay_factory_visitor import \
-    OverlayFactoryVisitor
+from blackfennec.layers.overlay.overlay import Overlay
 from blackfennec.util.observable import Observable
 
 logger = logging.getLogger(__name__)
@@ -58,10 +56,10 @@ class ColumnBasedPresenterViewModel(Observable):
             self,
             structure: Structure
     ):
-        history_visitor = HistoryFactoryVisitor(self._history)
-        historizable = structure.accept(history_visitor)
-        overlay_visitor = OverlayFactoryVisitor()
-        overlay = historizable.accept(overlay_visitor)
+        recording_layer = RecordingLayer(self._history)
+        historizable = recording_layer.apply(structure)
+        overlay_layer = Overlay()
+        overlay = overlay_layer.apply(historizable)
         self.show(None, overlay)
 
     def show(

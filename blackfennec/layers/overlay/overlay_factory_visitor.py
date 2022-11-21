@@ -20,12 +20,13 @@ class OverlayFactoryVisitor(BaseFactoryVisitor):
         structure types the abstract factory implementation suffices.
     """
 
-    def __init__(self):
-        BaseFactoryVisitor.__init__(self, OverlayBase)
+    def __init__(self, layer):
+        BaseFactoryVisitor.__init__(self, layer, OverlayBase)
 
     def visit_reference(self, subject_reference: Reference) -> Structure:
         try:
-            return subject_reference.resolve().accept(self)
+            target = subject_reference.resolve()
+            return self._layer.apply(target)
         except Exception:
             message = f'An unknown exception has been ignored:\n{traceback.format_exc()}'
             logger.warning(message)

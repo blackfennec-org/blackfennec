@@ -20,13 +20,13 @@ class ListEncapsulationBase(EncapsulationBase, List):
 
     def __init__(
             self,
-            visitor: 'BaseFactoryVisitor',
+            layer: 'BaseFactoryVisitor',
             subject: List,
     ):
         List.__init__(self)
         EncapsulationBase.__init__(
             self,
-            visitor,
+            layer,
             subject
         )
 
@@ -36,7 +36,7 @@ class ListEncapsulationBase(EncapsulationBase, List):
 
     @property
     def value(self):
-        return [item.accept(self._visitor) for item in self.subject.value]
+        return [self._encapsulate(item) for item in self.subject.value]
 
     @value.setter
     def value(self, value):
@@ -71,10 +71,9 @@ class ListEncapsulationBase(EncapsulationBase, List):
             sender,
             notification: ChangeNotification
     ):
-        sender = sender or self
         encapsulated_notification = ChangeNotification(
-            [item.accept(self._visitor) for item in notification.old_value],
-            [item.accept(self._visitor) for item in notification.new_value],
+            [self._encapsulate(item) for item in notification.old_value],
+            [self._encapsulate(item) for item in notification.new_value],
         )
         super()._dispatch_change_notification(sender, encapsulated_notification)
 

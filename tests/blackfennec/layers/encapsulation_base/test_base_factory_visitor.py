@@ -1,6 +1,5 @@
 import unittest
 from ddt import ddt, data
-from typing import Optional
 
 from tests.test_utils.parameterize import MOCK_CORE_STRUCTURES
 from tests.test_utils.what_the_farmer_does_not_eat_visitor_factory import WhatTheFarmerDoesNotEatVisitorFactory
@@ -10,7 +9,6 @@ from blackfennec_doubles.structure.double_list import ListMock
 from blackfennec_doubles.structure.double_map import MapMock
 from blackfennec_doubles.structure.double_number import NumberMock
 from blackfennec_doubles.structure.double_reference import ReferenceMock
-from blackfennec_doubles.structure.double_root import RootMock
 from blackfennec_doubles.structure.double_string import StringMock
 from blackfennec.layers.encapsulation_base.base_factory_visitor import BaseFactoryVisitor
 from blackfennec.layers.encapsulation_base.encapsulation_base import EncapsulationBase
@@ -21,10 +19,7 @@ from blackfennec.layers.encapsulation_base.map_encapsulation_base import MapEnca
 @ddt
 class BaseFactoryVisitorTestSuite(unittest.TestCase):
     def setUp(self):
-        self.visitor: Optional[BaseFactoryVisitor] = BaseFactoryVisitor(EncapsulationBase)
-
-    def tearDown(self) -> None:
-        self.visitor: Optional[BaseFactoryVisitor] = None
+        self.visitor = BaseFactoryVisitor(None, EncapsulationBase)
 
     def test_can_construct(self):
         pass

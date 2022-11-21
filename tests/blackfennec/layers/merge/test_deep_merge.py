@@ -7,7 +7,7 @@ from blackfennec.structure.structure_serializer import StructureSerializer
 from blackfennec.layers.merge.deep_merge import DeepMerge
 from blackfennec.structure.null import Null
 from blackfennec.layers.merge.merged_null import MergedNull
-from blackfennec.layers.overlay.overlay_factory_visitor import OverlayFactoryVisitor
+from blackfennec.layers.overlay.overlay import Overlay
 
 from blackfennec.structure.map import Map
 from blackfennec.structure.reference import Reference
@@ -16,6 +16,8 @@ from blackfennec.structure.string import String
 from blackfennec.structure.reference_navigation.parent_navigator import ParentNavigator
 from blackfennec.structure.reference_navigation.child_navigator import ChildNavigator
 
+
+pytestmark = pytest.mark.integration
 
 @pytest.fixture
 def parser():
@@ -138,8 +140,8 @@ def test_merge_with_overlay():
             "2": String("value"),
         })
     })
-    visitor = OverlayFactoryVisitor()
-    overlay = map.accept(visitor)
+    layer = Overlay()
+    overlay = layer.apply(map)
     merged = DeepMerge.merge(underlay=overlay.value["a"], overlay=overlay.value["c"])
     assert merged.value["1"].value == "value"
     assert merged.value["2"].value == "value"
@@ -154,8 +156,9 @@ def test_merge_merged_overlay():
         "c": Map({
         })
     })
-    visitor = OverlayFactoryVisitor()
-    resolved = map.accept(visitor)
+
+    layer = Overlay()
+    resolved = layer.apply(map)
     overlay = DeepMerge.merge(underlay=resolved.value["a"], overlay=resolved.value["c"])
 
     map = Map({
@@ -167,8 +170,8 @@ def test_merge_merged_overlay():
             "2": String("underlay"),
         })
     })
-    visitor = OverlayFactoryVisitor()
-    resolved = map.accept(visitor)
+    layer = Overlay()
+    resolved = layer.apply(map)
     underlay = DeepMerge.merge(underlay=resolved.value["a"], overlay=resolved.value["c"])
 
     merged = DeepMerge.merge(underlay=underlay, overlay=overlay)

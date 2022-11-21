@@ -32,7 +32,7 @@ class MapEncapsulationBase(EncapsulationBase, Map):
     @property
     def value(self):
         return {
-            key: item.accept(self._visitor)
+            key: self._encapsulate(item)
             for key, item in self.subject.value.items()
         }
 
@@ -52,14 +52,13 @@ class MapEncapsulationBase(EncapsulationBase, Map):
 
     def _dispatch_change_notification(self, sender,
                                       notification: ChangeNotification):
-        sender = sender or self
         encapsulated_notification = ChangeNotification(
             {
-                key: item.accept(self._visitor)
+                key: self._encapsulate(item)
                 for key, item in notification.old_value.items()
             },
             {
-                key: item.accept(self._visitor)
+                key: self._encapsulate(item)
                 for key, item in notification.new_value.items()
             },
         )

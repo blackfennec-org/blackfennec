@@ -6,14 +6,14 @@ from blackfennec_doubles.layers.history.double_history_factory_visitor import Hi
 
 def test_can_construct():
     assert HistoryBase(
-        visitor=None,
+        layer=None,
         subject=Observable())
 
 def test_does_append_to_history():
     hfv = HistoryFactoryVisitorMock()
     subject = Observable()
     hb = HistoryBase(
-        visitor=hfv,
+        layer=hfv,
         subject=subject)
     subject._notify('changed', ChangeNotification(None, None))
     assert len(hfv.history.history) == 1

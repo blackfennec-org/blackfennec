@@ -13,18 +13,18 @@ class EncapsulationBase(Structure, ChangeNotificationDispatchMixin):
 
     """
 
-    def __init__(self, visitor: 'BaseFactoryVisitor', subject: Structure):
+    def __init__(self, layer, subject: Structure):
         """Constructor for EncapsulationBase
 
         Args:
-            visitor (BaseFactoryVisitor): visitor/abstract visitor used
+            layer: visitor/abstract visitor used
                 to encapsulate parent/root
             subject (Structure): subject that gets encapsulated
         """
         Structure.__init__(self)
         ChangeNotificationDispatchMixin.__init__(self)
 
-        self._visitor = visitor
+        self._layer = layer
         self._subject = subject
         self._subject.bind(changed=self._dispatch_change_notification)
 
@@ -107,7 +107,7 @@ class EncapsulationBase(Structure, ChangeNotificationDispatchMixin):
             Structure: subject of passed item, if item
                 is encapsulated.
         """
-        return subject.accept(self._visitor)
+        return self._layer.apply(subject)
 
     def bind(self, **kwargs):
         assert list(kwargs.keys()) == [

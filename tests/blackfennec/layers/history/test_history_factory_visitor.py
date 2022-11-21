@@ -15,6 +15,3 @@ def visitor(history):
 
 def test_can_construct(visitor):
     assert visitor
-
-def test_can_access_history(history, visitor):
-    assert visitor.history is history

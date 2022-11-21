@@ -13,4 +13,5 @@ class ReferenceEncapsulationBase(EncapsulationBase):
         EncapsulationBase.__init__(self, visitor, subject)
 
     def resolve(self):
-        return self.subject.resolve().accept(self._visitor)
+        target = self._subject.resolve()
+        return self._encapsulate(target)
