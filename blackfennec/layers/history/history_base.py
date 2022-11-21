@@ -7,11 +7,9 @@ from blackfennec.util.change_notification import ChangeNotification
 
 
 class HistoryBase(EncapsulationBase):
-    def __init__(self,
-            layer: 'RecordingLayer',
-            subject: Structure):
-        EncapsulationBase.__init__(self, layer, subject)
-        subject.bind(changed=self._on_value_change)
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self._subject.bind(changed=self._on_value_change)
 
     def _on_value_change(self, sender, notification: ChangeNotification):
         entry = HistoryEntry(sender, 

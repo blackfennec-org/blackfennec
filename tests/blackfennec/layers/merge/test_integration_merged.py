@@ -1,11 +1,10 @@
 import pytest
 
-from blackfennec_doubles.structure.double_reference import ReferenceMock
 from blackfennec.structure.map import Map
-from blackfennec.layers.merge.deep_merge import DeepMerge
+from blackfennec.structure.list import List
+from blackfennec.layers.merge.merged_layer import MergedLayer
 from blackfennec.layers.merge.merged_structure import MergedStructure
 from blackfennec.structure.null import Null
-from blackfennec.layers.overlay.overlay_factory_visitor import OverlayFactoryVisitor
 from blackfennec.structure.reference import Reference
 from blackfennec.structure.string import String
 from tests.test_utils.parameterize import CORE_STRUCTURES
@@ -22,21 +21,21 @@ pytestmark = pytest.mark.integration
     ]
 )
 def test_merged_map_null_property(underlay, overlay):
-    merged = DeepMerge.merge(underlay, overlay)
+    merged = MergedLayer().apply(underlay, overlay)
     assert merged.value["foo"].value is None
 
 
 @pytest.mark.parametrize(
     "underlay, overlay",
     [
-        (MergedStructure(String("foo"), Null()), MergedStructure(String("foo"), Null())),
-        (MergedStructure(Null(), String("foo")), MergedStructure(String("foo"), Null())),
-        (MergedStructure(String("foo"), Null()), MergedStructure(Null(), String("foo"))),
-        (MergedStructure(Null(), String("foo")), MergedStructure(Null(), String("foo"))),
+        (MergedStructure(None, String("foo"), Null()), MergedStructure(None, String("foo"), Null())),
+        (MergedStructure(None, Null(), String("foo")), MergedStructure(None, String("foo"), Null())),
+        (MergedStructure(None, String("foo"), Null()), MergedStructure(None, Null(), String("foo"))),
+        (MergedStructure(None, Null(), String("foo")), MergedStructure(None, Null(), String("foo"))),
     ]
 )
 def test_merge_two_merged_maps_with_null_properties(underlay, overlay):
-    merged = DeepMerge.merge(underlay, overlay)
+    merged = MergedLayer().apply(underlay, overlay)
     assert merged.value == "foo"
 
 
@@ -47,7 +46,7 @@ def test_merged_parent_is_self():
         })
     })
 
-    merged = DeepMerge.merge(divinetype.value["super"], divinetype)
+    merged = MergedLayer().apply(divinetype.value["super"], divinetype)
     assert merged.parent.structure is merged.structure
 
 
@@ -71,13 +70,13 @@ def map_chain(layer, depth):
     ],
 )
 def test_can_get_parent(underlay, overlay, expected):
-    merged = MergedStructure(underlay, overlay)
+    merged = MergedLayer().apply(underlay, overlay)
     actual = merged.parent.value["layer"].value
     assert actual == expected
 
 
 def test_can_get_parent_if_no_parent():
-    merged = MergedStructure(Null(), Null())
+    merged = MergedStructure(None, Null(), Null())
     assert merged.parent is None
 
 
@@ -92,7 +91,7 @@ def test_can_get_parent_if_no_parent():
     ],
 )
 def test_parent_returns_merged_structure(underlay, overlay, expected_type):
-    merged = MergedStructure(underlay, overlay)
+    merged = MergedLayer().apply(underlay, overlay)
     root = merged.parent or Null()
     assert isinstance(root, expected_type)
 
@@ -110,7 +109,7 @@ def test_parent_returns_merged_structure(underlay, overlay, expected_type):
     ],
 )
 def test_get_root_returns_merged_structure(underlay, overlay):
-    merged = MergedStructure(underlay, overlay)
+    merged = MergedStructure(None, underlay, overlay)
     root = merged.root or Null()
     assert isinstance(root, MergedStructure)
 
@@ -127,7 +126,7 @@ def test_get_root_returns_merged_structure(underlay, overlay):
     ],
 )
 def test_can_get_child_of_root(underlay, overlay, diff, expected):
-    merged = MergedStructure(underlay, overlay)
+    merged = MergedStructure(None, underlay, overlay)
     actual = merged.root
     for i in range(diff):
         actual = actual.value["child"]
@@ -148,7 +147,7 @@ def test_can_get_child_of_root(underlay, overlay, diff, expected):
     ],
 )
 def test_can_get_root(underlay, overlay, expected):
-    merged = MergedStructure(underlay, overlay)
+    merged = MergedStructure(None, underlay, overlay)
     root = merged.root
     if root:
         actual = root.value["layer"].value
@@ -171,9 +170,46 @@ def test_only_merge_with_same_type(underlay, overlay):
     if isinstance(underlay, Reference) or isinstance(overlay, Reference):
         pytest.skip("Reference not implemented yet")
     elif type(underlay) is type(overlay):
-        DeepMerge.merge(underlay, overlay)
+        MergedLayer().apply(underlay, overlay)
     elif isinstance(underlay, Null) or isinstance(overlay, Null):
-        DeepMerge.merge(underlay, overlay)
+        MergedLayer().apply(underlay, overlay)
     else:
         with pytest.raises(TypeError):
-            DeepMerge.merge(underlay, overlay)
+            MergedLayer().apply(underlay, overlay)
+
+
+@pytest.mark.parametrize(
+    "underlay, overlay, expected",
+    [
+        (Null(), Map({"foo": String("bar")}), ("foo", "bar")),
+        (Map(), Map({"foo": String("bar")}), ("foo", "bar")),
+        (Map({"foo": String("bar")}), Null(), ("foo", "bar")),
+        (Map({"foo": String("bar")}), Map(), ("foo", "bar")),
+        (Map({"foo": String("bar")}), Map(
+            {"foo": String("baz")}), ("foo", "baz")),
+        (Map({"foo": String("foz")}), Map(
+            {"bar": String("baz")}), ("foo", "foz")),
+        (Map({"foo": String("foz")}), Map(
+            {"bar": String("baz")}), ("bar", "baz")),
+    ]
+)
+def test_can_get_merged_children(underlay, overlay, expected):
+    t = MergedLayer().apply(underlay, overlay)
+    assert t.value[expected[0]].value == expected[1]
+
+
+
+@pytest.mark.parametrize(
+    "underlay, overlay, expected",
+    [
+        (Null(), List([String("foo")]), (0, "foo")),
+        (List(), List([String("foo")]), (0, "foo")),
+        (List([String("foo")]), Null(), (0, "foo")),
+        (List([String("foo")]), List(), (0, "foo")),
+        (List([String("foo")]), List([String("bar")]), (0, "foo")),
+        (List([String("foo")]), List([String("bar")]), (1, "bar")),
+    ]
+)
+def test_can_get_merged_children(underlay, overlay, expected):
+    t = MergedLayer().apply(underlay, overlay)
+    assert t.value[expected[0]].value == expected[1]

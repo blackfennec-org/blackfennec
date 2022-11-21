@@ -6,4 +6,4 @@ from .history import History
 
 class HistoryFactoryVisitor(BaseFactoryVisitor):
     def __init__(self, layer):
-        BaseFactoryVisitor.__init__(self, layer, HistoryBase)
+        super().__init__(layer=layer, layer_base_class=HistoryBase)

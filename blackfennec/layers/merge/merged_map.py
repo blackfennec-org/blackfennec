@@ -1,5 +1,4 @@
 from blackfennec.structure.structure import Structure
-import blackfennec.layers.merge.deep_merge as deep_merge
 from .merged_structure import MergedStructure
 from .merged_phantom import MergedPhantom
 
@@ -9,8 +8,8 @@ logger = logging.getLogger(__name__)
 
 
 class MergedMap(MergedStructure):
-    def __init__(self, underlay: Structure, overlay: Structure):
-        super().__init__(underlay, overlay)
+    def __init__(self, layer, underlay: Structure, overlay: Structure):
+        super().__init__(layer, underlay, overlay)
 
     def _value_or_empty(self, structure):
         if structure.value is None:

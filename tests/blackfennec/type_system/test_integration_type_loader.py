@@ -2,7 +2,6 @@ import pytest
 
 from blackfennec.structure.list import List
 from blackfennec.structure.map import Map
-from blackfennec.layers.merge.deep_merge import DeepMerge
 from blackfennec.type_system.boolean_type import BooleanType
 from blackfennec.document_system.document_factory import DocumentFactory
 from blackfennec.document_system.document_registry import DocumentRegistry
@@ -37,6 +36,7 @@ from blackfennec.structure.string import String
 from blackfennec.type_system.type_registry import TypeRegistry
 from blackfennec.document_system.resource_type.protocols.bftype_resource_type import BFTypeResourceType
 from blackfennec.document_system.mime_type.in_memory.in_memory_mime_type import InMemoryMimeType
+from blackfennec.layers.merge.merged_layer import MergedLayer
 
 pytestmark = pytest.mark.integration
 
@@ -191,8 +191,8 @@ def test_type_covers_good_instance(type):
 
 @pytest.mark.parametrize(
     "merger",
-    [lambda s: DeepMerge.merge(s, Null()),
-        lambda s: DeepMerge.merge(Null(), s)],
+    [lambda s: MergedLayer().apply(s, Null()),
+        lambda s: MergedLayer().apply(Null(), s)],
     ids=["s_null", "null_s"],
 )
 @pytest.mark.parametrize(

@@ -1,7 +1,6 @@
 from typing import Optional
 from blackfennec.structure.visitor import Visitor
 from blackfennec.structure.structure import Structure
-import blackfennec.layers.merge.deep_merge as deep_merge
 from blackfennec.layers.merge.merged_phantom import MergedPhantom
 from blackfennec.util.intercepting_visitor import InterceptingVisitor
 
@@ -11,10 +10,11 @@ logger = logging.getLogger(__name__)
 
 
 class MergedStructure(Structure):
-    def __init__(self, underlay: Structure, overlay: Structure):
+    def __init__(self, layer, underlay: Structure, overlay: Structure):
         super().__init__()
         assert underlay is not None, "Underlay cannot be None"
         assert overlay is not None, "Overlay cannot be None"
+        self._layer = layer
         self._underlay = underlay
         self._overlay = overlay
 
@@ -68,7 +68,7 @@ class MergedStructure(Structure):
         return self
 
     def _encapsulate(self, underlay: Structure, overlay: Structure) -> 'MergedStructure':
-        return deep_merge.DeepMerge.merge(underlay, overlay)
+        return self._layer.apply(underlay, overlay)
 
     def __repr__(self) -> str:
         return f"MergedStructure(underlay={self._underlay}, overlay={self._overlay})"

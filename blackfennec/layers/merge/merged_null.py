@@ -9,10 +9,10 @@ logger = logging.getLogger(__name__)
 
 
 class MergedNull(MergedStructure):
-    def __init__(self, underlay: Structure, overlay: Structure):
+    def __init__(self, layer, underlay: Structure, overlay: Structure):
         assert isinstance(underlay.structure, Null), f"underlay must be a Null, not {underlay.structure}"
         assert isinstance(overlay.structure, Null), f"overlay must be a Null, not {overlay.structure}"
-        super().__init__(underlay, overlay)
+        super().__init__(layer, underlay, overlay)
 
     @property
     def value(self):

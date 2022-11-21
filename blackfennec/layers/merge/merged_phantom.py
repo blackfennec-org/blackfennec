@@ -34,5 +34,13 @@ class MergedPhantom:
     def __bool__(self):
         return False
 
+    def __eq__(self, other):
+        if not isinstance(other, MergedPhantom):
+            return False
+        return self._twin == other._twin
+
+    def __hash__(self):
+        return hash(self._twin)
+
     def __repr__(self) -> str:
         return f"MergedPhantom(parent={self._parent}, twin={self._twin})"

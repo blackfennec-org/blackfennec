@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from blackfennec.structure.map import Map
-from blackfennec.layers.merge.deep_merge import DeepMerge
 
+from blackfennec.layers.merge.merged_layer import MergedLayer
 import blackfennec.type_system.list_type as list_type
 import blackfennec.type_system.map_type as map_type
 from .reference_type import ReferenceType
@@ -31,8 +31,8 @@ class TypeParser:
         super = structure.value["super"]
         if super.value is None:
             return structure
-        #merged_super = cls._merge_super(super)
-        return DeepMerge.merge(underlay=super, overlay=structure)
+        layer = MergedLayer()
+        return layer.apply(underlay=super, overlay=structure)
 
     @classmethod
     def _get_core_type(cls, structure: Map):

@@ -17,32 +17,40 @@ from .merged_map import MergedMap
 class MergerFactory(Visitor["Merger"]):
     """Create a Merger using the visitor pattern"""
 
+    def __init__(self, layer) -> None:
+        super().__init__()
+        self._layer = layer
+
+    def create(self, overlay: Structure):
+        return overlay.accept(self)
+
     def visit_string(self, overlay: String):
-        return StringMerger(overlay)
+        return StringMerger(self._layer, overlay)
 
     def visit_number(self, overlay: Number):
-        return NumberMerger(overlay)
+        return NumberMerger(self._layer, overlay)
 
     def visit_boolean(self, overlay: Boolean):
-        return BooleanMerger(overlay)
+        return BooleanMerger(self._layer, overlay)
 
     def visit_null(self, overlay: Null):
-        return NullMerger(overlay)
+        return NullMerger(self._layer, overlay)
 
     def visit_list(self, overlay: List):
-        return ListMerger(overlay)
+        return ListMerger(self._layer, overlay)
 
     def visit_map(self, overlay: Map):
-        return MapMerger(overlay)
+        return MapMerger(self._layer, overlay)
 
     def visit_reference(self, overlay: Reference):
         raise TypeError("Cannot merge a reference")
 
 
 class Merger(Visitor[MergedStructure]):
-    def __init__(self, overlay) -> None:
+    def __init__(self, layer, overlay) -> None:
         Visitor.__init__(self)
         self._overlay = overlay
+        self._layer = layer
 
     def merge(self, underlay):
         return underlay.accept(self)
@@ -56,72 +64,72 @@ class Merger(Visitor[MergedStructure]):
 
 
 class StringMerger(Merger):
-    def __init__(self, overlay):
-        Merger.__init__(self, overlay)
+    def __init__(self, layer, overlay):
+        super().__init__(layer, overlay)
 
     def visit_string(self, underlay):
-        return MergedStructure(underlay, self._overlay)
+        return MergedStructure(self._layer, underlay, self._overlay)
 
     def visit_null(self, underlay):
-        return MergedStructure(underlay, self._overlay)
+        return MergedStructure(self._layer, underlay, self._overlay)
 
 
 class NumberMerger(Merger):
-    def __init__(self, overlay):
-        Merger.__init__(self, overlay)
+    def __init__(self, layer, overlay):
+        super().__init__(layer, overlay)
 
     def visit_number(self, underlay):
-        return MergedStructure(underlay, self._overlay)
+        return MergedStructure(self._layer, underlay, self._overlay)
 
     def visit_null(self, underlay):
-        return MergedStructure(underlay, self._overlay)
+        return MergedStructure(self._layer, underlay, self._overlay)
 
 
 class BooleanMerger(Merger):
-    def __init__(self, overlay):
-        Merger.__init__(self, overlay)
+    def __init__(self, layer, overlay):
+        super().__init__(layer, overlay)
 
     def visit_boolean(self, underlay):
-        return MergedStructure(underlay, self._overlay)
+        return MergedStructure(self._layer, underlay, self._overlay)
 
     def visit_null(self, underlay):
-        return MergedStructure(underlay, self._overlay)
+        return MergedStructure(self._layer, underlay, self._overlay)
 
 
 class NullMerger(Merger):
-    def __init__(self, overlay):
-        Merger.__init__(self, overlay)
+    def __init__(self, layer, overlay):
+        super().__init__(layer, overlay)
 
     def visit_null(self, underlay):
-        return MergedNull(underlay, self._overlay)
+        return MergedNull(self._layer, underlay, self._overlay)
 
-    def visit_map(self, subject: 'Map'):
-        return MergedMap(subject, self._overlay)
+    def visit_map(self, underlay: 'Map'):
+        return MergedMap(self._layer, underlay, self._overlay)
 
     def visit_list(self, underlay):
-        return MergedList(underlay, self._overlay)
+        return MergedList(self._layer, underlay, self._overlay)
 
     def visit_structure(self, underlay: Structure):
-        return MergedStructure(underlay, self._overlay)
+        return MergedStructure(self._layer, underlay, self._overlay)
 
 
 class ListMerger(Merger):
-    def __init__(self, overlay):
-        Merger.__init__(self, overlay)
+    def __init__(self, layer, overlay):
+        super().__init__(layer, overlay)
 
     def visit_list(self, underlay):
-        return MergedList(underlay, self._overlay)
+        return MergedList(self._layer, underlay, self._overlay)
 
     def visit_null(self, underlay):
-        return MergedList(underlay, self._overlay)
+        return MergedList(self._layer, underlay, self._overlay)
 
 
 class MapMerger(Merger):
-    def __init__(self, overlay):
-        Merger.__init__(self, overlay)
+    def __init__(self, layer, overlay):
+        super().__init__(layer, overlay)
 
     def visit_map(self, underlay):
-        return MergedMap(underlay, self._overlay)
+        return MergedMap(self._layer, underlay, self._overlay)
 
     def visit_null(self, underlay):
-        return MergedMap(underlay, self._overlay)
+        return MergedMap(self._layer, underlay, self._overlay)
