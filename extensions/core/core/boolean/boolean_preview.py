@@ -31,7 +31,8 @@ class BooleanPreview(Gtk.Switch):
 
     @Gtk.Template.Callback()
     def _on_state_changed(self, unused_sender, state):
-        self._view_model.boolean.value = state
+        if self._view_model.boolean.value != state:
+            self._view_model.boolean.value = state
 
     def _on_view_model_value_changed(
             self,
