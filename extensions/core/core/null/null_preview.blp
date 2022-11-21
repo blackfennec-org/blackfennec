@@ -1,0 +1,13 @@
+using Gtk 4.0;
+using Adw 1;
+
+template NullPreview : Adw.Bin {
+    visible: true;
+    focusable: false;
+
+    Label _value {
+        focusable: false;
+        halign: end;
+        margin-end: 12;
+    }
+}

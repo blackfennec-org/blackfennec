@@ -3,11 +3,14 @@ from blackfennec.interpretation.specification import Specification
 from blackfennec.type_system.boolean_type import BooleanType
 from blackfennec.type_system.list_type import ListType
 from blackfennec.type_system.map_type import MapType
+from blackfennec.type_system.null_type import NullType
 from blackfennec.type_system.number_type import NumberType
 from blackfennec.type_system.reference_type import ReferenceType
 from blackfennec.type_system.string_type import StringType
 
 import gi
+
+from core.null.null_view_factory import NullViewFactory
 
 gi.require_version('Gtk', '4.0')
 gi.require_version('Adw', '1')
@@ -39,6 +42,7 @@ class CoreTypes:
     list = ListType()
     map = MapType()
     reference = ReferenceType()
+    null = NullType()
 
     def register(self, type_registry):
         type_registry.register_type(self.boolean)
@@ -47,6 +51,7 @@ class CoreTypes:
         type_registry.register_type(self.list)
         type_registry.register_type(self.map)
         type_registry.register_type(self.reference)
+        type_registry.register_type(self.null)
 
     def deregister(self, type_registry):
         type_registry.deregister_type(self.boolean)
@@ -55,6 +60,7 @@ class CoreTypes:
         type_registry.deregister_type(self.list)
         type_registry.deregister_type(self.map)
         type_registry.deregister_type(self.reference)
+        type_registry.deregister_type(self.null)
 
 
 class CoreExtension:
@@ -83,6 +89,7 @@ class CoreExtension:
                 extension_api.view_factory,
             ),
             self.types.reference: ReferenceViewFactory(),
+            self.types.null: NullViewFactory(),
         }
 
         from core.string.actions.to_upper import ToUpperAction
