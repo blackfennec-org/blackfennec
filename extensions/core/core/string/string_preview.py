@@ -1,11 +1,10 @@
-import logging
 from pathlib import Path
+from core.string.string_view_model import StringViewModel
 
 from gi.repository import Gtk, Adw
 
 from blackfennec.util.change_notification import ChangeNotification
 
-logger = logging.getLogger(__name__)
 
 BASE_DIR = Path(__file__).resolve().parent
 UI_TEMPLATE = str(BASE_DIR.joinpath('string_preview.ui'))
@@ -18,7 +17,7 @@ class StringPreview(Gtk.Frame):
     __gtype_name__ = 'StringPreview'
     _value = Gtk.Template.Child()
 
-    def __init__(self, view_model):
+    def __init__(self, view_model: StringViewModel):
         """Construct with view_model.
 
         Args:
@@ -27,27 +26,39 @@ class StringPreview(Gtk.Frame):
         super().__init__()
         self._view_model = view_model
         self._view_model.bind(changed=self._update_value)
+        self._buffer_listener_paused = False
 
         buffer = self._value.get_buffer()
         buffer.set_text(self._view_model.string.value)
         buffer.set_enable_undo(False)
         buffer.connect('changed', self._on_buffer_changed)
         self.connect('notify::active', self._on_activate)
-        logger.info(
-            'StringPreview with text: "%s" created',
-            self._view_model.string.value)
+
+    @property
+    def text(self):
+        buffer = self._value.get_buffer()
+        start, end = buffer.get_bounds()
+        return buffer.get_text(start, end, False)
+
+    @text.setter
+    def text(self, text):
+        buffer = self._value.get_buffer()
+        self._buffer_listener_paused = True
+        buffer.set_text(text, len(text))
 
     def _on_activate(self, unused_sender):
         self._value.activate()
 
     def _on_buffer_changed(self, buffer):
-        start, end = buffer.get_bounds()
-        text = buffer.get_text(start, end, False)
-        self._view_model.string.value = text
+        # This is a workaround for a bug in Gtk.TextView
+        #   when we set the text in the buffer, the buffer-changed signal is
+        #   emitted, twice. The first time with an empty string.
+
+        if self._buffer_listener_paused:
+            self._buffer_listener_paused = False
+            return
+
+        self._view_model.value = self.text
 
     def _update_value(self, unused_sender, notification: ChangeNotification):
-        buffer = self._value.get_buffer()
-        start, end = buffer.get_bounds()
-        text = buffer.get_text(start, end, False)
-        if text != notification.new_value:
-            buffer.set_text(notification.new_value)
+        self.text = notification.new_value
