@@ -19,7 +19,7 @@ class ImagePreview(Gtk.Button):
     """Preview for the core type Image."""
 
     __gtype_name__ = 'ImagePreview'
-    _image: Gtk.Image = Gtk.Template.Child()
+    _image: Adw.Avatar = Gtk.Template.Child()
 
     def __init__(self, view_model: ImageViewModel):
         """Construct with view_model.
@@ -42,7 +42,11 @@ class ImagePreview(Gtk.Button):
             paintable = Gdk.Texture.new_from_filename(file_path)
             self._image.set_custom_image(paintable)
         except Exception as e:
+            self._set_image_not_found()
             logger.info(e)
+
+    def _set_image_not_found(self):
+        self._image.set_custom_image(None)
 
     def _update_values(self, unused_sender,
                        unused_notification: ChangeNotification):
