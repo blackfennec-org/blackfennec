@@ -10,7 +10,7 @@ template FileView : Adw.PreferencesGroup {
 
   Adw.EntryRow _file_path {
     title: _("Path");
-    editable: true;
+    editable: false;
 
     Button _file_chooser {
       icon-name: "folder-open-symbolic";
@@ -24,5 +24,6 @@ template FileView : Adw.PreferencesGroup {
 
   Adw.EntryRow _mime_type {
     title: _("MIME Type");
+    editable: false;
   }
 }

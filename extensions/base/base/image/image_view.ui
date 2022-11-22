@@ -23,7 +23,7 @@
     <child>
       <object class="AdwEntryRow" id="_file_path">
         <property name="title" translatable="true">Path</property>
-        <property name="editable">true</property>
+        <property name="editable">false</property>
         <child>
           <object class="GtkButton" id="_file_chooser">
             <property name="icon-name">folder-open-symbolic</property>
