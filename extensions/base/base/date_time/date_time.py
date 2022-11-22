@@ -5,7 +5,8 @@ from datetime import datetime
 from blackfennec.structure.map import Map
 from blackfennec.structure.string import String
 from blackfennec.type_system.type_factory import TypeFactory
-from blackfennec.util.change_notification_dispatch_mixin import ChangeNotificationDispatchMixin
+from blackfennec.util.change_notification_dispatch_mixin import \
+    ChangeNotificationDispatchMixin
 
 logger = logging.getLogger(__name__)
 
@@ -23,7 +24,15 @@ def create_date_time_type():
         type="DateTime",
         super=tf.create_map(),
         properties={
-            DateTime.DATE_TIME_KEY: tf.create_string(pattern=iso_regex),
+            DateTime.DATE_TIME_KEY: tf.create_string(
+                pattern=iso_regex,
+                default=datetime.now().replace(
+                    microsecond=0,
+                    second=0,
+                    minute=0,
+                    hour=0
+                ).isoformat()
+            ),
             DateTime.FORMAT_KEY: tf.create_string()
         })
     type.set_is_child_optional(type.properties[DateTime.FORMAT_KEY], True)
@@ -51,7 +60,7 @@ class DateTime(ChangeNotificationDispatchMixin):
                 which property calls are dispatched
         """
         super().__init__()
-        
+
         self._subject: Map = subject or Map()
         self._subject.bind(changed=self._dispatch_change_notification)
 
@@ -62,7 +71,8 @@ class DateTime(ChangeNotificationDispatchMixin):
                 String(default_time.isoformat())
             )
 
-        self._subject.value[DateTime.DATE_TIME_KEY].bind(changed=self._dispatch_change_notification)
+        self._subject.value[DateTime.DATE_TIME_KEY].bind(
+            changed=self._dispatch_change_notification)
 
     @property
     def subject(self):
