@@ -103,8 +103,12 @@ class List(Structure[list[T]]):
         """
         old_value = self.value
 
-        self._remove_item(old_item)
-        self._add_item(new_item)
+        index = self._value.index(old_item)
+        self._value.pop(index)
+        self._unset_parent(old_item)
+
+        self._set_parent(new_item)
+        self._value.insert(index, new_item)
 
         notification = ChangeNotification(old_value, self.value)
         self._notify('changed', notification)

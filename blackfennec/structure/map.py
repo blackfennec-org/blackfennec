@@ -119,11 +119,15 @@ class Map(Structure[TDict]):
         notification = ChangeNotification(old_value, self.value)
         self._notify('changed', notification)
 
-    def replace_item(self, key: str, value: T) -> None:
+    def replace_item(self, key: str, new_value: T) -> None:
         old_value = self.value
 
-        self._remove_item(key)
-        self._add_item(key, value)
+        for current_key, current_value in self.value.items():
+            self._remove_item(current_key)
+            self._add_item(
+                current_key,
+                current_value if current_key != key else new_value
+            )
 
         notification = ChangeNotification(old_value, self.value)
         self._notify('changed', notification)
