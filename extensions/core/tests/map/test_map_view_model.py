@@ -9,7 +9,8 @@ from blackfennec_doubles.interpretation.double_interpretation_service import \
     InterpretationServiceMock
 from blackfennec_doubles.structure.double_map import MapInstanceMock
 from blackfennec_doubles.structure.double_structure import StructureMock
-from blackfennec_doubles.type_system.double_type_registry import TypeRegistryMock
+from blackfennec_doubles.type_system.double_type_registry import \
+    TypeRegistryMock
 from blackfennec_doubles.double_dummy import Dummy
 from blackfennec_doubles.type_system.double_type import TypeMock
 from core.map.map_view_model import MapViewModel
@@ -46,7 +47,8 @@ def action_registry(bf_type):
 
 
 @pytest.fixture
-def view_model(interpretation, interpretation_service, type_registry, action_registry):
+def view_model(interpretation, interpretation_service, type_registry,
+               action_registry):
     return MapViewModel(
         interpretation,
         interpretation_service,
@@ -74,20 +76,6 @@ def test_can_create_interpretation(view_model, interpretation_service):
     last_spec = interpretation_service.last_specification
     assert last_spec.is_request_for_preview
     assert preview.navigation_service
-
-
-def test_can_rename_key(view_model):
-    view_model.map.add_item('old_key', StructureMock())
-    view_model.rename_key('old_key', 'new_key')
-    assert 'new_key' in view_model.map.value
-    assert 'old_key' not in view_model.map.value
-
-
-def test_can_rename_without_corrupting_structure(view_model):
-    parent = MapInstanceMock({'child': view_model.map})
-    view_model.map.add_item('old_key', StructureMock())
-    view_model.rename_key('old_key', 'new_key')
-    assert parent.value['child'] == view_model.map
 
 
 def test_can_get_templates(view_model, type_registry):

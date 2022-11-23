@@ -13,3 +13,7 @@ class Observer:
         if len(self._calls) == 0:
             return []
         return self._calls[-1]
+
+    @property
+    def calls(self):
+        return self._calls

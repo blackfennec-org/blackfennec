@@ -57,6 +57,11 @@ class ListEncapsulationBase(EncapsulationBase, List):
         decapsulated_value = self._decapsulate(item)
         self.subject.remove_item(decapsulated_value)
 
+    def replace_item(self, old_item: Structure, new_item: Structure) -> None:
+        decapsulated_old_item = self._decapsulate(old_item)
+        decapsulated_new_item = self._decapsulate(new_item)
+        self.subject.replace_item(decapsulated_old_item, decapsulated_new_item)
+
     def _dispatch_change_notification(
             self,
             sender,

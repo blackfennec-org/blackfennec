@@ -109,6 +109,25 @@ class Map(Structure[TDict]):
             logger.error(message)
             raise KeyError(message)
 
+    def rename_key(self, old_key: str, new_key: str) -> None:
+        old_value = self.value
+
+        for key, value in self.value.items():
+            self._remove_item(key)
+            self._add_item(new_key if key == old_key else key, value)
+
+        notification = ChangeNotification(old_value, self.value)
+        self._notify('changed', notification)
+
+    def replace_item(self, key: str, value: T) -> None:
+        old_value = self.value
+
+        self._remove_item(key)
+        self._add_item(key, value)
+
+        notification = ChangeNotification(old_value, self.value)
+        self._notify('changed', notification)
+
     def accept(self, visitor: Visitor[TVisitor]) -> TVisitor:
         return visitor.visit_map(self)
 

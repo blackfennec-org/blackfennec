@@ -57,12 +57,10 @@ class PasteAction(Action):
                 if isinstance(to_replace.parent.structure, Map):
                     parent_map: Map = to_replace.parent
                     context_key = self.get_item_key(parent_map, to_replace)
-                    parent_map.remove_item(context_key)
-                    parent_map.add_item(context_key, replacement)
+                    parent_map.replace_item(context_key, replacement)
                 elif isinstance(to_replace.parent.structure, List):
                     parent_list: List = to_replace.parent
-                    parent_list.remove_item(to_replace)
-                    parent_list.add_item(replacement)
+                    parent_list.replace_item(to_replace, replacement)
                 else:
                     raise NotImplementedError(
                         "Pasting into a non-map or non-list is not implemented"

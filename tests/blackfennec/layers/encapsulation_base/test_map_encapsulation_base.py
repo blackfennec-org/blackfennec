@@ -1,9 +1,5 @@
-import unittest
-from typing import Optional
-
 import pytest
 
-from blackfennec_doubles.structure.double_structure import StructureMock
 from blackfennec_doubles.structure.double_string import StringMock
 from blackfennec_doubles.layers.double_layer import LayerMock
 from blackfennec.layers.encapsulation_base.encapsulation_base import \
@@ -93,6 +89,25 @@ def test_remove_item_not_in_map(map_encapsulation_base):
         map_encapsulation_base.remove_item(key)
 
 
+def test_replace_item(map_encapsulation_base):
+    key = 'test'
+    value = StringMock('test')
+    map_encapsulation_base.add_item(key, value)
+    new_value = StringMock('new_value')
+    map_encapsulation_base.replace_item(key, new_value)
+    assert new_value == map_encapsulation_base.subject.value[key]
+
+
+def test_rename_key(map_encapsulation_base):
+    key = 'test'
+    new_key = 'new_test'
+    value = StringMock('test')
+    map_encapsulation_base.add_item(key, value)
+    map_encapsulation_base.rename_key(key, new_key)
+    assert new_key in map_encapsulation_base.subject.value
+    assert key not in map_encapsulation_base.subject.value
+
+
 def test_dispatch_change_notification(
         map_encapsulation_base,
         layer,
@@ -106,6 +121,7 @@ def test_dispatch_change_notification(
 
     assert observer.last_call[0][0] == subject
     assert layer.get_stats(item)[0] == 1
+
 
 def test_can_get_repr(map_encapsulation_base):
     representation: str = map_encapsulation_base.__repr__()

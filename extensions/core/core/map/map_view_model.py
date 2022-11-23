@@ -89,20 +89,6 @@ class MapViewModel(ChangeNotificationDispatchMixin):
         )
         return actions
 
-    def rename_key(self, old_key: str, new_key: str):
-        """Rename the key of an item.
-
-        Args:
-            old_key (str): The key of the key value pair
-                which should be renamed
-            new_key (str): The new key name of the key value pair
-        """
-        decapsulated_map = self._map.structure
-
-        for key, value in decapsulated_map.value.items():
-            decapsulated_map.remove_item(key)
-            decapsulated_map.add_item(new_key if key == old_key else key, value)
-
     def _is_resolved_reference(self, key: str):
         return self.map.value[key].parent != self._map
 

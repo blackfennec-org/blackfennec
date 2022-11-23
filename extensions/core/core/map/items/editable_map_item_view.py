@@ -69,7 +69,7 @@ class EditableMapItemView(Adw.EntryRow):
     @Gtk.Template.Callback()
     def _on_apply(self, sender):
         new_key = sender.get_text()
-        self._view_model.rename_key(self.key, new_key)
+        self._view_model.map.rename_key(self.key, new_key)
         self._key = new_key
 
     @Gtk.Template.Callback()

@@ -41,6 +41,13 @@ class MapEncapsulationBase(EncapsulationBase, Map):
         decapsulated_value = self._decapsulate(value)
         self.subject.add_item(key, decapsulated_value)
 
+    def rename_key(self, old_key: str, new_key: str) -> None:
+        self.subject.rename_key(old_key, new_key)
+
+    def replace_item(self, key: str, value: Structure) -> None:
+        decapsulated_value = self._decapsulate(value)
+        self.subject.replace_item(key, decapsulated_value)
+
     def _dispatch_change_notification(self, sender,
                                       notification: ChangeNotification):
         encapsulated_notification = ChangeNotification(

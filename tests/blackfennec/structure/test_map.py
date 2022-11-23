@@ -4,7 +4,8 @@ import logging
 from tests.test_utils.observer import Observer
 from blackfennec_doubles.structure.double_structure import StructureMock
 from blackfennec_doubles.structure.double_root import RootMock
-from blackfennec_doubles.layers.encapsulation_base.double_factory_base_visitor import FactoryBaseVisitorMock
+from blackfennec_doubles.layers.encapsulation_base.double_factory_base_visitor import \
+    FactoryBaseVisitorMock
 from tests.test_utils.parameterize import CORE_TYPE_FACTORIES
 from blackfennec.structure.map import Map
 
@@ -183,3 +184,34 @@ def test_can_add_all_core_types(create_structure):
     m.remove_item("A")
 
     assert m.value["B"] is b
+
+
+def test_rename_key():
+    map = Map({'old_key': StructureMock()})
+    map.rename_key('old_key', 'new_key')
+    assert 'new_key' in map.value
+    assert 'old_key' not in map.value
+
+
+def test_rename_key_notifies_only_once():
+    observer = Observer()
+    map = Map({'old_key': StructureMock()})
+    map.bind(changed=observer.endpoint)
+    map.rename_key('old_key', 'new_key')
+    assert len(observer.calls) == 1
+
+
+def test_replace_item():
+    map = Map({'key': StructureMock()})
+    new_item = StructureMock()
+    map.replace_item('key', new_item)
+    assert map.value['key'] is new_item
+
+
+def test_replace_item_notifies_only_once():
+    observer = Observer()
+    map = Map({'key': StructureMock()})
+    map.bind(changed=observer.endpoint)
+    new_item = StructureMock()
+    map.replace_item('key', new_item)
+    assert len(observer.calls) == 1

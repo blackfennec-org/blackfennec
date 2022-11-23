@@ -97,6 +97,34 @@ def test_remove_encapsulated_item(layer):
     assert len(subject.value) == 0
 
 
+def test_replace_item(layer):
+    value = StringMock('test_value')
+    subject = List([value])
+    list_type = ListEncapsulationBase(
+        layer=layer,
+        subject=subject
+    )
+    new_value = StringMock('new_value')
+    list_type.replace_item(value, new_value)
+    assert new_value in list_type.subject.value
+    assert value not in list_type.subject.value
+
+
+def test_replace_encapsulated_item(layer):
+    value = StringMock('test_value')
+    subject = List([value])
+    list_type = ListEncapsulationBase(
+        layer=layer,
+        subject=subject
+    )
+    type_class = _create_generic_class(EncapsulationBase)
+    encapsulated = type_class(layer=layer, subject=value)
+    new_value = StringMock('new_value')
+    list_type.replace_item(encapsulated, new_value)
+    assert new_value in list_type.subject.value
+    assert value not in list_type.subject.value
+
+
 def test_dispatch_change_notification(
         list_encapsulation_base,
         layer,

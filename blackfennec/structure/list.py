@@ -91,6 +91,24 @@ class List(Structure[list[T]]):
         self._value.remove(item)
         self._unset_parent(item)
 
+    def replace_item(self, old_item: T, new_item: T) -> None:
+        """Replace old_item with new_item.
+
+        Args:
+            old_item (Structure): Item to be replaced.
+            new_item (Structure): Item to replace with.
+
+        Raises:
+            KeyError: If old_item is not in list.
+        """
+        old_value = self.value
+
+        self._remove_item(old_item)
+        self._add_item(new_item)
+
+        notification = ChangeNotification(old_value, self.value)
+        self._notify('changed', notification)
+
     def accept(self, visitor: Visitor[TVisitor]) -> TVisitor:
         return visitor.visit_list(self)
 
