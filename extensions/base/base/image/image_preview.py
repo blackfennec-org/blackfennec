@@ -9,7 +9,6 @@ from base.image.image_view_model import ImageViewModel
 from blackfennec.util.change_notification import ChangeNotification
 
 logger = logging.getLogger(__name__)
-logger.setLevel(logging.INFO)
 
 BASE_DIR = Path(__file__).resolve().parent
 UI_TEMPLATE = str(BASE_DIR.joinpath('image_preview.ui'))
