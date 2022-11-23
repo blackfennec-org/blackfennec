@@ -2,10 +2,9 @@
 
 from setuptools import setup, find_packages
 
-
 setup(
     name='blackfennec',
-    version='0.9.0',
+    version='0.10.0',
     description='Extensible Semi-structured Data Editing Environment',
     long_description='Black Fennec',
     long_description_content_type='text/markdown',
@@ -13,8 +12,7 @@ setup(
     url='https://gitlab.ost.ch/blackfennec/blackfennec.git',
     packages=find_packages(exclude=('tests', 'doubles', 'docs')),
     package_data={
-        '': [ '*.ui' ],
+        '': ['*.ui'],
     },
     include_package_data=True,
 )
-

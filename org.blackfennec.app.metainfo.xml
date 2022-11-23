@@ -13,8 +13,10 @@
     </icon>
     <description>
         <p>
-            Black Fennec is free and open source software. It is a simple and easy to use application for viewing and
-            editing semi-structured data like JSON. It is written in Python and follows the GNOME Human Interface
+            Black Fennec is free and open source software. It is a simple and
+            easy to use application for viewing and
+            editing semi-structured data like JSON. It is written in Python and
+            follows the GNOME Human Interface
             Guidelines.
         </p>
     </description>
@@ -43,11 +45,19 @@
     </screenshots>
 
     <url type="homepage">http://blackfennec.org</url>
-    <url type="bugtracker">https://gitlab.ost.ch/blackfennec/blackfennec/-/issues/</url>
-    <url type="vcs-browser">https://gitlab.ost.ch/blackfennec/blackfennec.git</url>
+    <url type="bugtracker">
+        https://gitlab.ost.ch/blackfennec/blackfennec/-/issues/
+    </url>
+    <url type="vcs-browser">https://gitlab.ost.ch/blackfennec/blackfennec.git
+    </url>
 
 
     <releases>
+        <release version="0.10.0" date="2022-11-22">
+            <description>
+                <p>Aaand ... Action!</p>
+            </description>
+        </release>
         <release version="0.9.0" date="2022-11-04">
             <description>
                 <p>Ported to GTK4</p>
@@ -59,7 +69,7 @@
             </description>
         </release>
     </releases>
-    
+
     <content_rating type="oars-1.1">
         <content_attribute id="language-humor">mild</content_attribute>
     </content_rating>
