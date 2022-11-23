@@ -5,7 +5,6 @@ from gi.repository import Gtk, Adw
 
 from blackfennec.util.change_notification import ChangeNotification
 
-
 BASE_DIR = Path(__file__).resolve().parent
 UI_TEMPLATE = str(BASE_DIR.joinpath('string_view.ui'))
 
@@ -44,6 +43,9 @@ class StringView(Adw.Bin):
     def text(self, text):
         buffer = self._value.get_buffer()
         self._buffer_listener_paused = True
+        start, end = buffer.get_bounds()
+        if buffer.get_text(start, end, False) == text:
+            return
         buffer.set_text(text, len(text))
 
     def _on_activate(self, unused_sender):
