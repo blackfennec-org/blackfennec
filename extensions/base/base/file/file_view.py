@@ -32,12 +32,14 @@ class FileView(Adw.PreferencesGroup):
         self._view_model = view_model
         self._view_model.bind(changed=self._update_values)
 
-        self._update_values(self, ChangeNotification('', 'updates values from view model'))
+        self._update_values()
 
         logger.info('FileView created')
         self._file_chooser_native = None
 
-    def _update_values(self, unused_sender, unused_notification: ChangeNotification):
+    def _update_values(self,
+            unused_sender = None,
+            unused_notification: ChangeNotification = None):
         self._file_path.set_text(self._view_model.file_path or 'empty path')
         self._mime_type.set_text(self._view_model.file_type or 'empty mime type')
 
@@ -54,7 +56,8 @@ class FileView(Adw.PreferencesGroup):
         def on_response(dialog, response):
             if response == Gtk.ResponseType.ACCEPT:
                 liststore = dialog.get_files()
-                self._view_model.file_path = liststore[0].get_path()
+                path = liststore[0].get_path()
+                self._view_model.absolute_path = path
             else:
                 logger.debug('File selection canceled')
             dialog.destroy()

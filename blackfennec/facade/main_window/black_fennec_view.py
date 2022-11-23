@@ -12,6 +12,7 @@ from blackfennec.facade.main_window.document_tab import DocumentTab
 from blackfennec.facade.main_window.document_tab_view import DocumentTabView
 
 logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
 
 BASE_DIR = Path(__file__).resolve().parent
 UI_TEMPLATE = str(BASE_DIR.joinpath('black_fennec.ui'))
@@ -138,6 +139,7 @@ class BlackFennecView(Gtk.ApplicationWindow):
             if response == Gtk.ResponseType.ACCEPT:
                 directory = dialog.get_file()
                 file_path = directory.get_path()
+                logger.info(f'Chosen file: {file_path}')
                 self._view_model.current_directory = file_path
             else:
                 logger.debug('Directory selection canceled')
@@ -221,6 +223,7 @@ class BlackFennecView(Gtk.ApplicationWindow):
             if response == Gtk.ResponseType.ACCEPT:
                 files = dialog.get_files()
                 for file in files:
+                    logger.info(f'Chosen file: {file}')
                     self._view_model.open_file(file.get_path())
             else:
                 logger.debug('File selection canceled')

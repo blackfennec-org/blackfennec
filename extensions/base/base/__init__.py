@@ -27,13 +27,6 @@ def _types(api: ExtensionApi):
     return __types
 
 
-factories = [
-    DateTimeViewFactory(),
-    FileViewFactory(),
-    ImageViewFactory(),
-]
-
-
 def create_extension(extension_api: ExtensionApi):
     """Registers all base types
 
@@ -41,6 +34,12 @@ def create_extension(extension_api: ExtensionApi):
         extension_api (ExtensionApi): contains constructor injection
             parameters.
     """
+
+    factories = [
+        DateTimeViewFactory(),
+        FileViewFactory(extension_api.document_registry),
+        ImageViewFactory(extension_api.document_registry),
+    ]
 
     for type in [DateTime.TYPE]:
         extension_api.type_registry.register_type(type)
@@ -60,7 +59,7 @@ def destroy_extension(extension_api: ExtensionApi):
             parameters
     """
 
-    for type, factory in zip(_types(extension_api), factories):
+    for type in _types(extension_api):
         extension_api.type_registry.deregister_type(type)
         extension_api.view_factory_registry.deregister_view_factory(
             type, Specification())

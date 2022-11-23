@@ -9,6 +9,7 @@ from base.image.image_view_model import ImageViewModel
 from blackfennec.util.change_notification import ChangeNotification
 
 logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
 
 BASE_DIR = Path(__file__).resolve().parent
 UI_TEMPLATE = str(BASE_DIR.joinpath('image_preview.ui'))
@@ -31,11 +32,9 @@ class ImagePreview(Gtk.Button):
         self._view_model = view_model
         self._view_model.bind(changed=self._update_values)
 
-        self._update_values(self, ChangeNotification('',
-                                                     'updates values from view model'))
+        self._update_values()
 
         self._image.set_size(64)
-        logger.info('ImageView created')
 
     def _set_image_from_path(self, file_path) -> None:
         try:
@@ -48,9 +47,11 @@ class ImagePreview(Gtk.Button):
     def _set_image_not_found(self):
         self._image.set_custom_image(None)
 
-    def _update_values(self, unused_sender,
-                       unused_notification: ChangeNotification):
-        self._set_image_from_path(self._view_model.file_path)
+    def _update_values(self, 
+            unused_sender=None,
+            unused_notification: ChangeNotification = None):
+        self._set_image_from_path(
+            self._view_model.absolute_path)
 
     @Gtk.Template.Callback()
     def _on_navigate(self, unused_sender) -> None:

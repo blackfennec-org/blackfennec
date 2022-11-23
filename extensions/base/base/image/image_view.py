@@ -2,8 +2,7 @@
 import logging
 from pathlib import Path
 
-from gi.overrides.Gdk import Gdk
-from gi.repository import Gtk, Adw
+from gi.repository import Gio, Gdk, Gtk, Adw
 
 from base.image.image_view_model import ImageViewModel
 
@@ -34,10 +33,7 @@ class ImageView(Adw.PreferencesGroup):
         self._view_model = view_model
         self._view_model.bind(changed=self._update_values)
 
-        self._update_values(
-            self,
-            ChangeNotification('', 'updates values from view model')
-        )
+        self._update_values()
 
         logger.info('ImageView created')
         self._file_chooser_native = None
@@ -55,11 +51,11 @@ class ImageView(Adw.PreferencesGroup):
 
     def _update_values(
             self,
-            unused_sender,
-            unused_notification: ChangeNotification
-    ):
+            unused_sender=None,
+            unused_notification: ChangeNotification = None):
         self._file_path.set_text(self._view_model.file_path or 'empty path')
-        self._set_image_from_path(self._view_model.file_path)
+        self._set_image_from_path(
+            self._view_model.absolute_path)
         self._mime_type.set_text(
             self._view_model.file_type or 'empty mime type')
 
@@ -73,6 +69,11 @@ class ImageView(Adw.PreferencesGroup):
             action=Gtk.FileChooserAction.OPEN,
         )
 
+        document_location = Gio.File.new_for_path(
+            self._view_model.location)
+
+        dialog.set_current_folder(document_location)
+
         filter = Gtk.FileFilter(name='Images')
         filter.add_pixbuf_formats()
         dialog.set_filter(filter)
@@ -80,7 +81,9 @@ class ImageView(Adw.PreferencesGroup):
         def on_response(dialog, response):
             if response == Gtk.ResponseType.ACCEPT:
                 liststore = dialog.get_files()
-                self._view_model.file_path = liststore[0].get_path()
+                path = liststore[0].get_path()
+                logger.info(f'Chosen file: {path}')
+                self._view_model.file_path = path
             else:
                 logger.debug('Image selection canceled')
             dialog.destroy()

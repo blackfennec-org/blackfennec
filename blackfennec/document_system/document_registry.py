@@ -9,4 +9,4 @@ class DocumentRegistry:
         self._documents[document.content] = document
 
     def get_document(self, structure: Structure) -> Document:
-        return self._documents[structure.root]
+        return self._documents[structure.root.structure]

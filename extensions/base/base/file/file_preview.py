@@ -28,14 +28,13 @@ class FilePreview(Gtk.Button):
         """
         super().__init__()
         self._view_model = view_model
-        self._view_model.bind(changed=self._set_file_path)
+        self._view_model.bind(changed=self._update)
 
-        self._set_file_path(self, ChangeNotification('', self._view_model.file_path))
-        logger.info(
-            'FileView created'
-        )
+        self._update()
 
-    def _set_file_path(self, unused_sender, unused_notification: ChangeNotification):
+    def _update(self, 
+            unused_sender=None, 
+            unused_notification: ChangeNotification = None):
         file_path = self._view_model.file_path or "empty path"
         self.set_tooltip_text(file_path or 'empty path')
 

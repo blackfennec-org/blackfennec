@@ -8,6 +8,10 @@ from blackfennec.interpretation.specification import Specification
 
 class FileViewFactory:
     """Creator of the FileView"""
+    
+    def __init__(self, document_registry):
+        self._document_registry = document_registry
+
 
     def satisfies(self, specification: Specification) -> bool:
         """Test if this view factory can satisfy the specification
@@ -32,7 +36,9 @@ class FileViewFactory:
         Returns:
             FileView
         """
-        view_model = FileViewModel(interpretation)
+        view_model = FileViewModel(
+            interpretation,
+            self._document_registry)
         if interpretation.specification.is_request_for_preview:
             return FilePreview(view_model)
 

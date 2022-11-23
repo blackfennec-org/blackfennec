@@ -9,6 +9,9 @@ from blackfennec.interpretation.specification import Specification
 class ImageViewFactory:
     """Creator of the ImageView"""
 
+    def __init__(self, document_registry):
+        self._document_registry = document_registry
+
     def satisfies(self, specification: Specification) -> bool:
         """Test if this view factory can satisfy the specification
 
@@ -32,7 +35,9 @@ class ImageViewFactory:
         Returns:
             ImageView
         """
-        view_model = ImageViewModel(interpretation)
+        view_model = ImageViewModel(
+            interpretation, 
+            self._document_registry)
 
         if interpretation.specification.is_request_for_preview:
             return ImagePreview(view_model)
