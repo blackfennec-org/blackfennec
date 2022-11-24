@@ -1,0 +1,33 @@
+@startuml
+
+skinparam rectangle {
+    BackgroundColor #EEE
+    ArrowColor Black
+    BorderColor Black
+    roundCorner 25
+}
+
+skinparam rectangle<<out-of-scope>> {
+    BorderColor #CCC
+    BackgroundColor #FFF
+    FontColor #555
+}
+
+skinparam rectangle<<core>> {
+    roundCorner 1000
+}
+
+title Architecture Overview
+
+rectangle Presentation
+rectangle Visualisation
+rectangle Extension
+rectangle "User Data" as UD <<out-of-scope>>
+rectangle "Black Fennec" as BF <<core>>
+
+Presentation       -up->       BF
+UD              -->         BF
+Visualisation   -up->       BF
+Extension       -->         BF
+
+@enduml

@@ -51,7 +51,7 @@ class MimeType(metaclass=abc.ABCMeta):
         """Get mime_type through different approaches.
 
         Tries guessing the mime_type from the URI ending, then by retrieving
-        the content-type of the URI if the UriType is HOST_URI.
+            the content-type of the URI if the UriType is HOST_URI.
 
         Args:
             uri (str): of which the mime_type should be searched

@@ -1,0 +1,48 @@
+@startuml
+
+skinparam rectangle {
+    BackgroundColor #EEE
+    ArrowColor Black
+    BorderColor Black
+    roundCorner 25
+}
+
+skinparam rectangle<<out-of-scope>> {
+    BorderColor #CCC
+    BackgroundColor #FFF
+    FontColor #555
+}
+
+title Interfaces and Services
+
+
+
+package "Black Fennec" <<Frame>> {
+    rectangle Facade
+    rectangle Interpretation
+    rectangle "Document System" as DS
+    rectangle Structure
+    rectangle "Type System" as TS
+
+    Interpretation  -up->           TS
+    Facade          -up->           Structure
+    Interpretation  -up->           Structure
+    DS              -down->         Structure
+    TS              -down->         Structure
+    Facade          -[hidden]left-> Interpretation
+
+}
+
+
+rectangle Presentation
+rectangle Visualisation
+rectangle Extension
+rectangle "User Data" as UD <<out-of-scope>>
+
+Presentation    -up->       Interpretation
+Presentation    -up->       Facade
+Visualisation   -up->       Interpretation
+Extension       -->         TS
+UD              -->         DS
+
+@enduml

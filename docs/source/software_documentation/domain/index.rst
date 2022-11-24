@@ -2,7 +2,7 @@
 
 Domain Model
 ============
-This document introduces the domain model of Black Fennec. Due to the inherit complexity of the project different levels of abstraction are used. If you are interested in how a specific component works just follow the link to its dedicated page where it is described in more detail. 
+This document introduces the domain model of Black Fennec. Due to the inherit complexity of the project different levels of abstraction are used. If you are interested in how a specific component works just follow the link to its dedicated page. 
 
 Simplified Domain Model
 """""""""""""""""""""""
@@ -58,7 +58,8 @@ The currently documented domain model is depicted below. To read more about the 
 .. toctree::
     :maxdepth: 3
 
-    extensions/index
+    structure/index
+    type_system/index
     interpretation/index
     navigation/index
     structure/index
