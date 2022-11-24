@@ -21,9 +21,23 @@
 
     <screenshots>
         <screenshot type="default">
-            <caption>The options dialog</caption>
+            <caption>Black Fennec</caption>
             <image>
-                https://gitlab.ost.ch/blackfennec/blackfennec/-/raw/main/docs/source/images/corporate_identity/demo/ui.png
+                https://gitlab.ost.ch/blackfennec/blackfennec/-/raw/main/docs/source/images/screenshots/blackfennec.png
+            </image>
+        </screenshot>
+
+        <screenshot>
+            <caption>Black Fennec</caption>
+            <image>
+                https://gitlab.ost.ch/blackfennec/blackfennec/-/raw/main/docs/source/images/screenshots/start_screen.png
+            </image>
+        </screenshot>
+
+        <screenshot>
+            <caption>Black Fennec</caption>
+            <image>
+                https://gitlab.ost.ch/blackfennec/blackfennec/-/raw/main/docs/source/images/screenshots/about_screen.png
             </image>
         </screenshot>
     </screenshots>
