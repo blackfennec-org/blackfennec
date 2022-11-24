@@ -1,20 +1,20 @@
-[![pipeline status](https://gitlab.ost.ch/blackfennec/blackfennec/badges/dev/pipeline.svg)](https://gitlab.ost.ch/blackfennec/blackfennec/-/commits/dev)
-[![coverage report](https://gitlab.ost.ch/blackfennec/blackfennec/badges/dev/coverage.svg)](https://gitlab.ost.ch/blackfennec/blackfennec/-/commits/dev)
-[![Pylint score][pylint-score]][pylint-log]
-[![Latest Release](https://gitlab.ost.ch/blackfennec/blackfennec/-/badges/release.svg)](https://gitlab.ost.ch/blackfennec/blackfennec/-/releases)
+[![pipeline badge][pipeline-badge]][commits]
+[![coverage report][coverage-badge]][commits]
+[![Pylint score][pylint-badge]][pylint-log]
+[![Latest Release][release-badge]][releases]
 
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
   <p>
-    <a href="https://gitlab.ost.ch/black-fennec/black-fennec">
+    <a href="https://gitlab.ost.ch/blackfennec/blackfennec">
       <img src="docs/source/images/corporate_identity/logo.jpg" alt="Logo" width="50%">
     </a>
   </p>
   <p align="center">
     bring structure for chaos
     <br />
-    <a href="https://gitlab.ost.ch/black-fennec/black-fennec"><strong>Explore the docs »</strong></a>
+    <a href="http://blackfennec.pages.gitlab.ost.ch/blackfennec/"><strong>Explore the docs »</strong></a>
     <br />
     <br />
     <a href="https://gitlab.ost.ch/blackfennec/blackfennec/issues">Report Bug</a>
@@ -29,71 +29,66 @@
 
 ## Table of Contents
 
-* [About the Project](#about-the-project)
-    * [Built With](#built-with)
-* [Getting Started](#getting-started)
-    * [Prerequisites](#prerequisites)
-    * [Installation](#installation)
-    * [Usage](#usage)
-* [Roadmap](#roadmap)
-* [Contributing](#contributing)
-* [License](#license)
+[[_TOC_]]
+
 
 <!-- ABOUT THE PROJECT -->
 
 ## About The Project
 
-[![Black-Fennec Screen Shot][product-screenshot]](docs/source/images/corporate_identity/demo/ui.png)
+[![Black-Fennec Screen Shot][product-screenshot]](product-screenshot)
 
-Black Fennec is going to be an application that is able to manage unstructured data by interpreting information
-compositions known to its type system. These interpretations are then visualised. The type system in its nature is a
-weak typed dynamic object model that can be extended easily. To support specialised use cases and allow rapid
-development Black Fennec provides an extension api. With the final product one will be capable of visualising and
-editing any JSON and YAML files in a more productive way. A close integration of git allows for collaboration and data
-sharing over existing infrastructure.
+Black Fennec is able to view and edit semi-structured data such as JSON by interpreting information compositions known to its type system. These interpretations are then visualised. The type system in its nature is a weakly typed dynamic object model that can be extended easily. To support specialised use cases and allow rapid development Black Fennec provides an extension api which allows users to extend the type system with their own custom types and visualisations.
 
-### Built With
+### Powered By
 
-* [GTK3](https://docs.gtk.org/gtk3/)
+* [GTK4](https://gtk.org/gtk4/)
+* [Libadwaita](https://gitlab.gnome.org/GNOME/libadwaita)
+* [Python](https://www.python.org/)
+* [Pytest](https://pytest.org/)
 
 <!-- GETTING STARTED -->
 
 ## Getting Started
 
-To get a local copy up and running follow these simple example steps.
+### Flathub Installation
 
-In the near future a flatpak installation will be provided.
+Black Fennec is available from Flathub. Preferably install it from your distribution's package manager.
 
-### Prerequisites
+Otherwise it is also directly available from Flathub. To install click the button below:
 
-To run Black-Fennec one needs python 3.8 installed on the computer.
+[![Get it on Flathub][flathub-badge]][flathub]
 
-### Installation
+### Local Installation
 
-1. Clone the repo
+#### Prerequisites
 
-```sh
-git clone https://gitlab.ost.ch/black-fennec/black-fennec.git
-```
+To run Black-Fennec one needs python 3.10 installed on the computer.
 
-2. Install OS-level Dependencies
+Additionally the following OS-level dependencies are required:
 
 ```sh
 sudo dnf install python3-devel cairo cairo-devel gobject-introspection-devel cairo-gobject-devel
 ```
 
-3. Install PIP packages
+#### Installation
+
+Clone the repo
 
 ```sh
-pip install -r requirements.txt
+git clone https://gitlab.ost.ch/blackfennec/blackfennec.git --recurse-submodules
 ```
 
-### Usage
-
-To run Black-Fennec the main has to be executed with python.
+Install PIP packages
 
 ```sh
-python black_fennec.py
+make dependencies
+```
+
+#### Usage
+
+```sh
+make run
 ```
 
 <!-- ROADMAP -->
@@ -122,16 +117,24 @@ Distributed under the GNU General Public License. See `LICENSE` for more informa
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 
-[pipeline-status]: https://gitlab.ost.ch/blackfennec/blackfennec/badges/dev/pipeline.svg
+[pipeline-badge]: https://gitlab.ost.ch/blackfennec/blackfennec/badges/dev/pipeline.svg
 
-[coverage-report]: https://gitlab.ost.ch/blackfennec/blackfennec/badges/dev/coverage.svg
+[coverage-badge]: https://gitlab.ost.ch/blackfennec/blackfennec/badges/dev/coverage.svg
 
-[pylint-score]: https://gitlab.ost.ch/blackfennec/blackfennec/-/jobs/artifacts/dev/raw/pylint/pylint.svg?job=run%20linter
+[pylint-badge]: https://gitlab.ost.ch/blackfennec/blackfennec/-/jobs/artifacts/dev/raw/pylint/pylint.svg?job=run%20linter
 
 [pylint-log]: https://gitlab.ost.ch/blackfennec/blackfennec/-/jobs/artifacts/dev/raw/pylint/pylint.log?job=run%20linter
+
+[release-badge]: https://gitlab.ost.ch/blackfennec/blackfennec/-/badges/release.svg
+
+[releases]: https://gitlab.ost.ch/blackfennec/blackfennec/-/releases
 
 [commits]: https://gitlab.ost.ch/blackfennec/blackfennec/-/commits/dev
 
 [issues-url]: https://gitlab.ost.ch/blackfennec/blackfennec/issues
 
-[product-screenshot]: docs/source/images/corporate_identity/demo/ui.png
+[product-screenshot]: docs/source/images/screenshots/blackfennec.png
+
+[flathub-badge]: https://flathub.org/assets/badges/flathub-badge-en.png
+
+[flathub]: https://flathub.org/apps/details/org.blackfennec.app
