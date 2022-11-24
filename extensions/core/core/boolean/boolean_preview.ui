@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<interface>
-  <requires lib="gtk" version="4.0"/>
-  <template class="BooleanPreview" parent="GtkSwitch">
-    <property name="valign">center</property>
-    <property name="focusable">true</property>
-    <signal name="state-set" handler="_on_state_changed"/>
-  </template>
-</interface>

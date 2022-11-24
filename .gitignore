@@ -7,7 +7,7 @@ docs/source/software_documentation/code/*
 *.egg-info/
 .coverage
 coverage.xml
-*.glade~
+
 __pycache__/
 pylint/
 venv/
@@ -20,4 +20,3 @@ htmlcov/
 .flatpak-build/
 build/
 
-extensions.json

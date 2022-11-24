@@ -2,6 +2,8 @@
 
 variables:
   PROJECT_BUILD_IMAGE: ceem/black-fennec:gtk4
+  GIT_SUBMODULE_STRATEGY: recursive
+
 
 ###############################################################################
 # Test Black-Fennec

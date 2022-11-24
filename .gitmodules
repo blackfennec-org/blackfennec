@@ -1,0 +1,6 @@
+[submodule "extensions/core"]
+	path = extensions/core
+	url = https://gitlab.ost.ch/blackfennec/extensions/core.git
+[submodule "extensions/base"]
+	path = extensions/base
+	url = https://gitlab.ost.ch/blackfennec/extensions/base.git
