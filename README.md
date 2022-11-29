@@ -17,9 +17,9 @@
     <a href="http://blackfennec.pages.gitlab.ost.ch/blackfennec/"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://gitlab.ost.ch/blackfennec/blackfennec/issues">Report Bug</a>
+    <a href="https://github.com/blackfennec-org/blackfennec/issues">Report Bug</a>
     ·
-    <a href="https://gitlab.ost.ch/blackfennec/blackfennec/issues">Request Feature</a>
+    <a href="https://github.com/blackfennec-org/blackfennec/issues">Request Feature</a>
   </p>
 </div>
 
@@ -29,7 +29,18 @@
 
 ## Table of Contents
 
-[[_TOC_]]
+- [Table of Contents](#table-of-contents)
+- [About The Project](#about-the-project)
+  * [Powered By](#powered-by)
+- [Getting Started](#getting-started)
+  * [Flathub Installation](#flathub-installation)
+  * [Local Installation](#local-installation)
+    + [Prerequisites](#prerequisites)
+    + [Installation](#installation)
+    + [Usage](#usage)
+- [Roadmap](#roadmap)
+- [Contributing](#contributing)
+- [License](#license)
 
 
 <!-- ABOUT THE PROJECT -->
