@@ -1,12 +1,12 @@
 app-id: org.blackfennec.app
-branch: '1.0'
+branch: 'stable'
 runtime: org.gnome.Platform
 runtime-version: '43'
 sdk: org.gnome.Sdk
 command: run.sh
 add-extensions:
   org.blackfennec.extensions:
-    version: '1.0'
+    version: '0.10'
     directory: extensions
     merge-dirs: lib/python3.10/site-packages/
     subdirectories: true
