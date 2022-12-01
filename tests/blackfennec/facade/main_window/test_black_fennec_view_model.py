@@ -1,26 +1,18 @@
 import pytest
 
+from blackfennec.facade.extension_store.extension_store_view_model import \
+    ExtensionStoreViewModel
+from blackfennec.facade.main_window.black_fennec_view_model import \
+    BlackFennecViewModel
 from blackfennec_doubles.document_system.double_document import DocumentMock
-from blackfennec_doubles.document_system.double_document_factory import DocumentFactoryMock
-from blackfennec_doubles.facade.main_window.double_document_tab import DocumentTabMock
-from blackfennec_doubles.extension.double_presenter_registry import PresenterRegistryMock
 from blackfennec_doubles.double_dummy import Dummy
-from blackfennec_doubles.interpretation.double_interpretation_service import InterpretationServiceMock
-from blackfennec_doubles.extension.double_extension_source_registry import ExtensionSourceRegistryMock
-from blackfennec.facade.extension_store.extension_store_view_model import ExtensionStoreViewModel
-from blackfennec.facade.main_window.black_fennec_view_model import BlackFennecViewModel
-from tests.test_utils.deep_compare import DeepCompare
-from tests.test_utils.parameterize import CORE_STRUCTURES
-
-
-@pytest.fixture()
-def presenter_registry():
-    return PresenterRegistryMock()
-
-
-@pytest.fixture()
-def interpretation_service():
-    return InterpretationServiceMock(Dummy())
+from blackfennec_doubles.extension.double_extension_api import ExtensionApiMock
+from blackfennec_doubles.extension.double_extension_source_registry import \
+    ExtensionSourceRegistryMock
+from blackfennec_doubles.facade.main_window.double_document_tab import \
+    DocumentTabMock
+from blackfennec_doubles.facade.ui_service.double_ui_service import \
+    UiServiceMock
 
 
 @pytest.fixture()
@@ -33,9 +25,9 @@ def document_tab(document):
     return DocumentTabMock(document)
 
 
-@pytest.fixture()
-def document_factory(document):
-    return DocumentFactoryMock(document=document)
+@pytest.fixture
+def extension_api():
+    return ExtensionApiMock()
 
 
 @pytest.fixture()
@@ -44,22 +36,24 @@ def extension_source_registry():
 
 
 @pytest.fixture()
+def ui_service():
+    return UiServiceMock()
+
+
+@pytest.fixture()
 def view_model(
-        presenter_registry,
-        interpretation_service,
-        document_factory,
+        extension_api,
         extension_source_registry,
+        ui_service
 ):
     return BlackFennecViewModel(
-        presenter_registry,
-        interpretation_service,
-        document_factory,
-        Dummy(),
+        extension_api,
         extension_source_registry,
+        ui_service,
     )
 
 
-def test_can_open_file(view_model, document_factory):
+def test_can_open_file(view_model):
     view_model.open_file('/examples/black_fennec.json')
 
 

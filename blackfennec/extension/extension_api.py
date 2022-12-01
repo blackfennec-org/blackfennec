@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from blackfennec.document_system.document_factory import DocumentFactory
 from blackfennec.document_system.document_registry import DocumentRegistry
 from blackfennec.interpretation.interpretation_service import \
     InterpretationService
@@ -23,6 +24,7 @@ class ExtensionApi:
             type_loader,
             action_registry: ActionRegistry,
             document_registry: DocumentRegistry,
+            document_factory: DocumentFactory,
     ):
         self._presenter_registry = presenter_registry
         self._type_registry = type_registry
@@ -32,6 +34,7 @@ class ExtensionApi:
         self._type_loader = type_loader
         self._action_registry = action_registry
         self._document_registry = document_registry
+        self._document_factory = document_factory
 
     @property
     def presenter_registry(self) -> PresenterRegistry:
@@ -64,3 +67,7 @@ class ExtensionApi:
     @property
     def document_registry(self) -> DocumentRegistry:
         return self._document_registry
+
+    @property
+    def document_factory(self) -> DocumentFactory:
+        return self._document_factory

@@ -5,6 +5,7 @@ import sys
 from blackfennec.facade.main_window.black_fennec_view import BlackFennecView
 from blackfennec.facade.main_window.black_fennec_view_model import BlackFennecViewModel
 from blackfennec.facade.splash_screen.splash_screen_view import SplashScreenView
+from blackfennec.facade.ui_service.ui_service import UiService
 from blackfennec.util.initialisation_service import InitialisationService
 
 from gi.repository import Adw, Gio, Gtk
@@ -47,11 +48,9 @@ class BlackFennec(Adw.Application):
         """Setup BlackFennec application"""
 
         view_model = BlackFennecViewModel(
-            self._initialisation_service.presenter_registry,
-            self._initialisation_service.interpretation_service,
-            self._initialisation_service.document_factory,
             self._initialisation_service.extension_api,
             self._initialisation_service.extension_source_registry,
+            UiService()
         )
         black_fennec_view = BlackFennecView(self, view_model)
         return black_fennec_view

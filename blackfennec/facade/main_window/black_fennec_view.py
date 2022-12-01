@@ -41,6 +41,7 @@ class BlackFennecView(Gtk.ApplicationWindow):
     _file_tree: Gtk.TreeView = Gtk.Template.Child()
     _file_tree_flap: Adw.Flap = Gtk.Template.Child()
 
+    _toast_overlay: Adw.ToastOverlay = Gtk.Template.Child()
     _tab_overview: Gtk.Box = Gtk.Template.Child()
     tab_view: Adw.TabView = Gtk.Template.Child()
     _tab_bar: Adw.TabBar = Gtk.Template.Child()
@@ -64,6 +65,7 @@ class BlackFennecView(Gtk.ApplicationWindow):
         self._view_model.bind(
             open_file=self.on_open_tab,
             open_directory=self._update_directory,
+            message=self._on_show_toast,
         )
 
         renderer = Gtk.CellRendererText()
@@ -311,6 +313,9 @@ class BlackFennecView(Gtk.ApplicationWindow):
         else:
             logger.warning('Cannot redo')
 
+    def _on_show_toast(self, unused_sender, toast: Adw.Toast):
+        self._toast_overlay.add_toast(toast)
+
     """Tab handling"""
 
     def _init_tabs(self):
@@ -373,14 +378,14 @@ class BlackFennecView(Gtk.ApplicationWindow):
         action.set_enabled(enabled)
 
     def show_tab_view(self):
-        self._file_tree_flap.set_content(self._tab_overview)
+        self._toast_overlay.set_child(self._tab_overview)
         self.set_main_action_enabled('save', True)
         self.set_main_action_enabled('save_as', True)
         self.set_main_action_enabled('save_all', True)
 
     def hide_tab_view(self):
         if self.tab_view.get_n_pages() <= 1:
-            self._file_tree_flap.set_content(self._empty_list_pattern)
+            self._toast_overlay.set_child(self._empty_list_pattern)
             self.set_main_action_enabled('save', False)
             self.set_main_action_enabled('save_as', False)
             self.set_main_action_enabled('save_all', False)

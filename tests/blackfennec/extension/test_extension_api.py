@@ -1,6 +1,4 @@
 # -*- coding: utf-8 -*-
-import unittest
-
 import pytest
 
 from blackfennec_doubles.double_dummy import Dummy
@@ -48,10 +46,15 @@ def document_registry():
 
 
 @pytest.fixture
+def document_factory():
+    return Dummy('DocumentFactory')
+
+
+@pytest.fixture
 def extension_api(
         presenter_registry, type_registry, interpretation_service,
         view_factory, view_factory_registry, type_loader, action_registry,
-        document_registry
+        document_registry, document_factory
 ):
     return ExtensionApi(
         presenter_registry,
@@ -62,6 +65,7 @@ def extension_api(
         type_loader,
         action_registry,
         document_registry,
+        document_factory,
     )
 
 

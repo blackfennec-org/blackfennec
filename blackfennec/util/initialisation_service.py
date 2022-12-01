@@ -72,6 +72,7 @@ class InitialisationService():
             self.type_loader,
             self.action_registry,
             self.document_registry,
+            self.document_factory,
         )
 
         self._setup_document_system()

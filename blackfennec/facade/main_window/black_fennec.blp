@@ -2,216 +2,221 @@ using Gtk 4.0;
 using Adw 1;
 
 template BlackFennecView: ApplicationWindow {
-  title: "Black Fennec";
-  default-width: 1000;
-  default-height: 500;
+    title: "Black Fennec";
+    default-width: 1000;
+    default-height: 500;
 
-  [titlebar]
-  HeaderBar _header_bar {
-    [start]
-    ToggleButton {
-      icon-name: "sidebar-show-right-symbolic";
-      clicked => on_flap_button_toggled();
+    [titlebar]
+    HeaderBar _header_bar {
+        [start]
+        ToggleButton {
+            icon-name: "sidebar-show-right-symbolic";
+            clicked => on_flap_button_toggled();
+        }
+
+        [end]
+        MenuButton {
+            icon-name: "open-menu-symbolic";
+            menu-model: _primary_menu;
+        }
     }
 
-    [end]
-    MenuButton {
-      icon-name: "open-menu-symbolic";
-      menu-model: _primary_menu;
-    }
-  }
 
-  Adw.Flap _file_tree_flap {
-    content: _empty_list_pattern;
-    flap: _file_tree_scrolled_window;
-    locked: false;
-    reveal-flap: false;
-  }
+    Adw.Flap _file_tree_flap {
+        content: _toast_overlay;
+        flap: _file_tree_scrolled_window;
+        locked: false;
+        reveal-flap: false;
+    }
 }
 
 ScrolledWindow _file_tree_scrolled_window {
-  focusable: true;
-  width-request: 200;
-  child:
-  TreeView _file_tree {
-    visible: true;
-    width-request: 200;
     focusable: true;
-    vexpand: true;
-    enable-grid-lines: vertical;
-    row-activated => on_open_file_from_filetree();
+    width-request: 200;
 
-    [internal-child selection]
-    TreeSelection {
+    child:
+    TreeView _file_tree {
+        visible: true;
+        width-request: 200;
+        focusable: true;
+        vexpand: true;
+        enable-grid-lines: vertical;
+        row-activated => on_open_file_from_filetree();
+
+        [internal-child selection]
+        TreeSelection {
+        }
     }
-  }
 
-  ;
+    ;
+}
+
+Adw.ToastOverlay _toast_overlay {
+    Adw.StatusPage _empty_list_pattern {
+        title: _("Nothing to show ...");
+        description: _("Open  a file or directory to start editing.");
+        icon-name: "document-open-symbolic";
+
+        Box {
+            hexpand: true;
+            orientation: vertical;
+            spacing: 8;
+
+            Button _open_directory_button {
+                label: _("Open directory ...");
+                action-name: "main.open_directory";
+                halign: center;
+
+                styles [
+                    "suggested-action",
+                    "pill",
+                ]
+            }
+
+            Button _open_file_button {
+                label: _("Open file ...");
+                action-name: "main.open_file";
+                halign: center;
+
+                styles [
+                    "pill",
+                ]
+            }
+        }
+    }
 }
 
 Box _tab_overview {
-  orientation: vertical;
-
-  Adw.TabBar _tab_bar {
-    view: tab_view;
-    autohide: false;
-  }
-
-  Adw.TabView tab_view {
-    vexpand: true;
-    menu-model: _tab_menu;
-  }
-}
-
-Adw.StatusPage _empty_list_pattern {
-  title: _("Nothing to show ...");
-  description: _("Open  a file or directory to start editing.");
-  icon-name: "document-open-symbolic";
-
-  Box {
-    hexpand: true;
     orientation: vertical;
-    spacing: 8;
 
-    Button _open_directory_button {
-      label: _("Open directory ...");
-      action-name: "main.open_directory";
-      halign: center;
-
-      styles [
-        "suggested-action",
-        "pill",
-      ]
+    Adw.TabBar _tab_bar {
+        view: tab_view;
+        autohide: false;
     }
 
-    Button _open_file_button {
-      label: _("Open file ...");
-      action-name: "main.open_file";
-      halign: center;
-         styles [
-        "pill",
-      ]
+    Adw.TabView tab_view {
+        vexpand: true;
+        menu-model: _tab_menu;
     }
-  }
 }
 
 menu _tab_menu {
-  section {
-    item {
-      label: _("_Move to New Window");
-      action: "tab.move_to_new_window";
-    }
-  }
-
-  section {
-    item {
-      label: _("P_in Tab");
-      action: "tab.pin";
-      hidden-when: "action-disabled";
+    section {
+        item {
+            label: _("_Move to New Window");
+            action: "tab.move_to_new_window";
+        }
     }
 
-    item {
-      label: _("Unp_in Tab");
-      action: "tab.unpin";
-      hidden-when: "action-disabled";
-    }
-  }
+    section {
+        item {
+            label: _("P_in Tab");
+            action: "tab.pin";
+            hidden-when: "action-disabled";
+        }
 
-  section {
-    item {
-      label: _("_Save");
-      action: "tab.save";
-    }
-
-    item {
-      label: _("Save _As ...");
-      action: "tab.save_as";
-    }
-  }
-
-  section {
-    item {
-      label: _("Close _Other Tabs");
-      action: "tab.close_other";
-      hidden-when: "action-disabled";
+        item {
+            label: _("Unp_in Tab");
+            action: "tab.unpin";
+            hidden-when: "action-disabled";
+        }
     }
 
-    item {
-      /* Translators: Translators: “Close Tabs to the _Right” if you’re translating for a language that reads from right to left */
-      label: _("Close Tabs to the _Left");
-      action: "tab.close_before";
-      hidden-when: "action-disabled";
+    section {
+        item {
+            label: _("_Save");
+            action: "tab.save";
+        }
+
+        item {
+            label: _("Save _As ...");
+            action: "tab.save_as";
+        }
     }
 
-    item {
-      /* Translators: Translators: “Close Tabs to the _Left” if you’re translating for a language that reads from right to left */
-      label: _("Close Tabs to the _Right");
-      action: "tab.close_after";
-      hidden-when: "action-disabled";
-    }
+    section {
+        item {
+            label: _("Close _Other Tabs");
+            action: "tab.close_other";
+            hidden-when: "action-disabled";
+        }
 
-    item {
-      label: _("Close _All Tabs");
-      action: "tab.close_all";
-      hidden-when: "action-disabled";
-    }
+        item {
+            /* Translators: Translators: “Close Tabs to the _Right” if you’re translating for a language that reads from right to left */
+            label: _("Close Tabs to the _Left");
+            action: "tab.close_before";
+            hidden-when: "action-disabled";
+        }
 
-    item {
-      label: _("_Close");
-      action: "tab.close";
+        item {
+            /* Translators: Translators: “Close Tabs to the _Left” if you’re translating for a language that reads from right to left */
+            label: _("Close Tabs to the _Right");
+            action: "tab.close_after";
+            hidden-when: "action-disabled";
+        }
+
+        item {
+            label: _("Close _All Tabs");
+            action: "tab.close_all";
+            hidden-when: "action-disabled";
+        }
+
+        item {
+            label: _("_Close");
+            action: "tab.close";
+        }
     }
-  }
 }
 
 menu _primary_menu {
-  section {
-    item {
-      label: _("Open Directory ...");
-      action: "main.open_directory";
+    section {
+        item {
+            label: _("Open Directory ...");
+            action: "main.open_directory";
+        }
+        item {
+            label: _("Open File ...");
+            action: "main.open_file";
+        }
     }
-    item {
-      label: _("Open File ...");
-      action: "main.open_file";
+    section {
+        item {
+            label: _("Save");
+            action: "main.save";
+        }
+        item {
+            label: _("Save As ...");
+            action: "main.save_as";
+        }
+        item {
+            label: _("Save All");
+            action: "main.save_all";
+        }
     }
-  }
-  section {
-    item {
-      label: _("Save");
-      action: "main.save";
+    section {
+        item {
+            label: _("Undo");
+            action: "main.undo";
+        }
+        item {
+            label: _("Redo");
+            action: "main.redo";
+        }
     }
-    item {
-      label: _("Save As ...");
-      action: "main.save_as";
+    section {
+        item {
+            label: _("Go to Store");
+            action: "main.extension_store";
+        }
+        item {
+            label: _("About");
+            action: "main.about";
+        }
     }
-    item {
-      label: _("Save All");
-      action: "main.save_all";
+    section {
+        item {
+            label: _("Close Window");
+            action: "main.quit";
+        }
     }
-  }
-  section {
-    item {
-      label: _("Undo");
-        action: "main.undo";
-    }
-    item {
-      label: _("Redo");
-        action: "main.redo";
-    }
-  }
-  section {
-    item {
-      label: _("Go to Store");
-      action: "main.extension_store";
-    }
-    item {
-      label: _("About");
-      action: "main.about";
-    }
-  }
-  section {
-    item {
-      label: _("Close Window");
-      action: "main.quit";
-    }
-  }
 }

@@ -23,7 +23,7 @@
     </child>
     <child>
       <object class="AdwFlap" id="_file_tree_flap">
-        <property name="content">_empty_list_pattern</property>
+        <property name="content">_toast_overlay</property>
         <property name="flap">_file_tree_scrolled_window</property>
         <property name="locked">false</property>
         <property name="reveal-flap">false</property>
@@ -47,6 +47,43 @@
       </object>
     </property>
   </object>
+  <object class="AdwToastOverlay" id="_toast_overlay">
+    <child>
+      <object class="AdwStatusPage" id="_empty_list_pattern">
+        <property name="title" translatable="true">Nothing to show ...</property>
+        <property name="description" translatable="true">Open  a file or directory to start editing.</property>
+        <property name="icon-name">document-open-symbolic</property>
+        <child>
+          <object class="GtkBox">
+            <property name="hexpand">true</property>
+            <property name="orientation">vertical</property>
+            <property name="spacing">8</property>
+            <child>
+              <object class="GtkButton" id="_open_directory_button">
+                <property name="label" translatable="true">Open directory ...</property>
+                <property name="action-name">main.open_directory</property>
+                <property name="halign">center</property>
+                <style>
+                  <class name="suggested-action"/>
+                  <class name="pill"/>
+                </style>
+              </object>
+            </child>
+            <child>
+              <object class="GtkButton" id="_open_file_button">
+                <property name="label" translatable="true">Open file ...</property>
+                <property name="action-name">main.open_file</property>
+                <property name="halign">center</property>
+                <style>
+                  <class name="pill"/>
+                </style>
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
   <object class="GtkBox" id="_tab_overview">
     <property name="orientation">vertical</property>
     <child>
@@ -59,39 +96,6 @@
       <object class="AdwTabView" id="tab_view">
         <property name="vexpand">true</property>
         <property name="menu-model">_tab_menu</property>
-      </object>
-    </child>
-  </object>
-  <object class="AdwStatusPage" id="_empty_list_pattern">
-    <property name="title" translatable="true">Nothing to show ...</property>
-    <property name="description" translatable="true">Open  a file or directory to start editing.</property>
-    <property name="icon-name">document-open-symbolic</property>
-    <child>
-      <object class="GtkBox">
-        <property name="hexpand">true</property>
-        <property name="orientation">vertical</property>
-        <property name="spacing">8</property>
-        <child>
-          <object class="GtkButton" id="_open_directory_button">
-            <property name="label" translatable="true">Open directory ...</property>
-            <property name="action-name">main.open_directory</property>
-            <property name="halign">center</property>
-            <style>
-              <class name="suggested-action"/>
-              <class name="pill"/>
-            </style>
-          </object>
-        </child>
-        <child>
-          <object class="GtkButton" id="_open_file_button">
-            <property name="label" translatable="true">Open file ...</property>
-            <property name="action-name">main.open_file</property>
-            <property name="halign">center</property>
-            <style>
-              <class name="pill"/>
-            </style>
-          </object>
-        </child>
       </object>
     </child>
   </object>
