@@ -6,8 +6,6 @@ from pathlib import Path
 from gi.repository import Adw, Gtk, Gio, GLib
 
 from blackfennec.facade.about_window.about_window_view import AboutWindowView
-from blackfennec.facade.extension_store.extension_store_view import \
-    ExtensionStoreView
 from blackfennec.facade.main_window.document_tab import DocumentTab
 from blackfennec.facade.main_window.document_tab_view import DocumentTabView
 from blackfennec.facade.ui_service.ui_service import UiService
@@ -274,10 +272,7 @@ class BlackFennecView(Gtk.ApplicationWindow):
 
     def on_go_to_store(self, unused_action, unused_param, unused_none) -> None:
         """Callback for the button click event"""
-        store_view_model = self._view_model.create_extension_store()
-        store = ExtensionStoreView(self._application, store_view_model)
-        store.show()
-        logger.debug('go to store clicked')
+        logger.warning('go to store clicked')
 
     def on_about(self, unused_action, unused_param, unused_none) -> None:
         """Callback for the button click event"""

@@ -1,21 +1,33 @@
 import pytest
 
-from blackfennec.facade.extension_store.extension_store_view_model import \
-    ExtensionStoreViewModel
 from blackfennec.facade.main_window.black_fennec_view_model import \
     BlackFennecViewModel
 from blackfennec_doubles.document_system.double_document import DocumentMock
 from blackfennec_doubles.double_dummy import Dummy
-from blackfennec_doubles.extension.double_extension_api import ExtensionApiMock
 from blackfennec_doubles.extension.double_extension_source_registry import \
     ExtensionSourceRegistryMock
+from blackfennec_doubles.extension.double_presenter_registry import PresenterRegistryMock
 from blackfennec_doubles.facade.main_window.double_document_tab import \
     DocumentTabMock
 from blackfennec_doubles.facade.ui_service.double_ui_service import \
     UiServiceMock
 from blackfennec_doubles.facade.ui_service.double_ui_service_registry import \
     UiServiceRegistryMock
+from blackfennec_doubles.extension.double_extension_api import ExtensionApiMock
 from tests.test_utils.observer import Observer
+from blackfennec_doubles.interpretation.double_interpretation_service import InterpretationServiceMock
+from blackfennec_doubles.extension.double_extension_source_registry import ExtensionSourceRegistryMock
+from blackfennec.facade.main_window.black_fennec_view_model import BlackFennecViewModel
+
+
+@pytest.fixture()
+def presenter_registry():
+    return PresenterRegistryMock()
+
+
+@pytest.fixture()
+def interpretation_service():
+    return InterpretationServiceMock(Dummy())
 
 
 @pytest.fixture()
@@ -56,14 +68,10 @@ def extension_source_registry():
 @pytest.fixture()
 def view_model(
         extension_api,
-        extension_source_registry,
         ui_service,
         ui_service_key,
 ):
-    view_model = BlackFennecViewModel(
-        extension_api,
-        extension_source_registry,
-    )
+    view_model = BlackFennecViewModel(extension_api)
     view_model.set_ui_service(ui_service_key, ui_service)
     return view_model
 
@@ -134,11 +142,6 @@ def test_cannot_redo(view_model, ui_service, document_tab):
 def test_can_set_directory(view_model):
     view_model.current_directory = "test"
     assert view_model.current_directory == "test"
-
-
-def test_can_create_extension_store(view_model):
-    extension_store_view_model = view_model.create_extension_store()
-    assert isinstance(extension_store_view_model, ExtensionStoreViewModel)
 
 
 def test_can_get_about_window_view_model(view_model):

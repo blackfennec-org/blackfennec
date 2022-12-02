@@ -49,7 +49,7 @@ test_extensions: $(EXTS)
 .PHONY: $(EXTS)
 $(EXTS):
 	cd "$@"; \
-	xvfb-run -a pytest tests/;
+	pytest tests/;
 
 install: install_extensions
 	python -m pip install -e .

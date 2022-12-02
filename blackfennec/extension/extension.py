@@ -1,14 +1,11 @@
 # -*- coding: utf-8 -*-
 from typing import Optional
 
-from blackfennec.structure.list import List
-from blackfennec.extension.extension_status import ExtensionStatus
-from blackfennec.structure.boolean import Boolean
-from blackfennec.structure.map import Map
-from blackfennec.structure.string import String
-
 import logging
+
+from blackfennec.extension.extension_api import ExtensionApi
 logger = logging.getLogger(__name__)
+
 
 class Extension:
     """
@@ -23,96 +20,64 @@ class Extension:
 
     def __init__(
             self,
-            extension_loading_service,
-            source,
-            extension_map: Optional[Map] = None,
-            name: Optional[str] = None,
-            location: Optional[list] = None,
-            enabled: Optional[bool] = None
+            name: str,
+            api: ExtensionApi,
+            dependencies: Optional[set[str]] = None,
     ):
-        self._extension_loading_service = extension_loading_service
-        self._source = source
-        self._status = (ExtensionStatus.NOT_LOADED, None)
-        self._module = None
-
-        self._subject = extension_map if extension_map is not None else Map()
-        if self.NAME_KEY not in self._subject.value:
-            self._subject.add_item(self.NAME_KEY, String())
-        if self.LOCATION_KEY not in self._subject.value:
-            self._subject.add_item(self.LOCATION_KEY, List())
-        if self.ENABLED_KEY not in self._subject.value:
-            self._subject.add_item(self.ENABLED_KEY, Boolean())
-
-        self.name: str = name if name else self.name
-        if location:
-            self.location: list = location
-        self.enabled: bool = enabled if enabled is not None else self.enabled
+        assert name is not None
+        self._name = name
+        self._api = api
+        self._is_active = False
+        self._dependencies = dependencies or set()
 
     @property
-    def name(self):
-        return self._subject.value[self.NAME_KEY].value
-
-    @name.setter
-    def name(self, value: str):
-        self._subject.value[self.NAME_KEY].value = value
+    def name(self) -> str:
+        return self._name
 
     @property
-    def location(self) -> list:
-        return [
-            child.value
-            for child in self._subject.value[self.LOCATION_KEY].value
-        ]
-
-    @location.setter
-    def location(self, value: list):
-        self._subject.value[self.LOCATION_KEY].value = \
-            [String(child) for child in value]
+    def is_active(self) -> bool:
+        return self._is_active
 
     @property
-    def enabled(self):
-        return self._subject.value[self.ENABLED_KEY].value
+    def dependencies(self) -> set[str]:
+        return self._dependencies
 
-    @enabled.setter
-    def enabled(self, value: bool):
-        self._subject.value[self.ENABLED_KEY].value = value
+    def activate(self) -> None:
+        assert not self.is_active
+        self.register_types()
+        self.register_actions()
+        self.register_view_factories()
+        self.register_presenters()
+        self._is_active = True
 
-    @property
-    def source(self):
-        return self._source
+    def deactivate(self) -> None:
+        assert self.is_active
+        self.deregister_presenters()
+        self.deregister_view_factories()
+        self.deregister_actions()
+        self.deregister_types()
+        self._is_active = False
 
-    @source.setter
-    def source(self, value):
-        self._source = value
+    def register_types(self):
+        ...
 
-    @property
-    def status(self):
-        return self._status
+    def deregister_types(self):
+        ...
 
-    @status.setter
-    def status(self, value):
-        self._status = value
+    def register_actions(self):
+        ...
 
-    @property
-    def underlay(self):
-        return self._subject
+    def deregister_actions(self):
+        ...
 
-    def load(self, extension_api):
-        module = self._extension_loading_service.load(self)
-        try:
-            module.create_extension(extension_api)
-            self.status = (ExtensionStatus.LOADED, module)
-        except Exception as exception:
-            self.status = (ExtensionStatus.CREATE_FAILED, exception)
-            logger.error(
-                f'Failed to create extension {self.name} from module {module}',
-                exc_info=True
-            )
-            raise exception
+    def register_view_factories(self):
+        ...
 
-    def unload(self, extension_api):
-        try:
-            self.status[1].destroy_extension(extension_api)
-            self.status = (ExtensionStatus.NOT_LOADED, None)
-        except Exception as exception:
-            self.status = (ExtensionStatus.UNLOAD_FAILED, exception)
-            raise exception
+    def deregister_view_factories(self):
+        ...
+
+    def register_presenters(self):
+        ...
+
+    def deregister_presenters(self):
+        ...

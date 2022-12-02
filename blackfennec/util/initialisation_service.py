@@ -15,6 +15,8 @@ from blackfennec.document_system.mime_type.json.json_reference_serializer import
 from blackfennec.document_system.resource_type.protocols.bftype_resource_type import \
     BFTypeResourceType
 from blackfennec.facade.ui_service.ui_service_registry import UiServiceRegistry
+from blackfennec.extension.extension_registry import ExtensionRegistry
+from blackfennec.extension.extension_service import ExtensionService
 from blackfennec.structure.structure_serializer import StructureSerializer
 from blackfennec.document_system.resource_type.protocols.file_resource_type import \
     FileResourceType
@@ -29,10 +31,6 @@ from blackfennec.extension.presenter_registry import PresenterRegistry
 from blackfennec.type_system.type_registry import TypeRegistry
 from blackfennec.actions.action_registry import ActionRegistry
 from blackfennec.extension.extension_api import ExtensionApi
-from blackfennec.extension.extension_initialisation_service import \
-    ExtensionInitialisationService
-from blackfennec.extension.extension_source_registry import \
-    ExtensionSourceRegistry
 from blackfennec.extension.view_factory import ViewFactory
 from blackfennec.extension.view_factory_registry import ViewFactoryRegistry
 
@@ -60,7 +58,7 @@ class InitialisationService():
 
         self.type_loader = TypeLoader(
             self.document_factory, self.type_registry)
-        self.extension_source_registry = ExtensionSourceRegistry()
+        self.extension_registry = ExtensionRegistry()
 
         self.interpretation_service = InterpretationService(self.type_registry)
 
@@ -109,11 +107,4 @@ class InitialisationService():
             )
 
     def _setup_extensions(self, extension_configuration_file: str):
-        """Setup extensions"""
-        extension_initialisation_service = ExtensionInitialisationService(
-            self.document_factory)
-        extension_initialisation_service.load_extensions_from_file(
-            self.extension_source_registry,
-            self.extension_api,
-            extension_configuration_file
-        )
+        ExtensionService.load(self.extension_api, self.extension_registry)

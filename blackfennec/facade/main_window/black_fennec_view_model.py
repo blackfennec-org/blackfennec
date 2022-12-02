@@ -4,8 +4,6 @@ from typing import Optional
 
 from blackfennec.document_system.document_factory import DocumentFactory
 from blackfennec.facade.about_window.about_window_view_model import AboutWindowViewModel
-from blackfennec.facade.extension_store.extension_store_view_model import ExtensionStoreViewModel
-
 from blackfennec.facade.main_window.document_tab import DocumentTab
 from blackfennec.facade.ui_service.message import Message
 from blackfennec.facade.ui_service.ui_service import UiService
@@ -14,7 +12,6 @@ from blackfennec.navigation.navigation_service import NavigationService
 from blackfennec.extension.presenter_registry import PresenterRegistry
 from blackfennec.util.observable import Observable
 from blackfennec.extension.extension_api import ExtensionApi
-from blackfennec.extension.extension_source_registry import ExtensionSourceRegistry
 
 logger = logging.getLogger(__name__)
 
@@ -34,7 +31,6 @@ class BlackFennecViewModel(Observable):
     def __init__(
             self,
             extension_api: ExtensionApi,
-            extension_source_registry: ExtensionSourceRegistry,
     ):
         """BlackFennecViewModel constructor.
 
@@ -52,7 +48,6 @@ class BlackFennecViewModel(Observable):
         self._interpretation_service = extension_api.interpretation_service
         self._document_factory = extension_api.document_factory
         self._extension_api = extension_api
-        self._extension_source_registry = extension_source_registry
         self._ui_service_registry = extension_api.ui_service_registry
         self._ui_service = None
 
@@ -127,13 +122,6 @@ class BlackFennecViewModel(Observable):
             self.save(tab)
         self._ui_service.show_message(Message("Saved all opened files"))
 
-    def create_extension_store(self) -> ExtensionStoreViewModel:
-        """Creates an extension store view model"""
-        return ExtensionStoreViewModel(
-            self._extension_source_registry,
-            self._extension_api
-        )
-
     def get_about_window_view_model(self):
         return AboutWindowViewModel()
 
@@ -164,10 +152,7 @@ class BlackFennecViewModel(Observable):
             self._ui_service.show_message(Message('Cannot redo'))
 
     def copy(self) -> 'BlackFennecViewModel':
-        return BlackFennecViewModel(
-            self._extension_api,
-            self._extension_source_registry,
-        )
+        return BlackFennecViewModel(self._extension_api)
 
     def attach_tab(self, tab: DocumentTab):
         if tab not in self.tabs:

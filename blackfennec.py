@@ -49,7 +49,6 @@ class BlackFennec(Adw.Application):
 
         view_model = BlackFennecViewModel(
             self._initialisation_service.extension_api,
-            self._initialisation_service.extension_source_registry,
         )
         black_fennec_view = BlackFennecView(self, view_model)
         return black_fennec_view
