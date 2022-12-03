@@ -5,8 +5,8 @@ runtime-version: '43'
 sdk: org.gnome.Sdk
 command: run.sh
 add-extensions:
-  org.blackfennec.extensions:
-    version: '0.10'
+  org.blackfennec.app.extensions:
+    version: '0.11'
     directory: extensions
     merge-dirs: lib/python3.10/site-packages/
     subdirectories: true

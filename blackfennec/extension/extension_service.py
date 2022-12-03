@@ -32,20 +32,25 @@ def try_activate_extensions(extensions: list[Extension], registry: ExtensionRegi
     logger.debug(f'Extensions: {extensions}')
     graph = build_dependency_graph(extensions)
     order = topological_sort(graph)
-    order_extensions = sort_extensions(extensions, order)
+    sorted_extensions = sort_extensions(extensions, order)
     try:
-        activate_extensions(order_extensions, registry)
+        activate_extensions(sorted_extensions, registry)
     except Exception as e:
         logger.error(f'Failed to load extensions')
-        if order_extensions:
-            try_activate_extensions(extensions, registry)
+        if sorted_extensions:
+            try_activate_extensions(sorted_extensions, registry)
 
 
 def activate_extensions(extensions: set[Extension], registry: ExtensionRegistry):
+    logger.debug("activating extensions")
+    logger.debug(f"Extensions: {extensions}")
     while extensions:
         extension = extensions.pop(0)
+        logger.debug(f"activating {extension.name}")
         extension.activate()
+        logger.debug(f"registering extension")
         registry.register(extension)
+    logger.debug(f"activated all extensions: {extensions}")
 
 
 def load_extensions(api: ExtensionApi) -> list[Extension]:
@@ -69,9 +74,17 @@ def dependencies_satisfied(extension: Extension, registry: ExtensionRegistry):
 
 def build_dependency_graph(extensions: Iterator[Extension]):
     graph = {}
+    logger.debug("building dependency graph")
+    logger.debug(f"\tExtensions: {extensions}")
     for extension in extensions:
+        if extension.name not in graph:
+                graph[extension.name] = []
+        logger.debug(f"\tExtension: {extension.name}")
         for dependency in extension.dependencies:
-            graph.get(dependency, []).append(extension.name)
+            logger.debug(f"\t\tDependency: {dependency}")
+            if dependency not in graph:
+                graph[dependency] = []
+            graph[dependency].append(extension.name)
     logger.debug(f'Graph: {graph}')
     return graph
 
@@ -97,7 +110,7 @@ def topological_sort(graph):
     while ready:
         logger.debug(f'count: {count}')
         logger.debug(f'Ready: {ready}')
-        logger.debug(f'Order: {order}')
+        logger.debug(f'current order: {order}')
         node = ready.pop(-1)
         order.append(node)
         for neighbour in graph[node]:
@@ -109,5 +122,10 @@ def topological_sort(graph):
 
 
 def sort_extensions(extensions: Iterator[Extension], order: list):
+    logger.debug(f"Extensions {extensions}")
     extension_map = build_extension_map(extensions)
-    return [extension_map[name] for name in order]
+    logger.debug(f"Extension map: {extension_map}")
+    logger.debug(f"Order {order}")
+    sorted_extensions = [extension_map[name] for name in order]
+    logger.debug(f"Sorted: {sorted_extensions}")
+    return sorted_extensions

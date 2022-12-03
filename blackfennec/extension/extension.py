@@ -4,7 +4,10 @@ from typing import Optional
 import logging
 
 from blackfennec.extension.extension_api import ExtensionApi
+
+
 logger = logging.getLogger(__name__)
+logger.setLevel(logging.DEBUG)
 
 
 class Extension:
@@ -44,6 +47,7 @@ class Extension:
 
     def activate(self) -> None:
         assert not self.is_active
+        logger.debug(f"activating extension {self.name}")
         self.register_types()
         self.register_actions()
         self.register_view_factories()
@@ -52,6 +56,7 @@ class Extension:
 
     def deactivate(self) -> None:
         assert self.is_active
+        logger.debug(f"deactivating extension {self.name}")
         self.deregister_presenters()
         self.deregister_view_factories()
         self.deregister_actions()
