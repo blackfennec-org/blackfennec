@@ -113,7 +113,8 @@ class BlackFennecViewModel(Observable):
         """Saves the passed file"""
         tab.save_document()
         self._ui_service.show_message(
-        Message("Saved document"))
+            Message("Saved document")
+        )
 
     def save_as(self, tab: DocumentTab, uri: str):
         """Saves the passed tab under new path"""
@@ -171,12 +172,16 @@ class BlackFennecViewModel(Observable):
     def attach_tab(self, tab: DocumentTab):
         if tab not in self.tabs:
             self.tabs.add(tab)
-        self._ui_service.show_message(Message("Tab detached"))
+            self._ui_service.show_message(Message("Tab attached"))
+        else:
+            raise AssertionError("Tab already attached")
 
     def detach_tab(self, tab: DocumentTab):
         if tab in self.tabs:
             self.tabs.remove(tab)
-        self._ui_service.show_message(Message("Tab detached"))
+            self._ui_service.show_message(Message("Tab detached"))
+        else:
+            raise AssertionError("Tab not attached")
 
     def _dispatch_message(self, sender, ui_message):
         self._notify('message', ui_message, sender)

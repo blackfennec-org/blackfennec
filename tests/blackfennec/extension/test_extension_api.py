@@ -111,5 +111,9 @@ def test_can_get_document_registry(extension_api, document_registry):
     assert extension_api.document_registry == document_registry
 
 
+def test_can_get_document_factory(extension_api, document_factory):
+    assert extension_api.document_factory == document_factory
+
+
 def test_can_get_ui_service_registry(extension_api, ui_service_registry):
     assert extension_api.ui_service_registry == ui_service_registry
