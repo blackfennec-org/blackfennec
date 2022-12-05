@@ -20,9 +20,3 @@ class UiServiceRegistry:
     def unregister(self, window=Gtk.Window):
         """Unregister a UI service."""
         del self._services[window]
-
-    def unregister_by_value(self, service=UiService):
-        """Unregister a UI service by value."""
-        for window, service in self._services.items():
-            if service == service:
-                del self._services[window]
