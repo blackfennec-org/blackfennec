@@ -8,7 +8,6 @@ class ExtensionRegistry:
         self._registry = set()
 
     def register(self, extension: Extension):
-        assert extension.is_active
         self._registry.add(extension)
 
     def get_extensions(self) -> list[Extension]:

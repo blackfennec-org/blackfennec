@@ -1,23 +1,18 @@
 # -*- coding: utf-8 -*-
+from blackfennec.extension.extension import Extension
 from blackfennec_doubles.structure.double_map import MapMock
-from blackfennec.extension.extension_status import ExtensionStatus
 
 
 class ExtensionMock:
-    def __init__(self, source_map = None, status=None):
-        self.underlay = source_map if source_map else MapMock()
-        self.status = status if status else (ExtensionStatus.NOT_LOADED, None)
-        self.load_count = 0
-        self.unload_count = 0
-        self.extension_api = None
-        self.name = None
-        self.location = None
-        self.enabled = None
+    def __init__(self, name, dependencies=None, expected_state=Extension.State.ACTIVE):
+        self.name = name
+        self.dependencies = dependencies or set()
+        self.expected_state = expected_state
+        self.state = None
+       
+    def activate(self):
+        if self.expected_state == Extension.State.FAILED:
+            raise Exception('Extension failed to activate')
 
-    def load(self, extension_api):
-        self.load_count += 1
-        self.extension_api = extension_api
-
-    def unload(self, extension_api):
-        self.unload_count += 1
-        self.extension_api = extension_api
+    def assert_state(self):
+        assert self.state == self.expected_state, f'Extension {self.name} expected state {self.expected_state} but was {self.state}'

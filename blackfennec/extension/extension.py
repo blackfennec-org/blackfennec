@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from enum import Enum
 from typing import Optional
 
 import logging
@@ -11,15 +12,11 @@ logger.setLevel(logging.DEBUG)
 
 
 class Extension:
-    """
-    Class representing Extension
-
-    Wrapper for underlay, able to load and unload
-    the extension saved in an underlay
-    """
-    NAME_KEY = 'identification'
-    LOCATION_KEY = 'location'
-    ENABLED_KEY = 'enabled'
+    class State(Enum):
+        INACTIVE = 'inactive'
+        ACTIVE = 'active'
+        FAILED = 'failed'
+        DEPENDENCY_MISSING = 'dependency_missing'
 
     def __init__(
             self,
@@ -30,7 +27,7 @@ class Extension:
         assert name is not None
         self._name = name
         self._api = api
-        self._is_active = False
+        self._state = Extension.State.INACTIVE
         self._dependencies = dependencies or set()
 
     @property
@@ -39,7 +36,15 @@ class Extension:
 
     @property
     def is_active(self) -> bool:
-        return self._is_active
+        return self.state == Extension.State.ACTIVE
+
+    @property
+    def state(self) -> 'Extension.State':
+        return self._state
+
+    @state.setter
+    def state(self, state: 'Extension.State') -> None:
+        self._state = state
 
     @property
     def dependencies(self) -> set[str]:
@@ -47,21 +52,21 @@ class Extension:
 
     def activate(self) -> None:
         assert not self.is_active
-        logger.debug(f"activating extension {self.name}")
+        logger.debug(f'activating extension {self.name}')
         self.register_types()
         self.register_actions()
         self.register_view_factories()
         self.register_presenters()
-        self._is_active = True
+        self.state = Extension.State.ACTIVE
 
     def deactivate(self) -> None:
         assert self.is_active
-        logger.debug(f"deactivating extension {self.name}")
+        logger.debug(f'deactivating extension {self.name}')
         self.deregister_presenters()
         self.deregister_view_factories()
         self.deregister_actions()
         self.deregister_types()
-        self._is_active = False
+        self.state = Extension.State.INACTIVE
 
     def register_types(self):
         ...
