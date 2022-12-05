@@ -29,6 +29,7 @@ run blackfennec tests:
   stage: test
   before_script:
     - pip install -r requirements.txt
+    - make install
   script:
     - xvfb-run -a pytest tests/
     - coverage xml
