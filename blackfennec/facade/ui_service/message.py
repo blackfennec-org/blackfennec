@@ -4,9 +4,9 @@ import math
 def _calculate_timeout(text: str):
     words = text.split(" ")
     word_count = len(words)
-    slow_reader_seconds_per_word = 0.6
+    slow_reader_seconds_per_word = 0.3
     reading_time = word_count*slow_reader_seconds_per_word
-    attention_delay = 1
+    attention_delay = 0.3
     return math.ceil(attention_delay + reading_time)
 
 

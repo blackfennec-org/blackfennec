@@ -10,6 +10,7 @@ from blackfennec.facade.extension_store.extension_store_view import \
     ExtensionStoreView
 from blackfennec.facade.main_window.document_tab import DocumentTab
 from blackfennec.facade.main_window.document_tab_view import DocumentTabView
+from blackfennec.facade.ui_service.ui_service import UiService
 
 logger = logging.getLogger(__name__)
 
@@ -43,7 +44,7 @@ class BlackFennecView(Gtk.ApplicationWindow):
 
     _toast_overlay: Adw.ToastOverlay = Gtk.Template.Child()
     _tab_overview: Gtk.Box = Gtk.Template.Child()
-    tab_view: Adw.TabView = Gtk.Template.Child()
+    _tab_view: Adw.TabView = Gtk.Template.Child()
     _tab_bar: Adw.TabBar = Gtk.Template.Child()
 
     _open_directory_button: Gtk.Button = Gtk.Template.Child()
@@ -53,31 +54,26 @@ class BlackFennecView(Gtk.ApplicationWindow):
 
     def __init__(self, app, view_model, current_directory: str = None):
         super().__init__(application=app)
-
         self._application = app
-        self._init_main_actions()
-
         self._tab_menu_page = None
-        self._init_tabs()
+        self._file_chooser_native = None
+        self._active_history = None
 
-        logger.info('BlackFennecView __init__')
         self._view_model = view_model
+        self._view_model.set_ui_service(self, UiService())
         self._view_model.bind(
             open_file=self.on_open_tab,
             open_directory=self._update_directory,
-            message=self._on_show_toast,
         )
+        self._view_model.get_ui_service(self).bind(message=self._on_show_toast)
 
-        renderer = Gtk.CellRendererText()
-        tree_view_column = Gtk.TreeViewColumn(
-            'Current directory', renderer, text=0)
-        self._file_tree.append_column(tree_view_column)
+        self._init_main_actions()
+        self._init_tabs()
+        self._init_file_tree()
 
         self._current_directory = current_directory
         self._update_directory(self, self._current_directory)
-        self._file_chooser_native = None
 
-        self._active_history = None
 
     def _init_main_actions(self):
         self._main_action_group = Gio.SimpleActionGroup().new()
@@ -116,6 +112,12 @@ class BlackFennecView(Gtk.ApplicationWindow):
         self.set_main_action_enabled('save', False)
         self.set_main_action_enabled('save_as', False)
         self.set_main_action_enabled('save_all', False)
+
+    def _init_file_tree(self):
+        renderer = Gtk.CellRendererText()
+        tree_view_column = Gtk.TreeViewColumn(
+            'Current directory', renderer, text=0)
+        self._file_tree.append_column(tree_view_column)
 
     def set_main_action_enabled(self, action_name: str, enabled: bool):
         action = self._main_action_group.lookup_action(action_name)
@@ -299,19 +301,11 @@ class BlackFennecView(Gtk.ApplicationWindow):
 
     def on_undo(self, unused_action, unused_param, unused_data):
         current_page = self.get_current_page()
-        tab = current_page.document_tab
-        if tab.history.can_undo():
-            tab.history.undo()
-        else:
-            logger.warning('Cannot undo')
+        self._view_model.undo(current_page.document_tab)
 
     def on_redo(self, unused_action, unused_param, unused_data):
         current_page = self.get_current_page()
-        tab = current_page.document_tab
-        if tab.history.can_redo():
-            tab.history.redo()
-        else:
-            logger.warning('Cannot redo')
+        self._view_model.redo(current_page.document_tab)
 
     def _on_show_toast(self, unused_sender, toast: Adw.Toast):
         self._toast_overlay.add_toast(toast)
@@ -334,10 +328,10 @@ class BlackFennecView(Gtk.ApplicationWindow):
         ])
 
         self.insert_action_group('tab', self._tab_action_group)
-        self.tab_view.connect('close-page', self.on_close_tab)
-        self.tab_view.connect('create-window', self.on_create_new_window)
-        self.tab_view.connect('setup-menu', self.on_setup_tab_menu)
-        self.tab_view.connect('page-attached', self.on_attach_tab)
+        self._tab_view.connect('close-page', self.on_close_tab)
+        self._tab_view.connect('create-window', self.on_create_new_window)
+        self._tab_view.connect('setup-menu', self.on_setup_tab_menu)
+        self._tab_view.connect('page-attached', self.on_attach_tab)
 
     def on_setup_tab_menu(self, view: Adw.TabView, page: Adw.TabPage):
         prev: Adw.TabPage = None
@@ -384,16 +378,16 @@ class BlackFennecView(Gtk.ApplicationWindow):
         self.set_main_action_enabled('save_all', True)
 
     def hide_tab_view(self):
-        if self.tab_view.get_n_pages() <= 1:
+        if self._tab_view.get_n_pages() <= 1:
             self._toast_overlay.set_child(self._empty_list_pattern)
             self.set_main_action_enabled('save', False)
             self.set_main_action_enabled('save_as', False)
             self.set_main_action_enabled('save_all', False)
 
     def on_open_tab(self, unused_sender, tab: DocumentTab):
-        document_tab_view = DocumentTabView(self.tab_view, tab)
+        document_tab_view = DocumentTabView(self._tab_view, tab)
         tab_page = document_tab_view.tab_page
-        self.tab_view.set_selected_page(tab_page)
+        self._tab_view.set_selected_page(tab_page)
 
     def on_close_tab(self, action, page: Adw.TabPage):
         self._view_model.close_file(page.document_tab)
@@ -422,13 +416,13 @@ class BlackFennecView(Gtk.ApplicationWindow):
         if self._tab_menu_page:
             return self._tab_menu_page
         else:
-            return self.tab_view.get_selected_page()
+            return self._tab_view.get_selected_page()
 
     def on_create_new_window(self, tab_view: Adw.TabView):
         new_window_view_model = self._view_model.copy()
         new_window = BlackFennecView(self._application, new_window_view_model)
         new_window.present()
-        return new_window.tab_view
+        return new_window._tab_view
 
     def on_tab_move_to_new_window(
             self,
@@ -438,18 +432,18 @@ class BlackFennecView(Gtk.ApplicationWindow):
     ):
         new_window_view_model = self._view_model.copy()
         new_window = BlackFennecView(self._application, new_window_view_model)
-        self.tab_view.transfer_page(
+        self._tab_view.transfer_page(
             self.get_current_page(),
-            new_window.tab_view,
+            new_window._tab_view,
             0
         )
         new_window.present()
 
     def on_tab_pin(self, unused_action, unused_param, unused_none):
-        self.tab_view.set_page_pinned(self.get_current_page(), True)
+        self._tab_view.set_page_pinned(self.get_current_page(), True)
 
     def on_tab_unpin(self, unused_action, unused_param, unused_page):
-        self.tab_view.set_page_pinned(self.get_current_page(), False)
+        self._tab_view.set_page_pinned(self.get_current_page(), False)
 
     def on_tab_save(self, action, param, none):
         self.on_save(action, param, none)
@@ -458,17 +452,17 @@ class BlackFennecView(Gtk.ApplicationWindow):
         self.on_save_as(action, param, none)
 
     def on_tab_close_other(self, unused_action, unused_param, unused_page):
-        self.tab_view.close_other_pages(self.get_current_page())
+        self._tab_view.close_other_pages(self.get_current_page())
 
     def on_tab_close_before(self, unused_action, unused_param, unused_page):
-        self.tab_view.close_pages_before(self.get_current_page())
+        self._tab_view.close_pages_before(self.get_current_page())
 
     def on_tab_close_after(self, unused_action, unused_param, unused_page):
-        self.tab_view.close_pages_after(self.get_current_page())
+        self._tab_view.close_pages_after(self.get_current_page())
 
     def on_tab_close(self, unused_action, unused_param, unused_page):
-        self.tab_view.close_page(self.get_current_page())
+        self._tab_view.close_page(self.get_current_page())
 
     def on_tab_close_all(self, unused_action, unused_param, unused_page):
-        self.tab_view.close_other_pages(self.get_current_page())
-        self.tab_view.close_page(self.get_current_page())
+        self._tab_view.close_other_pages(self.get_current_page())
+        self._tab_view.close_page(self.get_current_page())

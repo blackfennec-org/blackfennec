@@ -43,6 +43,7 @@ class ExtensionSourceTestSuite(unittest.TestCase):
         action_registry = None
         document_registry = None
         document_factory = None
+        ui_service_registry = None
         self.extension_api = ExtensionApi(
             PresenterRegistry(),
             type_registry,
@@ -53,6 +54,7 @@ class ExtensionSourceTestSuite(unittest.TestCase):
             action_registry,
             document_registry,
             document_factory,
+            ui_service_registry,
         )
 
     def test_can_load_extension(self):

@@ -3,9 +3,9 @@ import os
 import sys
 
 from blackfennec.facade.main_window.black_fennec_view import BlackFennecView
-from blackfennec.facade.main_window.black_fennec_view_model import BlackFennecViewModel
+from blackfennec.facade.main_window.black_fennec_view_model import \
+    BlackFennecViewModel
 from blackfennec.facade.splash_screen.splash_screen_view import SplashScreenView
-from blackfennec.facade.ui_service.ui_service import UiService
 from blackfennec.util.initialisation_service import InitialisationService
 
 from gi.repository import Adw, Gio, Gtk
@@ -50,13 +50,14 @@ class BlackFennec(Adw.Application):
         view_model = BlackFennecViewModel(
             self._initialisation_service.extension_api,
             self._initialisation_service.extension_source_registry,
-            UiService()
         )
         black_fennec_view = BlackFennecView(self, view_model)
         return black_fennec_view
 
 
 if __name__ == '__main__':
-    initialisation_service = InitialisationService(extension_configuration_file=EXTENSIONS)
+    initialisation_service = InitialisationService(
+        extension_configuration_file=EXTENSIONS
+    )
     black_fennec = BlackFennec(initialisation_service)
     black_fennec.run(sys.argv)

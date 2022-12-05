@@ -51,10 +51,15 @@ def document_factory():
 
 
 @pytest.fixture
+def ui_service_registry():
+    return Dummy('UiServiceRegistry')
+
+
+@pytest.fixture
 def extension_api(
         presenter_registry, type_registry, interpretation_service,
         view_factory, view_factory_registry, type_loader, action_registry,
-        document_registry, document_factory
+        document_registry, document_factory, ui_service_registry
 ):
     return ExtensionApi(
         presenter_registry,
@@ -66,6 +71,7 @@ def extension_api(
         action_registry,
         document_registry,
         document_factory,
+        ui_service_registry,
     )
 
 
@@ -103,3 +109,7 @@ def test_can_get_action_registry(extension_api, action_registry):
 
 def test_can_get_document_registry(extension_api, document_registry):
     assert extension_api.document_registry == document_registry
+
+
+def test_can_get_ui_service_registry(extension_api, ui_service_registry):
+    assert extension_api.ui_service_registry == ui_service_registry

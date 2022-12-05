@@ -13,6 +13,8 @@ from blackfennec_doubles.facade.main_window.double_document_tab import \
     DocumentTabMock
 from blackfennec_doubles.facade.ui_service.double_ui_service import \
     UiServiceMock
+from blackfennec_doubles.facade.ui_service.double_ui_service_registry import \
+    UiServiceRegistryMock
 
 
 @pytest.fixture()
@@ -25,9 +27,24 @@ def document_tab(document):
     return DocumentTabMock(document)
 
 
+@pytest.fixture()
+def ui_service():
+    return UiServiceMock()
+
+
+@pytest.fixture()
+def ui_service_key():
+    return Dummy('ui_service_key')
+
+
 @pytest.fixture
-def extension_api():
-    return ExtensionApiMock()
+def extension_api(ui_service, ui_service_key):
+    return ExtensionApiMock(
+        ui_service_registry=UiServiceRegistryMock(
+            ui_service=ui_service,
+            ui_service_key=ui_service_key
+        ),
+    )
 
 
 @pytest.fixture()
@@ -36,21 +53,18 @@ def extension_source_registry():
 
 
 @pytest.fixture()
-def ui_service():
-    return UiServiceMock()
-
-
-@pytest.fixture()
 def view_model(
         extension_api,
         extension_source_registry,
-        ui_service
+        ui_service,
+        ui_service_key,
 ):
-    return BlackFennecViewModel(
+    view_model = BlackFennecViewModel(
         extension_api,
         extension_source_registry,
-        ui_service,
     )
+    view_model.set_ui_service(ui_service_key, ui_service)
+    return view_model
 
 
 def test_can_open_file(view_model):

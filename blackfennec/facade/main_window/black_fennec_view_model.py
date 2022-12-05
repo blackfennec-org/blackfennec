@@ -35,7 +35,6 @@ class BlackFennecViewModel(Observable):
             self,
             extension_api: ExtensionApi,
             extension_source_registry: ExtensionSourceRegistry,
-            ui_service: UiService,
     ):
         """BlackFennecViewModel constructor.
 
@@ -54,8 +53,8 @@ class BlackFennecViewModel(Observable):
         self._document_factory = extension_api.document_factory
         self._extension_api = extension_api
         self._extension_source_registry = extension_source_registry
-        self._ui_service = ui_service
-        self._ui_service.bind(message=self._dispatch_message)
+        self._ui_service_registry = extension_api.ui_service_registry
+        self._ui_service = None
 
         self.tabs = set()
         self._current_directory: Optional[str] = None
@@ -68,11 +67,18 @@ class BlackFennecViewModel(Observable):
     def current_directory(self, directory: str):
         self._current_directory = directory
         self._notify('open_directory', self._current_directory)
-        self._ui_service.show_message(Message("Opened directory: " + os.path.basename(directory)))
+        self._ui_service.show_message(
+            Message("Opened directory: " + os.path.basename(directory))
+        )
 
-    @property
-    def ui_service(self) -> UiService:
-        return self._ui_service
+    def get_ui_service(self, key) -> UiService:
+        return self._ui_service_registry.services[key]
+
+    def set_ui_service(self, key, ui_service):
+        if self._ui_service is not None:
+            raise AssertionError("UI service already set")
+        self._ui_service = ui_service
+        self._ui_service_registry.register(key, ui_service)
 
     def open_file(self, uri: str):
         """Opens a file
@@ -130,11 +136,36 @@ class BlackFennecViewModel(Observable):
     def get_about_window_view_model(self):
         return AboutWindowViewModel()
 
+    def undo(self, tab: DocumentTab):
+        if tab.history.can_undo():
+            tab.history.undo()
+            self._ui_service.show_message(
+                Message(
+                    'Undone last change',
+                    action_name='Redo',
+                    action_target='main.redo',
+                )
+            )
+        else:
+            self._ui_service.show_message(Message('Cannot undo'))
+
+    def redo(self, tab: DocumentTab):
+        if tab.history.can_redo():
+            tab.history.redo()
+            self._ui_service.show_message(
+                Message(
+                    'Redone last change',
+                    action_name='Undo',
+                    action_target='main.undo',
+                )
+            )
+        else:
+            self._ui_service.show_message(Message('Cannot redo'))
+
     def copy(self) -> 'BlackFennecViewModel':
         return BlackFennecViewModel(
             self._extension_api,
             self._extension_source_registry,
-            self._ui_service.copy()
         )
 
     def attach_tab(self, tab: DocumentTab):

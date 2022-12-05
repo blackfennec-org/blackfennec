@@ -88,12 +88,12 @@
     <property name="orientation">vertical</property>
     <child>
       <object class="AdwTabBar" id="_tab_bar">
-        <property name="view">tab_view</property>
+        <property name="view">_tab_view</property>
         <property name="autohide">false</property>
       </object>
     </child>
     <child>
-      <object class="AdwTabView" id="tab_view">
+      <object class="AdwTabView" id="_tab_view">
         <property name="vexpand">true</property>
         <property name="menu-model">_tab_menu</property>
       </object>
