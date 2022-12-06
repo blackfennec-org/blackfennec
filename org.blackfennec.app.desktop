@@ -1,7 +1,8 @@
 [Desktop Entry]
 Name=Black Fennec
-Exec=run.sh
+Exec=blackfennec %U
 Type=Application
 Icon=org.blackfennec.app
+MimeType=application/json;
 Categories=Development;Office;Utility;TextEditor;Viewer;GNOME;GTK
 Keywords=Json;Editor;Semi-structured;Interpretation

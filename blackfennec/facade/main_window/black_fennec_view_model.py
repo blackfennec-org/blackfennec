@@ -17,31 +17,11 @@ logger = logging.getLogger(__name__)
 
 
 class BlackFennecViewModel(Observable):
-    """BlackFennec MainWindow view_model.
-
-    view_model to which views can dispatch calls
-    that include business logic.
-
-    Attributes:
-        _presenter (StructurePresenter): stores injected presenter
-        _navigation_service (NavigationService): stores injected
-            navigation service
-    """
 
     def __init__(
             self,
             extension_api: ExtensionApi,
     ):
-        """BlackFennecViewModel constructor.
-
-        Args:
-            presenter_registry (PresenterRegistry): presenter registry
-            interpretation_service (InterpretationService): interpretation
-                service
-            document_factory (DocumentFactory): document factory
-            extension_api (ExtensionApi): Extension API
-            extension_source_registry (ExtensionSourceRegistry): extension-source registry
-        """
         logger.info('BlackFennecViewModel __init__')
         super().__init__()
         self._presenter_registry = extension_api.presenter_registry
@@ -63,7 +43,7 @@ class BlackFennecViewModel(Observable):
         self._current_directory = directory
         self._notify('open_directory', self._current_directory)
         self._ui_service.show_message(
-            Message("Opened directory: " + os.path.basename(directory))
+            Message('Opened directory: ' + os.path.basename(directory))
         )
 
     def get_ui_service(self, key) -> UiService:
@@ -71,17 +51,23 @@ class BlackFennecViewModel(Observable):
 
     def set_ui_service(self, key, ui_service):
         if self._ui_service is not None:
-            raise AssertionError("UI service already set")
+            raise AssertionError('UI service already set')
         self._ui_service = ui_service
         self._ui_service_registry.register(key, ui_service)
 
+    def open(self, uri: str):
+        if os.path.isdir(uri):
+            self.current_directory = uri
+        else:
+            self.open_file(uri)
+
     def open_file(self, uri: str):
-        """Opens a file
+        '''Opens a file
         specified by the filename
 
         Args:
             uri (str): URI of the file to open
-        """
+        '''
         navigation_service = NavigationService()
         tab = DocumentTab(
             self._presenter_registry,
@@ -91,36 +77,38 @@ class BlackFennecViewModel(Observable):
         )
         self.tabs.add(tab)
         self._notify('open_file', tab)
-        self._ui_service.show_message(Message("Opened file: " + os.path.basename(uri)))
+        self._ui_service.show_message(
+            Message('Opened file: { + os.path.basename(uri)}'))
 
     def close_file(self, tab: DocumentTab):
-        """Closes a file
+        '''Closes a file
 
         Args:
             tab (DocumentTab): tab to close
-        """
+        '''
         self.tabs.remove(tab)
         self._notify('close_file', tab)
         self._ui_service.show_message(
-            Message("Closed document"))
+            Message('Closed document'))
 
     def save(self, tab: DocumentTab):
-        """Saves the passed file"""
+        '''Saves the passed file'''
         tab.save_document()
         self._ui_service.show_message(
-            Message("Saved document")
+            Message('Saved document')
         )
 
     def save_as(self, tab: DocumentTab, uri: str):
-        """Saves the passed tab under new path"""
+        '''Saves the passed tab under new path'''
         tab.save_document_as(uri)
-        self._ui_service.show_message(Message("Saved document under: " + os.path.basename(uri)))
+        self._ui_service.show_message(
+            Message(f'Saved document under: {os.path.basename(uri)}'))
 
     def save_all(self):
-        """Saves all open files"""
+        '''Saves all open files'''
         for tab in self.tabs:
             self.save(tab)
-        self._ui_service.show_message(Message("Saved all opened files"))
+        self._ui_service.show_message(Message('Saved all opened files'))
 
     def get_about_window_view_model(self):
         return AboutWindowViewModel()
@@ -157,16 +145,16 @@ class BlackFennecViewModel(Observable):
     def attach_tab(self, tab: DocumentTab):
         if tab not in self.tabs:
             self.tabs.add(tab)
-            self._ui_service.show_message(Message("Tab attached"))
+            self._ui_service.show_message(Message('Tab attached'))
         else:
-            raise AssertionError("Tab already attached")
+            raise AssertionError('Tab already attached')
 
     def detach_tab(self, tab: DocumentTab):
         if tab in self.tabs:
             self.tabs.remove(tab)
-            self._ui_service.show_message(Message("Tab detached"))
+            self._ui_service.show_message(Message('Tab detached'))
         else:
-            raise AssertionError("Tab not attached")
+            raise AssertionError('Tab not attached')
 
     def _dispatch_message(self, sender, ui_message):
         self._notify('message', ui_message, sender)
