@@ -7,5 +7,6 @@ from blackfennec.actions.context import Context
 def test_can_get_structure():
     structure = StructureMock()
     ui_context = UiContextMock(root=Dummy('window'))
-    context = Context(structure, ui_context)
+    context = Context(ui_context, structure)
     assert context.structure == structure
+    assert context.ui_context == ui_context

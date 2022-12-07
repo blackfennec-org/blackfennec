@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
 from blackfennec.document_system.document_factory import DocumentFactory
 from blackfennec.document_system.document_registry import DocumentRegistry
+from blackfennec.document_system.mime_type.mime_type_registry import \
+    MimeTypeRegistry
+from blackfennec.facade.ui_service.ui_service import UiService
 from blackfennec.facade.ui_service.ui_service_registry import UiServiceRegistry
 from blackfennec.interpretation.interpretation_service import \
     InterpretationService
@@ -26,7 +29,8 @@ class ExtensionApi:
             action_registry: ActionRegistry,
             document_registry: DocumentRegistry,
             document_factory: DocumentFactory,
-            ui_service_registry: UiServiceRegistry,
+            ui_service: UiService,
+            mime_type_registry: MimeTypeRegistry,
     ):
         self._presenter_registry = presenter_registry
         self._type_registry = type_registry
@@ -37,7 +41,8 @@ class ExtensionApi:
         self._action_registry = action_registry
         self._document_registry = document_registry
         self._document_factory = document_factory
-        self._ui_service_registry = ui_service_registry
+        self._ui_service = ui_service
+        self._mime_type_registry = mime_type_registry
 
     @property
     def presenter_registry(self) -> PresenterRegistry:
@@ -76,5 +81,9 @@ class ExtensionApi:
         return self._document_factory
 
     @property
-    def ui_service_registry(self) -> UiServiceRegistry:
-        return self._ui_service_registry
+    def ui_service(self) -> UiService:
+        return self._ui_service
+
+    @property
+    def mime_type_registry(self) -> MimeTypeRegistry:
+        return self._mime_type_registry

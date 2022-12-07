@@ -1,0 +1,22 @@
+using Gtk 4.0;
+using Adw 1;
+
+template MimeTypeSelectionView: Adw.MessageDialog {
+    heading: _("Select a MIME type");
+    body: _("The MIME type could not have been determined automatically. Please select the correct MIME type from the list below.");
+
+    [extra-child]
+    Box {
+        orientation: vertical;
+        spacing: 12;
+
+        ComboBoxText _mime_type_selection {
+            has-entry: true;
+        }
+
+        TextView _serialization_to_determine {
+            height-request: 150;
+            visible: false;
+        }
+    }
+}

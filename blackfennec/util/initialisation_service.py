@@ -14,9 +14,9 @@ from blackfennec.document_system.mime_type.json.json_reference_serializer import
     JsonReferenceSerializer
 from blackfennec.document_system.resource_type.protocols.bftype_resource_type import \
     BFTypeResourceType
-from blackfennec.facade.ui_service.ui_service_registry import UiServiceRegistry
 from blackfennec.extension.extension_registry import ExtensionRegistry
 from blackfennec.extension.extension_service import ExtensionService
+from blackfennec.facade.ui_service.ui_service import UiService
 from blackfennec.structure.structure_serializer import StructureSerializer
 from blackfennec.document_system.resource_type.protocols.file_resource_type import \
     FileResourceType
@@ -62,7 +62,7 @@ class InitialisationService():
 
         self.interpretation_service = InterpretationService(self.type_registry)
 
-        self.ui_service_registry = UiServiceRegistry()
+        self.ui_service = UiService(self.mime_type_registry)
 
         self.extension_api = ExtensionApi(
             self.presenter_registry,
@@ -74,7 +74,8 @@ class InitialisationService():
             self.action_registry,
             self.document_registry,
             self.document_factory,
-            self.ui_service_registry,
+            self.ui_service,
+            self.mime_type_registry,
         )
 
         self._setup_document_system()

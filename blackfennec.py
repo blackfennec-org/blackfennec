@@ -36,7 +36,7 @@ class BlackFennecApp(Adw.Application):
 
     def create_main_window(self, app):
         self._view_model = BlackFennecViewModel(self.services.extension_api)
-        return BlackFennecView(app, self._view_model)
+        return BlackFennecView(app, self._view_model, self.services.ui_service)
 
     def on_activate(self, app):
         if not self.win:

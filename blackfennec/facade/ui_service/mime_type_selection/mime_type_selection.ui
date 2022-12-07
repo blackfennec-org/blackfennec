@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <requires lib="gtk" version="4.0"/>
+  <template class="MimeTypeSelectionView" parent="AdwMessageDialog">
+    <property name="heading" translatable="true">Select a MIME type</property>
+    <property name="body" translatable="true">The MIME type could not have been determined automatically. Please select the correct MIME type from the list below.</property>
+    <child type="extra-child">
+      <object class="GtkBox">
+        <property name="orientation">vertical</property>
+        <property name="spacing">12</property>
+        <child>
+          <object class="GtkComboBoxText" id="_mime_type_selection">
+            <property name="has-entry">true</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkTextView" id="_serialization_to_determine">
+            <property name="height-request">150</property>
+            <property name="visible">false</property>
+          </object>
+        </child>
+      </object>
+    </child>
+  </template>
+</interface>

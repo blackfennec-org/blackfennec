@@ -1,13 +1,16 @@
 # -*- coding: utf-8 -*-
 import logging
 import os
+import traceback
 from pathlib import Path
 
 from gi.repository import Adw, Gtk, Gio, GLib
 
+from blackfennec.actions.context import Context
 from blackfennec.facade.about_window.about_window_view import AboutWindowView
 from blackfennec.facade.main_window.document_tab import DocumentTab
 from blackfennec.facade.main_window.document_tab_view import DocumentTabView
+from blackfennec.facade.ui_service.message import Message
 from blackfennec.facade.ui_service.ui_service import UiService
 
 logger = logging.getLogger(__name__)
@@ -50,7 +53,7 @@ class BlackFennecView(Gtk.ApplicationWindow):
 
     _empty_list_pattern: Adw.StatusPage = Gtk.Template.Child()
 
-    def __init__(self, app, view_model, current_directory: str = None):
+    def __init__(self, app, view_model, ui_service: UiService):
         super().__init__(application=app)
         self._application = app
         self._tab_menu_page = None
@@ -58,20 +61,24 @@ class BlackFennecView(Gtk.ApplicationWindow):
         self._active_history = None
 
         self._view_model = view_model
-        self._view_model.set_ui_service(self, UiService())
         self._view_model.bind(
             open_file=self.on_open_tab,
             open_directory=self._update_directory,
         )
-        self._view_model.get_ui_service(self).bind(message=self._on_show_toast)
+
+        self._ui_service = ui_service
+        self._ui_service.register_message_overlay(self._toast_overlay)
+
+        self.connect('destroy', self.on_close)
 
         self._init_main_actions()
         self._init_tabs()
         self._init_file_tree()
 
-        self._current_directory = current_directory
-        self._update_directory(self, self._current_directory)
+        self._current_directory = None
 
+    def on_close(self):
+        self._ui_service.deregister_message_overlay(self._toast_overlay)
 
     def _init_main_actions(self):
         self._main_action_group = Gio.SimpleActionGroup().new()
@@ -180,10 +187,17 @@ class BlackFennecView(Gtk.ApplicationWindow):
             def on_response(dialog, response):
                 if response == 'open_in_new':
                     new_window_view_model = self._view_model.copy()
-                    new_window = BlackFennecView(self._application,
-                                                 new_window_view_model)
+                    new_window = BlackFennecView(
+                        self._application,
+                        new_window_view_model,
+                        self._ui_service,
+                    )
                     new_window.present()
                     new_window_view_model.current_directory = directory_location
+                    self._ui_service.show_message(
+                        Context(self),
+                        Message('New window opened')
+                    )
                 elif response == Gtk.ResponseType.ACCEPT.value_nick:
                     self._init_new_directory(directory_location)
                 dialog.destroy()
@@ -200,6 +214,13 @@ class BlackFennecView(Gtk.ApplicationWindow):
         self._file_tree.set_model(store)
         if not self._file_tree_flap.get_reveal_flap():
             self._file_tree_flap.set_reveal_flap(True)
+
+        self._ui_service.show_message(
+            Context(self),
+            Message(
+                f'Directory opened: {directory_location}',
+            )
+        )
 
     @Gtk.Template.Callback()
     def on_open_file_from_filetree(self, unused_sender, path,
@@ -228,6 +249,12 @@ class BlackFennecView(Gtk.ApplicationWindow):
                     self._view_model.open_file(file.get_path())
             else:
                 logger.debug('File selection canceled')
+                self._ui_service.show_message(
+                    Context(self),
+                    Message(
+                        'File selection canceled',
+                    )
+                )
             dialog.destroy()
             self._file_chooser_native = None
 
@@ -240,6 +267,10 @@ class BlackFennecView(Gtk.ApplicationWindow):
         current_page = self.get_current_page()
         self._view_model.save(current_page.document_tab)
         logger.debug('save clicked')
+        self._ui_service.show_message(
+            Context(self),
+            Message(f'Saved as: {current_page.document_tab.document.uri}'),
+        )
 
     def on_save_as(self, unused_action, unused_param, unused_none) -> None:
         """Callback for the button click event"""
@@ -255,8 +286,16 @@ class BlackFennecView(Gtk.ApplicationWindow):
                 directory = dialog.get_file()
                 file_path = directory.get_path()
                 self._view_model.save_as(current_page.document_tab, file_path)
+                self._ui_service.show_message(
+                    Context(self),
+                    Message(f'Saved as: {file_path}')
+                )
             else:
                 logger.debug('Save as canceled')
+                self._ui_service.show_message(
+                    Context(self),
+                    Message(f'Save as canceled')
+                )
             dialog.destroy()
             self._file_chooser_native = None
 
@@ -269,6 +308,13 @@ class BlackFennecView(Gtk.ApplicationWindow):
         """Callback for the button click event"""
         self._view_model.save_all()
         logger.debug('save all clicked')
+        self._ui_service.show_message(
+            Context(self),
+            Message(
+                'All files saved',
+            )
+        )
+
 
     def on_go_to_store(self, unused_action, unused_param, unused_none) -> None:
         """Callback for the button click event"""
@@ -296,14 +342,40 @@ class BlackFennecView(Gtk.ApplicationWindow):
 
     def on_undo(self, unused_action, unused_param, unused_data):
         current_page = self.get_current_page()
-        self._view_model.undo(current_page.document_tab)
+        try:
+            self._view_model.undo(current_page.document_tab)
+            self._ui_service.show_message(
+                Context(self),
+                Message(
+                    'Undo successful',
+                    action_name='Redo',
+                    action_target='main.redo',
+                )
+            )
+        except ValueError:
+            self._ui_service.show_message(
+                Context(self),
+                Message('Nothing to undo'),
+            )
 
     def on_redo(self, unused_action, unused_param, unused_data):
         current_page = self.get_current_page()
-        self._view_model.redo(current_page.document_tab)
+        try:
+            self._view_model.redo(current_page.document_tab)
+            self._ui_service.show_message(
+                Context(self),
+                Message(
+                    'Redo successful',
+                    action_name='Undo',
+                    action_target='main.undo',
+                )
+            )
+        except ValueError:
+            self._ui_service.show_message(
+                Context(self),
+                Message('Cannot redo'),
+            )
 
-    def _on_show_toast(self, unused_sender, toast: Adw.Toast):
-        self._toast_overlay.add_toast(toast)
 
     """Tab handling"""
 
@@ -383,10 +455,18 @@ class BlackFennecView(Gtk.ApplicationWindow):
         document_tab_view = DocumentTabView(self._tab_view, tab)
         tab_page = document_tab_view.tab_page
         self._tab_view.set_selected_page(tab_page)
+        self._ui_service.show_message(
+            Context(self, tab.document.content),
+            Message(f'Opened file: {tab.title}')
+        )
 
     def on_close_tab(self, action, page: Adw.TabPage):
         self._view_model.close_file(page.document_tab)
         self.hide_tab_view()
+        self._ui_service.show_message(
+            Context(self, page.document_tab.document.content),
+            Message(f'Closed file: {page.document_tab.title}')
+        )
 
     def on_attach_tab(
             self,
@@ -394,9 +474,23 @@ class BlackFennecView(Gtk.ApplicationWindow):
             tab_page: Adw.TabPage,
             unused_position: int
     ):
-        if hasattr(tab_page, 'document_tab'):
-            self._view_model.attach_tab(tab_page.document_tab)
-        self.show_tab_view()
+        try:
+            if hasattr(tab_page, 'document_tab'):
+                self._view_model.attach_tab(tab_page.document_tab)
+                self._ui_service.show_message(
+                    Context(self),
+                    Message(f'Tab attached')
+                )
+            self.show_tab_view()
+        except AssertionError as e:
+            message_text = \
+                f'Tab already attached'
+            self._ui_service.show_message(
+                Context(self, tab_page.document_tab.document.content),
+                Message(message_text)
+            )
+            logger.warning(message_text)
+            logger.warning(traceback.format_exc())
 
     def on_detach_tab(
             self,
@@ -404,8 +498,22 @@ class BlackFennecView(Gtk.ApplicationWindow):
             tab_page: Adw.TabPage,
             unused_position: int
     ):
-        self._view_model.detach_tab(tab_page.document_tab)
-        self.hide_tab_view()
+        try:
+            self._view_model.detach_tab(tab_page.document_tab)
+            self.hide_tab_view()
+            self._ui_service.show_message(
+                Context(self),
+                Message(f'Tab detached: {tab_page.document_tab.title}')
+            )
+        except AssertionError as e:
+            message_text = \
+                f'Failed to detach tab: {tab_page.document_tab.title}'
+            self._ui_service.show_message(
+                Context(self),
+                Message(str(e))
+            )
+            logger.warning(message_text)
+            logger.warning(traceback.format_exc())
 
     def get_current_page(self):
         if self._tab_menu_page:
@@ -426,7 +534,11 @@ class BlackFennecView(Gtk.ApplicationWindow):
             unused_none
     ):
         new_window_view_model = self._view_model.copy()
-        new_window = BlackFennecView(self._application, new_window_view_model)
+        new_window = BlackFennecView(
+            self._application,
+            new_window_view_model,
+            self._ui_service,
+        )
         self._tab_view.transfer_page(
             self.get_current_page(),
             new_window._tab_view,
