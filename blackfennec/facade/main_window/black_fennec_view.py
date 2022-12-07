@@ -14,6 +14,7 @@ from blackfennec.facade.ui_service.message import Message
 from blackfennec.facade.ui_service.ui_service import UiService
 
 logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
 
 BASE_DIR = Path(__file__).resolve().parent
 UI_TEMPLATE = str(BASE_DIR.joinpath('black_fennec.ui'))
@@ -218,7 +219,7 @@ class BlackFennecView(Gtk.ApplicationWindow):
         self._ui_service.show_message(
             Context(self),
             Message(
-                f'Directory opened: {directory_location}',
+                f'Directory opened: {os.path.basename(directory_location)}',
             )
         )
 
@@ -357,6 +358,7 @@ class BlackFennecView(Gtk.ApplicationWindow):
                 Context(self),
                 Message('Nothing to undo'),
             )
+            logger.info('Nothing to undo')
 
     def on_redo(self, unused_action, unused_param, unused_data):
         current_page = self.get_current_page()
@@ -375,7 +377,7 @@ class BlackFennecView(Gtk.ApplicationWindow):
                 Context(self),
                 Message('Cannot redo'),
             )
-
+            logger.info('Nothing to undo')
 
     """Tab handling"""
 

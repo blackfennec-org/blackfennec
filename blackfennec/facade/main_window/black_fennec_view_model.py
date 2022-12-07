@@ -44,12 +44,12 @@ class BlackFennecViewModel(Observable):
             self.open_file(uri)
 
     def open_file(self, uri: str):
-        '''Opens a file
+        """Opens a file
         specified by the filename
 
         Args:
             uri (str): URI of the file to open
-        '''
+        """
         navigation_service = NavigationService()
         tab = DocumentTab(
             self._presenter_registry,
@@ -61,24 +61,24 @@ class BlackFennecViewModel(Observable):
         self._notify('open_file', tab)
 
     def close_file(self, tab: DocumentTab):
-        '''Closes a file
+        """Closes a file
 
         Args:
             tab (DocumentTab): tab to close
-        '''
+        """
         self.tabs.remove(tab)
         self._notify('close_file', tab)
 
     def save(self, tab: DocumentTab):
-        '''Saves the passed file'''
+        """Saves the passed file"""
         tab.save_document()
 
     def save_as(self, tab: DocumentTab, uri: str):
-        '''Saves the passed tab under new path'''
+        """Saves the passed tab under new path"""
         tab.save_document_as(uri)
 
     def save_all(self):
-        '''Saves all open files'''
+        """Saves all open files"""
         for tab in self.tabs:
             self.save(tab)
 
