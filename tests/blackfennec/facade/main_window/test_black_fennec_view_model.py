@@ -76,6 +76,14 @@ def view_model(
     return view_model
 
 
+@pytest.mark.parametrize("file_path", [
+    "test.json",
+    "/"
+])
+def test_can_open(file_path, view_model):
+    view_model.open(file_path)
+
+
 def test_can_open_file(view_model):
     view_model.open_file('/examples/black_fennec.json')
 
@@ -177,6 +185,7 @@ def test_cannot_detach_tab_which_is_not_attached(view_model):
     tab = Dummy()
     with pytest.raises(AssertionError):
         view_model.detach_tab(tab)
+
 
 def test_dispatch_message(view_model, ui_service):
     sender = Dummy('sender')
