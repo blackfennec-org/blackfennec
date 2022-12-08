@@ -3,7 +3,7 @@ from blackfennec_doubles.structure.double_string import StringMock
 
 
 class UiServiceMock:
-    def __init__(self, context=None):
+    def __init__(self, clipboard_content=None):
         super().__init__()
         self.copy_count = 0
         self.show_message_count = 0
@@ -15,6 +15,8 @@ class UiServiceMock:
         self.get_structure_from_clipboard_async_parameter_context = None
         self.get_structure_from_clipboard_async_parameter_mime_type = None
         self.get_structure_from_clipboard_async_parameter_callback = None
+        self.clipboard_content = clipboard_content \
+            or StringMock("value_from_clipboard")
 
     def copy(self):
         self.copy_count += 1
@@ -34,3 +36,4 @@ class UiServiceMock:
         self.get_structure_from_clipboard_async_parameter_mime_type = mime_type
         self.get_structure_from_clipboard_async_parameter_callback = callback
         self.get_structure_from_clipboard_async_count += 1
+        callback(self.clipboard_content)

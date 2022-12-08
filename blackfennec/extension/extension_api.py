@@ -1,15 +1,14 @@
 # -*- coding: utf-8 -*-
+from blackfennec.actions.action_registry import ActionRegistry
 from blackfennec.document_system.document_factory import DocumentFactory
 from blackfennec.document_system.document_registry import DocumentRegistry
 from blackfennec.document_system.mime_type.mime_type_registry import \
     MimeTypeRegistry
+from blackfennec.extension.presenter_registry import PresenterRegistry
 from blackfennec.facade.ui_service.ui_service import UiService
-from blackfennec.facade.ui_service.ui_service_registry import UiServiceRegistry
 from blackfennec.interpretation.interpretation_service import \
     InterpretationService
-from blackfennec.extension.presenter_registry import PresenterRegistry
 from blackfennec.type_system.type_registry import TypeRegistry
-from blackfennec.actions.action_registry import ActionRegistry
 
 
 class ExtensionApi:
