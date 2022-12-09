@@ -14,11 +14,11 @@
 import os
 import sys
 
-sys.path.insert(0, os.path.abspath("../.."))
-
+import sphinx_rtd_theme
 from blackfennec.util.meta_info import BlackFennecMetaInfo
 from unittest.mock import MagicMock
 
+sys.path.insert(0, os.path.abspath("../.."))
 
 class Mock(MagicMock):
     @classmethod
@@ -70,8 +70,16 @@ exclude_patterns = []
 #
 
 html_theme = "sphinx_rtd_theme"
-# html_logo = 'logo.svg'
 
+html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
+
+html_logo = 'project/standards/design/logo_no_bg.png'
+html_favicon = 'project/standards/design/favicon.ico'
+
+html_theme_options = {
+    "logo_only": True,
+    "display_version": False,
+}
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
