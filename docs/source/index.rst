@@ -8,12 +8,16 @@ Welcome to Black Fennec!
     :alt: Screenshot of Black Fennec
     :align: center
 
-Find out more about this project in these pages.
+You can find the source code on `Gitlab <https://gitlab.ost.ch/blackfennec/blackfennec>`_ or as a read-only mirror on `GitHub <https://github.com/blackfennec-org/blackfennec>`_. If you wnat to submit any issues or feature requests, please use the `issue tracker <https://github.com/blackfennec-org/blackfennec/issues>`_ on GitHub.
+
+To find out more about this project refer to the following pages.
 
 Usage
 """""
 
 :ref:`Here <usage>` you will learn how to install and use Black Fennec. This section is intended for users who want to use Black Fennec and somehow stumbled upon this documentation.
+
+If you are of the impatient type and just want to get started, just `download Black Fennec via FlatHub <https://flathub.org/apps/details/org.blackfennec.app>`_.
 
 Development
 """""""""""
