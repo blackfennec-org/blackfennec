@@ -144,7 +144,7 @@ Distributed under the GNU General Public License. See `LICENSE` for more informa
 
 [issues-url]: https://gitlab.ost.ch/blackfennec/blackfennec/issues
 
-[product-screenshot]: docs/source/images/screenshots/blackfennec.png
+[product-screenshot]: docs/source/project/standards/design/screenshots/blackfennec.png
 
 [flathub-badge]: https://flathub.org/assets/badges/flathub-badge-en.png
 

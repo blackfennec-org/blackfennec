@@ -1,6 +1,0 @@
-.. _specification:
-
-Specification
-=============
-
-TODO

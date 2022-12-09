@@ -29,7 +29,7 @@ dependencies:
 	python -m pip install -r docs/requirements.txt
 
 docs:
-	sphinx-apidoc -f -o docs/source/software_documentation/code/ .
+	sphinx-apidoc -f -q -o docs/source/development/code/ . setup.py
 	cd docs/; make html
 
 compile-blueprint: $(UIS)

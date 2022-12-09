@@ -1,7 +1,7 @@
 docs/_build/
 docs/_versions
 docs/source/_build/
-docs/source/software_documentation/code/*
+docs/source/development/code/*
 .vscode/
 .idea/
 *.egg-info/
