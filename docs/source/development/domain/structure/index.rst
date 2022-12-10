@@ -12,7 +12,6 @@ The Structure
     underlay
     source_layer
 
-
 .. _definition_layer:
 
 Overview
