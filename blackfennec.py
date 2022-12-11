@@ -29,7 +29,7 @@ class BlackFennecApp(Adw.Application):
         self.set_flags(Gio.ApplicationFlags.HANDLES_OPEN)
 
     def create_main_window(self, app):
-        self._view_model = BlackFennecViewModel(self.services.extension_api)
+        self._view_model = BlackFennecViewModel(self.services)
         return BlackFennecView(app, self._view_model, self.services.ui_service)
 
     def on_activate(self, app):

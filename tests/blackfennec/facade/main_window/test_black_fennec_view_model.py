@@ -4,17 +4,16 @@ from blackfennec.facade.main_window.black_fennec_view_model import \
     BlackFennecViewModel
 from blackfennec_doubles.document_system.double_document import DocumentMock
 from blackfennec_doubles.double_dummy import Dummy
-from blackfennec_doubles.extension.double_extension_api import ExtensionApiMock
 from blackfennec_doubles.extension.double_extension_source_registry import \
     ExtensionSourceRegistryMock
 from blackfennec_doubles.extension.double_presenter_registry import \
     PresenterRegistryMock
 from blackfennec_doubles.facade.main_window.double_document_tab import \
     DocumentTabMock
-from blackfennec_doubles.facade.ui_service.double_ui_service import \
-    UiServiceMock
-from blackfennec_doubles.interpretation.double_interpretation_service import \
-    InterpretationServiceMock
+from blackfennec_doubles.interpretation.double_interpretation_service import InterpretationServiceMock
+from blackfennec_doubles.extension.double_extension_source_registry import ExtensionSourceRegistryMock
+from blackfennec.facade.main_window.black_fennec_view_model import BlackFennecViewModel
+from blackfennec_doubles.util.double_service_locator import ServiceLocatorMock
 
 
 @pytest.fixture()
@@ -38,10 +37,8 @@ def document_tab(document):
 
 
 @pytest.fixture
-def extension_api():
-    return ExtensionApiMock(
-        ui_service=UiServiceMock()
-    )
+def service_locator():
+    return ServiceLocatorMock()
 
 
 @pytest.fixture()
@@ -50,10 +47,8 @@ def extension_source_registry():
 
 
 @pytest.fixture()
-def view_model(
-        extension_api,
-):
-    view_model = BlackFennecViewModel(extension_api)
+def view_model(service_locator):
+    view_model = BlackFennecViewModel(service_locator)
     return view_model
 
 

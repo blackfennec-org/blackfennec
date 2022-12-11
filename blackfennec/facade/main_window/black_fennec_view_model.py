@@ -8,6 +8,7 @@ from blackfennec.facade.about_window.about_window_view_model import \
 from blackfennec.facade.main_window.document_tab import DocumentTab
 from blackfennec.navigation.navigation_service import NavigationService
 from blackfennec.util.observable import Observable
+from blackfennec.util.service_locator import ServiceLocator
 
 logger = logging.getLogger(__name__)
 
@@ -16,14 +17,14 @@ class BlackFennecViewModel(Observable):
 
     def __init__(
             self,
-            extension_api: ExtensionApi,
+            services: ServiceLocator,
     ):
         super().__init__()
-        self._presenter_registry = extension_api.presenter_registry
-        self._interpretation_service = extension_api.interpretation_service
-        self._document_factory = extension_api.document_factory
-        self._extension_api = extension_api
-        self._ui_service = extension_api.ui_service
+        self._services = services
+        self._presenter_registry = services.presenter_registry
+        self._interpretation_service = services.interpretation_service
+        self._document_factory = services.document_factory
+        self._ui_service = services.ui_service
 
         self.tabs = set()
         self._current_directory: Optional[str] = None
@@ -98,7 +99,7 @@ class BlackFennecViewModel(Observable):
             raise ValueError('Cannot redo')
 
     def copy(self) -> 'BlackFennecViewModel':
-        return BlackFennecViewModel(self._extension_api)
+        return BlackFennecViewModel(self._services)
 
     def attach_tab(self, tab: DocumentTab):
         if tab not in self.tabs:
