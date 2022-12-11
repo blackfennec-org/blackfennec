@@ -1,3 +1,4 @@
+import os
 import logging
 
 from blackfennec.document_system.document_factory import DocumentFactory
@@ -15,7 +16,6 @@ from blackfennec.document_system.mime_type.json.json_reference_serializer import
 from blackfennec.document_system.resource_type.protocols.bftype_resource_type import \
     BFTypeResourceType
 from blackfennec.extension.extension_registry import ExtensionRegistry
-from blackfennec.extension.extension_service import ExtensionService
 from blackfennec.facade.ui_service.ui_service import UiService
 from blackfennec.structure.structure_serializer import StructureSerializer
 from blackfennec.document_system.resource_type.protocols.file_resource_type import \
@@ -38,29 +38,40 @@ logging.basicConfig(level=logging.WARNING)
 logger = logging.getLogger(__name__)
 
 
-class InitialisationService():
-    """BlackFennec Initialisation Service"""
+CONFIG_HOME = os.path.expanduser('~/.config/blackfennec/')
+CONFIG_FILE = os.path.join(CONFIG_HOME, 'config.json')
+if not os.path.exists(CONFIG_HOME):
+    os.makedirs(CONFIG_HOME)
+if not os.path.exists(CONFIG_FILE):
+    with open(CONFIG_FILE, 'w') as f:
+        f.write('{}')
 
-    def __init__(self, extension_configuration_file: str):
+
+class ServiceLocator():
+
+    def __init__(self):
         self.type_registry = TypeRegistry()
         self.resource_type_registry = ResourceTypeRegistry()
         self.mime_type_registry = MimeTypeRegistry()
         self.presenter_registry = PresenterRegistry()
         self.view_factory_registry = ViewFactoryRegistry()
         self.action_registry = ActionRegistry()
-        self.view_factory = ViewFactory(self.view_factory_registry)
-
         self.document_registry = DocumentRegistry()
+        self.extension_registry = ExtensionRegistry()
+
+        self.view_factory = ViewFactory(
+            self.view_factory_registry)
         self.document_factory = DocumentFactory(
             self.document_registry,
             self.resource_type_registry,
             self.mime_type_registry)
 
         self.type_loader = TypeLoader(
-            self.document_factory, self.type_registry)
-        self.extension_registry = ExtensionRegistry()
+            self.document_factory,
+            self.type_registry)
 
-        self.interpretation_service = InterpretationService(self.type_registry)
+        self.interpretation_service = InterpretationService(
+            self.type_registry)
 
         self.ui_service = UiService(self.mime_type_registry)
 
@@ -78,34 +89,33 @@ class InitialisationService():
             self.mime_type_registry,
         )
 
-        self._setup_document_system()
-        self._setup_extensions(extension_configuration_file)
+        reference_parser = JsonReferenceSerializer(
+            self.document_factory, JsonPointerSerializer)
+        structure_serializer = StructureSerializer(reference_parser)
 
-    def _setup_document_system(self):
-        """Setup document system"""
         resource_types = [
             HttpsResourceType(),
             FileResourceType(),
             BFTypeResourceType(self.type_registry),
         ]
-        for resource_type in resource_types:
-            for protocol in resource_type.protocols:
-                self.resource_type_registry.register_resource_type(
-                    protocol, resource_type)
-
-        reference_parser = JsonReferenceSerializer(
-            self.document_factory, JsonPointerSerializer)
-        structure_serializer = StructureSerializer(reference_parser)
 
         mime_types = [
             JsonMimeType(structure_serializer),
             InMemoryMimeType(),
         ]
+
+        self._register_resource_types(resource_types)
+        self._register_mime_types(mime_types)
+
+    def _register_mime_types(self, mime_types):
         for mime_type in mime_types:
             self.mime_type_registry.register_mime_type(
                 mime_type.mime_type_id,
                 mime_type
             )
 
-    def _setup_extensions(self, extension_configuration_file: str):
-        ExtensionService.load(self.extension_api, self.extension_registry)
+    def _register_resource_types(self, resource_types):
+        for resource_type in resource_types:
+            for protocol in resource_type.protocols:
+                self.resource_type_registry.register_resource_type(
+                    protocol, resource_type)

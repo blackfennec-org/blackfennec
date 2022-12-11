@@ -1,32 +1,26 @@
 #!/usr/bin/env python3
 
 import logging
-import os
 import sys
+from blackfennec.extension.extension_service import ExtensionService
 
 from blackfennec.facade.main_window.black_fennec_view import BlackFennecView
 from blackfennec.facade.main_window.black_fennec_view_model import \
     BlackFennecViewModel
-from blackfennec.util.initialisation_service import InitialisationService
+from blackfennec.util.service_locator import ServiceLocator
 
-from gi.repository import Adw, Gio, Gtk
+from gi.repository import Adw, Gio
 
 logging.basicConfig(level=logging.WARNING)
 logger = logging.getLogger(__name__)
-logger.setLevel(logging.DEBUG)
-
-CONFIG_HOME = os.path.expanduser('~/.config/blackfennec/')
-if not os.path.exists(CONFIG_HOME):
-    os.makedirs(CONFIG_HOME)
-EXTENSIONS = os.path.join(CONFIG_HOME, os.path.relpath('extensions.json'))
 
 sys.path.append('/app/extensions/lib/python3.10/site-packages')
 
 
 class BlackFennecApp(Adw.Application):
-    def __init__(self, initialisation_service: InitialisationService):
+    def __init__(self, services: ServiceLocator):
         super().__init__(application_id='org.blackfennec.app')
-        self.services = initialisation_service
+        self.services = services
         self.win = None
         self._view_model = None
 
@@ -50,10 +44,11 @@ class BlackFennecApp(Adw.Application):
 
 
 def main(argv):
-    initialisation_service = InitialisationService(
-        extension_configuration_file=EXTENSIONS
-    )
-    app = BlackFennecApp(initialisation_service)
+    services = ServiceLocator()
+    ExtensionService.load(
+        services.extension_api, 
+        services.extension_registry)
+    app = BlackFennecApp(services)
     app.run(argv)
 
 
