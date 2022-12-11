@@ -10,7 +10,7 @@ add-extensions:
     directory: extensions
     merge-dirs: lib/python3.10/site-packages/
     subdirectories: true
-    no-autodownload: true
+    no-autodownload: false
     autodelete: true
 finish-args:
   - "--socket=wayland"
@@ -34,6 +34,7 @@ modules:
       - install -Dm644 ./icon.png /app/share/icons/hicolor/128x128/apps/org.blackfennec.app.png
       - install -Dm644 ./org.blackfennec.app.metainfo.xml /app/share/metainfo/org.blackfennec.app.metainfo.xml
       - install -Dm644 ./org.blackfennec.app.metainfo.xml /app/org.blackfennec.app.metainfo.xml
+      - install -Dm644 ./org.blackfennec.app.flatpakref /app/org.blackfennec.app.flatpakref
     sources:
       - type: file
         path: org.blackfennec.app.desktop
@@ -41,6 +42,8 @@ modules:
         path: icon.png
       - type: file
         path: org.blackfennec.app.metainfo.xml
+      - type: file
+        path: org.blackfennec.app.flatpakref
   - name: blackfennec
     buildsystem: simple
     build-commands:

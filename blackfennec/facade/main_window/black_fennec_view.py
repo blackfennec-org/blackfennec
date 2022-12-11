@@ -4,7 +4,7 @@ import os
 import traceback
 from pathlib import Path
 
-from gi.repository import Adw, Gtk, Gio, GLib
+from gi.repository import Adw, Gtk, Gio
 
 from blackfennec.actions.context import Context
 from blackfennec.facade.about_window.about_window_view import AboutWindowView

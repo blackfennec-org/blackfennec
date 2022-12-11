@@ -30,6 +30,8 @@ exclude_lines =
 
     # Don't complain about view classes:
     class .+View(\(|:)
+    class .+Preview(\(|:)
+    class .+Dialog(\(|:)
     @Gtk.Template(.*)
 
 [html]
