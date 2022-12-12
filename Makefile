@@ -9,10 +9,10 @@ UIS = $(BLPS:.blp=.ui)
 help:
 	cat Makefile
 
-flatpak_remoate_flathub:
+flatpak_remote_flathub:
 	flatpak --user remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 
-install_flatpak: compile-blueprint flatpak_remoate_flathub
+install_flatpak: compile-blueprint flatpak_remote_flathub
 	flatpak-builder --user --install .flatpak-build/ org.blackfennec.app.yml --force-clean --install-deps-from flathub --repo=.flatpak-repo
 
 install_flatpak_extensions: compile-blueprint $(EXTS_FLATPAK)
@@ -48,7 +48,7 @@ test_extensions: $(EXTS_TEST)
 	$(eval EXT := $(subst .test,,$@))
 	cd "$(EXT)" && make test
 
-install_all: isntall install_extensions
+install_all: install install_extensions
 
 install:
 	python -m pip install -e .
