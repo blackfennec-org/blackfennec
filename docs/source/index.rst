@@ -2,13 +2,13 @@
 Welcome to Black Fennec!
 ========================
 
-`Black Fennec <https://blackfennec.org>`_ is a free and open source software. It is a simple and easy to use application for viewing and editing semi-structured data like JSON in a visually interpreted form. It is written in Python and uses GTK4 and Libadwaita for the user interface.
+`Black Fennec <https://blackfennec.org>`_ is free and open source software. It is a simple and easy to use application for viewing and editing semi-structured data like JSON in a visually interpreted form. It is written in Python and uses GTK4 and Libadwaita for the user interface.
 
 .. image:: project/standards/design/screenshots/blackfennec.png
     :alt: Screenshot of Black Fennec
     :align: center
 
-You can find the source code on `Gitlab <https://gitlab.ost.ch/blackfennec/blackfennec>`_ or as a read-only mirror on `GitHub <https://github.com/blackfennec-org/blackfennec>`_. If you wnat to submit any issues or feature requests, please use the `issue tracker <https://github.com/blackfennec-org/blackfennec/issues>`_ on GitHub.
+You can find the source code on `Gitlab <https://gitlab.ost.ch/blackfennec/blackfennec>`_ or as a read-only mirror on `GitHub <https://github.com/blackfennec-org/blackfennec>`_. If you want to submit any issues or feature requests, please use the `issue tracker <https://github.com/blackfennec-org/blackfennec/issues>`_ on GitHub.
 
 To find out more about this project refer to the following pages.
 
