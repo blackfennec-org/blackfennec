@@ -318,8 +318,7 @@ class BlackFennecView(Gtk.ApplicationWindow):
 
 
     def on_go_to_store(self, unused_action, unused_param, unused_none) -> None:
-        """Callback for the button click event"""
-        logger.warning('go to store clicked')
+        os.system('xdg-open /app/org.blackfennec.app.flatpakref')
 
     def on_about(self, unused_action, unused_param, unused_none) -> None:
         """Callback for the button click event"""
