@@ -26,8 +26,9 @@ class MimeTypeSelectionDialog(Adw.MessageDialog):
             self,
             mime_type_registry: MimeTypeRegistry,
             serialization: str = None,
+            transient_for: Gtk.Window = None
     ):
-        super().__init__()
+        super().__init__(transient_for=transient_for)
 
         self._mime_type_registry = mime_type_registry
         self.add_response(Gtk.ResponseType.CANCEL.value_nick, 'Cancel')

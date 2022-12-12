@@ -66,6 +66,10 @@ class UiService:
                         Message("Could not import structure")
                     )
             else:
+                self.show_message(
+                    context,
+                    Message("Import cancelled")
+                )
                 dialog.destroy()
 
         dialog.connect('response', on_response)
@@ -101,3 +105,10 @@ class UiService:
                 )
 
         self.get_clipboard_async(deserialize)
+
+    @classmethod
+    def fix_focus(cls, context: Context):  # pragma: no cover
+        """By using Gtk.Window.set_focus() without parameters focus is
+        reset which can fix the focus in the window. This is a workaround
+        for a bug only triggered in Flatpak."""
+        context.window.set_focus()

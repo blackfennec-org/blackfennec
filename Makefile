@@ -8,7 +8,7 @@ UIS = $(BLPS:.blp=.ui)
 help:
 	cat Makefile
 
-flatpak_all: flatpak flatpak_extensions
+flatpak_all: compile-blueprint flatpak flatpak_extensions
 
 flatpak:
 	flatpak --user remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
