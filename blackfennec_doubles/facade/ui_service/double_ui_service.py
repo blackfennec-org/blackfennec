@@ -37,3 +37,6 @@ class UiServiceMock:
         self.get_structure_from_clipboard_async_parameter_callback = callback
         self.get_structure_from_clipboard_async_count += 1
         callback(self.clipboard_content)
+
+    def fix_focus(self, context):
+        pass
