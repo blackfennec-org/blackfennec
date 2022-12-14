@@ -8,7 +8,7 @@ def test_get_app_id():
 
 def test_get_name():
     meta_info = BlackFennecMetaInfo()
-    assert meta_info.get_name() == 'BlackFennec'
+    assert meta_info.get_name() == 'Black Fennec'
 
 def test_get_summary():
     meta_info = BlackFennecMetaInfo()

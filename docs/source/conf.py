@@ -15,10 +15,11 @@ import os
 import sys
 
 import sphinx_rtd_theme
-from blackfennec.util.meta_info import BlackFennecMetaInfo
 from unittest.mock import MagicMock
 
 sys.path.insert(0, os.path.abspath("../.."))
+
+from blackfennec.util.meta_info import BlackFennecMetaInfo
 
 class Mock(MagicMock):
     @classmethod

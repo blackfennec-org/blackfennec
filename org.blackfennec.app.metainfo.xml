@@ -3,7 +3,7 @@
     <id>org.blackfennec.app</id>
     <metadata_license>FSFAP</metadata_license>
     <project_license>GPL-3.0</project_license>
-    <name>BlackFennec</name>
+    <name>Black Fennec</name>
     <summary>Extensible Semi-structured Data Editing Environment</summary>
 
     <developer_name>blackfennec.org</developer_name>
@@ -12,47 +12,37 @@
         https://gitlab.ost.ch/blackfennec/blackfennec/-/raw/main/icon.png
     </icon>
     <description>
-        <p>
-            Black Fennec is free and open source software. It is a simple and
-            easy to use application for viewing and
-            editing semi-structured data like JSON. It is written in Python and
-            follows the GNOME Human Interface
-            Guidelines.
-        </p>
+        <p>Black Fennec is free and open source software. It is a simple and easy to use application for viewing and editing semi-structured data like JSON in a visually interpreted form. It is written in Python and uses GTK4 and Libadwaita for the user interface.</p>
     </description>
 
     <screenshots>
         <screenshot type="default">
             <caption>Black Fennec</caption>
             <image>
-                https://gitlab.ost.ch/blackfennec/blackfennec/-/raw/main/docs/source/images/screenshots/blackfennec.png
+                https://gitlab.ost.ch/blackfennec/blackfennec/-/raw/main/docs/source/project/standards/design/screenshots/blackfennec.png
             </image>
         </screenshot>
 
         <screenshot>
-            <caption>Black Fennec</caption>
+            <caption>Dark and light mode available</caption>
             <image>
-                https://gitlab.ost.ch/blackfennec/blackfennec/-/raw/main/docs/source/images/screenshots/start_screen.png
-            </image>
-        </screenshot>
-
-        <screenshot>
-            <caption>Black Fennec</caption>
-            <image>
-                https://gitlab.ost.ch/blackfennec/blackfennec/-/raw/main/docs/source/images/screenshots/about_screen.png
+                https://gitlab.ost.ch/blackfennec/blackfennec/-/raw/main/docs/source/project/standards/design/screenshots/start_screen.png
             </image>
         </screenshot>
     </screenshots>
 
     <url type="homepage">http://blackfennec.org</url>
-    <url type="bugtracker">
-        https://gitlab.ost.ch/blackfennec/blackfennec/-/issues/
-    </url>
+    <url type="bugtracker">https://github.com/blackfennec-org/blackfennec/issues</url>
     <url type="vcs-browser">https://gitlab.ost.ch/blackfennec/blackfennec.git
     </url>
 
 
     <releases>
+        <release version="0.11.0" date="2022-12-14">
+            <description>
+                <p>New and improved extension system with extension distribution via Flathub, UX improvements including toasts and "open with..." feature for JSON files and restructuring of documentation.</p>
+            </description>
+        </release>
         <release version="0.10.0" date="2022-11-22">
             <description>
                 <p>Aaand ... Action!</p>
