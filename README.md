@@ -8,7 +8,7 @@
 <div align="center">
   <p>
     <a href="https://gitlab.ost.ch/blackfennec/blackfennec">
-      <img src="docs/source/images/corporate_identity/logo.jpg" alt="Logo" width="50%">
+      <img src="examples/blackfennec.png" alt="Logo" width="50%">
     </a>
   </p>
   <p align="center">
