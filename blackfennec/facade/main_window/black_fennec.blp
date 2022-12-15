@@ -24,30 +24,9 @@ template BlackFennecView: ApplicationWindow {
 
     Adw.Flap _file_tree_flap {
         content: _toast_overlay;
-        flap: _tree_view_scrolled_window;
         locked: false;
         reveal-flap: false;
     }
-}
-
-ScrolledWindow _tree_view_scrolled_window {
-    focusable: true;
-    width-request: 200;
-
-    child:
-    TreeView _tree_view {
-        visible: true;
-        width-request: 200;
-        focusable: true;
-        vexpand: true;
-        enable-grid-lines: vertical;
-
-        [internal-child selection]
-        TreeSelection {
-        }
-    }
-
-    ;
 }
 
 Adw.ToastOverlay _toast_overlay {

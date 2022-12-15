@@ -21,6 +21,10 @@ class MimeTypeRegistryMock:
         self.mime_types_getter_count += 1
         return self._mime_types
 
+    @mime_types.setter
+    def mime_types(self, mime_types):
+        self._mime_types = mime_types
+
     def register_mime_type(self, mime_key, mime_type):
         self.register_mime_type_last_mime_type = mime_type
         self.register_mime_type_last_mime_type_key = mime_key

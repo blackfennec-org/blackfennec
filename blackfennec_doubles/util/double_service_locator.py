@@ -1,6 +1,10 @@
 
 
 from blackfennec_doubles.document_system.double_document_factory import DocumentFactoryMock
+from blackfennec_doubles.document_system.mime_type.double_mime_type_registry import \
+    MimeTypeRegistryMock
+from blackfennec_doubles.document_system.resource_type.double_resource_type_registry import \
+    ResourceTypeRegistryMock
 from blackfennec_doubles.double_dummy import Dummy
 from blackfennec_doubles.extension.double_presenter_registry import PresenterRegistryMock
 from blackfennec_doubles.facade.ui_service.double_ui_service import UiServiceMock
@@ -13,3 +17,5 @@ class ServiceLocatorMock:
         self.interpretation_service = InterpretationServiceMock(Dummy())
         self.document_factory = DocumentFactoryMock()
         self.ui_service = UiServiceMock()
+        self.resource_type_registry = ResourceTypeRegistryMock()
+        self.mime_type_registry = MimeTypeRegistryMock()

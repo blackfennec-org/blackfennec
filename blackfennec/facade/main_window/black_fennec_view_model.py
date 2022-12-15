@@ -2,7 +2,8 @@ import logging
 import os
 from typing import Optional
 
-from blackfennec.extension.extension_api import ExtensionApi
+from blackfennec.document_system.mime_type.mime_type import MimeType
+from blackfennec.document_system.resource_type.resource_type import ResourceType
 from blackfennec.facade.about_window.about_window_view_model import \
     AboutWindowViewModel
 from blackfennec.facade.main_window.document_tab import DocumentTab
@@ -37,6 +38,24 @@ class BlackFennecViewModel(Observable):
     def current_directory(self, directory: str):
         self._current_directory = directory
         self._notify('open_directory', self._current_directory)
+
+    def can_handle_uri(self, uri: str) -> bool:
+        try:
+            resource_type_identifier = ResourceType.try_determine_resource_type(
+                uri
+            )
+            resource_type = \
+                self._services.resource_type_registry.resource_types[
+                    resource_type_identifier
+                ]
+
+            mime_type_identifier = MimeType.try_determine_mime_type(
+                uri, resource_type)
+            return mime_type_identifier in \
+                   self._services.mime_type_registry.mime_types
+        except Exception as e:
+            logger.debug(e)
+            return False
 
     def open(self, uri: str):
         if os.path.isdir(uri):

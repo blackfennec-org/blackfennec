@@ -52,9 +52,9 @@ def view_model(service_locator):
     return view_model
 
 
-@pytest.mark.parametrize("file_path", [
-    "test.json",
-    "/"
+@pytest.mark.parametrize('file_path', [
+    'test.json',
+    '/'
 ])
 def test_can_open(file_path, view_model):
     view_model.open(file_path)
@@ -64,13 +64,27 @@ def test_can_open_file(view_model):
     view_model.open_file('/examples/black_fennec.json')
 
 
+def test_can_handle_uri(view_model, service_locator):
+    service_locator.resource_type_registry.resource_types = {
+        'file': Dummy()
+    }
+    service_locator.mime_type_registry.mime_types = {
+        'application/json': Dummy()
+    }
+    assert view_model.can_handle_uri('/examples/black_fennec.json')
+
+
+def test_cannot_handle_uri(view_model):
+    assert not view_model.can_handle_uri('test')
+
+
 def test_can_save_file(view_model, document_tab):
     view_model.save(document_tab)
     assert document_tab.save_document_count == 1
 
 
 def test_can_save_as_file(view_model, document_tab, tmp_path):
-    view_model.save_as(document_tab, (tmp_path / "test.json").as_posix())
+    view_model.save_as(document_tab, (tmp_path / 'test.json').as_posix())
     assert document_tab.save_document_as_count == 1
 
 
@@ -109,8 +123,8 @@ def test_cannot_redo(view_model, document_tab):
 
 
 def test_can_set_directory(view_model):
-    view_model.current_directory = "test"
-    assert view_model.current_directory == "test"
+    view_model.current_directory = 'test'
+    assert view_model.current_directory == 'test'
 
 
 def test_can_get_about_window_view_model(view_model):

@@ -21,6 +21,10 @@ class ResourceTypeRegistryMock:
         self.resource_types_getter_count += 1
         return self._resource_types
 
+    @resource_types.setter
+    def resource_types(self, resource_types):
+        self._resource_types = resource_types
+
     def register_resource_type(self, resource_key, resource_type):
         self.register_resource_type_last_resource_type = resource_type
         self.register_resource_type_last_resource_type_key = resource_key

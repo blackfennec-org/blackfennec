@@ -10,7 +10,7 @@ from blackfennec.actions.context import Context
 from blackfennec.facade.about_window.about_window_view import AboutWindowView
 from blackfennec.facade.main_window.document_tab import DocumentTab
 from blackfennec.facade.main_window.document_tab_view import DocumentTabView
-from blackfennec.facade.main_window.file_tree_view import FileTreeView
+from blackfennec.facade.main_window.file_column_view import FileColumnView
 from blackfennec.facade.ui_service.message import Message
 from blackfennec.facade.ui_service.ui_service import UiService
 
@@ -25,7 +25,6 @@ UI_TEMPLATE = str(BASE_DIR.joinpath('black_fennec.ui'))
 class BlackFennecView(Gtk.ApplicationWindow):
     __gtype_name__ = 'BlackFennecView'
 
-    _tree_view: Gtk.TreeView = Gtk.Template.Child()
     _file_tree_flap: Adw.Flap = Gtk.Template.Child()
 
     _toast_overlay: Adw.ToastOverlay = Gtk.Template.Child()
@@ -58,7 +57,8 @@ class BlackFennecView(Gtk.ApplicationWindow):
 
         self._init_main_actions()
         self._init_tabs()
-        self._file_tree = FileTreeView(self._tree_view, self._view_model)
+        self._file_tree = FileColumnView(self._view_model)
+        self._file_tree_flap.set_flap(self._file_tree)
 
         self._current_directory = None
 
