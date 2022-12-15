@@ -10,6 +10,7 @@ from blackfennec.actions.context import Context
 from blackfennec.facade.about_window.about_window_view import AboutWindowView
 from blackfennec.facade.main_window.document_tab import DocumentTab
 from blackfennec.facade.main_window.document_tab_view import DocumentTabView
+from blackfennec.facade.main_window.file_tree_view import FileTreeView
 from blackfennec.facade.ui_service.message import Message
 from blackfennec.facade.ui_service.ui_service import UiService
 
@@ -20,28 +21,11 @@ BASE_DIR = Path(__file__).resolve().parent
 UI_TEMPLATE = str(BASE_DIR.joinpath('black_fennec.ui'))
 
 
-def create_directory_structure(root_directory):
-    store = Gtk.TreeStore(str, str)
-    parent_map = {root_directory: None}
-    for sub_directory, directories, files in os.walk(root_directory):
-        for file in files:
-            path = os.path.join(sub_directory, file)
-            store.append(parent_map[sub_directory], [file, path])
-        for directory in directories:
-            store_entry = store.append(
-                parent_map[sub_directory],
-                [directory, 'directory is not a file...']
-            )
-            path = os.path.join(sub_directory, directory)
-            parent_map[path] = store_entry
-    return store
-
-
 @Gtk.Template(filename=UI_TEMPLATE)
 class BlackFennecView(Gtk.ApplicationWindow):
     __gtype_name__ = 'BlackFennecView'
 
-    _file_tree: Gtk.TreeView = Gtk.Template.Child()
+    _tree_view: Gtk.TreeView = Gtk.Template.Child()
     _file_tree_flap: Adw.Flap = Gtk.Template.Child()
 
     _toast_overlay: Adw.ToastOverlay = Gtk.Template.Child()
@@ -74,7 +58,7 @@ class BlackFennecView(Gtk.ApplicationWindow):
 
         self._init_main_actions()
         self._init_tabs()
-        self._init_file_tree()
+        self._file_tree = FileTreeView(self._tree_view, self._view_model)
 
         self._current_directory = None
 
@@ -118,12 +102,6 @@ class BlackFennecView(Gtk.ApplicationWindow):
         self.set_main_action_enabled('save', False)
         self.set_main_action_enabled('save_as', False)
         self.set_main_action_enabled('save_all', False)
-
-    def _init_file_tree(self):
-        renderer = Gtk.CellRendererText()
-        tree_view_column = Gtk.TreeViewColumn(
-            'Current directory', renderer, text=0)
-        self._file_tree.append_column(tree_view_column)
 
     def set_main_action_enabled(self, action_name: str, enabled: bool):
         action = self._main_action_group.lookup_action(action_name)
@@ -211,8 +189,7 @@ class BlackFennecView(Gtk.ApplicationWindow):
             return
         self._current_directory = directory_location
 
-        store = create_directory_structure(directory_location)
-        self._file_tree.set_model(store)
+        self._file_tree.load_directory(directory_location)
         if not self._file_tree_flap.get_reveal_flap():
             self._file_tree_flap.set_reveal_flap(True)
 
@@ -222,15 +199,6 @@ class BlackFennecView(Gtk.ApplicationWindow):
                 f'Directory opened: {os.path.basename(directory_location)}',
             )
         )
-
-    @Gtk.Template.Callback()
-    def on_open_file_from_filetree(self, unused_sender, path,
-                                   unused_column) -> None:
-        model = self._file_tree.get_model()
-        iterator = model.get_iter(path)
-        if iterator:
-            uri = model.get_value(iterator, 1)
-            self._view_model.open_file(uri)
 
     def on_open_file(self, unused_action, unused_param, unused_none) -> None:
         dialog = Gtk.FileChooserNative(
@@ -315,7 +283,6 @@ class BlackFennecView(Gtk.ApplicationWindow):
                 'All files saved',
             )
         )
-
 
     def on_go_to_store(self, unused_action, unused_param, unused_none) -> None:
         os.system('xdg-open /app/org.blackfennec.app.flatpakref')

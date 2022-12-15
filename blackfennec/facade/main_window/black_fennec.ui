@@ -24,23 +24,22 @@
     <child>
       <object class="AdwFlap" id="_file_tree_flap">
         <property name="content">_toast_overlay</property>
-        <property name="flap">_file_tree_scrolled_window</property>
+        <property name="flap">_tree_view_scrolled_window</property>
         <property name="locked">false</property>
         <property name="reveal-flap">false</property>
       </object>
     </child>
   </template>
-  <object class="GtkScrolledWindow" id="_file_tree_scrolled_window">
+  <object class="GtkScrolledWindow" id="_tree_view_scrolled_window">
     <property name="focusable">true</property>
     <property name="width-request">200</property>
     <property name="child">
-      <object class="GtkTreeView" id="_file_tree">
+      <object class="GtkTreeView" id="_tree_view">
         <property name="visible">true</property>
         <property name="width-request">200</property>
         <property name="focusable">true</property>
         <property name="vexpand">true</property>
         <property name="enable-grid-lines">vertical</property>
-        <signal name="row-activated" handler="on_open_file_from_filetree"/>
         <child internal-child="selection">
           <object class="GtkTreeSelection"></object>
         </child>
