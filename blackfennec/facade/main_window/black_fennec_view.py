@@ -424,7 +424,7 @@ class BlackFennecView(Gtk.ApplicationWindow):
         tab_page = document_tab_view.tab_page
         self._tab_view.set_selected_page(tab_page)
         self._ui_service.show_message(
-            Context(self, tab.document.content),
+            Context(self),
             Message(f'Opened file: {tab.title}')
         )
 
@@ -432,7 +432,7 @@ class BlackFennecView(Gtk.ApplicationWindow):
         self._view_model.close_file(page.document_tab)
         self.hide_tab_view()
         self._ui_service.show_message(
-            Context(self, page.document_tab.document.content),
+            Context(self),
             Message(f'Closed file: {page.document_tab.title}')
         )
 

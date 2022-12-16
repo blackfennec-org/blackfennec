@@ -1,6 +1,4 @@
 # -*- coding: utf-8 -*-
-from typing import Type
-
 from blackfennec.structure.structure import Structure
 from blackfennec.document_system.mime_type.mime_type import MimeType
 from blackfennec.document_system.resource_type.resource_type import ResourceType
