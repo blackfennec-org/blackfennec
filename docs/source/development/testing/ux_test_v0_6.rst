@@ -1,11 +1,8 @@
-.. _usability_study:
+.. _usability_study_v0.6:
 
-===============
-Usability Tests
-===============
-
-Release v0.6
-************
+============================
+Usability Study Release v0.6
+============================
 
 This usability test was conducted for the release of version 0.6.0. It contains multiple tasks that can be used to the the systems usability. These tasks are dedicated to personas that have little to none experience with the application, in order to be representative of users that use our application for the first time.
 

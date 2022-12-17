@@ -1,10 +1,21 @@
-.. _usability_test_template:
+.. _usability_study_0.11.0:
 
-========================
-Usability Test Templates
-========================
+=============================
+Usability Study Release v0.11
+=============================
 
-This template can be used to conduct usability tests of the black-fennec application. It contains multiple tasks that can be used to the the systems usability. These tasks are dedicated to personas that have little to none experience with the application, in order to be representative of users that use our application for the first time.
+This usability test was conducted for version 0.11.0. It contains multiple tasks that can be used to the the systems usability. These tasks are dedicated to personas that have little to none experience with the application, in order to be representative of users that use our application for the first time.
+
+Personas
+--------
+
+N personas have participated in this study. We mapped each of the mto a :ref:`persona <personas>` which most closely fits their background and potential usage.
+
+==============  =================
+ Tester          Persona
+==============  =================
+ TW              :ref:`Alan`
+==============  =================
 
 Tasks
 -----
@@ -12,7 +23,7 @@ The tasks are to be read to the user that is testing the application. The tester
 
 Open a Project
 """"""""""""""
-Open the project `examples` which is located under `$BLACK_FENNEC_HOME/examples`.
+Open the folder `examples` which is located under `$BLACK_FENNEC_HOME/examples`.
 
 Preconditions
 ~~~~~~~~~~~~~
@@ -30,7 +41,7 @@ Observation
 ==============  =================
  Tester          Observation
 ==============  =================
-<Name>          <Observation>
+ TW              Intuitively correct
 ==============  =================
 
 Open a File
@@ -54,7 +65,7 @@ Observation
 ==============  =================
  Tester          Observation
 ==============  =================
-<Name>          <Observation>
+ TW              Intuitively correct
 ==============  =================
 
 
@@ -80,7 +91,7 @@ Observation
 ==============  =================
  Tester          Observation
 ==============  =================
-<Name>          <Observation>
+ TW              "empty" list is not intuitive; suggests showing a preview. Is concerned that new columns might be missed by user; could be solved with auto-scrolling.
 ==============  =================
 
 
@@ -105,7 +116,7 @@ Observation
 ==============  =================
  Tester          Observation
 ==============  =================
-<Name>          <Observation>
+ TW              Intuitively correct
 ==============  =================
 
 
@@ -131,7 +142,7 @@ Observation
 ==============  =================
  Tester          Observation
 ==============  =================
-<Name>          <Observation>
+ TW              Intuitively correct
 ==============  =================
 
 
@@ -157,7 +168,7 @@ Observation
 ==============  =================
  Tester          Observation
 ==============  =================
-<Name>          <Observation>
+ TW              Intuitively correct. Not sure if the change is saved automatically; suggests change indicator (e.g. asterisk) and a warning on close.
 ==============  =================
 
 
@@ -183,7 +194,7 @@ Observation
 ==============  =================
  Tester          Observation
 ==============  =================
-<Name>          <Observation>
+ TW              Intuitively correct
 ==============  =================
 
 
@@ -209,7 +220,7 @@ Observation
 ==============  =================
  Tester          Observation
 ==============  =================
-<Name>          <Observation>
+ TW              double click, right click, edit button
 ==============  =================
 
 
@@ -235,7 +246,7 @@ Observation
 ==============  =================
  Tester          Observation
 ==============  =================
-<Name>          <Observation>
+ TW              first tried using the delete key, then edit button; noted it to be intuitive but would like to see more short cuts like this.
 ==============  =================
 
 
@@ -261,7 +272,7 @@ Observation
 ==============  =================
  Tester          Observation
 ==============  =================
-<Name>          <Observation>
+ TW             Intuitively correct
 ==============  =================
 
 
@@ -287,7 +298,7 @@ Observation
 ==============  =================
  Tester          Observation
 ==============  =================
-<Name>          <Observation>
+ TW              Intuitively correct
 ==============  =================
 
 
@@ -314,7 +325,7 @@ Observation
 ==============  =================
  Tester          Observation
 ==============  =================
-<Name>          <Observation>
+ TW              Intuitively correct; right click on tab
 ==============  =================
 
 
@@ -345,6 +356,7 @@ Observation
 
 Open File from File Manager
 """""""""""""""""""""""""""
+
 From the file manager, open a file in Black Fennec.
 
 Preconditions
@@ -364,7 +376,6 @@ Observation
 ==============  =================
  TW              Intuitively correct
 ==============  =================
-
 
 Missing Extension Dialog
 """"""""""""""""""""""""
@@ -395,8 +406,18 @@ The missing recommended extensions dialog does not inform the user that Black Fe
 
 Notes
 ~~~~~
-Add notes here.
+
+Some of the subjects whished for a more keyboard friendly UI. The argument is, that users are more productive with keyboard shortcuts. Some of the suggested shortcuts are:
+
+- Delete: Delete a row in a list or map
+- Keyboard navigation through the structure
+
+It was also noted, that changing the key of a map item is somewhat cumbersome as the user has to click on the edit button located at the very top of the column. Suggested alternatives include:
+
+- Double click on the key
+- Right click on the row
 
 Conclusion
 ~~~~~~~~~~
-Add conclusion here.
+
+Although the test subjects were not familiar with Black Fennec, they were able to use it mostly intuitively. However, the study has also shown that there is room for improvement.
