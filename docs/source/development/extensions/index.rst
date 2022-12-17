@@ -28,6 +28,7 @@ Developing a Presenter Extension
     An extension can contain multiple presenters AND types at the same time.
 
 .. toctree::
+    :maxdepth: 1
 
     type_extension
     presenter_extension

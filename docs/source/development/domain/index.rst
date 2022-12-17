@@ -58,6 +58,7 @@ The currently documented domain model is depicted below. To read more about the 
 .. uml:: domain_model.puml
 
 .. toctree::
+    :maxdepth: 1
 
     interpretation/index
     navigation/index

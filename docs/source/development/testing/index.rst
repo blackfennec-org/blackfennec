@@ -3,6 +3,7 @@ Testing
 =======
 
 .. toctree::
+    :maxdepth: 1
 
     system_test
     system_test_templates

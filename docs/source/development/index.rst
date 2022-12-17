@@ -11,6 +11,7 @@ This part of the documentation is exclusively about the most important artefact,
 Checkout the :ref:`architecture` or the :ref:`domain_model` to learn more about the conceptual inner-workings, or enjoy the :doc:`generated documentation <code/modules>` of the code itself.
 
 .. toctree::
+    :maxdepth: 2
 
     architecture/index
     domain/index
