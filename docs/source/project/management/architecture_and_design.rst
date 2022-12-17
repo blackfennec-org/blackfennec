@@ -1,6 +1,8 @@
-=======================
-Architecture and Design
-=======================
+.. _design_decisions:
+
+================
+Design Decisions
+================
 
 This section of the documentation serves as an overview of the architecture and package-/class-design. This document serves only as an overview. More detailed
 information can be found in the documents referenced in this overview.

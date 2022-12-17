@@ -1,6 +1,10 @@
+.. _functional_requirements:
+
 =======================
 Functional Requirements
 =======================
+
+.. _epic_overview:
 
 Epic Overview
 """""""""""""
@@ -8,6 +12,8 @@ Epic Overview
 This diagram provides an overview over the epics that our specified personas found under :doc:`personas` would like to be able to do with Black Fennec. It is intentionally done in the way of an UML-Diagram Overview but is apart from the format quite different. The personas are not representing specific roles that have to be able to do something but a category of users that have certain needs and expectations.
 
 .. uml:: epic_overview.puml
+
+.. _user_stories:
 
 User Stories
 """"""""""""
