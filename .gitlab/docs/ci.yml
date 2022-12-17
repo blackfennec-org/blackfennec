@@ -5,25 +5,13 @@ variables:
 # Build Latest Documentation
 ###############################################################################
 
-build latest code docs:
-  image: $DOCS_BUILD_IMAGE
-  stage: prebuild
-  script:
-    - sphinx-apidoc -f -o docs/source/software_documentation/code/ .
-  artifacts:
-    paths:
-      - docs/source/software_documentation/code
-  only:
-    - tags
-
 build latest html:
   image: $DOCS_BUILD_IMAGE
   stage: build
   before_script:
     - pip install -r docs/requirements.txt
   script:
-    - cd docs
-    - make html
+    - make docs
   artifacts:
     paths:
       - docs/_build/html
