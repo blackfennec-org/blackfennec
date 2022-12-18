@@ -1,8 +1,8 @@
-.. _Definition of Scrum:
+.. _definition_of_scrum:
 
 Definition of Scrum
 ===================
-This document defines the definition of Scrum used in this project. This document can be edited during e.g. `Sprint Retrospective`_
+This document defines the definition of Scrum used in this project. This document can be edited during e.g. a :ref:`sprint retrospective <sprint_retrospective>`
 
 Daily Scrum
 ^^^^^^^^^^^
@@ -21,6 +21,8 @@ Sprint Review
 During this meeting, the result of the Sprint is reviewed and adjustments are made.
 
 Our team presents their work and progress towards the Product Goal. Based on the information, the next steps can be planned.
+
+.. _sprint_retrospective:
 
 Sprint Retrospective
 ^^^^^^^^^^^^^^^^^^^^

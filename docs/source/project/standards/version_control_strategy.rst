@@ -1,4 +1,4 @@
-.. _Version Control Strategy:
+.. _version_control_strategy:
 
 Version Control Strategy
 ========================

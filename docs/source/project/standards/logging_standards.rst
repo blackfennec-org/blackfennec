@@ -1,4 +1,4 @@
-.. _Logging Standards:
+.. _logging_standards:
 
 Logging Standards
 =================

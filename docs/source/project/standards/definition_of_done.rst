@@ -1,4 +1,4 @@
-.. _Definition of Done:
+.. _definition_of_done:
 
 Definition of Done
 ==================
