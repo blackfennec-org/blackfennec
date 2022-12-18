@@ -26,3 +26,4 @@ An overview of all the mentioned subsections can be found in the following table
     increment
     time_tracking
     reflection
+
