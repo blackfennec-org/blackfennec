@@ -14,5 +14,6 @@ The pages below document the results of the different manually conducted tests.
     :maxdepth: 1
 
     system_test
-    ux_test
+    ux_test_v0_6
+    ux_test_v0_11
     templates/index
