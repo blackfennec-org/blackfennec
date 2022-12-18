@@ -1,3 +1,5 @@
+.. _epj_project_plan:
+
 ====
 Plan
 ====
@@ -15,7 +17,7 @@ The project plan serves as a basis for the upcoming documents.
 
 Scope
 -----
-The scope of this project is limited to the duration of the module Engineering Project FS2021.
+The scope of this project is limited to the duration of the module `Engineering Project FS2021 <https://studien.rj.ost.ch/allModules/25619_M_EPJ.html>`_.
 
 References
 ----------
