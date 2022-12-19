@@ -1,4 +1,4 @@
-.. _reflection:
+.. _epj_reflection:
 
 ==========
 Reflection

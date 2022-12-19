@@ -10,7 +10,7 @@ Contrary to the usual way of selecting a predefined topic that is given by a lec
 
 The :ref:`project plan <epj_project_plan>` was created at the beginning of the project and provides a rough overview of our project, the project organization, and the management processes. The plan was updated regularly during the project. Additionally to this plan another artifact created was during/after the :ref:`elaboration phase <elaboration>` of the project and highlights the most important decisions made during this phase and contains a detailed plan for the succeeding :ref:`construction phase <construction_phase_plan>`.
 
-The :ref:`refinement document <refinement>` contains suggestions for improvement, that were received, and how they were addressed. Additionally to that this section also contains the projects :ref:`time tracking <time_tracking>` and a :ref:`reflection statement <reflection>` that was written at the end of the project.
+The :ref:`refinement document <refinement>` contains suggestions for improvement, that were received, and how they were addressed. Additionally to that this section also contains the projects :ref:`time tracking <time_tracking>` and a :ref:`reflection statement <epj_reflection>` that was written at the end of the project.
 
 An overview of all the mentioned subsections can be found in the following table of contents:
 
