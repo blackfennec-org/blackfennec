@@ -4,5 +4,8 @@
 Project Plan
 ============
 
+<<<<<<< HEAD
 TODO: add content...
 
+=======
+>>>>>>> 38b1113 (populate study project index)
