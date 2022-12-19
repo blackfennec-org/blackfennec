@@ -4,7 +4,7 @@
 Engineering Project
 ===================
 
-The `engineering project <https://studien.rj.ost.ch/allModules/25619_M_EPJ.html>`_ is a 6-month project that is carried out by a small group of students. Accumulated about 480 hours were invested into the development of Black Fennec.
+The `engineering project <https://studien.rj.ost.ch/allModules/25619_M_EPJ.html>`_ is a semester long project that is carried out by a group of students. In the context of this project an accumulated 480 hours were invested into the development of Black Fennec.
 
 Contrary to the usual way of selecting a predefined topic that is given by a lecturer, the students came up with the idea for Black Fennec. This was done via a :ref:`project proposal <project_proposal>` and guided by Thomas Kälin, lecturer at the University of Applied Sciences Rapperswil who supervised the project.
 
