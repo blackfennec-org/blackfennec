@@ -339,7 +339,7 @@ Observation
 ==============  =================
  Tester          Observation
 ==============  =================
- TW              Intuitively correct
+ <Name>          <Observation>
 ==============  =================
 
 
@@ -362,7 +362,7 @@ Observation
 ==============  =================
  Tester          Observation
 ==============  =================
- TW              Intuitively correct
+ <Name>          <Observation>
 ==============  =================
 
 
@@ -387,7 +387,7 @@ Observation
 ==============  =================
  Tester          Observation
 ==============  =================
- TW              Intuitively correct and restarted Black Fennec.
+ <Name>          <Observation>
 ==============  =================
 
 The missing recommended extensions dialog does not inform the user that Black Fennec must be restarted to use newly installed extensions.

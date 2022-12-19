@@ -17,6 +17,7 @@ N personas have participated in this study. We mapped each of them to a :ref:`pe
  Tester          Persona
 ==============  =================
  TW              :ref:`Alan`
+ MB              :ref:`Alan`
 ==============  =================
 
 Tasks
@@ -44,6 +45,7 @@ Observation
  Tester          Observation
 ==============  =================
  TW              Intuitively correct
+ MB              Intuitively correct; suggested to remove empty list pattern
 ==============  =================
 
 Open a File
@@ -68,6 +70,7 @@ Observation
  Tester          Observation
 ==============  =================
  TW              Intuitively correct
+ MB              Intuitively correct; expected context menu in file tree (e.g. rename file)
 ==============  =================
 
 
@@ -94,6 +97,7 @@ Observation
  Tester          Observation
 ==============  =================
  TW              "empty" list is not intuitive; suggests showing a preview. Is concerned that new columns might be missed by user; could be solved with auto-scrolling.
+ MB              "empty" list is not intuitive; suggests showing a preview.
 ==============  =================
 
 
@@ -119,6 +123,7 @@ Observation
  Tester          Observation
 ==============  =================
  TW              Intuitively correct
+ MB              Intuitively correct; expected tab switch when "opening" same file multiple times
 ==============  =================
 
 
@@ -145,6 +150,7 @@ Observation
  Tester          Observation
 ==============  =================
  TW              Intuitively correct
+ MB              Intuitively correct
 ==============  =================
 
 
@@ -171,6 +177,7 @@ Observation
  Tester          Observation
 ==============  =================
  TW              Intuitively correct. Not sure if the change is saved automatically; suggests change indicator (e.g. asterisk) and a warning on close.
+ MB              Intuitively correct; expects save button or change indicator
 ==============  =================
 
 
@@ -197,6 +204,7 @@ Observation
  Tester          Observation
 ==============  =================
  TW              Intuitively correct
+ MB              Intuitively correct
 ==============  =================
 
 
@@ -223,6 +231,7 @@ Observation
  Tester          Observation
 ==============  =================
  TW              double click, right click, edit button
+ MB              right click, edit button; expected check mark to save entire file
 ==============  =================
 
 
@@ -249,6 +258,7 @@ Observation
  Tester          Observation
 ==============  =================
  TW              first tried using the delete key, then edit button; noted it to be intuitive but would like to see more short cuts like this.
+ MB              Intuitively correct
 ==============  =================
 
 
@@ -274,7 +284,8 @@ Observation
 ==============  =================
  Tester          Observation
 ==============  =================
- TW             Intuitively correct
+ TW              Intuitively correct
+ MB              expected enter to add item. entered unknown type in type field; was not stopped from doing so.
 ==============  =================
 
 
@@ -301,6 +312,7 @@ Observation
  Tester          Observation
 ==============  =================
  TW              Intuitively correct
+ MB              Intuitively correct
 ==============  =================
 
 
@@ -328,6 +340,7 @@ Observation
  Tester          Observation
 ==============  =================
  TW              Intuitively correct; right click on tab
+ MB              Intuitively correct; expected 'save changes' warning on close
 ==============  =================
 
 
@@ -353,6 +366,7 @@ Observation
  Tester          Observation
 ==============  =================
  TW              Intuitively correct
+ MB              Expected to run action from field of string
 ==============  =================
 
 
@@ -377,6 +391,7 @@ Observation
  Tester          Observation
 ==============  =================
  TW              Intuitively correct
+ MB              Intuitively correct
 ==============  =================
 
 Missing Extension Dialog
@@ -401,6 +416,7 @@ Observation
  Tester          Observation
 ==============  =================
  TW              Intuitively correct and restarted Black Fennec.
+ MB              Did not read error fully, expected 'install' to just install the missing extensions, did not immediately find extensions in software center. Suggested better error message and to rename the 'install' button to 'open software center'
 ==============  =================
 
 The missing recommended extensions dialog does not inform the user that Black Fennec must be restarted to use newly installed extensions.
@@ -409,7 +425,7 @@ The missing recommended extensions dialog does not inform the user that Black Fe
 Notes
 ~~~~~
 
-Some of the subjects whished for a more keyboard friendly UI. The argument is, that users are more productive with keyboard shortcuts. Some of the suggested shortcuts are:
+Some of the subjects whished for a more keyboard friendly UX. The argument is, that users are more productive with keyboard shortcuts. Some of the suggested shortcuts are:
 
 - Delete: Delete a row in a list or map
 - Keyboard navigation through the structure
@@ -418,6 +434,8 @@ It was also noted, that changing the key of a map item is somewhat cumbersome as
 
 - Double click on the key
 - Right click on the row
+
+It was also noted that users tend to ignore error messages and just click the most suggestive button. We should consider to change the error message to something more informative and to rename the button to something more descriptive of what actually happens.
 
 Conclusion
 ~~~~~~~~~~
