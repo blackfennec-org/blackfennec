@@ -1,3 +1,5 @@
+.. _sa_proposal:
+
 ========
 Proposal
 ========
