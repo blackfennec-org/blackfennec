@@ -4,11 +4,15 @@
 Development
 ===========
 
-Black Fennec is in essence a glorified JSON viewer which allows the implementation of custom views that ought to better represent the underlining data.
+Black Fennec is, in essence, a glorified JSON viewer with a powerful extension API. Extensions can add custom types, views, actions and even new mime types. As such this documentation caters to two types of developers.
 
-This part of the documentation is exclusively about the most important artefact, the software itself. Here you can find what was actually implemented and how. This is in contrast to standards, requirements and management documentation.
+The goal of Black Fennec development is to ensure the stability, extensibility and usability of the software. This is achieved by following a set of standards and best practices which are described in :ref:`project standards <project_standards>`. As a developer you should be aware of these standards. However, it is also important to understand the bigger picture, the architecture and the domain model. This is explained in :ref:`architecture <architecture>` and :ref:`domain model <domain_model>` respectively.
 
-Checkout the :ref:`architecture` or the :ref:`domain_model` to learn more about the conceptual inner-workings, or enjoy the :doc:`generated documentation <code/modules>` of the code itself.
+Extension developers make Black Fennec more then just a glorified JSON viewer. The available extensions largely determine the usefulness of Black Fennec. Thus a :ref:`dedicated section <definition_extension>` explains how to write the different types of extensions.
+
+In the :ref:`testing <testing>` section we record and document system and usability tests.
+
+Finally, the :ref:`code <code_documentation>` section contains a generated source code documentation of Black Fennec.
 
 .. toctree::
     :maxdepth: 2
