@@ -1,8 +1,8 @@
 .. _definition_extension:
 
-==========
-Extensions
-==========
+================
+Extension System
+================
 
 The capability and usability of Black Fennec is largely dependent on the available extensions. We take the division of responsibilities and the design of the interfaces serious and strive for stability and compatibility. That being said, this document and the definitions it contains are at this stage very much a work in progress and subject to change.
 

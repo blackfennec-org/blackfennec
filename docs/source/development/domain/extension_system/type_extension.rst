@@ -26,4 +26,4 @@ Keep in mind that you must register your `View` via a :ref:`ViewFactory <structu
 
 Action
 """"""
-Coming Soon™
+TODO: Describe the action

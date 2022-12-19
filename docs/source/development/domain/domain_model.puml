@@ -1,4 +1,4 @@
-@startuml
+@startuml domain model
 
 hide circle
 hide members
@@ -10,103 +10,200 @@ skinparam class {
     BorderColor Black
 }
 
-title The Domain Model
+title Domain Model
 
-package "Black Fennec" <<Frame>>{
-    package Structure  as p_s <<Frame>> {
-        class Overlay
-        class Underlay
-        class SourceLayer
+package "Balck Fennec" <<Frame>> {
 
-        package "Object Model" as om <<Frame>> {
-            class "Structure" as structure
-            class Reference extends structure
-            class Map extends structure
-            class List extends structure
-            class String extends structure
-            class Number extends structure
-            class Boolean extends structure
-          
-            structure o--> "1" structure  : parent
-            structure o--> "*" structure  : children
-            
-        }
-      
-        Overlay         -down->     Underlay        : adapted from
-        Underlay        -down->     SourceLayer     : deserialized from
-        Underlay        --|>        om              : is
+    package "Structure" <<Frame>>{
+        class "Structure"               as s
+        class "Map"                     as m
+        class "List"                    as l
+        class "String"                  as str
+        class "Number"                  as n
+        class "Boolean"                 as b
+        class "Null"                    as nu
+        class "Referene"                as r
+
+        m -u-|> s
+        l -u-|> s
+        str -u-|> s
+        n -u-|> s
+        b -u-|> s
+        nu -u-|> s
+        r -u-|> s
+
+        m --> s : contains
+        l --> s : contains
     }
 
-    package Interpreter <<Frame>> {
-        class "Auctioneer"              as auction
-        class "Offer"                   as offer
-        class "InterpretationService"   as is
+    package "Layers" <<Frame>> {
+        class "Layer"                   as la
+        class "Merged Layer"            as ml
+        class "Overlay"                 as ol
+        class "History"                 as rl
+
+        la -u-|> "Structure"
+        ml -u-|> la
+        ol -u-|> la
+        rl -u-|> la
+    }
+
+    package "Type System" <<Frame>>{
+        class "Interpretation Service"  as is 
         class "Interpretation"          as i
-        class "Specification"           as spec
-        abstract "Bidder"               as bidder
-        
-        is o-- auction
-        bidder --> offer    : creates
+        class "Type"                    as t
     }
 
-    package Navigation <<Frame>> {
-        class "Navigation Service"  as ns
-        class "Navigation Proxy"    as np
+    package "Document System" <<Frame>> {
+        class "Document Factory"        as df
+        class "Document Registry"       as dr
+        class "Document"                as d
+        class "Mime Type"               as mt
+        class "Mime Type Registry"      as mtr
+
+        class "Resource Type"           as rt
+        class "Resource Type Registry"  as rtr
+
+        mtr --> mt : contains
+        rtr --> rt : contains
     }
 
-    package "Type System" <<Frame>> {
-        Class "Type Registry"   as tr
+    package "Presentation System" <<Frame>> {
+        class "Presenter"               as p
+        class "Presenter Registry"      as pr
+        class "View"                    as v
+        class "Preview"                 as pv
+        class "View Registry"           as vr
+        class "Navigation Service"      as ns
+
+        p --> v : presents
+        p --> pv : presents
     }
-    i o--> p_s
-    i o--> "1" ns
-    tr o--> "*" bidder
+
+    package "Action System" <<Frame>> {
+        class "Action"                  as a
+        class "Action Registry"         as ar
+    }
+
+    package "Extension System" <<Frame>> {
+        class "Extension"               as e
+        class "Extension Registry"
+        class "Extension API"           as api
+
+        api --> is
+        api --> pr
+        api --> ar
+        api --> vr
+        api --> mtr
+        api --> rtr
+    }
 }
 
-package "User Data" <<Frame>> {
-    class "Json File" as jf
-}
+package "Core Extension" <<Frame>> {
+    class "Core Extension"          as ce
+    ce --|> e
 
-
-package Visualisation <<Frame>> {
-    class "View"        as view
-    class "Preview"     as preview
-}
-
-package Type <<Frame>> {
-    class "TypeBidder"      as type_bidder extends bidder
-    class "ViewFactory" as view_factory
+    ' Views
+    class "Map Preview"             as mp
+    class "List Preview"            as lp
+    class "String Preview"          as sp
+    class "Number Preview"          as np
+    class "Boolean Preview"         as bp
+    class "Null Preview"            as np
     
-    view_factory  -->   view : creates
-    view_factory  -->   preview : creates
+    class "List View"               as lv
+    class "Map View"                as mv
+    class "String View"             as sv
+    class "Number View"             as nv
+    class "Boolean View"            as bv
+
+
+    ' Actions
+    class "To Lower Action"           as tla
+    class "To Upper Action"           as tua
+
+    ' presetners
+    class "Column Based Presenter"  as cbp
+    cbp --|> p
+
+    ' Mime Types
+    class "Json Mime Type"          as jmt
+
+    ' Resource Types
+    class "File Resource Type"      as frt
+    class "HTTP Resource Type"      as hrt
+
 }
 
-Visualisation "*" -- "1" i
+package "Base Extension" <<Frame>> {
+    class "Base Extension"          as be
+    be --|> e
 
-package Presenter <<Frame>>{
-    class "Presenter" as p
+    ' Views
+    package "File" <<Frame>> {
+        class "File Type"               as ft
+        class "File Preview"            as fp
+        class "File View"               as fv
+        fp --> ft
+        fv --> ft
+    }
+
+    package "Image" <<Frame>> {
+        class "Image Type"              as it
+        class "Image Preview"           as ip
+        class "Image View"              as iv
+        ip --> it
+        iv --> it
+    }
+
+    package "Url" <<Frame>> {
+        class "Url Type"                as ut
+        class "Url Preview"             as up
+        class "Url View"                as uv
+        up --> ut
+        uv --> ut
+    }
+
+    package "Date Time" <<Frame>> {
+        class "Date Time Type"          as dt
+        class "Date Time Preview"       as dtp
+        class "Date Time View"          as dtv
+        dtp --> dt
+        dtv --> dt
+    }
 }
 
-p o--> is
-p -- ns : observer pattern
+' relations
 
-package Extensions <<Frame>> {
-    class "ExtensionApi"      as api
-    abstract "Extension"      as e
-    class TypeExtension
-    class ActionExtension
-    class PresenterExtension
+d --> s : contains
+d --> mt : has a
+d --> rt : has a
 
-    e "1" o-- "0..*" TypeExtension
-    e "1" o-- "0..*" ActionExtension
-    e "1" o-- "0..*" PresenterExtension
+is --> s : interprets
+is --> i : provides
+i --> t : is a collection of
 
-    TypeExtension       -->     Type            : provides
-    PresenterExtension  -->     Presenter       : provides
-    e   o-->   api
-}
-api o--> tr
-api o--> ar
-api o--> pr
+v --> t : represents
+v --> s : acts on
+pv --> t : represents
+pv --> s : acts on
 
+a --> s : acts on
+a --> t : depends on
+
+
+' arrangement
+
+/'
+s -[hidden]d- "Action System"
+s -[hidden]d- "Type System"
+s -[hidden]d- "Presentation System"
+s -[hidden]d- "Document System"
+
+"Type System" -[hidden]l- "Presentation System"
+
+"Type System" -[hidden]d- "Action System"
+"Action System" -[hidden]u- "Type System"
+'/
 
 @enduml

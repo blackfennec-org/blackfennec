@@ -29,3 +29,4 @@ The Type Registry is a register of all known (aka registered) :ref:`types <defin
     :caption: References
 
     type
+    interpretation/index

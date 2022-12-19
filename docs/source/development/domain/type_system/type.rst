@@ -109,4 +109,4 @@ The `TypeLoader` will read the type definition from the file and register it in 
     }
 
 
-After loading the type, the :ref:`definition_type_registry` will be able to recognise the type. Notice how the type definition and the structure are loosely coupled. It is indeed possible for a single structure to be considered valid for multiple types (e.g. `File` and `Image`). It is also possible that a structure matches a type but has additional attributes that are not part of the type definition. If you are interested in the interpretation of structures, checkout the :ref:`selection process <definition_selection_process>`.
+After loading the type, the :ref:`definition_type_registry` will be able to recognize the type. Notice how the type definition and the structure are loosely coupled. It is indeed possible for a single structure to be considered valid for multiple types (e.g. `File` and `Image`). It is also possible that a structure matches a type but has additional attributes that are not part of the type definition. If you are interested in the interpretation of structures, checkout the :ref:`selection process <definition_selection_process>`.

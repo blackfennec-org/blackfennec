@@ -10,7 +10,7 @@ skinparam class {
     BorderColor Black
 }
 
-title Simplified Domain Model
+title Domain Overview
 
 class "Interpretation Service"   as is 
 class "Structure"               as s

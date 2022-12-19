@@ -1,22 +1,14 @@
+.. _definition_core_types:
+.. _object_model:
 .. _definition_structure:
 
-=============
-The Structure
-=============
+=========
+Structure
+=========
 
-.. toctree::
+The object model (also known as core :ref:`types <definition_type>`) defines the  fundamental types. All other types are structures built with it. The most commonly used structures are included in the base installation.
 
-    object_model/index
-    template
-    overlay
-    underlay
-    source_layer
-
-.. _definition_layer:
-
-Overview
-""""""""
-Although not represented in the source code itself, it is helpful to reason about the different levels of structure as layers. In this model each layer adds (or removes) something to the layer below. Services tend to act on the same layer. However this is most often because they are not aware of this concept. Layers above the underlay must be transparent which allows - in theory - arbitrary combinations to create novel layers. In practice the depicted stack is used most often. It is worth noting, that the underlay itself is not represented in code either but in fact is just the not yet processed deserialized user data represented in the :ref:`object model <object_model>`
+The object model is a DAG - apart from references - implemented with a composite pattern. It is possible to recognise this from the member of type Information in Lists and Maps. As for References, accessing the Information they point to is a special operation and References never has any children from the perspective of the DAG. Therefore, although they can break the DAG properties this is not their default behaviour. 
 
 .. uml::
     
@@ -32,32 +24,77 @@ Although not represented in the source code itself, it is helpful to reason abou
         BorderColor Black
     }
     
-    title Layers Overview
-    
-    class Presenter {}
-    class Interpretation {}
-    class Overlay {}
-    class Underlay {}
-    class SourceLayer
-    
-    Presenter       .down>     Interpretation  : shows
-    Interpretation  -down>     Overlay         : of
-    Overlay         -down>     Underlay        : is adapted from
-    Underlay        -down>     SourceLayer     : is deserialized from
+    package "Object Model" {
+        class Information {}
+        class Number {}
+        class String {}
+        class List {}
+        class Map {}
+        class Reference {}
+        class Root {}
 
+        Information     -->         Information     : parent
+        Information     -up->       Root            : root
+        Number          --|>        Information     
+        String          --|>        Information
+        List            -right-|>   Information
+        List            --> "0..*"  Information 
+        Map             -up-|>      Information
+        Map             --> "0..*"  Information
+        Reference       -up-|>      Information
+        Reference       --> "0..1"  Information
+        Root            -->         Root            : root
+    }
     @enduml
-
-Presenter
-    The :ref:`presenter <definition_presenter>` is responsible for presenting the :ref:`interpretation <definition_interpretation>` to the user.
-
-Interpretation
-    The :ref:`interpretation <definition_interpretation>` is based on the :ref:`overlay <definition_overlay>` and created by the :ref:`interpretation service <definition_interpretation_service>`
-
-Overlay
-    The :ref:`overlay <definition_overlay>` is the processed :ref:`underlay <definition_underlay>`. Its main contribution is the resolution of references.
     
-Underlay
-    The :ref:`underlay <definition_underlay>` is the deserialized :ref:`source layer <definition_source_layer>`. It consists solely of :ref:`core types <definition_core_types>`.
 
-Source Layer
-    The :ref:`source layer <definition_source_layer>` is the source of the information. Most often a JSON file.
+
+Information
+"""""""""""
+All types hold information. Functionality common among all core types is placed here. All core types inherit from information.
+
+Parent of Information
+~~~~~~~~~~~~~~~~~~~~~
+The parent of an information is closer to the root in the :ref:`tree <definition_underlay>`.
+
+Root of Information
+~~~~~~~~~~~~~~~~~~~
+The root information is the root of the :ref:`tree <definition_underlay>` and the starting point of absolute paths.
+
+Number
+""""""
+This core type represents numbers including integers and floating points.
+
+String
+""""""
+This core type represents strings (e.g. "hello world"). It is also used for longer texts.
+
+.. _definition_type_list:
+
+List
+""""
+A list is a collection of information.
+
+
+Map
+"""
+A map is a collection of key-value pairs of information.
+
+.. _definition_type_reference:
+
+Reference
+"""""""""
+A reference is an absolute or relative path to information. This type only exists on the :ref:`underlay <definition_underlay>` and is not visible on higher :ref:`layers <definition_layer>`. The Reference consists of a list of Navigators
+
+.. _definition_reference_navigator:
+
+Reference Navigation
+~~~~~~~~~~~~~~~~~~~~
+
+A Navigator is a token of the parsed Reference. The list of Navigators contained in a :ref:`reference <definition_type_reference>` are used to navigate through the :ref:`tree <definition_underlay>`.
+
+Root
+""""
+The root is special as it is unique in a :ref:`tree <definition_underlay>`. It can be of any type and differs only in that it is its own parent.
+
+Absolute paths of references start from the root.

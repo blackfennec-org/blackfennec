@@ -55,7 +55,7 @@ Improvements
 Performance tests were added at the two identified bottlenecks that our application has and are now included in the system tests performed before each release. For more information look at the :ref:`performance scenario <performance_scenario>` chapter.
 
 **The document contains only static views of the system. Consider adding a dynamic view of the system**
-Multiple dynamic views in the form of three sequential diagrams were added to the documentation. These can be found under :ref:`this link <dynamic_system_views>`.
+Multiple dynamic views in the form of three sequential diagrams were added to the documentation.
 
 Quality Ensurance Measurements & Code Quality
 """""""""""""""""""""""""""""""""""""""""""""
