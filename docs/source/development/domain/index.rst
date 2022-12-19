@@ -4,10 +4,9 @@
 Domain
 ======
 
-This document introduces the domain model of Black Fennec. Due to the inherit complexity of the project different levels of abstraction are used. If you are interested in how a specific component works just follow the link to its dedicated page. 
+This section is dedicated to the domain of Black Fennec. Due to the inherit complexity of the project different levels of abstraction are used. If you are interested in a specific component follow the link to its dedicated page. 
 
-This high level abstraction only shows the most prominent components of the system. It is meant to give an overview over the core components and their interactions.
-
+On this page a high level overview of the domain is given. The following diagram shows the most important components of the domain model.
 
 .. toctree::
     :maxdepth: 1
@@ -26,28 +25,20 @@ This high level abstraction only shows the most prominent components of the syst
 .. uml:: domain_overview.puml
 
 
-
-Interpretation Service
-    The :ref:`selection process <definition_selection_process>` is responsible for creating interpretations based on a structure and the available types.
-
 Structure
-    :ref:`Structure <definition_overlay>` is the generic term for the data in our object model, since structure is the only universally available property of all data and is as such the only common denominator.
+    The :ref:`structure <definition_structure>` is the core of the domain model. It represents the deserialized data, which can come in any from thanks to the implementation of the anything pattern.
 
-Types
-    A :ref:`type <definition_type>` is a description of a structure. A type is always associated with exactly one specialised user interface called an structure view.
+Type System
+    The :ref:`type system <definition_type_system>` is another core component of the domain model. It provides the capability to define custom types which is used by extensions to add novell types to the system. Furthermore, the :ref:`interpretation service <interpretation_service>` is responsible for evaluating a structure and determining which types it implements.
 
-Interpretation
-    The :ref:`interpretation <definition_interpretation>` is the visualisation of a given structure. It is the result of the selection process and limited by the available types.
+Action System
+    The :ref:`action system <action_system>` is providing the needed infrastructure to define and register actions. Actions are used to define custom procedures which the user can trigger.
 
-Presenter
-    The :ref:`presenter <presenter>` positions interpretations on the screen and thus presents the interpreted structure to the user.
+Presentation System
+    The :ref:`presentation system <presentation_system>` is responsible for everything to do with presentation, including :ref:`presenters <definition_presenter>` and :ref:`views <definition_type_view>`.
 
-Navigation Service
-    The :ref:`navigation service <definition_navigation_service>` loosely binds interpretations to presenters and therefore breaks the dependency cycle we see in the simplified domain modelComing Soon™
-
-
-.
+Document System
+    The :ref:`document system <definition_document_system>` is responsible for handling the serialization and deserialization of different :ref:`mime types <definition_mime_type>` from various :ref:`resource types <definition_resource_type>`.
 
 
-
-The currently documented domain model is depicted below. To read more about the components take a look at the table of contents below the diagram.
+For a more complete overview of the domain model see the :ref:`detailed domain model <domain_model>` page.

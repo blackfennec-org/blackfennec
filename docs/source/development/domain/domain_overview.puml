@@ -1,4 +1,4 @@
-@startuml
+@startuml domain model overview
 
 hide circle
 hide members
@@ -12,20 +12,72 @@ skinparam class {
 
 title Domain Overview
 
-class "Interpretation Service"   as is 
-class "Structure"               as s
-class "Types"                   as t
-class "Interpretation"          as i
-class "Presenter"               as p
-class "Navigation Service"       as ns
+class "Structure"                   as s
 
-is              -->     s           : selects types for
-is              -->     t           : from registered
-is              -->     i           : and creates
-p               -left-> is          : requests interpretation
-ns              -up->   p           : forwards request to
-i               -->     ns          : requests navigation
+package "Type System" <<Frame>>{
+    class "Interpretation Service"  as is 
+    class "Interpretation"          as i
+    class "Type"                    as t
+}
 
-s -[hidden]right-> t
-t -[hidden]right-> i
-i -[hidden]right-> ns
+package "Document System" <<Frame>> {
+    class "Document"                as d
+    class "Mime Type"               as mt
+    class "application/json"        as json
+    class "Resource Type"           as rt
+    class "file://"                 as file
+    class "http://"                 as http
+
+    json -u-|> mt
+    file -u-|> rt
+    http -u-|> rt
+
+}
+
+package "Presentation System" <<Frame>> {
+    class "Presenter"               as p
+    class "View"                    as v
+    class "Preview"                 as pv
+
+    p --> v : presents
+    p --> pv : presents
+}
+
+package "Action System" <<Frame>> {
+    class "Action"                  as a
+}
+
+' relations
+
+d --> s : contains
+d --> mt : has a
+d --> rt : has a
+
+is --> s : interprets
+is --> i : provides
+i --> t : is a collection of
+
+v --> t : represents
+v --> s : acts on
+pv --> t : represents
+pv --> s : acts on
+
+a --> s : acts on
+a --> t : depends on
+
+
+' arrangement
+
+/'
+s -[hidden]d- "Action System"
+s -[hidden]d- "Type System"
+s -[hidden]d- "Presentation System"
+s -[hidden]d- "Document System"
+
+"Type System" -[hidden]l- "Presentation System"
+
+"Type System" -[hidden]d- "Action System"
+"Action System" -[hidden]u- "Type System"
+'/
+
+@enduml

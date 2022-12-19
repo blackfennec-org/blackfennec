@@ -18,7 +18,7 @@ With the support from inheritance, the declarative syntax enables the reuse of d
 
 A type must inherit from `Type` and thus guarantees the existence of some properties like `create_instance`. Furthermore a type must be registered in the :ref:`definition_type_registry`. Otherwise it is unknown to the ecosystem, is not integrated, and thus the full potential of the type system remains unused.
 
-Types are the link between structures and most other components, including :ref:`definition_type_view` and the planned :ref:`definition_action`. As such they play a central role.
+Types are the link between structures and most other components, including :ref:`definition_type_view` and the :ref:`action_system`. As such they play a central role.
 
 Types can be defined in different ways. The preferred way is by declaring it in a separate file and loading it with the :ref:`definition_type_loader`.
 
