@@ -4,12 +4,14 @@
 Usability Study Release v0.11
 =============================
 
-This usability test was conducted for version 0.11.0. It contains multiple tasks that can be used to the the systems usability. These tasks are dedicated to personas that have little to none experience with the application, in order to be representative of users that use our application for the first time.
+This usability test was conducted for version 0.11.0. This is the release preceding version 1.0 which optimally can address some of the recognized shortcomings.
+
+It contains multiple tasks that can be used to the the systems usability. These tasks are dedicated to personas that have little to none experience with the application, in order to be representative of users that use our application for the first time.
 
 Personas
 --------
 
-N personas have participated in this study. We mapped each of the mto a :ref:`persona <personas>` which most closely fits their background and potential usage.
+N personas have participated in this study. We mapped each of them to a :ref:`persona <personas>` which most closely fits their background and potential usage.
 
 ==============  =================
  Tester          Persona
