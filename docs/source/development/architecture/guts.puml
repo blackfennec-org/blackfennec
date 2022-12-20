@@ -1,4 +1,4 @@
-@startuml
+@startuml interfaces and services
 
 skinparam rectangle {
     BackgroundColor #EEE
@@ -17,32 +17,42 @@ title Interfaces and Services
 
 
 
-package "Black Fennec" <<Frame>> {
-    rectangle Facade
-    rectangle Interpretation
+package "Black Fennec" <<Frame>> as BF {
+    rectangle "Presentation System" as PS
     rectangle "Document System" as DS
     rectangle Structure
     rectangle "Type System" as TS
+    rectangle "Actions System" as AS
 
-    Interpretation  -up->           TS
-    Facade          -up->           Structure
-    Interpretation  -up->           Structure
-    DS              -down->         Structure
-    TS              -down->         Structure
-    Facade          -[hidden]left-> Interpretation
+    TS          -->     Structure
+
+    AS          -->   TS
+    AS          -->     Structure
+    
+    DS          -->     Structure
+
+    PS          -->   TS
+    PS          -->     Structure
+    PS          -->     DS
 
 }
 
-
-rectangle Presentation
-rectangle Visualisation
-rectangle Extension
+rectangle Types
+rectangle Actions
+rectangle Views
+rectangle Presenters
+rectangle "Mime Types" as MT
+rectangle "Resource Types" as RT
 rectangle "User Data" as UD <<out-of-scope>>
 
-Presentation    -up->       Interpretation
-Presentation    -up->       Facade
-Visualisation   -up->       Interpretation
-Extension       -->         TS
+Types           -->         TS
+Actions         -->         AS
+Views           -->         PS
+Presenters      -->         PS
+MT              -->         DS
+RT              -->         DS
 UD              -->         DS
+
+Types           -[hidden]right->        BF
 
 @enduml

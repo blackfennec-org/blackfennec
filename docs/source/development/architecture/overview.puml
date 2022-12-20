@@ -1,4 +1,4 @@
-@startuml
+@startuml architecture overview
 
 skinparam rectangle {
     BackgroundColor #EEE
@@ -19,15 +19,24 @@ skinparam rectangle<<core>> {
 
 title Architecture Overview
 
-rectangle Presentation
-rectangle Visualisation
-rectangle Extension
+rectangle Types
+rectangle Actions
+rectangle Views
+rectangle Presenters
+rectangle "Mime Types" as MT
+rectangle "Resource Types" as RT
 rectangle "User Data" as UD <<out-of-scope>>
 rectangle "Black Fennec" as BF <<core>>
 
-Presentation       -up->       BF
-UD              -->         BF
-Visualisation   -up->       BF
-Extension       -->         BF
+Types           -down->       BF
+Actions         -down->         BF
+Views           -left->         BF
+Presenters      -left->         BF
+MT              -right->         BF
+RT              -right->         BF
+UD              -up->         BF
+
+Presenters      -[hidden]up->   Views
+MT              -[hidden]up->   RT
 
 @enduml

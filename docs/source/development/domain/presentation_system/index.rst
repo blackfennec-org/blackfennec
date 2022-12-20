@@ -1,6 +1,5 @@
 .. _presentation_system:
 
-
 ===================
 Presentation System
 ===================
