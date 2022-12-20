@@ -491,7 +491,10 @@ class BlackFennecView(Gtk.ApplicationWindow):
 
     def on_create_new_window(self, tab_view: Adw.TabView):
         new_window_view_model = self._view_model.copy()
-        new_window = BlackFennecView(self._application, new_window_view_model)
+        new_window = BlackFennecView(
+            self._application,
+            new_window_view_model,
+            self._ui_service)
         new_window.present()
         return new_window._tab_view
 
