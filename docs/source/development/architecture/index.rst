@@ -35,7 +35,7 @@ Presenters
 
 Black Fennec
 """"""""""""
-When we take a closer look at the interfaces and services used by the "external" components, we can identify some concepts that can be found throughout this documentation. These are the high-level concepts which are important to understand the bigger picture. Each component is conceptually largely independent of the others. This allows us to tune their view of the system to their needs. Think of the facade pattern but towards the core and not to hide legacy code and ths it minimizes complexity whereby development efficiency is maximized.
+When we take a closer look at the interfaces and services used by the "external" components, we can identify some concepts that can be found throughout this documentation. These are the high-level concepts which are important to understand the bigger picture. Each component is conceptually largely independent of the others. This allows us to tune their view of the system to their needs. Think of the facade pattern but towards the core and not to hide legacy code and thus minimizes complexity whereby development efficiency is maximized.
 
 .. uml:: guts.puml
 
