@@ -4,7 +4,7 @@
 Reflection
 ==========
 
-Black Fennec version 1.0 is soon to be released, and it's a good time to look back and reflect on our achievements. We were able to reach our goals through careful planning.
+Black Fennec will soon be released and it  is time to look back and reflect. Our hard work has payed off and we are pleased with the result and that we have achieved our goals.
 
 In the previous project, we found that using a full-fledged Scrum approach with two-week sprints that we only worked on one day per week was excessive and had a lot of unnecessary overhead. As a result, we streamlined our project management process and extended our sprints to three weeks. This change worked out exceptionally well and allowed us to accomplish significantly more during this project compared to the previous one.
 
