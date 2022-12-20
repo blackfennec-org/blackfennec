@@ -98,13 +98,13 @@ Presenter Extension
     :doc:`Presenter extensions <presenter_extension>` have some control over the visualisation of the data. They are however confined to a window [#]_ and have very limited control (size and position) over the visualisation of types as this is provided by the types themselves.
 
 Extension Api
-    To integrate extensions into the flow of Black Fennec, the :doc:`extension api <extension_api>` is injected at load time. This interface allows extensions to register themselves to hooks and into registries. Extensions are not treated differently, regardless of their conceptual type.
-
+    To integrate extensions into the flow of Black Fennec, the :ref:`extension api <definition_extension_api>` is injected at load time. This interface allows extensions to register themselves to hooks and into registries. Extensions are not treated differently, regardless of their conceptual type.
 
 .. toctree::
     :caption: Subpages
+    :maxdepth: 1
 
-    extension_api
+    ./extension_api
     type_extension
     action_extension
     presenter_extension
