@@ -45,7 +45,7 @@ Structure
 
 Type System
     The :ref:`type system <definition_type_system>` is represented as a collection of known types that can be used to interpret the structure. They are stored in a registry. This allows runtime loading and unloading of the available types and is an important enabler of the extension infrastructure.
-    The :ref:`interpretation service <definition_interpretation_service>` does most of the heavy lifting as it decides which types from the :ref:`type system <definition_type_system>` ought to be used to visualize a given structure. The service can be configured on a 'per request' basis with a :ref:`specification <specification>`, giving fine-tuned control to the user of the service.
+    The :ref:`interpretation service <definition_interpretation_service>` does most of the heavy lifting as it decides which types from the :ref:`type system <definition_type_system>` ought to be used to visualize a given structure. The service can be configured on a 'per request' basis with a specification, giving fine-tuned control to the user of the service.
 
 Action System
     The :ref:`action system <definition_action_system>` is responsible to execute actions. It is the interface between the user and the :ref:`action <definition_action>` and is responsible to check the preconditions and to execute the action. It is also responsible to provide the user with a list of available actions.
