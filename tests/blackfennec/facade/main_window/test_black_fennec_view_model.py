@@ -101,7 +101,7 @@ def test_can_close_file(view_model, document_tab):
 
 
 def test_can_undo(view_model, document_tab):
-    document_tab.history.append(Dummy())
+    document_tab.history.add_to_history(Dummy())
     view_model.undo(document_tab)
     assert document_tab.history.undo_count == 1
 
@@ -112,7 +112,7 @@ def test_cannot_undo(view_model, document_tab):
 
 
 def test_can_redo(view_model, document_tab):
-    document_tab.history.append(Dummy())
+    document_tab.history.add_to_history(Dummy())
     view_model.redo(document_tab)
     assert document_tab.history.redo_count == 1
 

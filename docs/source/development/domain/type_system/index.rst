@@ -9,8 +9,6 @@ The type system is a set of classes which describe black fennec core types as we
 .. uml:: type_system.puml
 
 
-
-
 .. _definition_type_loader:
 
 Type Loader
@@ -23,6 +21,13 @@ The type loader is able to load a type from a file. It is available through the 
 Type Registry
 """""""""""""
 The Type Registry is a register of all known (aka registered) :ref:`types <definition_type>`. Types which are not known to the type registry cannot be considered in the :ref:`selection process <definition_selection_process>`. The type registry is accessible to extensions via :ref:`ExtensionApi <definition_extension_api>`.
+
+
+.. _inheritance:
+
+Inheritance
+"""""""""""
+The type system supports inheritance. This means that a type can inherit from another type. The inheritance is transitive, meaning that a type can inherit from a type which inherits from another type.
 
 
 .. toctree::

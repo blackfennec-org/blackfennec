@@ -1,5 +1,6 @@
 from blackfennec.structure.structure import Structure
 from blackfennec.util.observable import Observable
+from blackfennec_doubles.util.double_change_notification import ChangeNotificationMock
 
 
 class StructureMock(Observable):
@@ -52,9 +53,8 @@ class StructureMock(Observable):
 
 
 class NotifyingStructureMock(StructureMock):
-    def __init__(self, observer, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self._observer = observer
 
     @property
     def value(self):
@@ -62,8 +62,9 @@ class NotifyingStructureMock(StructureMock):
     
     @value.setter
     def value(self, new_value):
-        self._observer(self, super().value, new_value)
+        notification = ChangeNotificationMock(self.value, new_value)
         StructureMock.value.fset(self, new_value)
+        self._notify('changed', notification)
 
 
 class StructureInstanceMock(StructureMock, Structure):

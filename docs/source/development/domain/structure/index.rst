@@ -81,6 +81,7 @@ Map
 A map is a collection of key-value pairs of information.
 
 .. _definition_type_reference:
+.. _definition_reference:
 
 Reference
 """""""""

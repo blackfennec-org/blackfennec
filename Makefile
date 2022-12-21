@@ -1,6 +1,7 @@
 EXTS = $(shell find extensions/ -maxdepth 1 -mindepth 1 -type d | tac)
 EXTS_FLATPAK = $(addsuffix .flatpak, $(EXTS))
 EXTS_TEST = $(addsuffix .test, $(EXTS))
+EXTS_PIP = $(addsuffix .pip, $(EXTS))
 BLPS = $(shell find . -name "*.blp")
 UIS = $(BLPS:.blp=.ui)
 

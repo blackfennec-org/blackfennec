@@ -1,4 +1,4 @@
-from blackfennec.layers.history.history_entry import HistoryEntry
+from blackfennec.presentation_system.history_service import HistoryEntry
 
 
 def test_can_construct():

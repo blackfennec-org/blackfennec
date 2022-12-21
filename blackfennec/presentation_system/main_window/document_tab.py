@@ -2,9 +2,9 @@ import os
 import logging
 
 from blackfennec.document_system.document_factory import DocumentFactory
-from blackfennec.layers.history.history import History
 from blackfennec.presentation_system.navigation_service.navigation_service \
     import NavigationService
+from blackfennec.presentation_system.history_service import HistoryService
 from blackfennec.util.deep_copy import DeepCopy
 from blackfennec.extension.presenter_registry import PresenterRegistry
 from blackfennec.util.observable import Observable
@@ -30,7 +30,7 @@ class DocumentTab(Observable):
         self.presenter = None
         self.presenter_view = None
         self.document = None
-        self.history = History()
+        self.history = HistoryService()
 
     @property
     def uri(self):

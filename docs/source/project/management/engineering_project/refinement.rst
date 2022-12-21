@@ -64,4 +64,4 @@ Improvements
 ------------
 
 **Consider adding usability tests**
-A :ref:`usability study <usability_study>` was conducted with the participation of four completely uninvolved people, which we selected on the basis of the :ref:`personas <personas>` we created.
+A :ref:`usability study <usability_study_v0_6>` was conducted with the participation of four completely uninvolved people, which we selected on the basis of the :ref:`personas <personas>` we created.

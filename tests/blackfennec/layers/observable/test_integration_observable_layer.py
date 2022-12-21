@@ -11,8 +11,8 @@ from blackfennec.structure.string import String
 from blackfennec.structure.number import Number
 from blackfennec.structure.boolean import Boolean
 
-from blackfennec.layers.history.history import History
-from blackfennec.layers.history.recording import RecordingLayer
+from blackfennec.presentation_system.history_service import HistoryService
+from blackfennec.layers.observable.observable import ObservableLayer
 
 pytestmark = pytest.mark.integration
 
@@ -30,12 +30,14 @@ def structure():
 
 @pytest.fixture
 def history():
-    return History()
+    return HistoryService()
 
 
 @pytest.fixture
-def recording(history):
-    return RecordingLayer(history)
+def observable_layer(history):
+    layer = ObservableLayer()
+    history.observe(layer)
+    return layer
 
 
 @pytest.fixture
@@ -44,8 +46,8 @@ def layer(historized, request):
 
 
 @pytest.fixture
-def historized(structure, recording):
-    return recording.apply(structure)
+def historized(structure, observable_layer):
+    return observable_layer.apply(structure)
 
 
 def test_can_create_layer(historized):

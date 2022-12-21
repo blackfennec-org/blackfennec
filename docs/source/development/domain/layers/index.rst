@@ -59,7 +59,7 @@ These layers provide a high-level overview of the data processing pipeline, but 
 
 .. toctree::
 
-    recording_layer
+    observable_layer
     merged_layer
     overlay
     underlay

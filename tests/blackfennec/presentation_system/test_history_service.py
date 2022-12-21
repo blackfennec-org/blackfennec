@@ -1,26 +1,23 @@
 import pytest
 from enum import Enum
-import random, string
+import random
+import string
 
-from blackfennec.layers.history.history import History
-from blackfennec_doubles.structure.double_structure import StructureMock, \
+from blackfennec.presentation_system.history_service import HistoryService
+from blackfennec_doubles.structure.double_structure import \
     NotifyingStructureMock
-from blackfennec_doubles.layers.history.double_history_entry import \
-    HistoryEntryMock
 
 
 @pytest.fixture
 def history():
-    return History()
+    return HistoryService()
 
 
 @pytest.fixture
 def structure(history):
-    def observer(s, old, new):
-        entry = HistoryEntryMock(structure=s, old=old, new=new)
-        history.append(entry)
-
-    return NotifyingStructureMock(observer, value='original')
+    structure = NotifyingStructureMock(value='original')
+    history.observe(structure)
+    return structure
 
 
 def test_can_construct(history):

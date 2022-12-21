@@ -1,4 +1,4 @@
-.. _usability_study_v0.6:
+.. _usability_study_v0_6:
 
 ============================
 Usability Study Release v0.6

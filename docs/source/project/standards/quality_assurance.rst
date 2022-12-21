@@ -98,4 +98,4 @@ The protocols are contained in a single file that can be found :ref:`here <Syste
 
 Usability Tests
 ^^^^^^^^^^^^^^^
-On top of all the functional testing conducted as described above, we also undertake usability studies. These tests are usually performed at the end of a project with the goal of having each :ref:`persona <personas>` represented by at least one participant. The templates can found :ref:`here <usability_test_template>` and the protocols :ref:`here <usability_study>`.
+On top of all the functional testing conducted as described above, we also undertake usability studies. These tests are usually performed at the end of a project with the goal of having each :ref:`persona <personas>` represented by at least one participant. The templates can found :ref:`here <usability_test_template>` and the protocols :ref:`here <usability_study_v0_6>`.

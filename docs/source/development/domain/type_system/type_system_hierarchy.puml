@@ -34,6 +34,7 @@ class DateTimeType
 FileType -up-|> MapType
 ImageType -up-|> FileType
 DateTimeType -up-|> MapType
+UrlType -up-|> StringType
 
 
 @enduml

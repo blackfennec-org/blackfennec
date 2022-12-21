@@ -1,12 +1,18 @@
 
 
-class HistoryMock:
+class HistoryServiceMock:
     def __init__(self) -> None:
         self.history = []
         self.undo_count = 0
         self.redo_count = 0
 
-    def append(self, entry):
+    def observe(self, unused_observable):
+        pass
+
+    def add_to_history(self, entry):
+        self._append(entry)
+
+    def _append(self, entry):
         self.history.append(entry)
 
     def can_undo(self):
