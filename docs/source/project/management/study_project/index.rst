@@ -23,6 +23,6 @@ An overview of all the mentioned subsections can be found in the following table
     proposal
     abstract
     project_plan
-    increment
+    increment/index
     time_tracking
     reflection

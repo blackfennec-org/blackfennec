@@ -6,7 +6,7 @@ Project Plan
 
 The project plan shows how the project was managed and planned. It has the goal to provide means to evaluate the project management and planning process which was not done formally in the form of a concrete document.
 
-The :ref:`lessons learned <reflection>` from the preceding `engineering project <engineering_project>` influenced this project greatly, as the last project had too much overhead for what was done. Contrary to this project the overhead was expected and intended by the scope of the project. From the taken lessons learned we decided to reduce the overhead by slimming it down, and increasing the duration of a sprint.
+The :ref:`lessons learned <sa_reflection>` from the preceding `engineering project <engineering_project>` influenced this project greatly, as the last project had too much overhead for what was done. Contrary to this project the overhead was expected and intended by the scope of the project. From the taken lessons learned we decided to reduce the overhead by slimming it down, and increasing the duration of a sprint.
 
 The planning was done mainly on the `issue board <https://gitlab.ost.ch/blackfennec/blackfennec/-/boards>`_ in the Gitlab instance. We used labels and milestones to further structure the issues.
 
