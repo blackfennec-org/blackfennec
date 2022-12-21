@@ -1,0 +1,76 @@
+@startuml base extension
+
+hide circle
+hide members
+hide methods
+
+left to right direction
+
+skinparam class {
+    BackgroundColor #EEE
+    ArrowColor Black
+    BorderColor Black
+}
+
+title Base Extension
+
+package "Black Fennec" <<Frame>> {
+    interface "Extension"               as e
+    interface "View"                    as v
+    interface "Preview"                 as pv
+    interface "Action"                  as a
+    interface "Type"                    as t
+
+    class "Extension API"               as ea
+}
+package "Base Extension" <<Frame>> {
+    class "Base Extension"          as be
+    be --|> e
+    be --> ea
+
+    ' Views
+    package "File" <<Frame>> {
+        class "File Type"               as ft
+        class "File Preview"            as fp
+        class "File View"               as fv
+        fp -> ft
+        fv -> ft
+        fp --|> pv
+        fv --|> v
+        ft --|> t
+    }
+
+    package "Image" <<Frame>> {
+        class "Image Type"              as it
+        class "Image Preview"           as ip
+        class "Image View"              as iv
+        ip -> it
+        iv -> it
+        ip --|> pv
+        iv --|> ft
+    }
+
+    package "Url" <<Frame>> {
+        class "Url Type"                as ut
+        class "Url Preview"             as up
+        class "Url View"                as uv
+        up -> ut
+        uv -> ut
+        up --|> pv
+        uv --|> v
+        ut --|> t
+    }
+
+    package "Date Time" <<Frame>> {
+        class "Date Time Type"          as dt
+        class "Date Time Preview"       as dtp
+        class "Date Time View"          as dtv
+        dtp -> dt
+        dtv -> dt
+        dtp --|> pv
+        dtv --|> v
+        dt --|> t
+    }
+}
+
+@enduml

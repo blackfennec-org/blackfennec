@@ -1,0 +1,92 @@
+@startuml core extension
+
+hide circle
+hide members
+hide methods
+
+left to right direction
+
+skinparam class {
+    BackgroundColor #EEE
+    ArrowColor Black
+    BorderColor Black
+}
+
+title Core Extension
+
+package "Black Fennec" <<Frame>> {
+    interface "Presenter"               as p
+    interface "Extension"               as e
+    interface "View"                    as v
+    interface "Preview"                 as pv
+    interface "Action"                  as a
+    interface "Mime Type"               as mt
+    interface "Resource Type"           as rt
+
+    class "Extension API"               as ea
+}
+
+
+package "Core Extension" <<Frame>> {
+    class "Core Extension"          as ce
+    ce ----|> e
+    ce ----|> ea
+
+    package "Map" <<Frame>> {
+        class "Map Preview"             as mp
+        mp ----|> pv
+        class "Map View"                as mv
+        mv ----|> v
+    }
+
+    package "List" <<Frame>> {
+        class "List Preview"            as lp
+        lp ----|> pv
+        class "List View"               as lv
+        lv ----|> v
+    }
+
+    package "String" <<Frame>> {
+        class "String Preview"          as sp
+        sp ----|> pv
+        class "String View"             as sv
+        sv ----|> v
+        class "To Lower Action"           as tla
+        tla ----|> a
+        class "To Upper Action"           as tua
+        tua ----|> a
+    }
+
+    package "Number" <<Frame>> {
+        class "Number Preview"          as np
+        np ----|> pv
+    }
+
+    package "Boolean" <<Frame>> {
+        class "Boolean Preview"         as bp
+        bp ----|> pv
+    }
+
+    package "Null" <<Frame>> {
+        class "Null Preview"            as nlp
+        nlp ----|> pv
+    }
+    
+
+    ' presetners
+    class "Column Based Presenter"  as cbp
+    cbp ----|> p
+
+    ' Mime Types
+    class "Json Mime Type"          as jmt
+    jmt ----|> mt
+
+    ' Resource Types
+    class "File Resource Type"      as frt
+    frt ----|> rt
+    class "HTTP Resource Type"      as hrt
+    hrt ----|> rt
+
+}
+
+@enduml

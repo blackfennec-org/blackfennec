@@ -32,8 +32,8 @@ package "Balck Fennec" <<Frame>> {
         nu -u-|> s
         r -u-|> s
 
-        m --> s : contains
-        l --> s : contains
+        m ---> s : contains
+        l ---> s : contains
     }
 
     package "Layers" <<Frame>> {
@@ -51,7 +51,33 @@ package "Balck Fennec" <<Frame>> {
     package "Type System" <<Frame>>{
         class "Interpretation Service"  as is 
         class "Interpretation"          as i
-        class "Type"                    as t
+        class "Type Registry"           as typer
+        class "Type Parser"             as tp
+
+        package "Type" <<Frame>> {
+            class "Type"                as t
+            class "Map Type"            as mapt
+            class "List Type"           as lt
+            class "String Type"         as st
+            class "Number Type"         as nt
+            class "Boolean Type"        as bt
+            class "Null Type"           as nut
+            class "Reference Type"      as reft
+
+            mapt -u-|> t
+            lt -u-|> t
+            st -u-|> t
+            nt -u-|> t
+            bt -u-|> t
+            nut -u-|> t
+            reft -u-|> t
+
+        }
+
+        typer ---> t : contains
+        is ---> typer : uses
+        tp ---> t : creates
+        tp ---> s : parses
     }
 
     package "Document System" <<Frame>> {
@@ -64,25 +90,37 @@ package "Balck Fennec" <<Frame>> {
         class "Resource Type"           as rt
         class "Resource Type Registry"  as rtr
 
-        mtr --> mt : contains
-        rtr --> rt : contains
+        mtr ---> mt : contains
+        rtr ---> rt : contains
+        df  ---> d : creates
+        dr  ---> d : contains
+        d ---> mt : has a
+        d ---> rt : has a
+        df  ---> mtr : uses
+        df  ---> rtr : uses
     }
 
     package "Presentation System" <<Frame>> {
         class "Presenter"               as p
         class "Presenter Registry"      as pr
         class "View"                    as v
-        class "Preview"                 as pv
-        class "View Registry"           as vr
+        class "View Factory Registry"   as vfr
+        class "View Factory"            as vf
         class "Navigation Service"      as ns
 
-        p --> v : presents
-        p --> pv : presents
+        vfr ---> vf : contains
+        vf ---> v : creates
+        pr ---> p : contains
+        p ---> v : presents
+        p ---> ns : listens to
+
     }
 
     package "Action System" <<Frame>> {
         class "Action"                  as a
         class "Action Registry"         as ar
+
+        ar ---> a : contains
     }
 
     package "Extension System" <<Frame>> {
@@ -90,120 +128,30 @@ package "Balck Fennec" <<Frame>> {
         class "Extension Registry"
         class "Extension API"           as api
 
-        api --> is
-        api --> pr
-        api --> ar
-        api --> vr
-        api --> mtr
-        api --> rtr
-    }
-}
-
-package "Core Extension" <<Frame>> {
-    class "Core Extension"          as ce
-    ce --|> e
-
-    ' Views
-    class "Map Preview"             as mp
-    class "List Preview"            as lp
-    class "String Preview"          as sp
-    class "Number Preview"          as np
-    class "Boolean Preview"         as bp
-    class "Null Preview"            as np
-    
-    class "List View"               as lv
-    class "Map View"                as mv
-    class "String View"             as sv
-    class "Number View"             as nv
-    class "Boolean View"            as bv
-
-
-    ' Actions
-    class "To Lower Action"           as tla
-    class "To Upper Action"           as tua
-
-    ' presetners
-    class "Column Based Presenter"  as cbp
-    cbp --|> p
-
-    ' Mime Types
-    class "Json Mime Type"          as jmt
-
-    ' Resource Types
-    class "File Resource Type"      as frt
-    class "HTTP Resource Type"      as hrt
-
-}
-
-package "Base Extension" <<Frame>> {
-    class "Base Extension"          as be
-    be --|> e
-
-    ' Views
-    package "File" <<Frame>> {
-        class "File Type"               as ft
-        class "File Preview"            as fp
-        class "File View"               as fv
-        fp --> ft
-        fv --> ft
-    }
-
-    package "Image" <<Frame>> {
-        class "Image Type"              as it
-        class "Image Preview"           as ip
-        class "Image View"              as iv
-        ip --> it
-        iv --> it
-    }
-
-    package "Url" <<Frame>> {
-        class "Url Type"                as ut
-        class "Url Preview"             as up
-        class "Url View"                as uv
-        up --> ut
-        uv --> ut
-    }
-
-    package "Date Time" <<Frame>> {
-        class "Date Time Type"          as dt
-        class "Date Time Preview"       as dtp
-        class "Date Time View"          as dtv
-        dtp --> dt
-        dtv --> dt
+        api ---> is
+        api ---> pr
+        api ---> ar
+        api ---> vfr
+        api ---> mtr
+        api ---> rtr
+        api ---> dr
+        api ---> typer
+        api ---> tp
     }
 }
 
 ' relations
 
-d --> s : contains
-d --> mt : has a
-d --> rt : has a
+d ---> s : contains
 
-is --> s : interprets
-is --> i : provides
-i --> t : is a collection of
+is ---> s : interprets
+is ---> i : provides
+i ---> t : is a collection of
 
-v --> t : represents
-v --> s : acts on
-pv --> t : represents
-pv --> s : acts on
+v ---> t : represents
+v ---> s : acts on
 
-a --> s : acts on
-a --> t : depends on
-
-
-' arrangement
-
-/'
-s -[hidden]d- "Action System"
-s -[hidden]d- "Type System"
-s -[hidden]d- "Presentation System"
-s -[hidden]d- "Document System"
-
-"Type System" -[hidden]l- "Presentation System"
-
-"Type System" -[hidden]d- "Action System"
-"Action System" -[hidden]u- "Type System"
-'/
+a ---> s : acts on
+a ---> t : depends on
 
 @enduml
