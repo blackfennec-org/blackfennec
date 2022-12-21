@@ -4,12 +4,12 @@ import logging
 import sys
 from blackfennec.extension.extension_service import ExtensionService
 
-from blackfennec.facade.main_window.black_fennec_view import BlackFennecView
-from blackfennec.facade.main_window.black_fennec_view_model import \
+from blackfennec.presentation_system.main_window.black_fennec_view import BlackFennecView
+from blackfennec.presentation_system.main_window.black_fennec_view_model import \
     BlackFennecViewModel
 from blackfennec.util.service_locator import ServiceLocator
 from blackfennec.extension.extension import Extension
-from blackfennec.facade.extension_warning_dialog.extension_warning_dialog import \
+from blackfennec.presentation_system.extension_warning_dialog.extension_warning_dialog import \
     ExtensionWarningDialog
 
 from gi.repository import Adw, Gio

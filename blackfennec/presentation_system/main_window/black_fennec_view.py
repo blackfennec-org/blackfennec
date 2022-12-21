@@ -7,12 +7,12 @@ from pathlib import Path
 from gi.repository import Adw, Gtk, Gio
 
 from blackfennec.actions.context import Context
-from blackfennec.facade.about_window.about_window_view import AboutWindowView
-from blackfennec.facade.main_window.document_tab import DocumentTab
-from blackfennec.facade.main_window.document_tab_view import DocumentTabView
-from blackfennec.facade.main_window.file_column_view import FileColumnView
-from blackfennec.facade.ui_service.message import Message
-from blackfennec.facade.ui_service.ui_service import UiService
+from blackfennec.presentation_system.about_window.about_window_view import AboutWindowView
+from blackfennec.presentation_system.main_window.document_tab import DocumentTab
+from blackfennec.presentation_system.main_window.document_tab_view import DocumentTabView
+from blackfennec.presentation_system.main_window.file_column_view import FileColumnView
+from blackfennec.presentation_system.ui_service.message import Message
+from blackfennec.presentation_system.ui_service.ui_service import UiService
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)

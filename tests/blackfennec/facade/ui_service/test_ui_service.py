@@ -2,13 +2,13 @@ import logging
 
 import pytest
 
-from blackfennec.facade.ui_service.ui_service import UiService
+from blackfennec.presentation_system.ui_service.ui_service import UiService
 from blackfennec_doubles.actions.double_context import ContextMock
 from blackfennec_doubles.actions.double_ui_context import UiContextMock
 from blackfennec_doubles.document_system.mime_type.double_mime_type_registry import \
     MimeTypeRegistryMock
-from blackfennec_doubles.facade.ui_service.double_message import MessageMock
-from blackfennec_doubles.facade.ui_service.double_message_overlay import \
+from blackfennec_doubles.presentation_system.ui_service.double_message import MessageMock
+from blackfennec_doubles.presentation_system.ui_service.double_message_overlay import \
     MessageOverlayMock
 
 

@@ -1,6 +1,6 @@
 import pytest
 
-from blackfennec.facade.main_window.black_fennec_view_model import \
+from blackfennec.presentation_system.main_window.black_fennec_view_model import \
     BlackFennecViewModel
 from blackfennec_doubles.document_system.double_document import DocumentMock
 from blackfennec_doubles.double_dummy import Dummy
@@ -8,11 +8,11 @@ from blackfennec_doubles.extension.double_extension_source_registry import \
     ExtensionSourceRegistryMock
 from blackfennec_doubles.extension.double_presenter_registry import \
     PresenterRegistryMock
-from blackfennec_doubles.facade.main_window.double_document_tab import \
+from blackfennec_doubles.presentation_system.main_window.double_document_tab import \
     DocumentTabMock
 from blackfennec_doubles.interpretation.double_interpretation_service import InterpretationServiceMock
 from blackfennec_doubles.extension.double_extension_source_registry import ExtensionSourceRegistryMock
-from blackfennec.facade.main_window.black_fennec_view_model import BlackFennecViewModel
+from blackfennec.presentation_system.main_window.black_fennec_view_model import BlackFennecViewModel
 from blackfennec_doubles.util.double_service_locator import ServiceLocatorMock
 
 

@@ -4,7 +4,7 @@ import traceback
 
 from gi.repository import Adw, GLib, Gio
 
-from blackfennec.facade.main_window.document_tab import DocumentTab
+from blackfennec.presentation_system.main_window.document_tab import DocumentTab
 
 logger = logging.getLogger(__name__)
 

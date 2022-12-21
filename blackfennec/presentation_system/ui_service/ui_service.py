@@ -7,8 +7,8 @@ from blackfennec.actions.context import Context
 from blackfennec.document_system.mime_type.mime_type import MimeType
 from blackfennec.document_system.mime_type.mime_type_registry import \
     MimeTypeRegistry
-from blackfennec.facade.ui_service.message import Message
-from blackfennec.facade.ui_service.mime_type_selection.mime_type_selection_view import \
+from blackfennec.presentation_system.ui_service.message import Message
+from blackfennec.presentation_system.ui_service.mime_type_selection.mime_type_selection_view import \
     MimeTypeSelectionDialog
 
 logger = logging.getLogger(__name__)

@@ -3,7 +3,8 @@ import logging
 
 from blackfennec.document_system.document_factory import DocumentFactory
 from blackfennec.layers.history.history import History
-from blackfennec.navigation.navigation_service import NavigationService
+from blackfennec.presentation_system.navigation_service.navigation_service \
+    import NavigationService
 from blackfennec.util.deep_copy import DeepCopy
 from blackfennec.extension.presenter_registry import PresenterRegistry
 from blackfennec.util.observable import Observable

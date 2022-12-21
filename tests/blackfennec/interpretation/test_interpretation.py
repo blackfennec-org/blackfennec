@@ -6,8 +6,7 @@ This module contains the unit-tests of the Interpretation class.'''
 import unittest
 
 from blackfennec_doubles.double_dummy import Dummy
-from blackfennec_doubles.extension.double_structure_view_factory import StructureViewFactoryMock
-from blackfennec_doubles.navigation.double_navigation_service import NavigationServiceMock
+from blackfennec_doubles.presentation_system.navigation_service.double_navigation_service import NavigationServiceMock
 from blackfennec.interpretation.interpretation import Interpretation
 
 

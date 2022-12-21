@@ -1,6 +1,6 @@
 import pytest
 
-from blackfennec.facade.ui_service.message import Message
+from blackfennec.presentation_system.ui_service.message import Message
 
 
 @pytest.fixture

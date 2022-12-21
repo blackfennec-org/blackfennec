@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 import unittest
 
-from blackfennec_doubles.interpretation.double_interpretation import InterpretationMock
 from blackfennec_doubles.double_dummy import Dummy
-from blackfennec.navigation.navigation_proxy import NavigationProxy
+from blackfennec.presentation_system.navigation_service.navigation_proxy \
+    import NavigationProxy
 
 
 class NavigationProxyTestSuite(unittest.TestCase):

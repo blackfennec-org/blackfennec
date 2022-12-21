@@ -3,7 +3,7 @@ from pathlib import Path
 
 from gi.repository import Gtk, GObject, Gio
 
-from blackfennec.facade.main_window.black_fennec_view_model import \
+from blackfennec.presentation_system.main_window.black_fennec_view_model import \
     BlackFennecViewModel
 
 

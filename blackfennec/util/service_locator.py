@@ -16,7 +16,7 @@ from blackfennec.document_system.mime_type.json.json_reference_serializer import
 from blackfennec.document_system.resource_type.protocols.bftype_resource_type import \
     BFTypeResourceType
 from blackfennec.extension.extension_registry import ExtensionRegistry
-from blackfennec.facade.ui_service.ui_service import UiService
+from blackfennec.presentation_system.ui_service.ui_service import UiService
 from blackfennec.structure.structure_serializer import StructureSerializer
 from blackfennec.document_system.resource_type.protocols.file_resource_type import \
     FileResourceType

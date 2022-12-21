@@ -3,7 +3,8 @@ import unittest
 
 from blackfennec_doubles.extension.double_structure_presenter import StructurePresenterMock
 from blackfennec_doubles.double_dummy import Dummy
-from blackfennec.navigation.navigation_service import NavigationService
+from blackfennec.presentation_system.navigation_service.navigation_service \
+    import NavigationService
 
 
 class NavigationServiceTestSuite(unittest.TestCase):

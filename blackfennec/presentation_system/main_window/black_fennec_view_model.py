@@ -4,10 +4,11 @@ from typing import Optional
 
 from blackfennec.document_system.mime_type.mime_type import MimeType
 from blackfennec.document_system.resource_type.resource_type import ResourceType
-from blackfennec.facade.about_window.about_window_view_model import \
-    AboutWindowViewModel
-from blackfennec.facade.main_window.document_tab import DocumentTab
-from blackfennec.navigation.navigation_service import NavigationService
+from blackfennec.presentation_system.about_window.about_window_view_model \
+    import AboutWindowViewModel
+from blackfennec.presentation_system.main_window.document_tab import DocumentTab
+from blackfennec.presentation_system.navigation_service.navigation_service \
+    import NavigationService
 from blackfennec.util.observable import Observable
 from blackfennec.util.service_locator import ServiceLocator
 

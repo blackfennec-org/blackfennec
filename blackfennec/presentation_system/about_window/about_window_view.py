@@ -1,6 +1,6 @@
 from gi.repository import Adw
 
-from blackfennec.facade.about_window.about_window_view_model import AboutWindowViewModel
+from blackfennec.presentation_system.about_window.about_window_view_model import AboutWindowViewModel
 
 
 class AboutWindowView:

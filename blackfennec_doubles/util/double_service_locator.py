@@ -7,7 +7,7 @@ from blackfennec_doubles.document_system.resource_type.double_resource_type_regi
     ResourceTypeRegistryMock
 from blackfennec_doubles.double_dummy import Dummy
 from blackfennec_doubles.extension.double_presenter_registry import PresenterRegistryMock
-from blackfennec_doubles.facade.ui_service.double_ui_service import UiServiceMock
+from blackfennec_doubles.presentation_system.ui_service.double_ui_service import UiServiceMock
 from blackfennec_doubles.interpretation.double_interpretation_service import InterpretationServiceMock
 
 

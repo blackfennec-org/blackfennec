@@ -5,10 +5,10 @@ from blackfennec_doubles.document_system.double_document_registry import Documen
 from blackfennec_doubles.document_system.double_document_factory import DocumentFactoryMock
 from blackfennec_doubles.document_system.mime_type.double_mime_type import MimeTypeMock
 from blackfennec_doubles.document_system.resource_type.double_resource_type import ResourceTypeMock
-from blackfennec_doubles.navigation.double_navigation_service import NavigationServiceMock
+from blackfennec_doubles.presentation_system.navigation_service.double_navigation_service import NavigationServiceMock
 from blackfennec_doubles.extension.double_presenter_registry import PresenterRegistryMock
 from blackfennec_doubles.double_dummy import Dummy
-from blackfennec.facade.main_window.document_tab import DocumentTab
+from blackfennec.presentation_system.main_window.document_tab import DocumentTab
 from tests.test_utils.deep_compare import DeepCompare
 from tests.test_utils.parameterize import CORE_STRUCTURES
 

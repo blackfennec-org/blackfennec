@@ -1,4 +1,4 @@
-from blackfennec_doubles.facade.ui_service.double_ui_service import \
+from blackfennec_doubles.presentation_system.ui_service.double_ui_service import \
     UiServiceMock
 
 
