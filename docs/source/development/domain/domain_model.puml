@@ -12,7 +12,7 @@ skinparam class {
 
 title Domain Model
 
-package "Balck Fennec" <<Frame>> {
+package "Black Fennec" <<Frame>> {
 
     package "Structure" <<Frame>>{
         class "Structure"               as s
@@ -22,7 +22,7 @@ package "Balck Fennec" <<Frame>> {
         class "Number"                  as n
         class "Boolean"                 as b
         class "Null"                    as nu
-        class "Referene"                as r
+        class "Reference"                as r
 
         m -u-|> s
         l -u-|> s
@@ -40,7 +40,7 @@ package "Balck Fennec" <<Frame>> {
         class "Layer"                   as la
         class "Merged Layer"            as ml
         class "Overlay"                 as ol
-        class "Observalbe Layer"        as rl
+        class "Observable Layer"        as rl
 
         la -u-|> "Structure"
         ml -u-|> la
@@ -101,18 +101,24 @@ package "Balck Fennec" <<Frame>> {
     }
 
     package "Presentation System" <<Frame>> {
-        class "Presenter"               as p
-        class "Presenter Registry"      as pr
-        class "View"                    as v
-        class "View Factory Registry"   as vfr
-        class "View Factory"            as vf
-        class "Navigation Service"      as ns
+        class "Presenter"                   as p
+        class "Presenter Registry"          as pr
+        class "Type View"                   as tv
+        class "Type View Factory Registry"  as tvfr
+        class "Type View Factory"           as tvf
+        class "Structure View Factory"      as svf
+        class "Navigation Service"          as ns
+        class "History Service"             as hs
+        class "UI Service"                  as uis
 
-        vfr ---> vf : contains
-        vf ---> v : creates
+        tvfr ---> tvf : contains
+        tvf ---> tv : creates
         pr ---> p : contains
-        p ---> v : presents
+        p -> tv : presents
         p ---> ns : listens to
+        p -> svf: uses
+        svf -> tvf: uses
+        svf -> tvfr: uses
 
     }
 
@@ -131,12 +137,13 @@ package "Balck Fennec" <<Frame>> {
         api ---> is
         api ---> pr
         api ---> ar
-        api ---> vfr
+        api ---> tvfr
         api ---> mtr
         api ---> rtr
         api ---> dr
         api ---> typer
         api ---> tp
+        api ---> uis
     }
 }
 
@@ -148,8 +155,8 @@ is ---> s : interprets
 is ---> i : provides
 i ---> t : is a collection of
 
-v ---> t : represents
-v ---> s : acts on
+tv ---> t : represents
+tv ---> s : acts on
 
 a ---> s : acts on
 a ---> t : depends on
