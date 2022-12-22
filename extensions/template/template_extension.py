@@ -3,12 +3,12 @@ from blackfennec.extension_system import Extension
 from blackfennec.extension_system import ExtensionApi
 
 
-class MyExtension(Extension):
+class TemplateExtension(Extension):
     def __init__(self, api: ExtensionApi):
         super().__init__(
-            name='My Extension', 
+            name='Extension Template',
             api=api)
 
 
-def create(api: ExtensionApi) -> MyExtension:
-    return MyExtension(api)
+def create(api: ExtensionApi) -> TemplateExtension:
+    return TemplateExtension(api)

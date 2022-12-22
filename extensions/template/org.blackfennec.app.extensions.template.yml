@@ -1,0 +1,17 @@
+id: org.blackfennec.app.extensions.template
+branch: '0.11'
+runtime: org.blackfennec.app
+runtime-version: 'stable'
+sdk: org.gnome.Sdk//43
+build-extension: true
+build-options:
+  prefix: /app/extensions/template
+modules:
+  - name: org.blackfennec.app.extensions.template
+    buildsystem: simple
+    build-commands:
+      - pip install --prefix=${FLATPAK_DEST} .
+      - install -Dm644 ./org.blackfennec.app.extensions.template.metainfo.xml /share/metainfo/org.blackfennec.app.extensions.template.metainfo.xml
+    sources:
+      - type: dir
+        path: .

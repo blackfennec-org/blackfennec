@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="addon">
+  <id>org.blackfennec.app.extensions.template</id>
+
+  <name>Extension Template</name>
+  <summary>Template for a Black Fennec extension</summary>
+  
+  <icon type="remote">
+      https://gitlab.ost.ch/blackfennec/blackfennec/-/raw/main/icon.png
+  </icon>
+  
+  <metadata_license>FSFAP</metadata_license>
+  <project_license>GPL-3.0-only</project_license>
+  
+  <extends>org.blackfennec.app</extends>
+
+  <description>
+    <p>
+      This extension acts as a template for future Black Fennec extensions.
+    </p>
+  </description>
+  <url type="homepage">http://blackfennec.org</url>
+  <url type="bugtracker">
+      https://gitlab.ost.ch/blackfennec/extensions/template/-/issues/
+  </url>
+  <url type="vcs-browser">https://gitlab.ost.ch/blackfennec/extensions/template.git
+  </url>
+</component>

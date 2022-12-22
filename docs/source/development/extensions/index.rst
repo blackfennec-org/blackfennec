@@ -12,7 +12,7 @@ The extension system in Black Fennec consists of several key components, includi
 
 To create an Extension, developers must define their Extension in a Python module and define an ``entry_point`` in the ``setup.py`` to be recognized by the Extension Service. Once an Extension is loaded, it can be activated allowing it to access the services and functionality provided by the Extension API.
 
-An example of a minimal Extension is shown below:
+An example of a minimal Extension is shown in the following text. To read this section it might make sense to open the projects repository which defines a `template for creating extensions <https://gitlab.ost.ch/blackfennec/blackfennec/-/tree/dev/extensions/template>`_. This allows you to more efficiently explore the code that is described below.
 
 .. code-block:: python
 
