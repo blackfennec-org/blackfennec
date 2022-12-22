@@ -1,12 +1,8 @@
 import pytest
 
-from blackfennec.presentation_system.main_window.black_fennec_view_model import \
-    BlackFennecViewModel
 from blackfennec_doubles.document_system.double_document import DocumentMock
 from blackfennec_doubles.double_dummy import Dummy
-from blackfennec_doubles.extension.double_extension_source_registry import \
-    ExtensionSourceRegistryMock
-from blackfennec_doubles.extension.double_presenter_registry import \
+from blackfennec_doubles.presentation_system.double_presenter_registry import \
     PresenterRegistryMock
 from blackfennec_doubles.presentation_system.main_window.double_document_tab import \
     DocumentTabMock

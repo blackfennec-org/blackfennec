@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import unittest
 
-from blackfennec_doubles.extension.double_structure_presenter import StructurePresenterMock
+from blackfennec_doubles.presentation_system.double_structure_presenter import StructurePresenterMock
 from blackfennec_doubles.double_dummy import Dummy
 from blackfennec.presentation_system.navigation_service.navigation_service \
     import NavigationService

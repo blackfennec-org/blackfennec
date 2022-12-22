@@ -8,7 +8,7 @@ def create_extension_api(**kwargs):
         'type_registry': Dummy('TypeRegistry'),
         'interpretation_service': Dummy('InterpretationService'),
         'view_factory': Dummy('ViewFactory'),
-        'view_factory_registry': Dummy('ViewFactoryRegistry'),
+        'type_view_factory_registry': Dummy('ViewFactoryRegistry'),
         'type_loader': Dummy('TypeLoader'),
         'action_registry': Dummy('ActionRegistry'),
         'document_registry': Dummy('DocumentRegistry'),

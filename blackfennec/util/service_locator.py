@@ -27,12 +27,12 @@ from blackfennec.document_system.resource_type.resource_type_registry import \
 from blackfennec.interpretation.interpretation_service import \
     InterpretationService
 from blackfennec.type_system.type_loader import TypeLoader
-from blackfennec.extension.presenter_registry import PresenterRegistry
+from blackfennec.presentation_system.presenter_registry import PresenterRegistry
 from blackfennec.type_system.type_registry import TypeRegistry
 from blackfennec.actions.action_registry import ActionRegistry
 from blackfennec.extension.extension_api import ExtensionApi
-from blackfennec.extension.view_factory import ViewFactory
-from blackfennec.extension.view_factory_registry import ViewFactoryRegistry
+from blackfennec.presentation_system.structure_view_factory import StructureViewFactory
+from blackfennec.presentation_system.type_view_factory_registry import TypeViewFactoryRegistry
 
 logging.basicConfig(level=logging.WARNING)
 logger = logging.getLogger(__name__)
@@ -54,12 +54,12 @@ class ServiceLocator():
         self.resource_type_registry = ResourceTypeRegistry()
         self.mime_type_registry = MimeTypeRegistry()
         self.presenter_registry = PresenterRegistry()
-        self.view_factory_registry = ViewFactoryRegistry()
+        self.view_factory_registry = TypeViewFactoryRegistry()
         self.action_registry = ActionRegistry()
         self.document_registry = DocumentRegistry()
         self.extension_registry = ExtensionRegistry()
 
-        self.view_factory = ViewFactory(
+        self.view_factory = StructureViewFactory(
             self.view_factory_registry)
         self.document_factory = DocumentFactory(
             self.document_registry,

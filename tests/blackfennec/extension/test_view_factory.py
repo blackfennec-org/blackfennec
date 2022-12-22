@@ -1,8 +1,8 @@
 import pytest
 
-from blackfennec_doubles.extension.double_view_factory_registry import ViewFactoryRegistryMock
-from blackfennec.extension.view_factory import ViewFactory
-from blackfennec_doubles.extension.double_structure_view_factory import StructureViewFactoryMock
+from blackfennec_doubles.presentation_system.double_view_factory_registry import ViewFactoryRegistryMock
+from blackfennec.presentation_system.structure_view_factory import StructureViewFactory
+from blackfennec_doubles.presentation_system.double_structure_view_factory import StructureViewFactoryMock
 from blackfennec_doubles.interpretation.double_interpretation import InterpretationMock
 from blackfennec_doubles.double_dummy import Dummy
 
@@ -20,7 +20,7 @@ def factory(view):
 @pytest.fixture
 def view_factory(factory):
     registry = ViewFactoryRegistryMock(factory)
-    return ViewFactory(registry)
+    return StructureViewFactory(registry)
 
 
 def test_can_construct(view_factory):

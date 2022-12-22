@@ -2,7 +2,7 @@
 import abc
 
 
-class View(metaclass=abc.ABCMeta):
+class TypeView():
     """Base class for all views.
 
     A view is a widget that represents the visualisation of a type."""

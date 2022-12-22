@@ -1,4 +1,4 @@
-from blackfennec_doubles.extension.double_presenter_view import \
+from blackfennec_doubles.presentation_system.double_presenter_view import \
     PresenterViewMock
 
 

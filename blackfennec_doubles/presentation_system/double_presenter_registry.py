@@ -1,4 +1,4 @@
-from blackfennec_doubles.extension.double_presenter_factory import PresenterFactoryMock
+from blackfennec_doubles.presentation_system.double_presenter_factory import PresenterFactoryMock
 
 
 class PresenterRegistryMock:

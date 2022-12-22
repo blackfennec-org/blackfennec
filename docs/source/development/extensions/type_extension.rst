@@ -256,6 +256,6 @@ The last step is to register the view for the `File` `Type`. This can be done by
 
     def destroy_extension(extension_api: ExtensionApi):
         extension_api.type_registry.deregister_type(FILE_TYPE)
-        extension_api.view_registry.deregister_view_factory(
+        extension_api.view_registry.deregister_type_view_factory(
             FILE_TYPE,
             Specification())

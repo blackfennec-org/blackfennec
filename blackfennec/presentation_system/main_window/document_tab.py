@@ -6,7 +6,7 @@ from blackfennec.presentation_system.navigation_service.navigation_service \
     import NavigationService
 from blackfennec.presentation_system.history_service import HistoryService
 from blackfennec.util.deep_copy import DeepCopy
-from blackfennec.extension.presenter_registry import PresenterRegistry
+from blackfennec.presentation_system.presenter_registry import PresenterRegistry
 from blackfennec.util.observable import Observable
 
 logger = logging.getLogger(__name__)

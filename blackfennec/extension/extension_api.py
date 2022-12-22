@@ -4,7 +4,7 @@ from blackfennec.document_system.document_factory import DocumentFactory
 from blackfennec.document_system.document_registry import DocumentRegistry
 from blackfennec.document_system.mime_type.mime_type_registry import \
     MimeTypeRegistry
-from blackfennec.extension.presenter_registry import PresenterRegistry
+from blackfennec.presentation_system.presenter_registry import PresenterRegistry
 from blackfennec.presentation_system.ui_service.ui_service import UiService
 from blackfennec.interpretation.interpretation_service import \
     InterpretationService

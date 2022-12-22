@@ -3,10 +3,10 @@ import abc
 
 from blackfennec.interpretation.interpretation import Interpretation
 from blackfennec.interpretation.specification import Specification
-from blackfennec.presentation_system.view import View
+from blackfennec.presentation_system.type_view import TypeView
 
 
-class ViewFactory(metaclass=abc.ABCMeta):
+class TypeViewFactory(metaclass=abc.ABCMeta):
     """Base class for all view factories.
 
     A view factory is a class that creates views for a specific type.
@@ -25,7 +25,7 @@ class ViewFactory(metaclass=abc.ABCMeta):
         ...
 
     @abc.abstractmethod
-    def create(self, interpretation: Interpretation) -> View:
+    def create(self, interpretation: Interpretation) -> TypeView:
         """creates a view
 
         Args:
