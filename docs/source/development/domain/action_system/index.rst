@@ -20,4 +20,4 @@ An action is a function that can be executed by the user from the GUI and are ab
 
 Action Registry
 ===============
-The action registry is a dictionary that maps action names to action functions. The action registry is used to register actions and to execute actions.
+The action registry is a dictionary that maps action names to action functions. The action registry is used to register actions thus make them available to other parts of the application.
