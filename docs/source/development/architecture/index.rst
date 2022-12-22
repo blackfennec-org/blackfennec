@@ -40,7 +40,7 @@ When we take a closer look at the interfaces and services used by the "external"
 .. uml:: guts.puml
 
 Structure
-    The :ref:`structure <definition_overlay>` is the parsed user data. It is the foundation upon which the :ref:`interpretation <definition_interpretation>` is built and the fabric in which navigation is performed. It is implemented in our :ref:`object model <object_model>` and can be further preprocessed by :ref:`layers <definition_layer>` such as the :ref:`overlay <overlay_adapter>`. The layers allow specialized usage of the structure - including :ref:`advanced interpretation <advanced_interpretation>` - without manipulating the underlying data (:ref:`underlay <definition_underlay>`).
+    The :ref:`structure <definition_overlay>` is the parsed user data. It is the foundation upon which the :ref:`interpretation <definition_interpretation>` is built and the fabric in which navigation is performed. It is implemented in our :ref:`object model <object_model>` and can be further preprocessed by :ref:`layers <definition_layer>` such as the :ref:`overlay <overlay_adapter>`. The layers allow specialized usage of the structure without manipulating the underlying data (:ref:`underlay <definition_underlay>`).
 
 
 Type System
