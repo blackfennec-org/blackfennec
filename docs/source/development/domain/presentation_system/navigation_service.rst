@@ -1,4 +1,5 @@
 .. _definition_navigation_service:
+.. _navigation_service:
 
 ==================
 Navigation Service

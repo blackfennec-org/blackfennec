@@ -1,4 +1,5 @@
 .. _interpretation_service:
+.. _interpretation:
 
 ==============
 Interpretation
@@ -68,5 +69,4 @@ The interpretation contains the visualisation of a given structure which is larg
 
 .. toctree::
 
-    specification
     auction
