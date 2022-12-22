@@ -15,7 +15,6 @@ from blackfennec.presentation_system.ui_service.message import Message
 from blackfennec.presentation_system.ui_service.ui_service import UiService
 
 logger = logging.getLogger(__name__)
-logger.setLevel(logging.INFO)
 
 BASE_DIR = Path(__file__).resolve().parent
 UI_TEMPLATE = str(BASE_DIR.joinpath('black_fennec.ui'))
