@@ -1,4 +1,4 @@
-from blackfennec_doubles.interpretation.auction.double_coverage import CoverageMock
+from blackfennec_doubles.type_system.interpretation.double_coverage import CoverageMock
 from blackfennec_doubles.type_system.double_type import TypeMock
 
 

@@ -4,7 +4,7 @@ from typing import Iterator
 from .type_view import TypeView
 from .type_view_factory import TypeViewFactory
 from .type_view_factory_registry import TypeViewFactoryRegistry
-from ..interpretation.interpretation import Interpretation
+from blackfennec.type_system.interpretation.interpretation import Interpretation
 
 
 class StructureViewFactory:

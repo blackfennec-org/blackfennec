@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from blackfennec.interpretation.specification import Specification
+from blackfennec.type_system.interpretation.specification import Specification
 from blackfennec.presentation_system.type_view_factory import TypeViewFactory
 from blackfennec.type_system.type import Type
 

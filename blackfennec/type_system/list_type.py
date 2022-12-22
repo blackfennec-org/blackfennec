@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import logging
 
-from blackfennec.interpretation.auction.coverage import Coverage
+from blackfennec.type_system.interpretation.coverage import Coverage
 from blackfennec.structure.map import Map
 from blackfennec.structure.list import List
 from blackfennec.structure.null import Null

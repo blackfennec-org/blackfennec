@@ -7,7 +7,7 @@ import unittest
 
 from blackfennec_doubles.double_dummy import Dummy
 from blackfennec_doubles.presentation_system.navigation_service.double_navigation_service import NavigationServiceMock
-from blackfennec.interpretation.interpretation import Interpretation
+from blackfennec.type_system.interpretation.interpretation import Interpretation
 
 
 class InterpretationTestSuite(unittest.TestCase):

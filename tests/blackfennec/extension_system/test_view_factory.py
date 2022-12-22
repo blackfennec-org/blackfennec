@@ -3,7 +3,7 @@ import pytest
 from blackfennec_doubles.presentation_system.double_view_factory_registry import ViewFactoryRegistryMock
 from blackfennec.presentation_system.structure_view_factory import StructureViewFactory
 from blackfennec_doubles.presentation_system.double_structure_view_factory import StructureViewFactoryMock
-from blackfennec_doubles.interpretation.double_interpretation import InterpretationMock
+from blackfennec_doubles.type_system.interpretation.double_interpretation import InterpretationMock
 from blackfennec_doubles.double_dummy import Dummy
 
 

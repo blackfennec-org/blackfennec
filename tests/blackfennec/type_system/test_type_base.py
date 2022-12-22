@@ -6,7 +6,7 @@ from blackfennec_doubles.structure.double_structure import StructureMock
 from blackfennec.structure.structure import Structure
 from blackfennec.type_system.type import Type
 from blackfennec.type_system.type_factory import TypeFactory
-from blackfennec.interpretation.auction.coverage import Coverage
+from blackfennec.type_system.interpretation.coverage import Coverage
 
 
 @pytest.fixture

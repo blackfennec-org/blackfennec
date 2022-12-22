@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import logging
 
-from blackfennec.interpretation.specification import Specification
+from blackfennec.type_system.interpretation.specification import Specification
 from blackfennec.structure.structure import Structure
 
 # from navigation.navigation_service import NavigationService

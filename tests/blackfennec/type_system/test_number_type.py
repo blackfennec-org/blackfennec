@@ -4,7 +4,7 @@ from blackfennec.structure.number import Number
 from blackfennec.structure.map import Map
 from blackfennec.type_system.number_type import NumberType
 from blackfennec.type_system.type_factory import TypeFactory
-from blackfennec.interpretation.auction.coverage import Coverage
+from blackfennec.type_system.interpretation.coverage import Coverage
 
 
 class TestNumberType:

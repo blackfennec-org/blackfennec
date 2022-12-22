@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from blackfennec_doubles.interpretation.auction.double_coverage import CoverageMock
+from blackfennec_doubles.type_system.interpretation.double_coverage import CoverageMock
 from blackfennec_doubles.double_dummy import Dummy
 
 

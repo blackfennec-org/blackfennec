@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from blackfennec.interpretation.auction.coverage import Coverage
+from blackfennec.type_system.interpretation.coverage import Coverage
 from blackfennec.structure.visitor import Visitor
 
 from blackfennec.structure.map import Map

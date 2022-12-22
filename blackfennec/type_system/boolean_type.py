@@ -3,7 +3,7 @@
 import logging
 
 from typing import Optional
-from blackfennec.interpretation.auction.coverage import Coverage
+from blackfennec.type_system.interpretation.coverage import Coverage
 from blackfennec.structure.boolean import Boolean
 from blackfennec.structure.map import Map
 from blackfennec.structure.null import Null

@@ -1,7 +1,7 @@
 from blackfennec_doubles.double_dummy import Dummy
 from blackfennec_doubles.structure.double_map import MapMock
 from blackfennec_doubles.structure.double_string import StringMock
-from blackfennec_doubles.interpretation.auction.double_coverage import CoverageMock
+from blackfennec_doubles.type_system.interpretation.double_coverage import CoverageMock
 from blackfennec.structure.null import Null
 
 from blackfennec.type_system.type import Type

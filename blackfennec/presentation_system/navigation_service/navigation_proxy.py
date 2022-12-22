@@ -2,7 +2,7 @@
 import logging
 from blackfennec.util.observable import Observable
 from blackfennec.structure.structure import Structure
-from blackfennec.interpretation.interpretation import Interpretation
+from blackfennec.type_system.interpretation.interpretation import Interpretation
 
 logger = logging.getLogger(__name__)
 

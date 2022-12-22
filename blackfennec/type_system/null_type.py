@@ -2,7 +2,7 @@
 
 import logging
 
-from blackfennec.interpretation.auction.coverage import Coverage
+from blackfennec.type_system.interpretation.coverage import Coverage
 from blackfennec.structure.null import Null
 from blackfennec.structure.map import Map
 from blackfennec.type_system.type import Type

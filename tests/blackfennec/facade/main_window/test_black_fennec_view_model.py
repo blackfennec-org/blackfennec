@@ -6,7 +6,7 @@ from blackfennec_doubles.presentation_system.double_presenter_registry import \
     PresenterRegistryMock
 from blackfennec_doubles.presentation_system.main_window.double_document_tab import \
     DocumentTabMock
-from blackfennec_doubles.interpretation.double_interpretation_service import InterpretationServiceMock
+from blackfennec_doubles.type_system.interpretation.double_interpretation_service import InterpretationServiceMock
 from blackfennec_doubles.extension_system.double_extension_source_registry import ExtensionSourceRegistryMock
 from blackfennec.presentation_system.main_window.black_fennec_view_model import BlackFennecViewModel
 from blackfennec_doubles.util.double_service_locator import ServiceLocatorMock

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import unittest
 
-from blackfennec.interpretation.specification import Specification
+from blackfennec.type_system.interpretation.specification import Specification
 
 
 class SpecificationTestSuite(unittest.TestCase):

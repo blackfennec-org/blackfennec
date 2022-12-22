@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 import abc
 
-from blackfennec.interpretation.interpretation import Interpretation
-from blackfennec.interpretation.specification import Specification
+from blackfennec.type_system.interpretation.interpretation import Interpretation
+from blackfennec.type_system.interpretation.specification import Specification
 from blackfennec.presentation_system.type_view import TypeView
 
 

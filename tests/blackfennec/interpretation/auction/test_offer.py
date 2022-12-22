@@ -3,8 +3,8 @@ import pytest
 
 from blackfennec_doubles.structure.double_structure import StructureMock
 from blackfennec_doubles.type_system.double_type import TypeMock
-from blackfennec.interpretation.auction.coverage import Coverage
-from blackfennec.interpretation.auction.offer import Offer
+from blackfennec.type_system.interpretation.coverage import Coverage
+from blackfennec.type_system.interpretation.offer import Offer
 
 
 @pytest.fixture

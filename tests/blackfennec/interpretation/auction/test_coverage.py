@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import unittest
 
-from blackfennec.interpretation.auction.coverage import Coverage
+from blackfennec.type_system.interpretation.coverage import Coverage
 
 
 class CoverageTestSuite(unittest.TestCase):

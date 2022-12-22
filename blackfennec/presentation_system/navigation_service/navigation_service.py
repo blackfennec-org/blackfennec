@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import logging
 from blackfennec.structure.structure import Structure
-from blackfennec.interpretation.interpretation import Interpretation
+from blackfennec.type_system.interpretation.interpretation import Interpretation
 
 logger = logging.getLogger(__name__)
 

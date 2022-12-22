@@ -9,7 +9,7 @@ from blackfennec_doubles.presentation_system.double_presenter_registry import \
     PresenterRegistryMock
 from blackfennec_doubles.presentation_system.ui_service.double_ui_service import \
     UiServiceMock
-from blackfennec_doubles.interpretation.double_interpretation_service import \
+from blackfennec_doubles.type_system.interpretation.double_interpretation_service import \
     InterpretationServiceMock
 
 

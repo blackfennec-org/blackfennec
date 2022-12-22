@@ -2,7 +2,7 @@
 import logging
 from functools import cached_property
 
-from blackfennec.interpretation.auction.coverage import Coverage
+from blackfennec.type_system.interpretation.coverage import Coverage
 from blackfennec.structure.structure import Structure
 from blackfennec.type_system.type import Type
 from blackfennec.util.comparable import Comparable

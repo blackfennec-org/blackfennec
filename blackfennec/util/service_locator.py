@@ -24,7 +24,7 @@ from blackfennec.document_system.resource_type.protocols.https_resource_type imp
     HttpsResourceType
 from blackfennec.document_system.resource_type.resource_type_registry import \
     ResourceTypeRegistry
-from blackfennec.interpretation.interpretation_service import \
+from blackfennec.type_system.interpretation.interpretation_service import \
     InterpretationService
 from blackfennec.type_system.type_loader import TypeLoader
 from blackfennec.presentation_system.presenter_registry import PresenterRegistry

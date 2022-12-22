@@ -2,8 +2,8 @@ import pytest
 
 from blackfennec_doubles.double_dummy import Dummy
 from blackfennec_doubles.type_system.double_type_registry import TypeRegistryMock
-from blackfennec_doubles.interpretation.double_specification import SpecificationMock
-from blackfennec.interpretation.interpretation_service import InterpretationService
+from blackfennec_doubles.type_system.interpretation.double_specification import SpecificationMock
+from blackfennec.type_system.interpretation.interpretation_service import InterpretationService
 from blackfennec.structure.boolean import Boolean
 from blackfennec.type_system.boolean_type import BooleanType
 from blackfennec.structure.list import List

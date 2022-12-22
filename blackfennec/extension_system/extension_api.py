@@ -6,7 +6,7 @@ from blackfennec.document_system.mime_type.mime_type_registry import \
     MimeTypeRegistry
 from blackfennec.presentation_system.presenter_registry import PresenterRegistry
 from blackfennec.presentation_system.ui_service.ui_service import UiService
-from blackfennec.interpretation.interpretation_service import \
+from blackfennec.type_system.interpretation.interpretation_service import \
     InterpretationService
 from blackfennec.type_system.type_registry import TypeRegistry
 

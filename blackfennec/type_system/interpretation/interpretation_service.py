@@ -2,9 +2,9 @@
 import logging
 
 from blackfennec.structure.structure import Structure
-from blackfennec.interpretation.interpretation import Interpretation
-from blackfennec.interpretation.specification import Specification
-from blackfennec.interpretation.auction.offer import Offer
+from blackfennec.type_system.interpretation.interpretation import Interpretation
+from blackfennec.type_system.interpretation.specification import Specification
+from blackfennec.type_system.interpretation.offer import Offer
 from blackfennec.type_system.type_registry import TypeRegistry
 from blackfennec.type_system.type import Type
 

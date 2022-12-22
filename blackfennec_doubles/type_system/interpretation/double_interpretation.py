@@ -1,6 +1,6 @@
 from blackfennec_doubles.structure.double_structure import StructureMock
 from blackfennec_doubles.presentation_system.double_structure_view import StructureViewDummy
-from blackfennec.interpretation.specification import Specification
+from blackfennec.type_system.interpretation.specification import Specification
 
 class InterpretationMock:
     def __init__(self, 

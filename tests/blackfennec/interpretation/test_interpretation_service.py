@@ -5,9 +5,9 @@ import pytest
 from blackfennec_doubles.double_dummy import Dummy
 from blackfennec_doubles.type_system.double_type_registry import TypeRegistryMock
 from blackfennec_doubles.type_system.double_type import TypeMock
-from blackfennec_doubles.interpretation.double_specification import SpecificationMock
-from blackfennec_doubles.interpretation.auction.double_coverage import CoverageMock
-from blackfennec.interpretation.interpretation_service import InterpretationService
+from blackfennec_doubles.type_system.interpretation.double_specification import SpecificationMock
+from blackfennec_doubles.type_system.interpretation.double_coverage import CoverageMock
+from blackfennec.type_system.interpretation.interpretation_service import InterpretationService
 
 
 @pytest.fixture
