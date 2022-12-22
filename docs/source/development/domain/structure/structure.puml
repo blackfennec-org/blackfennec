@@ -1,0 +1,34 @@
+@startuml
+
+    hide circle
+    hide members
+    hide methods
+
+    skinparam class {
+        BackgroundColor #EEE
+        ArrowColor Black
+        BorderColor Black
+    }
+
+    package "Object Model" {
+        class Structure {}
+        class Number {}
+        class String {}
+        class List {}
+        class Map {}
+        class Reference {}
+        class Null {}
+
+        Structure     ->         Structure     : parent
+        Structure     ->       Structure            : root
+        Number          --|>        Structure
+        String          --|>        Structure
+        Null          --|>        Structure
+        List            -up-|>   Structure
+        List            --> "0..*"  Structure
+        Map             -up-|>      Structure
+        Map             --> "0..*"  Structure
+        Reference       -right-|>      Structure
+        Reference       --> "0..1"  Structure
+    }
+    @enduml
