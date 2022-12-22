@@ -6,7 +6,7 @@ from pathlib import Path
 
 from gi.repository import Adw, Gtk, Gio
 
-from blackfennec.actions.context import Context
+from blackfennec.action_system.context import Context
 from blackfennec.presentation_system.about_window.about_window_view import AboutWindowView
 from blackfennec.presentation_system.main_window.document_tab import DocumentTab
 from blackfennec.presentation_system.main_window.document_tab_view import DocumentTabView

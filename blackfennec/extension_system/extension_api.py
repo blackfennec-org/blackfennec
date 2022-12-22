@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from blackfennec.actions.action_registry import ActionRegistry
+from blackfennec.action_system.action_registry import ActionRegistry
 from blackfennec.document_system.document_factory import DocumentFactory
 from blackfennec.document_system.document_registry import DocumentRegistry
 from blackfennec.document_system.mime_type.mime_type_registry import \

@@ -1,4 +1,4 @@
-from blackfennec_doubles.actions.double_ui_context import UiContextMock
+from blackfennec_doubles.action_system.double_ui_context import UiContextMock
 
 
 class MessageOverlayMock:

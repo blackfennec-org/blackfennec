@@ -3,7 +3,7 @@ from io import StringIO
 
 from gi.repository import Gdk, Gtk, Adw, Gio
 
-from blackfennec.actions.context import Context
+from blackfennec.action_system.context import Context
 from blackfennec.document_system.mime_type.mime_type import MimeType
 from blackfennec.document_system.mime_type.mime_type_registry import \
     MimeTypeRegistry

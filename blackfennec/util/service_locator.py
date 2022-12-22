@@ -29,7 +29,7 @@ from blackfennec.type_system.interpretation.interpretation_service import \
 from blackfennec.type_system.type_loader import TypeLoader
 from blackfennec.presentation_system.presenter_registry import PresenterRegistry
 from blackfennec.type_system.type_registry import TypeRegistry
-from blackfennec.actions.action_registry import ActionRegistry
+from blackfennec.action_system.action_registry import ActionRegistry
 from blackfennec.extension_system.extension_api import ExtensionApi
 from blackfennec.presentation_system.structure_view_factory import StructureViewFactory
 from blackfennec.presentation_system.type_view_factory_registry import TypeViewFactoryRegistry

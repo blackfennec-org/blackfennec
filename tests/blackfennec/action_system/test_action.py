@@ -1,7 +1,7 @@
 import pytest
 
 from blackfennec_doubles.type_system import TypeMock
-from blackfennec.actions import Action
+from blackfennec.action_system import Action
 
 class ConcreteAction(Action):
     def __init__(self, type=None):

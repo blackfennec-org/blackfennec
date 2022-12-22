@@ -1,7 +1,7 @@
 import pytest
 
-from blackfennec.actions import ActionRegistry
-from blackfennec_doubles.actions import ActionMock
+from blackfennec.action_system import ActionRegistry
+from blackfennec_doubles.action_system import ActionMock
 from blackfennec_doubles.type_system import TypeMock
 
 def test_can_construct():
