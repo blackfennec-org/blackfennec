@@ -13,21 +13,24 @@ title Type Extension Overview
 
 package "TypeExtension" {
     class Entrypoint {}
+    class Extension {}
     class Type {}
-    class View {}
-    class ViewFactory {}
+    class TypeView {}
+    class TypeViewFactory {}
     class Action {}
 
-    Entrypoint ---> Type : registers
-    Entrypoint -down-> ViewFactory : registers
-    Entrypoint -right-> Action : registers
+    Entrypoint -down-> Extension : creates
 
-    ViewFactory -down-> View  : creates
+    Extension ---> Type : registers
+    Extension -down-> TypeViewFactory : registers
+    Extension -right-> Action : registers
+
+    TypeViewFactory -down-> TypeView  : creates
     Action -down-> Type : manipulates
 
-    View -up-> Type : displays
+    TypeView -up-> Type : displays
 
-    ViewFactory -[hidden]right-> Action
+    TypeViewFactory -[hidden]right-> Action
     Type -[hidden]right-> Action
 }
 

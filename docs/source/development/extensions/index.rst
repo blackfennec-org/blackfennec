@@ -1,4 +1,5 @@
 .. _definition_extension_development:
+.. _extension_development:
 
 =====================
 Extension Development
@@ -84,4 +85,3 @@ That's it! You have successfully created and installed an Extension into the Bla
 
     type_extension
     presenter_extension
-    action_extension

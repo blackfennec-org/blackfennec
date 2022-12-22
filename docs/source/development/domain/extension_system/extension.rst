@@ -7,6 +7,9 @@ Extension
 
 Extensions allow developers to extend and customize the application with various components and functionality. Extensions can provide various types of components, including types, type views, presenters, actions, and more. Extensions interact with the system via the :ref:`Extension Api <extension_api>`.
 
+
+.. _extension_lifecycle:
+
 The :ref:`Extension System <extension_system>` in Black Fennec manages the lifecycle of extensions, which includes four states: at rest, loaded, active, and error state.
 
 .. uml::

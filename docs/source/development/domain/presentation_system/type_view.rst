@@ -10,6 +10,9 @@ The view is a base class for all views for structures in the Black Fennec softwa
 
 Together, the type views and type view factories play important roles in the presentation and visualization of information within the Black Fennec software, enabling the software to display and interact with data in a flexible and extensible manner. These two classes are primarily used by the Extensions which define custom views for specific :ref:`types <definition_type>`.
 
+
+.. _type_view_factory:
+
 Type View Factory
 """""""""""""""""
 

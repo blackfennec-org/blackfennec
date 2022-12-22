@@ -4,7 +4,7 @@
 Develop a Presenter Extension
 =============================
 
-Developing a :ref:`Presenter extension <presenter_extension>` certainly is a more advanced task than developing a :ref:`Type extensions <type_extension>` as a more detailed understanding of the system is required as for example navigations have to be handled.
+Developing a :ref:`Presenter extension <presenter_extension>` certainly is a more advanced task than developing a :ref:`Type extensions <develop_type_extension>` as a more detailed understanding of the system is required as for example navigations have to be handled.
 
 As a basis for this walk-through on how to develop a :ref:`Presenter extension <presenter_extension>` we will take the default Presenter of Black Fennec called the column-based-presenter. To read this section it might make sense to open the projects repository located at `here <https://gitlab.ost.ch/epj/2021-FS/g01_blackfennec/black-fennec/-/tree/master/src/presentation/column_based_presenter>`_. This allows you to individually explore the code lying behind the column-based-presenter while reading through the following explanations.
 
@@ -82,7 +82,7 @@ The presenter that is currently active in Black Fennec gets notified by a Black 
 Presenter Extension
 ===================
 
-The presenter extension (a.k.a Structure Presenter Extension) is responsible for displaying and positioning all Structure Views as described in :doc:`type_extension` as well as making Actions as described in :doc:`action_extension` available to the user. Presenters have few restrictions and will be given a rectangular area for rendering.
+The presenter extension (a.k.a Structure Presenter Extension) is responsible for displaying and positioning all Structure Views as described in :ref:`develop_type_extension` as well as making Actions as described in ??? available to the user. Presenters have few restrictions and will be given a rectangular area for rendering.
 
 .. uml::
 
