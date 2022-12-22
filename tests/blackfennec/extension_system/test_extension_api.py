@@ -61,11 +61,16 @@ def mime_type_registry():
 
 
 @pytest.fixture
+def resource_type_registry():
+    return Dummy('ResourceTypeRegistry')
+
+
+@pytest.fixture
 def extension_api(
         presenter_registry, type_registry, interpretation_service,
         view_factory, view_factory_registry, type_loader, action_registry,
         document_registry, document_factory, ui_service,
-        mime_type_registry
+        mime_type_registry, resource_type_registry
 ):
     return ExtensionApi(
         presenter_registry,
@@ -78,7 +83,8 @@ def extension_api(
         document_registry,
         document_factory,
         ui_service,
-        mime_type_registry
+        mime_type_registry,
+        resource_type_registry,
     )
 
 
@@ -128,3 +134,7 @@ def test_can_get_ui_service_registry(extension_api, ui_service):
 
 def test_can_get_mime_type_registry(extension_api, mime_type_registry):
     assert extension_api.mime_type_registry == mime_type_registry
+
+
+def test_can_get_resource_type_registry(extension_api, resource_type_registry):
+    assert extension_api.resource_type_registry == resource_type_registry

@@ -87,6 +87,7 @@ class ServiceLocator():
             self.document_factory,
             self.ui_service,
             self.mime_type_registry,
+            self.resource_type_registry,
         )
 
         reference_parser = JsonReferenceSerializer(
