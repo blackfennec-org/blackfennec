@@ -37,7 +37,7 @@ If we merge the example and merged objects, the resulting structure would be:
         ]
     }
 
-It's worth noting that the Merged Layer is currently not editable, meaning that it cannot be modified after it has been created. Despite this limitation, the merged layer plays a crucial role in implementing :ref:`inheritance <inheritance>` within a definition :ref:`Type System <definition_type_system>` allowing the definition of a type to be merged with the definition of its super type, similar to the __proto__ property in JavaScript.
+It's worth noting that the Merged Layer is currently not editable, meaning that it cannot be modified after it has been created. Despite this limitation, the merged layer plays a crucial role in implementing :ref:`inheritance <inheritance>` within the :ref:`Type System <definition_type_system>` allowing the definition of a type to be merged with the definition of its super type, similar to the __proto__ property in JavaScript.
 
 
 Shadowing
