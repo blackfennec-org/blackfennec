@@ -40,7 +40,7 @@ package "Balck Fennec" <<Frame>> {
         class "Layer"                   as la
         class "Merged Layer"            as ml
         class "Overlay"                 as ol
-        class "History"                 as rl
+        class "Observalbe Layer"        as rl
 
         la -u-|> "Structure"
         ml -u-|> la
