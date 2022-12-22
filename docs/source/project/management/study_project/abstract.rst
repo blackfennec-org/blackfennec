@@ -10,7 +10,7 @@ Black Fennec is a simple and easy-to-use application for viewing and editing sem
 It was originally developed by Lara Gubler, Leonie Däullary, Simon Kindhauser, and Caspar Martens as an engineering project with Thomas Kälin as supervisor. Building on the previous work, the goal of this project was to release Black Fennec as a stable and mature product with major quality-of-life improvements that potential users are keen to use.
 
 .. figure:: screenshots/blackfennec_v0.6.jpg
-    :alt: BlackFennec v0.6
+    :alt: Black Fennec v0.6
 
     State of the application before the project at version 0.6.
 
@@ -41,6 +41,6 @@ The website is available at
 https://blackfennec.org
 
 .. figure:: screenshots/blackfennec_v0.10.png
-    :alt: BlackFennec v1.0
+    :alt: Black Fennec v1.0
 
     Final release of Black Fennec at version 1.0.

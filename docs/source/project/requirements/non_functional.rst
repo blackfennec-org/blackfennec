@@ -207,7 +207,7 @@ Json as a Service
 **Scenario**      A user wants to export his project to share with another user including all his settings.
 **Stimulus**      The user exports the project on a certain level (underlay/overlay).
 **Expectation**   The project is exported including all settings of the user.
-**Measure**       Mechanism to create interpretation of project data into exported file. Save black-fennec version to project file, to allow conversion to newer format.
+**Measure**       Mechanism to create interpretation of project data into exported file. Save Black Fennec version to project file, to allow conversion to newer format.
 **Criteria**      Setting of user compatible with version of importing application are respected.
 ================  ==================
 
@@ -228,7 +228,7 @@ Work in External Structure
 ================  ==================
 **Title (ID)**    No-Project-Context
 **Scenario**      A user wants view/edit file in external directory.
-**Stimulus**      The user opens JSON file with black-fennec.
+**Stimulus**      The user opens JSON file with Black Fennec.
 **Expectation**   The file is interpreted and visualised without requiring a project context.
 **Measure**       No dependence on project settings. Check for sufficient rights, understandable error message shown if no permission.
 **Criteria**      Original file is opened if permissions allow. Changes in file can be saved if permissions allow.
@@ -249,7 +249,7 @@ Work with files of External Structure
 **Title (ID)**    Json-Export
 **Scenario**      A user wants to export a file in his project to an external location.
 **Stimulus**      The user clicks to export a file of the project.
-**Expectation**   The file is exported without containing any black-fennec proprietary data.
+**Expectation**   The file is exported without containing any Black Fennec proprietary data.
 **Measure**       Check for sufficient rights, understandable error message shown if no permission.
 **Criteria**      File at location is overwritten. No proprietary data contained in exported file.
 ================  ==================
@@ -288,7 +288,7 @@ Just Like an Apple
 ~~~~~~~~~~~~~~~~~~
 ================  ==================
 **Title (ID)**    Intuitive-Application
-**Scenario**      A user wants to work with black-fennec.
+**Scenario**      A user wants to work with Black Fennec.
 **Stimulus**      The user opens the application for the first time.
 **Expectation**   The user can operate basic use cases after few minutes of using the application.
 **Measure**       Walk-through upon first opening of application. Manual for usage of application.
@@ -342,7 +342,7 @@ Stolze Spezial
 =================  ==================
 **Title (ID)**     Color-Blind-Support
 **Scenario**       A user wants to understand any clickable action despite his color-blindness.
-**Stimulus**       A color blind user uses black-fennec.
+**Stimulus**       A color blind user uses Black Fennec.
 **Expectation**    Clickable actions are distinguishable besides their color. 2-Senses principle.
 **Measure**        2-Senses principle adhered in UI design.
 **Criteria**       Black-and-White Test of the application.
@@ -352,7 +352,7 @@ Stolze Spezial
 =================  ==================
 **Title (ID)**     Easy-to-Read
 **Scenario**       A user wants to understand the interface despite minor visual impairment
-**Stimulus**       A user with minor visual impairment uses black-fennec.
+**Stimulus**       A user with minor visual impairment uses Black Fennec.
 **Expectation**    If the font size is to small to see, it can be resized. Contrast of colors make it easy to read text.
 **Measure**        AA-Rating in color contrast. Resizable font size, and responsive design to cope with big text.
 **Criteria**       Font size customizable. Color Palette checked for AA-Rating.
@@ -402,7 +402,7 @@ Modularity
 **Title (ID)**    Extension-System
 **Scenario**      A Developer wants to develop additional feature.
 **Stimulus**      Additional feature required.
-**Expectation**   Easily usable interface to extend functionality of black-fennec.
+**Expectation**   Easily usable interface to extend functionality of Black Fennec.
 **Measure**       Extension Manager providing extension API which allow for extensions.
 **Criteria**      Possibility to extend functionality exists.
 ================  ==================
@@ -455,7 +455,7 @@ Adaptability
 Installability
 ^^^^^^^^^^^^^^
 ================  ==================
-**Title (ID)**    Black-Fennec-Installation
+**Title (ID)**    Black Fennec-Installation
 **Scenario**      A user wants to install Black Fennec via the command line.
 **Stimulus**      The user executes the pip install... command.
 **Expectation**   The user can install the tool using the pip install command.
@@ -470,9 +470,9 @@ Hail JSON
 ~~~~~~~~~
 ================  ==================
 **Title (ID)**    No-Black-Fennec
-**Scenario**      The user wants to read files created with black-fennec without black-fennec.
-**Stimulus**      Black-Fennec file opened with plain text editor.
+**Scenario**      The user wants to read files created with Black Fennec without Black Fennec.
+**Stimulus**      Black Fennec file opened with plain text editor.
 **Expectation**   The file produced by black fennec is readable to the user. Saved data unpolluted with internal states, overviewability of JSON kept.
 **Measure**       All data is saved as JSON and therefore is easily readable.
-**Criteria**      Files created with black-fennec are JSON.
+**Criteria**      Files created with Black Fennec are JSON.
 ================  ==================

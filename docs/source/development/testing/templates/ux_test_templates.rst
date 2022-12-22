@@ -4,7 +4,7 @@
 Usability Test Templates
 ========================
 
-This template can be used to conduct usability tests of the black-fennec application. It contains multiple tasks that can be used to the the systems usability. These tasks are dedicated to personas that have little to none experience with the application, in order to be representative of users that use our application for the first time.
+This template can be used to conduct usability tests of the Black Fennec application. It contains multiple tasks that can be used to the the systems usability. These tasks are dedicated to personas that have little to none experience with the application, in order to be representative of users that use our application for the first time.
 
 Tasks
 -----

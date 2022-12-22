@@ -32,7 +32,7 @@ engines we already knew. This leaves us with the conclusion, that as long as you
 concepts learning new things based on these concepts is quite easy.
 
 Because we are very pleased with our work and the code quality produced we are looking forward to
-work with this project as a foundation for future projects building up upon black-fennec. We plan to
+work with this project as a foundation for future projects building up upon Black Fennec. We plan to
 release this project into open source soon, and will then work on further improvements and features
 in our free time or maybe even in a semester project or bachelor thesis.
 

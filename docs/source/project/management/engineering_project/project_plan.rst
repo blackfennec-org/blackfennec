@@ -9,7 +9,7 @@ Introduction
 
 Objective
 ---------
-The purpose of this document is to describe the project plan and provide an overview of the Black-Fennec project.
+The purpose of this document is to describe the project plan and provide an overview of the Black Fennec project.
 This document contains a rough overview of our project, the project organization, and management processes.
 It also includes risk management and some brief information about the infrastructure.
 

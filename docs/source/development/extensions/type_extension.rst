@@ -27,7 +27,7 @@ We will start by creating a file called `__init__.py` in the root of our extensi
         # TODO: deregister the `File` type
         # TODO: deregister a view for the `File` type
 
-As you can see, these methods have the `extension_api` as an argument. We can use it to register our type into the :ref:`type registry <definition_type_registry>`. Through the type registry it is then possible for BlackFennec to use our created type during :ref:`interpretation <definition_selection_process>`.
+As you can see, these methods have the `extension_api` as an argument. We can use it to register our type into the :ref:`type registry <definition_type_registry>`. Through the type registry it is then possible for Black Fennec to use our created type during :ref:`interpretation <definition_selection_process>`.
 
 
 .. _type_definition:
@@ -88,7 +88,7 @@ If we didn't want to add any special functionality for our new `Type` we could s
 
 Creating a Wrapper for the Type
 """""""""""""""""""""""""""""""
-BlackFennec lacks the ability to create a concrete `Type` instance directly. Instead it is recommended to create a wrapper for the `Type` that can be used to interact with instances of it. The snipped below is an example of a `File` wrapper:
+Black Fennec lacks the ability to create a concrete `Type` instance directly. Instead it is recommended to create a wrapper for the `Type` that can be used to interact with instances of it. The snipped below is an example of a `File` wrapper:
 
 
 .. code-block:: python
@@ -198,7 +198,7 @@ This file depends on how one wants to visualise the `Type`. Important is that yo
 
 Writing a ViewFactory
 """""""""""""""""""""
-Creating a view is a non-trivial problem. This is why BlackFennec does not create them itself. Instead you have to register a `ViewFactory` capable of creating a view for your `Type`.
+Creating a view is a non-trivial problem. This is why Black Fennec does not create them itself. Instead you have to register a `ViewFactory` capable of creating a view for your `Type`.
 
 Luckily creating a view for a `File` is rather simple. First, we create the view model and after we can construct the appropriate view.
 
@@ -272,7 +272,7 @@ A type extension defines and adds a new `type <definition_type>` to the object m
 
 View Factory
 ------------
-BlackFennec does not constrain the way in which the user interface is implemented. The only requirement is that it must be able to be instantiated on demand. This is achieved by requiring the registration of a capable factory with the `ViewFactoryRegistry`. The factory is responsible for creating the widget and for providing it with the necessary dependencies.
+Black Fennec does not constrain the way in which the user interface is implemented. The only requirement is that it must be able to be instantiated on demand. This is achieved by requiring the registration of a capable factory with the `ViewFactoryRegistry`. The factory is responsible for creating the widget and for providing it with the necessary dependencies.
 
 .. _structure_view:
 
