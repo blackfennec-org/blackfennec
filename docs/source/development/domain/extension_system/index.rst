@@ -1,16 +1,16 @@
-.. _definition_extension:
+.. _extension_system:
 
 ================
 Extension System
 ================
 
-The capability and usability of Black Fennec is largely dependent on the available extensions. We take the division of responsibilities and the design of the interfaces serious and strive for stability and compatibility. That being said, this document and the definitions it contains are at this stage very much a work in progress and subject to change.
+Black Fennec application's capabilities and usability rely heavily on the availability of extensions. The Extension System is designed to be stable, with the goal of maintaining backward compatibility throughout the 1.x releases cycle. The Extension System is responsible for loading extensions, managing their lifecycle, and providing the extension API to extensions. The extension registry stores and organizes the extensions, and is used in part for dependency resolution. The following diagram illustrates the conceptual landscape of the extension system:
 
-Three conceptual types of extensions are currently planned. Any given extension however, can include multiple of these conceptual types as well as multiple conceptual extensions of the same type.
 
 .. uml::
+    
+    @startuml Extension System
 
-    @startuml
     hide circle
     hide members
     hide methods
@@ -23,90 +23,31 @@ Three conceptual types of extensions are currently planned. Any given extension 
         BorderColor Black
     }
 
-    class BlackFennec {}
+    package "Extension System" <<Frame>> {
+        class "Extension" as e
+        class "Extension Registry" as er
+        class "Extension API" as ea
+        class "Extension Service" as es
 
-    BlackFennec -> "0..*" Extension
+        e ----> e : depends on
+        e --> ea : has access to
+        es --> e : loads
+        er --> e : contains
 
-    interface Extension {
-        load(extension_api)
-        unload()
     }
 
-    note top of Extension: An extension consists of at least one \nType, Action or Presenter Extension
+    class "Some Extension" as se
 
-    Extension -> "1" ExtensionApi
+    se --|> e
 
-    class ExtensionApi {
-        register_type(bidder, view_factory)
-        register_action(type, action)
-        register_presenter(description, view_factory)
-    }
-
-    abstract class TypeExtension {}
-    Extension "1" o-- "0..*" TypeExtension
-
-    abstract class ActionExtension {}
-    Extension "1" o-- "0..*" ActionExtension
-
-    abstract class PresenterExtension {}
-    Extension "1" o-- "0..*" PresenterExtension
     @enduml
 
-
-.. _extension_wireframe:
-
-.. uml::
-
-    @startsalt
-    title Wireframe of Extension Types Working Together
-
-    {+
-        {* Open | Save | Extensions | About }
-        {
-            <color:Red>presenter extension E
-            {S
-                {+<color:Red>type extension A
-                    {+
-                        key1    | value1
-                        key2    | value2
-                        <b>key3 | <selected>
-                    }
-                } | {+<color:Red>type extension B
-                    {+
-                        key1    | value1
-                        key2    | value2
-                    }
-                    {* <&bolt> Actions
-                        <&bolt> Actions | <color:Red>action extension C | <color:Red>action extension D
-                    }
-                }
-            }
-        }
-    }
-    @endsalt
-
-Type Extension
-    :doc:`Type extensions <type_extension>` are expected to be the most common type of extension. They enrich the object model with an additional type and its visualisation.
-
-
-Action Extension
-    :doc:`Action extensions <action_extension>` are capable of adding actions to the system. An action is performed in the context of an object (instance of a type) and can - and usually does - effect the data structure. Actions therefore depend on types.
-
-Presenter Extension
-    Main document: :doc:`Presenter extensions <presenter_extension>`
-
-    :doc:`Presenter extensions <presenter_extension>` have some control over the visualisation of the data. They are however confined to a window [#]_ and have very limited control (size and position) over the visualisation of types as this is provided by the types themselves.
-
-Extension Api
-    To integrate extensions into the flow of Black Fennec, the :ref:`extension api <definition_extension_api>` is injected at load time. This interface allows extensions to register themselves to hooks and into registries. Extensions are not treated differently, regardless of their conceptual type.
+The components of the extension system, including the Extension, Extension Registry, Extension API, and Extension Service, are described in more detail on the linked pages.
 
 .. toctree::
-    :caption: Subpages
     :maxdepth: 1
 
+    ./extension
     ./extension_api
-    type_extension
-    action_extension
-    presenter_extension
-
-.. [#] Window: A rectangular area of the screen.
+    ./extension_service
+    ./extension_registry

@@ -13,6 +13,7 @@ As example of how different components interact, the following diagram contains 
 .. uml:: resource_type.puml
 
 .. _definition_resource_type_registry:
+.. _resource_type_registry:
 
 Resource Type Registry
 """""""""""""""""""""""

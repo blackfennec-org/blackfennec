@@ -14,3 +14,10 @@ Action
 ======
 
 An action is a function that can be executed by the user from the GUI and are able to manipulate the structure.
+
+
+.. _action_registry:
+
+Action Registry
+===============
+The action registry is a dictionary that maps action names to action functions. The action registry is used to register actions and to execute actions.

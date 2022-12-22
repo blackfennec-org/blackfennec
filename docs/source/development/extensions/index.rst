@@ -4,7 +4,7 @@
 Extension Development Documentation
 ===================================
 
-If you wonder how one can develop an extension for black-fennec this is the right place for you. In this documentation the creation of :ref:`Type extensions <type_extension>` and :ref:`Presenter extensions <presenter_extension>` is elaborated, to enable the reader to write custom extensions with basic python knowledge.
+If you wonder how one can develop an extension for Black Fennec this is the right place for you. In this documentation the creation of :ref:`Type extensions <type_extension>` and :ref:`Presenter extensions <presenter_extension>` is elaborated, to enable the reader to write custom extensions with basic python knowledge.
 
 Basic Extension Structure
 """""""""""""""""""""""""
@@ -32,3 +32,4 @@ Developing a Presenter Extension
 
     type_extension
     presenter_extension
+    action_extension

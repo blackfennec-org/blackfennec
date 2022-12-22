@@ -26,9 +26,16 @@ install_flatpak_extensions: compile-blueprint $(EXTS_FLATPAK)
 run_flatpak:
 	flatpak run org.blackfennec.app
 
-docs:
+generate_code_docs:
 	sphinx-apidoc -f -q -o docs/source/development/code/ . setup.py
+
+
+docs: generate_code_docs
 	cd docs/; make html
+
+pdf: generate_code_docs
+	cd docs/; make latexpdf
+
 
 compile-blueprint: $(UIS)
 %.ui: %.blp

@@ -15,6 +15,7 @@ As example of how different components interact, the following diagram contains 
 The diagram also contains the Structure Package with the Reference as a concrete implementation of the abstract class Structure. While not shown in the Diagram all Structures such as Map, List, String, etc. can be serialized and deserialized as it is required by the Liskov Principle. The Reference was chosen as an example because it is the most complex Structure that additionally contains Navigators which have to be handled specifically by the Mime Type.
 
 .. _definition_mime_type_registry:
+.. _mime_type_registry:
 
 Mime Type Registry
 """"""""""""""""""

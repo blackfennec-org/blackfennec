@@ -16,6 +16,8 @@ Type View Factory
 The type view factory class is a base class for all view factories in the Black Fennec software. A view factory is a class that creates views for a specific type. It has two main methods: `satisfies` and `create`. The `satisfies` method tests if the view factory can satisfy a given specification, returning a boolean value indicating whether the specification can be satisfied. This can then be leveraged by a presenter or also another view responsible of showing child views to specify what kind of view should be created.
 The `create` method creates a view based on a given interpretation, which is an overarching representation of an interpreted structure.
 
+.. _type_view_factory_registry:
+
 Type View Factory Registry
 """"""""""""""""""""""""""
 

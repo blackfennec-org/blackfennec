@@ -17,6 +17,7 @@ The type loader is able to load a type from a file. It is available through the 
 
 
 .. _definition_type_registry:
+.. _type_registry:
 
 Type Registry
 """""""""""""

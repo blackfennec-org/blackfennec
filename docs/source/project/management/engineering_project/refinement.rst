@@ -33,7 +33,7 @@ Improvements
 We did this by relating the user stories to specific personas. An example of this can be found in the following issue (issue does not exist anymore).
 
 **Add sketches from extensions as soon as they exist**
-These sketches were added in the form of wireframes to the domain model document at :ref:`this <extension_wireframe>` location.
+These sketches were added in the form of wireframes to the domain model document.
 
 
 Architecture Prototype & End of Elaboration

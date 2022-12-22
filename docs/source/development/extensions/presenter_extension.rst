@@ -75,3 +75,111 @@ The presenter view is something, that is in the responsibility of the extension 
 """"""""""""""""""""""""""""""
 
 The presenter that is currently active in black-fennec gets notified by a black-fennec component via the 'show' function. This function gets passed which interpretation has triggered the show event, and which part  of the :ref:`structure <definition_structure>` should now be displayed. This structure can be interpreted with the :ref:`interpretation_service <definition_interpretation_service>` in order for types beyond the core_types to be shown. It is the responsibility of the presenter of setting the navigation service on the interpretation he created. Otherwise, navigational requests that happen in the interpretation would not reach the presenter.
+
+.. _definition_presenter:
+.. _presenter_extension:
+
+Presenter Extension
+===================
+
+The presenter extension (a.k.a Structure Presenter Extension) is responsible for displaying and positioning all Structure Views as described in :doc:`type_extension` as well as making Actions as described in :doc:`action_extension` available to the user. Presenters have few restrictions and will be given a rectangular area for rendering.
+
+.. uml::
+
+    @startsalt
+    title Wireframe of a Graph Based Presenter
+
+    {
+        <color:Red>presenter extension E
+        {S
+            {+<color:Red>type extension A
+                {+
+                    key1    | value1
+                    key2    | value2
+                    key3    | ->
+                }
+            } | {
+                .
+                ---------
+                .       I
+                .       I
+                .      V
+            } | { .
+                {+<color:Red>type extension C
+                    {+
+                        key1    | value1
+                    }
+                }
+                .      ^
+                .       I
+            }
+            . | {+<color:Red>type extension B
+                {+
+                    key1    | ->
+                    key2    | ->
+                }
+                {* <&bolt> Actions
+                    <&bolt> Actions | <color:Red>action extension D | <color:Red>action extension E
+                }
+            } | {
+                .       I
+                ---------
+                .       I
+                .       I
+                .      V
+            } 
+            . | . | {+<color:Red>type extension C
+                {+
+                    key1    | value1
+                    key2    | value2
+                    key3    | value3
+                    key4    | value4
+                    key5    | value5
+                }
+            }
+        }
+    }
+    @endsalt
+
+.. uml::
+
+    @startsalt
+    title Wireframe of a Column Based Presenter
+    {
+        <color:Red>presenter extension E
+        {S
+            {+<color:Red>type extension A
+                {+
+                    key1    | value1
+                    key2    | value2
+                    <b>key3 | <selected>
+                }
+            } | {+<color:Red>type extension B
+                {+
+                    key1    | value1
+                    <b>key2 | <selected>
+                }
+                {* <&bolt> Actions
+                    <&bolt> Actions | <color:Red>action extension C | <color:Red>action extension D
+                }
+            } | {+<color:Red>type extension C
+                {+
+                    key1    | value1
+                    key2    | value2
+                    key3    | value3
+                    key4    | value4
+                    key5    | value5
+                }
+            }
+        }
+    }
+    @endsalt
+
+
+Displaying Structure Views
+""""""""""""""""""""""""""
+Structure Views are placed and positioned by the presenter. They ought to expect a rectangular region in which they are allowed to render information. The presenter has full control over size and position of these regions and is free to arrange and decorate them. It is not the responsibility of the presenter to ensure the usability of the Structure View. However, we might define a soft limit to the minimum width or height that a Structure View ought to get.
+
+Disclaimer
+""""""""""
+At this point we do NOT plan on implementing more than one presenter.

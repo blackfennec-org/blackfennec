@@ -130,9 +130,15 @@ package "Black Fennec" <<Frame>> {
     }
 
     package "Extension System" <<Frame>> {
-        class "Extension"               as e
-        class "Extension Registry"
-        class "Extension API"           as api
+        class "Extension" as e
+        class "Extension Registry" as er
+        class "Extension API" as api
+        class "Extension Service" as es
+
+        e ----> e : depends on
+        e --> api : has access to
+        es --> e : loads
+        er --> e : contains
 
         api ---> is
         api ---> pr
