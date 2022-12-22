@@ -59,7 +59,7 @@ The Extension API consists of a collection of services. These services include, 
 
 The generated code documentation below provides a up-to-date description of the interface the Extension Api provides to extensions.
 
-.. automodule:: blackfennec.extension.extension_api
+.. automodule:: blackfennec.extension_system.extension_api
    :noindex:
    :members:
    :undoc-members:

@@ -46,7 +46,7 @@ Extensions can also define dependencies on other extensions, which means that th
 
 There are also some recommended extensions that are commonly used in Black Fennec installations. These include the Black Fennec Core extension, which provides the basic type views, a presenter, and some actions, and the Black Fennec Base extension, which provides commonly used types such as dates, URLs, and images.
 
-.. automodule:: blackfennec.extension.extension
+.. automodule:: blackfennec.extension_system.extension
     :noindex:
     :members:
     :undoc-members:
