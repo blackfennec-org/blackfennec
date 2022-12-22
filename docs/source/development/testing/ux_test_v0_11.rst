@@ -11,13 +11,13 @@ It contains multiple tasks that can be used to the the systems usability. These 
 Personas
 --------
 
-N personas have participated in this study. We mapped each of them to a :ref:`persona <personas>` which most closely fits their background and potential usage.
+2 personas have participated in this study. We mapped each of them to a :ref:`persona <personas>` which most closely fits their background and potential usage.
 
 ==============  =================
  Tester          Persona
 ==============  =================
  TW              :ref:`Alan`
- MB              :ref:`Alan`
+ MB              :ref:`Sun`
 ==============  =================
 
 Tasks
