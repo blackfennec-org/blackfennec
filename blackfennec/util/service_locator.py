@@ -15,7 +15,7 @@ from blackfennec.document_system.mime_type.json.json_reference_serializer import
     JsonReferenceSerializer
 from blackfennec.document_system.resource_type.protocols.bftype_resource_type import \
     BFTypeResourceType
-from blackfennec.extension.extension_registry import ExtensionRegistry
+from blackfennec.extension_system.extension_registry import ExtensionRegistry
 from blackfennec.presentation_system.ui_service.ui_service import UiService
 from blackfennec.structure.structure_serializer import StructureSerializer
 from blackfennec.document_system.resource_type.protocols.file_resource_type import \
@@ -30,7 +30,7 @@ from blackfennec.type_system.type_loader import TypeLoader
 from blackfennec.presentation_system.presenter_registry import PresenterRegistry
 from blackfennec.type_system.type_registry import TypeRegistry
 from blackfennec.actions.action_registry import ActionRegistry
-from blackfennec.extension.extension_api import ExtensionApi
+from blackfennec.extension_system.extension_api import ExtensionApi
 from blackfennec.presentation_system.structure_view_factory import StructureViewFactory
 from blackfennec.presentation_system.type_view_factory_registry import TypeViewFactoryRegistry
 

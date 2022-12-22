@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 import pytest
 
-from blackfennec_doubles.extension.double_extension_registry import ExtensionRegistryMock
-from blackfennec_doubles.extension.double_extension import ExtensionMock
+from blackfennec_doubles.extension_system.double_extension_registry import ExtensionRegistryMock
+from blackfennec_doubles.extension_system.double_extension import ExtensionMock
 from blackfennec_doubles.double_dummy import Dummy
 
-from blackfennec.extension.extension import Extension
-from blackfennec.extension.extension_service import ExtensionService
+from blackfennec.extension_system.extension import Extension
+from blackfennec.extension_system.extension_service import ExtensionService
 
 
 @pytest.fixture

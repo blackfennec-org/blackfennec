@@ -1,6 +1,6 @@
 
 
-from blackfennec.extension.extension import Extension
+from blackfennec.extension_system.extension import Extension
 
 
 class ExtensionRegistry:

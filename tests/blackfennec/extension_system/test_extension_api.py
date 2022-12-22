@@ -2,7 +2,7 @@
 import pytest
 
 from blackfennec_doubles.double_dummy import Dummy
-from blackfennec.extension.extension_api import ExtensionApi
+from blackfennec.extension_system.extension_api import ExtensionApi
 
 
 @pytest.fixture

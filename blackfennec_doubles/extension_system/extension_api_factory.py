@@ -1,4 +1,4 @@
-from blackfennec.extension.extension_api import ExtensionApi
+from blackfennec.extension_system.extension_api import ExtensionApi
 from blackfennec_doubles.double_dummy import Dummy
 
 

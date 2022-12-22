@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from blackfennec_doubles.extension.double_extensions.valid_extension.double_valid_extension import ValidExtensionMock
+from blackfennec_doubles.extension_system.double_extensions.valid_extension.double_valid_extension import ValidExtensionMock
 
 
 class ExtensionLoadingServiceMock:

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from blackfennec.extension.extension import Extension
+from blackfennec.extension_system.extension import Extension
 from blackfennec_doubles.structure.double_map import MapMock
 
 

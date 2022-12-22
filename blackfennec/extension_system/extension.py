@@ -4,7 +4,7 @@ from typing import Optional
 
 import logging
 
-from blackfennec.extension.extension_api import ExtensionApi
+from blackfennec.extension_system.extension_api import ExtensionApi
 
 
 logger = logging.getLogger(__name__)

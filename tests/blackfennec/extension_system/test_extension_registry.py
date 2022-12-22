@@ -1,7 +1,7 @@
 import pytest
 
 from blackfennec_doubles.double_dummy import Dummy
-from blackfennec.extension.extension_registry import ExtensionRegistry
+from blackfennec.extension_system.extension_registry import ExtensionRegistry
 
 
 @pytest.fixture

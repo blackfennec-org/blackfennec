@@ -1,4 +1,4 @@
-from blackfennec_doubles.extension.double_extensions.destroy_failing_extension.double_destroy_failing_extension import \
+from blackfennec_doubles.extension_system.double_extensions.destroy_failing_extension.double_destroy_failing_extension import \
     DestroyFailingExtensionMock
 
 _ = DestroyFailingExtensionMock()
