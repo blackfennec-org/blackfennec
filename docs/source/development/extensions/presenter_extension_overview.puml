@@ -1,0 +1,27 @@
+@startuml Presenter Extension Overview
+
+hide members
+hide methods
+
+skinparam class {
+    BackgroundColor #EEE
+    ArrowColor Black
+    BorderColor Black
+}
+
+title Presenter Extension Overview
+
+package "Presenter Extension" {
+    class Entrypoint {}
+    class Extension {}
+    class PresenterView {}
+    class PresenterViewFactory {}
+
+    Entrypoint -right-> Extension : creates
+
+    Extension -down-> PresenterViewFactory : registers
+
+    PresenterViewFactory -left-> PresenterView : creates
+}
+
+@enduml
