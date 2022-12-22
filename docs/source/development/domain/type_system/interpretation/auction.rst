@@ -33,3 +33,4 @@ auction
 
 bidding
   A bidding is a complex score describing the willingness of the type to represent a given structure. The analogy of an auction will be used in other contexts to describe this process.
+  

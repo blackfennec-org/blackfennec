@@ -54,13 +54,6 @@ Interpretation services hold references to :ref:`structure view factories <struc
 .. uml:: interpretation_sequence.puml
 
 
-.. _advanced_interpretation:
-
-Advanced Interpretation Algorithm
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-TODO
-
 .. _definition_interpretation:
 
 Interpretation
