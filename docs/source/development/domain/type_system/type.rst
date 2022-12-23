@@ -4,15 +4,12 @@
 Type
 ====
 
-The concept of a type does not differ significantly in black fennec when compared to a standard definition as used in many other programming languages. As such we will focus on the peculiarities of our implementation here.
+The concept of a Type does not differ significantly in Black Fennec when compared to a standard definition as used in many other programming languages. As such we will focus on the peculiarities of our implementation here.
 
 The type system is based on core types which map one to one with core structures, as shown in the following diagram:
 
 .. uml:: types.puml
 
-Further types are composites and subtypes of core types. This results in a type hierarchy, as shown in the following diagram:
-
-.. uml:: type_system_hierarchy.puml
 
 With the support from inheritance, the declarative syntax enables the reuse of definitions.
 
@@ -22,10 +19,21 @@ Types are the link between structures and most other components, including :ref:
 
 Types can be defined in different ways. The preferred way is by declaring it in a separate file and loading it with the :ref:`definition_type_loader`.
 
+.. _inheritance:
 
-Example Image Type
-""""""""""""""""""
-If we wanted to improve the handling of images in black fennec we would problalby want to add a :ref:`definition_type_view` and allow :ref:`actions<definition_action>` to be applied to them. The first step would be to define a type so that images can be recognised and processed.
+Inheritance
+"""""""""""
+The Type System supports inheritance. This means that a type can inherit from another Type. The inheritance is transitive, meaning that a Type can inherit from a Type which inherits from another Type.
+
+As such types are composites and subtypes of Core Types. This results in a type hierarchy, as shown in the following diagram:
+
+.. uml:: type_system_hierarchy.puml
+
+
+
+Example: Image Type
+"""""""""""""""""""
+If we wanted to improve the handling of images in Black Fennec we would problably want to add a :ref:`Type View <definition_type_view>` and allow :ref:`Actions <definition_action>` to be applied to them. The first step would be to define a Type so that images can be recognised and processed.
 
 In this example we show how to define a type for images as seen in the json blow.
 

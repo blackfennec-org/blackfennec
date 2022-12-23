@@ -14,7 +14,7 @@ title Domain Model
 
 package "Black Fennec" <<Frame>> {
 
-    package "Structure" <<Frame>>{
+    package "Structure" as ps <<Frame>> {
         class "Structure"               as s
         class "Map"                     as m
         class "List"                    as l
@@ -42,13 +42,13 @@ package "Black Fennec" <<Frame>> {
         class "Overlay"                 as ol
         class "Observable Layer"        as rl
 
-        la -u-|> "Structure"
+        la -u-|> ps
         ml -u-|> la
         ol -u-|> la
         rl -u-|> la
     }
 
-    package "Type System" <<Frame>>{
+    package "Type System" as pts <<Frame>> {
         class "Interpretation Service"  as is 
         class "Interpretation"          as i
         class "Type Registry"           as typer
@@ -80,7 +80,7 @@ package "Black Fennec" <<Frame>> {
         tp ---> s : parses
     }
 
-    package "Document System" <<Frame>> {
+    package "Document System" as pds <<Frame>> {
         class "Document Factory"        as df
         class "Document Registry"       as dr
         class "Document"                as d
@@ -100,7 +100,7 @@ package "Black Fennec" <<Frame>> {
         df  ---> rtr : uses
     }
 
-    package "Presentation System" <<Frame>> {
+    package "Presentation System" as pps <<Frame>> {
         class "Presenter"                   as p
         class "Presenter Registry"          as pr
         class "Type View"                   as tv
@@ -153,6 +153,7 @@ package "Black Fennec" <<Frame>> {
     }
 }
 
+
 ' relations
 
 d ---> s : contains
@@ -166,5 +167,12 @@ tv ---> s : acts on
 
 a ---> s : acts on
 a ---> t : depends on
+
+
+' arrangement
+
+pts -[hidden]down- ps
+pds -[hidden]down- ps
+pps -[hidden]down- ps
 
 @enduml

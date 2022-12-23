@@ -1,5 +1,6 @@
-@startuml type loader
+@startuml domain model
 
+hide circle
 hide members
 hide methods
 
@@ -9,33 +10,86 @@ skinparam class {
     BorderColor Black
 }
 
-title The Type System
+title Domain Model
 
-class TypeRegistry
-class TypeLoader
-class DocumentSystem
-class JsonMimeType
-class FileResourceType
-class BFTypeResourceType
-class RegisteredTypes
+package "Black Fennec" <<Frame>> {
 
-package "Loading Stack" as ls {
-    class MergedLayer
-    class Overlay
-    class Underlay
-    class Source
+    package "Structure" <<Frame>>{
+        class "Structure"               as s
+    }
 
-    MergedLayer -down-> Overlay
-    Overlay -down-> Underlay
-    Underlay -down-> Source
+    package "Layers" <<Frame>> {
+        class "Layer"                   as la
+        class "Merged Layer"            as ml
+        class "Overlay"                 as ol
+
+        la -u-|> "Structure"
+        ml -u-|> la
+        ol -u-|> la
+    }
+
+    package "Type System" <<Frame>>{
+        class "Interpretation Service"  as is 
+        class "Interpretation"          as i
+        class "Type Registry"           as typer
+        class "Type Parser"             as tp
+        class "Type Loader"             as tl
+
+        package "Type" <<Frame>> {
+            class "Type"                as t
+            class "Map Type"            as mapt
+            class "List Type"           as lt
+            class "String Type"         as st
+            class "Number Type"         as nt
+            class "Boolean Type"        as bt
+            class "Null Type"           as nut
+            class "Reference Type"      as reft
+
+            mapt -u-|> t
+            lt -u-|> t
+            st -u-|> t
+            nt -u-|> t
+            bt -u-|> t
+            nut -u-|> t
+            reft -u-|> t
+
+        }
+
+        typer ---> t : contains
+        is ---> typer : uses
+        tp ---> t : creates
+        tp ---> s : parses
+        tl --> tp : uses
+    }
+
+    package "Document System" <<Frame>> {
+        class "Document Factory"        as df
+        class "Document"                as d
+
+        df  ---> d : creates
+    }
+
+
+    package "Extension System" <<Frame>> {
+        class "Extension API" as api
+    }
 }
 
-TypeLoader --> TypeRegistry : registers new types\nin registry
-TypeLoader --> DocumentSystem : uses document system\nto load files
-DocumentSystem --> JsonMimeType
-DocumentSystem --> FileResourceType
-DocumentSystem --> BFTypeResourceType
-TypeRegistry -- "*" RegisteredTypes
-TypeLoader -right-> ls : applies layers and\ninterprets inheritance
+' relations
+
+d ---> s : contains
+
+is ---> s : interprets
+is ---> i : provides
+i ---> t : is a collection of
+tl ---> df : uses
+
+api ---> is : references
+api ---> tl : references
+api ---> typer : references
+
+tp ---> ml : applies
+tl ---> ol : applies
+
 
 @enduml

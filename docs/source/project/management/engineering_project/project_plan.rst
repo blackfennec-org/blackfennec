@@ -62,7 +62,7 @@ Simultaneously we hope to learn many new principles and patterns.
 
 Scope of Delivery
 -----------------
-The following table defines the scope of delivery of the black fennec project.
+The following table defines the scope of delivery of the Black Fennec project.
 
 +--------------------------------------+--------------------------+
 | Documentation                        | Product                  |

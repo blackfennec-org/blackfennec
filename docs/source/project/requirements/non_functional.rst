@@ -472,7 +472,7 @@ Hail JSON
 **Title (ID)**    No-Black-Fennec
 **Scenario**      The user wants to read files created with Black Fennec without Black Fennec.
 **Stimulus**      Black Fennec file opened with plain text editor.
-**Expectation**   The file produced by black fennec is readable to the user. Saved data unpolluted with internal states, overviewability of JSON kept.
+**Expectation**   The file produced by Black Fennec is readable to the user. Saved data unpolluted with internal states, overviewability of JSON kept.
 **Measure**       All data is saved as JSON and therefore is easily readable.
 **Criteria**      Files created with Black Fennec are JSON.
 ================  ==================

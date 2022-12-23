@@ -1,4 +1,4 @@
-@startuml
+@startuml sequence of interpretation
 skinparam sequence {
     ParticipantBorderColor Black
     ParticipantBackgroundColor #EEE
@@ -12,18 +12,13 @@ skinparam sequence {
 title Interpretation Service
 
 Caller -> InterpretationService : interpret(structure)
-loop until fully interpreted
-    InterpretationService -> Auctioneer : select_best_offer(structure)
-    Auctioneer -> TypeRegistry  : get_types
-    TypeRegistry -> Auctioneer  : bidders
-    Auctioneer -> Bidder1       : get_offer_for(structure)
-    Bidder1 -> Auctioneer       : offer1
-    Auctioneer -> Bidder2       : get_offer_for(structure)
-    Bidder2 -> Auctioneer       : offer2
-    Auctioneer -> Auctioneer    : "select best offer"
-    Auctioneer -> InterpretationService : best_offer
-end
-InterpretationService -> InterpretationService : "create interpretation from offers"
+InterpretationService -> TypeRegistry : get types
+TypeRegistry -> InterpretationService : list of types
+
+InterpretationService -> InterpretationService : filter types
+InterpretationService -> InterpretationService : sort types
+InterpretationService -> InterpretationService : create interpretation
+
 InterpretationService -> Caller : interpretation
 
 @enduml

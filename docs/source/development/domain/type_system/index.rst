@@ -4,35 +4,19 @@
 Type System
 ===========
 
-The type system is a set of classes which describe black fennec core types as well as novel types from extensions, plus a set of services for handling types. 
+The Type System in Black Fennec is responsible for defining and managing the various types that are used in the application. It consists of several key components, including the Type Registry, Type Parser, and Interpretation Service.
+
+The Type System also includes various types themselves, such as Map Type, List Type, String Type, Number Type, Boolean Type, Null Type, and Reference Type. These types define the characteristics and behavior of the values they represent, and are used to ensure that values are stored and processed correctly within the application.
 
 .. uml:: type_system.puml
 
-
-.. _definition_type_loader:
-
-Type Loader
-"""""""""""
-The type loader is able to load a type from a file. It is available through the :ref:`definition_extension_api` and can thus be used by extensions to define types in a declarative way. Internally, the type loader uses the :ref:`definition_document_system` to load the files, allowing the extensions to define types in any supported mime type and from any supported resource. Further it applies an :ref:`definition_overlay` such that references to other types are resolved correctly. This is used in combination with the :ref:`definition_bftype_resource_type` to implement inheritance.
-
-
-.. _definition_type_registry:
-.. _type_registry:
-
-Type Registry
-"""""""""""""
-The Type Registry is a register of all known (aka registered) :ref:`types <definition_type>`. Types which are not known to the type registry cannot be considered in the :ref:`selection process <definition_selection_process>`. The type registry is accessible to extensions via :ref:`ExtensionApi <definition_extension_api>`.
-
-
-.. _inheritance:
-
-Inheritance
-"""""""""""
-The type system supports inheritance. This means that a type can inherit from another type. The inheritance is transitive, meaning that a type can inherit from a type which inherits from another type.
-
+The Type Registry is a database of registered Types, which is used to store and manage the available types in the application. The Type Parser is responsible for parsing type definitions and creating new Types, while the Interpretation Service is responsible for interpreting values and mapping them to the appropriate Type.
 
 .. toctree::
-    :caption: References
+    :caption: Table of Contents
+    :maxdepth: 2
 
     type
+    type_registry
     interpretation/index
+    loading_types

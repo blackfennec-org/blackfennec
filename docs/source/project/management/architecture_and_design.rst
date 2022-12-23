@@ -47,7 +47,7 @@ Furthermore, Black Fennec is designed to be extended by :ref:`extensions <defini
 
 Performance Scenario
 """"""""""""""""""""
-This isn't much a concern for us as Black Fennec is a single user desktop application. Our project is never used by more than one user. Anyone who wants to use black fennec can install the application locally on the machine and work with it. The performance bottlenecks that we see are mainly related to file size and the amount of installed extensions.
+This isn't much a concern for us as Black Fennec is a single user desktop application. Our project is never used by more than one user. Anyone who wants to use Black Fennec can install the application locally on the machine and work with it. The performance bottlenecks that we see are mainly related to file size and the amount of installed extensions.
 
 System Test
 """""""""""
