@@ -1,5 +1,5 @@
 id: org.blackfennec.app.extensions.template
-branch: '0.11'
+branch: '0.12'
 runtime: org.blackfennec.app
 runtime-version: 'stable'
 sdk: org.gnome.Sdk//43
