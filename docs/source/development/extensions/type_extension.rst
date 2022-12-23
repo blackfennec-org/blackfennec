@@ -87,7 +87,7 @@ If we didn't want to add any special functionality for our new Type we could sto
 
 Creating a Wrapper for the Type
 """""""""""""""""""""""""""""""
-Black Fennec lacks the ability to create a concrete Type instance directly. Instead it is recommended to create a wrapper for the Type that can be used to interact with instances of it. The snipped below is an example of a File wrapper:
+Black Fennec lacks the ability to create a concrete Type instance directly. Instead it is recommended to create a wrapper for the Type that can be used to interact with instances of it. The snippet below is an example of a File wrapper:
 
 
 .. code-block:: python
@@ -192,7 +192,7 @@ Next we want to create a view model.
 Creating the View
 """""""""""""""""
 
-This file depends on how one wants to visualize the Type. Important is that your view is as responsive as possible, as you never know how big a presenter will show your type view. For an example please see the `FileView` in the ``Base Extension`` package located in ``extensions/base/base/file``.
+This file depends on how one wants to visualize the Type. Important is that your view is as responsive as possible, as you never know how big a presenter will show your Type View. For an example please see the `FileView` in the ``Base Extension`` package located in ``extensions/base/base/file``.
 
 
 Writing a ViewFactory
